@@ -108,10 +108,10 @@
       \fi
 }
 %
-% y=f(x) $B$NIA2hNN0hFb$N1&C<E@(B
+% y=f(x) の描画領域内の右端点
 %   #1 : y=f(x)
-%   #2 : $B1&C<E@$N(Bx$B:BI8(B
-%   #3 : $B1&C<E@$N:BI8(B
+%   #2 : 右端点のx座標
+%   #3 : 右端点の座標
 
 \def\migi@Tanten#1#2#3{%
   \t@perl{#1}\perl@siki
@@ -165,10 +165,10 @@
 }
 \let\migiTanten\migi@Tanten
 %
-% y=f(x) $B$NIA2hNN0hFb$N:8C<E@(B
+% y=f(x) の描画領域内の左端点
 %   #1 : y=f(x)
-%   #2 : $B:8C<E@$N(Bx$B:BI8(B
-%   #3 : $B:8C<E@$N:BI8(B
+%   #2 : 左端点のx座標
+%   #3 : 左端点の座標
 
 \def\hidari@Tanten#1#2#3{%
   \t@perl{#1}\perl@siki
@@ -238,8 +238,8 @@
   \hidari@Tanten{#3}\YGurafu@xl\hidariT\xdef\hidariT{\hidariT}%
   \migi@Tanten{#3}\YGurafu@xr\migiT\xdef\migiT{\migiT}%
   \ifthenelse{\equal\YGurafu@xl\YGurafu@xr}{%
-    \@warning{YGurafu* : $BIA2hHO0O$r5a$a$k$3$H$,=PMh$^$;$s$G$7$?!#(B%
-      hidarix=, migix= $B%*%W%7%g%s$GIA2hHO0O$r69$a$F2<$5$$!#(B}%
+    \@warning{YGurafu* : 描画範囲を求めることが出来ませんでした。%
+      hidarix=, migix= オプションで描画範囲を狭めて下さい。}%
     \egroup
   }{%
     \@@YGurafu(#1)(#2){#3}\YGurafu@xl\YGurafu@xr
@@ -384,11 +384,11 @@
   \fi
 }
 %
-% $B7W;;CM$rLa$9(B
+% 計算値を戻す
 %   \calcval[#1]#2#3
-%     #1 : printf $B$N=q<0(B (%$B$O$D$1$J$$!#%G%U%)%k%H$O(B `f')
-%     #2 : $B7W;;<0(B
-%     #3 : $B7k2L$r<u$1<h$k@)8fDV(B
+%     #1 : printf の書式 (%はつけない。デフォルトは `f')
+%     #2 : 計算式
+%     #3 : 結果を受け取る制御綴
 %
 \def\calcval{\@ifnextchar[{\@calcval}{\@calcval[f]}}
 \def\@calcval[#1]#2#3{%
@@ -404,7 +404,7 @@
       \immediate\write18{\Perl@Name\space temp.pl}%
       \IfFileExists{\perl@datafilename}{%
         \openin\pl@in=\perl@datafilename}{%
-        \errmessage{emathPp Error : Perl $B$H$NO"7H$,$G$-$F$$$^$;$s!#(B}}%
+        \errmessage{emathPp Error : Perl との連携ができていません。}}%
     \fi
       \read\pl@in to\calcval@tmp%
     \trim\calcval@tmp\to#3\relax
@@ -425,7 +425,7 @@
   \fi
 }
 %
-% \Argvec $B$r(B perl $B$G(B
+% \Argvec を perl で
 %
 \let\PhArgvec\Argvec
 \def\Argvec{\@ifnextchar<{\perlArgvec}{\PhArgvec}}
@@ -433,7 +433,7 @@
   \vecXY{#2}\Argvec@x\Argvec@y
   \calcval{RadDeg(atan2(\Argvec@y,\Argvec@x))}#3}
 %
-% $B4X?tCM(B
+% 関数値
 %
 \def\funcval{\@ifnextchar[{\@funcval}{\@funcval[f]}}
 \def\@funcval[#1]#2#3#4{%
@@ -476,12 +476,12 @@
    \fi
 }
 %
-% y=f(x) $B>e$NE@$N:BI8$r5a$a$k!#(B
+% y=f(x) 上の点の座標を求める。
 %
 % \YTen#1#2#3
-%     #1 : $B4X?t<0(B
-%     #2 : x $B$NCM(B
-%     #3 : $BE@$N:BI8$r<u$1<h$k@)8fDV(B
+%     #1 : 関数式
+%     #2 : x の値
+%     #3 : 点の座標を受け取る制御綴
 %
 \def\YTen{\def\x@format{s}\def\y@format{f}%
   \@ifnextchar[{\YTen@}{\@YTen}}
@@ -531,12 +531,12 @@
   \fi
 }
 %
-% x=f(y) $B>e$NE@$N:BI8$r5a$a$k!#(B
+% x=f(y) 上の点の座標を求める。
 %
 % \XTen#1#2#3
-%     #1 : $B4X?t<0(B
-%     #2 : y $B$NCM(B
-%     #3 : $BE@$N:BI8$r<u$1<h$k@)8fDV(B
+%     #1 : 関数式
+%     #2 : y の値
+%     #3 : 点の座標を受け取る制御綴
 
 \def\XTen{\def\x@format{f}\def\y@format{s}%
   \@ifnextchar[{\XTen@}{\@XTen}}
@@ -641,15 +641,15 @@
   \fi
 }
 
-% y=f(x) $B$H(B y=g(x) $B$N8rE@$r5a$a$k!#(B
+% y=f(x) と y=g(x) の交点を求める。
 %
 \def\YKouten#1#2#3#4#5#6{%
 % #1 : f(x)
 % #2 : g(x)
-% #3 : $B6h4V:8C<E@!J>JN,;~$O(B \xmin)
-% #4 : $B6h4V1&C<E@!J>JN,;~$O(B \xmax)
-% #5 : $B8rE@$N(Bx$B:BI8$r<u$1<h$k@)8fDV(B
-% #6 : $B8rE@$N:BI8$r<u$1<h$k@)8fDV(B
+% #3 : 区間左端点（省略時は \xmin)
+% #4 : 区間右端点（省略時は \xmax)
+% #5 : 交点のx座標を受け取る制御綴
+% #6 : 交点の座標を受け取る制御綴
   \t@perl{#1}\perl@siki
   \t@perl{#2}\perl@sikii
   \edef\perl@siki{(\perl@siki)-(\perl@sikii)}%
@@ -892,10 +892,10 @@
 %    \drawline(\Ygurafu@x,\Ygurafu@y)(\Ygurafu@@x,\Ygurafu@@y)\fi\fi}%
 %\fi}}%
 
-% x=f(y) $B$NIA2hNN0hFb$N>eC<E@(B
+% x=f(y) の描画領域内の上端点
 %   #1 : x=f(y)
-%   #2 : $B>eC<E@$N(Bx$B:BI8(B
-%   #3 : $B>eC<E@$N:BI8(B
+%   #2 : 上端点のx座標
+%   #3 : 上端点の座標
 %
 \def\ue@Tanten#1#2#3{%
   \t@perl{#1}\perl@siki
@@ -948,10 +948,10 @@
   \fi
 }
 
-% x=f(y) $B$NIA2hNN0hFb$N2<C<E@(B
+% x=f(y) の描画領域内の下端点
 %   #1 : x=f(y)
-%   #2 : $B2<C<E@$N(Bx$B:BI8(B
-%   #3 : $B2<C<E@$N:BI8(B
+%   #2 : 下端点のx座標
+%   #3 : 下端点の座標
 
 \def\sita@Tanten#1#2#3{%
   \t@perl{#1}\perl@siki
@@ -1105,18 +1105,18 @@
 }}
 
 % \BGurafu(#1)(#2)#3#4#5#6
-%   #1 : t $B$N9o$_CM!J%G%U%)%k%HCM$O(B 0.05 $B!K(B
-%   #2 : $BE@@~$GIA2h$9$k$H$-$NIA2h$9$kItJ,$N(B t $B$N%l%s%8(B
+%   #1 : t の刻み値（デフォルト値は 0.05 ）
+%   #2 : 点線で描画するときの描画する部分の t のレンジ
 %   #3 : x=f(t)
 %   #4 : y=g(t)
-%   #5 : t $B$N;O$aCM(B
-%   #6 :     $B=*$jCM(B
+%   #5 : t の始め値
+%   #6 :     終り値
 
-% x=f(t), y=g(t) $B$NIA2hNN0hFb$N;OE@(B
+% x=f(t), y=g(t) の描画領域内の始点
 %   #1 : x=f(t)
 %   #2 : y=f(t)
-%   #3 : $B;OE@$N(B t $BCM(B
-%   #4 : $B;OE@$N:BI8(B
+%   #3 : 始点の t 値
+%   #4 : 始点の座標
 %
 \def\owari@Tanten#1#2#3#4{%
   \t@perl{#1}\perl@xsiki
@@ -1178,11 +1178,11 @@
   \fi
 }
 %
-% x=f(t), y=g(t) $B$NIA2hNN0hFb$N=*E@(B
+% x=f(t), y=g(t) の描画領域内の終点
 %   #1 : x=f(t)
 %   #2 : y=f(t)
-%   #3 : $B=*E@$N(B t $BCM(B
-%   #4 : $B=*E@$N:BI8(B
+%   #3 : 終点の t 値
+%   #4 : 終点の座標
 
 \def\hazime@Tanten#1#2#3#4{%
   \t@perl{#1}\perl@xsiki
@@ -1258,7 +1258,7 @@
   \hazime@Tanten{#3}{#4}\BGurafu@ts\hazimeT\xdef\hazimeT{\hazimeT}%
   \owari@Tanten{#3}{#4}\BGurafu@te\owariT\xdef\owariT{\owariT}%
   \@B@Gurafu(#1)(#2){#3}{#4}\BGurafu@ts\BGurafu@te
-% egroup%       $BM>7W$J$b$N$r:o=|(B (2005/02/01)
+% egroup%       余計なものを削除 (2005/02/01)
 }
 \def\@BGurafu{\@ifnextchar[{\@BGurafu@}{\@@BGurafu}}
 \def\@BGurafu@[#1]{\setkeys{emGurafu}{#1}\@@BGurafu}
@@ -1351,11 +1351,11 @@
 }\egroup}
 
 % \BTen#1#2#3#4
-%   $BG^2pJQ?t6J@~>e$N(B1$BE@$N:BI8$r5a$a$k!#(B
+%   媒介変数曲線上の1点の座標を求める。
 %   #1 : x=f(t)
 %   #2 : y=g(t)
-%   #3 : t $B$NCM(B
-%   #4 : $B7k2L$r<u$1<h$k@)8fDV(B
+%   #3 : t の値
+%   #4 : 結果を受け取る制御綴
 
 \def\BTen#1#2#3#4{%
   \t@perl{#1}\x@perl@siki
@@ -1491,10 +1491,10 @@
 }}%
 
 % \RTen#1#2#3#4
-%   $B6KJ}Dx<0$G$"$i$o$5$l$?6J@~>e$N(B1$BE@$N:BI8$r5a$a$k!#(B
-%   #1 : r=f($B&((B)
-%   #2 : $B&((B $B$NCM(B
-%   #3 : $B7k2L$r<u$1<h$k@)8fDV(B
+%   極方程式であらわされた曲線上の1点の座標を求める。
+%   #1 : r=f(Θ)
+%   #2 : Θ の値
+%   #3 : 結果を受け取る制御綴
 
 \def\RTen#1#2#3{%
   \t@perl{#1}\perl@siki
@@ -1531,7 +1531,7 @@
   \fi
 }
 
-% ?Ten $B$K0z$-B3$$$F!$(B\Put
+% ?Ten に引き続いて，\Put
 
 %\def\YPut#1#2{\YTen{#1}{#2}\YPut@P\Put\YPut@P}
 \def\YPut{\@ifnextchar[{\YPut@}{\@YPut}}
@@ -1546,7 +1546,7 @@
 %  \@delfile{temp.pl}%
 %  \@delfile{_temp.dat}}
 
-%   \YNuri[$BG;$5(B]<x$B$N9o$_CM(B>{$B4X?t(B}{x1}{x2}
+%   \YNuri[濃さ]<xの刻み値>{関数}{x1}{x2}
 
 \def\YNuri{\@ifstar{\@YhNuri}{\@YsNuri}}%
 \def\@YsNuri{\@ifnextchar[{\Y@Nuri}{\Y@Nuri[.5]}}%
@@ -1557,7 +1557,7 @@
 %\edef\@resen{\@resen(#4,\@@y)}%
 \Nuritubusi[#1]\@resen}%
 
-%   \YNurii[$BG;$5(B]<x$B$N9o$_CM(B>{$B4X?t(B1}{$B4X?t(B2}{x1}{x2}
+%   \YNurii[濃さ]<xの刻み値>{関数1}{関数2}{x1}{x2}
 %
 \def\YNurii{\@ifstar{\@YhNurii}{\@YsNurii}}%
 \def\@YsNurii{\@ifnextchar[{\s@YNurii}{\s@YNurii[.5]}}%
@@ -1657,19 +1657,19 @@
   \fi
 }
 
-% $BGH@~(B
+% 波線
 % \namisen[#1]#2#3
 %   #1 : key=val
-%         namisuu     : $BGH$N8D?t!J%G%U%)%k%HCM(B = 5$B!K(B
-%         namitakasa  : $BGH$N9b$5!J%G%U%)%k%HCM(B = 0.25$B!K(B
-%         dx          : x$B$N9o$_CM!J%G%U%)%k%HCM(B = 0.05$B!K(B
-%         namikankaku : 2$B$D$NGH$N4V3V!J%G%U%)%k%HCM(B = 0.1)
-%            (\namisen* $B$N$_!K(B
-%         yclip       : $B%/%j%C%W$9$k$+H]$+(B
-%   #2 : $B;OE@(B
-%   #3 : $B=*E@(B
+%         namisuu     : 波の個数（デフォルト値 = 5）
+%         namitakasa  : 波の高さ（デフォルト値 = 0.25）
+%         dx          : xの刻み値（デフォルト値 = 0.05）
+%         namikankaku : 2つの波の間隔（デフォルト値 = 0.1)
+%            (\namisen* のみ）
+%         yclip       : クリップするか否か
+%   #2 : 始点
+%   #3 : 終点
 % \namisen* 
-%   2$B$D$NGH@~4V$rGrEI$j$9$k!#(B
+%   2つの波線間を白塗りする。
 
 \define@key{emP}{namisuu}{\def\namisen@n{#1}}%
 \define@key{emP}{namitakasa}{\def\namisen@h{#1}}%
@@ -1694,7 +1694,7 @@
   \Mul\Pii\namisen@n\namisen@w
   \Div\namisen@w\namisen@L\namisen@w
   \ifdim\namisen@k pt=\z@
-%   $B?eJ?(B
+%   水平
     \vecXY{#1}\nami@xi\namiyi
     \vecXY{#2}\nami@xii\namiyii
     \ifdim\nami@xi pt>\nami@xii pt\relax
@@ -1710,7 +1710,7 @@
     {\yclipfalse
     \Put{\nami@S}{\YGurafu(\namisen@dx)\nami@Fx{0}{\namisen@L}}}%
   \else\ifdim\namisen@k pt=90pt\relax
-%   $B?bD>(B
+%   垂直
     \vecXY{#1}\nami@xi\nami@yi
     \vecXY{#2}\nami@xii\nami@yii
     \ifdim\nami@yi pt>\nami@yii pt\relax
@@ -1767,7 +1767,7 @@
   \Mul\Pii\namisen@n\namisen@w
   \Div\namisen@w\namisen@L\namisen@w
   \ifdim\namisen@k pt=\z@
-%   $B?eJ?(B
+%   水平
     \vecXY{#1}\nami@xi\namiyi
     \vecXY{#2}\nami@xii\namiyii
     \ifdim\nami@xi pt>\nami@xii pt\relax
@@ -1788,7 +1788,7 @@
       \Put{\nami@S}{\YGurafu(\namisen@dx)\nami@Gx{0}{\namisen@L}}%
     \fi}%
   \else\ifdim\namisen@k pt=90pt\relax
-%   $B?bD>(B
+%   垂直
     \vecXY{#1}\nami@xi\nami@yi
     \vecXY{#2}\nami@xii\nami@yii
     \ifdim\nami@yi pt>\nami@yii pt\relax
@@ -1858,18 +1858,18 @@
 %  }}%
 %}
 
-% $B6hJ,5a@Q$N?^(B
-%   \kubunkyuusekizu[#1]<#2>#3#4#5#6#7%     $BC;:}$N$_(B
-%   \kubunkyuusekizu*[#1]<#2>#3#4#5#6#7%    $B%Y%?EI$j(B
-%   \kubunkyuusekizu**[#1]<#2>#3#4#5#6#7%   $B<P@~EI$j(B
-%     #1 : $BEI$j$NG;$5!?<P@~$NJ}8~3Q(B
-%     #2 : $B<P@~EI$j$N>l9g$N<P@~4V3V(B
-%     #3 : $B4X?t<0(B
-%     #4 : $B6h4V$N:8C<(B
-%     #5 :       $B1&C<(B
-%     #6 : $BJ,3d?t(B
-%     #7 : l = $B6h4V$N:8C<$r9b$5(B
-%          r =       $B1&C<(B
+% 区分求積の図
+%   \kubunkyuusekizu[#1]<#2>#3#4#5#6#7%     短冊のみ
+%   \kubunkyuusekizu*[#1]<#2>#3#4#5#6#7%    ベタ塗り
+%   \kubunkyuusekizu**[#1]<#2>#3#4#5#6#7%   斜線塗り
+%     #1 : 塗りの濃さ／斜線の方向角
+%     #2 : 斜線塗りの場合の斜線間隔
+%     #3 : 関数式
+%     #4 : 区間の左端
+%     #5 :       右端
+%     #6 : 分割数
+%     #7 : l = 区間の左端を高さ
+%          r =       右端
 %
 \def\kubunkyuusekizu{\@ifstar{\kubunkyuusekizu@}{%
   \edef\@nuri{0}\@kubunkyuusekizu}}
@@ -1880,18 +1880,18 @@
   \@@@kubunkyuusekizu[#1]<\empty>}}
 \def\@@@kubunkyuusekizu[#1]<#2>#3#4#5#6#7{%
   \calcval{((#5)-(#4))/(#6)}\@deltax
-  \Cfor{%             $B%k!<%W=i4|@_Dj(B
-    \edef\@ix{0}%      $B%k!<%WJQ?t(B
+  \Cfor{%             ループ初期設定
+    \edef\@ix{0}%      ループ変数
     \edef\@ldx{#4}%
     \funcval{#3}{#4}\y@rg
     \edef\@ldy{\y@rg}%
-    \edef\kaidanzu{(\@ldx,0)(\@ldx,\@ldy)}% $B3,CJ>u?^7A$N=i4|@_Dj(B
-  }{%               $B%k!<%W7QB3>r7o(B
+    \edef\kaidanzu{(\@ldx,0)(\@ldx,\@ldy)}% 階段状図形の初期設定
+  }{%               ループ継続条件
     \@ix<#6
-  }{%               $B%k!<%W:F@_Dj(B
+  }{%               ループ再設定
     \edef\@ldx{\@x}%
     \edef\@ldy{\@y}%
-  }\do{%            $B%k!<%WK\BN(B
+  }\do{%            ループ本体
     \Incr\@ix
     \calcval{(#4)+\@ix*\@deltax}\@x
     \funcval{#3}\@x\@y
@@ -1899,18 +1899,18 @@
     \expandafter\edef\csname ykubunzu\romannumeral\@ix\endcsname{\@y}%
     \Drawline{(\@x,0)(\@x,\@y)}%
     \if l#7\relax
-      \edefappend\kaidanzu{(\@ldx,\@ldy)(\@x,\@ldy)}% $B6h4V$N:8JU$r9b$5$H$9$k(B
+      \edefappend\kaidanzu{(\@ldx,\@ldy)(\@x,\@ldy)}% 区間の左辺を高さとする
     \else\if r#7\relax
-      \edefappend\kaidanzu{(\@ldx,\@y)(\@x,\@y)}%     $B6h4V$N1&JU$r9b$5$H$9$k(B
+      \edefappend\kaidanzu{(\@ldx,\@y)(\@x,\@y)}%     区間の右辺を高さとする
     \fi\fi
   }%
-  \edefappend\kaidanzu{(\@x,0)(#4,0)}% $B3,CJ>u?^7A$rJDB?3Q7A$K(B
-  \Drawline\kaidanzu%                     $BNX3TIA2h(B
+  \edefappend\kaidanzu{(\@x,0)(#4,0)}% 階段状図形を閉多角形に
+  \Drawline\kaidanzu%                     輪郭描画
   \ifnum\@nuri=\@ne
     \Nuritubusi[#1]\kaidanzu
   \else\ifnum\@nuri=\tw@
     \ifthenelse{\equal{#1}\empty}{%
-      \ifdim\y@rg pt>\@y pt\relax%    $B8:>/(B
+      \ifdim\y@rg pt>\@y pt\relax%    減少
         \def\nuri@kaku{60}%
       \else
         \def\nuri@kaku{-60}%
@@ -1952,12 +1952,12 @@
   \Strlen\tmp\ltmp
   \Strlen\jobname\ljobname
   \ifnum\ltmp=\ljobname\else
-        \errmessage{emathPp Error : B Perl $B$H$NO"7H$,$G$-$F$$$^$;$s!#(B}%
+        \errmessage{emathPp Error : B Perl との連携ができていません。}%
   \fi
   \Cfor{\headchar\tmp\tmpi\tmpii\headchar\jobname\ci\cii}{%
     \not\equal\tmpi\empty}{\headchar\tmpii\tmpi\tmpii\headchar\cii\ci\cii}\do{%
       \if\ci\tmpi\else
-        \errmessage{emathPp Error : C Perl $B$H$NO"7H$,$G$-$F$$$^$;$s!#(B}%
+        \errmessage{emathPp Error : C Perl との連携ができていません。}%
       \fi
   }%
 % \@delfile{\jobname.d\perlflnum}%
@@ -1966,94 +1966,94 @@
 % ---------------------------------
 v 0.00 2001/12/23
 v 0.01 2002/02/09
-        \namisen : $BGH@~(B
+        \namisen : 波線
 v 0.02 2002/04/25
-        txfonts $B%*%W%7%g%s$J$I$N=hM}JQ99(B
+        txfonts オプションなどの処理変更
 v 0.03 2002/07/24
-        dvipdfm $B%m!<%I%*%W%7%g%s(B
+        dvipdfm ロードオプション
 v 0.04 2002/08/26-30
-        perl $B$N:n@.$9$k%G!<%?%U%!%$%k$r3JG<$9$k%G%#%l%/%H%j$r;XDj2DG=(B
+        perl の作成するデータファイルを格納するディレクトリを指定可能
 v 0.05 2002/09/08-10/27
-        \namisen* $BGH@~$r(B2$BK\0z$-$=$N4V$rGrEI$j$9$k!#(B
-        \YGurafu* $BIA2hHO0O$N<hF@$K<:GT$7$?>l9g$O(B Warning $B$r=P$9!#(B
-        \kubunkyuusekizu $B6hJ,5a@Q?^(B
-        \perldatafiledir : Mac $B$N>l9gL58z%3%^%s%I$H$9$k!#(B
+        \namisen* 波線を2本引きその間を白塗りする。
+        \YGurafu* 描画範囲の取得に失敗した場合は Warning を出す。
+        \kubunkyuusekizu 区分求積図
+        \perldatafiledir : Mac の場合無効コマンドとする。
 v 0.06 2003/01/03
         \@lbrace \@rbrace
         \yclipDrawline
 v 0.07 2003/01/22
-        v 0.06 $B$G9T$C$?(B\yclipDrawline $B$X$N=$@5$r$b$H$KLa$9!#(B
+        v 0.06 で行った\yclipDrawline への修正をもとに戻す。
 v 0.08 2003/01/30
-        \calcval, \funcval printf $B$N=q<0$r;XDj2DG=$H$9$k!#(B
+        \calcval, \funcval printf の書式を指定可能とする。
 v 0.09 2003/02/04
-        \YGurafu(#1)(#2)$B$KBP$7$F$O(B
-          \yclipDrawline $B$KBe$($F(B \yclipdrawline $B$r;HMQ$9$k!#(B
+        \YGurafu(#1)(#2)に対しては
+          \yclipDrawline に代えて \yclipdrawline を使用する。
 v 0.10 2003/02/24
-        \checkPerl : Perl $B$H$NO"7H%A%'%C%/(B
+        \checkPerl : Perl との連携チェック
 v 0.11 2003/03/15
-        \perldatafiledir : $BL58zL?Na(B
-        \skipCallPerl : $BL58zL?Na(B
+        \perldatafiledir : 無効命令
+        \skipCallPerl : 無効命令
 v 0.12 2003/03/30
-        \ifyclip $B?7@_(B
-        \namisen $B$K%*%W%7%g%sDI2C(B
+        \ifyclip 新設
+        \namisen にオプション追加
           yclip=true/false
-          dx=x$B$N9o$_CM(B
+          dx=xの刻み値
 v 0.13 2003/05/15
-        \namisen v0.12 $B$K$h$kJQ99$K$h$k%P%0:.F~(B
+        \namisen v0.12 による変更によるバグ混入
 v 0.14 2003/06/18
-        \O@@ : $B86E@(B
+        \O@@ : 原点
 v 0.15 2003/07/01
-        \myPerlLib#1 $B$G!$(Bperl $B$N%i%$%V%i%j$rDI2C2DG=$H$9$k!#(B
+        \myPerlLib#1 で，perl のライブラリを追加可能とする。
 v 0.16 2003/07/25
         \YGurafu, \XGurafu, \BGurafu, \RGurafu
-          emathPs $B$G!$(B[linewidth=..,dash=..] $B%*%W%7%g%s$r6I=jE*$K(B
+          emathPs で，[linewidth=..,dash=..] オプションを局所的に
 v 0.17 2003/08/21
-        \myPerlLib $B$K$D$$$F=$@5(B
+        \myPerlLib について修正
 v 0.18 2003/09/05
-        \YTen x$B:BI8$NLa$jCM$r85$N$^$^(B "%s '#2'" $B$H$9$k!#(B
+        \YTen x座標の戻り値を元のまま "%s '#2'" とする。
 v 0.19 2003/09/06-11
         \YTen, \XTen, \YPut
-          x,y$B:BI8$NLa$jCM$N7A<0$r;XDj$9$k%*%W%7%g%s(B xformat=, yformat=
+          x,y座標の戻り値の形式を指定するオプション xformat=, yformat=
         \useperllib
 v 0.20 2003/10/25
-        \kubunkyuusekizu : $BJ,E@$r(B
+        \kubunkyuusekizu : 分点を
                 (\kubunzuxi,\kubunzuyi), (\kubunzuxii,\kubunzuyii), ..
-                $B$GJ]B8$9$k!#(B
+                で保存する。
 v 0.21 2003/11/07
-        \YGurafu(*) : x$B$N9o$_CM$r(B 0.5mm $B$H$7!$(B
-          y$B$NJQ2=$,Bg$-$$$H$-$O(B x $B$N9o$_CM$r>.$5$/$9$k!#(B
+        \YGurafu(*) : xの刻み値を 0.5mm とし，
+          yの変化が大きいときは x の刻み値を小さくする。
 v 0.22 2003/12/03
-        \namisen $BM?$($?(B2$BE@$,Ey$7$$$H$-$OIA2h$7$J$$(B
+        \namisen 与えた2点が等しいときは描画しない
 v 0.23 2003/12/23
-        notMy $B%*%W%7%g%s(B
+        notMy オプション
 v 0.24 2004/02/02
-        \namisen* $B$K!$6-3&@~$NIA2h%9%$%C%A(B [border=0/1]$B$rF3F~(B
+        \namisen* に，境界線の描画スイッチ [border=0/1]を導入
 v 0.25 2004/09/08
-        \useperlpm : perl $B$N%b%8%e!<%k$r;HMQ$9$k@k8@(B
+        \useperlpm : perl のモジュールを使用する宣言
 v 0.26 2004/09/09
-        \useperlpm : $BJ#?t$N%b%8%e!<%k$r;HMQ2DG=(B
+        \useperlpm : 複数のモジュールを使用可能
 v 0.27 2004/10/22
-        \checkPerl : $B:n6HMQ%U%!%$%k$N:o=|$rJ]N1!J(Bunix $B$H$N4X78!K(B
+        \checkPerl : 作業用ファイルの削除を保留（unix との関係）
 v 0.28 2004/11/07
-        @Tanten $B$r(B emathPh $B$N(B Ex, Ey $B%*%W%7%g%s$K$"$o$;$F(B
-          xmax ---> truexmax $B$J$I(B
+        @Tanten を emathPh の Ex, Ey オプションにあわせて
+          xmax ---> truexmax など
 v 0.29 2004/11/10
         \migiTanten, \hidariTanten
 v 0.30 2004/12/11
-        \myPerlLib : $B%P%0=$@5(B
+        \myPerlLib : バグ修正
 v 0.32 2004/12/30
         \checkPerl* : \ifeof18
 v 0.33 2005/01/01
-        iro=.. $B%*%W%7%g%s@0Hw(B
+        iro=.. オプション整備
 v 0.34 2005/01/09
-        $B%m!<%I%*%W%7%g%s(B papersize
+        ロードオプション papersize
 v 0.35 2005/02/01
-        \BGurafu* : \egroup $B$,(B1$B8DB?$+$C$?(B
+        \BGurafu* : \egroup が1個多かった
 v 0.36 2005/02/12
-        \@percent $B$J$I$NDj5A$r(B emath.sty $B$K0\4I(B
+        \@percent などの定義を emath.sty に移管
 v 0.37 2005/02/17
-        \Argvec : <perl> $B%*%W%7%g%s(B
+        \Argvec : <perl> オプション
 v 0.38 2005/09/19
-    $B%m!<%I%*%W%7%g%s(B dvipdfmx
+    ロードオプション dvipdfmx
 v 0.39 2005/11/07
     \RNuri*

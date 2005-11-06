@@ -1,5 +1,5 @@
 % emathN.sty  by tDB(CQB00260@nifty.ne.jp)
-% $BN.$l?^$rIA2h$9$k$?$a$N%^%/%m(B
+% 流れ図を描画するためのマクロ
 
 \NeedsTeXFormat{LaTeX2e}
 \ProvidesPackage{emathN}[2004/12/19 v0.15]%
@@ -7,11 +7,11 @@
 \RequirePackage{emathPh}
 \RequirePackage{emathLb}
 
-% nagarezu$B4D6-(B
-%   $B$3$N4D6-Fb$KN.$l?^$r5-=R$7$^$9!%(B
-% $B<B<A$O(B picture$B4D6-$G$9!%(B
-%   $B:BI886E@$O!$>eJUCfE@$G$9!%(B
-% \begin{nagarezu}[$B86E@$N0LCVHfN((B]($BN.$l?^$N2#I}(B,$B=DI}(B)
+% nagarezu環境
+%   この環境内に流れ図を記述します．
+% 実質は picture環境です．
+%   座標原点は，上辺中点です．
+% \begin{nagarezu}[原点の位置比率](流れ図の横幅,縦幅)
 
 \def\nagare@line{arrowline}
 \define@key{emN}{nagaremuki}{\def\nagare@muki{#1}}%
@@ -52,11 +52,11 @@
   \xdef\@hukasa{\the\@tempdima}%
   \end{picture}}%
 
-% $BC<;R5-9f(B
-% $B:81&$KH>1_7A$N=PAk$rH<$C$?D9J}7A$G$9!%(B
-% $BIA2h8e$O!$%+%l%s%H%]%$%s%H$OD9J}7A2<JU$NCfE@$K0\F0$7$^$9!%(B
-% $B=q<0!'(B\tansi#1
-%     #1 : $BCf$K5-=R$9$kJ8;zNs(B
+% 端子記号
+% 左右に半円形の出窓を伴った長方形です．
+% 描画後は，カレントポイントは長方形下辺の中点に移動します．
+% 書式：\tansi#1
+%     #1 : 中に記述する文字列
 \def\tansi{\@ifnextchar[{\@tansi}{\@tansi[\empty]}}%
 \def\@tansi[#1]#2{%
 %  \vecXY\cur@P\cur@x\cur@y%
@@ -107,7 +107,7 @@
   \ignorespaces
 }%
 
-% $B7+$jJV$7=hM}(B
+% 繰り返し処理
 \newbox\lp@waribox
 \def\lp@zennuri{0}
 
@@ -210,7 +210,7 @@
 \@namedef{kurikaesi*}{\def\lp@zennuri{1}\kurikaesi}
 \@namedef{endkurikaesi*}{\endkurikaesi\def\lp@zennuri{0}}
 
-% $B=hM}5-9f(B
+% 処理記号
 \def\syori{\@ifnextchar[{\@syori}{\@syori[\empty]}}%
 \def\@syori[#1]{\@ifnextchar({\@@syori[#1]}{\@@syori[#1](\empty)}}%
 \def\@@syori[#1](#2)#3{%
@@ -248,7 +248,7 @@
   \ignorespaces
  }%
 
-% $BF~=PNO5-9f(B
+% 入出力記号
 \def\nyuusyuturyoku{\@ifnextchar[{\@nyuusyuturyoku}{\@nyuusyuturyoku[\empty]}}%
 \def\@nyuusyuturyoku[#1]{\@ifnextchar({\@@nyuusyuturyoku[#1]}{%
   \@@nyuusyuturyoku[#1](\empty)}}%
@@ -290,7 +290,7 @@
   \edef\P@sita{\cur@P}%
 }%
 
-% $B>r7oH=CG5-9f(B
+% 条件判断記号
 \def\handan{\@ifnextchar[{\handan@}{\handan@[\empty]}}%
 \def\handan@[#1]{\@ifnextchar<{\@handan[#1]}{\@handan[#1]<1>}}%
 \def\@handan[#1]<#2>{\@ifnextchar<{\@@handan[#1]<#2>}{%
@@ -344,26 +344,26 @@
   \fi
 }
 
-% $BN.$l@~5-9f(B
-%   (1) $B1&(B
+% 流れ線記号
+%   (1) 右
 %
 \def\migibunki{\edef\migityuuten{\P@migi}}%
 \def\endmigibunki{}%
 
-% $B1&J}8~$K?J9T(B
-% \migihe<$B@~$N7A>u;XDj%*%W%7%g%s(B>
-%         a = $BLp0u$r$D$1$k!J%G%U%)%k%H!K(B
-%         n = $BLp0u$J$7(B
-%         r = $B5UJ}8~$KLp0u(B
-%         w = $BFs=E@~(B
-%         m = $B@~$r0z$+$J$$(B (move)
-%   ($B@~$ND9$5(B)  20pt
-%   [$B%i%Y%k(B]
-%   "$BLp@~$N>e$NJ8;zNs(B"
-%   <$BJ8;zNs$N0LCV(B>
-%   "$BLp@~$N2<$NJ8;zNs(B"
-%   <$BJ8;zNs$N0LCV(B>
-%   `$B9T$-@h(B'
+% 右方向に進行
+% \migihe<線の形状指定オプション>
+%         a = 矢印をつける（デフォルト）
+%         n = 矢印なし
+%         r = 逆方向に矢印
+%         w = 二重線
+%         m = 線を引かない (move)
+%   (線の長さ)  20pt
+%   [ラベル]
+%   "矢線の上の文字列"
+%   <文字列の位置>
+%   "矢線の下の文字列"
+%   <文字列の位置>
+%   `行き先'
 
 \def\migihe{%
   \@ifnextchar<{\@migihe}{\@migihe<a>}}%
@@ -447,7 +447,7 @@
 \ignorespaces
 }%
 
-% (2) $B:8(B
+% (2) 左
 \def\hidaribunki{\edef\hidarityuuten{\P@hidari}}%
 \def\endhidaribunki{}%
 \def\hidarihe{%
@@ -531,7 +531,7 @@
 }%
 
 
-%   (3) $B2<(B
+%   (3) 下
 \def\sitabunki{\edef\sitatyuuten{\P@sita}}%
 \def\endsitabunki{}%
 \def\sitahe{%
@@ -613,7 +613,7 @@
 \ignorespaces
 }%
 
-%   (4) $B>e(B
+%   (4) 上
 \def\uebunki{\edef\uetyuuten{\P@ue}}%
 \def\enduebunki{}%
 \def\uehe{%
@@ -693,8 +693,8 @@
 \ignorespaces
 }%
 
-%   (5) $B%i%Y%k(B
-%     \nahuda{$B0LCV(B}{$B%i%Y%kL>(B}
+%   (5) ラベル
+%     \nahuda{位置}{ラベル名}
 %
 \def\nahuda#1#2{\writeLabel{#2}{#1}}
 
@@ -715,7 +715,7 @@
   \edef\hidarityuuten{\cur@P}%
 }%
 
-% $BJ,4t(B
+% 分岐
 \def\bunki#1{%
   \ifx r#1\relax\edef\migityuuten{\P@migi}\else
   \ifx l#1\relax\edef\hidarityuuten{\P@hidari}\else
@@ -725,16 +725,16 @@
   \ifx t#1\relax\edef\uetyuuten{\P@ue}\fi\fi\fi\fi\fi\fi}%
 \def\endbunki{}%
 
-% $B8=:_0LCVJ]B8!&I|5"!J%9%?%C%/9=B$!K(B
+% 現在位置保存・復帰（スタック構造）
 \def\pushcurP{\stepcounter{curP@stacklvl}%
   \expandafter\xdef\csname Cur@P\romannumeral\c@curP@stacklvl\endcsname{%
   \cur@P}}%
 \def\popcurP{\edef\cur@P{%
   \csname Cur@P\romannumeral\c@curP@stacklvl\endcsname}%
   \addtocounter{curP@stacklvl}{-1}}%
-% $B8=:_0LCV$N<hF@(B
+% 現在位置の取得
 \def\getcurP#1{\xdef#1{\cur@P}}%
-% $B8=:_0LCV$NJQ99(B
+% 現在位置の変更
 \def\setcurP#1{\edef\cur@P{#1}%
   \edef\uetyuuten{\cur@P}%
   \edef\sitatyuuten{\cur@P}%
@@ -760,27 +760,27 @@
 \endinput
 %
 ver0.04   1999/11/29
-    $BJ,4t$r:81&>e2<!$E}0lE*$K(B \begin{bunki}{$BJ}8~(B} $B$H$9$k!%(B
+    分岐を左右上下，統一的に \begin{bunki}{方向} とする．
       1999/12/13
-    $B%i%Y%k$r(B .aux $B%U%!%$%k$rMxMQ$7$?Aj8_;2>H7A<0$H$9$k!%(B
+    ラベルを .aux ファイルを利用した相互参照形式とする．
 ver0.06   2000/01/25-27
-    \nahudahe $B=$@5(B
+    \nahudahe 修正
 ver0.07   2000/07/14-23
-    \ArrowHeadSize{5}$B$r:o=|(B
+    \ArrowHeadSize{5}を削除
 ver0.09   2002/08/23
-    $B7+$jJV$7$rI=$9(B kurikaesi $B4D6-(B
+    繰り返しを表す kurikaesi 環境
 ver0.10   2002/08/24
-    kurikaesi$B4D6-A4BN$rEI$j$D$V$9(B kurikaesi*$B4D6-(B
-    handan$B4D6-$N8e!$N.$l?^$r$I$3$KB3$1$k$+$r;XDj$9$k(B\pushcurrentP
+    kurikaesi環境全体を塗りつぶす kurikaesi*環境
+    handan環境の後，流れ図をどこに続けるかを指定する\pushcurrentP
 ver0.11 2003/03/03
-    \opbox $B$J$I!$6uGr$N:.F~$rHr$1$k$?$a!$KvHx$K(B \ignorespaces
+    \opbox など，空白の混入を避けるため，末尾に \ignorespaces
 ver0.12 2003/06/20
-    \nahudahe <..> $B%*%W%7%g%s$G(B key=val
+    \nahudahe <..> オプションで key=val
         nagaremuki=d/u/l/r
         nagaresen=arrowline(default)/no
 ver0.13 2003/11/17
-    calc.sty $B$NFI$_9~$_$r;_$a$k!#(B
+    calc.sty の読み込みを止める。
 ver 0.14 2003/11/28
-    \writeLabel $B$r(B emathLb.sty $B$K0\4I$7$?$3$H$KBP1~!#(B
+    \writeLabel を emathLb.sty に移管したことに対応。
 ver 0.15 2004/12/19
-    \sitahe $B$J$I(B : $B:G8e$K(B \ignorespaces $B$rIU2C(B
+    \sitahe など : 最後に \ignorespaces を付加

@@ -1,39 +1,39 @@
-\section{$B6u4V:BI8(B}
-\subsection{\textsf{Zahyou} $B4D6-(B}
-\textsf{zahyou}$B4D6-$,J?LL:BI8$r07$C$?$N$KBP$7$F!$(B
-\textsf{Zahyou}$B4D6-$O6u4V:BI8$r07$$$^$9!#(B
+\section{空間座標}
+\subsection{\textsf{Zahyou} 環境}
+\textsf{zahyou}環境が平面座標を扱ったのに対して，
+\textsf{Zahyou}環境は空間座標を扱います。
 
-$BC1=c$JNc$G$9!#(B
+単純な例です。
 
-\showexample[$B6u4V:BI8(B](0.58)(0.36){example/zahyou31}
+\showexample[空間座標](0.58)(0.36){example/zahyou31}
 
-$B4JC1$K2r@b$7$^$9!#(B
+簡単に解説します。
 
-$B$^$:!$(B\textsf{Zahyou}$B4D6-$O(B
-\index{Zahyou@Zahyou $B4D6-(B}
+まず，\textsf{Zahyou}環境は
+\index{Zahyou@Zahyou 環境}
 \begin{jquote}
-$x$$B$NHO0O!$(B$y$$B$NHO0O!$(B$z$$B$NHO0O(B
+$x$の範囲，$y$の範囲，$z$の範囲
 \end{jquote}
-$B$r(B\vspace{-\baselineskip}
+を\vspace{-\baselineskip}
 \begin{jquote}
 \begin{verbatim}
-(x$B$N2<8B(B,x$B$N>e8B(B),(y$B$N2<8B(B,y$B$N>e8B(B),(z$B$N2<8B(B,z$B$N>e8B(B)
+(xの下限,xの上限),(yの下限,yの上限),(zの下限,zの上限)
 \end{verbatim}
 \end{jquote}
-$B$N7A$GM?$($^$9!#$3$l$i$NCM$O!$(B\textsf{Zahyou}$B4D6-Fb$G$O!$=g$K(B
+の形で与えます。これらの値は，\textsf{Zahyou}環境内では，順に
 \begin{jquote}
 \begin{verbatim}
 \Xmin, \Xmax, \Ymin, \Ymax, \Zmin, \Zmax
 \end{verbatim}
 \end{jquote}
-$B$G0zMQ$9$k$3$H$,$G$-$^$9!#(B
+で引用することができます。
 
-$BE@$O(B \verb/\def\P{(1,2,3)}/$B$N$h$&$K(B3$B<!85%Y%/%H%k$GM?$($^$9!#(B
+点は \verb/\def\P{(1,2,3)}/のように3次元ベクトルで与えます。
 
-$B<!$$$G!$(B\verb/\iiiKuromaru\P/$B$GE@(BP$B$K9u4]$rBG$A$^$9!#(B\cindex{iiiKuromaru}
-$B:BI8J?LL$GDj5A$5$l$?B?$/$N%3%^%s%I$N@hF,$K(B\texttt{`iii'}$B$r$D$1$?(B
-$B6u4V:BI8MQ$N%3%^%s%I$,Dj5A$5$l$F$$$^$9!#8=;~E@$GDj5A$5$l$F$$$k%3%^%s%I$O(B
-$B<!$NDL$j$G$9!#(B\vspace{-.5\baselineskip}
+次いで，\verb/\iiiKuromaru\P/で点Pに黒丸を打ちます。\cindex{iiiKuromaru}
+座標平面で定義された多くのコマンドの先頭に\texttt{`iii'}をつけた
+空間座標用のコマンドが定義されています。現時点で定義されているコマンドは
+次の通りです。\vspace{-.5\baselineskip}
 \begin{jquote}
 \begin{verbatim}
 \iiiPut, \iiiPutStr
@@ -56,166 +56,166 @@ $x$$B$NHO0O!$(B$y$$B$NHO0O!$(B$z$$B$NHO0O(B
 \cindex{iiiKyori}\cindex{iiiKyorii}\cindex{iiiNuritubusi}
 \cindex{iiiAddvec}\cindex{iiiSubvec}\cindex{iiiMulvec}
 
-$B6u4VFCM-$N%3%^%s%I$K$D$$$F$O!$<!@a0J9_$G$H$j$"$2$^$9!#(B
+空間特有のコマンドについては，次節以降でとりあげます。
 
-$B$5$F!$:BI8<4$N8~$-!$C10LD9$NJQ99$K$D$$$F$N%*%W%7%g%s5!G=$G$9!#(B
+さて，座標軸の向き，単位長の変更についてのオプション機能です。
 
-\textsf{Zahyou}$B4D6-$N(B\texttt{[...]}$B%*%W%7%g%s$G(B$x$, $y$, $z$$B<4$N(B
-$BC10L%Y%/%H%k$r;XDj$G$-$k$h$&$K$7$F$"$j$^$9!#(B
-$B$?$@$7!$$=$l$i$OIA2h$9$kJ?LL$r:BI8J?LL$H8+N)$F$F$N@.J,I=<($G$9!#(B
-$B%G%U%)%k%H$G$O(B
+\textsf{Zahyou}環境の\texttt{[...]}オプションで$x$, $y$, $z$軸の
+単位ベクトルを指定できるようにしてあります。
+ただし，それらは描画する平面を座標平面と見立てての成分表示です。
+デフォルトでは
 \begin{jquote}
 \begin{verbatim}
-z$B<4!'(B(0, 1)
-y$B<4!'(B(1, 0)
-x$B<4$O(B \kyokuTyoku(.667,-138)
+z軸：(0, 1)
+y軸：(1, 0)
+x軸は \kyokuTyoku(.667,-138)
 \end{verbatim}
 \end{jquote}
-$B$H$J$C$F$$$^$9!#$3$l$rJQ99$7$F$_$^$9!#(B
+となっています。これを変更してみます。
 
-\showexample[$B4pK\C10L%Y%/%H%k$NJQ99(B](0.58)(0.36){example/zahyou32}
+\showexample[基本単位ベクトルの変更](0.58)(0.36){example/zahyou32}
 
-\subsection{$B3Q?m(B}
-$B3Q?m$rIA2h$9$k$N$K%3%^%s%I(B\cmd{Kakusui}$B$rMQ0U$7$^$7$?!#(B
-O(0, 0, 0), A(1, 0, 0), B(0, 1, 0)$B$rD:E@$H$9$k;03Q7A(BOAB$B$rDlLL$H$7!$(B
-C(0, 0, 1)$B$rD:E@$H$9$k3Q?m(B---$B;MLLBN$rIA2h$7$F$_$^$9!#(B
+\subsection{角錐}
+角錐を描画するのにコマンド\cmd{Kakusui}を用意しました。
+O(0, 0, 0), A(1, 0, 0), B(0, 1, 0)を頂点とする三角形OABを底面とし，
+C(0, 0, 1)を頂点とする角錐---四面体を描画してみます。
 
-\showexample[$B3Q?m(B](0.58)(0.36){example/kakusui3}
+\showexample[角錐](0.58)(0.36){example/kakusui3}
 
-$B$3$3$G$O!$:BI8<4$rIA2h$7$J$$$h$&$K;XDj$9$k$N$K!$(B
-\cmd{Drawaxisfalse}$B$H$7$F$$$^$9!#(B
+ここでは，座標軸を描画しないように指定するのに，
+\cmd{Drawaxisfalse}としています。
 
-\cmd{Kakusui}$B$N=q<0$G$9!#(B\cindex{Kakusui}
+\cmd{Kakusui}の書式です。\cindex{Kakusui}
 \begin{boxnote}
 \begin{verbatim}
 \Kakusui[#1]#2#3#4
-   #2 : $B8+$($kD:E@Ns(B
-   #3 : $B8+$($J$$D:E@Ns(B
-   #4 : $B?m$ND:E@(B
+   #2 : 見える頂点列
+   #3 : 見えない頂点列
+   #4 : 錐の頂点
 \end{verbatim}
 \end{boxnote}
 
-$B?^$N8+$($J$$ItJ,$NE@@~$N%9%?%$%k$O!$%G%U%)%k%H$G$O(B
+図の見えない部分の点線のスタイルは，デフォルトでは
 
 \begin{jquote}
 \begin{verbatim}
 \def\iiiTensen{\iiiDashline[40]{.1}}
 \end{verbatim}
 \end{jquote}
-$B$H$J$C$F$$$^$9$,!$$3$l$r:FDj5A$7$F$_$^$9!#(B
+となっていますが，これを再定義してみます。
 \cindex{iiiTensen}
 
-\showexample[\cmd{iiiTensen}$B$N:FDj5A(B](0.58)(0.36){example/kakusui4}
+\showexample[\cmd{iiiTensen}の再定義](0.58)(0.36){example/kakusui4}
 
-\subsection{$B3QCl(B}
-$BN)J}BN!$D>J}BN!$J?9TO;LLBN$rIA2h$9$k$?$a$K(B\cmd{Kakutyuu}$B$rMQ0U(B
-$B$7$F$"$j$^$9!#J?9TO;LLBN$rIA2h$7$F$_$^$9!#(B
+\subsection{角柱}
+立方体，直方体，平行六面体を描画するために\cmd{Kakutyuu}を用意
+してあります。平行六面体を描画してみます。
 
-\showexample[$B3QCl(B](0.58)(0.36){example/kakutyu3}
+\showexample[角柱](0.58)(0.36){example/kakutyu3}
 
-$BD>J}BN$G$O$J$$$3$H$r<($9$?$a!$(B$z$$B<4J}8~$NC10L%Y%/%H%k$r(B
-$BJQ99$7$?<P8r:BI87O$rMQ$$$F$$$^$9!#(B
+直方体ではないことを示すため，$z$軸方向の単位ベクトルを
+変更した斜交座標系を用いています。
 
-\cmd{Kakutyuu}$B$N=q<0$G$9!#(B\cindex{Kakutyuu}
+\cmd{Kakutyuu}の書式です。\cindex{Kakutyuu}
 \begin{boxnote}
 \begin{verbatim}
 \Kakutyuu#1#2#3
-   #1 : $B8+$($kD:E@Ns(B
-   #2 : $B8+$($J$$D:E@Ns(B
-   #3 : $B9b$5%Y%/%H%k(B
+   #1 : 見える頂点列
+   #2 : 見えない頂点列
+   #3 : 高さベクトル
 \end{verbatim}
 \end{boxnote}
 
 
 
-\subsection{$BD>@~$HJ?LL$N8rE@(B}
-$BD>@~$HJ?LL$N8rE@$r5a$a$k%3%^%s%I$O!$<!$N(B4$B$D$rMQ0U$7$F$"$j$^$9!#(B
+\subsection{直線と平面の交点}
+直線と平面の交点を求めるコマンドは，次の4つを用意してあります。
 \begin{jquote}
 \cmd{PandL}, \cmd{Pandl}, \cmd{pandL}, \cmd{pandl}
 \end{jquote}
-$B$3$3$G!$(B
+ここで，
 \begin{jquote}
-\texttt P $B$O(B3$BE@$r;XDj$7$?J?LL(B\\
-\texttt p $B$OE@$HK!@~%Y%/%H%k$r;XDj$7$?J?LL(B\\
-\texttt L $B$O(B2$BE@$r;XDj$7$?D>@~(B\\
-\texttt l $B$OE@$HJ}8~%Y%/%H%k$r;XDj$7$?D>@~(B
+\texttt P は3点を指定した平面\\
+\texttt p は点と法線ベクトルを指定した平面\\
+\texttt L は2点を指定した直線\\
+\texttt l は点と方向ベクトルを指定した直線
 \end{jquote}
-$B$r0UL#$7$^$9!#(B
+を意味します。
 
-$B0lNc$H$7$FD>J}BN(BOABC-DEFG$B$NBP3Q@~(BOF$B$H(B3$BE@(BA, C, D$B$r4^$`J?LL$H$N(B
-$B8rE@(BP$B$rIA2h$7$F$_$^$9!#(B
+一例として直方体OABC-DEFGの対角線OFと3点A, C, Dを含む平面との
+交点Pを描画してみます。
 
 
-\showexample[$BD>@~$HJ?LL(B](0.52)(0.425){example/PandL01}
+\showexample[直線と平面](0.52)(0.425){example/PandL01}
 
-$B=q<0$G$9!#(B
+書式です。
 \cindex{iiiKuromaru}\cindex{iiiSiromaru}
 \begin{boxnote}
 \begin{verbatim}
 \PandL#1#2#3#4#5#6
-    3$BE@(B#1, #2, #3$B$rDL$kJ?LL$H!$(B
-    2$BE@(B#4, #5$B$rDL$kD>@~$H$N8rE@$r(B#6$B$K(B
+    3点#1, #2, #3を通る平面と，
+    2点#4, #5を通る直線との交点を#6に
 \Pandl#1#2#3#4#5#6
-    3$BE@(B#1, #2, #3$B$rDL$kJ?LL$H!$(B
-    $BE@(B#4$B$rDL$jJ}8~%Y%/%H%k$,(B#5$B$ND>@~$H$N8rE@$r(B#6$B$K(B
+    3点#1, #2, #3を通る平面と，
+    点#4を通り方向ベクトルが#5の直線との交点を#6に
 \pandL#1#2#3#4#5
-    $BE@(B#1$B$rDL$jK!@~%Y%/%H%k$,(B#2$B$NJ?LL$H!$(B
-    2$BE@(B#3, #4$B$rDL$kD>@~$H$N8rE@$r(B#5$B$K(B
+    点#1を通り法線ベクトルが#2の平面と，
+    2点#3, #4を通る直線との交点を#5に
 \pandl#1#2#3#4#5
-    $BE@(B#1$B$rDL$jK!@~%Y%/%H%k$,(B#2$B$NJ?LL$H!$(B
-    $BE@(B#3$B$rDL$jJ}8~%Y%/%H%k$,(B#4$B$ND>@~$H$N8rE@$r(B#5$B$K(B
+    点#1を通り法線ベクトルが#2の平面と，
+    点#3を通り方向ベクトルが#4の直線との交点を#5に
 \end{verbatim}
 \end{boxnote}
 
 
-\subsection{$B?b@~(B}
-$B:BI8J?LL$G!$E@$+$iD>@~$K2<$7$??b@~$NB-$r5a$a$k%3%^%s%I(B\cmd{Suisen}$B$N(B
-3$B<!85HG$NOC$7$G$9!#(B
+\subsection{垂線}
+座標平面で，点から直線に下した垂線の足を求めるコマンド\cmd{Suisen}の
+3次元版の話しです。
 
-$B=q<0$G$9!#(B
+書式です。
 \cindex{LSuisen}\cindex{lSuisen}\cindex{PSuisen}\cindex{pSuisen}
 \begin{boxnote}
 \begin{verbatim}
 \LSuisen#1#2#3#4
-    $BE@(B #1 $B$+$iD>@~(B #2#3 $B$X2<$m$7$??b@~$NB-$r(B #4 $B$K%;%C%H(B
+    点 #1 から直線 #2#3 へ下ろした垂線の足を #4 にセット
 \lSuisen#1#2#3#4
-    $BE@(B#1$B$+$i!$E@(B#2$B$rDL$j!$J}8~%Y%/%H%k$,(B#3$B$ND>@~$X$N?b@~(B
+    点#1から，点#2を通り，方向ベクトルが#3の直線への垂線
 \pSuisen#1#2#3#4
-    $BE@(B#1$B$+$i!$(B#2$B$rDL$jK!@~%Y%/%H%k$,(B#3$B$G$"$kJ?LL(B
-    $B$K2<$m$7$??b@~$NB-$r(B#4$B$KM?$($k!#(B
+    点#1から，#2を通り法線ベクトルが#3である平面
+    に下ろした垂線の足を#4に与える。
 \PSuisen#1#2#3#4#5
-    $BE@(B#1$B$+$i!$;0E@(B#2,#3,#4$B$rDL$kJ?LL(B
-    $B$K2<$m$7$??b@~$NB-$r(B#5$B$KM?$($k!#(B
+    点#1から，三点#2,#3,#4を通る平面
+    に下ろした垂線の足を#5に与える。
 \end{verbatim}
 \end{boxnote}
 
-$BNc$H$7$F!$;MLLBN(BOABC$B$ND:E@(BO$B$+$iDlLL(BABC$B$K2<$7$??b@~(BOP$B$H!$(B
-O$B$+$i@~J,(BAB$B$K2<$7$??b@~(BOH$B$r:n?^$7$^$9!#(B
+例として，四面体OABCの頂点Oから底面ABCに下した垂線OPと，
+Oから線分ABに下した垂線OHを作図します。
 
-\showexample[$B?b@~(B](0.58)(0.36){example/PSuisen1}
+\showexample[垂線](0.58)(0.36){example/PSuisen1}
 
-\subsection{$B6u4V6J@~(B}
-$B:BI8J?LL$GG^2pJQ?tI=<($5$l$?6J@~$rIA2h$9$k%3%^%s%I(B\cmd{bGurafu}
-$B$N(B3$B<!85HG$,(B\cmd{iiibGurafu}$B$G$9!#=q<0$O(B\cindex{iiibGurafu}
+\subsection{空間曲線}
+座標平面で媒介変数表示された曲線を描画するコマンド\cmd{bGurafu}
+の3次元版が\cmd{iiibGurafu}です。書式は\cindex{iiibGurafu}
 
 \begin{boxnote}
 \begin{verbatim}
 \iiibGurafu(#1)(#2)#3#4#5#6#7
-   #1 : t $B$N9o$_CM!J%G%U%)%k%HCM$O(B 0.05 $B!K(B
-   #2 : $BE@@~$GIA2h$9$k$H$-$NIA2h$9$kItJ,$N(B t $B$N%l%s%8(B
+   #1 : t の刻み値（デフォルト値は 0.05 ）
+   #2 : 点線で描画するときの描画する部分の t のレンジ
    #3 : x=f(t)
    #4 : y=g(t)
    #5 : z=h(t)
-   #6 : t $B$N;O$aCM(B
-   #7 :     $B=*$jCM(B
+   #6 : t の始め値
+   #7 :     終り値
 \end{verbatim}
 \end{boxnote}
 
-$B6qBNNc$H$7$F!$1_ClMf@{$rIA2h$7$F$_$^$7$g$&!#(B
+具体例として，円柱螺旋を描画してみましょう。
 
-\showexample[$B1_ClMf@{(B](1)(0.9){example/rasen31}
+\showexample[円柱螺旋](1)(0.9){example/rasen31}
 
-$B$J$*!$6u4V6J@~$r6a;w$9$k@^$l@~$rF@$k%3%^%s%I(B
-\cmd{iiiBKinziOresen}$B$b$"$j$^$9$,!$$3$l$O(B \textsf{perl} $B$H$N(B
-$BO"7H5!G=$rI,MW$H$7$^$9!#(B
+なお，空間曲線を近似する折れ線を得るコマンド
+\cmd{iiiBKinziOresen}もありますが，これは \textsf{perl} との
+連携機能を必要とします。
 \cindex{iiiBKinziOresen}

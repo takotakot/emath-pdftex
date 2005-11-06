@@ -6,10 +6,10 @@
 \usepackage{emathR}
 \usepackage{multido}
 \usepackage{showexample}
-%\usepackage{type1cm}% ps, pdf $B$r:n$k$H$-$K$OI,MW(B
+%\usepackage{type1cm}% ps, pdf を作るときには必要
 
-\title{$B%Z!<%8$r$^$?$07S@~0O$_(B\\
-emathBk.sty {\normalsize ver.0.23$B&A(B}}
+\title{ページをまたぐ罫線囲み\\
+emathBk.sty {\normalsize ver.0.23α}}
 \author{tDB}
 \date{2005/09/19}
 
@@ -22,18 +22,18 @@ emathBk.sty {\normalsize ver.0.23$B&A(B}}
 \maketitle\thispagestyle{empty}
 \begin{abstract}%
 \parindent1zw%
-\textbf{eclbkbox.sty} $B$GDj5A$5$l$F$$$k!$(B
-$BJ#?t%Z!<%8$K$o$?$k0O$_OH$r:n$k(B \texttt{breakbox}$B4D6-$N(B
-$B%P%j%(!<%7%g%s$r:n$C$F$_$^$7$?!#(B
+\textbf{eclbkbox.sty} で定義されている，
+複数ページにわたる囲み枠を作る \texttt{breakbox}環境の
+バリエーションを作ってみました。
 
-$B2rEzIt$rFsCJAH$K$7$F!$1&B&$KCm<a$r$D$1$k%9%?%$%k$r(B
-\textsf{emathAt.sty}$B$G<B8=$7$F$$$^$9$,!$$=$l$rCV$-49$($k$3$H$rA@$C$F$$$^$9!#(B
+解答部を二段組にして，右側に注釈をつけるスタイルを
+\textsf{emathAt.sty}で実現していますが，それを置き換えることを狙っています。
 
-$B$3$N%^%/%m=8$N%^%/%m$K$D$$$F$N$4<ALd!$%P%0Js9p!$=$@5!&DI2C$NDs0FEy$O(B
+このマクロ集のマクロについてのご質問，バグ報告，修正・追加の提案等は
 \begin{center}
 http://emath.s40.xrea.com/
 \end{center}
-$B$N7G<(HD$X$I$&$>!#(B
+の掲示板へどうぞ。
 \end{abstract}
 \pagebreak
 
@@ -43,209 +43,209 @@ http://emath.s40.xrea.com/
 \pagebreak
 \pagenumbering{arabic}
 
-\section{$B%Z!<%8$r$^$?$00O$_(B(1) $B8+=P$7L5(B}
-\subsection{$BK\2H(B --- \textsf{breakbox}$B4D6-(B}
-$B$^$:$O!$K\2H(B \textsf{eclbkbox.sty} $B$GDj5A$5$l$F$$$k(B \textsf{breakbox}$B4D6-$N(B
-$B;HMQNc$r8+$F$*$-$^$9!#!J%=!<%9%j%9%H$O(B ex01.tex $B$G$9!#!K(B\bigskip
+\section{ページをまたぐ囲み(1) 見出し無}
+\subsection{本家 --- \textsf{breakbox}環境}
+まずは，本家 \textsf{eclbkbox.sty} で定義されている \textsf{breakbox}環境の
+使用例を見ておきます。（ソースリストは ex01.tex です。）\bigskip
 
 \input{example/ex01}
 
-\subsection{\textsf{EMbreakbox}$B4D6-(B}
-$B$b$H$b$H$N(B\textsf{breakbox}$B4D6-$K=$@5$r2C$($k$?$a!$(B\textsf{EMbreakbox}
-$B4D6-$r?7@_$7$^$7$?!#4pK\E*$K$O!$$[$H$s$I(B\textsf{breakbox}$B4D6-$=$N$b$N$G$9$,!$(B
-\cmd{parindent}$B$O(B\verb+1zw+$B$H$7$F$"$j$^$9!#(B
+\subsection{\textsf{EMbreakbox}環境}
+もともとの\textsf{breakbox}環境に修正を加えるため，\textsf{EMbreakbox}
+環境を新設しました。基本的には，ほとんど\textsf{breakbox}環境そのものですが，
+\cmd{parindent}は\verb+1zw+としてあります。
 
 \input{example/ex25}
 
-\subsubsection{\texttt{<hsep=..,vsep=..>}$B%*%W%7%g%s(B}
-$BOH7S@~$HK\J8$H$N4V3V$O(B\cmd{fboxsep}$B$H$J$C$F$$$^$9$,!$$3$l$r$$$8$k$H!$(B
-\cmd{fbox}$B$J$I$rK\J8$G;HMQ$7$?$H$-$b1F6A$7$F$7$^$$$^$9!#$^$?!$>e2<$H:81&$G(B
-$B6u$-$r0[$J$kCM$K@_Dj$7$?$$$H$-$b$"$j$^$9!#(B
-$B$=$3$G!$>e2<$N6u$-$r@_Dj$9$k(B\verb+<vsep=..>+$B%*%W%7%g%s!$(B
-$B:81&$N6u$-$r@_Dj$9$k(B\verb+<hsep=..>+$B%*%W%7%g%s$r$D$1$^$7$?!#(B
-$B2<$N%j%9%H$O(B
+\subsubsection{\texttt{<hsep=..,vsep=..>}オプション}
+枠罫線と本文との間隔は\cmd{fboxsep}となっていますが，これをいじると，
+\cmd{fbox}などを本文で使用したときも影響してしまいます。また，上下と左右で
+空きを異なる値に設定したいときもあります。
+そこで，上下の空きを設定する\verb+<vsep=..>+オプション，
+左右の空きを設定する\verb+<hsep=..>+オプションをつけました。
+下のリストは
 \begin{jquote}
 \begin{verbatim}
 \begin{EMbreakbox}<hsep=2zw,vsep=1zh>
 \end{verbatim}
 \end{jquote}
-$B$H$7$F$"$j$^$9!#(B
+としてあります。
 \bigskip
 
 \input{example/ex26}
 
-\subsubsection{$BGX7J?'$N;XDj(B}
-$B0O$_$NCf$NGX7J?'$r;XDj$9$k$?$a$N%*%W%7%g%s$,(B\verb+<backgroundcolor=..>+$B$G$9!#(B
-$B2<$N%j%9%H$G$O(B
+\subsubsection{背景色の指定}
+囲みの中の背景色を指定するためのオプションが\verb+<backgroundcolor=..>+です。
+下のリストでは
 \begin{jquote}
 \begin{verbatim}
 \begin{EMbreakbox}<backgroundcolor=cyan>
 \end{verbatim}
 \end{jquote}
-$B$H$7$F$"$j$^$9!#(B
+としてあります。
 \bigskip
 
 \input{example/ex27}
 
-$B!JCm!K(B\cmd{color}$B$N%M%9%H$,$I$&$J$k$+$O!$4D6-0MB8$G$7$g$&$+!#(B
+（注）\cmd{color}のネストがどうなるかは，環境依存でしょうか。
 
-$B2<$N%j%9%H$O!$>e$N%j%9%H$NCf$K(B
+下のリストは，上のリストの中に
 \begin{jquote}
 \begin{verbatim}
 \fcolorbox{red}{yellow}{ABC}
 \end{verbatim}
 \end{jquote}
-$B$rF~$l;R$K$7$F$$$^$9!#(B
+を入れ子にしています。
 \bigskip
 
 \input{example/ex28}
 
-\subsubsection{$BOH@~?'$N;XDj(B}
-$B0O$_$K$*$1$kOH$N?'$r;XDj$9$k$?$a$N%*%W%7%g%s$,(B\verb+<framecolor=..>+$B$G$9!#(B
-$B2<$N%j%9%H$G$O(B
+\subsubsection{枠線色の指定}
+囲みにおける枠の色を指定するためのオプションが\verb+<framecolor=..>+です。
+下のリストでは
 \begin{jquote}
 \begin{verbatim}
 \begin{EMbreakbox}<framecolor=red,backgroundcolor=lightgray>
 \end{verbatim}
 \end{jquote}
-$B$H$7$F$"$j$^$9!#(B
+としてあります。
 \bigskip
 
 \input{example/ex29}
 
-\subsection{$BOH@~$rE@@~$K(B --- \textsf{breakDbox}$B4D6-(B}
+\subsection{枠線を点線に --- \textsf{breakDbox}環境}
 
-$BOH@~$rE@@~$K$7$?(B \textsf{breakDbox}$B4D6-$G$9!#(B
-$B$?$@$7!$$3$N4D6-$O(B\textsf{multido.sty}$B$GDj5A$5$l$F$$$k(B\cmd{multido}$B$rMQ$$$F$$$^$9!#(B
+枠線を点線にした \textsf{breakDbox}環境です。
+ただし，この環境は\textsf{multido.sty}で定義されている\cmd{multido}を用いています。
 \bigskip
 
 \input{example/ex02}
 \bigskip
 
-$BOH@~$HCf$N%F%-%9%H$H$N4V3V$O(B\verb+[fboxsep=...]+$B%*%W%7%g%s$G;XDj$7$^$9!#(B
-$B<!$NNc$O(B
+枠線と中のテキストとの間隔は\verb+[fboxsep=...]+オプションで指定します。
+次の例は
 \begin{jquote}
 \begin{verbatim}
 \begin{breakDbox}[fboxsep=10pt]
 \end{verbatim}
 \end{jquote}
-$B$H$7$F$$$^$9!#(B\bigskip
+としています。\bigskip
 
 \input{example/ex03}
 
-\subsection{$BFs=E7S@~OH(B ---\textsf{bkdblbox}$B4D6-(B}
-$B%Z!<%8$r$^$?$0Fs=E7S@~OH0O$_$G$9!#(B
+\subsection{二重罫線枠 ---\textsf{bkdblbox}環境}
+ページをまたぐ二重罫線枠囲みです。
 
 \input{example/ex22}
 
-\textsf{itembbox.sty}$B$GDj5A$5$l$F$$$k(B\textsf{dblbox}$B$H$O(B
-$B<!$NE@$G0[$J$C$F$$$^$9!#(B
+\textsf{itembbox.sty}で定義されている\textsf{dblbox}とは
+次の点で異なっています。
 
 \begin{enumerate}[1.~]
-  \item $B30OH$NB@$5$,(B\texttt{2pt}$B$HB@$a$K$J$C$F$$$^$9!#(B
-  \item $BOH@~$O!$(B\textsf{dblbox}$B4D6-$,(B\verb+\hrule, \vrule+$B$G(B
-    $B0z$$$F$$$k$N$KBP$7!$(B\textsf{bkdblbox}$B4D6-$G$O!$(B
-    \texttt{tpic specials}$B$GIA2h$7$F$$$^$9!#(B
-  \item \textsf{dblbox}$B4D6-$O%Z!<%8$r$^$?$0$3$H$,$G$-$^$;$s$,!$(B
-    \textsf{bkdblbox}$B4D6-$O%Z!<%8$r$^$?$0$3$H$,$G$-$^$9!#(B
-    $B!J$?$@$7!$%Z!<%8$r$^$?$0$H$$$&A0Ds$G$9$+$i!$(B
-    $BCf?H$,#19T$@$1$H$$$&>u67$O5vMF$7$^$;$s!#!K(B
+  \item 外枠の太さが\texttt{2pt}と太めになっています。
+  \item 枠線は，\textsf{dblbox}環境が\verb+\hrule, \vrule+で
+    引いているのに対し，\textsf{bkdblbox}環境では，
+    \texttt{tpic specials}で描画しています。
+  \item \textsf{dblbox}環境はページをまたぐことができませんが，
+    \textsf{bkdblbox}環境はページをまたぐことができます。
+    （ただし，ページをまたぐという前提ですから，
+    中身が１行だけという状況は許容しません。）
 \end{enumerate}
 
-\paragraph{$B=q<0(B}
-\textsf{bkdblbox}$B4D6-$N=q<0$G$9!#(B
+\paragraph{書式}
+\textsf{bkdblbox}環境の書式です。
 
 \begin{boxnote}
 \begin{verbatim}
 \begin{bkdblbox}[#1]
   #1: key=val
-    $BFbB&7S@~$H%F%-%9%HIt$H$N4V3V$r$D$+$5$I$k%*%W%7%g%s(B
-       fboxsep=..$B!J%G%U%)%k%HCM(B=\fboxsep$B!K(B
-       hsep=...$B!J%G%U%)%k%HCM(B=\fboxsep$B!K(B
-       vsep=...$B!J%G%U%)%k%HCM(B=\fboxsep$B!K(B
-    $B7S@~$NB@$5!$4V3V$r$D$+$5$I$k%*%W%7%g%s(B
-       fboxruleA=... $B30OH7S@~$NB@$5!J%G%U%)%k%HCM(B=2pt$B!K(B
-       fboxruleB=... $BFbOH7S@~$NB@$5!J%G%U%)%k%HCM(B=\fboxrule$B!K(B
-       fboxruleG=... $B30OH7S@~$HFbOH7S@~$N5wN%!J%G%U%)%k%HCM(B=2pt$B!K(B
-    $B1&JUCM$O$9$Y$F!$C10L$rH<$&?tCM$G$9!#(B
+    内側罫線とテキスト部との間隔をつかさどるオプション
+       fboxsep=..（デフォルト値=\fboxsep）
+       hsep=...（デフォルト値=\fboxsep）
+       vsep=...（デフォルト値=\fboxsep）
+    罫線の太さ，間隔をつかさどるオプション
+       fboxruleA=... 外枠罫線の太さ（デフォルト値=2pt）
+       fboxruleB=... 内枠罫線の太さ（デフォルト値=\fboxrule）
+       fboxruleG=... 外枠罫線と内枠罫線の距離（デフォルト値=2pt）
+    右辺値はすべて，単位を伴う数値です。
 \end{verbatim}
 \end{boxnote}
 
-\subsection{$B4]Fs=E7S@~OH(B --- \textsf{bkdblovalbox}$B4D6-(B}
-$B;M6y$r4]$/$7$?$N$,(B\textsf{bkdblovalbox}$B4D6-$G$9!#(B
+\subsection{丸二重罫線枠 --- \textsf{bkdblovalbox}環境}
+四隅を丸くしたのが\textsf{bkdblovalbox}環境です。
 
 \input{example/ex23}
 
-$B$3$N4D6-$G$O!$FbB&7S@~$HJ8;z%V%m%C%/$H$N4V3V$N%G%U%)%k%HCM$O(B
+この環境では，内側罫線と文字ブロックとの間隔のデフォルト値は
 \begin{jquote}
-$B>e2<$,(B\texttt{1zh}\\
-$B:81&$,(B\texttt{1zw}
+上下が\texttt{1zh}\\
+左右が\texttt{1zw}
 \end{jquote}
-$B$H$J$C$F$$$^$9!#(B
+となっています。
 
-$B$5$i$K!$;M6y$NBJ1_$rIA2h$9$k$N$K(B\textsf{emathPp.sty}$B!$$9$J$o$A(B
-\textsf{perl}$B$H$NO"7H5!G=$rMQ$$$^$9!#(B
+さらに，四隅の楕円を描画するのに\textsf{emathPp.sty}，すなわち
+\textsf{perl}との連携機能を用います。
 
-\subsection{$B1F$D$-(B -- bkshadebox$B4D6-(B}
-\textsf{ascmac.sty}$B$GDj5A$5$l$F$$$k(B\textsf{shadebox}$B4D6-$r(B
-$B%Z!<%8$,$^$?$2$k$h$&$K$7$?$b$N$G$9!#(B
+\subsection{影つき -- bkshadebox環境}
+\textsf{ascmac.sty}で定義されている\textsf{shadebox}環境を
+ページがまたげるようにしたものです。
 
 \input{example/ex24}
 
-\subsection{$B4]0O$_(B -- breakitembox$B4D6-(B}
-$B;M6y$,4]$$0O$_$G$9!#K\Mh$O8+=P$7$r$D$1$k$?$a$N$b$N$G$9$,!$(B
-$B8+=P$7$H$7$F6uJ8;zNs$rM?$($l$P!$8+=P$7$J$7$N0O$_$b:n$l$^$9!#(B
+\subsection{丸囲み -- breakitembox環境}
+四隅が丸い囲みです。本来は見出しをつけるためのものですが，
+見出しとして空文字列を与えれば，見出しなしの囲みも作れます。
 
-$B$?$@$7!$$3$N4D6-$O(B\textsf{itembkbx.sty}$B$GDj5A$5$l$F$$$^$9$+$i!$(B
-\texttt{itembkbx.tex}$B$r$4Mw$/$@$5$$!#(B
+ただし，この環境は\textsf{itembkbx.sty}で定義されていますから，
+\texttt{itembkbx.tex}をご覧ください。
 
-\section{$B%Z!<%8$r$^$?$00O$_(B(2) $B8+=P$7M-(B}
-\subsection{$B8+=P$7IU$-;M3Q0O$_(B --- \textsf{breakitemsquarebox}$B4D6-(B}
-$B;M3Q0O$_$G!$8+=P$7$r>eJU!&2<JU$K$D$1$k$3$H$,$G$-!$%Z!<%8$r$^$?$.$^$9!#(B
+\section{ページをまたぐ囲み(2) 見出し有}
+\subsection{見出し付き四角囲み --- \textsf{breakitemsquarebox}環境}
+四角囲みで，見出しを上辺・下辺につけることができ，ページをまたぎます。
 
-$B$?$@$7!$$3$N4D6-$O(B\textsf{itembkbx.sty}$B$GDj5A$5$l$F$$$^$9$+$i!$(B
-\texttt{itembkbx.tex}$B$r$4Mw$/$@$5$$!#(B
+ただし，この環境は\textsf{itembkbx.sty}で定義されていますから，
+\texttt{itembkbx.tex}をご覧ください。
 
-\subsection{$B8+=P$7IU$-4]0O$_(B -- breakitembox$B4D6-(B}
-$B4]0O$_$G!$8+=P$7$r>eJU!&2<JU$K$D$1$k$3$H$,$G$-!$%Z!<%8$r$^$?$.$^$9!#(B
+\subsection{見出し付き丸囲み -- breakitembox環境}
+丸囲みで，見出しを上辺・下辺につけることができ，ページをまたぎます。
 
-$B$?$@$7!$$3$N4D6-$O(B\textsf{itembkbx.sty}$B$GDj5A$5$l$F$$$^$9$+$i!$(B
-\texttt{itembkbx.tex}$B$r$4Mw$/$@$5$$!#(B
+ただし，この環境は\textsf{itembkbx.sty}で定義されていますから，
+\texttt{itembkbx.tex}をご覧ください。
 
-\section{$B:8!?1&$N7S@~$N$_$r0z$/(B}
-\subsection{$B:81&$K7S@~(B --- \textsf{breakLRline}$B4D6-(B}
-$B7S@~OH$N>eJU!&2<JU$O0z$+$:!$:81&$N$_$r0z$-$^$9!#(B
-$BMs30$KCm<a$r$D$1$k$3$H$rA@$C$F$$$^$9!#(B\bigskip
+\section{左／右の罫線のみを引く}
+\subsection{左右に罫線 --- \textsf{breakLRline}環境}
+罫線枠の上辺・下辺は引かず，左右のみを引きます。
+欄外に注釈をつけることを狙っています。\bigskip
 
 \input{example/ex04}
 
-$B@~<o$O!$%G%U%)%k%H$G$O<B@~$G$9$,!$E@@~$K$7$?$1$l$P(B
+線種は，デフォルトでは実線ですが，点線にしたければ
 \begin{jquote}
 \begin{verbatim}
 [sensyu=\emcdottedline]
 \end{verbatim}
 \end{jquote}
-$B$J$I$H%*%W%7%g%s$r$D$1$^$9!#(B
-$B$?$@$7!$(B\cmd{emcdottedline}$B$O!$(B\textsf{multido.sty}$B$GDj5A$5$l$F$$$k(B
-\cmd{multido}$B$rMQ$$$F$$$^$9!#(B
+などとオプションをつけます。
+ただし，\cmd{emcdottedline}は，\textsf{multido.sty}で定義されている
+\cmd{multido}を用いています。
 
 \input{example/ex05}
 
-\subsection{$B1&$K$N$_7S@~(B --- \textsf{breakRline}$B4D6-(B}
-$B1&7S@~$N$_$r$D$1$k$N$,(B\textsf{breakRline}$B4D6-$G$9!#(B\bigskip
+\subsection{右にのみ罫線 --- \textsf{breakRline}環境}
+右罫線のみをつけるのが\textsf{breakRline}環境です。\bigskip
 
 \input{example/ex06}
 
-$B<BNc$O$D$1$^$;$s$,!$(B
+実例はつけませんが，
 \begin{jquote}
 \begin{verbatim}
 [sensyu=\emcdottedline]
 \end{verbatim}
 \end{jquote}
-$B%*%W%7%g%s$bM-8z$G$9!#(B
+オプションも有効です。
 
-\subsection{$B:8$K$N$_7S@~(B --- \textsf{breakLline}$B4D6-(B}
-$B:87S@~$N$_$r$D$1$k$N$,(B\textsf{breakLline}$B4D6-$G$9!#(B\bigskip
+\subsection{左にのみ罫線 --- \textsf{breakLline}環境}
+左罫線のみをつけるのが\textsf{breakLline}環境です。\bigskip
 
 \input{example/ex07}
 
@@ -254,359 +254,359 @@ http://emath.s40.xrea.com/
 [sensyu=.....]
 \end{verbatim}
 \end{jquote}
-$B%*%W%7%g%s$,M-8z$J$N$O8@$&$^$G$b$"$j$^$;$s!#(B
+オプションが有効なのは言うまでもありません。
 
 
 
-\subsubsection{\texttt{[headline]}$B%*%W%7%g%s(B}
-$B$3$N:87S@~$r@hF,9T$@$10z$-$?$/$J$$!$$H$$$&$4MWK>$,$"$j$^$7$?!#(B
-$B$=$N$?$a!$(B\verb+[headline]+$B%*%W%7%g%s$r?7@_$7$^$7$?!#(B
+\subsubsection{\texttt{[headline]}オプション}
+この左罫線を先頭行だけ引きたくない，というご要望がありました。
+そのため，\verb+[headline]+オプションを新設しました。
 
-$B$^$:$O!$(B\textsf{breakLline}$B4D6-$N%G%U%)%k%H>uBV$r8+$F$*$-$^$9!#(B
+まずは，\textsf{breakLline}環境のデフォルト状態を見ておきます。
 
 \begin{showEx}(.5,.44){\textsf{breakLline}}
 \begin{breakLline}
-$B%G%U%)%k%H$N(B
-\textsf{breakLline}$B4D6-(B
-$B$G$9!#(B
-$B4D6-Fb$N%V%m%C%/$K:8=D7S@~$r0z$-$^$9!#(B
+デフォルトの
+\textsf{breakLline}環境
+です。
+環境内のブロックに左縦罫線を引きます。
 
-$B$3$N%V%m%C%/$O%Z!<%8$r$^$?$0$3$H$,$G$-$k(B
-$B$N$,FCD'$G$9!#(B
+このブロックはページをまたぐことができる
+のが特徴です。
 \end{breakLline}
 \smallskip
 \end{showEx}
 
-\textsf{breakLline}$B4D6-$K$*$$$F!$@hF,9T$K$O:87S@~$r0z$+$J$$$?$a$N(B
-$B%*%W%7%g%s(B \verb+[headline=..]+$B$rF3F~$7$^$7$?!#(B
+\textsf{breakLline}環境において，先頭行には左罫線を引かないための
+オプション \verb+[headline=..]+を導入しました。
 
-\begin{showEx}(.5,.44){\texttt{[headline]}$B%*%W%7%g%s(B}
+\begin{showEx}(.5,.44){\texttt{[headline]}オプション}
 \begin{breakLline}%
     [parindent=0pt,headline]
-\textgt{\inhibitglue $B!Z8+=P$7![(B} 
-$B@hF,9T$N$_!$(B
-$B:87S@~$r@Z$k$?$a$N%*%W%7%g%s$,(B
+\textgt{\inhibitglue 【見出し】} 
+先頭行のみ，
+左罫線を切るためのオプションが
 \begin{jquote}
 \begin{verbatim}
 [headline]
 \end{verbatim}
 \end{jquote}
-$B$G$9!#$"$o$;$F!$$3$NCJMn$O(B
-$B%$%s%G%s%H$r$D$1$?$/$J$$$N$G(B
+です。あわせて，この段落は
+インデントをつけたくないので
 \begin{jquote}
 \begin{verbatim}
 [parindent=0pt]
 \end{verbatim}
 \end{jquote}
-$B$rJ;MQ$7$F$$$^$9!#(B\\
-$B!J:8$N%j%9%H$N@hF,(B2$B9T$r(B
-$B$4Mw$/$@$5$$!#(B)
+を併用しています。\\
+（左のリストの先頭2行を
+ご覧ください。)
 
 \parindent=1zw\relax
-$BBh(B2$BCJMn0J9_$O:8%$%s%G%s%H$r$D$1$k(B
-$B$H$9$l$P!$Bh(B2$BCJMn@hF,$K(B
+第2段落以降は左インデントをつける
+とすれば，第2段落先頭に
 \begin{jquote}
 \begin{verbatim}
 \parindent=1zw
 \end{verbatim}
 \end{jquote}
-$B$J$I$H$9$kI,MW$,$"$j$^$9!#(B
+などとする必要があります。
 \end{breakLline}
 \smallskip
 \end{showEx}
 
-\verb+[headline]+$B%*%W%7%g%s$O!$(B\verb+[headline=1]+$B$J$I$H!$(B
-$B1&JUCM$r;XDj$9$k$N$,K\Mh$N;H$$J}$G$9$,!$(B1$B$N>l9g$K8B$C$F>JN,2DG=(B
-$B$H$7$F$"$j$^$9!#(B
+\verb+[headline]+オプションは，\verb+[headline=1]+などと，
+右辺値を指定するのが本来の使い方ですが，1の場合に限って省略可能
+としてあります。
 
-$B1&JUCM$,(B1$B$G$J$$;H$$J}$NNc$r$4Mw$/$@$5$$!#(B
+右辺値が1でない使い方の例をご覧ください。
 
-\begin{showEx}(.5,.44){\texttt{[headline=..]}$B%*%W%7%g%s(B}
+\begin{showEx}(.5,.44){\texttt{[headline=..]}オプション}
 \begin{breakLline}%
     [parindent=0pt,headline=2]
 \begin{mawarikomi}[l]%
-    {2.5zw}{\Huge $BCm(B}
-$BCJMn@hF,$NJ8;z!JNs!K$rBg$-$/$7$F(B
-$B6/D4$9$k%9%?%$%k$rF|K\8l2=$7$?$b$N$K(B
-\textsf{egdrop.sty}$B$,$"$j$^$9$,!$(B
-\textsf{breakLline}$B4D6-$H$OAj@-$,0-$$$h$&$G$9!#(B
+    {2.5zw}{\Huge 注}
+段落先頭の文字（列）を大きくして
+強調するスタイルを日本語化したものに
+\textsf{egdrop.sty}がありますが，
+\textsf{breakLline}環境とは相性が悪いようです。
 \end{mawarikomi}
 
 \parindent=1zw\relax
-$B$3$3$G$O!$(B\textsf{mawarikomi}$B4D6-$N:8G[CV$rMQ$$$F!$(B
-$B5<;wE*$K<B8=$7$F$$$^$9!#(B
+ここでは，\textsf{mawarikomi}環境の左配置を用いて，
+擬似的に実現しています。
 \end{breakLline}
 \smallskip
 \end{showEx}
 
-\section{$B:81&Ms30$KCm<a(B}
-\subsection{$B1&Ms30$KCm<a(B --- \cmd{MigiRangai}}
-\textsf{breakbox}$B4D6-$O%Z!<%8$r$^$?$0$3$H$,$G$-$k$N$O$"$j$,$?$$$N$G$9$,!$(B
-\cmd{marginpar}$B%3%^%s%I$O;HMQ$G$-$^$;$s!#(B
+\section{左右欄外に注釈}
+\subsection{右欄外に注釈 --- \cmd{MigiRangai}}
+\textsf{breakbox}環境はページをまたぐことができるのはありがたいのですが，
+\cmd{marginpar}コマンドは使用できません。
 
-$B$=$3$G(B\cmd{marginpar}$B$b$I$-$r:n$m$&!$$H$$$&$3$H$G$9!#(B\bigskip
+そこで\cmd{marginpar}もどきを作ろう，ということです。\bigskip
 
-\begin{enumerate}[$BCm(B 1)]
-  \item \cmd{MigiRangai}$B$N0z?t$O!$(B\cmd{parbox}$B$KEO$5$l$^$9$+$i!$(B
-    $BD9$$Cm<a$O@^$jJV$5$l$^$9!#(B
-  \item \cmd{MigiRangai}$B$O!$IbF0BN$G$O$"$j$^$;$s$+$i!$(B
-    2$B$D$NCm$,=E$J$C$F$b0\F0$5$l$^$;$s!#!J=E$J$C$?$^$^$G$9!#(B
-    $B$=$l$r0\F0$9$k$N$O%=!<%9%j%9%H>e$G9)IW$7$J$1$l$P$J$j$^$;$s!#!K(B
+\begin{enumerate}[注 1)]
+  \item \cmd{MigiRangai}の引数は，\cmd{parbox}に渡されますから，
+    長い注釈は折り返されます。
+  \item \cmd{MigiRangai}は，浮動体ではありませんから，
+    2つの注が重なっても移動されません。（重なったままです。
+    それを移動するのはソースリスト上で工夫しなければなりません。）
 \end{enumerate}
 
 \input{example/ex08}
-$B:8Ms30$KCm$r$D$1$k(B \cmd{HidariRangai}$B$b$"$j$^$9!#(B
+左欄外に注をつける \cmd{HidariRangai}もあります。
 
-\subsection{$B:8Ms30$KCm<a(B --- \cmd{HidariRangai}}
+\subsection{左欄外に注釈 --- \cmd{HidariRangai}}
 
 \input{example/ex09}
 
-\subsection{$B9TF,$K%^!<%/(B --- \cmd{Gyoutou}}
-\cmd{Hidarirangai}$B$G$D$1$i$l$kCm<a$O!$:85M$K$J$j$^$9!#(B
-$B4JC1$J%^!<%/$N>l9g!$1&5M$GCV$-$?$$$3$H$,$"$j$^$9!#(B
-$B$=$N$?$a$N%3%^%s%I$,(B\cmd{gyoutou}$B$G$9!#(B
-$B$3$l$OI,$:$7$bCJMn$N;O$a$KCV$/I,MW$O$"$j$^$;$s!#(B
-$BCJMn$NESCf$GH/9T$7$F$b$=$N9T$N9TF,$KCV$+$l$^$9!#(B
+\subsection{行頭にマーク --- \cmd{Gyoutou}}
+\cmd{Hidarirangai}でつけられる注釈は，左詰になります。
+簡単なマークの場合，右詰で置きたいことがあります。
+そのためのコマンドが\cmd{gyoutou}です。
+これは必ずしも段落の始めに置く必要はありません。
+段落の途中で発行してもその行の行頭に置かれます。
 
 \input{example/ex10}
 
-\subsection{$BMs30Cm!$=D0LCV$ND4@0(B}
-$B?t<0$,EP>l$9$k9T$J$I$G$O!$1&Cm$N=D0LCV$,$:$l$k$3$H$,$"$j$^$9!#(B
-$B$=$N$h$&$J$H$-$O(B\verb+<...>+$B%*%W%7%g%s$G=D0LCV$rD4@0$7$^$9!#(B
+\subsection{欄外注，縦位置の調整}
+数式が登場する行などでは，右注の縦位置がずれることがあります。
+そのようなときは\verb+<...>+オプションで縦位置を調整します。
 \bigskip
 
 \input{example/ex11}
 
-\begin{enumerate}[$BCm(B1)~]
-  \item \verb+<..>+$B%*%W%7%g%s$N?tCM!JC10LIU!K$,@5$N$H$-$O2<$K!$(B
-    $BIi$N$H$-$O>e$K0\F0$7$^$9!#(B
-  \item $B$3$N%*%W%7%g%s$O(B\cmd{HidariRangai}, \cmd{MigiRangai}, \cmd{Gyoutou}
-    $B$9$Y$F$K;HMQ$G$-$^$9!#(B
+\begin{enumerate}[注1)~]
+  \item \verb+<..>+オプションの数値（単位付）が正のときは下に，
+    負のときは上に移動します。
+  \item このオプションは\cmd{HidariRangai}, \cmd{MigiRangai}, \cmd{Gyoutou}
+    すべてに使用できます。
 \end{enumerate}
 
-\section{$B2rEz$rFsCJAH$K(B}
-\textsf{emathAt.sty}$B$G!$2rEz$rFsCJAH$K$9$k;n$_$r$7$F$$$^$9$,!$(B
-$B$=$3$G$O!$2rEzK\J8$H1&Cm<aIt$r;E@Z$k=D7S@~$,%Z!<%8$r$^$?$0$3$H$,(B
-$B$G$-$^$;$s$G$7$?!#(B
+\section{解答を二段組に}
+\textsf{emathAt.sty}で，解答を二段組にする試みをしていますが，
+そこでは，解答本文と右注釈部を仕切る縦罫線がページをまたぐことが
+できませんでした。
 
-$B$=$l$r2DG=$H$7$?$N$,(B \textsf{emathBk.sty} $B$G$9!#(B
+それを可能としたのが \textsf{emathBk.sty} です。
 
-\subsection{\texttt{tyuukai}$B4D6-$H(B\cmd{tyuu}$B%3%^%s%I(B}
-$BLdBj$N2rEzItJ,$r(B2$BCJAH$K$7$F!$:8B&$K2rEz$r!$(B
-$B1&B&$KCm<a$rIU$1$k$?$a$N(B \verb+tyuukai+$B4D6-$H!$Cm<a$rIU$1$k(B\verb+\tyuu+
-$B%3%^%s%I$G$9!#(B
+\subsection{\texttt{tyuukai}環境と\cmd{tyuu}コマンド}
+問題の解答部分を2段組にして，左側に解答を，
+右側に注釈を付けるための \verb+tyuukai+環境と，注釈を付ける\verb+\tyuu+
+コマンドです。
 
-$B2<$NNc$O!$(B\textsf{emathAt.sty} $B$N$b$N$H$[$H$s$IF1$8$G$9$,!$(B
-$B%Z!<%8$r$^$?$0$3$H$,$G$-$^$9!#(B
-$B!J%=!<%9%j%9%H$O!$(Bex12.tex$B!K(B
+下の例は，\textsf{emathAt.sty} のものとほとんど同じですが，
+ページをまたぐことができます。
+（ソースリストは，ex12.tex）
 
 \input{example/ex12}
 
-\subsection{$BCm<aNN0h$N2#I};XDj(B}
-$BCm<aNN0h$N2#I}$O%G%U%)%k%H$G$O(B \verb+\textwidth+$B$N(B3/10$B$H$J$C$F$$$^$9!#(B
-$B$3$l$rJQ99$9$k$K$O!$(B\verb+emathAt.sty+$B$NFbItJQ?t(B\cmd{tyuuhaba}$B$K(B
-$BC10LIU$-$ND9$5$r;XDj$7$^$9!#(B
+\subsection{注釈領域の横幅指定}
+注釈領域の横幅はデフォルトでは \verb+\textwidth+の3/10となっています。
+これを変更するには，\verb+emathAt.sty+の内部変数\cmd{tyuuhaba}に
+単位付きの長さを指定します。
 \begin{jquote}
- $BNc!'(B\verb+\tyuuhaba=8zw+
+ 例：\verb+\tyuuhaba=8zw+
 \end{jquote}
 
 {\input{example/ex13}}
 
 \clearpage
 
-\subsection{$BCm<aJ8!$I=<(0LCV$NHyD4@0(B}
-$B?t<09T$O2~9T%T%C%A$J$I$,DL>o$NJ8$H0[$J$k$?$a!$(B
-$BCm<aJ8$N0LCV$KITK~$,=P$k$3$H$,$"$j$^$9!#(B
+\subsection{注釈文，表示位置の微調整}
+数式行は改行ピッチなどが通常の文と異なるため，
+注釈文の位置に不満が出ることがあります。
 
 \input{example/ex14}
 
-$B$H$$$&Nc$G$O!$Cm<aJ8$N0LCV$r>e$K$:$i$7$?$/$J$j$^$9!#(B
-$B$3$l$r<B8=$9$k$N$,(B\cmd{tyuu}$B$N(B\verb+<...>+$B%*%W%7%g%s$G$9!#(B
-$B2<$NNc$G$O(B\verb+\tyuu<-.4\baselineskip>{...}+$B$H$7$F!$(B
-$BCm<aJ8$r>eJ}$K(B\verb+.4\baselineskip+$B>e$2$F$$$^$9!#(B
+という例では，注釈文の位置を上にずらしたくなります。
+これを実現するのが\cmd{tyuu}の\verb+<...>+オプションです。
+下の例では\verb+\tyuu<-.4\baselineskip>{...}+として，
+注釈文を上方に\verb+.4\baselineskip+上げています。
 
 \input{example/ex15}
 \clearpage
 
-\subsection{\textsf{mawarikomi}$B4D6-$H$NJ;MQ(B}
-$B2rEz$NCf$G(B\textsf{mawarikomi}$B4D6-$r;HMQ$7!$$=$NCf$GCm<a$r$D$1$k$N$O(B
-\textsf{emathAt.sty}$B$G$OLLE]$G$7$?$,!$(B\textsf{emathBk.sty}$B$G$O(B
-\verb+\tyuu+$B%3%^%s%I$O$=$N$^$^;HMQ2DG=$G$9!#(B
+\subsection{\textsf{mawarikomi}環境との併用}
+解答の中で\textsf{mawarikomi}環境を使用し，その中で注釈をつけるのは
+\textsf{emathAt.sty}では面倒でしたが，\textsf{emathBk.sty}では
+\verb+\tyuu+コマンドはそのまま使用可能です。
 
 \input{example/ex16}
 
-$B$?$@$7!$2s$j9~$_Cf$K$*$$$F!$(B\textsf{align}$B4D6-$J$I$N?t<04D6-Fb$G$O!$(B
-\verb+\tyuu*+$B$H!$%"%9%?%j%9%/IU$N%3%^%s%I$r;HMQ$7$^$9!#(B
+ただし，回り込み中において，\textsf{align}環境などの数式環境内では，
+\verb+\tyuu*+と，アスタリスク付のコマンドを使用します。
 \clearpage
 
 \input{example/ex17}
 \clearpage
 
-\subsection{$BCm<a5-9f$NJQ99(B}
-$B%G%U%)%k%H$G$O!$Cm<a$NKAF,$K(B`$\longleftarrow$'$B$,$D$-$^$9!#(B
-$B$3$N5-9f$rJQ99$9$k$K$O(B
+\subsection{注釈記号の変更}
+デフォルトでは，注釈の冒頭に`$\longleftarrow$'がつきます。
+この記号を変更するには
 \begin{jquote}
 \begin{verbatim}
 \tyuumark{$\blacktriangleleft$~}
 \end{verbatim}
 \end{jquote}
-$B$J$I$H$7$^$9!#(B
+などとします。
 
 \input{example/ex18}
 
-\subsection{$BCm5-9f$N6I=jE*JQ99(B}
-\cmd{tyuu}$B$K$h$kCm5-9f$r6I=jE*$KJQ99$9$k$K$O(B
-\cmd{tyuu}$B$K(B\verb+[...]+$B%*%W%7%g%s$r$D$1$^$9!#(B
+\subsection{注記号の局所的変更}
+\cmd{tyuu}による注記号を局所的に変更するには
+\cmd{tyuu}に\verb+[...]+オプションをつけます。
 
 \begin{tyuukai}
-$B$"$"$"$"$"$"$"$"$"$"$"$"(B
-$B$3$3$G(B\verb+\tyuu+$B%3%^%s%I$K$h$kCm$r$D$1$^$9!#(B
-\tyuu{$BCm<a$G$9!#(B}$BCm$N@hF,$K$O!$(B$\longleftarrow$$B$,$D$-$^$9!#(B
-$B$3$l$rJQ99$9$k$K$O!$(B\cmd{tyuumark}$B%3%^%s%I$rMQ$$$^$9$,!$(B
-$B6I=jE*$KJQ99$9$k$?$a$K!$(B\cmd{tyuu}$B$K(B\verb+[...]+$B%*%W%7%g%s(B
-$B$rIU2C2DG=$H$7$^$7$?!#$3$3$G$O(B\verb+\tyuu[$B"((B~]{...}+$B$H$7$F(B
-$BCm5-9f$r6I=jE*$KJQ99$7$F$$$^$9!#(B\tyuu[$B"((B~]{$BCm5-9f$NJQ99(B}
-$B$3$N5-9f$,6I=jE*$G$"$k$3$H$r3NG'$9$k$?$a!$$3$3$G:FEY(B
-\verb+\tyuu{...}+$B$rH/9T$7$^$9!#(B\tyuu{$BCm5-9f$O%G%U%)%k%H$KLa$C$F$$$^$9!#(B}
+ああああああああああああ
+ここで\verb+\tyuu+コマンドによる注をつけます。
+\tyuu{注釈です。}注の先頭には，$\longleftarrow$がつきます。
+これを変更するには，\cmd{tyuumark}コマンドを用いますが，
+局所的に変更するために，\cmd{tyuu}に\verb+[...]+オプション
+を付加可能としました。ここでは\verb+\tyuu[※~]{...}+として
+注記号を局所的に変更しています。\tyuu[※~]{注記号の変更}
+この記号が局所的であることを確認するため，ここで再度
+\verb+\tyuu{...}+を発行します。\tyuu{注記号はデフォルトに戻っています。}
 
-$B$3$N%*%W%7%g%s$K$h$kCm5-9f$N6I=jE*$JJQ99$O(B
-$BJL9TN)$F?t<04D6-Fb$G$bM-8z$G$9!#(B
+このオプションによる注記号の局所的な変更は
+別行立て数式環境内でも有効です。
 
-$B2<$NNc$G$O!$<0(B\eqref{Lq}$B$K(B\verb+\tyuu[$B"((B~]{...}+$B$H$7$F!$(B
-$BCm5-9f$N6I=jE*JQ99$r;XDj$7$F$$$^$9!#(B
-$BB>$N<0$K$O(B\verb+\tyuu{...}+$B$H$7$F$$$^$9$+$i!$%G%U%)%k%H$N(B
-$BCm5-9f$,;H$o$l$^$9!#(B
+下の例では，式\eqref{Lq}に\verb+\tyuu[※~]{...}+として，
+注記号の局所的変更を指定しています。
+他の式には\verb+\tyuu{...}+としていますから，デフォルトの
+注記号が使われます。
 \begin{align}
-  y&=ax+b \tyuu{$B0l<!4X?t(B} \\
-  y&=px^2+qx+r \tyuu<label=Lq>[$B"((B~]{$BFs<!4X?t(B}\\
-  y&=\alpha x^3+\beta x^2+\gamma x+\delta \tyuu{$B;0<!4X?t(B}
+  y&=ax+b \tyuu{一次関数} \\
+  y&=px^2+qx+r \tyuu<label=Lq>[※~]{二次関数}\\
+  y&=\alpha x^3+\beta x^2+\gamma x+\delta \tyuu{三次関数}
 \end{align}
 \end{tyuukai}
 
-\subsection{\cmd{tyuu}$B$H?t<0HV9f!$%i%Y%k(B}
-\subsubsection{\cmd{tyuu}$B$H(B\cmd{notag}$B$NF15o(B}
-$B?t<0HV9f$rIUM?$9$k4D6-$K$*$$$F!$(B
-$B?t<0HV9f$rIUM?$7$J$$9T$K$O!$(B\verb+\notag+$B$r$D$1$^$9$,!$(B
-$B$=$N9T$K(B\verb+\tyuu+$B$b$D$1$k$H$-$O(B
+\subsection{\cmd{tyuu}と数式番号，ラベル}
+\subsubsection{\cmd{tyuu}と\cmd{notag}の同居}
+数式番号を付与する環境において，
+数式番号を付与しない行には，\verb+\notag+をつけますが，
+その行に\verb+\tyuu+もつけるときは
 \begin{jquote}
 \begin{verbatim}
 \tyuu<tag=notag>{.....}
 \end{verbatim}
 \end{jquote}
-$B$H$7$^$9!#(B
+とします。
 
-\begin{showEx}(1,1){\cmd{tyuu}$B$N(B\texttt{<tag=notag>}$B%*%W%7%g%s(B}
-$BK\J8K\J8K\J8K\J8K\J8K\J8K\J8K\J8K\J8K\J8K\J8K\J8K\J8K\J8K\J8K\J8K\J8K\J8K\J8(B
-$BK\J8K\J8K\J8K\J8K\J8K\J8K\J8K\J8K\J8K\J8K\J8K\J8K\J8K\J8K\J8K\J8K\J8K\J8K\J8(B
+\begin{showEx}(1,1){\cmd{tyuu}の\texttt{<tag=notag>}オプション}
+本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文
+本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文
 \begin{tyuukai}
-$B$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"(B
-$B$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"(B
+あああああああああああああああああああああああああああああああああああああああ
+ああああああああああああああああああああああ
 \begin{gather}
-\sin x\tyuu{$B%$%$%$%$%$%$(B}\\
-\cos x\tyuu<tag=notag>{$B%&%&%&%&%&%&(B}\\
+\sin x\tyuu{イイイイイイ}\\
+\cos x\tyuu<tag=notag>{ウウウウウウ}\\
 \tan x\\
 \log x\notag
 \end{gather}
-$B$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$(B
-$B$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$(B
+いいいいいいいいいいいいいいいいいいいいい
+いいいいいいいいいいいいいいいいいいいいい
 \end{tyuukai}
-$BK\J8K\J8K\J8K\J8K\J8K\J8K\J8K\J8K\J8K\J8K\J8K\J8K\J8K\J8K\J8K\J8K\J8K\J8K\J8(B
-$BK\J8K\J8K\J8K\J8K\J8K\J8K\J8K\J8K\J8K\J8K\J8K\J8K\J8K\J8K\J8K\J8K\J8K\J8K\J8(B
+本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文
+本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文
 \end{showEx}
 
 \clearpage
 
-\subsubsection{\cmd{tyuu}$B$H(B\cmd{atag}$B$NF15o(B}
-$B5U$K!$?t<0HV9f$rIUM?$7$J$$4D6-$K$*$$$F!$?t<0HV9f$rIUM?$7$?$$9T$K$O(B
-\verb+\atag+$B$r$D$1$^$9$,!$(B\verb+\tyuu+$B$bIU$1$?$$$H$-$O(B
+\subsubsection{\cmd{tyuu}と\cmd{atag}の同居}
+逆に，数式番号を付与しない環境において，数式番号を付与したい行には
+\verb+\atag+をつけますが，\verb+\tyuu+も付けたいときは
 \begin{jquote}
 \begin{verbatim}
 \tyuu<tag=atag>{.....}
 \end{verbatim}
 \end{jquote}
-$B$H$7$^$9!#(B
+とします。
 
-\begin{showEx}(1,1){\cmd{tyuu}$B$N(B\texttt{<tag=atag>}$B%*%W%7%g%s(B}
-$BK\J8K\J8K\J8K\J8K\J8K\J8K\J8K\J8K\J8K\J8K\J8K\J8K\J8K\J8K\J8K\J8K\J8K\J8K\J8(B
-$BK\J8K\J8K\J8K\J8K\J8K\J8K\J8K\J8K\J8K\J8K\J8K\J8K\J8K\J8K\J8K\J8K\J8K\J8K\J8(B
+\begin{showEx}(1,1){\cmd{tyuu}の\texttt{<tag=atag>}オプション}
+本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文
+本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文
 \begin{tyuukai}
-$B$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"(B
-$B$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"(B
+あああああああああああああああああああああああああああああああああああああああ
+ああああああああああああああああああああああ
 \begin{gather*}
-\sin x\tyuu{$B%$%$%$%$%$%$(B}\\
-\cos x\tyuu<tag=atag>{$B%&%&%&%&%&%&(B}\\
+\sin x\tyuu{イイイイイイ}\\
+\cos x\tyuu<tag=atag>{ウウウウウウ}\\
 \tan x\\
 \log x\atag
 \end{gather*}
-$B$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$(B
-$B$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$(B
+いいいいいいいいいいいいいいいいいいいいい
+いいいいいいいいいいいいいいいいいいいいい
 \end{tyuukai}
-$BK\J8K\J8K\J8K\J8K\J8K\J8K\J8K\J8K\J8K\J8K\J8K\J8K\J8K\J8K\J8K\J8K\J8K\J8K\J8(B
-$BK\J8K\J8K\J8K\J8K\J8K\J8K\J8K\J8K\J8K\J8K\J8K\J8K\J8K\J8K\J8K\J8K\J8K\J8K\J8(B
+本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文
+本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文
 \end{showEx}
 \clearpage
 
-\subsubsection{\cmd{tyuu}$B$H(B\cmd{label}$B$NF15o(B}
-\verb+\tyuu+$B$rIUM?$7$?9T$K%i%Y%k$r$D$1$?$$$H$-$O(B
+\subsubsection{\cmd{tyuu}と\cmd{label}の同居}
+\verb+\tyuu+を付与した行にラベルをつけたいときは
 \begin{jquote}
 \begin{verbatim}
-\tyuu<label=$B%i%Y%kL>(B>{.....}
+\tyuu<label=ラベル名>{.....}
 \end{verbatim}
 \end{jquote}
-$B$H$7$^$9!#(B
+とします。
 
-\begin{showEx}(1,1){\cmd{tyuu}$B$N(B\texttt{<label=...>}$B%*%W%7%g%s(B}
-$BK\J8K\J8K\J8K\J8K\J8K\J8K\J8K\J8K\J8K\J8K\J8K\J8K\J8K\J8K\J8K\J8K\J8K\J8K\J8(B
-$BK\J8K\J8K\J8K\J8K\J8K\J8K\J8K\J8K\J8K\J8K\J8K\J8K\J8K\J8K\J8K\J8K\J8K\J8K\J8(B
+\begin{showEx}(1,1){\cmd{tyuu}の\texttt{<label=...>}オプション}
+本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文
+本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文
 \begin{tyuukai}
-$B$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"(B
-$B$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"(B
+あああああああああああああああああああああああああああああああああああああああ
+ああああああああああああああああああああああ
 \begin{gather}
-\sin x\tyuu<tag=notag>{$B%$%$%$%$%$%$(B}\\
-\cos x\tyuu<label=E1>{$B%&%&%&%&%&%&(B}\\
+\sin x\tyuu<tag=notag>{イイイイイイ}\\
+\cos x\tyuu<label=E1>{ウウウウウウ}\\
 \tan x\label{E2}\\
 \log x\notag
 \end{gather}
-\eqref{E1}, \eqref{E2}$B$K$*$$$F!$(B
-$B$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$(B
-$B$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$(B
+\eqref{E1}, \eqref{E2}において，
+いいいいいいいいいいいいいいいいいいいいい
+いいいいいいいいいいいいいいいいいいいいい
 \end{tyuukai}
-$BK\J8K\J8K\J8K\J8K\J8K\J8K\J8K\J8K\J8K\J8K\J8K\J8K\J8K\J8K\J8K\J8K\J8K\J8K\J8(B
-$BK\J8K\J8K\J8K\J8K\J8K\J8K\J8K\J8K\J8K\J8K\J8K\J8K\J8K\J8K\J8K\J8K\J8K\J8K\J8(B
+本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文
+本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文
 \end{showEx}
 
-\subsection{$B:8Cm(B}
-\cmd{tyuu}$B$O1&Ms30$KCm<a$r$*$-$^$9$,!$:8Ms30$KCm<a$rCV$/$K$O(B
-\cmd{HidariRangai}$B$rMQ$$$^$9!#(B
-\textsf{emathAt}$B$GMQ$$$F$$$?(B\cmd{hidarityuu}$B$b(B\cmd{HidariRangai}$B$H(B
-$BF1CM$J%3%^%s%I$H$7$F$"$j$^$9$+$i!$$3$A$i$rMQ$$$k$3$H$b$G$-$^$9!#(B
+\subsection{左注}
+\cmd{tyuu}は右欄外に注釈をおきますが，左欄外に注釈を置くには
+\cmd{HidariRangai}を用います。
+\textsf{emathAt}で用いていた\cmd{hidarityuu}も\cmd{HidariRangai}と
+同値なコマンドとしてありますから，こちらを用いることもできます。
 
 \input{example/ex19}
 
-$BA0@a$^$G$NNc$G$O!$:87S@~$O0z$-$^$;$s$G$7$?!#$3$l$r0z$/$K$O(B
+前節までの例では，左罫線は引きませんでした。これを引くには
 \begin{jquote}
 \begin{verbatim}
 \hidarityuukeisentrue
 \end{verbatim}
 \end{jquote}
-$B$H@k8@$7$^$9!#(B
+と宣言します。
 
-\subsection{$B9TF,!$:8Ms30$K%^!<%/(B}
-$B:8Ms30$K%^!<%/$@$1$r$D$1$?$$$H$-$b$"$j$^$9!#$=$N$?$a$N%3%^%s%I$,(B
+\subsection{行頭，左欄外にマーク}
+左欄外にマークだけをつけたいときもあります。そのためのコマンドが
 \begin{jquote}
 \begin{verbatim}
 \gyoutou
 \end{verbatim}
 \end{jquote}
-$B$G$9!#(B
+です。
 
 \input{example/ex20}
 \clearpage
 
-\subsection{$B6qBNNc(B}
-$B<!$N6qBNNc$O!$(B\texttt{sampleAt.tex}$B$H$[$H$s$IF1$8$G$9$,!$(B
-\cmd{tyuu}$B$N;H$$J}(B --- $BFC$K=D0LCV$ND4@0$,3Z$K$J$C$F$$$^$9!#(B
-$B%=!<%9%j%9%H(B \texttt{ex21.tex} $B$r$4Mw$/$@$5$$!#(B
+\subsection{具体例}
+次の具体例は，\texttt{sampleAt.tex}とほとんど同じですが，
+\cmd{tyuu}の使い方 --- 特に縦位置の調整が楽になっています。
+ソースリスト \texttt{ex21.tex} をご覧ください。
 
 \ReadTeXFile{example/ex21}
 \end{document}

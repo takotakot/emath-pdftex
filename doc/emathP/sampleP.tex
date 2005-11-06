@@ -7,9 +7,9 @@
 \usepackage{emathR}
 \usepackage{showexample}
 \usepackage{makeidx}
-\usepackage{type1cm}% PS, PDF $B:n@.$K$OI,MW(B
+\usepackage{type1cm}% PS, PDF 作成には必要
 %
-% $B$7$*$j:n@.(B
+% しおり作成
 %\usepackage[dvips]{hyperref}
 %
 \makeindex
@@ -28,7 +28,7 @@
 %\includeonly{SCandL}
 
 \begin{document}
-\title{picture $B4D6-;Y1g%^%/%m=8(B\\
+\title{picture 環境支援マクロ集\\
 emathP.sty {\normalsize ver.0.66}\\
 emathPb.sty {\normalsize ver.0.01}\\
 emathPg.sty {\normalsize ver.0.00}\\
@@ -36,22 +36,22 @@ emathPh.sty {\normalsize ver.2.45}\\
 emathPk.sty {\normalsize ver.0.94}\\
 emathPxy.sty {\normalsize ver.0.31}\\
 emathT.sty {\normalsize ver.0.42}\\
-$B;HMQNc(B}
+使用例}
 \author{tDB}
 \date{2005/11/02}
 
 \maketitle\thispagestyle{empty}
 \begin{abstract}%
 \parindent1zw%
-$BCf3X!&9b9;$G?t3X$N%W%j%s%H$K$D$1$k?^$N:n@.$KI,MW$J5-9f!$%3%^%s%I!$(B
-$B4D6-$r=8$a$?%^%/%m=8$G$9!%(B
-%\LaTeXe $B$,A0Ds$G$9!%(B
+中学・高校で数学のプリントにつける図の作成に必要な記号，コマンド，
+環境を集めたマクロ集です．
+%\LaTeXe が前提です．
 
-$B$3$N%^%/%m=8$N%^%/%m$K$D$$$F$N$4<ALd!$%P%0Js9p!$=$@5!&DI2C$NDs0FEy$O(B
+このマクロ集のマクロについてのご質問，バグ報告，修正・追加の提案等は
 \begin{center}
 http://emath.s40.xrea.com/
 \end{center}
-$B$N7G<(HD$X$I$&$>!#(B
+の掲示板へどうぞ。
 \end{abstract}
 \pagebreak
 \pagenumbering{roman}%
@@ -62,76 +62,76 @@ http://emath.s40.xrea.com/
 
 \pagenumbering{arabic}
 
-%\section{$BD>@~?^7A(B}
+%\section{直線図形}
 \include{Sline}
 
-%\section{$BJ8;zNs(B}
+%\section{文字列}
 \include{Sstr}
 
-%\section{$B1_!&BJ1_(B}
+%\section{円・楕円}
 \include{Scirc}
 
-%\section{$B1_!&D>@~$N8rE@(B}
+%\section{円・直線の交点}
 \include{SCandL}
 
-%\section{$B$@1_!&D>@~$N8rE@(B}
+%\section{だ円・直線の交点}
 \include{SEandL}
 
-%\section{$BEI$j$D$V$7(B(1)}
+%\section{塗りつぶし(1)}
 \include{Snuri1}
 
-%\section{$B<P@~EI$j(B(1)}
+%\section{斜線塗り(1)}
 \include{Shatch1}
 
-%\section{$B;03Q7A$N8^?4(B}
+%\section{三角形の五心}
 \include{S5shin}
 
-%\section{$B;03Q7A$N7hDj(B}
+%\section{三角形の決定}
 \include{Ssankaku}
 
-%\section{$B@589DjM}!&M>89DjM}(B}
+%\section{正弦定理・余弦定理}
 \include{Syogen}
 
-%\section{$B%Y%/%H%k(B}
+%\section{ベクトル}
 \include{Svector}
 
-%\section{$B:BI8J?LL(B}
+%\section{座標平面}
 \include{Szahyou}
 
-%\section{$BE@!&D>@~!&1_(B}
+%\section{点・直線・円}
 \include{SCandl2}
 
-\section{$B4X?t$N%0%i%U(B(0) \textsf{Perl}$B$H$NO"7H(B}
-$B4X?t$N%0%i%U$rIA2h$9$k$N$K!$(B\textsf{Perl}$B$rMQ$$$kJ}K!$,$"$j$^$9!#(B
-$B4X?t<0$N5-=R$,4JC1$G$*4+$a$G$9$,!$5!<o$K0MB8$9$kLL$b$"$j$^$9$N$G(B
-$BJL%U%!%$%k$K$7$F$"$j$^$9!#(B
-\textsf{samplePp.tex}$B$r$4Mw$/$@$5$$!#(B
+\section{関数のグラフ(0) \textsf{Perl}との連携}
+関数のグラフを描画するのに，\textsf{Perl}を用いる方法があります。
+関数式の記述が簡単でお勧めですが，機種に依存する面もありますので
+別ファイルにしてあります。
+\textsf{samplePp.tex}をご覧ください。
 
-%\section{$B4X?t$N%0%i%U(B(1) $B@04X?t(B}
+%\section{関数のグラフ(1) 整関数}
 \include{Sgraph1}
 
-%\section{$B4X?t$N%0%i%U(B(2) $B0lHL(B}
+%\section{関数のグラフ(2) 一般}
 \include{Sgraph2}
 
-%\section{$BEI$j$D$V$7(B(2)}
+%\section{塗りつぶし(2)}
 \include{Snuri2}
 
-%\section{$B<P@~EI$j(B(2)}
+%\section{斜線塗り(2)}
 \include{Shatch2}
 
-%\section{$B6u4V:BI8(B}
+%\section{空間座標}
 \include{Szahyou3}
 
-%\section{$B6u4V?^7A(B}
+%\section{空間図形}
 %\include{S3d}
 
-%\section{$B:nI=(B}
+%\section{作表}
 \include{Shyou}
 
-%\section{$B0O$_(B}
+%\section{囲み}
 \include{Skakomi}
 
-%\section{$B%a%b%jITB-$X$NBP:v(B}
+%\section{メモリ不足への対策}
 \include{Serr}
 
 \printindex

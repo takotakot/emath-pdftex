@@ -6,8 +6,8 @@
 
 \makeatletter
 \newwrite\Fkeisan@hndl
-\let\prfunc\prFK%   $BEz$N=PNO$KMQ$$$k%@%_!<4X?t$N;XDj(B($B2>J,?tI=<($r;XDj(B)
-%\let\prfunc\prFT%  $BEz$N=PNO$KMQ$$$k%@%_!<4X?t$N;XDj(B($BBSJ,?tI=<($r;XDj(B)
+\let\prfunc\prFK%   答の出力に用いるダミー関数の指定(仮分数表示を指定)
+%\let\prfunc\prFT%  答の出力に用いるダミー関数の指定(帯分数表示を指定)
 \def\Fkeisan{\@ifnextchar<{\@Fkeisan}{\@Fkeisan<M>}}
 \def\@Fkeisan<#1>#2{%
   \if A#1\relax
@@ -25,7 +25,7 @@
 
 \begin{document}
 \openKaiFile
-$B<!$N7W;;$r$;$h!%(B
+次の計算をせよ．
 \setKaienum{edaenumerate<3>}
 \edef\x{(1/2)}%
 \edef\a{(1/3)}%
@@ -36,20 +36,20 @@
 \edef\f{(1/8)}%
 \begin{edaenumerate}[(1)]
   \item \Fkeisan<A>{(1/2)-(2/3)}
-  \item \Fkeisan<A>{(1/2)-(1/3)*(3/4)}% $B>h;;M%@h(B
-  \item \Fkeisan<A>{(1/2)-(1/3)/(3/4)}% $B=|;;M%@h(B
-  \item \Fkeisan<A>{(1/2)*((1/3)+(3/4))}% $B3g8LM%@h(B
+  \item \Fkeisan<A>{(1/2)-(1/3)*(3/4)}% 乗算優先
+  \item \Fkeisan<A>{(1/2)-(1/3)/(3/4)}% 除算優先
+  \item \Fkeisan<A>{(1/2)*((1/3)+(3/4))}% 括弧優先
   \item \Fkeisan<A>{((1/2)+(3/4))*((1/4)+(3/5))}
-  \item \Fkeisan<A>{(1/2)-((1/3)-((3/4)-(4/5)))}%         $BFs=E3g8L(B
-  \item \Fkeisan<A>{(1/2)-((1/3)-((3/4)-((4/5)-(5/6))))}% $B;0=E3g8L(B
-  \item \Fkeisan<A>{(1.5)-(2/3)}%                         $B>.?t!&J,?t:.9g(B
-  \item<1>  \Fkeisan<A>{\a*\x+\b}%  $B0l<!4X?tCM(B
-  \item<1>  \Fkeisan<A>{(\a*\x+\b)*\x+\c}%  $BFs<!4X?tCM(B
-  \item<1>  \Fkeisan<A>{((\a*\x+\b)*\x+\c)*\x+\d}%  $B;0<!4X?tCM(B
-  \item<1>  \Fkeisan<A>{(((\a*\x+\b)*\x+\c)*\x+\d)*\x+\e}%  $B;M<!4X?tCM(B
+  \item \Fkeisan<A>{(1/2)-((1/3)-((3/4)-(4/5)))}%         二重括弧
+  \item \Fkeisan<A>{(1/2)-((1/3)-((3/4)-((4/5)-(5/6))))}% 三重括弧
+  \item \Fkeisan<A>{(1.5)-(2/3)}%                         小数・分数混合
+  \item<1>  \Fkeisan<A>{\a*\x+\b}%  一次関数値
+  \item<1>  \Fkeisan<A>{(\a*\x+\b)*\x+\c}%  二次関数値
+  \item<1>  \Fkeisan<A>{((\a*\x+\b)*\x+\c)*\x+\d}%  三次関数値
+  \item<1>  \Fkeisan<A>{(((\a*\x+\b)*\x+\c)*\x+\d)*\x+\e}%  四次関数値
 \end{edaenumerate}
 \closeKaiFile
 \hrule
-\begin{center}$B!ZEz![(B\end{center}
+\begin{center}【答】\end{center}
 \inputKaiFile
 \end{document}

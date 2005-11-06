@@ -2,43 +2,43 @@
 \usepackage{emath}
 \usepackage{emathUtf}
 \usepackage{showexample}
-\usepackage{type1cm}% PS, PDF $B:n@.$K$OI,MW(B
+\usepackage{type1cm}% PS, PDF 作成には必要
 %
 \begin{document}
-\title{\cmd{ajMaru}$B$J$I$GAj8_;2>H$r9T$&%^%/%m(B\\
-emathUtf.sty {\normalsize ver.0.00}\\$B;HMQNc(B}
+\title{\cmd{ajMaru}などで相互参照を行うマクロ\\
+emathUtf.sty {\normalsize ver.0.00}\\使用例}
 \author{tDB}
 \date{2005/09/10}
 
 \maketitle\thispagestyle{empty}
 \begin{abstract}%
 \parindent1zw%
-utf $B%Q%C%1!<%8$GDj5A$5$l$F$$$k4]IU$-?t;z$r8F$S=P$9%^%/%m(B
-\cmd{ajMaru}$B$J$I$G$O!$Aj8_;2>H$,$&$^$/$$$-$^$;$s!#(B
-\verb+\label{foo}+$B$GDj5A$7$?%i%Y%k$r(B\verb+\ajMaru{\ref{foo}}+
-$B$G;2>H$9$k$H%(%i!<$H$J$j$^$9!#(B
+utf パッケージで定義されている丸付き数字を呼び出すマクロ
+\cmd{ajMaru}などでは，相互参照がうまくいきません。
+\verb+\label{foo}+で定義したラベルを\verb+\ajMaru{\ref{foo}}+
+で参照するとエラーとなります。
 
-$B$=$3$G!$(B\cmd{ajMaru}$B$r:FDj5A$7$FAj8_;2>H$r9T$&$3$H$r2DG=$H$7$^$7$?!#(B
+そこで，\cmd{ajMaru}を再定義して相互参照を行うことを可能としました。
 
-$B$?$@$7!$$3$N%^%/%m$O(B\textsf{utf}$B$rA0Ds$H$7$^$9$+$i(B
+ただし，このマクロは\textsf{utf}を前提としますから
 \begin{jquote}
 \begin{verbatim}
-OS $B0MB8(B
-Dvi-ware $B0MB8(B
-$B4D6-0MB8(B
+OS 依存
+Dvi-ware 依存
+環境依存
 \end{verbatim}
 \end{jquote}
-$B$G$9!#(B
+です。
 
-$B$J$*!$(B\textsf{utf.sty}$B$O(B\textsf{emathUtf.sty}$B$NCf$G6/@)E*$KFI$_9~$^$l$^$9!#(B
-$B$^$?!$(B\textsf{otf.sty}$B$H$OJ;MQ$G$-$^$;$s!#(B
+なお，\textsf{utf.sty}は\textsf{emathUtf.sty}の中で強制的に読み込まれます。
+また，\textsf{otf.sty}とは併用できません。
 \bigskip
 
-$B$3$N%^%/%m=8$N%^%/%m$K$D$$$F$N$4<ALd!$%P%0Js9p!$=$@5!&DI2C$NDs0FEy$O(B
+このマクロ集のマクロについてのご質問，バグ報告，修正・追加の提案等は
 \begin{center}
 http://emath.s40.xrea.com/
 \end{center}
-$B$N7G<(HD$X$I$&$>!#(B
+の掲示板へどうぞ。
 \end{abstract}
 %\pagebreak
 %\pagenumbering{roman}%
@@ -50,25 +50,25 @@ http://emath.s40.xrea.com/
 \pagenumbering{arabic}
 
 \section{\cmd{ajMaru}}
-\subsection{enumerate$B4D6-$NHV9f$K;HMQ$7$?>l9g(B}
-$B<!$NNc$G$O!$(B
+\subsection{enumerate環境の番号に使用した場合}
+次の例では，
 \begin{jquote}
 \begin{verbatim}
 \begin{enumerate}[m]
 \end{verbatim}
 \end{jquote}
-$B$K$h$j!$HV9fIU$1$K$O(B\cmd{maru}$B$,MQ$$$i$l$^$9$,!$(B
+により，番号付けには\cmd{maru}が用いられますが，
 \begin{jquote}
 \begin{verbatim}
 \let\maru\ajMaru
 \end{verbatim}
 \end{jquote}
-$B$H$7$F$"$j$^$9$+$i!$(B\cmd{ajMaru}$B$,;HMQ$5$l$^$9!#(B
+としてありますから，\cmd{ajMaru}が使用されます。
 
-\begin{showEx}{\cmd{ajMaru}$B$K$h$kAj8_;2>H(B}
+\begin{showEx}{\cmd{ajMaru}による相互参照}
 \let\maru\ajMaru
-$B<!$NA*Br;h$+$iA*$Y!#(B
-$B$?$@$7!$(B\ref{Eii}$B$K$*$$$F!%!%!%(B
+次の選択肢から選べ。
+ただし，\ref{Eii}において．．．
 \begin{enumerate}[m]
   \item aaa
   \item \label{Eii}bbb
@@ -76,13 +76,13 @@ http://emath.s40.xrea.com/
 \end{enumerate}
 \end{showEx}
 
-$B$?$@$7!$(B\verb+\ref{$B%i%Y%kL>(B}+$B$G!$4]IU$-?t;z$,JV$5$l$^$7$?$,!$(B
-\textsf{enumerate}$B4D6-$N@_Dj$K$h$C$F$O!$4]$NCf$N?tCM$@$1$,JV$5$l$^$9!#(B
+ただし，\verb+\ref{ラベル名}+で，丸付き数字が返されましたが，
+\textsf{enumerate}環境の設定によっては，丸の中の数値だけが返されます。
 
-\begin{showEx}{\cmd{labelenumi}$B$K$h$k>l9g(B}
+\begin{showEx}{\cmd{labelenumi}による場合}
 \let\maru\ajMaru
-$B<!$NA*Br;h$+$iA*$Y!#(B
-$B$?$@$7!$(B\ref{E2}$B$K$*$$$F!%!%!%(B
+次の選択肢から選べ。
+ただし，\ref{E2}において．．．
 \def\labelenumi{\maru{\theenumi}}
 \begin{enumerate}
   \item aaa
@@ -91,44 +91,44 @@ http://emath.s40.xrea.com/
 \end{enumerate}
 \end{showEx}
 
-$B4]IU$-?t;z$G;2>H$9$k$K$O!$(B
+丸付き数字で参照するには，
 \begin{jquote}
 \begin{verbatim}
   \maru{\ref{E2}}
 \end{verbatim}
 \end{jquote}
-$B$H$7$J$1$l$P$J$j$^$;$s!#(B
+としなければなりません。
 \newpage
 
-\subsection{$B?t<0HV9f$K;HMQ$7$?>l9g(B}
-$B?t<0HV9f$KBP$7$F$b(B
+\subsection{数式番号に使用した場合}
+数式番号に対しても
 \begin{jquote}
 \begin{verbatim}
 \let\maru\ajMaru
 \end{verbatim}
 \end{jquote}
-$B$H$9$k$3$H$G!$(B\cmd{ajMaru}$B$,MQ$$$i$l$^$9!#(B
+とすることで，\cmd{ajMaru}が用いられます。
 
-\begin{showEx}{$B?t<0HV9f$K;HMQ(B}
+\begin{showEx}{数式番号に使用}
 \let\maru\ajMaru
 \begin{gather}
   2x+3y=5 \label{eq1} \\
   3x-2y=1 \label{eq2}
 \end{gather}
-\eqref{eq1}, \eqref{eq2}$B$h$j(B
+\eqref{eq1}, \eqref{eq2}より
 \end{showEx}
 
-$B;2>H$O!$(B\cmd{eqref}$B$K$h$j4]IU$-HV9f$,!$(B
-\cmd{ref}$B$K$h$j!$4]$NCf$N?tCM$,;2>H$5$l$^$9!#(B
+参照は，\cmd{eqref}により丸付き番号が，
+\cmd{ref}により，丸の中の数値が参照されます。
 
 \section{\cmd{ajMaruKaku}}
-\cmd{ajMaru}$B$N$_$J$i$:!$(B\cmd{ajMaruKaku}$B$J$I$KBP$7$F$b(B
-$BAj8_;2>H$r9T$&$3$H$,$G$-$^$9!#(B
+\cmd{ajMaru}のみならず，\cmd{ajMaruKaku}などに対しても
+相互参照を行うことができます。
 
-\begin{showEx}{\cmd{ajMaruKaku}$B$K$h$kAj8_;2>H(B}
+\begin{showEx}{\cmd{ajMaruKaku}による相互参照}
 \let\maru\ajMaruKaku
-$B<!$NA*Br;h$+$iA*$Y!#(B
-$B$?$@$7!$(B\ref{MKii}$B$K$*$$$F!%!%!%(B
+次の選択肢から選べ。
+ただし，\ref{MKii}において．．．
 \begin{enumerate}[m]
   \item aaa
   \item \label{MKii}bbb
@@ -137,56 +137,56 @@ http://emath.s40.xrea.com/
 \end{showEx}
 \newpage
 
-\section{$B%m!<%^?t;z(B}
-$B%m!<%^?t;z$O!$1QJ8;z(B(I, V, X, ...)$B$J$I$rAH$_9g$o$;$F$"$i$o$9$N$,@5=qK!$G$9$,!$(B
-$BA43Q0lJ8;zI}$K<}$a$?$$!$$H$$$&$40U8+$b$"$k$h$&$G$9!#(B
+\section{ローマ数字}
+ローマ数字は，英文字(I, V, X, ...)などを組み合わせてあらわすのが正書法ですが，
+全角一文字幅に収めたい，というご意見もあるようです。
 
-\begin{showEx}{\cmd{ajRoman}$B$K$h$kAj8_;2>H(B}
+\begin{showEx}{\cmd{ajRoman}による相互参照}
 \let\maru\ajRoman
 \begin{enumerate}[m]
   \item aaa
   \item \label{Rmii}bbb
-  \item \ref{Rmii}$B$K$*$$$F!$(Bccc
+  \item \ref{Rmii}において，ccc
 \end{enumerate}
 \end{showEx}
 
-$B<!$O!$>.J8;z$G(B(..)$B$G$/$/$C$?7A<0$G$9!#(B
+次は，小文字で(..)でくくった形式です。
 
-\begin{showEx}{\cmd{ajKakkoroman}$B$K$h$kAj8_;2>H(B}
+\begin{showEx}{\cmd{ajKakkoroman}による相互参照}
 \let\maru\ajKakkoroman
 \begin{enumerate}[m]
   \item aaa
   \item \label{rmii}bbb
-  \item \ref{rmii}$B$K$*$$$F!$(Bccc
+  \item \ref{rmii}において，ccc
 \end{enumerate}
 \end{showEx}
 \newpage
 
-$B4XO"$7$F!$;;MQ?t;z$r3g8L$G$/$/$jEyI}$K$9$kNc$G$9!#(B
+関連して，算用数字を括弧でくくり等幅にする例です。
 
-\begin{showEx}{\cmd{ajKakko}$B$K$h$kAj8_;2>H(B}
+\begin{showEx}{\cmd{ajKakko}による相互参照}
 \let\maru\ajKakko
 \begin{enumerate}<syokiti=7>[m]
   \item aaa
   \item \label{nii}bbb
-  \item \ref{nii}$B$K$*$$$F!$(Bccc
+  \item \ref{nii}において，ccc
   \item ddd
 \end{enumerate}
 \end{showEx}
 
-$B$5$i$KC&@~$7$F!$;;MQ?t;z$N7e?t$K$+$+$o$i$:!$A43QI}$G(B
+さらに脱線して，算用数字の桁数にかかわらず，全角幅で
 
-\begin{showEx}{\cmd{ajarabic}$B$K$h$kAj8_;2>H(B}
+\begin{showEx}{\cmd{ajarabic}による相互参照}
 \let\maru\ajarabic
 \begin{enumerate}<syokiti=7>[m]
   \item aaa
   \item \label{nii}bbb
-  \item \ref{nii}$B$K$*$$$F!$(Bccc
+  \item \ref{nii}において，ccc
   \item ddd
 \setcounter{enumi}{122}
   \item zzz
 \end{enumerate}
 \end{showEx}
 
-$B$3$3$^$G$/$k$H0-<qL#$+$J!#(B
+ここまでくると悪趣味かな。
 \end{document}

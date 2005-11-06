@@ -2,58 +2,58 @@
 \usepackage[mbb]{emathFx}
 \usepackage{showexample}
 \begin{document}
-\section{\texttt{[mbb]$B%m!<%I%*%W%7%g%s(B}}
+\section{\texttt{[mbb]ロードオプション}}
 \subsection{\cmd{mathmbb}}
-\textsf{amsmath}$B%Q%C%1!<%8$K!$(B
-$B%V%i%C%/%\!<%I%\!<%k%I$r=PNO$9$k%3%^%s%I(B
-\cmd{mathbb}$B$,$"$j$^$9!#(B
+\textsf{amsmath}パッケージに，
+ブラックボードボールドを出力するコマンド
+\cmd{mathbb}があります。
 
 \begin{showEx}{\cmd{mathbb}}
 $\mathbb{ABCXYZ}$
 \end{showEx}
 
-$B$?$@$7!$>.J8;z!&?t;z$O%5%]!<%H$5$l$F$$$^$;$s!#(B
+ただし，小文字・数字はサポートされていません。
 
-\begin{showEx}{$B>.J8;z$O%@%a(B}
+\begin{showEx}{小文字はダメ}
 $\mathbb{abc012}$
 \end{showEx}
 
-$B>.J8;z!&?t;z$N%V%i%C%/%\!<%I%\!<%k%I$,MQ0U$5$l$F$$$k%U%)%s%H$b(B
-$B$$$/$D$+$"$j$^$9$,!"$=$N$R$H$D$K(B
-\textsf{mbboard}$B%Q%C%1!<%8$,$"$j$^$9!#(B
-$B$?$@$7!$(B\textsf{mbboard.sty}$B$G$O!$(B\textsf{amsmath}$B%Q%C%1!<%8$H(B
-$BF10l%3%^%s%I(B\cmd{mathbb}$B$rMQ$$$F$$$^$9$+$i!$(B
-$BFs<TBr0l$H$J$C$F$7$^$$$^$9!#(B
+小文字・数字のブラックボードボールドが用意されているフォントも
+いくつかありますが、そのひとつに
+\textsf{mbboard}パッケージがあります。
+ただし，\textsf{mbboard.sty}では，\textsf{amsmath}パッケージと
+同一コマンド\cmd{mathbb}を用いていますから，
+二者択一となってしまいます。
 
-$B$=$3$G(B \textsf{emathFx.sty} \texttt{v 0.33}$B$K$*$$$F(B
-$B%m!<%I%*%W%7%g%s(B\texttt{[mbb]}$B$rIU2C$9$k$3$H$K$h$j!$(B\\
-\cmd{mathmbb}$B%3%^%s%I$G(B\textsf{mbboard}$B%Q%C%1!<%8$N(B
-$B%V%i%C%/%\!<%I%\!<%k%I$rMxMQ$G$-$k$h$&$K$7$^$7$?!#(B
+そこで \textsf{emathFx.sty} \texttt{v 0.33}において
+ロードオプション\texttt{[mbb]}を付加することにより，\\
+\cmd{mathmbb}コマンドで\textsf{mbboard}パッケージの
+ブラックボードボールドを利用できるようにしました。
 
 \begin{showEx}(.54,.4){\cmd{mathmbb}}
 \begin{gather*}
 \mathmbb{ABCXYZ}\\
 \mathmbb{abc012}\\
-\intertext{\cmd{mathbb}$B$H$NJ;MQ3NG'(B}
+\intertext{\cmd{mathbb}との併用確認}
 \mathbb{ABCXYZ}
 \end{gather*}
 \end{showEx}
 
-\subsection{$BLdBjHV9f$KMxMQ$9$kNc(B}
-$B?t;z$N%V%i%C%/%\!<%I%\!<%k%I$r!$LdBjHV9f$KMQ$$$kNc$r$4Mw$/$@$5$$!#(B
+\subsection{問題番号に利用する例}
+数字のブラックボードボールドを，問題番号に用いる例をご覧ください。
 
-\begin{showEx}(.6,.34){$B;HMQNc(B}
+\begin{showEx}(.6,.34){使用例}
 \begin{enumerate}[%
 \Large$\expandafter\mathmbb 1$.~]
-	\item $B$"$"$"(B
-	\item $B$$$$$$(B
-	\item $B$&$&$&(B
-	\item $B$($($((B
+	\item あああ
+	\item いいい
+	\item ううう
+	\item えええ
 \end{enumerate}
 \end{showEx}
 
-\subsection{$B;29M(B---$B%V%i%C%/%\!<%k%I%\!<%k%I=PNO0lMw(B}
-$B%V%i%C%/%\!<%I%\!<%k%I$r=PNO$G$-$k%Q%C%1!<%8$N=PNO0lMw(B
-\texttt{blackboard.pdf}$B$rF1:-$7$^$7$?!#(B
-$B6=L#$N$"$kJ}$O$4Mw$/$@$5$$!#(B
+\subsection{参考---ブラックボールドボールド出力一覧}
+ブラックボードボールドを出力できるパッケージの出力一覧
+\texttt{blackboard.pdf}を同梱しました。
+興味のある方はご覧ください。
 \end{document}

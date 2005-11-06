@@ -1,152 +1,152 @@
 \documentclass[a4j]{jarticle}
 %
-% $B<!$N9T$rM-8z$K$9$k$H!$:G8e$N%Z!<%8$G?^$N0LCV$,$*$+$7$/$J$j$^$9!#(B
-%\usepackage[old]{emathMw}% mawarikomi$B4D6-$r5l7A<0$H$9$k(B
+% 次の行を有効にすると，最後のページで図の位置がおかしくなります。
+%\usepackage[old]{emathMw}% mawarikomi環境を旧形式とする
 %
 \usepackage{emathMw}
 \usepackage{emathThm}
 \usepackage{showexample}
 
 \theorembodyfont{\normalfont\upshape}
-\newtheorem<leftmargin=0pt>{reidai}{$BNcBj(B}
-\newtheorem{rei}{$BNcBj(B}
-\newtheorem<leftmargin=2zw>{mondai}{$BN}=,LdBj(B}
-\newtheorem<leftmargin=3zw,Leftmargin=2zw>{tyuu}{$BCm(B}
+\newtheorem<leftmargin=0pt>{reidai}{例題}
+\newtheorem{rei}{例題}
+\newtheorem<leftmargin=2zw>{mondai}{練習問題}
+\newtheorem<leftmargin=3zw,Leftmargin=2zw>{tyuu}{注}
 
 \begin{document}
-\section{\textsf{theorem}$B$G$O(B}
-\cmd{newtheorem}$B$GDj5A$5$l$k=t4D6-$G$O!$:8%$%s%G%s%H$O$D$-$^$;$s!#(B
+\section{\textsf{theorem}では}
+\cmd{newtheorem}で定義される諸環境では，左インデントはつきません。
 
-\begin{showEx}(.9,.9){\cmd{newtheorem}$B$GDj5A$5$l$?4D6-(B}
+\begin{showEx}(.9,.9){\cmd{newtheorem}で定義された環境}
 \begin{reidai}
-$B$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$(B
-$B$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$(B
-$B$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$(B
+いいいいいいいいいいいいいいいいいいいいいいいいいいいい
+いいいいいいいいいいいいいいいいいいいいいいいいいいいい
+いいいいいいいいいいいいいいいいいいいいいいいいいいいい
 \end{reidai}
 \end{showEx}
 
-\section{\textsf{emathThm}$B$G$O(B}
-\subsection{$B:8%$%s%G%s%H$N%G%U%)%k%H$O(B\texttt{1zw}}
-\textsf{emathThm}$B$O!$:8%$%s%G%s%H$rIm2C$7$h$&$H$$$&L\E*$G3+H/$5$l$^$7$?!#(B
-$B%G%U%)%k%HCM$O(B\verb+1zw+$B$G$9!#(B
+\section{\textsf{emathThm}では}
+\subsection{左インデントのデフォルトは\texttt{1zw}}
+\textsf{emathThm}は，左インデントを附加しようという目的で開発されました。
+デフォルト値は\verb+1zw+です。
 
-\begin{showEx}(.9,.9){\textsf{emathThm}$B$G=$@5$5$l$?(B\textsf{newtheorem}}
+\begin{showEx}(.9,.9){\textsf{emathThm}で修正された\textsf{newtheorem}}
 \begin{rei}
-$B$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&(B
-$B$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&(B
-$B$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&(B
-$B$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&(B
+うううううううううううううううううううううううううううう
+うううううううううううううううううううううううううううう
+うううううううううううううううううううううううううううう
+うううううううううううううううううううううううううううう
 \end{rei}
 \end{showEx}
 \clearpage
 
-\subsection{$B:8%$%s%G%s%HNL$ND4@0(B}
-$B:8%$%s%G%s%H$rD4@0$9$k$K$O(B\verb+<leftmargin=2zw>+$B$J$I$H%*%W%7%g%s$rM?$($^$9!#(B
+\subsection{左インデント量の調整}
+左インデントを調整するには\verb+<leftmargin=2zw>+などとオプションを与えます。
 
-\begin{showEx}(.9,.9){\texttt{leftmargin=..}$B%*%W%7%g%s(B}
+\begin{showEx}(.9,.9){\texttt{leftmargin=..}オプション}
 \begin{mondai}
-$B$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&(B
-$B$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&(B
-$B$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&(B
-$B$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&(B
+うううううううううううううううううううううううううううう
+うううううううううううううううううううううううううううう
+うううううううううううううううううううううううううううう
+うううううううううううううううううううううううううううう
 \end{mondai}
 \end{showEx}
 
-$B%*%W%7%g%s$r(B\verb+<leftmargin=0pt>+$B$H$9$l$P!$(B
-$B=>Mh$N(B\cmd{newtheorem}$B$K$h$k4D6-$HF1$8$H$J$j$^$9!#(B
+オプションを\verb+<leftmargin=0pt>+とすれば，
+従来の\cmd{newtheorem}による環境と同じとなります。
 
-$B$J$*!$$3$NJ8=q$G;HMQ$7$?4D6-$O!$%W%j%"%s%V%k$G<!$N$h$&$KDj5A$7$F$"$j$^$9!#(B
+なお，この文書で使用した環境は，プリアンブルで次のように定義してあります。
 
 \begin{jquote}
 \begin{verbatim}
-\newtheorem<leftmargin=0pt>{reidai}{$BNcBj(B}% $B5l7A<08_49(B
-\newtheorem{rei}{$BNcBj(B}                   % $B?77A<0!J:8%$%s%G%s%H(B=1zw$B!K(B
-\newtheorem<leftmargin=2zw>{mondai}{$BN}=,LdBj(B}
+\newtheorem<leftmargin=0pt>{reidai}{例題}% 旧形式互換
+\newtheorem{rei}{例題}                   % 新形式（左インデント=1zw）
+\newtheorem<leftmargin=2zw>{mondai}{練習問題}
 \end{verbatim}
 \end{jquote}
 \clearpage
 
-\subsection{\texttt{<Leftmargin=..>}$B%*%W%7%g%s(B}
-\verb+<leftmargin=..>+$B%*%W%7%g%s$O!$(B
-2$B9TL\0J9_$N:8%$%s%G%s%H$r;XDj$9$k%*%W%7%g%s$G$9$,!$(B
-1$B9TL\$N:8%$%s%G%s%H$r;XDj$9$k%*%W%7%g%s$,(B
-\verb+<Leftmargin=..>+$B$G$9!#(B
+\subsection{\texttt{<Leftmargin=..>}オプション}
+\verb+<leftmargin=..>+オプションは，
+2行目以降の左インデントを指定するオプションですが，
+1行目の左インデントを指定するオプションが
+\verb+<Leftmargin=..>+です。
 
-\begin{showEx}(.9,.9){\texttt{Leftmargin=..}$B%*%W%7%g%s(B}
-$BK\J8K\J8K\J8K\J8K\J8K\J8K\J8K\J8K\J8K\J8K\J8K\J8K\J8K\J8(B
-$BK\J8K\J8K\J8K\J8K\J8K\J8K\J8K\J8K\J8K\J8K\J8K\J8K\J8K\J8(B
-$BK\J8K\J8K\J8K\J8K\J8K\J8K\J8K\J8K\J8K\J8K\J8K\J8K\J8K\J8(B
+\begin{showEx}(.9,.9){\texttt{Leftmargin=..}オプション}
+本文本文本文本文本文本文本文本文本文本文本文本文本文本文
+本文本文本文本文本文本文本文本文本文本文本文本文本文本文
+本文本文本文本文本文本文本文本文本文本文本文本文本文本文
 
 \begin{tyuu}
-$B$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&(B
-$B$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&(B
-$B$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&(B
-$B$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&(B
+うううううううううううううううううううううううううううう
+うううううううううううううううううううううううううううう
+うううううううううううううううううううううううううううう
+うううううううううううううううううううううううううううう
 \end{tyuu}
 \end{showEx}
 
-$B$3$3$GMQ$$$?(B\textsf{tyuu}$B4D6-$O(B
+ここで用いた\textsf{tyuu}環境は
 \begin{jquote}
 \begin{verbatim}
-\newtheorem<leftmargin=3zw,Leftmargin=2zw>{tyuu}{$BCm(B}
+\newtheorem<leftmargin=3zw,Leftmargin=2zw>{tyuu}{注}
 \end{verbatim}
 \end{jquote}
-$B$H$7$FDj5A$5$l$F$*$j!$(B
+として定義されており，
 \begin{jquote}
-  1$B9TL\$O(B\verb+2zw+,\\
-  2$B9TL\0J9_$O(B\verb+3zw+
+  1行目は\verb+2zw+,\\
+  2行目以降は\verb+3zw+
 \end{jquote}
-$BHGLL:8$+$i%$%s%G%s%H$5$l$F$$$^$9!#(B
+版面左からインデントされています。
 \clearpage
 
-\section{\textsf{mawarikomi}$B4D6-$H$NJ;MQ(B}
-\cmd{newtheorem}$B$GDj5A$5$l$k4D6-$G$O!$(B1$B9TL\$H(B2$B9TL\0J9_$G$O!$(B
-$B9TF,$N0LCV$K0c$$$,$"$j$^$9!#(B1$B9TL\$+$i(B\textsf{mawarikomi}$B4D6-$rJ;MQ$9$k$H(B
-$B?^$,1&$N$[$&$KDI$$$d$i$l$F$7$^$$$^$9!#$3$NE@$r(B\textsf{emathMw.sty v. 0.04}
-$B$G=$@5$7$^$7$?!#$=$N3NG'$G$9!#(B
+\section{\textsf{mawarikomi}環境との併用}
+\cmd{newtheorem}で定義される環境では，1行目と2行目以降では，
+行頭の位置に違いがあります。1行目から\textsf{mawarikomi}環境を併用すると
+図が右のほうに追いやられてしまいます。この点を\textsf{emathMw.sty v. 0.04}
+で修正しました。その確認です。
 
-\begin{showEx}(.9,.9){\textsf{mawarikomi}$B4D6-$H$NJ;MQ(B}
+\begin{showEx}(.9,.9){\textsf{mawarikomi}環境との併用}
 \begin{mondai}
 \begin{mawarikomi}{}{%
   \begin{picture}(50,50)
-    \put(0,0){\framebox(50,50){\Huge $B?^(B}}
+    \put(0,0){\framebox(50,50){\Huge 図}}
   \end{picture}}
-$B$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&(B
+うううううううううううううううううううううううううううう
 
-$B$($($($($($($($($($($($($($($($($($($($($($($($($($($($((B
-$B$($($($($($($($($($($($($($($($($($($($($($($($($($($($((B
-$B$($($($($($($($($($($($($($($($($($($($($($($($($($($($((B
-$B$($($($($($($($($($($($($($($($($($($($($($($($($($($($((B
+ええええええええええええええええええええええええええええ
+ええええええええええええええええええええええええええええ
+ええええええええええええええええええええええええええええ
+ええええええええええええええええええええええええええええ
 \end{mawarikomi}
 \end{mondai}
 \end{showEx}
 
-$B=>Mh$N(B\textsf{emathMw.sty}$B$rMQ$$$F%?%$%W%;%C%H$9$k$H!$(B
-$B?^$O(B\textsf{shadebox}$B4D6-$N1&30$K0lIt$,$O$_=P$7$F$7$^$$$^$9!#(B
+従来の\textsf{emathMw.sty}を用いてタイプセットすると，
+図は\textsf{shadebox}環境の右外に一部がはみ出してしまいます。
 
-$B$3$l$O!$(B\cmd{newtheorem}$B$GDj5A$7$?4D6-$G$O!$(B
+これは，\cmd{newtheorem}で定義した環境では，
 \begin{jquote}
-1$B9TL\KAF,$N(B`$B$&(B'$B$H(B\\
-2$B9TL\@hF,$N(B`$B$&(B'
+1行目冒頭の`う'と\\
+2行目先頭の`う'
 \end{jquote}
-$B$,!$A43QLs(B3.5$BJ8;zJ,$:$l$F$*$j!$(B
+が，全角約3.5文字分ずれており，
 \begin{jquote}
-$B=>Mh$N(B\textsf{emathMw.sty}$B$O(B2$B9TL\@hF,$N(B`$B$&(B'$B$H?^$H$N5wN%$r(B
-1$B9TL\@hF,$N(B`$B$&(B'$B$+$i$N5wN%$H$7$F?^$rG[CV$7$F$$$?(B
+従来の\textsf{emathMw.sty}は2行目先頭の`う'と図との距離を
+1行目先頭の`う'からの距離として図を配置していた
 \end{jquote}
-$B$3$H$K5/0x$7$^$9!#$3$NE@$r=$@5$7$?$N$,(B\textsf{emathMw.sty v0.04}$B$G$9!#(B
+ことに起因します。この点を修正したのが\textsf{emathMw.sty v0.04}です。
 
-$B$?$@$7!$$3$NJQ99$O!V;EMM$NJQ99!W$H$J$C$F$$$^$9!#(B
-$B=>Mh!$$3$N%:%l$r(B\textsf{mawarikomi}$B4D6-$N(B\verb+(dx,dy)+$B%*%W%7%g%s$G=$@5(B
-$B$7$?J8=q$KBP$7$F$O(B\textsf{emathMw.sty v0.03}$B0JA0$r$4;HMQ4j$$$^$9!#(B
+ただし，この変更は「仕様の変更」となっています。
+従来，このズレを\textsf{mawarikomi}環境の\verb+(dx,dy)+オプションで修正
+した文書に対しては\textsf{emathMw.sty v0.03}以前をご使用願います。
 
-$B$J$*!$(B\textsf{emathMw.sty}$B$N(B\verb+v0.04+$B0J9_$r(B
+なお，\textsf{emathMw.sty}の\verb+v0.04+以降を
 \begin{jquote}
 \begin{verbatim}
 \usepackage[old]{emathMw}
 \end{verbatim}
 \end{jquote}
-$B$H!$(B\textsf{emathMw.sty}$B$r(B\verb+[old]+$B%*%W%7%g%sIU$-$G%m!<%I$7$F$*$1$P(B
-$B5l;EMM$H$J$j$^$9!#$?$@$7!$$=$N%?%$%_%s%0$O(B\textsf{emath.sty}$B$r(B
-$B%m!<%I$9$k$h$jA0!$$9$J$o$A!$(Bemath$B4XO"$N@hF,$G$J$1$l$P$J$j$^$;$s!#(B
+と，\textsf{emathMw.sty}を\verb+[old]+オプション付きでロードしておけば
+旧仕様となります。ただし，そのタイミングは\textsf{emath.sty}を
+ロードするより前，すなわち，emath関連の先頭でなければなりません。
 \end{document}

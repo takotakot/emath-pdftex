@@ -1,12 +1,12 @@
 %% itembbox.sty by tDB(CQB00260@nifty.ne.jp)
 
-%% eepic.sty $B$H$N6&B8$K$D$$$F$O!$(B
-%% nifty:FSNOTE/MES13/05080 $B!J8=(B FPIM)
-%% 05080 HGF02265  Roy              screen,itembox$B$NC<$,$D$V$l$k$N$O2?8N(B?
-%% $B$+$i$N%D%j!<$NCf$K$*$1$k(B $B>>ED(B $B0lO/(B $B$5$s$N$4H/8@(B
-%% 05096 JAC01307  $B>>ED(B $B0lO/(B        RE:screen,itembox$B$NC<$,$D$V$l$k$N$O2?8N(B
-%% 05105 JAC01307  $B>>ED(B $B0lO/(B        RE:screen,itembox$B$NC<$,$D$V$l$k$N$O2?8N(B
-%% $B$r;29M$K$5$;$F$$$?$@$-$^$7$?!%$*Ni$r?=$7>e$2$^$9!%(Bm(__)m
+%% eepic.sty との共存については，
+%% nifty:FSNOTE/MES13/05080 （現 FPIM)
+%% 05080 HGF02265  Roy              screen,itemboxの端がつぶれるのは何故?
+%% からのツリーの中における 松田 一朗 さんのご発言
+%% 05096 JAC01307  松田 一朗        RE:screen,itemboxの端がつぶれるのは何故
+%% 05105 JAC01307  松田 一朗        RE:screen,itemboxの端がつぶれるのは何故
+%% を参考にさせていただきました．お礼を申し上げます．m(__)m
 
 \def\tmpname{LaTeX2e}%
 \ifx\fmtname\tmpname%
@@ -43,12 +43,12 @@
 \newdimen\@savetbaselineshift
 \fi%
 
-%%% $B6&DLJQ?t(B
+%%% 共通変数
 %
 %\newtoks\iboxstr@
 \newtoks\iboxpos@
-\newbox\sc@itemb@x%     ascmac.sty $B$N(B \@iboxstr $B$KAjEv$9$k!%(B
-                  %     $B>-MhE*$K$O$=$A$i$K9g$o$;!$:o=|$9$k!%(B
+\newbox\sc@itemb@x%     ascmac.sty の \@iboxstr に相当する．
+                  %     将来的にはそちらに合わせ，削除する．
 \newbox\sc@itemb@x@
 \def\EMitemboxindent{1zw}
 
@@ -56,12 +56,12 @@
 \define@key{emIB}{sep}{\def\IBsep{#1}}%
 
 %%
-%% (1) $B3Q$N4]$$!$2<8+=P$7$D$-%\%C%/%9(B
+%% (1) 角の丸い，下見出しつきボックス
 %%
 %% itembbox environment
 %%
-%% \begin{itembbox}[$BG[CV(B]{$B8+=P$7(B}
-%%        $BG[CV$N%G%U%)%k%H$O(B r
+%% \begin{itembbox}[配置]{見出し}
+%%        配置のデフォルトは r
 %%
 
 
@@ -85,9 +85,9 @@
   \vbox{\offinterlineskip%
     \thicklines\setlength{\unitlength}{1pt}%
     \kern-.8pt\hrule height.8pt%
-    \kern9.6pt\@hobox{tl}{tr}{20}\kern-15pt% $B>eM>Gr(B
+    \kern9.6pt\@hobox{tl}{tr}{20}\kern-15pt% 上余白
     \box\scb@x%
-    \kern.5\@itemh%   $B2<M>Gr(B
+    \kern.5\@itemh%   下余白
     \@hobox{bl}{br}{20}\kern-.8pt%
     \hbox to\@scw{\if l\the\iboxpos@\else\@hleader\fi%
     \ \vbox to.8pt{\vss\hbox{\box\sc@itemb@x}\vss}\ %
@@ -100,13 +100,13 @@
   \hbox to.6pt{\hss\vbox to\dimen0{\@vrf@{10pt}{.9pt}}}\hss}%
   \egroup\vspace{.5\@itemh}}
 %%
-%% (2) $B3Q$N4]$$>e2<8+=P$7$D$-%\%C%/%9(B
+%% (2) 角の丸い上下見出しつきボックス
 %%
 %% itemtbbox environment
 %%
-%% \begin{itemtbbox}<$B>e8+=P$7G[CV(B>[$B2<8+=P$7G[CV(B]{$B>e8+=P$7(B}{$B2<8+=P$7(B}
-%%            $B>e8+=P$7G[CV$N%G%U%)%k%H$O(B l $B!J:8!K(B
-%%            $B2<8+=P$7G[CV$N%G%U%)%k%H$O(B r $B!J1&!K(B
+%% \begin{itemtbbox}<上見出し配置>[下見出し配置]{上見出し}{下見出し}
+%%            上見出し配置のデフォルトは l （左）
+%%            下見出し配置のデフォルトは r （右）
 %%
 \def\itemtbbox{\@ifnextchar<{\itemtb@box}{\itemtb@box<l>}}%
 \def\itemtb@box<#1>{\@ifnextchar[{\@itemtbbox<#1>}{\@itemtbbox<#1>[r]}}%
@@ -135,10 +135,10 @@
     \ \vbox to.8pt{\vss\hbox{\box\sc@itemb@x}\vss}\ %
     \if r\the\@iboxpos\else\@hleader\fi%
     }%
-  \kern9.6pt\@hobox{tl}{tr}{20}\kern-15pt% $B>eM>Gr(B
+  \kern9.6pt\@hobox{tl}{tr}{20}\kern-15pt% 上余白
   \box\scb@x%
   \@itemh\ht\sc@itemb@x@\advance\@itemh\dp\sc@itemb@x@%
-  \kern.5\@itemh%   $B2<M>Gr(B
+  \kern.5\@itemh%   下余白
   \@hobox{bl}{br}{20}\kern-.8pt%
   \hbox to\@scw{\if l\the\iboxpos@\else\@hleader\fi%
 % \ifx\empty\the\iboxstr@\else%
@@ -156,15 +156,15 @@
 
 %% -----------------------------------------------------------------------
 %%
-%% (3) $B3Q$N;M3Q$J>e8+=P$7$D$-%\%C%/%9(B
+%% (3) 角の四角な上見出しつきボックス
 %%
 %% itemsquarebox environment
 %%
-%% \begin{itemsquarebox}<key=val>[$BG[CV(B]{$B8+=P$7(B}
+%% \begin{itemsquarebox}<key=val>[配置]{見出し}
 %%        key:
-%%          indent=dimen $B%?%$%H%k$N0LCV!J(B[l], [r] $B%*%W%7%g%s$N:]!K(B
-%%          sep=dimen    $B%?%$%H%k$H7S@~$H$N4V3V(B
-%%        $BG[CV$N%G%U%)%k%H$O(B c $B!JCf1{!K(B
+%%          indent=dimen タイトルの位置（[l], [r] オプションの際）
+%%          sep=dimen    タイトルと罫線との間隔
+%%        配置のデフォルトは c （中央）
 %%
 \def\itemsquarebox{\def\IBindent{20pt}\def\IBsep{3.3333pt}%
   \@ifnextchar<{\itemsquarebox@}{\@itemsquarebox}}
@@ -186,32 +186,32 @@
   \thicklines\setlength{\unitlength}{1pt}%
   \hbox to\linewidth{%
     \if l\the\@iboxpos\vbox{\hrule width \IBindent height.8pt}%
-    \else\@hleader\fi%   $B2#I}JQ99(B
+    \else\@hleader\fi%   横幅変更
     \hspace{\IBsep}%
     \vbox to.8pt{\vss\hbox{\box\sc@itemb@x}\vss}%
     \hspace{\IBsep}%
     \if r\the\@iboxpos\vbox{\hrule width \IBindent height.8pt}%
     \else \@hleader\fi}%
-  \kern9.6\p@%            $B>eM>Gr(B
-  \hbox{\kern10\p@\box\scb@x\hfil}% $BK\BN!J:8M>GrIm2C!K(B
-  \kern10\p@%             $B2<M>Gr(B
+  \kern9.6\p@%            上余白
+  \hbox{\kern10\p@\box\scb@x\hfil}% 本体（左余白附加）
+  \kern10\p@%             下余白
   \kern-.8pt\hrule height.8pt%
   }\hfil}\dimen0=\ht\scscb@x%
   \noindent
   \hbox to\linewidth{%
-  \hbox to 0.6pt{\vbox to\dimen0{\@vrf@{0pt}{.8pt}}\hss}% $B:87S@~(B
+  \hbox to 0.6pt{\vbox to\dimen0{\@vrf@{0pt}{.8pt}}\hss}% 左罫線
   \box\scscb@x%
-  \hbox to.6pt{\hss\vbox to\dimen0{\@vrf@{0pt}{.9pt}}}% $B1&7S@~!J7S@~D9JQ99!K(B
+  \hbox to.6pt{\hss\vbox to\dimen0{\@vrf@{0pt}{.9pt}}}% 右罫線（罫線長変更）
   \hss}%
   \egroup}
 
 %%
-%% (4) $B3Q$N;M3Q$J2<8+=P$7$D$-%\%C%/%9(B
+%% (4) 角の四角な下見出しつきボックス
 %%
 %% itembsquarebox environment
 %%
-%% \begin{itembsquarebox}[$BG[CV(B]{$B8+=P$7(B}
-%%        $BG[CV$N%G%U%)%k%H$O(B r $B!J1&!K(B
+%% \begin{itembsquarebox}[配置]{見出し}
+%%        配置のデフォルトは r （右）
 
 \def\itembsquarebox{\@ifnextchar[{\@itembsquarebox}{\@itembsquarebox[r]}}
 \def\@itembsquarebox[#1]#2{%
@@ -240,19 +240,19 @@
 \ \vbox to.8pt{\vss\hbox{\box\sc@itemb@x@}\vss}\ \if r\the\@iboxpos%
 \vbox{\hrule width 20pt height.8pt}\else\@hleader\fi}}\hfil}%
 \dimen0=\ht\scscb@x%
-\advance\dimen0.8pt\relax%    $B7S@~D9$ND4@0(B 2001/04/20
+\advance\dimen0.8pt\relax%    罫線長の調整 2001/04/20
 \noindent\hbox to\linewidth{\hbox to.6pt{\vbox to\dimen0{\@vrf@{0pt}{.8pt}}%
 \hss}\box\scscb@x\hbox to.6pt{\hss\vbox to\dimen0{\@vrf@{0pt}{.9pt}}}\hss}%
 \egroup\vspace{.5\@itemh}}
 
 %%
-%% (5) $B3Q$N;M3Q$J>e2<8+=P$7$D$-%\%C%/%9(B
+%% (5) 角の四角な上下見出しつきボックス
 %%
 %% itemtbsquarebox environment
 %%
-%% \begin{itemtbsquarebox}<$B>e8+=P$7G[CV(B>[$B2<8+=P$7G[CV(B]{$B>e8+=P$7(B}{$B2<8+=P$7(B}
-%%            $B>e8+=P$7G[CV$N%G%U%)%k%H$O(B l $B!J:8!K(B
-%%            $B2<8+=P$7G[CV$N%G%U%)%k%H$O(B r $B!J1&!K(B
+%% \begin{itemtbsquarebox}<上見出し配置>[下見出し配置]{上見出し}{下見出し}
+%%            上見出し配置のデフォルトは l （左）
+%%            下見出し配置のデフォルトは r （右）
 
 \def\itemtbsquarebox{\@ifnextchar<{\itemtb@squarebox}{\itemtb@squarebox<l>}}%
 \def\itemtb@squarebox<#1>{%
@@ -293,12 +293,12 @@
 
 %% -----------------------------------------------------------------------
 %%
-%% (6) $B8+=P$7$N$"$k1F$D$-%\%C%/%9(B
+%% (6) 見出しのある影つきボックス
 %%
 %% itemshadebox environment
 %%
-%% \begin{itemshadebox}[$BG[CV(B]{$B8+=P$7(B}
-%%        $BG[CV$N%G%U%)%k%H$O(B c $B!JCf1{!K(B
+%% \begin{itemshadebox}[配置]{見出し}
+%%        配置のデフォルトは c （中央）
 
 \newdimen\@itemw%
 \newdimen\shaderule\shaderule 5pt
@@ -335,7 +335,7 @@
 %%
 %% squarebox
 %%
-%%    $BIaDL$NOH(B
+%%    普通の枠
 %%
 \def\squarebox{%
 \@savetbaselineshift\tbaselineshift\tbaselineshift\z@%
@@ -353,7 +353,7 @@
 \hbox to \linewidth{\kern10pt\box\scb@x\hfil}%
 \kern6.4pt%
 \kern-.8pt\hrule height.8pt}\hfil}\dimen0=\ht\scscb@x%
-\advance\dimen0.76pt\relax%    $B7S@~D9$ND4@0(B 2001/04/20
+\advance\dimen0.76pt\relax%    罫線長の調整 2001/04/20
 \noindent\hbox to\linewidth{\hbox to.6pt{\vbox to\dimen0{\@vrf@{0pt}{.8pt}}%
 \hss}\box\scscb@x\hbox to.6pt{\hss\vbox to\dimen0{\@vrf@{0pt}{.9pt}}}\hss}%
 \egroup}%
@@ -362,11 +362,11 @@
 %%
 %% dblbox
 %%
-%%    $BFs=EOH(B
+%%    二重枠
 %%
-\newdimen\dblboxrule\dblboxrule1.2pt%         $B30OH$NB@$5(B
-\newdimen\dblboxrulein\dblboxrulein0.2pt%     $BFbOH$NB@$5(B
-\newdimen\dblboxsep\dblboxsep2.5pt%           $B30OH$HFbOH$N4V3V(B
+\newdimen\dblboxrule\dblboxrule1.2pt%         外枠の太さ
+\newdimen\dblboxrulein\dblboxrulein0.2pt%     内枠の太さ
+\newdimen\dblboxsep\dblboxsep2.5pt%           外枠と内枠の間隔
 \def\@hleaderin{\leaders\hrule height \dblboxrulein depth 0pt\hfil}%
 \def\dblbox{%
 \@savetbaselineshift\tbaselineshift\tbaselineshift\z@%
@@ -389,18 +389,18 @@
 \hskip\dblboxsep}\vskip\dblboxsep%
 \kern-\dblboxrule\hrule height\dblboxrule}\hfil}%
 \dimen0=\ht\scscb@x%
-\advance\dimen0\dblboxrule% $B7S@~D9$ND4@0(B 2001/04/20
-%\advance\dimen0-.5\dblboxrulein% $B7S@~D9$ND4@0(B 2001/04/20
-\advance\dimen0-.6\dblboxrulein% $B7S@~D9$ND4@0(B 2001/04/20
+\advance\dimen0\dblboxrule% 罫線長の調整 2001/04/20
+%\advance\dimen0-.5\dblboxrulein% 罫線長の調整 2001/04/20
+\advance\dimen0-.6\dblboxrulein% 罫線長の調整 2001/04/20
 \noindent
 \hbox to\linewidth{%
   \hbox to 0.6pt{%
-    \vbox to\dimen0{\@vrf@{0pt}{.8pt}}\kern2.2pt% $B:87S@~!J7S@~D9JQ99!K(B
-    \vbox to\dimen0{\@vrf@{2.4pt}{.2pt}}\hss}%  $B:8Fb7S@~!J7S@~D9JQ99!K(B
+    \vbox to\dimen0{\@vrf@{0pt}{.8pt}}\kern2.2pt% 左罫線（罫線長変更）
+    \vbox to\dimen0{\@vrf@{2.4pt}{.2pt}}\hss}%  左内罫線（罫線長変更）
   \box\scscb@x%
   \hbox to.6pt{%
   \hss\vbox to\dimen0{\@vrf@{2.4pt}{.2pt}}\kern2.2pt%
-  \vbox to\dimen0{\@vrf@{0pt}{.9pt}}}% $B1&7S@~!J7S@~D9JQ99!K(B
+  \vbox to\dimen0{\@vrf@{0pt}{.9pt}}}% 右罫線（罫線長変更）
   \hss}%
 \egroup}%
 
@@ -421,14 +421,14 @@
 \hbox to\wd\@nbox{\vrule width1.08pt height15pt\hfil
 \vrule width1.08pt height15pt}\hrule height1.08pt}}
 %
-% shadebox $B=$@5(B
+% shadebox 修正
 %
 \let\asciishadebox\shadebox
 \let\endasciishadebox\endshadebox
 \def\shadebox{\par\noindent\asciishadebox}%
 \def\endshadebox{\endasciishadebox\par}%
 %
-% keytop : okumacro.sty $B$NDj5A$r(B epic, eepic $B$H$NJ;MQ$K8~$1$F=$@5(B
+% keytop : okumacro.sty の定義を epic, eepic との併用に向けて修正
 %
 \let\asckeytop\keytop
 \def\removept#1#2{%
@@ -496,58 +496,58 @@
 \endinput
 %\end of itembbox.sty
 %
-%% $B2~HGMzNr(B
+%% 改版履歴
 %%
 %% ver.0.00   1998/04/11
 %% ver.0.01   1998/08/08
-%%    $B3Q$N;M3Q$J%\%C%/%9(B \item(t,b)squarebox
-%%    $B1F$D$-%\%C%/%9(B     \itemshadebox
+%%    角の四角なボックス \item(t,b)squarebox
+%%    影つきボックス     \itemshadebox
 %% ver.0.01a  1998/08/25
-%%    tascmac.sty $B$N2~JQ(B (1998/02/27) $B$KBP1~(B
-%%    eepic $B$H$N6&B8$r2DG=$H$9$k!%(B
+%%    tascmac.sty の改変 (1998/02/27) に対応
+%%    eepic との共存を可能とする．
 %% ver.0.01b  1998/10/16
-%%    $B8+=P$7$K(B \footnotemark $B$r$D$1$k$HHV9f$,Ht$V8=>]$r2r>C(B
+%%    見出しに \footnotemark をつけると番号が飛ぶ現象を解消
 %% ver.0.01c  1998/11/29
-%%    tascmac.sty $B$N2~Dj$KBP1~(B
+%%    tascmac.sty の改定に対応
 %% ver.0.02a  1999/04/17
-%   boxnote $B$r(B color.sty $B$HJ;MQ$9$k:]$NIT6q9g$N=$@5(B
+%   boxnote を color.sty と併用する際の不具合の修正
 %  ver.0.04   1999/07/24
 %   shadebox \leavevmode -> \noindent
 %  v0.05      2000/06/06
-%   \usepackage{ascmac}$B$rIU2C(B
+%   \usepackage{ascmac}を付加
 %  v0.06      2000/09/01
 %  v 0.07     2001/04/10
-%     itemsquarebox $B2<JU7S@~D9$rL@<($9$k!#(B
-%     shadebox \hbox $B$NA0$K(B \leavevmode $BIm2C!#(B
+%     itemsquarebox 下辺罫線長を明示する。
+%     shadebox \hbox の前に \leavevmode 附加。
 %  v 0.08     2001/04/14
-%     $B3F(B box $B4D6-Fb$N%$%s%G%s%H$r(B1zw$B$H$7$F$$$?$,!$(B
+%     各 box 環境内のインデントを1zwとしていたが，
 %       \itemboxindent
-%     $B$G;XDj$G$-$k$h$&$K$9$k!#(B
+%     で指定できるようにする。
 %  v 0.09     2001/04/20
-%     squrebox, dblbox $B7S@~D9$ND4@0(B
+%     squrebox, dblbox 罫線長の調整
 %  v 0.10     2001/09/29
-%     tascmac.sty $B$K$*$1$k(B boxnote $B4D6-$N=$@5$KH<$$!$(B
-%     $BEv%U%!%$%k$N%Q%C%A$OITMW$H$J$k!#(B
+%     tascmac.sty における boxnote 環境の修正に伴い，
+%     当ファイルのパッチは不要となる。
 %  v 0.11     2001/12/26
-%     tascmac.sty $B5lHG$K$bBP1~(B
-%     list $B7O4D6-Fb$G$N;HMQ2DG=(B
+%     tascmac.sty 旧版にも対応
+%     list 系環境内での使用可能
 %  v 0.12     2001/12/28
-%     itemsquarebox[l] or [r] $B$K$*$1$k(B item $B$N0LCVD4@0(B
+%     itemsquarebox[l] or [r] における item の位置調整
 %  v 0.13     2001/12/28
 %     itemsquarebox
-%       <#1> $B%*%W%7%g%s$G%?%$%H%k$N0LCV!J:81&$+$i$N!K(B
-%                        $B%?%$%H%k$H7S@~$H$N4V3VD4@0(B
+%       <#1> オプションでタイトルの位置（左右からの）
+%                        タイトルと罫線との間隔調整
 %  v 0.14     2002/01/27
 %     itemsquarebox
 %       \iboxstr@ ---> \sc@itemb@x
 %  v 0.15     2002/09/30
 %     itemshadebox
-%       \lineskip $B$J$I$r%G%U%)%k%H$KLa$9!#(B
+%       \lineskip などをデフォルトに戻す。
 %  v 0.16     2004/06/20
-%     itemtbsquarebox : $B7S@~$NB@$5;XDj$,H4$1$F$$$kItJ,$r=$@5(B
+%     itemtbsquarebox : 罫線の太さ指定が抜けている部分を修正
 %  v 0.17     2004/08/05
-%     \keytop : okumacro $B$NDj5A$r(B epic, eepic $B$H$NJ;MQ$K8~$1$F=$@5(B
+%     \keytop : okumacro の定義を epic, eepic との併用に向けて修正
 %  v 0.18     2004/08/09
-%     ascmac.sty $B$N(B \keytop $B$r(B \asckeytop $B$H$7$FJ]B8(B
+%     ascmac.sty の \keytop を \asckeytop として保存
 %  v 0.19     2004/08/10
 %     \EMkeytop

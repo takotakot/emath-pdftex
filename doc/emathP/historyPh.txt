@@ -1,48 +1,48 @@
 v 0.57 2000/10/14
-  \Hen_ko $B$NJ8;z0LCV$K4X$7!$(B
-    <#8> $B$K<!$N%*%W%7%g%s$rDI2C(B
-      putoption= : $BJ8;z$r(B\Put $B$GG[CV$9$k$H$-$N%*%W%7%g%s(B
-      henkosep=  : \fboxsep $B$N6I=jE*$JCM(B
-      henkomozikaiten=1 : $BJ8;zNs$r@~J,$KJ?9T$H$J$k$h$&2sE>$9$k!#(B
+  \Hen_ko の文字位置に関し，
+    <#8> に次のオプションを追加
+      putoption= : 文字を\Put で配置するときのオプション
+      henkosep=  : \fboxsep の局所的な値
+      henkomozikaiten=1 : 文字列を線分に平行となるよう回転する。
   \yumigata**, \ougigata** 
-    $B=*$j3Q(B < $B;O$a3Q(B $B$N$H$-$O!$=*$j3Q$K(B360$B$r2C;;$9$k!#(B
-  \Hatchpolygon $B<P@~72$,DL2a$9$Y$-(B1$BE@$r;XDj$9$k$?$a$N%3%^%s%I(B
+    終り角 < 始め角 のときは，終り角に360を加算する。
+  \Hatchpolygon 斜線群が通過すべき1点を指定するためのコマンド
     syanurisiteiten=
     syanurikankaku=
-  \Gaisin $B=$@5(B
-  \KinziEnko $B1_8L$r6a;w$9$k@^$l@~$rJV$9!#(B
-  \KTkukan $BITEy<0$N2r$r?^I=<((B
+  \Gaisin 修正
+  \KinziEnko 円弧を近似する折れ線を返す。
+  \KTkukan 不等式の解を図表示
 
 v 0.58 2000/10/17
-  \zahyouMemori [#1] $B$K(B +, o, z $B%*%W%7%g%s$rDI2C(B
-  \Put#1[#2]... $B$N(B [#2] $B$K<!$N%*%W%7%g%s$rDI2C(B
+  \zahyouMemori [#1] に +, o, z オプションを追加
+  \Put#1[#2]... の [#2] に次のオプションを追加
           syaei=x|y|xy
           houi=n|nw|w|sw|s|se|e|ne
           xlabel=..
           ylabel=..
 v 0.59  2000/10/22
-  \?Tyokusen, \Gurafu $BD>@~$r(B \qbezier $B$G$O$J$/!$(B\drawline $B$r%G%U%)%k%H(B
-  \Put[#1] $B<!$N%*%W%7%g%s$r?7@_(B
-             background=white $BGX7J$rGr$/EI$k(B
-             kaiten    =ddd   $BJ8;z$r2sE>$9$k(B
-             houkou    =vvv   $B2sE>3Q$r4V@\E*$K;XDj(B
-             from      =PPP   $B2sE>3Q$r4V@\E*$K;XDj(B
-             to        =PPP   $B2sE>3Q$r4V@\E*$K;XDj(B
+  \?Tyokusen, \Gurafu 直線を \qbezier ではなく，\drawline をデフォルト
+  \Put[#1] 次のオプションを新設
+             background=white 背景を白く塗る
+             kaiten    =ddd   文字を回転する
+             houkou    =vvv   回転角を間接的に指定
+             from      =PPP   回転角を間接的に指定
+             to        =PPP   回転角を間接的に指定
 v 0.60  2000/10/27
-  $BE@$+$iD>@~$K2<$m$7$??b@~$NB-$r5a$a$k%3%^%s%I$K(B
-    \mSuisen $BD>@~$r(B1$BE@$HJ}8~%Y%/%H%k$GM?$($?>l9g(B
-    \kSuisen $BD>@~$r(B1$BE@$HJ}8~3Q$GM?$($?>l9g(B
-  $B$rDI2C$9$k!#(B
-  $BH/E8$7$F!$D>@~$K4X$9$kBP>NE@$r5a$a$k%3%^%s%I$r?7@_$9$k!#(B
+  点から直線に下ろした垂線の足を求めるコマンドに
+    \mSuisen 直線を1点と方向ベクトルで与えた場合
+    \kSuisen 直線を1点と方向角で与えた場合
+  を追加する。
+  発展して，直線に関する対称点を求めるコマンドを新設する。
     \Taisyouten, \mTaisyouten, \kTaisyouten
-  \zahyouMemori $B$N%P%0%U%#%C%/%9(B
+  \zahyouMemori のバグフィックス
 v 0.61  2000/11/01
-  \rGurafu $B=*C<$N7W;;$K%P%0(B
+  \rGurafu 終端の計算にバグ
 v 0.62  2000/12/02-19
-  $B%m!<%I%*%W%7%g%s(B times
-  \@seisuu $B$NDj5A$r(B emath.sty $B$K0\$9!#(B
+  ロードオプション times
+  \@seisuu の定義を emath.sty に移す。
 v 0.63  2001/01/28-29
-  \YGurafu perl $B$r;HMQ$9$k!#(B
+  \YGurafu perl を使用する。
 v 0.64  2001/02/10
   \XGurafu
   \BGurafu
@@ -50,495 +50,495 @@ v 0.64  2001/02/10
 v 0.65  2001/02/15
   \YTen, \BTen, \RTen
 v 0.66  2001/02/20
-  \Put $B$N(B syaei $B%*%W%7%g%s$K@~<o$r;XDj$9$k(B syaeisensyu= $B$rIm2C(B
+  \Put の syaei オプションに線種を指定する syaeisensyu= を附加
 v 0.67  2001/03/03
-  shaeisensyu=... $B6uGr$N:.F~BP:v(B
+  shaeisensyu=... 空白の混入対策
 v 0.68  2001/03/29 - 04/07
-  perl $B$H$NO"7HMQJd=u%U%!%$%k:o=|$rN1J]$7!$(B
-    $B:o=|MQ$N%3%^%s%I(B \delGurafuFile
-  $B@~J,$KJ?9T5-9f$r$D$1$k(B \heikoukigou
-  zahyou $B4D6-$N(B [key=val] $B%*%W%7%g%s$K(B ul=dimen $B$rDI2C!#(B
-    (ul $B$O(B \unitlength $B$N>JN,7A(B)
-  zahyou* $B4D6-(B $B:BI8<4$rIA2h$7$J$$!#(B
-  arrowline $BJ#?t$NLp@~$r0z$/!#(B
+  perl との連携用補助ファイル削除を留保し，
+    削除用のコマンド \delGurafuFile
+  線分に平行記号をつける \heikoukigou
+  zahyou 環境の [key=val] オプションに ul=dimen を追加。
+    (ul は \unitlength の省略形)
+  zahyou* 環境 座標軸を描画しない。
+  arrowline 複数の矢線を引く。
 v 0.69  2001/04/08-10
-  zahyou$B4D6-Fb$G$O!$(B\def\O{(0,0)}$B$rDj5A:Q$_$H$9$k!#(B
-  \heikoukigou $B$N(B [heikoukigousize=...] $B%*%W%7%g%s$,L58z$G$"$C$?$N$r=$@5!#(B
+  zahyou環境内では，\def\O{(0,0)}を定義済みとする。
+  \heikoukigou の [heikoukigousize=...] オプションが無効であったのを修正。
 v 0.70  2001/04/11-14
-  $B;03Q4X?t$N7W;;$O(B trig.sty $B$rMQ$$$k!#(B
-  perl $B$+$i0z$-<h$kJ8;zNs$r(B \trim $B$G=hM}$9$k!#(B
+  三角関数の計算は trig.sty を用いる。
+  perl から引き取る文字列を \trim で処理する。
 v 0.71 2001/04/28
-  \hasen, \Hasen : \unitlength $B$H$OFHN)$NGK@~(B
+  \hasen, \Hasen : \unitlength とは独立の破線
 v 0.72 2001/06/01
-   \hasen*, \Hasen* : $BC<E@$+$i(B gap $B$G;O$^$kGK@~(B
-   \ArrowLine [b]$B%*%W%7%g%s$G!$N>8~$-Lp0u(B
-   \rtenretu, \rtenretu* $B6K:BI87A<0$rA0Ds(B
+   \hasen*, \Hasen* : 端点から gap で始まる破線
+   \ArrowLine [b]オプションで，両向き矢印
+   \rtenretu, \rtenretu* 極座標形式を前提
 v 0.73 2001/06/02
-   \yenko, \Kakukigou : [b]$B%*%W%7%g%s$GN>8~$-Lp0u(B
-   \Toukokigou : $B1_8L$ND9$5$,Ey$7$$$3$H$rI=8=$9$k5-9f(B
+   \yenko, \Kakukigou : [b]オプションで両向き矢印
+   \Toukokigou : 円弧の長さが等しいことを表現する記号
 v 0.74 2001/06/07
-   \Gaisin : $B30@\1_$NH>7B$r<u$1<h$k%*%W%7%g%s0z?t$rDI2C(B
-   \Enko   : $B;O$a3Q!$=*$j3Q$r<u$1<h$k%*%W%7%g%s0z?t$rDI2C(B
+   \Gaisin : 外接円の半径を受け取るオプション引数を追加
+   \Enko   : 始め角，終り角を受け取るオプション引数を追加
 v 0.75 2001/06/09
-   \Enko   : $BLp0u$r$D$1$k$?$a$N%*%W%7%g%s!'(B<yazirusi=a|r|b>
-   \Hen_ko : $BLp0u$r$D$1$k$?$a$N%*%W%7%g%s!'(B<yazirusi=a|r|b>
+   \Enko   : 矢印をつけるためのオプション：<yazirusi=a|r|b>
+   \Hen_ko : 矢印をつけるためのオプション：<yazirusi=a|r|b>
 v 0.76 2001/06/17
-   \hyou   : *5{|C(3zw)}$B$r2DG=$H$9$k!#(B
+   \hyou   : *5{|C(3zw)}を可能とする。
 v 0.77 2001/07/08
-   \rotUbrace, \rotObrace $B79$$$?(B \underbrace, \overbrace
-   \yenko [#1]$B$,(B\empty $B$N>l9g(B
-   \zahyou [haiti=t] $B%*%W%7%g%s(B
+   \rotUbrace, \rotObrace 傾いた \underbrace, \overbrace
+   \yenko [#1]が\empty の場合
+   \zahyou [haiti=t] オプション
 v 0.78 2001/07/20
-   \Enko \yenko $B$K0z$-EO$9Lp0u$N8~$-%*%W%7%g%s$r(B
-           \empty $B$+$i(B `n' $B$KJQ99$7!$Lp0u$r$D$1$J$$$3$H$rL@<($9$k!#(B
+   \Enko \yenko に引き渡す矢印の向きオプションを
+           \empty から `n' に変更し，矢印をつけないことを明示する。
 v 0.79 2001/08/02
-    \vHasen[$B9b$5(B]{$B?<$5(B} $BGK@~$N=D7S@~(B
+    \vHasen[高さ]{深さ} 破線の縦罫線
 v 0.80 2001/08/28
-    \kugirisi : $B%G%#%l%/%H%j$N6h@Z$jJ8;z$r(B \@currdir $B$+$iF@$k!#(B
+    \kugirisi : ディレクトリの区切り文字を \@currdir から得る。
 v 0.81 2001/08/29
-    Mac $B$N>l9g$K(B emathO.sty $B$,$"$l$PFI$_9~$`!#(B
+    Mac の場合に emathO.sty があれば読み込む。
 v 0.82 2001/08/31
-    Mac $B$N>l9g!$(B
-      step 1. tex $B$G(B perl $BMQ$N%9%/%j%W%H$r=q$-=P$9!#(B
-      step 2. $B>e5-%9%/%j%W%H$r(B perl $B$G=hM}$7!$(Btex $BMQ$N%0%i%U%G!<%?$r=q$-=P$9(B
-      step 3. tex $B$G!$>e5-%G!<%?%U%!%$%k$rFI$_9~$_%0%i%U$rIA2h$9$k!#(B
-     $B$N#3%9%F%C%W$G=hM}$9$kJ}K!$r<h$jF~$l$k!#(B
+    Mac の場合，
+      step 1. tex で perl 用のスクリプトを書き出す。
+      step 2. 上記スクリプトを perl で処理し，tex 用のグラフデータを書き出す
+      step 3. tex で，上記データファイルを読み込みグラフを描画する。
+     の３ステップで処理する方法を取り入れる。
 v 0.83 2001/09/01
-      Windows $B$N>l9g$b(B emath.pl $B$O(B ..perl/lib $B$X(B
-                       $B$^$?!$(BGurafu.pl $B$OITMW$H$9$k!#(B
+      Windows の場合も emath.pl は ..perl/lib へ
+                       また，Gurafu.pl は不要とする。
 v 0.84 2001/09/02
-    \Gurafu $BHO0O$r6u$K$7$?$H$-$OIA2hHO0O$$$C$Q$K=q$/!#(B
+    \Gurafu 範囲を空にしたときは描画範囲いっぱに書く。
 v 0.85 2001/09/04
-    \yaziri \ArrowHeadType $B$rH?1G$5$;$k!#(B
+    \yaziri \ArrowHeadType を反映させる。
 v 0.86 2001/09/05
-    $B>e5-=$@5$N:F=$@5(B
+    上記修正の再修正
 v 0.87 2001/09/06
-    Windows $B$J$I$G$b!$(Bperl $B$N:n@.$7$?%G!<%?%U%!%$%k$rJ]B8$9$k$h$&$K$7!$(B
+    Windows などでも，perl の作成したデータファイルを保存するようにし，
         \skipCallPerl
-    $B$G!$(B
-        $B%G!<%?%U%!%$%k$,$"$k$H$-$O$=$l$rMxMQ!$(B
-        $B$J$$$H$-$O(B perl $B$r8F$s$G%G!<%?%U%!%$%k$r:n@.$9$k(B
-    $B$h$&$K$7$?!#%?%$%W%;%C%H=jMW;~4V$OH>J,0J2<$H$J$k!#(B
+    で，
+        データファイルがあるときはそれを利用，
+        ないときは perl を呼んでデータファイルを作成する
+    ようにした。タイプセット所要時間は半分以下となる。
 v 0.88 2001/09/12
-    \XTen $BDI2C(B
-    \?Ten $B$K0z$-B3$$$F!$(B\Put $B$r9T$&(B \XPut, \YPut, \BPut, \RPut
-    \YGurafu* $BC<E@$r;XDj$;$:!$IA2hNN0h0lGU$KIA$/!#(B
+    \XTen 追加
+    \?Ten に引き続いて，\Put を行う \XPut, \YPut, \BPut, \RPut
+    \YGurafu* 端点を指定せず，描画領域一杯に描く。
 v 0.89 2001/09/15
-    \YGurafu* $BC<E@$r(B\migiT, \hidariT
+    \YGurafu* 端点を\migiT, \hidariT
 v 0.90 2001/09/16-11/11
-    \Tyokusen $B$KBP$7$F$b(B \migiT, \hidariT
+    \Tyokusen に対しても \migiT, \hidariT
     \XGurafu*
     \BGurafu*
     \zKyori |x1-x2|+|y1-y2|
-    \sya[.5] $B$J$I$G(B1$B%+%i%`$rEI$j$D$V$95!G=$rIm2C(B
-    \Gurafu, \yGurafu $B%/%j%C%T%s%0$K$*$$$F!$$-$A$s$HJd4V$9$k!#(B
-    \hamidasisenbun $B@~J,$N:81&$r>/$7?-$P$9!#(B
+    \sya[.5] などで1カラムを塗りつぶす機能を附加
+    \Gurafu, \yGurafu クリッピングにおいて，きちんと補間する。
+    \hamidasisenbun 線分の左右を少し伸ばす。
 v 0.91 2001/11/15-17
-    $B%/%j%C%T%s%0$O(B \yclipDrawline $B$K$^$+$;$k!#(B
-    $B%0%i%U$NE@@~IA2h$b%/%j%C%T%s%0$rJd4V$9$k!#(B
-    zahyou $B4D6-Fb$K(B
+    クリッピングは \yclipDrawline にまかせる。
+    グラフの点線描画もクリッピングを補間する。
+    zahyou 環境内に
       \XMAX, \XMIN
       \YMAX, \YMIN
       \LB, \LT, \RB, \RT
-    $B$rDj5A$9$k!#(B
+    を定義する。
 v 0.92 2001/11/18-20
-    $BH>D>@~IA2h%3%^%s%I$K$*$$$F!$IA2hNN0hFb$NC<E@$r(B \HtyokuT $B$GJV$9!#(B
-    \CandL, \Candl 2$B8rE@$N(Bx$B:BI8$,Ey$7$$>l9g$N=hM}$,IT40A4$G$"$C$?!#(B
+    半直線描画コマンドにおいて，描画領域内の端点を \HtyokuT で返す。
+    \CandL, \Candl 2交点のx座標が等しい場合の処理が不完全であった。
 v 0.93 2001/11/23
-    zahyou $B4D6-(B
-      key $B$K(B
+    zahyou 環境
+      key に
         ueyohaku, sitayohaku, migiyohaku, hidariyohaku
         Ueyohaku, Sitayohaku, Migiyohaku, Hidariyohaku
         zikusensyu
         arrowheadsize
-      $B$rDI2C(B
-    \KinziOresen $B$J$I!$9o$_$,Ii$N>l9g$KBP1~(B
-    y=f(x), y=g(x)$B$N8rE@$r5a$a$k(B \YKouten $B$r?7@_(B
+      を追加
+    \KinziOresen など，刻みが負の場合に対応
+    y=f(x), y=g(x)の交点を求める \YKouten を新設
 v 0.94 2001/11/25
-    \heikousihenkei $BJ8;z%5%$%:$NJQ99$K1~$8$F@~$NB@$5$rJQ99(B
-    \Deruta $B-y5-9f(B
-    \Touhenkigou $BG[CV$9$k5-9f$,(B<2>$B$GH?1G$5$l$J$+$C$?%P%0=$@5(B
+    \heikousihenkei 文字サイズの変更に応じて線の太さを変更
+    \Deruta ⊿記号
+    \Touhenkigou 配置する記号が<2>で反映されなかったバグ修正
 v 0.95 2001/12/11-2002/01/16
-    \Absvec $B%*!<%P!<%U%m!<BP:v(B
-    $B%m!<%I%*%W%7%g%s(B dvips, dviout $B?7@_(B
-    $B7W;;ItJ,$r(B emathC.sty $B$KJ,N%(B
-    perl $B$H$NO"7HItJ,$r(B emathPp.sty $B$KJ,N%(B
-    hyou, Hyou $B$r(B emathT.sty $B$KJ,N%(B
-    \ArrowLine $B$K(B <sensyu=...> $B%*%W%7%g%s(B
-    \Yenko $Bo7$N$_IA2h(B
-    \Enko $B$K!$(B<yazirusi=..> $B$GLp0u$r$D$1$k$3$H$r2DG=$H$9$k!#(B
-    \Kakukigou $BLp@~$r$D$1$k$3$H$HGK@~IA2h$rN>N)(B
-    \kaitenkigou $B2sE>BN$N<4$N$^$o$j$KIUM?$9$k5-9f(B
+    \Absvec オーバーフロー対策
+    ロードオプション dvips, dviout 新設
+    計算部分を emathC.sty に分離
+    perl との連携部分を emathPp.sty に分離
+    hyou, Hyou を emathT.sty に分離
+    \ArrowLine に <sensyu=...> オプション
+    \Yenko 鏃のみ描画
+    \Enko に，<yazirusi=..> で矢印をつけることを可能とする。
+    \Kakukigou 矢線をつけることと破線描画を両立
+    \kaitenkigou 回転体の軸のまわりに付与する記号
 v 0.96 2002/02/24
-    \namisen $BGH@~(B ---> emathPp 02/09
-    \xmaxY, \xminY, \ymaxY, \yminY $BM>GrIU(Bzahyou$B4D6-(B
+    \namisen 波線 ---> emathPp 02/09
+    \xmaxY, \xminY, \ymaxY, \yminY 余白付zahyou環境
 v 0.97 2002/03/10
-    \rectbox $BD9J}7A$N0O$_$K$*$$$F!$(B
-               $B@~<o!$@~$NB@$5$J$I$rJQ99$G$-$k$h$&$K$9$k!#(B
-    \hasenkakomi $BK5Cm$r$D$1$i$l$k0O$_(B
+    \rectbox 長方形の囲みにおいて，
+               線種，線の太さなどを変更できるようにする。
+    \hasenkakomi 傍注をつけられる囲み
 v 0.98 2002/04/04-13
-    \yasen, \Yasen $B@.J,$r;XDj$7$FLp@~$r0z$-!$J8;zNs$rG[CV$9$k!#(B
-    \ArrowLine $B$KJ8;zNsG[CV%*%W%7%g%s$r$D$1$k!#(B
+    \yasen, \Yasen 成分を指定して矢線を引き，文字列を配置する。
+    \ArrowLine に文字列配置オプションをつける。
 v 0.99 2002/04/25
-  txfonts, pxfonts $B%*%W%7%g%s$N=hM}$rJQ99(B
+  txfonts, pxfonts オプションの処理を変更
 v 1.00 2002/05/08
-  \ArrowLine : $B@~J,$Ho7$NIA2h=g$rF~$lBX$($k!#(B
+  \ArrowLine : 線分と鏃の描画順を入れ替える。
 v 1.01 2002/06/29
-  \En* $B3Q$N%l%s%8$,O;==J,K!$K$J$C$F$$$?!#%i%8%"%s$K=$@5!#(B
+  \En* 角のレンジが六十分法になっていた。ラジアンに修正。
 v 1.02 2002/07/05-06
-  dvipsk $B$N(B tpic specials $B=DAH$_BP1~$K$h$j(B
-        \usepackage{emathPh}           ---> dviout, dvipdfm $BMQ(B
-        \usepackage[EMdvipsk]{emathPh} ---> dvipsk $BMQ(B
+  dvipsk の tpic specials 縦組み対応により
+        \usepackage{emathPh}           ---> dviout, dvipdfm 用
+        \usepackage[EMdvipsk]{emathPh} ---> dvipsk 用
 v 1.03 2002/07/19
-  (1) $B=DAH$_$N(B tpic specials $B$K$D$$$F!$(Bdviout $B$b(B dvipsk $B$HF1$8$H$J$C$?$N$G(B
-        \usepackage{emathPh}            ---> dviout, dvipsk $BMQ(B
-        \usepackage[EMdvipdfm]{emathPh} ---> dvipdfm $BMQ(B
-      $B$HJQ99(B
-  (2) $BEI$j$D$V$7$N%+%i!<;XDj$r(B dvipsk $B$G$bM-8z$H$9$k(B
-        \Nuritubusi[nuriiro=red] $B$J$I$H;XDj(B
+  (1) 縦組みの tpic specials について，dviout も dvipsk と同じとなったので
+        \usepackage{emathPh}            ---> dviout, dvipsk 用
+        \usepackage[EMdvipdfm]{emathPh} ---> dvipdfm 用
+      と変更
+  (2) 塗りつぶしのカラー指定を dvipsk でも有効とする
+        \Nuritubusi[nuriiro=red] などと指定
 v 1.04 2002/07/23-24
-  eclarith $BFI$_9~$_$r(B emathC $B$+$i0\4I(B
-  dvipdfm $B%m!<%I%*%W%7%g%s(B
+  eclarith 読み込みを emathC から移管
+  dvipdfm ロードオプション
 v 1.05 2002/08/02 --- 09/27
-  $BGK@~$K$h$k0O$_OH(B \hasenframebox $B$r(B hako.sty $B$+$i0\4I(B
-    $B!J(B cf. $B$3$A$i$O%3%^%s%I$G!$(Brectbox $B$,4D6-;EN)$F!K(B
-  $BGK@~$K$h$k0O$_OH$G!$%Z!<%8$r$^$?$0(B breakDbox $B4D6-!J(Bbreakbox.sty $B$rA0Ds!K(B
-  eclbkbox $B$N=$@5$O(B ---> emathBk.sty $B$K0\$9!#(B
-  \darkgray, \lightgray $B$NDj5A$r4^$a$k!#(B
-  \tenretu : \aztenretu $B$r?7@_$7$?$3$H$K$h$k=$@5(B
+  破線による囲み枠 \hasenframebox を hako.sty から移管
+    （ cf. こちらはコマンドで，rectbox が環境仕立て）
+  破線による囲み枠で，ページをまたぐ breakDbox 環境（breakbox.sty を前提）
+  eclbkbox の修正は ---> emathBk.sty に移す。
+  \darkgray, \lightgray の定義を含める。
+  \tenretu : \aztenretu を新設したことによる修正
 v 1.06 2002/10/04
-  \xmemori, \ymemori $B$N(B [...] $B%*%W%7%g%s$K(B
-      \Put $B$KM?$($k0LCVD4@0%*%W%7%g%s$r5-=R2DG=$H$9$k!#(B
+  \xmemori, \ymemori の [...] オプションに
+      \Put に与える位置調整オプションを記述可能とする。
 v 1.07 2002/10/09-11/01
-  \kakomi : \\, \par $B$r4^$`CJMn$r2#I}$r5a$a$F0O$`!#(B
-  $B<P@~EI$j$G!$<P@~$r6-3&@~$+$i>/$7N%$7$FEI$k$?$a$N%*%W%7%g%s(B
+  \kakomi : \\, \par を含む段落を横幅を求めて囲む。
+  斜線塗りで，斜線を境界線から少し離して塗るためのオプション
       syasentanmatu=...
 v 1.08 2002/11/02
-  \Nuritubusi $BG;EY(B0$B$N$H$-$O!$2?$b$7$J$$!#(B
+  \Nuritubusi 濃度0のときは，何もしない。
 v 1.09 2002/11/03
-  v 1.08 $B$NJQ99$O$^$:$$!#(B
-  \nuri@iro $B$N%G%U%)%k%H$r(B \nuri@iro@ $B$H$7!$(B
-  emathAe $B$N(B \maskAns... $B$HD4@0$9$k!#(B
+  v 1.08 の変更はまずい。
+  \nuri@iro のデフォルトを \nuri@iro@ とし，
+  emathAe の \maskAns... と調整する。
 v 1.10 2002/11/18
-  \Put syaei=.. $B%*%W%7%g%s$G<M1F0LCV$K$D$1$kJ8;z0LCV$rD4@0$9$k%*%W%7%g%s(B
+  \Put syaei=.. オプションで射影位置につける文字位置を調整するオプション
            xpos=.., ypos=..
-       $B$r?7@_(B
+       を新設
 v 1.11 2002/11/21
-  \teisei $BBG$A>C$7@~$N0LCV$r=$@5$9$k%*%W%7%g%sIm2C(B
+  \teisei 打ち消し線の位置を修正するオプション附加
 v 1.12 2002/11/29
-  zahyou$B4D6-$K$*$$$F!$:BI8<4IA2h$N%?%$%_%s%0$r:G8e$K;}$C$F$$$/!#(B
+  zahyou環境において，座標軸描画のタイミングを最後に持っていく。
 v 1.13 2002/12/03
-  henkomozikaiten=-1 $BJ8;z$r(B180$BEY2sE>(B
+  henkomozikaiten=-1 文字を180度回転
 v 1.14 2002/12/08
-  \Enko $B$G1_<~$rE@@~$GIA2h$9$k$?$a$N%*%W%7%g%s(B <ten=..>
+  \Enko で円周を点線で描画するためのオプション <ten=..>
 v 1.15 2002/12/12
-  \enko, \Daenko : (\arc, \@arc $B$K$h$k!K6uGr$N:.F~$rGS=|(B
+  \enko, \Daenko : (\arc, \@arc による）空白の混入を排除
 v 1.16 2002/12/18
-    (1) $B:BI8<4$rIA2h$9$k%3%^%s%I(B \drawXYaxis
-    (2) \kaitenkigou $B5!G=A}6/(B
+    (1) 座標軸を描画するコマンド \drawXYaxis
+    (2) \kaitenkigou 機能増強
 v 1.17 2002/12/19
-    \kaitenkigou $B$,(B xscale(yscale)$B$r;HMQ$7$?:]$KMp$l$k%P%0$N=$@5(B
+    \kaitenkigou が xscale(yscale)を使用した際に乱れるバグの修正
 v 1.18 2003/01/06
-    \endzahyou : emathPs $B$H$N4X78$GD4@0(B
+    \endzahyou : emathPs との関係で調整
 v 1.19 2003/01/09-13
-    \Yaziri : \Put#1\yaziri#2 $B$r(B \Yaziri#1#2 $B$H$9$k!#(B
-    \Kakukigou : emathPs $B$KJ;$;$FD4@0(B
+    \Yaziri : \Put#1\yaziri#2 を \Yaziri#1#2 とする。
+    \Kakukigou : emathPs に併せて調整
 v 1.20 2003/01/19
-    picture$B4D6-$G$b!$86E@(B\O $B$rDj5A$7$F$*$/!#(B
-    \Bousin \Bousetuen : $BK5?4$HK5@\1_(B
+    picture環境でも，原点\O を定義しておく。
+    \Bousin \Bousetuen : 傍心と傍接円
 v 1.21 2003/01/23
-    emathPs.sty $B$H$N4X78$G!$(B
-       zahyou $B4D6-$N%*%W%7%g%s%-!<$K(B
+    emathPs.sty との関係で，
+       zahyou 環境のオプションキーに
            includeEPS, EPSfilename
-    $B$rDI2C(B
+    を追加
 v 1.22 2003/01/24
-    emathPs.sty $B$H$N4X78$G!$(B
-       zahyou $B4D6-$N%*%W%7%g%s%-!<$K(B
+    emathPs.sty との関係で，
+       zahyou 環境のオプションキーに
            debug
-    $B$rDI2C(B
+    を追加
 v 1.23 2003/01/23
-    emathPs.sty $B$H$N4X78$G!$(B
-       zahyou $B4D6-$N%*%W%7%g%s%-!<$K(B
+    emathPs.sty との関係で，
+       zahyou 環境のオプションキーに
            EPSclip
-    $B$rDI2C(B
+    を追加
 v 1.24 2003/01/30
-    \put \local@origin $B$ND4@0(B
+    \put \local@origin の調整
 v 1.25 2003/02/09
-    emathPs.sty $B$H$N4X78$G!$(B
-       zahyou $B4D6-$N%*%W%7%g%s%-!<$K(B
+    emathPs.sty との関係で，
+       zahyou 環境のオプションキーに
            borderwidth
-    $B$rDI2C(B
+    を追加
 v 1.26 2003/02/11
-    \Gaisetuen : emathPs $BBP1~(B
+    \Gaisetuen : emathPs 対応
 v 1.27 2003/02/17
-    \sikakkei : $B0lHL$N;M3Q7A$rI=$95-9f(B
+    \sikakkei : 一般の四角形を表す記号
 v 1.28 2003/02/20
-    \rectbox : $B8+=P$7$r$D$1$k$?$a$N%*%W%7%g%s%-!<(B item=..,
-               $B=D0LCV$r;XDj$9$k$?$a$N%*%W%7%g%s%-!<(B pos=..
-               $B?eJ?J}8~$N7S@~$H$N6u$-(B hsep=..
-               $B?bD>J}8~$N7S@~$H$N6u$-(B vsep=..
+    \rectbox : 見出しをつけるためのオプションキー item=..,
+               縦位置を指定するためのオプションキー pos=..
+               水平方向の罫線との空き hsep=..
+               垂直方向の罫線との空き vsep=..
 v 1.29 2003/02/27
-    \heikoukigou $B8D?t$,(B3$B$N>l9g$N%P%0$r=$@5(B
-                       4$B$N>l9g$rDI2C(B
-                       5$B0J>e$N>l9g$r%(%i!<$H$9$k!#(B
-    \zahyou : haiti=c $B$G!$(Bx$B<4$r(B baseline $B$K9g$o$;$k!#(B
+    \heikoukigou 個数が3の場合のバグを修正
+                       4の場合を追加
+                       5以上の場合をエラーとする。
+    \zahyou : haiti=c で，x軸を baseline に合わせる。
 v 1.30 2003/03/09
-    zahyou$B4D6-(B haiti=t12pt $B$J$I$HJd@5NL$r;XDj2DG=$H$9$k!#(B
+    zahyou環境 haiti=t12pt などと補正量を指定可能とする。
 v 1.31 2003/03/17
-    $B>e5-Jd@5$r(B b, c$B%*%W%7%g%s$G$bM-8z$H$9$k!#(B
-    \KAKUkigousize : | $B$NBg$-$5!J%G%U%)%k%H(B=1$B!K(B
+    上記補正を b, cオプションでも有効とする。
+    \KAKUkigousize : | の大きさ（デフォルト=1）
 v 1.32 2003/03/23-30
-    \rectbox $B$N%*%W%7%g%s%-!<$K(B rectboxwidth=.. 
-    \Rectbox : $B%3%^%s%I7A<0$G!$2#I}$r<+A3D9$K@)8B(B
-    \kaiten : $BE@Ns$r2sE>$5$;$k(B
+    \rectbox のオプションキーに rectboxwidth=.. 
+    \Rectbox : コマンド形式で，横幅を自然長に制限
+    \kaiten : 点列を回転させる
 v 1.33 2003/04/03-14
-    \ippankaku : $B0lHL3Q(B
-    tatezikukigou $B$J$I$N1&JUCM$K!$%^%/%m$r;HMQ2DG=(B
-    \PutStr $B$K(B addvec=.. $B$G!$=*E@$N0LCV$rHyD4@0$9$k%Y%/%H%k$r;XDj2DG=(B
-    \hasen $B$K$*$1$kIA2hH=Dj$r(B \Kyorii $B$+$i(B \Kyori $B$KJQ99(B
+    \ippankaku : 一般角
+    tatezikukigou などの右辺値に，マクロを使用可能
+    \PutStr に addvec=.. で，終点の位置を微調整するベクトルを指定可能
+    \hasen における描画判定を \Kyorii から \Kyori に変更
 v 1.34 2003/05/20
     \emLarc
 v 1.35 2003/05/21
-    \DrawHatC(*) : 2$BG/A0$N$b$N$r<}O?(B
-    \emLarc $B$OGQ0F(B
+    \DrawHatC(*) : 2年前のものを収録
+    \emLarc は廃案
 v 1.36 2003/05/25
-    \PutStr [#6]$B$K!$(Barrowheadsize= $B%*%W%7%g%s$r2DG=$H$9$k!#(B
-                    $B!JFC$K(B arrowheadsize=0 $B$H$9$l$P!$Lp0uL5$7!K(B
-    \Nitoubunsen : $B;03Q7A$N3Q$NFsEyJ,@~$HBPJU$N8rE@$r5a$a$k!#(B
+    \PutStr [#6]に，arrowheadsize= オプションを可能とする。
+                    （特に arrowheadsize=0 とすれば，矢印無し）
+    \Nitoubunsen : 三角形の角の二等分線と対辺の交点を求める。
 v 1.37 2003/06/13
-    \emPmaru : $BJ8;z%5%$%:$K9g$o$;$?4]0O$_(B
-    \zahyou : [key=val] $B$,$J$$>l9g$ND4@0(B
+    \emPmaru : 文字サイズに合わせた丸囲み
+    \zahyou : [key=val] がない場合の調整
 v 1.38 2003/06/16
-    \EandL, \Eandl, \Eandk $BBJ1_$HD>@~$N8rE@(B
+    \EandL, \Eandl, \Eandk 楕円と直線の交点
 v 1.39 2003/06/17
     \DaennoSessen, \DaenniSessen
     \Earg
 v 1.40 2003/06/18-07/12
-    \O@@ : $B86E@(B
-    $BLp0u$r4^$`D9J}7A$GGrEI$j$7$?8e!$Lp0u$rIA2h!J44$O(B1pt$BC;$/!K(B--- $BJ]N1(B
-    kutitukibox$B4D6-(B, \hukidasi
+    \O@@ : 原点
+    矢印を含む長方形で白塗りした後，矢印を描画（幹は1pt短く）--- 保留
+    kutitukibox環境, \hukidasi
 v 1.41 2003/07/13
-    \hukidasi : $B<jD>$7!$H/E8(B
+    \hukidasi : 手直し，発展
 v 1.43 2003/08/08
-    Zahyou$B4D6-$G!$(BMigiyohaku=..$B%*%W%7%g%s$J$I$rM-8z$H$9$k!#(B
+    Zahyou環境で，Migiyohaku=..オプションなどを有効とする。
 v 1.44 2003/09/01
-    \xmemori, \ymemori : xscale, yscale $B$r;XDj$7$?>l9g$KBP1~(B
+    \xmemori, \ymemori : xscale, yscale を指定した場合に対応
 v 1.45 2003/10/07
-    \Heikoukigou : $BJ#?t$N5-9f$r$D$1$k>l9g$N4V3V$r@dBP;XDj$H$9$k!#(B
-    \Naisin      : \lr $B$NDj5A$r(B \Naisetuen $B$+$i0\$9!#(B
+    \Heikoukigou : 複数の記号をつける場合の間隔を絶対指定とする。
+    \Naisin      : \lr の定義を \Naisetuen から移す。
 v 1.46 2003/10/18
-    \Yenko : \arrow@headsize=0 $B$N>l9g$O!$2?$b$7$J$$!#(B
-    $B!!!!!!!!!J$3$3$GEI$j$D$V$7%3%^%s%I$rH/9T$9$k$H!$(B
-    $B!!!!!!!!!!8eB3$NJL$NJD6J@~$,EI$j$D$V$5$l$F$$$?!#!K(B
+    \Yenko : \arrow@headsize=0 の場合は，何もしない。
+    　　　　（ここで塗りつぶしコマンドを発行すると，
+    　　　　　後続の別の閉曲線が塗りつぶされていた。）
 v 1.47 2003/10/19
-    \def\arrow@headsize $B$r%m!<%I;~E@$GDj5A$7$F$*$/!#(B
+    \def\arrow@headsize をロード時点で定義しておく。
 v 1.48 2003/10/26
-    \toukakukigou $B$N2<@A$1$r(B \KAKUkigou ---> \Kakukigou
+    \toukakukigou の下請けを \KAKUkigou ---> \Kakukigou
 v 1.49 2003/10/29
-    \KAKUkigousize $B$r(B \toukakukigou $B$G$bM-8z$H$9$k!#(B
+    \KAKUkigousize を \toukakukigou でも有効とする。
 v 1.50 2003/10/31
-    \Rdef@a : $BCf4VJQ?t$rFH<+L>$K(B
+    \Rdef@a : 中間変数を独自名に
 v 1.51 2003/11/10
-    \tenretu $B$KBP$9$k(B <perl> $B%*%W%7%g%s(B
+    \tenretu に対する <perl> オプション
 v 1.52 2003/11/16
-    emathC.sty $B$N(B \For $B:FDj5A$KBP1~(B
+    emathC.sty の \For 再定義に対応
 v 1.53 2003/11/29
-    \xmemori $B%i%Y%kDj5A$r(B \edef ---> \def
+    \xmemori ラベル定義を \edef ---> \def
 v 1.54 2003/12/12
-    rectbox$B4D6-$N%*%W%7%g%s$K(B [rectboxWidth=..]$B$rDI2C(B
-        rectboxwidth=.. $B$OK\J8$NI}$r;XDj(B
-        rectboxWidth=.. $B$O%\%C%/%9$NI}$r;XDj(B
+    rectbox環境のオプションに [rectboxWidth=..]を追加
+        rectboxwidth=.. は本文の幅を指定
+        rectboxWidth=.. はボックスの幅を指定
 v 1.55 2003/12/27
-    notMy $B%*%W%7%g%s2D(B
-    \tenretu $B$KBP$9$k(B <perl> $B%*%W%7%g%s$NITHw$r=$@5(B
+    notMy オプション可
+    \tenretu に対する <perl> オプションの不備を修正
 v 1.58 2004/01/12
-    rectbox$B4D6-$K(B [bitem=...,bitempos=..] $B$G!$2<8+=P$7$H$=$NG[CV;XDj%*%W%7%g%s(B
+    rectbox環境に [bitem=...,bitempos=..] で，下見出しとその配置指定オプション
 v 1.59 2004/01/16
-    \Toukokigou : $B5-9f$r;XDj2DG=(B
-    \toukokigou : $BJ#?t$N8L$r;XDj$9$k(B
+    \Toukokigou : 記号を指定可能
+    \toukokigou : 複数の弧を指定する
 v 1.60 2004/01/22
-    \Kakukigou : \@hankei ---> \Kakuki@hankei (\Enko $B$J$I$H>WFM(B)
+    \Kakukigou : \@hankei ---> \Kakuki@hankei (\Enko などと衝突)
 v 1.61 2004/01/23
-    \emDrawtpic $B?7@_(B $B%9%W%i%$%s6J@~IA2h(B
+    \emDrawtpic 新設 スプライン曲線描画
 v 1.62 2004/01/27
-    \HenKo : \Hen_ko $B8L$NItJ,$r1_8L$H$9$k!#(B
+    \HenKo : \Hen_ko 弧の部分を円弧とする。
 v 1.63 2004/02/03
-    \ArrowLine : <arrowheadsize=..> $B%*%W%7%g%s$,L58z$H$J$C$F$$$?$N$r=$@5(B
+    \ArrowLine : <arrowheadsize=..> オプションが無効となっていたのを修正
 v 1.64 2004/02/19
-    zahyou$B4D6-$K(B skip $B%*%W%7%g%s$r?7@_(B
-        \skipCallPerl $B$NM-8z!?L58z$r!$(B1/0(default) $B$G@Z$jBX$($k!#(B
+    zahyou環境に skip オプションを新設
+        \skipCallPerl の有効／無効を，1/0(default) で切り替える。
 v 1.65 2004/03/03
-    \Takakkei : $BJD$8$k$h$&$K$9$k!#(B
+    \Takakkei : 閉じるようにする。
 v 1.68 2004/03/10
-    \Tyokusen, \Hantyokusen : \gsave(\bgroup) $B$H(B \grestore(\egroup) $B$G0O$`!#(B
+    \Tyokusen, \Hantyokusen : \gsave(\bgroup) と \grestore(\egroup) で囲む。
 v 1.69 2004/03/13
-    \def@memori@nagasa $BF3F~(B
+    \def@memori@nagasa 導入
 v 1.70 2004/03/15
-    \EMunderline $BF3F~(B
+    \EMunderline 導入
 v 1.71 2004/03/17
-    zahyou$B4D6-$N(B [haiti=c]$B%*%W%7%g%s$r;EMMJQ99(B
-        $B%Y!<%9%i%$%s$K=E$M$k0LCV$r(B x$B<4(B ---> $B=D$NCf1{(B
-    $B=>Mh$N(B haiti=c $B%*%W%7%g%s$r(B haiti=x $B%*%W%7%g%s$H$9$k!#(B
-    v 1.68 $B$NJQ99$NI{:nMQ=$@5(B
-    \Kakukigou : <#6> $B$K(B Kakukigoukankaku=$B!JC10LIU?tCM!K%*%W%7%g%s$rDI2C(B
+    zahyou環境の [haiti=c]オプションを仕様変更
+        ベースラインに重ねる位置を x軸 ---> 縦の中央
+    従来の haiti=c オプションを haiti=x オプションとする。
+    v 1.68 の変更の副作用修正
+    \Kakukigou : <#6> に Kakukigoukankaku=（単位付数値）オプションを追加
 v 1.72 2004/03/18
-    \heikoukigou : [heikoukigoukankaku=..] $B%*%W%7%g%s$,L58z$H$J$C$F$$$?$N$r=$@5(B
-v 1.73 $B>e5-$N=$@5(B
+    \heikoukigou : [heikoukigoukankaku=..] オプションが無効となっていたのを修正
+v 1.73 上記の修正
 v 1.74 2004/03/30
-    \rmemori : $BJ}8~%Y%/%H%k$r;XDj$7$?L\@9$j@~(B
+    \rmemori : 方向ベクトルを指定した目盛り線
 v 1.76 2004/05/05-06
     \ovalTakakkei
-    \PutStr : emathPs $B$GIT6q9g(B
-              \def\ArrowArc $BFb$G(B \xmin, \xmax $B$b=$@5(B
+    \PutStr : emathPs で不具合
+              \def\ArrowArc 内で \xmin, \xmax も修正
 v 1.77 2004/05/08
-    \ovalTakakkei : <linewidth=..> $B$J$I$N%*%W%7%g%s$r2DG=$H$9$k!#(B
+    \ovalTakakkei : <linewidth=..> などのオプションを可能とする。
 v 1.78 2004/05/16
-    \PutStr : v1.76$B=$@5$NI{:nMQ$r=$@5(B
-              (picture$B4D6-Fb$GMQ$$$i$l$k$H$-$O!$(B\xmin $B$J$I$,L$Dj5A(B)
+    \PutStr : v1.76修正の副作用を修正
+              (picture環境内で用いられるときは，\xmin などが未定義)
 v 1.79 2004/05/26
-    \EMoverline $BF3F~(B
+    \EMoverline 導入
 v 1.80 2004/06/01-06
-    \SuityokuNitoubunsen : $B?bD>FsEyJ,@~(B
-		\cPut@orgP : \cPut $BMQ$KD4@0A0$N:BI8$rJ]B8(B
+    \SuityokuNitoubunsen : 垂直二等分線
+		\cPut@orgP : \cPut 用に調整前の座標を保存
 v 1.81 2004/06/16
-		\color : $BFbItJQ?t(B \nuri@iro@ $B$rJQ99$9$k$h$&$K%U%C%/(B
+		\color : 内部変数 \nuri@iro@ を変更するようにフック
 v 1.82 2004/06/22
-		\color : $B=$@5(B
+		\color : 修正
 v 1.83 2004/07/01
 		\itiziketugou
 v 1.84 2004/07/05
-		\LandL : overflow $BBP:v$H$7$F!$(B\LandLweight{.1}$B$J$I(B
+		\LandL : overflow 対策として，\LandLweight{.1}など
 v 1.85 2004/07/14
-    \rtenretu $BG[CVJ8;zNs$K(B \sin $B$J$I$r;HMQ2D$H$9$k(B
+    \rtenretu 配置文字列に \sin などを使用可とする
 v 1.86 2004/07/18
-		\ippankaku : $BLp0u@)8f%*%W%7%g%s(B (#4)
+		\ippankaku : 矢印制御オプション (#4)
 v 1.87 2004/07/18
-		\HenKo : HenKo $B$NCfE@$r(B \HenKoTyuuten, $BCf?4$r(B \HenKoTyuusin
+		\HenKo : HenKo の中点を \HenKoTyuuten, 中心を \HenKoTyuusin
 v 1.88 2004/08/15
-		\saikoro : ascmac.sty $B$N(B \keytop $B$+$i(B \EMkeytop $B$KJQ99(B
+		\saikoro : ascmac.sty の \keytop から \EMkeytop に変更
 v 1.89 2004/09/07-17
-		\phkasen : \EMunderline $B$rH/E8$5$;!$(B\pskasen $B$HF1Ey$N5!G=$r$b$?$;$k(B
-		\ArrowLine : $B44$ND9$5$,(B0$B$N$H$-$O!$$J$K$b$7$J$$!#(B
+		\phkasen : \EMunderline を発展させ，\pskasen と同等の機能をもたせる
+		\ArrowLine : 幹の長さが0のときは，なにもしない。
 v 1.90 2004/09/21
-    emathPs $B$K$*$1$k(B borderwidth=.. $B%*%W%7%g%sMQ$K(B \trueLT $B$J$I$rDj5A(B
+    emathPs における borderwidth=.. オプション用に \trueLT などを定義
 v 1.96 2004/11/11
-    rectbox$B4D6-$G8+=P$7$r$D$1$k:]!$$=$N7WB,$G%+%&%s%?$,?J$`$N$r2sHr(B
+    rectbox環境で見出しをつける際，その計測でカウンタが進むのを回避
 v 1.97 2004/11/27
-		\DrawHatS, manDrawHatS$B4D6-(B
+		\DrawHatS, manDrawHatS環境
 v 1.98 2004/12/17
-		\color $B$K$h$k?';XDj$r(B pszahyou$B4D6-Fb$G$b;HMQ$G$-$k$h$&$K$9$k(B
-		\Nuritubusi : $B;OE@$rF@$kItJ,$rJd6/(B
-		\teisei : [S]$B%*%W%7%g%s$GFs=E<P@~(B
+		\color による色指定を pszahyou環境内でも使用できるようにする
+		\Nuritubusi : 始点を得る部分を補強
+		\teisei : [S]オプションで二重斜線
 v 1.99 2004/12/25
 		\HenKo <henkohi=..>
 v 2.00 2004/12/30
 		\Drawline <iro=..>
 		\En<iro=..>
-				$B%*%W%7%g%s$N@0Hw(B
+				オプションの整備
 v 2.01 2005/01/09-11
-		$B%m!<%I%*%W%7%g%s(B papersize
-		\KTkukan : $B=q<0$rJd$&(B
+		ロードオプション papersize
+		\KTkukan : 書式を補う
 v 2.02 2005/01/28
-		HTML$B5,3J$N%+%i!<%M!<%`$N;HMQ(B
+		HTML規格のカラーネームの使用
 v 2.03 2005/01/30
-		\En : \iro@ $B=i4|2=(B
+		\En : \iro@ 初期化
 v 2.04 2005/02/04
-		\BousetuenHankei : $BK5@\1_$NH>7B(B
+		\BousetuenHankei : 傍接円の半径
 v 2.05 2005/02/06
-		\rectbox $B$K(B [framecolor=..,background=..]$B%*%W%7%g%s(B
+		\rectbox に [framecolor=..,background=..]オプション
 v 2.06 2005/02/10
-		mekurebox$B4D6-(B
+		mekurebox環境
 v 2.07 2005/02/11
-		mekurebox$B4D6-(B $B$G!$$a$/$lItJ,$K?'$r$D$1$k(B [liningcolor=..] $B%*%W%7%g%s(B
+		mekurebox環境 で，めくれ部分に色をつける [liningcolor=..] オプション
 v 2.08 2005/02/18
-		\naikaku : $B;03Q7A$NFb3Q$r5a$a$k(B
+		\naikaku : 三角形の内角を求める
 v 2.09 2005/03/07
-		\CandC*, \CandL* : $B8rE@$N=g=x$K$D$$$F!$;03Q7A(B#1#5#6$B$,(B
-											 $B@5$N8~$-$H$J$k$h$&$K(B#5,#6$B$r%;%C%H(B
+		\CandC*, \CandL* : 交点の順序について，三角形#1#5#6が
+											 正の向きとなるように#5,#6をセット
 v 2.10 2005/03/08
-		mawarikomi$B4D6-2<$G!$(Brectbox$B4D6-$r;HMQ$9$k$5$$$K$D$$$F=$@5(B
+		mawarikomi環境下で，rectbox環境を使用するさいについて修正
 v 2.11 2005/03/20
-		\EnT : $BD>7B$NN>C<$rM?$($F!$1_$rIA2h(B
+		\EnT : 直径の両端を与えて，円を描画
 v 2.12 2005/03/21
-		mawarikomi & rectbox $B4XO"$G=$@5(B ---> BBS No.2862
+		mawarikomi & rectbox 関連で修正 ---> BBS No.2862
 v 2.13 2005/03/22
-    \En, \En*, \En** : tuukaten=.. $B$G!$4V@\E*$KH>7B$r;XDj(B
+    \En, \En*, \En** : tuukaten=.. で，間接的に半径を指定
 v 2.14 2005/04/10
-		rectbox$B4D6-$K$*$$$F!$(B[rectboxoval]$B%*%W%7%g%s$G!$%3!<%J!<$r4]$/(B
+		rectbox環境において，[rectboxoval]オプションで，コーナーを丸く
 v 2.15 2005/04/11
-    2.14 $B$N=$@5$KH<$&%P%0%U%#%C%/%9(B ($BCLOC<<(B #18-20)
+    2.14 の修正に伴うバグフィックス (談話室 #18-20)
 v 2.16 2005/04/21
-		\Naisetuen : Ps$BBP1~(B \circle ---> \En
+		\Naisetuen : Ps対応 \circle ---> \En
 v 2.17 2005/04/28
-		rectbox$B4D6-!'>e2<$N6u$-$r$H$k%?%$%_%s%0$r=$@5(B
-								 rectboxparindent=.. $B%*%W%7%g%s(B
+		rectbox環境：上下の空きをとるタイミングを修正
+								 rectboxparindent=.. オプション
                  jquote ---> jquotation
 v 2.18 2005/05/20-28
-		Hidariyohaku=1zw+2pt $B$J$I$r2DG=(B
-		\rotateline : 2$BE@$r7k$V<P@~$r(B \rotatebox $B$rMxMQ$7$FIA2h$9$k(B
+		Hidariyohaku=1zw+2pt などを可能
+		\rotateline : 2点を結ぶ斜線を \rotatebox を利用して描画する
 v 2.19 2005/05/30
-		\HenKo : \ifsironuki $B$rM-8z$H$9$k(B
+		\HenKo : \ifsironuki を有効とする
 v 2.20 2005/06/13
-		zahyou$B4D6-(B : [Yohaku=..]$B%*%W%7%g%s!J>e2<!&:81&M>GrF1;~;XDj!K(B
+		zahyou環境 : [Yohaku=..]オプション（上下・左右余白同時指定）
 v 2.21 2005/06/27
-    \endzahyou, \endzahyou* : $B6uGr$N:.F~$r=|5n(B
+    \endzahyou, \endzahyou* : 空白の混入を除去
 v 2.22 2005/07/06
-		enumrectbox$B4D6-!'O"HV$r?6$k(B rectbox$B4D6-(B
+		enumrectbox環境：連番を振る rectbox環境
 v 2.23 2005/07/08
-    \Yaziri : \rotatebox $B$N;HMQ$r$O$:$9(B
+    \Yaziri : \rotatebox の使用をはずす
 v 2.24 2005/07/20
 		\longrightleftarrow
 v 2.25  2005/08/01-04
-    rectbox : mawarikomi $B$H$N4XO"$r=$@5(B
+    rectbox : mawarikomi との関連を修正
 		\arrowHeadPit :
 		\changeArrowHeadSize[#1]<#2> : #2
-				 $BLp0u$N7A>u(B
+				 矢印の形状
 v 2.26 2005/08/09
-		\ArrowLine : \yaziri@@M$B$N=i4|2=(B
+		\ArrowLine : \yaziri@@Mの初期化
 v 2.27 2005/08/27
-    \xmemori, \ymemori : emathPs.sty $B$N>l9g$O(B cPut $B;HMQ(B
+    \xmemori, \ymemori : emathPs.sty の場合は cPut 使用
 v 2.28 2005/09/03
-		rectbox : emathMw.sty $B$NFHN)$KH<$&=$@5(B
+		rectbox : emathMw.sty の独立に伴う修正
 v 2.29 2005/09/05
-		rectbox$B4D6-$J$I!"(BemathPb.sty $B$K0\4I(B
+		rectbox環境など、emathPb.sty に移管
 v 2.30 2005/09/09
-		$B@04X?t%0%i%UIA2h4XO"$r(B emathPg.sty $B$K0\4I(B
-		$B;CDjE*$K(B emathPb, emathPg $B$rFbIt$G%m!<%I$9$k(B
-		\HenKo : henkotype=4 $B$r?7@_(B
-			$B;XDj$7$?(B2$BE@$r(B1$BJU$H$9$kD9J}7A!J(Boval $B;XDj$G%3!<%J!<$r4]$/!K(B
+		整関数グラフ描画関連を emathPg.sty に移管
+		暫定的に emathPb, emathPg を内部でロードする
+		\HenKo : henkotype=4 を新設
+			指定した2点を1辺とする長方形（oval 指定でコーナーを丸く）
 v 2.31 2005/09/10
-		emathPb $B$X$N0\4IDI2C(B
+		emathPb への移管追加
 v 2.32 2005/09/16
-		sikixypos$B4D6-(B : manDrawHatS$B4D6-$,!$(B
-			$BFs9`1i;;;RN>C<$N4V3V$rL5;k$7$F$$$?$N$r=$@5(B
-		\color $B;XDj$N>l9g!$(B
-			\Nuritubusi[0], \En*[0]$B$GGrEI$j$H$J$i$:!$?'$,$D$/$N$r=$@5(B
+		sikixypos環境 : manDrawHatS環境が，
+			二項演算子両端の間隔を無視していたのを修正
+		\color 指定の場合，
+			\Nuritubusi[0], \En*[0]で白塗りとならず，色がつくのを修正
 v 2.33 2005/09/17
-		\HenKo $B$N@0Hw(B
-		$B%m!<%I%*%W%7%g%s(B dvipdfmx
+		\HenKo の整備
+		ロードオプション dvipdfmx
 v 2.34 2005/09/25
 		\Addvecself, \Mulvecself
-		\Addvec* : $BBh(B2$B0z?t$OC10L$D$-(B
-		\ArrowLine : <heni=.., henii=..> : $B=$@5%Y%/%H%k!JC10L$D$-!K(B
+		\Addvec* : 第2引数は単位つき
+		\ArrowLine : <heni=.., henii=..> : 修正ベクトル（単位つき）
 v 2.35 2005/09/28
 		\hasenLG
 v 2.36 2005/10/01
-    \LandLweight : $B:BI8@.J,$=$N$b$N$r(B weight$BG\$9$k$h$&$KJQ99(B
+    \LandLweight : 座標成分そのものを weight倍するように変更
 v 2.37 2005/10/03
-		\nurinoudo : \Nuritubusi $B$K$*$1$k%G%U%)%k%H$NG;EY$r;XDj(B
+		\nurinoudo : \Nuritubusi におけるデフォルトの濃度を指定
 v 2.38 2005/10/04
-		\hasen : $BIA2h$9$k!&$7$J$$!$$NH=Dj$r(B \unitlength$B0MB8$+$i(B pt$BC10L$G$NHf3S$KJQ99(Bv 2.39 2005/10/07
-		dLT $B%*%W%7%g%s$KBP$7(B DLT $B!JC10L$D$-!K(B
+		\hasen : 描画する・しない，の判定を \unitlength依存から pt単位での比較に変更v 2.39 2005/10/07
+		dLT オプションに対し DLT （単位つき）
 v 2.40 2005/10/09
-    \bekutorukata $B$ND4@0!J(B\ukansan $B$r;HMQ!K(B
+    \bekutorukata の調整（\ukansan を使用）
 v 2.41 2005/10/11
-		\ArrowLine : [#2] $B$,L58z$H$J$C$F$$$?$N$r=$@5(B
+		\ArrowLine : [#2] が無効となっていたのを修正
 v 2.42 2005/10/15-18
-		\Daen* : $B6-3&$N?'(B
-		\emDottedline $B?7@_(B
+		\Daen* : 境界の色
+		\emDottedline 新設
 v 2.43 2005/10/19
-    \HenKo : <henkotype=bracket> $B$N>l9g$K$D$$$F!$(B<yazirusi=.>$B%*%W%7%g%s$N8+D>$7(B
+    \HenKo : <henkotype=bracket> の場合について，<yazirusi=.>オプションの見直し
 v 2.45 2005/10/30
-    \emcdottedline : \emdottedline $B$G!$=*E@$rIA2h$7$J$$!J7QB3$N$?$a!K(B
+    \emcdottedline : \emdottedline で，終点を描画しない（継続のため）
 v 2.46 2005/11/03
     \Candl*, \Candk*

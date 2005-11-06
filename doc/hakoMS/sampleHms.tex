@@ -3,22 +3,22 @@
 \usepackage{showexample}
 
 \begin{document}
-\title{$B%^!<%/%7!<%H:n@.%^%/%m(B\\
-hakoMS.sty {\normalsize ver.0.03}\\$B;HMQNc(B}%
+\title{マークシート作成マクロ\\
+hakoMS.sty {\normalsize ver.0.03}\\使用例}%
 \author{tDB}%
 \date{2004/09/03}%
 
 \maketitle\thispagestyle{empty}%
 \begin{abstract}%
-$B%^!<%/%7!<%H$r:n@.$9$k$?$a$N%^%/%m$G$9!%(B
-emathPh $B%Q%C%1!<%8$N;HMQ$rA0Ds$H$7$^$9!%(B
+マークシートを作成するためのマクロです．
+emathPh パッケージの使用を前提とします．
 
-$B$3$N%^%/%m=8$N%^%/%m$K$D$$$F$N$4<ALd!$%P%0Js9p!$=$@5!&DI2C$NDs0FEy$O(B
-emath $B$N%5%]!<%H%Z!<%8!J8=;~E@$G$O(B
+このマクロ集のマクロについてのご質問，バグ報告，修正・追加の提案等は
+emath のサポートページ（現時点では
 \begin{center}
     http://emath.s40.xrea.com/
 \end{center}
-$B!K$N7G<(HD$G$4H/8@$/$@$5$$!%(B
+）の掲示板でご発言ください．
 \end{abstract}
 \pagebreak
 \pagenumbering{roman}%
@@ -29,34 +29,34 @@ emath $B$N%5%]!<%H%Z!<%8!J8=;~E@$G$O(B
 
 \pagenumbering{arabic}
 
-\section{$B4pK\E*MQK!(B}
-\cmd{EMmarksheet}$B%3%^%s%I$NI,?\$N0z?t$O(B
+\section{基本的用法}
+\cmd{EMmarksheet}コマンドの必須の引数は
 \begin{jquote}
 \begin{verbatim}
-#1 : $B9T?t(B
-#2 : $B5-9fG[Ns!J%3%s%^6h@Z$j!K(B
+#1 : 行数
+#2 : 記号配列（コンマ区切り）
 \end{verbatim}
 \end{jquote}
-$B$N(B2$B$D$G$9!#(B
+の2つです。
 
 \begin{showEx}(.9,.9){\cmd{EMmarksheet}}
 \EMmarksheet{5}{$-$,0,1,2,3,4,5,6,7,8,9,s,t}
 \end{showEx}
 
-\section{$BG[E@I=<((B}
-$BG[E@$rI=<($9$k$H$-$O!$(B\verb+[...]+$B%*%W%7%g%s$GM?$($^$9!#(B
+\section{配点表示}
+配点を表示するときは，\verb+[...]+オプションで与えます。
 
-\begin{showEx}(.9,.95){$BG[E@I=<((B}
+\begin{showEx}(.9,.95){配点表示}
 \EMmarksheet%
   [2,,4,,4]%
   {5}{$-$,0,1,2,3,4,5,6,7,8,9,a,b,c}
 \end{showEx}
 \newpage
 
-\section{$B@5EzI=<((B}
-$B@5Ez$r9u$/EI$j$D$V$9$K$O!$(B\verb+'....'+$B%*%W%7%g%s$rMQ$$$^$9!#(B
+\section{正答表示}
+正答を黒く塗りつぶすには，\verb+'....'+オプションを用います。
 
-\begin{showEx}(.9,.95){$B@5EzI=<((B}
+\begin{showEx}(.9,.95){正答表示}
 \def\arraystretch{1.2}%
 \scalebox{.9}{%
   \EMmarksheet%
@@ -66,45 +66,45 @@ emath $B$N%5%]!<%H%Z!<%8!J8=;~E@$G$O(B
 }%
 \end{showEx}
 
-$B$3$3$G$O(B
+ここでは
 \begin{jquote}
 \begin{verbatim}
 \scalebox{.9}{%
 \end{verbatim}
 \end{jquote}
-$B$rMQ$$$F!$=L>.$7$F$$$^$9!#(B
-\textsf{hakoMS.sty}$B$O!$(B\textsf{emathPh.sty}$B$rFI$_9~$_$^$9$+$i!$(B
-$B%0%i%U%#%C%/4X78$N%3%^%s%I$O<+M3$KMQ$$$k$3$H$,$G$-$^$9!#(B
+を用いて，縮小しています。
+\textsf{hakoMS.sty}は，\textsf{emathPh.sty}を読み込みますから，
+グラフィック関係のコマンドは自由に用いることができます。
 
-$B$^$?!$$3$NI=$O(B\textsf{tabular}$B4D6-$rMQ$$$F<B8=$7$F$$$^$9$+$i!$(B
+また，この表は\textsf{tabular}環境を用いて実現していますから，
 \begin{jquote}
 \begin{verbatim}
 \def\arraystretch{1.2}%
 \end{verbatim}
 \end{jquote}
-$B$J$I$H$7$F!$9T4V$rD4@0$9$k$3$H$b2DG=$G$9!#(B
+などとして，行間を調整することも可能です。
 \newpage
 
-\section{$BMs5-9f$NJQ99(B}
-$BMs$NL>>N$O!$%G%U%)%k%H$G$O(B
+\section{欄記号の変更}
+欄の名称は，デフォルトでは
 \begin{jquote}
-$B%"!$%$!$%&!$!%!%!%!%!%(B
+ア，イ，ウ，．．．．．
 \end{jquote}
-$B$H?J9T$7$^$9$,!$$3$l$rJQ99$9$k$K$O!$(B
-\textsf{hako.sty}$B$GDj5A$5$l$?%3%^%s%I(B\cmd{hakomozisyu}$B$rMQ$$$^$9!#(B
+と進行しますが，これを変更するには，
+\textsf{hako.sty}で定義されたコマンド\cmd{hakomozisyu}を用います。
 
-\begin{showEx}(.9,.95){$BMs5-9f$NJQ99(B}
-\hakomozisyu{\inhibitglue$B!J$"!K(B}
+\begin{showEx}(.9,.95){欄記号の変更}
+\hakomozisyu{\inhibitglue（あ）}
 \EMmarksheet%
   [2,,4,,4]%
   {5}{$-$,0,1,2,3,4,5,6,7,8,9,a,b,c}
 \end{showEx}
 
-\section{$BMs5-9f=qBN$NJQ99(B}
-$BMs5-9f$N=qBN$rJQ99$9$k$K$O!$(B
-\textsf{hako.sty}$B$GDj5A$5$l$?%3%^%s%I(B\cmd{hokosyotai}$B$rMQ$$$^$9!#(B
+\section{欄記号書体の変更}
+欄記号の書体を変更するには，
+\textsf{hako.sty}で定義されたコマンド\cmd{hokosyotai}を用います。
 
-\begin{showEx}(.9,.95){$BMs5-9f=qBN$NJQ99(B}
+\begin{showEx}(.9,.95){欄記号書体の変更}
 \hakomozisyu{(1)}
 \hakosyotai{\sffamily}
 \EMmarksheet%
@@ -113,37 +113,37 @@ emath $B$N%5%]!<%H%Z!<%8!J8=;~E@$G$O(B
 \end{showEx}
 \newpage
 
-\section{$BMs5-9f=i4|CM$NJQ99(B}
-$B%^!<%/%7!<%H$r:n@.$9$k:]!$Ms5-9f$r(B`$B%"(B'$B$+$i$G$O$J$/!$(B
-$BESCf(B`$B%?(B'$B$+$i;O$a$k5!G=$rIm2C$7$^$7$?!#(B
+\section{欄記号初期値の変更}
+マークシートを作成する際，欄記号を`ア'からではなく，
+途中`タ'から始める機能を附加しました。
 
-\cmd{EMmarksheet}$B$K!$(B\verb+<syokiti=15>+$B$J$I$H!$%*%W%7%g%s$G;XDj$7$^$9!#(B
+\cmd{EMmarksheet}に，\verb+<syokiti=15>+などと，オプションで指定します。
 
-\begin{showEx}(.9,.9){\texttt{<syokiti=15>}$B%*%W%7%g%s(B}
+\begin{showEx}(.9,.9){\texttt{<syokiti=15>}オプション}
 \EMmarksheet<syokiti=15>{13}{$-$,0,1,2,3,4,5,6,7,8,9,s,t}
 \end{showEx}
 \clearpage
 
-\section{$B=q<0(B}
-\cmd{EMmarksheet}$B$N=q<0$G$9!#(B
+\section{書式}
+\cmd{EMmarksheet}の書式です。
 
 \begin{boxnote}
 \begin{verbatim}
 \EMmarksheet<#1>[#2]'#3'#4#5
-  #1 : key=val $B$N7A<0(B
-         syokiti=.. : $B=i4|CM$NJQ99(B
-  #2 : $BG[E@$r%3%s%^6h@Z$j$GM?$($^$9!#(B
-       $B$$$/$D$+$N9T$r%;%C%H$H$9$k>l9g$O!$(B
-           $B:G=*9T$KG[E@$r5-=R$7!$(B
-           $BB>$N9T$K$O6uJ8;zNs$rM?$($F$*$-$^$9!#(B
-  #3 : $B@5Ez$r%3%s%^6h@Z$j$GM?$($^$9!#(B
-       $B8e=R$N(B #5 $B$KM?$($k$b$N$HF10l$G$J$1$l$P$J$j$^$;$s!#(B
-  #4 : $B9T?t(B
-  #5 : $B5-9fG[Ns$r%3%s%^6h@Z$j$GM?$($^$9!#(B
-       $B?t<0%b!<%I$K$9$k$H$-$O(B $....$ $B$G64$_$^$9!#(B
-$B<!$N>l9g$O!$%(%i!<$H$J$j$^$9!#(B
-  (1) #2 $B$GM?$($i$l$?8D?t$H9T?t$,0lCW$7$J$$>l9g!#(B
-  (2) #3 $B$GM?$($i$l$?8D?t$H9T?t$,0lCW$7$J$$>l9g!#(B
+  #1 : key=val の形式
+         syokiti=.. : 初期値の変更
+  #2 : 配点をコンマ区切りで与えます。
+       いくつかの行をセットとする場合は，
+           最終行に配点を記述し，
+           他の行には空文字列を与えておきます。
+  #3 : 正答をコンマ区切りで与えます。
+       後述の #5 に与えるものと同一でなければなりません。
+  #4 : 行数
+  #5 : 記号配列をコンマ区切りで与えます。
+       数式モードにするときは $....$ で挟みます。
+次の場合は，エラーとなります。
+  (1) #2 で与えられた個数と行数が一致しない場合。
+  (2) #3 で与えられた個数と行数が一致しない場合。
 \end{verbatim}
 \end{boxnote}
 \end{document}

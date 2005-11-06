@@ -11,8 +11,8 @@
   \@ifundefined{renhako@tpic}{}{\RequirePackage{emathPh}}%
   \RequirePackage{hako}
 
-\newif\ifh@ko$BLV3](B%
-\def\amiHako{\h@ko$BLV3](Btrue\Hako}
+\newif\ifh@ko網掛%
+\def\amiHako{\h@ko網掛true\Hako}
 %
 \newif\ifren@hako%
 %
@@ -30,11 +30,11 @@
     \kern\h@koyohaku\vrule height \templa width #1 depth \templb}%
 }{%
 % \sikirisen#1#2#3
-%   #1 : $B;E@Z$j@~$r0z$/IA2h4X?t(B
+%   #1 : 仕切り線を引く描画関数
 %         ex: \empty(=\vrule:default), \drawline,
 %             \hasen, \hasen[L=2pt,G=1pt],....
-%   #2 : $B2#I}(B(default=0.2pt)
-%   #3 : $B%O%3$KF~$k!$:GBg$N9b$5$r;}$DJ8;z(B
+%   #2 : 横幅(default=0.2pt)
+%   #3 : ハコに入る，最大の高さを持つ文字
 %
   \def\sikirisen#1#2#3{%
     \setbox\H@kobox=\hbox{#3}%
@@ -60,7 +60,7 @@
   \if m\h@komozisyu
     \sikirisen{\empty}{.2pt}{\maru1}
   \else
-    \sikirisen{\empty}{.2pt}{$B$"(B}
+    \sikirisen{\empty}{.2pt}{あ}
   \fi
   \def\renhako@sikiri#1{{%
     \if m\h@komozisyu
@@ -85,18 +85,18 @@
 %
 \def\renHako{%
 %  \ifh@kosyokika\else%
-%   \errmessage{$B%3%^%s%I!'(Bhakosyokika $B$,<B9T$5$l$F$$$^$;$s(B}\fi%
+%   \errmessage{コマンド：hakosyokika が実行されていません}\fi%
 %   \ifmmode\ifchg@catcode\catcode` =10\fi\fi%
-% \h@ko$BLV3](Bfalse
+% \h@ko網掛false
   \ren@hakotrue\Hako}%
 
 \def\refrenHako{%
   \ifh@kosyokika\else%
-    \errmessage{$B%3%^%s%I!'(Bhakosyokika $B$,<B9T$5$l$F$$$^$;$s(B}\fi%
+    \errmessage{コマンド：hakosyokika が実行されていません}\fi%
   \ren@hakotrue\refHako}%
 
 \def\@@@@@@@@Hako<#1>(#2)(#3)[#4][#5]"#6"'#7'/#8/{{%
-% \h@ko$BLV3](Bfalse
+% \h@ko網掛false
   \def\h@Hako{0pt}\def\d@Hako{0pt}%
   \def\left@str{\empty}%
   \Strchr{#2}{=}\tmp@Hako
@@ -147,30 +147,30 @@
     \let\@c=\empty%
     \expandafter\@tfor\expandafter\@c\expandafter:\expandafter=\m@zisyu%
     \do {%
-        \ifx\@c\@aiueo%               /$B%"(B/    $B%"(B,$B%$(B,$B%&(B,$B%((B,$B%*(B,$B!&!&!&(B
+        \ifx\@c\@aiueo%               /ア/    ア,イ,ウ,エ,オ,・・・
         \stepcounter{hakobanaiu}%
-%        \edef\m@ziretu{\m@ziretu \$B%+%?%+%J(B{hakobanaiu}}%
-%       \edef\m@@@ziretu{\m@@@ziretu \$B%+%?%+%J(B{hakobanaiu}}%
+%        \edef\m@ziretu{\m@ziretu \カタカナ{hakobanaiu}}%
+%       \edef\m@@@ziretu{\m@@@ziretu \カタカナ{hakobanaiu}}%
 \ifnum\top@maru>\z@
         \EMedefappend\m@ziretu{\protect\topmaru{\the\c@hakobanaiu}}%
         \EMedefappend\m@@@ziretu{\protect\topmaru{\the\c@hakobanaiu}}%
         \xdef\top@maru{0}%
 \else
-        \edefappend\m@ziretu{\$B%+%?%+%J(B{hakobanaiu}}%
-        \edefappend\m@@@ziretu{\$B%+%?%+%J(B{hakobanaiu}}%
+        \edefappend\m@ziretu{\カタカナ{hakobanaiu}}%
+        \edefappend\m@@@ziretu{\カタカナ{hakobanaiu}}%
 \fi
-        \else\ifx\@c\@iroha%          /$B%$(B/    $B%$%m%O%K%[!&!&!&(B
+        \else\ifx\@c\@iroha%          /イ/    イロハニホ・・・
         \stepcounter{hakobaniro}%
-        \edef\m@ziretu{\m@ziretu \$B%$%m%O(B{hakobaniro}}%
-        \edef\m@@@ziretu{\m@@@ziretu \$B%$%m%O(B{hakobaniro}}%
-        \else\ifx\@c\@AIUEO%          /$B$"(B/    $B$"(B,$B$$(B,$B$&(B,$B$((B,$B$*(B,$B!&!&!&(B
+        \edef\m@ziretu{\m@ziretu \イロハ{hakobaniro}}%
+        \edef\m@@@ziretu{\m@@@ziretu \イロハ{hakobaniro}}%
+        \else\ifx\@c\@AIUEO%          /あ/    あ,い,う,え,お,・・・
         \stepcounter{hakobanAIU}%
-        \edef\m@ziretu{\m@ziretu \$B$R$i$,$J(B{hakobanAIU}}%
-        \edef\m@@@ziretu{\m@@@ziretu \$B$R$i$,$J(B{hakobanAIU}}%
-        \else\ifx\@c\@IROHA%          /$B$$(B/    $B$$$m$O$K$[!&!&!&(B
+        \edef\m@ziretu{\m@ziretu \ひらがな{hakobanAIU}}%
+        \edef\m@@@ziretu{\m@@@ziretu \ひらがな{hakobanAIU}}%
+        \else\ifx\@c\@IROHA%          /い/    いろはにほ・・・
         \stepcounter{hakobanIRO}%
-        \edef\m@@@ziretu{\m@@@ziretu \$B$$$m$O(B{hakobanIRO}}%
-        \else\ifx\@c\@kan%            /$B0l(B/    $B0lFs;0;M8^!&!&!&(B
+        \edef\m@@@ziretu{\m@@@ziretu \いろは{hakobanIRO}}%
+        \else\ifx\@c\@kan%            /一/    一二三四五・・・
         \stepcounter{hakobankan}%
         \edef\m@ziretu{\m@ziretu \Kanji{hakobankan}}%
         \edef\m@@@ziretu{\m@@@ziretu \Kanji{hakobankan}}%
@@ -194,11 +194,11 @@
         \stepcounter{hakobanRMA}%
         \edef\m@ziretu{\m@ziretu \Roman{hakobanRMA}}%
         \edef\m@@@ziretu{\m@@@ziretu \Roman{hakobanRMA}}%
-        \else\if\@c m%           /m/ $B4]IU$-?t;z$N=PNO$O$&$^$/9T$+$J$$(B
+        \else\if\@c m%           /m/ 丸付き数字の出力はうまく行かない
           \stepcounter{hakobanmar}%
           \EMedefappend\m@ziretu{\hakomaru{\the\c@hakobanmar}}%
           \EMedefappend\m@@@ziretu{\hakomaru{\the\c@hakobanmar}}%
-        \else%                          $B$=$NB>$NJ8;z$O$=$N$^$^=PNO(B
+        \else%                          その他の文字はそのまま出力
           \edef\m@ziretu{\m@ziretu \@c}%
           \edef\m@@@ziretu{\m@@@ziretu \@c}%
         \fi\fi\fi\fi\fi\fi\fi\fi\fi\fi\fi%
@@ -212,7 +212,7 @@
 %            {{\m@@ziretu}{\arabic{page}}}}%
     \writeLabel{#4}{\m@@ziretu}}%
   \fi%
-  \ifx\empty #5\else%            $B8DJL%i%Y%k$N=PNO(B
+  \ifx\empty #5\else%            個別ラベルの出力
     \@for\@dummy:=#5\do{%
         \stepcounter{xh@koban}%
         \def\m@ziretu{}%
@@ -221,19 +221,19 @@
     \do {%
         \ifx\@c\@aiueo%
         \stepcounter{xh@kobanaiu}%
-        \edef\m@ziretu{\m@ziretu \$B%+%?%+%J(B{xh@kobanaiu}}%
+        \edef\m@ziretu{\m@ziretu \カタカナ{xh@kobanaiu}}%
         \else\ifx\@c\@iroha%
         \stepcounter{xh@kobaniro}%
-        \edef\m@ziretu{\m@ziretu \$B%$%m%O(B{xh@kobaniro}}%
+        \edef\m@ziretu{\m@ziretu \イロハ{xh@kobaniro}}%
         \else\ifx\@c\@AIUEO%
         \stepcounter{xh@kobanAIU}%
-        \edef\m@ziretu{\m@ziretu \$B$R$i$,$J(B{xh@kobanAIU}}%
+        \edef\m@ziretu{\m@ziretu \ひらがな{xh@kobanAIU}}%
         \else\ifx\@c\@IROHA%
         \stepcounter{xh@kobanIRO}%
-        \edef\m@ziretu{\m@ziretu \$B$$$m$O(B{xh@kobanIRO}}%
+        \edef\m@ziretu{\m@ziretu \いろは{xh@kobanIRO}}%
         \else\ifx\@c\@kan%
         \stepcounter{xh@koban}%
-        \edef\m@ziretu{\m@ziretu \$B$$$m$O(B{xh@kobankan}}%
+        \edef\m@ziretu{\m@ziretu \いろは{xh@kobankan}}%
         \else\if\@c a%
         \stepcounter{xh@kobanalp}%
         \edef\m@ziretu{\m@ziretu \alph{xh@kobanalp}}%
@@ -294,21 +294,21 @@
     \setlength{\fboxsep}{\h@koyohaku}%
     \setlength{\h@koraise}{0pt}%
     \hako@skipa=#1\relax\divide\hako@skipa 2\relax
-    \h@ko$B>eIU(Bfalse%
-    \h@ko$B:84s(Bfalse%
-    \h@ko$B:830(Bfalse%
-    \h@ko$B=D;E@Z(Bfalse%
+    \h@ko上付false%
+    \h@ko左寄false%
+    \h@ko左外false%
+    \h@ko縦仕切false%
     \headchar{#2}\@top\@remain
     \if r\@top\setlength{\h@koraise}{\@remain}\else%
       \@tfor\@c:=#2\do{%
         \if\@c L%
-            \h@ko$B:830(Btrue%
+            \h@ko左外true%
         \else\if\@c ^%
-            \h@ko$B>eIU(Btrue%
+            \h@ko上付true%
         \else\if\@c l%
-            \h@ko$B:84s(Btrue%
+            \h@ko左寄true%
         \else\if\@c |%
-            \h@ko$B=D;E@Z(Btrue%
+            \h@ko縦仕切true%
         \else\if\@c b%
           \setlength{\h@koraise}{\fboxsep}%
           \addtolength{\h@koraise}{\fboxrule}%
@@ -320,16 +320,16 @@
       }%
   \fi%
     \kern0.1em%
-    \ifh@ko$B:830(B%
+    \ifh@ko左外%
       \ensuremath{{\vrule width 0pt height .5\baselineskip}%
         ^{\text{\h@kosityuu\h@kosyotai{#3}}}}%
-        \hakoframe{\h@kosityuu\kern\hako@skipa{$B!!(B}\kern\hako@skipa}%
+        \hakoframe{\h@kosityuu\kern\hako@skipa{　}\kern\hako@skipa}%
 %
-    \else\ifh@ko$B>eIU(B%
+    \else\ifh@ko上付%
         \hakoframe{\h@kosityuu${}^{\text{\h@kosyotai{#3}}}$%
           \kern\hako@skipa\kern\hako@skipa}%
-    \else\ifh@ko$B:84s(B%
-        \ifh@ko$B=D;E@Z(B%
+    \else\ifh@ko左寄%
+        \ifh@ko縦仕切%
             \ensuremath{\text{\hakoframe{%
                 \h@kosityuu\h@kosyotai{#3}}}}%
                 \kern-1pt
@@ -343,7 +343,7 @@
        \fi%
     \else%
       \ifdim\h@koraise=\z@%
-        \ifh@ko$BLV3](B%
+        \ifh@ko網掛%
             \mask{\ensuremath{\text{\hakoframe{%
               \h@kosityuu\kern\hako@skipa\h@kosyotai{#3}\kern\hako@skipa}}}}{B}%
           \else
@@ -361,7 +361,7 @@
       \fi%
     \fi\fi\fi%
     \kern0.1em%
-  }\ifh@ko$BLV3](B\global\h@ko$BLV3](Bfalse\fi%
+  }\ifh@ko網掛\global\h@ko網掛false\fi%
 }%
 
 \def\@@@@refHako@a(#1)(#2)/#3/#4{{%
@@ -386,28 +386,28 @@
 \endinput
 
 v 0.84
-    \renHako : \hakosyokika $B$N%A%'%C%/$r30$9!#!J(B\Hako $B$KG$$;$k!#!K(B
+    \renHako : \hakosyokika のチェックを外す。（\Hako に任せる。）
 v 0.85
-    (#2)$B$K!$(Bkey=val $B$,4^$^$l$k>l9g$KBP1~(B
+    (#2)に，key=val が含まれる場合に対応
 v 0.86
-    \hakokaisyotai $BF3F~$KH<$&2~JQ(B
+    \hakokaisyotai 導入に伴う改変
 v 0.87
-    notMy $B%*%W%7%g%s(B
+    notMy オプション
 v 0.88
-    \refrenHako* $BM>GrD4@0(B
+    \refrenHako* 余白調整
 v 0.89 2005/02/07
-    $B4]0O$_?t;z$r%;%s%?!<%b!<%I$G;HMQ$9$k;n$_(B
+    丸囲み数字をセンターモードで使用する試み
 v 0.90 2005/02/08
-    $B4]0O$_$r(B2$B7e$G$b(B
+    丸囲みを2桁でも
 v 0.91 2005/04/04
-    $B%m!<%I%*%W%7%g%s(B tpic : \renHako $B$N;E@Z$j@~$r(B tpic $B$G(B
+    ロードオプション tpic : \renHako の仕切り線を tpic で
 v 0.92 2005/04/07
-    $B%m!<%I%*%W%7%g%s(B tpic : $B%G%U%)%k%H$O(B \vrule $B!J(Btpic $BITMW!K(B
+    ロードオプション tpic : デフォルトは \vrule （tpic 不要）
 v 0.93 2005/06/25
-    \hakomozisyu{m}$B$KBP$9$k=$@5(B
+    \hakomozisyu{m}に対する修正
 v 0.94 2005/07/03
-    \ren@hakofalse $B$N%?%$%_%s%0=$@5(B
+    \ren@hakofalse のタイミング修正
 v 0.95 2005/09/03
-    $B4]IU$-?t;z;HMQ$KBP$9$k=$@5(B
+    丸付き数字使用に対する修正
 v 0.96 2005/11/03
-    \tmHako $B$KBP1~(B
+    \tmHako に対応

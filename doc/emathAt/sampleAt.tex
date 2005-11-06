@@ -6,19 +6,19 @@
 \usepackage{emathAt}
 \usepackage{emathR}
 \usepackage{showexample}
-%\usepackage{type1cm}% ps, pdf $B$r:n$k$H$-$K$OI,MW(B
+%\usepackage{type1cm}% ps, pdf を作るときには必要
 
 
 \begin{document}
 
-\title{$B:81&$KCm<a(B\\
-emathAt.sty {\normalsize ver.0.02$B&A(B}}
+\title{左右に注釈\\
+emathAt.sty {\normalsize ver.0.02α}}
 \author{tDB}
 \date{2002/03/05}
 
 \maketitle\thispagestyle{empty}
 \begin{abstract}%
-\centerline{$B:81&$KCm<a$r$D$1$k(B}
+\centerline{左右に注釈をつける}
 \end{abstract}
 
 \tableofcontents
@@ -26,403 +26,403 @@ emathAt.sty {\normalsize ver.0.02$B&A(B}}
 \pagebreak
 \pagenumbering{arabic}
 
-\section{\texttt{tyuukai}$B4D6-$H(B\cmd{tyuu}$B%3%^%s%I(B}
-\verb+emathAt.sty+ $B$O!$LdBj$N2rEzItJ,$r(B2$BCJAH$K$7$F!$:8B&$K2rEz$r!$(B
-$B1&B&$KCm<a$rIU$1$k$3$H$rL\E*$H$7$?%9%?%$%k%U%!%$%k$G$9!#(B
+\section{\texttt{tyuukai}環境と\cmd{tyuu}コマンド}
+\verb+emathAt.sty+ は，問題の解答部分を2段組にして，左側に解答を，
+右側に注釈を付けることを目的としたスタイルファイルです。
 
-$B$3$N(B2$BCJAH$r<B8=$9$k(B \verb+tyuukai+$B4D6-$H!$Cm<a$rIU$1$k(B\verb+\tyuu+
-$B%3%^%s%I$,<g$?$k$b$N$G$9!#(B
+この2段組を実現する \verb+tyuukai+環境と，注釈を付ける\verb+\tyuu+
+コマンドが主たるものです。
 
-$B$^$:<BNc$r$4Mw$$$?$@$-$^$7$g$&!#(B
+まず実例をご覧いただきましょう。
 
-\begin{itembox}{$BLdBj(B}
-$BLdBjItJ,$*$h$SCO$NJ8$O!$DL>o$N(B\verb+\textwidth+$B$GAH$^$l$^$9!#(B
-$BLdBjLdBjLdBjLdBjLdBjLdBjLdBjLdBjLdBjLdBjLdBjLdBjLdBjLdBjLdBj(B
-$BLdBjLdBjLdBjLdBjLdBjLdBjLdBjLdBjLdBjLdBjLdBjLdBjLdBjLdBjLdBj(B
+\begin{itembox}{問題}
+問題部分および地の文は，通常の\verb+\textwidth+で組まれます。
+問題問題問題問題問題問題問題問題問題問題問題問題問題問題問題
+問題問題問題問題問題問題問題問題問題問題問題問題問題問題問題
 \end{itembox}
 \begin{tyuukai}
-$B!Z2rEz![2rEzItJ,$O(B\verb+tyuukai+$B4D6-Fb$K5-=R$7$^$9!#(B
-$B$=$3$G$O!$1&B&0lIt$,Cm<a$N$?$a$NNN0h$H$J$j$^$9!#(B
-$B$3$l$O!$(B\verb+jquotation+$B4D6-$K$h$C$F<B8=$5$l$F$$$^$9!#(B
+【解答】解答部分は\verb+tyuukai+環境内に記述します。
+そこでは，右側一部が注釈のための領域となります。
+これは，\verb+jquotation+環境によって実現されています。
 
-\tyuu{$BCm<aNN0h$G$9!#(B
-$BCm<a$rIU$1$k$K$O!$(B\cmd{tyuu}$B%3%^%s%I$rMQ$$$^$9!#(B}
-$B$3$3$GCm<a$r$D$1$F$_$^$9!#(B
-$B2rEz2rEz2rEz2rEz2rEz2rEz2rEz2rEz2rEz2rEz2rEz2rEz2rEz(B
-$B2rEz2rEz2rEz2rEz2rEz2rEz2rEz2rEz2rEz2rEz2rEz2rEz2rEz(B
+\tyuu{注釈領域です。
+注釈を付けるには，\cmd{tyuu}コマンドを用います。}
+ここで注釈をつけてみます。
+解答解答解答解答解答解答解答解答解答解答解答解答解答
+解答解答解答解答解答解答解答解答解答解答解答解答解答
 \end{tyuukai}
 
-\verb+tyuukai+$B4D6-$,=*$C$?$"$H$O!$DL>o$N(B\verb+\textwidth+$BI}$K$b$I$j$^$9!#(B
-$BCO$NJ8CO$NJ8CO$NJ8CO$NJ8CO$NJ8CO$NJ8CO$NJ8CO$NJ8CO$NJ8CO$NJ8CO$NJ8CO$NJ8(B
-$BCO$NJ8CO$NJ8CO$NJ8CO$NJ8CO$NJ8CO$NJ8CO$NJ8CO$NJ8CO$NJ8CO$NJ8CO$NJ8CO$NJ8(B
+\verb+tyuukai+環境が終ったあとは，通常の\verb+\textwidth+幅にもどります。
+地の文地の文地の文地の文地の文地の文地の文地の文地の文地の文地の文地の文
+地の文地の文地の文地の文地の文地の文地の文地の文地の文地の文地の文地の文
 \clearpage
 
-\section{$BCm<aNN0h$N2#I};XDj(B}
-$BCm<aNN0h$N2#I}$O%G%U%)%k%H$G$O(B \verb+\textwidth+$B$N(B3/10$B$H$J$C$F$$$^$9!#(B
-$B$3$l$rJQ99$9$k$K$O!$(B\verb+emathAt.sty+$B$NFbItJQ?t(B\cmd{tyuuhaba}$B$K(B
-$BC10LIU$-$ND9$5$r;XDj$7$^$9!#(B
+\section{注釈領域の横幅指定}
+注釈領域の横幅はデフォルトでは \verb+\textwidth+の3/10となっています。
+これを変更するには，\verb+emathAt.sty+の内部変数\cmd{tyuuhaba}に
+単位付きの長さを指定します。
 \begin{jquote}
- $BNc!'(B\verb+\tyuuhaba=8zw+
+ 例：\verb+\tyuuhaba=8zw+
 \end{jquote}
 
 {\tyuuhaba=8zw\relax
-\begin{itembox}{$BLdBj(B}
-$BLdBjItJ,$*$h$SCO$NJ8$O!$DL>o$N(B\verb+\textwidth+$B$GAH$^$l$^$9!#(B
-$BLdBjLdBjLdBjLdBjLdBjLdBjLdBjLdBjLdBjLdBjLdBjLdBjLdBjLdBjLdBj(B
-$BLdBjLdBjLdBjLdBjLdBjLdBjLdBjLdBjLdBjLdBjLdBjLdBjLdBjLdBjLdBj(B
+\begin{itembox}{問題}
+問題部分および地の文は，通常の\verb+\textwidth+で組まれます。
+問題問題問題問題問題問題問題問題問題問題問題問題問題問題問題
+問題問題問題問題問題問題問題問題問題問題問題問題問題問題問題
 \end{itembox}
 \begin{tyuukai}
-%$B!Z2rEz![2rEzItJ,$O(B\verb+tyuukai+$B4D6-Fb$K5-=R$7$^$9!#(B
-$B$=$3$G$O!$1&B&0lIt$,Cm<a$N$?$a$NNN0h$H$J$j$^$9!#(B
-$B$3$3$G$O!$(B\verb+\tyuuhaba=8zw+$B$H$7$FCm<aNN0h$N(B
-$B2#I}$r@)8B$7$F$$$^$9!#(B
+%【解答】解答部分は\verb+tyuukai+環境内に記述します。
+そこでは，右側一部が注釈のための領域となります。
+ここでは，\verb+\tyuuhaba=8zw+として注釈領域の
+横幅を制限しています。
 
-\tyuu{$BCm<aNN0h$G$9!#(B
-$BCm<a$rIU$1$k$K$O!$(B\cmd{tyuu}$B%3%^%s%I$rMQ$$$^$9!#(B}
-$B$3$3$GCm<a$r$D$1$F$_$^$9!#(B
-$B2rEz2rEz2rEz2rEz2rEz2rEz2rEz2rEz2rEz2rEz2rEz2rEz2rEz(B
-$B2rEz2rEz2rEz2rEz2rEz2rEz2rEz2rEz2rEz2rEz2rEz2rEz2rEz(B
-$B2rEz2rEz2rEz2rEz2rEz2rEz2rEz2rEz2rEz2rEz2rEz2rEz2rEz(B
-$B2rEz2rEz2rEz2rEz2rEz2rEz2rEz2rEz2rEz2rEz2rEz2rEz2rEz(B
+\tyuu{注釈領域です。
+注釈を付けるには，\cmd{tyuu}コマンドを用います。}
+ここで注釈をつけてみます。
+解答解答解答解答解答解答解答解答解答解答解答解答解答
+解答解答解答解答解答解答解答解答解答解答解答解答解答
+解答解答解答解答解答解答解答解答解答解答解答解答解答
+解答解答解答解答解答解答解答解答解答解答解答解答解答
 \end{tyuukai}
 }
 \clearpage
-\section{$BCm<aJ8!$I=<(0LCV$NHyD4@0(B}
-$B?t<09T$O2~9T%T%C%A$J$I$,DL>o$NJ8$H0[$J$k$?$a!$(B
-$BCm<aJ8$N0LCV$KITK~$,=P$k$3$H$,$"$j$^$9!#(B
-\begin{itembox}{$BLdBj(B}
-$BLdBjLdBjLdBjLdBjLdBjLdBjLdBjLdBjLdBjLdBjLdBjLdBjLdBjLdBjLdBj(B
-$BLdBjLdBjLdBjLdBjLdBjLdBjLdBjLdBjLdBjLdBjLdBjLdBjLdBjLdBjLdBj(B
+\section{注釈文，表示位置の微調整}
+数式行は改行ピッチなどが通常の文と異なるため，
+注釈文の位置に不満が出ることがあります。
+\begin{itembox}{問題}
+問題問題問題問題問題問題問題問題問題問題問題問題問題問題問題
+問題問題問題問題問題問題問題問題問題問題問題問題問題問題問題
 \end{itembox}
 \begin{tyuukai}
-$BM?$($i$l$?<0$NN>JU$K(B
-\tyuu{$a$$B$r2C$($F(B}%
+与えられた式の両辺に
+\tyuu{$a$を加えて}%
 \[ x+a=y+a \]
-$B$5$i$K(B
+さらに
 \end{tyuukai}
 \bigskip
 
 \noindent
-$B$H$$$&Nc$G$O!$Cm<aJ8$N0LCV$r2<$K$:$i$7$?$/$J$j$^$9!#(B
-$B$3$l$r<B8=$9$k$N$,(B\cmd{tyuu}$B$N(B\verb+<...>+$B%*%W%7%g%s$G$9!#(B
-$B2<$NNc$G$O(B\verb+\tyuu<12pt>{...}+$B$H$7$F!$Cm<aJ8$r2<J}$K(B\texttt{12pt}
-$B2<$2$F$$$^$9!#(B
+という例では，注釈文の位置を下にずらしたくなります。
+これを実現するのが\cmd{tyuu}の\verb+<...>+オプションです。
+下の例では\verb+\tyuu<12pt>{...}+として，注釈文を下方に\texttt{12pt}
+下げています。
 
-\begin{itembox}{$BLdBj(B}
-$BLdBjLdBjLdBjLdBjLdBjLdBjLdBjLdBjLdBjLdBjLdBjLdBjLdBjLdBjLdBj(B
-$BLdBjLdBjLdBjLdBjLdBjLdBjLdBjLdBjLdBjLdBjLdBjLdBjLdBjLdBjLdBj(B
+\begin{itembox}{問題}
+問題問題問題問題問題問題問題問題問題問題問題問題問題問題問題
+問題問題問題問題問題問題問題問題問題問題問題問題問題問題問題
 \end{itembox}
 \begin{tyuukai}
-$BM?$($i$l$?<0$NN>JU$K(B
-\tyuu<12pt>{$a$$B$r2C$($F(B}%
+与えられた式の両辺に
+\tyuu<12pt>{$a$を加えて}%
 \[ x+a=y+a \]
-$B$5$i$K(B
+さらに
 \end{tyuukai}
 \clearpage
 
-\section{\textsf{mawarikomi}$B4D6-$H$NJ;MQ(B}
-$B2rEz$NCf$G(B\textsf{mawarikomi}$B4D6-$r;HMQ$7!$$=$NCf$GCm<a$r$D$1$k$N$O(B
-$B$A$HLLE]$G$9!#$^$:!$IaDL$N;H$$J}$r$7$?>l9g$r8+$^$7$g$&!#(B
+\section{\textsf{mawarikomi}環境との併用}
+解答の中で\textsf{mawarikomi}環境を使用し，その中で注釈をつけるのは
+ちと面倒です。まず，普通の使い方をした場合を見ましょう。
 
-\begin{itembox}{$BLdBj(B}
-$BLdBjLdBjLdBjLdBjLdBjLdBjLdBjLdBjLdBjLdBjLdBjLdBjLdBjLdBjLdBj(B
-$BLdBjLdBjLdBjLdBjLdBjLdBjLdBjLdBjLdBjLdBjLdBjLdBjLdBjLdBjLdBj(B
+\begin{itembox}{問題}
+問題問題問題問題問題問題問題問題問題問題問題問題問題問題問題
+問題問題問題問題問題問題問題問題問題問題問題問題問題問題問題
 \end{itembox}
 \begin{tyuukai}
-$B2rEzJ8!$2rEzJ8!$2rEzJ8!$2rEzJ8!$2rEzJ8!$2rEzJ8!$2rEzJ8!$2rEzJ8(B
+解答文，解答文，解答文，解答文，解答文，解答文，解答文，解答文
 
-\tyuu{$BCm<a(B1$BCm<a(B1$BCm<a(B1$BCm<a(B1$BCm<a(B1$BCm<a(B1$BCm<a(B1$BCm<a(B1$BCm<a(B1$BCm<a(B1$BCm<a(B1}
-$B$3$3$GCm<a$r$D$1$^$9!#(B
-$B2rEzJ8!$2rEzJ8!$2rEzJ8!$2rEzJ8!$2rEzJ8!$2rEzJ8!$2rEzJ8!$2rEzJ8!$(B
-$B2rEzJ8!$2rEzJ8!$2rEzJ8!$2rEzJ8(B
+\tyuu{注釈1注釈1注釈1注釈1注釈1注釈1注釈1注釈1注釈1注釈1注釈1}
+ここで注釈をつけます。
+解答文，解答文，解答文，解答文，解答文，解答文，解答文，解答文，
+解答文，解答文，解答文，解答文
 
 \begin{mawarikomi}{}{%
   \begin{zahyou*}[ul=1cm](-1,1)(-1,1)
     \Drawline{\LT\LB\RB\RT\LT}
     \En\O1
   \end{zahyou*}}
-$B$3$3$+$i(B\textsf{mawarikomi}$B4D6-$G$9!#(B
-$B$^$o$j$3$_$^$o$j$3$_$^$o$j$3$_$^$o$j$3$_$^$o$j$3$_(B
+ここから\textsf{mawarikomi}環境です。
+まわりこみまわりこみまわりこみまわりこみまわりこみ
 
-\tyuu{\textsf{mawarikomi}$B4D6-Fb$NCm<a$G$9(B}
-$B$3$3$GCm<a$r$D$1$^$9!#(B
-$B$^$o$j$3$_$^$o$j$3$_$^$o$j$3$_$^$o$j$3$_$^$o$j$3$_$^$o$j$3$_(B
-$B$^$o$j$3$_$^$o$j$3$_$^$o$j$3$_$^$o$j$3$_$^$o$j$3$_$^$o$j$3$_(B
-$B$^$o$j$3$_$^$o$j$3$_$^$o$j$3$_$^$o$j$3$_$^$o$j$3$_$^$o$j$3$_(B
-$B$^$o$j$3$_$^$o$j$3$_$^$o$j$3$_$^$o$j$3$_$^$o$j$3$_$^$o$j$3$_(B
+\tyuu{\textsf{mawarikomi}環境内の注釈です}
+ここで注釈をつけます。
+まわりこみまわりこみまわりこみまわりこみまわりこみまわりこみ
+まわりこみまわりこみまわりこみまわりこみまわりこみまわりこみ
+まわりこみまわりこみまわりこみまわりこみまわりこみまわりこみ
+まわりこみまわりこみまわりこみまわりこみまわりこみまわりこみ
 \end{mawarikomi}
 \end{tyuukai}
 
-$BCm<a$N2#I}$,69$/$J$k$J$I$NIT6q9g$,$_$i$l$^$9!#(B
-$B$3$l$r=$@5$7$F$_$^$7$g$&!#(B
+注釈の横幅が狭くなるなどの不具合がみられます。
+これを修正してみましょう。
 
-\begin{itembox}{$BLdBj(B}
-$BLdBjLdBjLdBjLdBjLdBjLdBjLdBjLdBjLdBjLdBjLdBjLdBjLdBjLdBjLdBj(B
-$BLdBjLdBjLdBjLdBjLdBjLdBjLdBjLdBjLdBjLdBjLdBjLdBjLdBjLdBjLdBj(B
+\begin{itembox}{問題}
+問題問題問題問題問題問題問題問題問題問題問題問題問題問題問題
+問題問題問題問題問題問題問題問題問題問題問題問題問題問題問題
 \end{itembox}
 \begin{tyuukai}
-$B2rEzJ8!$2rEzJ8!$2rEzJ8!$2rEzJ8!$2rEzJ8!$2rEzJ8!$2rEzJ8!$2rEzJ8(B
+解答文，解答文，解答文，解答文，解答文，解答文，解答文，解答文
 
-\tyuu{$BCm<a(B1$BCm<a(B1$BCm<a(B1$BCm<a(B1$BCm<a(B1$BCm<a(B1$BCm<a(B1$BCm<a(B1$BCm<a(B1$BCm<a(B1$BCm<a(B1}
-$B$3$3$GCm<a$r$D$1$^$9!#(B
-$B2rEzJ8!$2rEzJ8!$2rEzJ8!$2rEzJ8!$2rEzJ8!$2rEzJ8!$2rEzJ8!$2rEzJ8!$(B
-$B2rEzJ8!$2rEzJ8!$2rEzJ8!$2rEzJ8(B
+\tyuu{注釈1注釈1注釈1注釈1注釈1注釈1注釈1注釈1注釈1注釈1注釈1}
+ここで注釈をつけます。
+解答文，解答文，解答文，解答文，解答文，解答文，解答文，解答文，
+解答文，解答文，解答文，解答文
 
 \begin{mawarikomi}{}{%
   \begin{zahyou*}[ul=1cm](-1,1)(-1,1)
     \Drawline{\LT\LB\RB\RT\LT}
     \En\O1
   \end{zahyou*}}
-$B$3$3$+$i(B\textsf{mawarikomi}$B4D6-$G$9!#(B
-$B$^$o$j$3$_$^$o$j$3$_$^$o$j$3$_$^$o$j$3$_$^$o$j$3$_(B
+ここから\textsf{mawarikomi}環境です。
+まわりこみまわりこみまわりこみまわりこみまわりこみ
 
 \tyuu{\makebox[0pt][l]{\parbox[t]{\tyuuhaba-\leftmargin}{%
-  \textsf{mawarikomi}$B4D6-Fb$NCm<aCm<aCm<aCm<a(B
-  \textsf{mawarikomi}$B4D6-Fb$NCm<a(B}}}
-$B$3$3$GCm<a$r$D$1$^$9!#(B
-$B$^$o$j$3$_$^$o$j$3$_$^$o$j$3$_$^$o$j$3$_$^$o$j$3$_$^$o$j$3$_(B
-$B$^$o$j$3$_$^$o$j$3$_$^$o$j$3$_$^$o$j$3$_$^$o$j$3$_$^$o$j$3$_(B
-$B$^$o$j$3$_$^$o$j$3$_$^$o$j$3$_$^$o$j$3$_$^$o$j$3$_$^$o$j$3$_(B
-$B$^$o$j$3$_$^$o$j$3$_$^$o$j$3$_$^$o$j$3$_$^$o$j$3$_$^$o$j$3$_(B
+  \textsf{mawarikomi}環境内の注釈注釈注釈注釈
+  \textsf{mawarikomi}環境内の注釈}}}
+ここで注釈をつけます。
+まわりこみまわりこみまわりこみまわりこみまわりこみまわりこみ
+まわりこみまわりこみまわりこみまわりこみまわりこみまわりこみ
+まわりこみまわりこみまわりこみまわりこみまわりこみまわりこみ
+まわりこみまわりこみまわりこみまわりこみまわりこみまわりこみ
 \end{mawarikomi}
 \end{tyuukai}
-$B=$@5ItJ,$O(B
+修正部分は
 \begin{jquote}
 \begin{verbatim}
-\tyuu{\makebox[0pt][l]{\parbox[t]{\tyuuhaba-\leftmargin}{$BCm<aJ8(B}}}
+\tyuu{\makebox[0pt][l]{\parbox[t]{\tyuuhaba-\leftmargin}{注釈文}}}
 \end{verbatim}
 \end{jquote}
-$B$H!$(B\cmd{parbox}$B$G2#I}$r;XDj$7!$(B\cmd{makebox[0pt]}$B$G2#I}$r(B0$B$H56$k$H$O!$(B
-$BLLE]$J$3$H$G$9$,!$8=;~E@$G$O$[$+$K$&$^$$J}K!$,$_$D$+$j$^$;$s!#(B
+と，\cmd{parbox}で横幅を指定し，\cmd{makebox[0pt]}で横幅を0と偽るとは，
+面倒なことですが，現時点ではほかにうまい方法がみつかりません。
 
-\section{$BCm<a5-9f$NJQ99(B}
-$B%G%U%)%k%H$G$O!$Cm<a$NKAF,$K(B`$\longleftarrow$'$B$,$D$-$^$9!#(B
-$B$3$N5-9f$rJQ99$9$k$K$O(B
+\section{注釈記号の変更}
+デフォルトでは，注釈の冒頭に`$\longleftarrow$'がつきます。
+この記号を変更するには
 \begin{jquote}
 \begin{verbatim}
 \renewcommand{tyuumark}{$\blacktriangleleft$}
 \end{verbatim}
 \end{jquote}
-$B$J$I$H$7$^$9!#(B
+などとします。
 
 
 {\renewcommand{\tyuumark}{$\blacktriangleleft$}
-\begin{itembox}{$BLdBj(B}
-$BLdBjItJ,$*$h$SCO$NJ8$O!$DL>o$N(B\verb+\textwidth+$B$GAH$^$l$^$9!#(B
-$BLdBjLdBjLdBjLdBjLdBjLdBjLdBjLdBjLdBjLdBjLdBjLdBjLdBjLdBjLdBj(B
-$BLdBjLdBjLdBjLdBjLdBjLdBjLdBjLdBjLdBjLdBjLdBjLdBjLdBjLdBjLdBj(B
+\begin{itembox}{問題}
+問題部分および地の文は，通常の\verb+\textwidth+で組まれます。
+問題問題問題問題問題問題問題問題問題問題問題問題問題問題問題
+問題問題問題問題問題問題問題問題問題問題問題問題問題問題問題
 \end{itembox}
 \begin{tyuukai}
-$B!Z2rEz![2rEzItJ,$O(B\verb+tyuukai+$B4D6-Fb$K5-=R$7$^$9!#(B
-$B$=$3$G$O!$1&B&0lIt$,Cm<a$N$?$a$NNN0h$H$J$j$^$9!#(B
-$B$3$l$O!$(B\verb+jquotation+$B4D6-$K$h$C$F<B8=$5$l$F$$$^$9!#(B
+【解答】解答部分は\verb+tyuukai+環境内に記述します。
+そこでは，右側一部が注釈のための領域となります。
+これは，\verb+jquotation+環境によって実現されています。
 
-\tyuu{$BCm<aNN0h$G$9!#(B
-$BCm<a$rIU$1$k$K$O!$(B\cmd{tyuu}$B%3%^%s%I$rMQ$$$^$9!#(B}
-$B$3$3$GCm<a$r$D$1$F$_$^$9!#(B
-$B2rEz2rEz2rEz2rEz2rEz2rEz2rEz2rEz2rEz2rEz2rEz2rEz2rEz(B
-$B2rEz2rEz2rEz2rEz2rEz2rEz2rEz2rEz2rEz2rEz2rEz2rEz2rEz(B
+\tyuu{注釈領域です。
+注釈を付けるには，\cmd{tyuu}コマンドを用います。}
+ここで注釈をつけてみます。
+解答解答解答解答解答解答解答解答解答解答解答解答解答
+解答解答解答解答解答解答解答解答解答解答解答解答解答
 \end{tyuukai}
 
-$B99$K$3$N>l9g$O!$Cm<aItJ,$N:8%$%s%G%s%H$,Bg$-$9$.$k$h$&$G$9$+$i!$(B
-$B$=$l$r=$@5$9$k$?$a$N%3%^%s%I(B
+更にこの場合は，注釈部分の左インデントが大きすぎるようですから，
+それを修正するためのコマンド
 \begin{jquote}
 \begin{verbatim}
 \tyuuitemizeoption
 \end{verbatim}
 \end{jquote}
-$B$r@_$1$^$7$?!#2<$NNc$G$O(B
+を設けました。下の例では
 \begin{jquote}
 \begin{verbatim}
 \def\tyuuitemizeoption{%
   \labelwidth=6pt\labelsep=3pt\leftmargin9pt\footnotesize}
 \end{verbatim}
 \end{jquote}
-$B$H$7$F$$$^$9!#(B
+としています。
 
 \def\tyuuitemizeoption{%
   \labelwidth=6pt\labelsep=3pt\leftmargin9pt\footnotesize}
-\begin{itembox}{$BLdBj(B}
-$BLdBjItJ,$*$h$SCO$NJ8$O!$DL>o$N(B\verb+\textwidth+$B$GAH$^$l$^$9!#(B
-$BLdBjLdBjLdBjLdBjLdBjLdBjLdBjLdBjLdBjLdBjLdBjLdBjLdBjLdBjLdBj(B
-$BLdBjLdBjLdBjLdBjLdBjLdBjLdBjLdBjLdBjLdBjLdBjLdBjLdBjLdBjLdBj(B
+\begin{itembox}{問題}
+問題部分および地の文は，通常の\verb+\textwidth+で組まれます。
+問題問題問題問題問題問題問題問題問題問題問題問題問題問題問題
+問題問題問題問題問題問題問題問題問題問題問題問題問題問題問題
 \end{itembox}
 \begin{tyuukai}
-$B!Z2rEz![2rEzItJ,$O(B\verb+tyuukai+$B4D6-Fb$K5-=R$7$^$9!#(B
-$B$=$3$G$O!$1&B&0lIt$,Cm<a$N$?$a$NNN0h$H$J$j$^$9!#(B
-$B$3$l$O!$(B\verb+jquotation+$B4D6-$K$h$C$F<B8=$5$l$F$$$^$9!#(B
+【解答】解答部分は\verb+tyuukai+環境内に記述します。
+そこでは，右側一部が注釈のための領域となります。
+これは，\verb+jquotation+環境によって実現されています。
 
-\tyuu{$BCm<aNN0h$G$9!#(B
-$BCm<a$rIU$1$k$K$O!$(B\cmd{tyuu}$B%3%^%s%I$rMQ$$$^$9!#(B}
-$B$3$3$GCm<a$r$D$1$F$_$^$9!#(B
-$B2rEz2rEz2rEz2rEz2rEz2rEz2rEz2rEz2rEz2rEz2rEz2rEz2rEz(B
-$B2rEz2rEz2rEz2rEz2rEz2rEz2rEz2rEz2rEz2rEz2rEz2rEz2rEz(B
+\tyuu{注釈領域です。
+注釈を付けるには，\cmd{tyuu}コマンドを用います。}
+ここで注釈をつけてみます。
+解答解答解答解答解答解答解答解答解答解答解答解答解答
+解答解答解答解答解答解答解答解答解答解答解答解答解答
 \end{tyuukai}
 }
 \clearpage
 
-\section{$B@)Ls(B}
-$B8=;~E@$G$O!$%Z!<%8$r$^$?$,$k>l9g$K$O(B2$B$D$NNN0h4V$N7S@~$r$R$/$3$H$,(B
-$B$G$-$^$;$s!#%Z!<%8$r$^$?$,$k>l9g$O(B
+\section{制約}
+現時点では，ページをまたがる場合には2つの領域間の罫線をひくことが
+できません。ページをまたがる場合は
 \begin{jquote}
 \begin{verbatim}
 \tyuukeisenfalse
 \end{verbatim}
 \end{jquote}
-$B$H$7$F!$7S@~$r$R$+$J$$@_Dj$K$7$F$/$@$5$$!#(B
+として，罫線をひかない設定にしてください。
 
-\begin{itembox}{$BLdBj(B}
-$BLdBjLdBjLdBjLdBjLdBjLdBjLdBjLdBjLdBjLdBjLdBjLdBjLdBjLdBjLdBj(B
-$BLdBjLdBjLdBjLdBjLdBjLdBjLdBjLdBjLdBjLdBjLdBjLdBjLdBjLdBjLdBj(B
+\begin{itembox}{問題}
+問題問題問題問題問題問題問題問題問題問題問題問題問題問題問題
+問題問題問題問題問題問題問題問題問題問題問題問題問題問題問題
 \end{itembox}
 \tyuukeisenfalse
 \begin{tyuukai}
-$B!Z2rEz![D9$$2rEzD9$$2rEzD9$$2rEzD9$$2rEzD9$$2rEzD9$$2rEz(B
-$BD9$$2rEzD9$$2rEzD9$$2rEzD9$$2rEzD9$$2rEzD9$$2rEzD9$$2rEz(B
-$BD9$$2rEzD9$$2rEzD9$$2rEzD9$$2rEzD9$$2rEzD9$$2rEzD9$$2rEz(B
-$BD9$$2rEzD9$$2rEzD9$$2rEzD9$$2rEzD9$$2rEzD9$$2rEzD9$$2rEz(B
-$BD9$$2rEzD9$$2rEzD9$$2rEzD9$$2rEzD9$$2rEzD9$$2rEzD9$$2rEz(B
-$BD9$$2rEzD9$$2rEzD9$$2rEzD9$$2rEzD9$$2rEzD9$$2rEzD9$$2rEz(B
-$BD9$$2rEzD9$$2rEzD9$$2rEzD9$$2rEzD9$$2rEzD9$$2rEzD9$$2rEz(B
-$BD9$$2rEzD9$$2rEzD9$$2rEzD9$$2rEzD9$$2rEzD9$$2rEzD9$$2rEz(B
-$BD9$$2rEzD9$$2rEzD9$$2rEzD9$$2rEzD9$$2rEzD9$$2rEzD9$$2rEz(B
-$BD9$$2rEzD9$$2rEzD9$$2rEzD9$$2rEzD9$$2rEzD9$$2rEzD9$$2rEz(B
-$BD9$$2rEzD9$$2rEzD9$$2rEzD9$$2rEzD9$$2rEzD9$$2rEzD9$$2rEz(B
-$BD9$$2rEzD9$$2rEzD9$$2rEzD9$$2rEzD9$$2rEzD9$$2rEzD9$$2rEz(B
+【解答】長い解答長い解答長い解答長い解答長い解答長い解答
+長い解答長い解答長い解答長い解答長い解答長い解答長い解答
+長い解答長い解答長い解答長い解答長い解答長い解答長い解答
+長い解答長い解答長い解答長い解答長い解答長い解答長い解答
+長い解答長い解答長い解答長い解答長い解答長い解答長い解答
+長い解答長い解答長い解答長い解答長い解答長い解答長い解答
+長い解答長い解答長い解答長い解答長い解答長い解答長い解答
+長い解答長い解答長い解答長い解答長い解答長い解答長い解答
+長い解答長い解答長い解答長い解答長い解答長い解答長い解答
+長い解答長い解答長い解答長い解答長い解答長い解答長い解答
+長い解答長い解答長い解答長い解答長い解答長い解答長い解答
+長い解答長い解答長い解答長い解答長い解答長い解答長い解答
 
-\tyuu{$BCm<a(B1}$B$3$3$GCm<a$rIU$1$^$9!#(B
-$BD9$$2rEzD9$$2rEzD9$$2rEzD9$$2rEzD9$$2rEzD9$$2rEzD9$$2rEz(B
-$BD9$$2rEzD9$$2rEzD9$$2rEzD9$$2rEzD9$$2rEzD9$$2rEzD9$$2rEz(B
-$BD9$$2rEzD9$$2rEzD9$$2rEzD9$$2rEzD9$$2rEzD9$$2rEzD9$$2rEz(B
-$BD9$$2rEzD9$$2rEzD9$$2rEzD9$$2rEzD9$$2rEzD9$$2rEzD9$$2rEz(B
-$BD9$$2rEzD9$$2rEzD9$$2rEzD9$$2rEzD9$$2rEzD9$$2rEzD9$$2rEz(B
-$BD9$$2rEzD9$$2rEzD9$$2rEzD9$$2rEzD9$$2rEzD9$$2rEzD9$$2rEz(B
-$BD9$$2rEzD9$$2rEzD9$$2rEzD9$$2rEzD9$$2rEzD9$$2rEzD9$$2rEz(B
-$BD9$$2rEzD9$$2rEzD9$$2rEzD9$$2rEzD9$$2rEzD9$$2rEzD9$$2rEz(B
-$BD9$$2rEzD9$$2rEzD9$$2rEzD9$$2rEzD9$$2rEzD9$$2rEzD9$$2rEz(B
-$BD9$$2rEzD9$$2rEzD9$$2rEzD9$$2rEzD9$$2rEzD9$$2rEzD9$$2rEz(B
-$BD9$$2rEzD9$$2rEzD9$$2rEzD9$$2rEzD9$$2rEzD9$$2rEzD9$$2rEz(B
-$BD9$$2rEzD9$$2rEzD9$$2rEzD9$$2rEzD9$$2rEzD9$$2rEzD9$$2rEz(B
-$BD9$$2rEzD9$$2rEzD9$$2rEzD9$$2rEzD9$$2rEzD9$$2rEzD9$$2rEz(B
-$BD9$$2rEzD9$$2rEzD9$$2rEzD9$$2rEzD9$$2rEzD9$$2rEzD9$$2rEz(B
-$BD9$$2rEzD9$$2rEzD9$$2rEzD9$$2rEzD9$$2rEzD9$$2rEzD9$$2rEz(B
-$BD9$$2rEzD9$$2rEzD9$$2rEzD9$$2rEzD9$$2rEzD9$$2rEzD9$$2rEz(B
-$BD9$$2rEzD9$$2rEzD9$$2rEzD9$$2rEzD9$$2rEzD9$$2rEzD9$$2rEz(B
-$BD9$$2rEzD9$$2rEzD9$$2rEzD9$$2rEzD9$$2rEzD9$$2rEzD9$$2rEz(B
-$BD9$$2rEzD9$$2rEzD9$$2rEzD9$$2rEzD9$$2rEzD9$$2rEzD9$$2rEz(B
-$BD9$$2rEzD9$$2rEzD9$$2rEzD9$$2rEzD9$$2rEzD9$$2rEzD9$$2rEz(B
-$BD9$$2rEzD9$$2rEzD9$$2rEzD9$$2rEzD9$$2rEzD9$$2rEzD9$$2rEz(B
-$BD9$$2rEzD9$$2rEzD9$$2rEzD9$$2rEzD9$$2rEzD9$$2rEzD9$$2rEz(B
-$BD9$$2rEzD9$$2rEzD9$$2rEzD9$$2rEzD9$$2rEzD9$$2rEzD9$$2rEz(B
-$BD9$$2rEzD9$$2rEzD9$$2rEzD9$$2rEzD9$$2rEzD9$$2rEzD9$$2rEz(B
+\tyuu{注釈1}ここで注釈を付けます。
+長い解答長い解答長い解答長い解答長い解答長い解答長い解答
+長い解答長い解答長い解答長い解答長い解答長い解答長い解答
+長い解答長い解答長い解答長い解答長い解答長い解答長い解答
+長い解答長い解答長い解答長い解答長い解答長い解答長い解答
+長い解答長い解答長い解答長い解答長い解答長い解答長い解答
+長い解答長い解答長い解答長い解答長い解答長い解答長い解答
+長い解答長い解答長い解答長い解答長い解答長い解答長い解答
+長い解答長い解答長い解答長い解答長い解答長い解答長い解答
+長い解答長い解答長い解答長い解答長い解答長い解答長い解答
+長い解答長い解答長い解答長い解答長い解答長い解答長い解答
+長い解答長い解答長い解答長い解答長い解答長い解答長い解答
+長い解答長い解答長い解答長い解答長い解答長い解答長い解答
+長い解答長い解答長い解答長い解答長い解答長い解答長い解答
+長い解答長い解答長い解答長い解答長い解答長い解答長い解答
+長い解答長い解答長い解答長い解答長い解答長い解答長い解答
+長い解答長い解答長い解答長い解答長い解答長い解答長い解答
+長い解答長い解答長い解答長い解答長い解答長い解答長い解答
+長い解答長い解答長い解答長い解答長い解答長い解答長い解答
+長い解答長い解答長い解答長い解答長い解答長い解答長い解答
+長い解答長い解答長い解答長い解答長い解答長い解答長い解答
+長い解答長い解答長い解答長い解答長い解答長い解答長い解答
+長い解答長い解答長い解答長い解答長い解答長い解答長い解答
+長い解答長い解答長い解答長い解答長い解答長い解答長い解答
+長い解答長い解答長い解答長い解答長い解答長い解答長い解答
 
-\tyuu{$BCm<a(B2}$B$3$3$GCm<a$=$N#2$rIU$1$^$9!#(B
-$BD9$$2rEzD9$$2rEzD9$$2rEzD9$$2rEzD9$$2rEzD9$$2rEzD9$$2rEz(B
-$BD9$$2rEzD9$$2rEzD9$$2rEzD9$$2rEzD9$$2rEzD9$$2rEzD9$$2rEz(B
-$BD9$$2rEzD9$$2rEzD9$$2rEzD9$$2rEzD9$$2rEzD9$$2rEzD9$$2rEz(B
-$BD9$$2rEzD9$$2rEzD9$$2rEzD9$$2rEzD9$$2rEzD9$$2rEzD9$$2rEz(B
-$BD9$$2rEzD9$$2rEzD9$$2rEzD9$$2rEzD9$$2rEzD9$$2rEzD9$$2rEz(B
-$BD9$$2rEzD9$$2rEzD9$$2rEzD9$$2rEzD9$$2rEzD9$$2rEzD9$$2rEz(B
-$BD9$$2rEzD9$$2rEzD9$$2rEzD9$$2rEzD9$$2rEzD9$$2rEzD9$$2rEz(B
-$BD9$$2rEzD9$$2rEzD9$$2rEzD9$$2rEzD9$$2rEzD9$$2rEzD9$$2rEz(B
-$BD9$$2rEzD9$$2rEzD9$$2rEzD9$$2rEzD9$$2rEzD9$$2rEzD9$$2rEz(B
+\tyuu{注釈2}ここで注釈その２を付けます。
+長い解答長い解答長い解答長い解答長い解答長い解答長い解答
+長い解答長い解答長い解答長い解答長い解答長い解答長い解答
+長い解答長い解答長い解答長い解答長い解答長い解答長い解答
+長い解答長い解答長い解答長い解答長い解答長い解答長い解答
+長い解答長い解答長い解答長い解答長い解答長い解答長い解答
+長い解答長い解答長い解答長い解答長い解答長い解答長い解答
+長い解答長い解答長い解答長い解答長い解答長い解答長い解答
+長い解答長い解答長い解答長い解答長い解答長い解答長い解答
+長い解答長い解答長い解答長い解答長い解答長い解答長い解答
 \end{tyuukai}
 
-\section{$B:8Cm(B}
-\cmd{tyuu}$B$O1&Ms30$KCm<a$r$*$-$^$9$,!$:8Ms30$KCm<a$rCV$/$K$O(B
-\cmd{hidarityuu}$B$rMQ$$$^$9!#(B
+\section{左注}
+\cmd{tyuu}は右欄外に注釈をおきますが，左欄外に注釈を置くには
+\cmd{hidarityuu}を用います。
 
 \tyuukeisentrue
 \hidarityuukeisentrue
-\begin{itembox}{$BLdBj(B}
-$BLdBjItJ,$*$h$SCO$NJ8$O!$DL>o$N(B\verb+\textwidth+$B$GAH$^$l$^$9!#(B
-$BLdBjLdBjLdBjLdBjLdBjLdBjLdBjLdBjLdBjLdBjLdBjLdBjLdBjLdBjLdBj(B
-$BLdBjLdBjLdBjLdBjLdBjLdBjLdBjLdBjLdBjLdBjLdBjLdBjLdBjLdBjLdBj(B
+\begin{itembox}{問題}
+問題部分および地の文は，通常の\verb+\textwidth+で組まれます。
+問題問題問題問題問題問題問題問題問題問題問題問題問題問題問題
+問題問題問題問題問題問題問題問題問題問題問題問題問題問題問題
 \end{itembox}
 \begin{tyuukai}
-$B!Z2rEz![2rEzItJ,$O(B\verb+tyuukai+$B4D6-Fb$K5-=R$7$^$9!#(B
-$B$=$3$G$O!$1&B&0lIt$,Cm<a$N$?$a$NNN0h$H$J$j$^$9!#(B
-$B$3$l$O!$(B\verb+jquotation+$B4D6-$K$h$C$F<B8=$5$l$F$$$^$9!#(B
+【解答】解答部分は\verb+tyuukai+環境内に記述します。
+そこでは，右側一部が注釈のための領域となります。
+これは，\verb+jquotation+環境によって実現されています。
 
-\tyuu{$BCm<aNN0h$G$9!#(B
-$BCm<a$rIU$1$k$K$O!$(B\cmd{tyuu}$B%3%^%s%I$rMQ$$$^$9!#(B}
-$B$3$3$GCm<a$r$D$1$F$_$^$9!#(B
-$B2rEz2rEz2rEz2rEz2rEz2rEz2rEz2rEz2rEz2rEz2rEz2rEz2rEz(B
-$B2rEz2rEz2rEz2rEz2rEz2rEz2rEz2rEz2rEz2rEz2rEz2rEz2rEz(B
+\tyuu{注釈領域です。
+注釈を付けるには，\cmd{tyuu}コマンドを用います。}
+ここで注釈をつけてみます。
+解答解答解答解答解答解答解答解答解答解答解答解答解答
+解答解答解答解答解答解答解答解答解答解答解答解答解答
 
-$B<!$K:8Ms30$KCm$r$D$1$F$_$^$7$g$&!#(B
-\hidarityuu{$B:8Ms30$KCm<a$r$D$1$k%3%^%s%I$,(B \cmd{hidarityuu}$B$G$9!#(B}
+次に左欄外に注をつけてみましょう。
+\hidarityuu{左欄外に注釈をつけるコマンドが \cmd{hidarityuu}です。}
 
-$B$?$@$7!$1&Ms30$NCm$,K\J8I}$NCf$KF~$k$N$KBP$7$F!$(B
-$B:8Ms30$NCm$OK\J830$KF~$k;EMM$H$7$F$"$j$^$9!#(B
-$B$3$l$O!$:8Ms30$NCm$O4JC1$J%^!<%/DxEY$rA[Dj$7$F$$$k$+$i$G$9!#(B
+ただし，右欄外の注が本文幅の中に入るのに対して，
+左欄外の注は本文外に入る仕様としてあります。
+これは，左欄外の注は簡単なマーク程度を想定しているからです。
 
-$BNc$($P!$(B\hidarityuu{\hfill $B!y(B}$B$3$N$h$&$J;H$$J}$G$9!#(B
-$B$H$9$l$P!$:8Ms30Cm$HK\J8$N4V$N7S@~$r0z$/$Y$-$+$I$&$+LdBj$G$7$g$&!#(B
-$B%G%U%)%k%H$O7S@~$J$7$G$9!#7S@~$r0z$-$?$1$l$P!$(B
+例えば，\hidarityuu{\hfill ☆}このような使い方です。
+とすれば，左欄外注と本文の間の罫線を引くべきかどうか問題でしょう。
+デフォルトは罫線なしです。罫線を引きたければ，
 \begin{jquote}
 \begin{verbatim}
 \hidarityuukeisentrue
 \end{verbatim}
 \end{jquote}
-$B$r@k8@$7$^$9!#(B
+を宣言します。
 
-\cmd{hidarityuu}$B$O(B\cmd{marginpar}$B$r;HMQ$7$F$$$^$9$+$i!$(B
-$B0l$D$NCJMn$K$O:81&$I$A$i$+0lJ}$K$7$+Cm$r$D$1$k$3$H$,(B
-$B$G$-$^$;$s!#(B
+\cmd{hidarityuu}は\cmd{marginpar}を使用していますから，
+一つの段落には左右どちらか一方にしか注をつけることが
+できません。
 \end{tyuukai}
 \clearpage
 
-\section{$B9TF,!$:8Ms30$K%^!<%/(B}
-$B:8Ms30$K%^!<%/$@$1$r$D$1$?$$$H$-$b$"$j$^$9!#$=$N$?$a$N%3%^%s%I$,(B
+\section{行頭，左欄外にマーク}
+左欄外にマークだけをつけたいときもあります。そのためのコマンドが
 \begin{jquote}
 \begin{verbatim}
 \gyoutou
 \end{verbatim}
 \end{jquote}
-$B$G$9!#$3$N%3%^%s%I$O(B\cmd{marginpar}$B$r;HMQ$7$F$$$^$;$s$+$i!$(B
-$BEv3:CJMn$K(B\cmd{tyuu}$B$r;HMQ$7$F!$Cm<a$r$D$1$k$3$H$,$G$-$^$9!#(B
+です。このコマンドは\cmd{marginpar}を使用していませんから，
+当該段落に\cmd{tyuu}を使用して，注釈をつけることができます。
 
 \hidarityuukeisenfalse
-\begin{itembox}{$BLdBj(B}
-$BLdBjItJ,$*$h$SCO$NJ8$O!$DL>o$N(B\verb+\textwidth+$B$GAH$^$l$^$9!#(B
-$BLdBjLdBjLdBjLdBjLdBjLdBjLdBjLdBjLdBjLdBjLdBjLdBjLdBjLdBjLdBj(B
-$BLdBjLdBjLdBjLdBjLdBjLdBjLdBjLdBjLdBjLdBjLdBjLdBjLdBjLdBjLdBj(B
+\begin{itembox}{問題}
+問題部分および地の文は，通常の\verb+\textwidth+で組まれます。
+問題問題問題問題問題問題問題問題問題問題問題問題問題問題問題
+問題問題問題問題問題問題問題問題問題問題問題問題問題問題問題
 \end{itembox}
 \begin{tyuukai}
-$B!Z2rEz![(B\tyuu{$BCm<aNN0h$G$9!#(B
-$BCm<a$rIU$1$k$K$O!$(B\cmd{tyuu}$B%3%^%s%I$rMQ$$$^$9!#(B}
-$B$3$3$GCm<a$r$D$1$F$_$^$9!#(B
-$B2rEz2rEz2rEz2rEz2rEz2rEz2rEz2rEz2rEz2rEz2rEz2rEz2rEz(B
-$B2rEz2rEz2rEz2rEz2rEz2rEz2rEz2rEz2rEz2rEz2rEz2rEz2rEz(B
+【解答】\tyuu{注釈領域です。
+注釈を付けるには，\cmd{tyuu}コマンドを用います。}
+ここで注釈をつけてみます。
+解答解答解答解答解答解答解答解答解答解答解答解答解答
+解答解答解答解答解答解答解答解答解答解答解答解答解答
 
 \indent
 \gyoutou{\P}
-$BCJMn$N@hF,$G!$9TF,$K%^!<%/$r$D$1$F$_$^$9!#$3$N9T$NKAF,$K$O(B
+段落の先頭で，行頭にマークをつけてみます。この行の冒頭には
 \begin{jquote}
 \begin{verbatim}
 \indent\gyoutou{\P}
 \end{verbatim}
 \end{jquote}
-$B$H5-=R$7$F$"$j$^$9!#(B
+と記述してあります。
 
-\noindent\gyoutou{\fbox{1}}$B$3$N9T$O%$%s%G%s%H$r$D$1$:$K!$(B\fbox1$B$r(B
-$BMs30$K$D$1$F$$$^$9!#$3$N>l9g$O(B
+\noindent\gyoutou{\fbox{1}}この行はインデントをつけずに，\fbox1を
+欄外につけています。この場合は
 \begin{jquote}
 \begin{verbatim}
 \noindent\gyoutou{\fbox{1}}
 \end{verbatim}
 \end{jquote}
-\cmd{gyoutou}$B$NA0$K(B\cmd{noindent}$B$r$D$1$^$9!#(B
+\cmd{gyoutou}の前に\cmd{noindent}をつけます。
 
-\gyoutou{$B!y(B}
-\tyuu<-13pt>{$B1&Cm<a(B}
-$B$3$N5!G=$O!$(B\cmd{marginpar} $B$r;HMQ$7$F$$$^$;$s$N$G!$(B
-$B1&Ms30$NCm<a$r$D$1$k%3%^%s%I(B \cmd{tyuu} $B$H(B \cmd{gyoutou} $B$r(B
-$BJ;MQ$9$k$3$H$b2DG=$G$9!#!!!!!!!!(B
+\gyoutou{☆}
+\tyuu<-13pt>{右注釈}
+この機能は，\cmd{marginpar} を使用していませんので，
+右欄外の注釈をつけるコマンド \cmd{tyuu} と \cmd{gyoutou} を
+併用することも可能です。　　　　
 \end{tyuukai}
 \clearpage
 
-\section{$B6qBNNc(B}
+\section{具体例}
 \ReadTeXFile{ex6}
 \end{document}

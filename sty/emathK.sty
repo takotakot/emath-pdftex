@@ -2,101 +2,101 @@
 
 %%%
 %%% ------------------------------------------------------------------
-%%% $B0J2<$NDj5A$O(B Waver $B$5$s$+$iD:$-$^$7$?!%(B
-%%% $B$"$j$,$H$&$4$6$$$^$9!%!d(B Waver $B$5$s!%(B
+%%% 以下の定義は Waver さんから頂きました．
+%%% ありがとうございます．＞ Waver さん．
 %%% --------------------------------------
 %%%
-%%%    enumerate$B4D6-$G%"!$%$!$%&!$!%!%!%(B
+%%%    enumerate環境でア，イ，ウ，．．．
 %%%    created by Waver
 %%%
-%%%  $B?tCM(B $B"*(B $B%+%?%+%J(B
+%%%  数値 → カタカナ
 %%%
-\def\@$B%+%?%+%J(B#1{%
-  \ifcase#1\unskip\or $B%"(B\or $B%$(B\or $B%&(B\or $B%((B\or $B%*(B\or%
-                      $B%+(B\or $B%-(B\or $B%/(B\or $B%1(B\or $B%3(B\or%
-                      $B%5(B\or $B%7(B\or $B%9(B\or $B%;(B\or $B%=(B\or%
-                      $B%?(B\or $B%A(B\or $B%D(B\or $B%F(B\or $B%H(B\or%
-                      $B%J(B\or $B%K(B\or $B%L(B\or $B%M(B\or $B%N(B\or%
-                      $B%O(B\or $B%R(B\or $B%U(B\or $B%X(B\or $B%[(B\or%
-                      $B%^(B\or $B%_(B\or $B%`(B\or $B%a(B\or $B%b(B\or%
-                      $B%d(B\or $B%f(B\or $B%h(B\or%
-                      $B%i(B\or $B%j(B\or $B%k(B\or $B%l(B\or $B%m(B\or%
-                      $B%o(B\or $B%p(B\or $B%q(B\or $B%r(B\or $B%s(B\else%
+\def\@カタカナ#1{%
+  \ifcase#1\unskip\or ア\or イ\or ウ\or エ\or オ\or%
+                      カ\or キ\or ク\or ケ\or コ\or%
+                      サ\or シ\or ス\or セ\or ソ\or%
+                      タ\or チ\or ツ\or テ\or ト\or%
+                      ナ\or ニ\or ヌ\or ネ\or ノ\or%
+                      ハ\or ヒ\or フ\or ヘ\or ホ\or%
+                      マ\or ミ\or ム\or メ\or モ\or%
+                      ヤ\or ユ\or ヨ\or%
+                      ラ\or リ\or ル\or レ\or ロ\or%
+                      ワ\or ヰ\or ヱ\or ヲ\or ン\else%
                       \@ctrerr\fi\relax%
 }%
 %%%
-%%%  c@$B%+%&%s%?(B $B"*(B $B%+%?%+%J(B
+%%%  c@カウンタ → カタカナ
 %%%
-\def\$B%+%?%+%J(B#1{%
-  \@$B%+%?%+%J(B{\@nameuse{c@#1}}%
+\def\カタカナ#1{%
+  \@カタカナ{\@nameuse{c@#1}}%
 }%
 %%%
-%%%  $B?tCM(B $B"*(B $B%$%m%O(B
+%%%  数値 → イロハ
 %%%
-\def\@$B%$%m%O(B#1{%
-  \ifcase#1\unskip\or $B%$(B\or $B%m(B\or $B%O(B\or $B%K(B\or $B%[(B\or%
-                      $B%X(B\or $B%H(B\or $B%A(B\or $B%j(B\or $B%L(B\or%
-                      $B%k(B\or $B%r(B\or $B%o(B\or $B%+(B\or $B%h(B\or%
-                      $B%?(B\or $B%l(B\or $B%=(B\or $B%D(B\or $B%M(B\or%
-                      $B%J(B\or $B%i(B\or $B%`(B\or $B%&(B\or $B%p(B\or%
-                      $B%N(B\or $B%*(B\or $B%/(B\or $B%d(B\or $B%^(B\or%
-                      $B%1(B\or $B%U(B\or $B%3(B\or $B%((B\or $B%F(B\or%
-                      $B%"(B\or $B%5(B\or $B%-(B\or $B%f(B\or $B%a(B\or%
-                      $B%_(B\or $B%7(B\or $B%q(B\or $B%R(B\or $B%b(B\or%
-                      $B%;(B\or $B%9(B\or $B%s(B\else\@ctrerr\fi\relax%
+\def\@イロハ#1{%
+  \ifcase#1\unskip\or イ\or ロ\or ハ\or ニ\or ホ\or%
+                      ヘ\or ト\or チ\or リ\or ヌ\or%
+                      ル\or ヲ\or ワ\or カ\or ヨ\or%
+                      タ\or レ\or ソ\or ツ\or ネ\or%
+                      ナ\or ラ\or ム\or ウ\or ヰ\or%
+                      ノ\or オ\or ク\or ヤ\or マ\or%
+                      ケ\or フ\or コ\or エ\or テ\or%
+                      ア\or サ\or キ\or ユ\or メ\or%
+                      ミ\or シ\or ヱ\or ヒ\or モ\or%
+                      セ\or ス\or ン\else\@ctrerr\fi\relax%
 }%
 %%%
-%%%  c@$B%+%&%s%?(B $B"*(B $B%$%m%O(B
+%%%  c@カウンタ → イロハ
 %%%
-\def\$B%$%m%O(B#1{%
-  \@$B%$%m%O(B{\@nameuse{c@#1}}%
+\def\イロハ#1{%
+  \@イロハ{\@nameuse{c@#1}}%
 }%
 %%%
-%%%  $B?tCM(B $B"*(B $B$R$i$,$J(B
+%%%  数値 → ひらがな
 %%%
-\def\@$B$R$i$,$J(B#1{%
-  \ifcase#1\unskip\or $B$"(B\or $B$$(B\or $B$&(B\or $B$((B\or $B$*(B\or%
-                      $B$+(B\or $B$-(B\or $B$/(B\or $B$1(B\or $B$3(B\or%
-                      $B$5(B\or $B$7(B\or $B$9(B\or $B$;(B\or $B$=(B\or%
-                      $B$?(B\or $B$A(B\or $B$D(B\or $B$F(B\or $B$H(B\or%
-                      $B$J(B\or $B$K(B\or $B$L(B\or $B$M(B\or $B$N(B\or%
-                      $B$O(B\or $B$R(B\or $B$U(B\or $B$X(B\or $B$[(B\or%
-                      $B$^(B\or $B$_(B\or $B$`(B\or $B$a(B\or $B$b(B\or%
-                      $B$d(B\or $B$f(B\or $B$h(B\or%
-                      $B$i(B\or $B$j(B\or $B$k(B\or $B$l(B\or $B$m(B\or%
-                      $B$o(B\or $B$p(B\or $B$q(B\or $B$r(B\or $B$s(B\else%
+\def\@ひらがな#1{%
+  \ifcase#1\unskip\or あ\or い\or う\or え\or お\or%
+                      か\or き\or く\or け\or こ\or%
+                      さ\or し\or す\or せ\or そ\or%
+                      た\or ち\or つ\or て\or と\or%
+                      な\or に\or ぬ\or ね\or の\or%
+                      は\or ひ\or ふ\or へ\or ほ\or%
+                      ま\or み\or む\or め\or も\or%
+                      や\or ゆ\or よ\or%
+                      ら\or り\or る\or れ\or ろ\or%
+                      わ\or ゐ\or ゑ\or を\or ん\else%
                       \@ctrerr\fi\relax%
 }%
 %%%
-%%%  c@$B%+%&%s%?(B $B"*(B $B$R$i$,$J(B
+%%%  c@カウンタ → ひらがな
 %%%
-\def\$B$R$i$,$J(B#1{%
-  \@$B$R$i$,$J(B{\@nameuse{c@#1}}%
+\def\ひらがな#1{%
+  \@ひらがな{\@nameuse{c@#1}}%
 }%
 %%%
-%%%  $B?tCM(B $B"*(B $B$$$m$O(B
+%%%  数値 → いろは
 %%%
-\def\@$B$$$m$O(B#1{%
-  \ifcase#1\unskip\or $B$$(B\or $B$m(B\or $B$O(B\or $B$K(B\or $B$[(B\or%
-                      $B$X(B\or $B$H(B\or $B$A(B\or $B$j(B\or $B$L(B\or%
-                      $B$k(B\or $B$r(B\or $B$o(B\or $B$+(B\or $B$h(B\or%
-                      $B$?(B\or $B$l(B\or $B$=(B\or $B$D(B\or $B$M(B\or%
-                      $B$J(B\or $B$i(B\or $B$`(B\or $B$&(B\or $B$p(B\or%
-                      $B$N(B\or $B$*(B\or $B$/(B\or $B$d(B\or $B$^(B\or%
-                      $B$1(B\or $B$U(B\or $B$3(B\or $B$((B\or $B$F(B\or%
-                      $B$"(B\or $B$5(B\or $B$-(B\or $B$f(B\or $B$a(B\or%
-                      $B$_(B\or $B$7(B\or $B$q(B\or $B$R(B\or $B$b(B\or%
-                      $B$;(B\or $B$9(B\or $B$s(B\else\@ctrerr\fi\relax%
+\def\@いろは#1{%
+  \ifcase#1\unskip\or い\or ろ\or は\or に\or ほ\or%
+                      へ\or と\or ち\or り\or ぬ\or%
+                      る\or を\or わ\or か\or よ\or%
+                      た\or れ\or そ\or つ\or ね\or%
+                      な\or ら\or む\or う\or ゐ\or%
+                      の\or お\or く\or や\or ま\or%
+                      け\or ふ\or こ\or え\or て\or%
+                      あ\or さ\or き\or ゆ\or め\or%
+                      み\or し\or ゑ\or ひ\or も\or%
+                      せ\or す\or ん\else\@ctrerr\fi\relax%
 }%
 %%%
-%%%  c@$B%+%&%s%?(B $B"*(B $B$$$m$O(B
+%%%  c@カウンタ → いろは
 %%%
-\def\$B$$$m$O(B#1{%
-  \@$B$$$m$O(B{\@nameuse{c@#1}}%
+\def\いろは#1{%
+  \@いろは{\@nameuse{c@#1}}%
 }%
 
 \ifx\fmtname\tmpname%
-% NTT JLaTeX2e $BMQ(B
+% NTT JLaTeX2e 用
 \@ifundefined{jintercharskip}{}{%
 \newlength\tbaselineshift%
 \newcommand{\gt}{\pdg}%
@@ -104,15 +104,15 @@
 \newcommand{\textmc}[1]{{\pmin #1}}}%
 \fi
 
-\def\katakana#1{\@$B%+%?%+%J(B{0#1}}
-\def\hirakana#1{\@$B$R$i$,$J(B{0#1}}
-\def\iroha#1{\@$B%$%m%O(B{0#1}}
-\def\IROHA#1{\@$B$$$m$O(B{0#1}}
+\def\katakana#1{\@カタカナ{0#1}}
+\def\hirakana#1{\@ひらがな{0#1}}
+\def\iroha#1{\@イロハ{0#1}}
+\def\IROHA#1{\@いろは{0#1}}
 \endinput
 %
 % 1999.7.10
-%	emathK.sty $B$H2~L>(B
+%	emathK.sty と改名
 %
 % 2000/03/11 ver.0.08
-%		\@$B%+%?%+%J(B $B$r(B#1$B$,L$Dj5A$N$H$-$b;HMQ$G$-$k$h$&$K$7!$(B
-%				$BJLL>(B \katakana $B$rM?$($k!%(B
+%		\@カタカナ を#1が未定義のときも使用できるようにし，
+%				別名 \katakana を与える．

@@ -6,48 +6,48 @@
 \checkPerl
 
 \begin{document}
-$xy$$BJ?LL$N(B$x$$B<4!$(B$y$$B<4$NC10L$ND9$5$rITB7$$$K$9$k$3$H$r5vMF$9$k;n$_$G$9!#(B
-$B4XO"$7$F!$:BI8L\@9$j$K$D$$$F$N5!G=$rJd6/$7$^$7$?!#(B
+$xy$平面の$x$軸，$y$軸の単位の長さを不揃いにすることを許容する試みです。
+関連して，座標目盛りについての機能を補強しました。
 
-$B?7$?$K(B \textsf{emathPxy.sty} $B$HL>IU$1$k$3$H$H$7$^$7$?$,!$(B
-$B$^$@%"%k%U%!%F%9%HCJ3,$G$9!#(B
-$B%P%0Js9p$r(BBBS$B$G$*BT$A$7$F$$$^$9!#(B
+新たに \textsf{emathPxy.sty} と名付けることとしましたが，
+まだアルファテスト段階です。
+バグ報告をBBSでお待ちしています。
 
 \tableofcontents
 \clearpage
 
-\section{$B:BI8L\@9$j(B}
-$B8=:_$N:BI8L\@9$j$O(B0$B$rCf?4$H$7$F(B$x$, $y$$B<46&DL$N4V3V$G(B
-$BL\@9@~$rF~$l$F$$$^$9!#(B
+\section{座標目盛り}
+現在の座標目盛りは0を中心として$x$, $y$軸共通の間隔で
+目盛線を入れています。
 
-\begin{showEx}(.5,.44){$B4V3V(B2$B$NL\@9@~(B}
+\begin{showEx}(.5,.44){間隔2の目盛線}
 \small
 \begin{zahyou}[ul=4mm](-5,5)(-5,5)
 \zahyouMemori[g]<2>
 \end{zahyou}
 \end{showEx}
 
-\subsection{$BL\@94V3V$N;XDj%*%W%7%g%s(B}
-$B:#2s!$L\@94V3V$r(B$x$$B<4!$(B$y$$B<4$GJL!9$NCM$r;XDj$G$-$k$h$&$K$7$^$7$?!#(B
-\verb/<#3>/$B$NItJ,$K(B
+\subsection{目盛間隔の指定オプション}
+今回，目盛間隔を$x$軸，$y$軸で別々の値を指定できるようにしました。
+\verb/<#3>/の部分に
 \begin{jquote}
 \begin{verbatim}
 dx=2,dy=3
 \end{verbatim}
 \end{jquote}
-$B$J$I$H5-=R$7$^$9!#%G%U%)%k%HCM$O(B\verb/dx/, \verb/dy/$B$H$b$K(B1$B$G$9!#(B
+などと記述します。デフォルト値は\verb/dx/, \verb/dy/ともに1です。
 
-\begin{showEx}(.5,.44){$BL\@94V3V$N;XDj(B}
+\begin{showEx}(.5,.44){目盛間隔の指定}
 \small
 \begin{zahyou}[ul=4mm](-5,5)(-5,5)
 \zahyouMemori[g]<dx=2>
 \end{zahyou}
 \end{showEx}
 
-$B4V3V$O@0?t$G$J$/$F$b<u$1IU$1$^$9$,!$L\@9$N?tCM$OJLES(B\cmd{xmomori}$B$J$I$G(B
-$BBG$C$?J}$,$h$$$G$7$g$&!#(B
+間隔は整数でなくても受け付けますが，目盛の数値は別途\cmd{xmomori}などで
+打った方がよいでしょう。
 
-\begin{showEx}(.5,.44){$B4V3V;XDj(B}
+\begin{showEx}(.5,.44){間隔指定}
 \footnotesize
 \begin{zahyou}[ul=5mm](-5,5)(-1.5,2)
 \zahyouMemori[g][n]<dx=1.57,dy=.5>
@@ -58,10 +58,10 @@ dx=2,dy=3
 \end{zahyou}
 \end{showEx}
 
-\cmd{xmemori}$B$b(B\texttt{dx}$B$G;XDj$7$?4V3V$GL\@9$rBG$D$?$a$K(B
-$B5!G=$r6/2=$7$?$b$N$r(B\cmd{xMemori}$B$H9f$7$^$9!#(B
+\cmd{xmemori}も\texttt{dx}で指定した間隔で目盛を打つために
+機能を強化したものを\cmd{xMemori}と号します。
 
-$B2<$N%j%9%H$O!$(B$x$$B<4J}8~(B$\mbox{\cmd{Pis}}=\pi/6$$B4V3V$GL\@9$rF~$l$F$$$^$9!#(B
+下のリストは，$x$軸方向$\mbox{\cmd{Pis}}=\pi/6$間隔で目盛を入れています。
 
 \begin{showEx}(.5,.44){\cmd{xmemori}}
 \footnotesize
@@ -79,33 +79,33 @@ dx=\Pis,dy=.5,sensyu=\drawline>
 \end{zahyou}
 \end{showEx}
 
-\subsection{\cmd{xMemori}$B$N=q<0(B}
-$B?7@_$7$?(B\cmd{xMemori}, \cmd{yMemori}$B$N=q<0$G$9!#(B
+\subsection{\cmd{xMemori}の書式}
+新設した\cmd{xMemori}, \cmd{yMemori}の書式です。
 
 \begin{boxnote}
 \begin{verbatim}
-$B:BI8<4>eG$0U0LCV$KL\@9(B
+座標軸上任意位置に目盛
 \xMemori[#1]<#2>(#3)#4
 \yMemori[#1]<#2>(#3)#4
-  #1 : t = $B:BI8<4$N2<$KL\@9!J%G%U%)%k%H!K(B
-       b =         $B>e(B
-  #2 : $BL\@9$NJ8;z(B
-       $B!J>JN,$9$l$P!$(B#4 $B$K;XDj$7$?$b$N$,BeMQ$5$l$^$9!%!K(B
-  #3 : $BC10L$ND9$5!J%G%U%)%k%HCM(B=\zahyouMemori$B$G;XDj$7$?(Bdx$B!K(B
-  #4 : $BC10L$ND9$5$N(B#4$BG\$N0LCV$KL\@9$rBG$D(B
+  #1 : t = 座標軸の下に目盛（デフォルト）
+       b =         上
+  #2 : 目盛の文字
+       （省略すれば，#4 に指定したものが代用されます．）
+  #3 : 単位の長さ（デフォルト値=\zahyouMemoriで指定したdx）
+  #4 : 単位の長さの#4倍の位置に目盛を打つ
 \end{verbatim}
 \end{boxnote}
 
-\subsection{$BL\@94p=`E@$NJQ99(B}
-$BDL>o$O86E@$r4p=`$H$7$FL\@9$rBG$A$^$9$,!$$3$l$rJQ99$9$k%*%W%7%g%s$b(B
-$B$D$1$^$7$?!#$9$J$o$A(B
+\subsection{目盛基準点の変更}
+通常は原点を基準として目盛を打ちますが，これを変更するオプションも
+つけました。すなわち
 \begin{jquote}
 \begin{verbatim}
 <xo=-0.5236,yo=0.5>
 \end{verbatim}
 \end{jquote}
-$B$G4p=`E@$,(B\verb/(-0.5236,0.5)/$B$H$J$j$^$9!#(B
-\cmd{xMemori}, \cmd{yMemori}$B$b$3$l$KDI?o$7$^$9!#(B
+で基準点が\verb/(-0.5236,0.5)/となります。
+\cmd{xMemori}, \cmd{yMemori}もこれに追随します。
 
 \begin{showEx}(.5,.44){\cmd{xmemori}}
 \footnotesize
@@ -123,34 +123,34 @@ ul=6mm,gentenhaiti={[se]}](%
 \end{zahyou}
 \end{showEx}
 
-\subsection{\cmd{zahyouMemori}$B$N=q<0(B}
-$B3HD%$5$l$?(B\cmd{zahyouMemori}$B$N=q<0$G$9!#(B
+\subsection{\cmd{zahyouMemori}の書式}
+拡張された\cmd{zahyouMemori}の書式です。
 
 \begin{boxnote}
 \begin{verbatim}
-$B:BI8<4$KL\@9$rBG$D!%(B
+座標軸に目盛を打つ．
 \zahyouMemori[#1][#2]<#3>
-  #1 : g : $B%0%j%C%I(B
-       + : $B3J;RE@$K(B +$B%^!<%/(B
-       o : $B3J;RE@$K9u4](B
-       z : $B:BI8<4>e$N3J;RE@$K(B +$B%^!<%/(B
-  #2 : n : $BL\@9$j?tCM$J$7(B
-  #3 : $B9o$_(B
-        dx= x$B$N9o$_CM(B
-        dy= y$B$N9o$_CM(B
-        xo= x$B$N4p=`CM(B
-        yo= y$B$N4p=`CM(B
+  #1 : g : グリッド
+       + : 格子点に +マーク
+       o : 格子点に黒丸
+       z : 座標軸上の格子点に +マーク
+  #2 : n : 目盛り数値なし
+  #3 : 刻み
+        dx= xの刻み値
+        dy= yの刻み値
+        xo= xの基準値
+        yo= yの基準値
 \end{verbatim}
 \end{boxnote}
 
-\section{$BC10LD9$NJQ99(B}
-\subsection{xscale, yscale $B%*%W%7%g%s(B}
-\textsf{emathPh.sty}$B$GMQ0U$7$F$$$k:BI87O$O(B$x$, $y$$B<4$NC10LD9$O(B
-$BF10l$H$J$C$F$$$^$9!#$3$l$rJL$N$b$N$K$9$k$3$H$r2DG=$H$9$k;n$_$G$9!#(B
+\section{単位長の変更}
+\subsection{xscale, yscale オプション}
+\textsf{emathPh.sty}で用意している座標系は$x$, $y$軸の単位長は
+同一となっています。これを別のものにすることを可能とする試みです。
 
-$B<!$N%j%9%H$O(B\verb/yscale=4/$B$H$7$F!$(B$y$$B<4J}8~$r(B4$BG\0z$-?-$P$7$F$$$^$9!#(B
+次のリストは\verb/yscale=4/として，$y$軸方向を4倍引き伸ばしています。
 
-\begin{showEx}{\texttt{<yscale=...>}$B%*%W%7%g%s(B}
+\begin{showEx}{\texttt{<yscale=...>}オプション}
 \begin{zahyou}[ul=3mm,yscale=4](%
   -1,15)(-1.5,1.5)
 \zahyouMemori[z][n]<dx=\Pih>
@@ -164,23 +164,23 @@ ul=6mm,gentenhaiti={[se]}](%
 \end{zahyou}
 \end{showEx}
 
-$B<!$O2#D9$N3J;R$rIA$/Nc$G$9!#(B
+次は横長の格子を描く例です。
 \begin{jquote}
 \begin{verbatim}
 ul=3mm,xscale=3,yscale=2
 \end{verbatim}
 \end{jquote}
-$B$H$$$&%*%W%7%g%s$G(B
+というオプションで
 \begin{jquote}
 \begin{verbatim}
-ul=3mm $B$G(B \unitlength $B$O(B 3mm
-x$B<4J}8~$NC10LD9$O(B ul$B!_(Bxscale 9mm $B$G(B \xunitlength $B$,(B 9mm
-y$B<4J}8~$NC10LD9$O(B ul$B!_(Byscale 6mm $B$G(B \yunitlength $B$,(B 6mm
+ul=3mm で \unitlength は 3mm
+x軸方向の単位長は ul×xscale 9mm で \xunitlength が 9mm
+y軸方向の単位長は ul×yscale 6mm で \yunitlength が 6mm
 \end{verbatim}
 \end{jquote}
-$B$K@_Dj$5$l$^$9!#(B
+に設定されます。
 
-\begin{showEx}{$B2#D9$N3J;R(B}
+\begin{showEx}{横長の格子}
 \begin{zahyou*}[ul=3mm,xscale=3,%
   yscale=2](0,4)(0,5)%
   \Put\O{\kousi{4}{5}}%
@@ -188,9 +188,9 @@ y$B<4J}8~$NC10LD9$O(B ul$B!_(Byscale 6mm $B$G(B \yunitlength $B$,(B 6mm
 \end{zahyou*}%
 \end{showEx}
 
-$B:G8e$K(B$x$$B<4J}8~$N%9%1!<%k$rJQ99$9$kNc$G$9!#(B
+最後に$x$軸方向のスケールを変更する例です。
 
-\begin{showEx}{$x$$B<4J}8~$N%9%1!<%kJQ99(B}
+\begin{showEx}{$x$軸方向のスケール変更}
 \calcval{$pi/180}\xs
 \begin{zahyou}[%
   ul=6mm,xscale=\xs](%
@@ -203,39 +203,39 @@ y$B<4J}8~$NC10LD9$O(B ul$B!_(Byscale 6mm $B$G(B \yunitlength $B$,(B 6mm
 \end{zahyou}
 \end{showEx}
 
-\subsection{\textsf{zahyou}$B4D6-$N=q<0(B}
-$B3HD%$5$l$?(B\textsf{zahyou}$B4D6-$N=q<0$G$9!#(B
+\subsection{\textsf{zahyou}環境の書式}
+拡張された\textsf{zahyou}環境の書式です。
 
 \begin{boxnote}
 \begin{verbatim}
     \begin{zahyou}[#1](#2,#3)(#4,#5)
-      #1 : key=val $B$N7A<0$G!$(Bkey $B$K$O<!$N$b$N$,;H$($^$9!#(B
-          yokozikukigou $B%G%U%)%k%H$O(B $x$
-          tatezikukigou $B%G%U%)%k%H$O(B $y$
-          gentenkigou   $B%G%U%)%k%H$O(B O
-          yokozikuhaiti $B%G%U%)%k%H$O(B (0,-3pt)[rt]
-          tatezikuhaiti $B%G%U%)%k%H$O(B (-3pt,0)[rt]
-          gentenhaiti   $B%G%U%)%k%H$O(B [sw]
-          ul            \unitlength $B$rJQ99$7$^$9!#%G%U%)%k%H$O(B 1pt
-          yscale        $B%G%U%)%k%H$O(B1
-          xscale        $B%G%U%)%k%H$O(B1
-      (#2,#3) : x$B$NHO0O(B
-      (#4,#5) : y$B$NHO0O(B
+      #1 : key=val の形式で，key には次のものが使えます。
+          yokozikukigou デフォルトは $x$
+          tatezikukigou デフォルトは $y$
+          gentenkigou   デフォルトは O
+          yokozikuhaiti デフォルトは (0,-3pt)[rt]
+          tatezikuhaiti デフォルトは (-3pt,0)[rt]
+          gentenhaiti   デフォルトは [sw]
+          ul            \unitlength を変更します。デフォルトは 1pt
+          yscale        デフォルトは1
+          xscale        デフォルトは1
+      (#2,#3) : xの範囲
+      (#4,#5) : yの範囲
 \end{verbatim}
 \end{boxnote}
 
-\subsection{$BE,MQ=|30%3%^%s%I(B}
-\texttt{xscale}, \texttt{yscale}$B$r;XDj$7$?:BI87O$K$O(B3$B$D$NC10LD9$,$"$j$^$9!#(B
+\subsection{適用除外コマンド}
+\texttt{xscale}, \texttt{yscale}を指定した座標系には3つの単位長があります。
 \begin{jquote}
 \begin{verbatim}
-\unitlength  : picture $B4D6-$NC10LD9(B
-\xunitlength : zahyou $B4D6-$K$*$1$k(B x$B<4J}8~C10LD9(B
-\yunitlength : zahyou $B4D6-$K$*$1$k(B y$B<4J}8~C10LD9(B
+\unitlength  : picture 環境の単位長
+\xunitlength : zahyou 環境における x軸方向単位長
+\yunitlength : zahyou 環境における y軸方向単位長
 \end{verbatim}
 \end{jquote}
 
-$B<!$N%3%^%s%I$O(B \cmd{unitlength}$B$K$N$_=>$$$^$9!#(B
-$B$9$J$o$A!$(B\verb/xscale, yscale/ $B$OL5;k$5$l$^$9!#(B
+次のコマンドは \cmd{unitlength}にのみ従います。
+すなわち，\verb/xscale, yscale/ は無視されます。
 \begin{jquote}
 \begin{verbatim}
 \En, \Enko, \Daen
@@ -243,7 +243,7 @@ y$B<4J}8~$NC10LD9$O(B ul$B!_(Byscale 6mm $B$G(B \yunitlength $B$,(B 6mm
 \end{verbatim}
 \end{jquote}
 
-\cmd{En}$B$O(B\verb/xscale, yscale/$B$N1F6A$r<u$1$^$;$s!#(B
+\cmd{En}は\verb/xscale, yscale/の影響を受けません。
 
 \begin{showEx}{\cmd{En}}
 \begin{zahyou}[%
@@ -254,10 +254,10 @@ ul=8mm,xscale=2,yscale=.5](%
 \end{zahyou}
 \end{showEx}
 
-\verb/xscale, yscale/$B$rH?1G$5$;$?1_$rIA2h$7$?$$$H$-$O!$(B
-$BG^2pJQ?tI=<($rMQ$$$^$9!#(B
+\verb/xscale, yscale/を反映させた円を描画したいときは，
+媒介変数表示を用います。
 
-\begin{showEx}{$B1_(B}
+\begin{showEx}{円}
 \begin{zahyou}[%
 ul=8mm,xscale=2,yscale=.5](%
 -1.5,1.5)(-4,4)
@@ -266,5 +266,5 @@ ul=8mm,xscale=2,yscale=.5](%
 \end{zahyou}
 \end{showEx}
 
-2$B<!0J2<$N@04X?t$rIA2h$9$k(B\cmd{Gurafu}$B$bE,MQ=|30$G$9!#(B
+2次以下の整関数を描画する\cmd{Gurafu}も適用除外です。
 \end{document}

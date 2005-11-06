@@ -1,7 +1,7 @@
 % itembkbx.sty by tDB(emath@nifty.com)
 
   \NeedsTeXFormat{LaTeX2e}
-  \ProvidesPackage{itembkbx}[2005/10/02 v 0.16$B&B(B]%
+  \ProvidesPackage{itembkbx}[2005/10/02 v 0.16β]%
   \RequirePackage{eclbkbox}
   \RequirePackage{itembbox}
   \RequirePackage{jquote}
@@ -21,7 +21,7 @@
   \define@key{emBk}{topht}{\def\top@ht{#1}}%
 %  \define@key{emBk}{vsep}{\def\v@sep{#1}}%
 
-% $B>e2<$N2#7S@~$r0z$/!?0z$+$J$$$N%9%$%C%A(B
+% 上下の横罫線を引く／引かないのスイッチ
 \def\bkbox@drawtline{1}
 \def\bkbox@drawbline{1}
 
@@ -111,7 +111,7 @@
 \fi
 \leavevmode\bk@fstln\par}\vskip\breakboxskip\relax}
 
-% $B%Z!<%8$r$^$?$0(B itembox$B4D6-(B
+% ページをまたぐ itembox環境
 
 \def\breakitembox{\def\frame@color{\empty}%
   \def\h@sep{0pt}% 2005/06/11
@@ -206,7 +206,7 @@
   \vspace{\bkitembox@tmp\p@}\par
 }
 
-% $B2<JU$K8+=P$7(B
+% 下辺に見出し
 %
 \def\breakitembbox{%
   \def\h@sep{0pt}%
@@ -297,9 +297,9 @@
 
 %% breakitemtbbox environment
 %%
-%% \begin{breakitemtbbox}<$B>e8+=P$7G[CV(B>[$B2<8+=P$7G[CV(B]{$B>e8+=P$7(B}{$B2<8+=P$7(B}
-%%            $B>e8+=P$7G[CV$N%G%U%)%k%H$O(B l $B!J:8!K(B
-%%            $B2<8+=P$7G[CV$N%G%U%)%k%H$O(B r $B!J1&!K(B
+%% \begin{breakitemtbbox}<上見出し配置>[下見出し配置]{上見出し}{下見出し}
+%%            上見出し配置のデフォルトは l （左）
+%%            下見出し配置のデフォルトは r （右）
 %%
 \def\breakitemtbbox{%
   \def\h@sep{0pt}%
@@ -401,7 +401,7 @@
 \fi
 }
 
-% $BD9J}7A$N0O$_(B
+% 長方形の囲み
 %
 \def\breakitemsquarebox{\@ifnextchar[{\@breakitemsquarebox}{%
   \@breakitemsquarebox[c]}}
@@ -472,13 +472,13 @@
 }
 
 %%
-%% (5) $B3Q$N;M3Q$J>e2<8+=P$7$D$-%\%C%/%9(B
+%% (5) 角の四角な上下見出しつきボックス
 %%
 %% itemtbsquarebox environment
 %%
-%% \begin{itemtbsquarebox}<$B>e8+=P$7G[CV(B>[$B2<8+=P$7G[CV(B]{$B>e8+=P$7(B}{$B2<8+=P$7(B}
-%%            $B>e8+=P$7G[CV$N%G%U%)%k%H$O(B l $B!J:8!K(B
-%%            $B2<8+=P$7G[CV$N%G%U%)%k%H$O(B r $B!J1&!K(B
+%% \begin{itemtbsquarebox}<上見出し配置>[下見出し配置]{上見出し}{下見出し}
+%%            上見出し配置のデフォルトは l （左）
+%%            下見出し配置のデフォルトは r （右）
 
 \def\breakitemtbsquarebox{\@ifnextchar<{\breakitemtb@squarebox}{\breakitemtb@squarebox<l>}}%
 \def\breakitemtb@squarebox<#1>{%
@@ -546,17 +546,17 @@
 \def\endbreakscreen{\endbreakitembox}
 \endinput
 
-v 0.05 emathBk.sty $B$+$iJ,N%(B
-v 0.06 breakitembox $B8+=P$7$r6u$G$b2D$H$9$k!#(B---> breakscreen
-v 0.07 breakitembox $B6u$-D4@0(B
-v 0.08 QandA $B$K$*$1$k!$$7$C$]0&9%2H$5$s$N(B #24810 $B$r<h$jF~$l$k!#(B
-v 0.09 breakitembox \baselinestretch $B$N:FDj5A$KBP1~(B
-v 0.10 breakitembox <framecolor=..>$B%*%W%7%g%s(B
-v 0.11 \frame@color $B=i4|2=(B
-v 0.12 2005/06/12 breakitembox : <hsep=..> $B$rM-8z(B
-v 0.13 2005/06/27 emathPh $B$r@Z$jN%$9(B
-                  $B$5$i$K(B emath $B$H$OFHN)$7$?$b$N$r(B breakitembox.sty
-v 0.14 2005/07/23 breakitembox : $B>e2<%V%m%C%/$H$N7R$.8+D>$7(B
-v 0.15 2005/08/04 $B>e2<$N7S@~$r(B \@drawtline, \@drawbline $B$G@)8f(B
-                  \ignorefirstline : $B@hF,9T$,6uGr$N>l9g$J$I$rGS=|(B
-v 0.16 2005/10/02 \unitlength $B$,JQ99$5$l$F$$$k>l9g$KBP1~(B
+v 0.05 emathBk.sty から分離
+v 0.06 breakitembox 見出しを空でも可とする。---> breakscreen
+v 0.07 breakitembox 空き調整
+v 0.08 QandA における，しっぽ愛好家さんの #24810 を取り入れる。
+v 0.09 breakitembox \baselinestretch の再定義に対応
+v 0.10 breakitembox <framecolor=..>オプション
+v 0.11 \frame@color 初期化
+v 0.12 2005/06/12 breakitembox : <hsep=..> を有効
+v 0.13 2005/06/27 emathPh を切り離す
+                  さらに emath とは独立したものを breakitembox.sty
+v 0.14 2005/07/23 breakitembox : 上下ブロックとの繋ぎ見直し
+v 0.15 2005/08/04 上下の罫線を \@drawtline, \@drawbline で制御
+                  \ignorefirstline : 先頭行が空白の場合などを排除
+v 0.16 2005/10/02 \unitlength が変更されている場合に対応

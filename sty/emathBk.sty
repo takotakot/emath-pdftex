@@ -1,7 +1,7 @@
 % emathBk.sty by tDB(emath@nifty.com)
 
   \NeedsTeXFormat{LaTeX2e}
-  \ProvidesPackage{emathBk}[2005/10/30 v 0.24$B&A(B]%
+  \ProvidesPackage{emathBk}[2005/10/30 v 0.24α]%
   \DeclareOption{dviout}{\def\em@grdrv{dviout}}%
   \DeclareOption{dvips}{\def\em@grdrv{dvips}}%
   \DeclareOption{dvipdfm}{\def\em@grdrv{dvipdfm}}%
@@ -47,16 +47,16 @@
   \define@key{emBk}{backgroundcolor}{\def\background@color{#1}}%
   \define@key{emBk}{framecolor}{\def\frame@color{#1}}%
 %
-% $B%Z!<%8$r$^$?$0(B dblbox$B4D6-(B
+% ページをまたぐ dblbox環境
 %
 % \begin{bkdblbox}[#1]
 %   #1: key=val
-%         fboxsep=..$B!J%G%U%)%k%HCM(B=\fboxsep$B!K(B
-%         hsep=...$B!J%G%U%)%k%HCM(B=\fboxsep$B!K(B
-%         vsep=...$B!J%G%U%)%k%HCM(B=\fboxsep$B!K(B
-%         fboxruleA=... $B30OH7S@~$NB@$5!J%G%U%)%k%HCM(B=2pt$B!K(B
-%         fboxruleB=... $BFbOH7S@~$NB@$5!J%G%U%)%k%HCM(B=\fboxrule$B!K(B
-%         fboxruleG=... $B30OH7S@~$HFbOH7S@~$N5wN%!J%G%U%)%k%HCM(B=2pt$B!K(B
+%         fboxsep=..（デフォルト値=\fboxsep）
+%         hsep=...（デフォルト値=\fboxsep）
+%         vsep=...（デフォルト値=\fboxsep）
+%         fboxruleA=... 外枠罫線の太さ（デフォルト値=2pt）
+%         fboxruleB=... 内枠罫線の太さ（デフォルト値=\fboxrule）
+%         fboxruleG=... 外枠罫線と内枠罫線の距離（デフォルト値=2pt）
 %
 \def\bkdblbox{\def\bkbox@sensyu{\drawline}%
   \def\bkbox@item{\empty}%
@@ -111,7 +111,7 @@
     \edef\@lndp{\strip@pt\@tempdima}%
     \noindent
     \begin{picture}(0,0)%
-%                           $B>e7S@~(B
+%                           上罫線
       \@tempdima\ht\strutbox
       \ifdim\ht\bk@bxa>\@tempdima\@tempdima=\ht\bk@bxa\fi
       \edef\@lnht{\strip@pt\@tempdima}%
@@ -127,7 +127,7 @@
       \setlength{\@tempdimb}{\linewidth-\@tempdima}%
       \edef\ln@R{\strip@pt\@tempdimb}%
       \bkbox@sensyu(\ln@L,\bkdblbox@tmp)(\ln@R,\bkdblbox@tmp)%
-%   \vrule \@width\fboxrule% $B:87S@~(B
+%   \vrule \@width\fboxrule% 左罫線
       \@tempdima=\fboxrule@A
       \edef\bkdblbox@tmp{\strip@pt\@tempdima}%
       \Nuritubusi[1]<border=1>{(0,-\@lndp)(\bkdblbox@tmp,-\@lndp)(\bkdblbox@tmp,\@lnht)%
@@ -140,7 +140,7 @@
     \setlength{\@tempdima}{\fboxrule@A+\fboxrule@B+\fboxrule@G+\h@sep}%
     \hskip\@tempdima
     \box\bk@bxa\hfil\mbox{}%
-%   \vrule \@width\fboxrule% $B1&7S@~(B
+%   \vrule \@width\fboxrule% 右罫線
     \begin{picture}(0,0)%
       \@tempdima=\fboxrule@A
       \edef\bkdblbox@tmp{\strip@pt\@tempdima}%
@@ -168,7 +168,7 @@
     \edef\bottom@lndp{\strip@pt\@tempdimb}%
     \noindent
     \begin{picture}(0,0)%
-%                           $B2<7S@~(B
+%                           下罫線
       \@tempdima\dp\strutbox
       \ifdim\dp\bk@bxa>\@tempdima\@tempdima=\dp\bk@bxa\fi
       \edef\@lndp{\strip@pt\@tempdima}%
@@ -184,7 +184,7 @@
       \setlength{\@tempdimb}{\linewidth-\@tempdima}%
       \edef\ln@R{\strip@pt\@tempdimb}%
       \bkbox@sensyu(\ln@L,-\bkdblbox@tmp)(\ln@R,-\bkdblbox@tmp)%
-%   \vrule \@width\fboxrule% $B:87S@~(B
+%   \vrule \@width\fboxrule% 左罫線
     \@tempdima\ht\strutbox
     \ifdim\ht\bk@bxa>\@tempdima\@tempdima=\ht\bk@bxa\fi
     \edef\@lnht{\strip@pt\@tempdima}%
@@ -203,7 +203,7 @@
     \setlength{\@tempdima}{\fboxrule@A+\fboxrule@B+\fboxrule@G+\h@sep}%
     \hskip\@tempdima
     \box\bk@bxa\hfil\mbox{}%
-%   \vrule \@width\fboxrule% $B1&7S@~(B
+%   \vrule \@width\fboxrule% 右罫線
     \begin{picture}(0,0)%
       \@tempdima=\fboxrule@A
       \edef\bkdblbox@tmp{\strip@pt\@tempdima}%
@@ -220,7 +220,7 @@
 \def\bk@line{\hbox to \linewidth{%
     \ifbkcount\smash{\llap{\the\bk@lcnt\ }}\fi
     {\unitlength=\p@
-%   \vrule \@width\fboxrule% $B:87S@~(B
+%   \vrule \@width\fboxrule% 左罫線
     \@tempdima\ht\strutbox
     \ifdim\ht\bk@bxa>\@tempdima\@tempdima=\ht\bk@bxa\fi
     \edef\@lnht{\strip@pt\@tempdima}%
@@ -243,7 +243,7 @@
 \hskip\@tempdima
     \box\bk@bxa\hfil\mbox{}%
 %   \hskip\fboxsep
-%   \vrule \@width\fboxrule% $B1&7S@~(B
+%   \vrule \@width\fboxrule% 右罫線
     \begin{picture}(0,0)%
       \@tempdima=\fboxrule@A
       \edef\bkdblbox@tmp{\strip@pt\@tempdima}%
@@ -265,7 +265,7 @@
 \else               % More than one line
 \def\bk@fstln{\vbox{%\hrule\@height\fboxrule
   {\unitlength=\p@\edef\@lnwd{\strip@pt\linewidth}%
-% $B>e7S@~(B
+% 上罫線
   \noindent
 \if0
   \begin{picture}(0,0)%
@@ -385,7 +385,7 @@
     \edef\@Cy{\strip@pt\@tempdima}%
     \noindent
     \begin{picture}(0,0)%
-%                           $B>e7S@~(B
+%                           上罫線
       \setlength{\@tempdimb}{\@lnht\p@-\fboxrule@A}%
       \edef\@@lndp{\strip@pt\@tempdimb}%
       \allinethickness{\fboxrule@B}%
@@ -402,7 +402,7 @@
       \Nuritubusi[1]<border=1>{(\@Cx,\@@lndp)(\@Dx,\@@lndp)(\@Dx,\@lnht)%
         (\@Cx,\@lnht)(\@Cx,\@lnht)}%
       \bkbox@sensyu(\@Cx,\bkdblovalbox@tmp)(\@Dx,\bkdblovalbox@tmp)%
-%   \vrule \@width\fboxrule% $B:87S@~(B
+%   \vrule \@width\fboxrule% 左罫線
       \@tempdima=\fboxrule@A
       \edef\bkdblovalbox@tmp{\strip@pt\@tempdima}%
       \Nuritubusi[1]<border=1>{(0,-\@lndp)(\bkdblovalbox@tmp,-\@lndp)(\bkdblovalbox@tmp,\@Cy)%
@@ -415,7 +415,7 @@
     \setlength{\@tempdima}{\fboxrule@A+\fboxrule@B+\fboxrule@G+\h@sep}%
     \hskip\@tempdima
     \box\bk@bxa\hfil\mbox{}%
-%   \vrule \@width\fboxrule% $B1&7S@~(B
+%   \vrule \@width\fboxrule% 右罫線
     \begin{picture}(0,0)%
       \@tempdima=\fboxrule@A
       \edef\bkdblovalbox@tmp{\strip@pt\@tempdima}%
@@ -444,7 +444,7 @@
     \edef\@Cy{\strip@pt\@tempdima}%
     \noindent
     \begin{picture}(0,0)%
-%                           $B2<7S@~(B
+%                           下罫線
       \@tempdima\dp\strutbox
       \ifdim\dp\bk@bxa>\@tempdima\@tempdima=\dp\bk@bxa\fi
       \edef\@lndp{\strip@pt\@tempdima}%
@@ -473,7 +473,7 @@
     \BKinziOresen{\@Dx+\@ra*cos(T)}{\@Cy+\@rb*sin(T)}{0}{-$pi/2}{-.02}\@resenl
     \BKinziOresen{\@Dx+\@Ra*cos(T)}{\@Cy+\@Rb*sin(T)}{-$pi/2}{0}{.02}\@resenL
     \Nuritubusi[1]<border=1>{\@resenl\@resenL}%
-%   \vrule \@width\fboxrule% $B:87S@~(B
+%   \vrule \@width\fboxrule% 左罫線
     \@tempdima\ht\strutbox
     \ifdim\ht\bk@bxa>\@tempdima\@tempdima=\ht\bk@bxa\fi
     \edef\@lnht{\strip@pt\@tempdima}%
@@ -494,7 +494,7 @@
     \setlength{\@tempdima}{\fboxrule@A+\fboxrule@B+\fboxrule@G+\h@sep}%
     \hskip\@tempdima
     \box\bk@bxa\hfil\mbox{}%
-%   \vrule \@width\fboxrule% $B1&7S@~(B
+%   \vrule \@width\fboxrule% 右罫線
     \begin{picture}(0,0)%
       \@tempdima=\fboxrule@A
       \edef\bkdblovalbox@tmp{\strip@pt\@tempdima}%
@@ -511,7 +511,7 @@
 \def\bk@line{\hbox to \linewidth{%
     \ifbkcount\smash{\llap{\the\bk@lcnt\ }}\fi
     {\unitlength=\p@
-%   \vrule \@width\fboxrule% $B:87S@~(B
+%   \vrule \@width\fboxrule% 左罫線
     \@tempdima\ht\strutbox
     \ifdim\ht\bk@bxa>\@tempdima\@tempdima=\ht\bk@bxa\fi
     \edef\@lnht{\strip@pt\@tempdima}%
@@ -534,7 +534,7 @@
 \hskip\@tempdima
     \box\bk@bxa\hfil\mbox{}%
 %   \hskip\fboxsep
-%   \vrule \@width\fboxrule% $B1&7S@~(B
+%   \vrule \@width\fboxrule% 右罫線
     \begin{picture}(0,0)%
       \@tempdima=\fboxrule@A
       \edef\bkdblovalbox@tmp{\strip@pt\@tempdima}%
@@ -556,7 +556,7 @@
 \else               % More than one line
 \def\bk@fstln{\vbox{%\hrule\@height\fboxrule
   {\unitlength=\p@\edef\@lnwd{\strip@pt\linewidth}%
-% $B>e7S@~(B
+% 上罫線
   \noindent
 \if0
   \begin{picture}(0,0)%
@@ -605,7 +605,7 @@
 }%
 \vskip\breakboxskip\relax}
 %
-% $B%Z!<%8$r$^$?$0(B rectbox --- breakDbox $B4D6-(B
+% ページをまたぐ rectbox --- breakDbox 環境
 % \begin{breakDbox}[#1]
 %   #1 :
 %     sensyu=... (default:\dottedline{.1})
@@ -624,7 +624,7 @@
 \def\bk@line{%
     \hbox to \linewidth{\ifbkcount\smash{\llap{\the\bk@lcnt\ }}\fi
     {\unitlength=10mm\relax
-%    \vrule \@width\fboxrule% $B:87S@~(B
+%    \vrule \@width\fboxrule% 左罫線
     \@tempdima\ht\strutbox
     \ifdim\ht\bk@bxa>\@tempdima\@tempdima=\ht\bk@bxa\fi
     \edef\@lnht{\strip@pt\@tempdima}%
@@ -640,7 +640,7 @@
     \hskip\fboxsep
     \box\bk@bxa\hfil
     \hskip\fboxsep
-%   \vrule \@width\fboxrule% $B1&7S@~(B
+%   \vrule \@width\fboxrule% 右罫線
     \begin{picture}(0,0)%
         \bkbox@sensyu(0,-\@lndp)(0,\@lnht)%
     \end{picture}}%
@@ -689,7 +689,7 @@
 \fi
 \leavevmode\bk@fstln\par}\vskip\breakboxskip\relax}
 
-% $B:81&$K7S@~!J%Z!<%8$r$^$?$0!K(B
+% 左右に罫線（ページをまたぐ）
 %
 % \begin{breakLRline}[#1]
 %   #1 :
@@ -724,7 +724,7 @@
 \def\bk@line{%
     \hbox to \linewidth{\ifbkcount\smash{\llap{\the\bk@lcnt\ }}\fi
     {\unitlength=10mm\relax
-%    \vrule \@width\fboxrule% $B:87S@~(B
+%    \vrule \@width\fboxrule% 左罫線
     \@tempdima\ht\strutbox
     \ifdim\ht\bk@bxa>\@tempdima\@tempdima=\ht\bk@bxa\fi
     \edef\@lnht{\strip@pt\@tempdima}%
@@ -740,7 +740,7 @@
     \hskip\linesep
     \box\bk@bxa\hfil
     \hskip\linesep
-%   \vrule \@width\fboxrule% $B1&7S@~(B
+%   \vrule \@width\fboxrule% 右罫線
     \begin{picture}(0,0)%
       \bkbox@sensyu(0,-\@lndp)(0,\@lnht)%
     \end{picture}}%
@@ -789,7 +789,7 @@
 \leavevmode\bk@fstln\par}\vskip\breakboxskip\relax
 }
 
-% $B1&$K$N$_7S@~!J%Z!<%8$r$^$?$0!K(B
+% 右にのみ罫線（ページをまたぐ）
 %
 % \begin{breakRline}[#1]
 %   #1 :
@@ -824,7 +824,7 @@
 \def\bk@line{%
     \hbox to \linewidth{\ifbkcount\smash{\llap{\the\bk@lcnt\ }}\fi
     {\unitlength=10mm\relax
-%    \vrule \@width\fboxrule% $B:87S@~(B
+%    \vrule \@width\fboxrule% 左罫線
     \@tempdima\ht\strutbox
     \ifdim\ht\bk@bxa>\@tempdima\@tempdima=\ht\bk@bxa\fi
     \edef\@lnht{\strip@pt\@tempdima}%
@@ -840,7 +840,7 @@
 %    \hskip\fboxsep
     \box\bk@bxa\hfil
     \hskip\linesep
-%   \vrule \@width\fboxrule% $B1&7S@~(B
+%   \vrule \@width\fboxrule% 右罫線
     \ifmigityuukeisen
       \begin{picture}(0,0)%
 \@ifundefined{Bk@ps}{%
@@ -849,7 +849,7 @@
 \Add\@lndp\@lnht\@lnhd
         \put(0,-\@lndp){\line(0,1)\@lnhd}%
 }%
-%\put(0,0){{\quad\footnotesize\the\bk@lcnt}}%%%%%%%%%%%%%%%%% $B1&Ms30$K9THV9f(B
+%\put(0,0){{\quad\footnotesize\the\bk@lcnt}}%%%%%%%%%%%%%%%%% 右欄外に行番号
       \end{picture}%
     \fi
     }%
@@ -899,7 +899,7 @@
 \leavevmode\bk@fstln\par}\vskip\breakboxskip\relax
 }
 
-% $B:8$K$N$_7S@~!J%Z!<%8$r$^$?$0!K(B
+% 左にのみ罫線（ページをまたぐ）
 %
 % \begin{breakLline}[#1]
 %   #1 :
@@ -907,7 +907,7 @@
 %     linesep=..   (default: \fboxsep)
 %     fboxsep=..   (default: 0pt)
 %     parindent=.. (default: 1zw)
-%     headline=..  (default: 0 $B1&JUCM$r>JN,$7$?>l9g(B 1)
+%     headline=..  (default: 0 右辺値を省略した場合 1)
 %
 \def\breakLline{%
   \def\breakboxparindent{1zw}%
@@ -935,7 +935,7 @@
 \def\bk@line{%
     \hbox to \linewidth{\ifbkcount\smash{\llap{\the\bk@lcnt\ }}\fi
     {\unitlength=10mm\relax
-%    \vrule \@width\fboxrule% $B:87S@~(B
+%    \vrule \@width\fboxrule% 左罫線
     \@tempdima\ht\strutbox
     \ifdim\ht\bk@bxa>\@tempdima\@tempdima=\ht\bk@bxa\fi
     \edef\@lnht{\strip@pt\@tempdima}%
@@ -953,7 +953,7 @@
     \hskip\linesep
     \box\bk@bxa\hfil
 %   \hskip\fboxsep
-%   \vrule \@width\fboxrule% $B1&7S@~(B
+%   \vrule \@width\fboxrule% 右罫線
 %    \begin{picture}(0,0)%
 %      \bkbox@sensyu(0,-\@lndp)(0,\@lnht)%
 %    \end{picture}
@@ -1002,7 +1002,7 @@
 \leavevmode\bk@fstln\par}\vskip\breakboxskip\relax
 }
 %
-% $B%Z!<%8$r$^$?$0(B shadebox --- bkshadebox $B4D6-(B
+% ページをまたぐ shadebox --- bkshadebox 環境
 % \begin{bkshadebox}[#1]
 %   #1 :
 %     sensyu=... (default:\dottedline{.1})
@@ -1028,7 +1028,7 @@
 \def\bk@line{%
     \hbox to \linewidth{\ifbkcount\smash{\llap{\the\bk@lcnt\ }}\fi
     {\unitlength=10pt\relax
-%    \vrule \@width\fboxrule% $B:87S@~(B
+%    \vrule \@width\fboxrule% 左罫線
     \@tempdima\ht\strutbox
     \ifdim\ht\bk@bxa>\@tempdima\@tempdima=\ht\bk@bxa\fi
     \edef\@lnht{\strip@pt\@tempdima}%
@@ -1044,7 +1044,7 @@
     \hskip\fboxsep
     \box\bk@bxa\hfil
     \hskip\fboxsep
-%   \vrule \@width\fboxrule% $B1&7S@~(B
+%   \vrule \@width\fboxrule% 右罫線
     \begin{picture}(0,0)%
       \ifnum\bk@lcnt=\@ne
 %       \Add\@lnht{-\@lndp}\@lnmd\Div\@lnmd{2}\@lnmd
@@ -1102,7 +1102,7 @@
 \fi
 \noindent\bk@fstln\par}\vskip\breakboxskip\vskip5pt\relax}
 %
-% $B1&Ms30$KCm<a(B
+% 右欄外に注釈
 \newlength\MigiRangaiHaba
 \MigiRangaiHaba=\marginparwidth
 \def\MigiRangaiMozisize{\footnotesize}
@@ -1118,7 +1118,7 @@
     \@@MigiRangai<#1>{#2}%
   \fi
   \ignorespaces
-%\vspace{\p@}%  \item $B$N@hF,9T$KBP$7$F$NJd@5(B
+%\vspace{\p@}%  \item の先頭行に対しての補正
 }
 \def\dpmath@MigiRangai<#1>#2{%
   \xdef\MR@tatehosei{\z@}%
@@ -1171,7 +1171,7 @@
     \kern\marginparsep\parbox[t]{\MigiRangaiHaba}{\MigiRangaiMozisize #2}}}%
   }}}}%
 
-% $B:8Ms30$KCm<a(B
+% 左欄外に注釈
 \newlength\HidariRangaiHaba
 \HidariRangaiHaba=\marginparwidth
 \def\HidariRangaiMozisize{\footnotesize}
@@ -1192,7 +1192,7 @@
   \fi
 }}}}
 
-% $B9TF,$K%^!<%/$J$I$rCV$/!#(B
+% 行頭にマークなどを置く。
 \def\gyoutou{\@ifnextchar<{\@gyoutou}{\@@gyoutou<-2pt>}}
 \def\@gyoutou<#1>{\@tempdima=#1\advance-2\p@\@@gyoutou<\@tempdima>}
 \def\@@gyoutou<#1>#2{\leavevmode\vadjust{\smash{\vbox{\noindent
@@ -1201,7 +1201,7 @@
   }%
 }}}}
 
-% $B2rEz5-=RIt$r5<;wFsCJAH$H$7!$1&$KCm<a$r$D$1$k(B
+% 解答記述部を擬似二段組とし，右に注釈をつける
 %
 \newif\iftyuukeisen\tyuukeisentrue
 \newif\ifhidarityuukeisen\hidarityuukeisenfalse
@@ -1397,67 +1397,67 @@
    \vskip\breakboxskip\relax}
 \endinput
 
-v 0.00$B&A(B 2002/08/22
-v 0.01$B&A(B 2002/09/17
-           $B:81&7S@~$N$_$N>l9g$O(B
-               \fboxsep=0pt $B$H$7!$:81&7S@~$HK\J8$H$N4V3V$r(B \linesep $B$GDj$a$k!#(B
-           1$B9T$N$_$N>l9g$KBP1~(B
-v 0.02$B&A(B 2002/10/02
+v 0.00α 2002/08/22
+v 0.01α 2002/09/17
+           左右罫線のみの場合は
+               \fboxsep=0pt とし，左右罫線と本文との間隔を \linesep で定める。
+           1行のみの場合に対応
+v 0.02α 2002/10/02
            \atagtyuu : \atag + \tyuu
-v 0.03$B&A(B 2003/02/19
-           breakDbox $B4D6-$N%*%W%7%g%s%-!<$K(B
+v 0.03α 2003/02/19
+           breakDbox 環境のオプションキーに
               item=
-           $B$rIm2C$7!$OH$K(B item $B$r$D$1$i$l$k$h$&$K$9$k!#(B
-v 0.04$B&A(B 2003/02/2
-          tyuukai$B4D6-!'1&7S@~$r0z$/!$0z$+$J$$$r(B \ifmigityuukeisen $B$G@)8f$9$k!#(B
-v 0.05$B&A(B 2003/04/08
-          tyuukai$B4D6-$ND4@0(B
-v 0.06$B&A(B 2003/05/16
+           を附加し，枠に item をつけられるようにする。
+v 0.04α 2003/02/2
+          tyuukai環境：右罫線を引く，引かないを \ifmigityuukeisen で制御する。
+v 0.05α 2003/04/08
+          tyuukai環境の調整
+v 0.06α 2003/05/16
           \tyuu(\dpmath@MigiRangai)
-              $BJL9TN)$F?t<04D6-$K$*$$$F!$(B
-                  \tyuu $B$r$D$1$?9T$K$b%i%Y%k$rIU$1$i$l$k$h$&$K(B
-              <label=..> $B%*%W%7%g%s$r2DG=$H$9$k!#(B
-v 0.07$B&A(B 2003/08/10
-          bkshadebox$B4D6-!'%Z!<%8$r$^$?$0(B shadebox
-v 0.08$B&A(B 2003/11/28
-         \writeLabel $B$r(B emathLb.sty $B$K0\4I$7$?$3$H$KBP1~!#(B
-v 0.09$B&A(B 2004/02/13
-         bkdblbox$B4D6-!'%Z!<%8$r$^$?$0(B dblbox$B4D6-(B
-v 0.10$B&A(B 2004/02/14
-         bkdblovalbox$B4D6-!';M6y$r4]$/$7$?(B bkdblbox$B4D6-(B
-v 0.11$B&A(B 2004/02/23
-         bkdbl(oval)box$B4D6-$G!$30OH$,@Z$l$k$3$H$,$"$k!$(B
-         $B$H$N$3$H$G!$(B\Nuritubusi $B$r(B<border=1>$B%*%W%7%g%sIU$H$9$k!#(B
-v 0.12$B&A(B 2004/02/28
-          breakLRbox : \linesep $B$rH?1G$5$;$k!#(B
-v 0.13$B&A(B 2004/03/20
-          tyuu : $B6I=jE*$K(B tyuumark $B$rJQ99$9$k%*%W%7%g%s(B [#2] $B$r$D$1$k!#(B
-v 0.14$B&A(B 2004/03/25
-          $B%m!<%I%*%W%7%g%s!'(BBkps, dvips, dviout, dvipdfm
-          Bkps $B%*%W%7%g%s$r$D$1$?$H$-$O!$(B
-            breakRline $B$N7S@~$r(B pict2e.sty $B$rMQ$$$F0z$/(B
+              別行立て数式環境において，
+                  \tyuu をつけた行にもラベルを付けられるように
+              <label=..> オプションを可能とする。
+v 0.07α 2003/08/10
+          bkshadebox環境：ページをまたぐ shadebox
+v 0.08α 2003/11/28
+         \writeLabel を emathLb.sty に移管したことに対応。
+v 0.09α 2004/02/13
+         bkdblbox環境：ページをまたぐ dblbox環境
+v 0.10α 2004/02/14
+         bkdblovalbox環境：四隅を丸くした bkdblbox環境
+v 0.11α 2004/02/23
+         bkdbl(oval)box環境で，外枠が切れることがある，
+         とのことで，\Nuritubusi を<border=1>オプション付とする。
+v 0.12α 2004/02/28
+          breakLRbox : \linesep を反映させる。
+v 0.13α 2004/03/20
+          tyuu : 局所的に tyuumark を変更するオプション [#2] をつける。
+v 0.14α 2004/03/25
+          ロードオプション：Bkps, dvips, dviout, dvipdfm
+          Bkps オプションをつけたときは，
+            breakRline の罫線を pict2e.sty を用いて引く
 
-v 0.15$B&A(B 2004/04/23
-          allinethickness=... $B$r(B key $B$KDI2C(B
-v 0.16$B&A(B 2004/06/13
-          \MigiRangai : $B?t<0%b!<%I;~$K$*$1$k:8%"%-$r!$%F%-%9%H%b!<%I;~$HB7$($k(B
-v 0.17$B&A(B 2004/06/14
-          \MigiRangai : $B?t<0HV9f$rIUM?$9$k>l9g!JIT==J,!K(B
-              <tatehosei=..,yokohosei=..> $B%*%W%7%g%s(B
-v 0.18$B&A(B 2004/07/26
-          QandA $B$K$*$1$k!$$7$C$]0&9%2H$5$s$N(B #24810 $B$r<h$jF~$l$k!#(B
-v 0.19$B&A(B 2004/09/12
-          breakLline$B4D6-$K(B
+v 0.15α 2004/04/23
+          allinethickness=... を key に追加
+v 0.16α 2004/06/13
+          \MigiRangai : 数式モード時における左アキを，テキストモード時と揃える
+v 0.17α 2004/06/14
+          \MigiRangai : 数式番号を付与する場合（不十分）
+              <tatehosei=..,yokohosei=..> オプション
+v 0.18α 2004/07/26
+          QandA における，しっぽ愛好家さんの #24810 を取り入れる。
+v 0.19α 2004/09/12
+          breakLline環境に
               headline=..
               parindent=..
-            $B%*%W%7%g%s$rIm2C(B
-v 0.20$B&A(B 2004/09/18
-          breakL(R,LR)line : \fboxsep=0pt $B$r30$9(B
-v 0.21$B&A(B 2005/01/13
-          EMbreakbox$B4D6-(B : <backgroundcolor=..,framecolor=..,hsep=..,vsep=..>
-v 0.22$B&A(B 2005/02/02
-          \frame@color $B=i4|2=(B
-v 0.23$B&A(B 2005/09/19
-          $B%m!<%I%*%W%7%g%s(B [dvipdfmx]
-v 0.24$B&A(B 2005/10/30
-          \breakDbox : \emcdottedline $B$r;HMQ(B
+            オプションを附加
+v 0.20α 2004/09/18
+          breakL(R,LR)line : \fboxsep=0pt を外す
+v 0.21α 2005/01/13
+          EMbreakbox環境 : <backgroundcolor=..,framecolor=..,hsep=..,vsep=..>
+v 0.22α 2005/02/02
+          \frame@color 初期化
+v 0.23α 2005/09/19
+          ロードオプション [dvipdfmx]
+v 0.24α 2005/10/30
+          \breakDbox : \emcdottedline を使用

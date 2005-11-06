@@ -1,11 +1,11 @@
-\section{\textsf{zahyou}$B4D6-(B}
-\subsection{$B$J$<(B\textsf{zahyou}$B4D6-$+(B}
-\LaTeX $B$G:BI8J?LL$rIA2h$9$k$K$O!$(B\textsf{picture}$B4D6-$,$"$j$^$9!#(B
-$B$?$@$7!$Ii$N?t$r07$&$K$O!$(B\textsf{picture}$B4D6-$N0z?t$r(B
-$B7W;;$7$J$1$l$P$J$j$^$;$s!#(B
-$BNc$($P!$(B$-3<x<3$, $-2<y<2$$B$NHO0O$rIA2h$9$k$K$O(B
+\section{\textsf{zahyou}環境}
+\subsection{なぜ\textsf{zahyou}環境か}
+\LaTeX で座標平面を描画するには，\textsf{picture}環境があります。
+ただし，負の数を扱うには，\textsf{picture}環境の引数を
+計算しなければなりません。
+例えば，$-3<x<3$, $-2<y<2$の範囲を描画するには
 
-\begin{showEx}(.5,.44){\textsf{picture}$B4D6-(B}
+\begin{showEx}(.5,.44){\textsf{picture}環境}
 \unitlength=8mm
 \begin{picture}(6,4)(-3,-2)%
 \put(-3,0){\vector(1,0){6}}%
@@ -13,51 +13,51 @@
 \end{picture}%
 \end{showEx}
 
-$B0z?t$NM?$(J}$,LLE]$G$"$k$3$H$H!$(B
-$B:BI8<4$NIA2h$b$^$H$a$FLLE]$r8+$F$7$^$*$&!$(B
-$B$H$$$&$3$H$G(B\textsf{zahyou}$B4D6-$G$9!#(B
+引数の与え方が面倒であることと，
+座標軸の描画もまとめて面倒を見てしまおう，
+ということで\textsf{zahyou}環境です。
 
-\subsection{\textsf{zahyou}$B4D6-(B}
+\subsection{\textsf{zahyou}環境}
 
-\begin{showEx}(.5,.44){\textsf{zahyou}$B4D6-(B}
+\begin{showEx}(.5,.44){\textsf{zahyou}環境}
 \unitlength=8mm
 \begin{zahyou}(-3,3)(-2,2)%
 \end{zahyou}%
 \end{showEx}
 
-\textsf{picture}$B4D6-$H$O!$0z?t$NM?$(J}$,0[$J$j!$(B
+\textsf{picture}環境とは，引数の与え方が異なり，
 \begin{jquote}
 \begin{verbatim}
 (xmin, xmax)(ymin, ymax)
 \end{verbatim}
 \end{jquote}
-$B$H!$(B$x$, $y$$B$N6h4V$rM?$($^$9!#(B
+と，$x$, $y$の区間を与えます。
 
-$B$J$*!$$3$N4D6-Fb$G$O!$<!$NJQ?t$,Dj5A$5$l$F$$$^$9!#(B
+なお，この環境内では，次の変数が定義されています。
 \begin{jquote}
 \begin{verbatim}
-\xmin x$B$N6h4V$N:G>.CM(B
-\xmax x$B$N6h4V$N:GBgCM(B
-\ymin y$B$N6h4V$N:G>.CM(B
-\ymax y$B$N6h4V$N:GBgCM(B
+\xmin xの区間の最小値
+\xmax xの区間の最大値
+\ymin yの区間の最小値
+\ymax yの区間の最大値
 
-\O    $B86E@(B
-\XMAX x$B<4$N1&C<$NE@(B
-\XMIN x$B<4$N:8C<$NE@(B
-\YMAX y$B<4$N>eC<$NE@(B
-\YMIN y$B<4$N2<C<$NE@(B
-\RT   $BIA2hNN0h1&>e$N%3!<%J!<(B
-\RB   $BIA2hNN0h1&2<$N%3!<%J!<(B
-\LT   $BIA2hNN0h:8>e$N%3!<%J!<(B
-\LB   $BIA2hNN0h:82<$N%3!<%J!<(B
+\O    原点
+\XMAX x軸の右端の点
+\XMIN x軸の左端の点
+\YMAX y軸の上端の点
+\YMIN y軸の下端の点
+\RT   描画領域右上のコーナー
+\RB   描画領域右下のコーナー
+\LT   描画領域左上のコーナー
+\LB   描画領域左下のコーナー
 \end{verbatim}
 \end{jquote}
 \bigskip
 
-$B:BI8<4$rIA2h$9$kI,MW$,$J$$>l9g$KBP$7$F$O(B
-\textsf{zahyou*}$B4D6-$rMQ0U$7$F$"$j$^$9!#(B
+座標軸を描画する必要がない場合に対しては
+\textsf{zahyou*}環境を用意してあります。
 
-\begin{showEx}(.5,.44){\textsf{zahyou*}$B4D6-(B}
+\begin{showEx}(.5,.44){\textsf{zahyou*}環境}
 \unitlength=8mm
 \begin{zahyou*}(-3,3)(-2,2)%
   \Drawline{\LB\RT\RB\LT\LB}
@@ -65,39 +65,39 @@
 \end{zahyou*}%
 \end{showEx}
 
-$B>e5-%j%9%HCf!$(B\cmd{Drawline}$B$O!$;XDjE@$r@^$l@~$G7k$S$^$9!#(B
-\verb+\En\O{2}+$B$OE@(B\cmd{O}$B!J86E@!K$rCf?4$H$9$kH>7B(B2$B$N1_$rIA2h$7$F$$$^$9!#(B
-$B>\:Y$O8e=R$7$^$9!#(B
+上記リスト中，\cmd{Drawline}は，指定点を折れ線で結びます。
+\verb+\En\O{2}+は点\cmd{O}（原点）を中心とする半径2の円を描画しています。
+詳細は後述します。
 
-\textsf{zahyou}$B4D6-$K$O!$:Y$+$$HyD4@0$r$9$k$?$a$N%*%W%7%g%s$,$"$j$^$9$,!$(B
-$B$3$l$K$D$$$F$O8e=R$7$^$9!#(B
+\textsf{zahyou}環境には，細かい微調整をするためのオプションがありますが，
+これについては後述します。
 
-\section{$BD>@~?^7A(B}
-\subsection{$B@^$l@~(B}
-$B@^$l@~$rIA2h$9$k$N$K!$(B\textsf{epic.sty} $B$G(B
-$BDj5A$5$l$F$$$k(B \cmd{drawline} $B$rMQ$$$k$3$H$,$G$-$^$9!%(B
+\section{直線図形}
+\subsection{折れ線}
+折れ線を描画するのに，\textsf{epic.sty} で
+定義されている \cmd{drawline} を用いることができます．
 
 \showexample[\cmd{drawline}](0.55)(0.35){example/oresen01}
 
-$B$3$N%9%?%$%k%U%!%$%k$G$O!$E@$r(B \cmd{def}\cmd{A\{(3,0)\}}$B$J$I$H(B
-$BJQ?t$GI=$9$3$H$K$7$F$$$^$9!%$=$N>l9g$O!$(B\cmd{drawline} $B$O;H$($^$;$s!%(B
-$BBe$o$j$K(B \cmd{Drawline} $B$rMQ0U$7$^$7$?!%$3$N%3%^%s%I$OFbIt$G(B
-\cmd{drawline} $B$r8F$S=P$7$F$$$^$9$+$i!$(B\textsf{epic.sty} $B$rI,MW$H$7$^$9!%(B
+このスタイルファイルでは，点を \cmd{def}\cmd{A\{(3,0)\}}などと
+変数で表すことにしています．その場合は，\cmd{drawline} は使えません．
+代わりに \cmd{Drawline} を用意しました．このコマンドは内部で
+\cmd{drawline} を呼び出していますから，\textsf{epic.sty} を必要とします．
 
 \showexample[\cmd{Drawline}](0.55)(0.35){example/oresen02}
 \cindex{Drawline}\bigskip
 
-\cmd{Drawline} $B$N=q<0$O(B
+\cmd{Drawline} の書式は
 
 \begin{boxnote}
 \begin{verbatim}
 \Drawline#1
-    #1 : $BE@Ns(B
+    #1 : 点列
 \end{verbatim}
 \end{boxnote}
 
-\subsection{$BE@@~(B}
-$BE@@~$rIA2h$9$k$K$O(B\textsf{eepic.sty}$B$GDj5A$5$l$F$$$k(B\cmd{dottedline}$B$rMQ$$$^$9!#(B
+\subsection{点線}
+点線を描画するには\textsf{eepic.sty}で定義されている\cmd{dottedline}を用います。
 
 \begin{showEx}(.64,.3){\cmd{dottedline}}
 \begin{zahyou}[ul=5mm](-3,3)(-3,3)
@@ -106,8 +106,8 @@
 \end{showEx}
 
 \subsubsection{\cmd{emDottedline}}
-\textsf{emath}$B$G$O!$E@Ns$r0l$D$K$^$H$a$?07$$$^$9$N$G!$(B
-\cmd{emDottedline}$B$rDj5A$7$^$7$?!#(B
+\textsf{emath}では，点列を一つにまとめた扱いますので，
+\cmd{emDottedline}を定義しました。
 
 \begin{showEx}(.64,.3){\cmd{emDottedline}}
 \begin{zahyou}[ul=5mm](-3,3)(-3,3)
@@ -116,14 +116,14 @@
 \end{zahyou}
 \end{showEx}
 
-\cmd{dottedline}$B$G$O!$Bh(B1$B0z?t$KE@$rBG$D4V3V$r;XDj$7$^$9$,!$(B\cmd{unitlength}$B$rC10L$H$9$k(B
-$BL5L>?t$G$"$k$3$H$,;H$$Fq$$$N$G!$(B\cmd{emDottedline}$B$G$O>JN,$9$k$3$H$H$7$^$7$?!#(B
-$B%G%U%)%k%H$O(B\verb+3pt+$B$H$7$F$"$j$^$9$,!$$3$l$rJQ99$9$k$K$O(B\verb+<G=..>+$B%*%W%7%g%s$rMQ$$$^$9!#(B
+\cmd{dottedline}では，第1引数に点を打つ間隔を指定しますが，\cmd{unitlength}を単位とする
+無名数であることが使い難いので，\cmd{emDottedline}では省略することとしました。
+デフォルトは\verb+3pt+としてありますが，これを変更するには\verb+<G=..>+オプションを用います。
 
-\subsubsection{\texttt{<G=..>}$B%*%W%7%g%s(B}
-$B$5$F!$$=$N(B\verb+<G=..>+$B%*%W%7%g%s$rMQ$$$F!$$b$&>/$7E@$rcGL)$K$7$F8+$^$7$g$&!#(B
+\subsubsection{\texttt{<G=..>}オプション}
+さて，その\verb+<G=..>+オプションを用いて，もう少し点を稠密にして見ましょう。
 
-\begin{showEx}(.64,.3){\texttt{<G=..>}$B%*%W%7%g%s(B}
+\begin{showEx}(.64,.3){\texttt{<G=..>}オプション}
 \begin{zahyou}[ul=5mm](-3,3)(-3,3)
   \tenretu{A(-2,2)w;B(2,-1)e}
   \emDottedline<G=2pt>{\A\B}
@@ -131,21 +131,21 @@
 \end{showEx}
 \newpage
 
-\subsubsection{\texttt{<C=..>}$B%*%W%7%g%s(B}
-\cmd{dottedline}$B$K$O!$G[CV$9$kE@$N7A>u$rJQ99$9$k%*%W%7%g%s(B\verb+[...]+$B$,MQ0U$5$l$F$$$^$9!#(B
+\subsubsection{\texttt{<C=..>}オプション}
+\cmd{dottedline}には，配置する点の形状を変更するオプション\verb+[...]+が用意されています。
 
-\cmd{emDottedline}$B$G$O!$(B\verb+<C=..>+$B%*%W%7%g%s$rMQ0U$7$^$7$?!#(B
+\cmd{emDottedline}では，\verb+<C=..>+オプションを用意しました。
 
-\begin{showEx}(.64,.3){\texttt{<C=..>}$B%*%W%7%g%s(B}
+\begin{showEx}(.64,.3){\texttt{<C=..>}オプション}
 \begin{zahyou}[ul=5mm](-3,3)(-3,3)
   \tenretu{A(-2,2)w;B(2,-1)e}
   \emDottedline<C=$*$,G=5pt>{\A\B}
 \end{zahyou}
 \end{showEx}
 
-$B>.$5$$1_!J9uEI$j$N!K$K$7$^$9$+!#(B
+小さい円（黒塗りの）にしますか。
 
-\begin{showEx}(.64,.3){$B>.$5$$1_$rG[CV(B}
+\begin{showEx}(.64,.3){小さい円を配置}
 \begin{zahyou}[ul=5mm](-3,3)(-3,3)
   \ukansan{1pt}\tyokkei
   \tenretu{A(-2,2)w;B(2,-1)e}
@@ -153,13 +153,13 @@
 \end{zahyou}
 \end{showEx}
 
-$B$3$3$GEP>l$7$F$$$k%3%^%s%I(B\verb+\ukansan#1#2+$B$O!$(B
-\verb+#1+$B$KM?$($i$l$?!$C10LIU$ND9$5$r!$(B\cmd{unitlength}$B$rC10L$H$9$kL5L>?t$K49;;$7$?7k2L$r(B
-\verb+#2+$B$N@)8fDV$KM?$($k$b$N$G$9!#(B
+ここで登場しているコマンド\verb+\ukansan#1#2+は，
+\verb+#1+に与えられた，単位付の長さを，\cmd{unitlength}を単位とする無名数に換算した結果を
+\verb+#2+の制御綴に与えるものです。
 
-\subsubsection{$B1~MQNc(B}
-$B1|B<@h@8$N7G<(HD(B \verb+Q&A+ $B$K!V9TNs$NE@!9!W$H$$$&Ej9F$,$"$j$^$7$?!#(B
-\textsf{emath}$B$rMQ$$$k0l0F$G$9!#(B
+\subsubsection{応用例}
+奥村先生の掲示板 \verb+Q&A+ に「行列の点々」という投稿がありました。
+\textsf{emath}を用いる一案です。
 
 \setbox0=\hbox{$b_{n-1}+d_{n-1}$}\setlength{\templa}{\wd0}\edef\wdtbl{\the\templa}%
 \setlength{\templa}{2\wd0}\edef\xlen{\mumeisuu\templa}
@@ -182,51 +182,51 @@
   \right]
 \]
 
-$B$?$@$7!$$3$N%3%^%s%I$O(B\textsf{multido.sty}$B$GDj5A$5$l$F$$$k(B\cmd{multido}$B$rMQ$$$^$9!#(B
-$B$D$.$N(B\cmd{Dottedline}$B$O!$(B\cmd{multido}$B$O;H$$$^$;$s!#(B
+ただし，このコマンドは\textsf{multido.sty}で定義されている\cmd{multido}を用います。
+つぎの\cmd{Dottedline}は，\cmd{multido}は使いません。
 
-\subsubsection{$B5lDj5A(B \cmd{Dottedline}}
-$B5l%3%^%s%I$O(B \cmd{Dottedline} $B$bM-8z$G$9(B.
+\subsubsection{旧定義 \cmd{Dottedline}}
+旧コマンドは \cmd{Dottedline} も有効です.
 
 \showexample[\cmd{Dottedline}](0.55)(0.35){example/tensen01}
 
-$B$3$N%3%^%s%I$OFbIt$G(B \textsf{eepic.sty} $B$N(B \cmd{dottedline} $B$r(B
-$B8F$S=P$7$F$$$^$9!%=q<0$b$[$\F1MM$G(B
+このコマンドは内部で \textsf{eepic.sty} の \cmd{dottedline} を
+呼び出しています．書式もほぼ同様で
 
 \begin{boxnote}
 \begin{verbatim}
 \Dottedline#1#2
     #1 : dotgap
-    #2 : $BE@Ns(B
+    #2 : 点列
 \end{verbatim}
 \end{boxnote}
 
-\subsection{$BGK@~(B}
+\subsection{破線}
 \subsubsection{\texorpdfstring{\cmd{Dashline}}{Dashline}}
-$BGK@~$r0z$/%3%^%s%I$O(B \cmd{Dashline} $B$G$9!%(B\cindex{Dashline}
+破線を引くコマンドは \cmd{Dashline} です．\cindex{Dashline}
 
 \showexample[\cmd{Dashline}](0.55)(0.35){example/hasen01}
 
-$B$3$N%3%^%s%I$OFbIt$G(B \textsf{eepic.sty} $B$N(B \cmd{dashline} $B$r(B
-$B8F$S=P$7$F$$$^$9!%=q<0$b$[$\F1MM$G(B
+このコマンドは内部で \textsf{eepic.sty} の \cmd{dashline} を
+呼び出しています．書式もほぼ同様で
 
 \begin{boxnote}
 \begin{verbatim}
 \Dashline[#1]#2#3
     #1 : stretch
     #2 : dashlength
-    #3 : $BE@Ns(B
+    #3 : 点列
 \end{verbatim}
 \end{boxnote}
-$B$G$9!%(B\texttt{[dashdotgap]} $B$O%5%]!<%H$7$F$$$^$;$s!%(B
-\texttt{[stretch]} $B$GBeMQ$7$F$/$@$5$$!%(B
+です．\texttt{[dashdotgap]} はサポートしていません．
+\texttt{[stretch]} で代用してください．
 
 \showexample[\cmd{Dashline}\texttt{[stretch]}](0.55)(0.35){example/hasen02}
 
 \subsubsection{\texorpdfstring{\cmd{hasen}}{hasen}}
-\cmd{dashline}$B$NBh(B1$B0z?t$O(B \cmd{unitlength}$B$NCM$K$h$C$FJQ$($J$1$l$P$J$j$^$;$s!#(B
+\cmd{dashline}の第1引数は \cmd{unitlength}の値によって変えなければなりません。
 
-\begin{showEx}{\cmd{Dashline}$B$H(B\cmd{unitlength}}
+\begin{showEx}{\cmd{Dashline}と\cmd{unitlength}}
 \unitlength=10mm
 \begin{picture}(3,3)
 \dashline{.2}(0,0)(3,3)
@@ -238,7 +238,7 @@
 \end{picture}
 \end{showEx}
 
-$B$3$l$OLLE]$G$9$+$i!$(B\cmd{hasen}$B$r:n$j$^$7$?!#(B
+これは面倒ですから，\cmd{hasen}を作りました。
 
 \begin{showEx}{\cmd{hasen}}
 \unitlength=10mm
@@ -251,47 +251,47 @@
 \end{picture}
 \end{showEx}
 
-$B$^$?!$(B\cmd{dashline}$B$K$*$1$kBh(B1$B0z?t$OITMW$H$7!$(B
-\cmd{hasen}$B$N7A>u$O%*%W%7%g%s0z?t$G;XDj$9$kJ}<0$r<h$j$^$7$?!#(B
-\cmd{hasen}$B$N=q<0$G$9!#(B
+また，\cmd{dashline}における第1引数は不要とし，
+\cmd{hasen}の形状はオプション引数で指定する方式を取りました。
+\cmd{hasen}の書式です。
 
 \begin{boxnote}
 \begin{verbatim}
 \hasen[#1](x1,y1)(x2,y2).....(xN,yN)
-    #1 : L=$B!JGK@~$N<B@~ItJ,$ND9$5!K(B $B%G%U%)%k%HCM(B=1mm
-       : G=$B!JGK@~$N%.%c%C%W$ND9$5!K(B $B%G%U%)%k%HCM(B=0.9mm
-    (x1,y1)...(xN,yN) : $B@^$l@~$ND:E@Ns(B
+    #1 : L=（破線の実線部分の長さ） デフォルト値=1mm
+       : G=（破線のギャップの長さ） デフォルト値=0.9mm
+    (x1,y1)...(xN,yN) : 折れ線の頂点列
 \end{verbatim}
 \end{boxnote}\cindex{hasen}
 
-$B%*%W%7%g%s0z?t$rM?$($FGK@~$N7A>u$rJQ99$9$kNc$G$9!#(B
+オプション引数を与えて破線の形状を変更する例です。
 
-\begin{showEx}{\cmd{hasen}$B$N7A>uJQ99(B}
+\begin{showEx}{\cmd{hasen}の形状変更}
 \unitlength=10mm
 \begin{picture}(3,3)
 \hasen[L=2mm,G=2mm](0,0)(3,3)
 \end{picture}
 \end{showEx}
 
-$B$?$@$7!$%.%c%C%W$ND9$5$OI,$:$7$b;XDj$7$?D9$5$K$O$J$j$^$;$s!#(B
-$B$H$$$&$N$O!$GK@~$NN>C<$K$*$1$k<B@~ItJ,$,;XDj$7$?D9$5$H$J$k$h$&$K(B
-$B%.%c%C%W$rD4@0$7$F$$$k$+$i$G$9!#(B
+ただし，ギャップの長さは必ずしも指定した長さにはなりません。
+というのは，破線の両端における実線部分が指定した長さとなるように
+ギャップを調整しているからです。
 
-$B:Y$+$$$3$H$G$9$,!$(B\cmd{drawline}$B$GIA2h$7$?D>@~$H(B
-\cmd{dashline}$B$GIA2h$7$?GK@~$N0LCV$,$:$l$k$3$H$,$"$j$^$9!#(B
-$B$3$l$r=$@5$9$k$N$b(B\cmd{hasen}$B$r3+H/$7$?L\E*$N0l$D$G$9!#(B
+細かいことですが，\cmd{drawline}で描画した直線と
+\cmd{dashline}で描画した破線の位置がずれることがあります。
+これを修正するのも\cmd{hasen}を開発した目的の一つです。
 
 \subsubsection{\texorpdfstring{\cmd{Hasen}}{Hasen}}
-\cmd{drawline}, \cmd{dashline} $B$KBP$7$F!$(B\cmd{Drawline}, \cmd{Dashline}
-$B$,$"$k$h$&$K!$(B\cmd{hasen} $B$KBP$7$F$b(B \cmd{Hasen} $B$rDj5A$7$F$$$^$9!#(B
-$B$=$N=q<0$O(B
+\cmd{drawline}, \cmd{dashline} に対して，\cmd{Drawline}, \cmd{Dashline}
+があるように，\cmd{hasen} に対しても \cmd{Hasen} を定義しています。
+その書式は
 
 \begin{boxnote}
 \begin{verbatim}
 \Hasen[#1]#2
-    #1 : L=$B!JGK@~$N<B@~ItJ,$ND9$5!K(B $B%G%U%)%k%HCM(B=1mm
-       : G=$B!JGK@~$N%.%c%C%W$ND9$5!K(B $B%G%U%)%k%HCM(B=0.9mm
-    #2 : $BGK@~$G7k$VE@Ns(B
+    #1 : L=（破線の実線部分の長さ） デフォルト値=1mm
+       : G=（破線のギャップの長さ） デフォルト値=0.9mm
+    #2 : 破線で結ぶ点列
 \end{verbatim}
 \end{boxnote}\cindex{Hasen}
 
@@ -301,16 +301,16 @@
 \Hasen{\A\B\C}
 \end{zahyou}
 \end{showEx}
-$BJ#?t$NE@Ns$rDj5A$9$k(B\cmd{tenretu}$B$J$I!$(B
-$B$^$@@bL@$7$F$$$J$$%3%^%s%I$,EP>l$7$F$7$^$$$^$7$?$,!$(B
-$B$3$3$G$O@^$l@~$rGK@~$G0z$/Nc$H$7$F$4Mw$/$@$5$$!#(B
+複数の点列を定義する\cmd{tenretu}など，
+まだ説明していないコマンドが登場してしまいましたが，
+ここでは折れ線を破線で引く例としてご覧ください。
 
 \subsubsection{\texorpdfstring{\cmd{Hasen*}}{Hasen*}}
-2$BE@$rGK@~$G7k$V%3%^%s%I(B\cmd{hasen}, \cmd{Hasen}$B$O!$(B
-$BN>C<$+$i<B@~ItJ,$,;O$^$j$^$9$,!$$3$l$rN>C<$+$i$O6uGrItJ,$,(B
-$B;O$^$k$h$&$K$7$?$b$N$,(B\verb+*+$B$D$-%3%^%s%I$G$9!#(B
+2点を破線で結ぶコマンド\cmd{hasen}, \cmd{Hasen}は，
+両端から実線部分が始まりますが，これを両端からは空白部分が
+始まるようにしたものが\verb+*+つきコマンドです。
 
-$B2<$NNc$G$O!$<B@~(BAB$B$HGK@~(BBC$B$N6-3&$,(BB$B$G$O$J$/$J$C$F$7$^$$$^$9!#(B
+下の例では，実線ABと破線BCの境界がBではなくなってしまいます。
 
 \begin{showEx}(.6,.345){\cmd{Hasen}}
 \begin{zahyou}[ul=10mm](-.5,1.5)(-2.5,2.5)
@@ -321,7 +321,7 @@
 \end{zahyou}
 \end{showEx}
 
-\cmd{Hasen*}$B$HHf3S$7$F$_$F$/$@$5$$!#(B
+\cmd{Hasen*}と比較してみてください。
 \begin{showEx}(.6,.345){\cmd{Hasen*}}
 \begin{zahyou}[ul=10mm](-.5,1.5)(-2.5,2.5)
 \tenretu{A(1,2)e;B(1,1)e;C(1,-1)e;D(1,-2)e}
@@ -333,54 +333,54 @@
 \cindex{Hasen*}
 
 
-\subsection{$B:?@~(B}
-$B:?@~$r$R$/%3%^%s%I$O(B \cmd{Chainline}$B$G$9!#(B\cindex{Chainline}
+\subsection{鎖線}
+鎖線をひくコマンドは \cmd{Chainline}です。\cindex{Chainline}
 
 {\unitlength8mm
 \showexample[\cmd{Chainline}](0.64)(0.3){example/sasen01}}
 
-$B$=$N=q<0$O(B
+その書式は
 \begin{boxnote}
 \begin{verbatim}
 \Chainline[#1][#2]#3#4
-    #1 : $B0l$D$N@~J,$ND9$5(B
-    #2 : $B@~J,$H@~J,$N4V$ND9$5(B
-    #3 : $B;OE@(B
-    #4 : $B=*E@(B
+    #1 : 一つの線分の長さ
+    #2 : 線分と線分の間の長さ
+    #3 : 始点
+    #4 : 終点
 \end{verbatim}
 \end{boxnote}
 
-\subsection{$BJ#?t$N@^$l@~(B}
-$BJ#?t$N@^$l@~$rIA2h$9$k%3%^%s%I(B \cmd{Drawlines} $B$b$"$j$^$9!#(B
+\subsection{複数の折れ線}
+複数の折れ線を描画するコマンド \cmd{Drawlines} もあります。
 \cindex{Drawlines}
-$BJ#?t$N@^$l@~$r(B`;'$B$G6h@Z$j$^$9!#(B
+複数の折れ線を`;'で区切ります。
 
 \showexample[\cmd{Drawlines}](0.55)(0.35){example/oresen03}
 
-$B@^$l@~$N@~<o$rJQ99$9$k$K$O!$(B\verb/<...>/ $B%*%W%7%g%s$rMQ$$$^$9!#(B
+折れ線の線種を変更するには，\verb/<...>/ オプションを用います。
 
-\showexample[\cmd{$B@~<o$NJQ99(B}](0.55)(0.35){example/oresen04}
+\showexample[\cmd{線種の変更}](0.55)(0.35){example/oresen04}
 
-\cmd{Drawlines}$B$N=q<0$G$9!#(B
+\cmd{Drawlines}の書式です。
 
 \begin{boxnote}
 \begin{verbatim}
 \Drawlines<#1>#2
-  <#1>  : <sensyu=\dashlines[40]{.1}>$B$J$I$K$h$k(B
-          $B@~<o$N%m!<%+%k$JJQ99(B
-   #2   : $BJ#?t$NE@Ns$r(B`;'$B$G6h@Z$k(B
+  <#1>  : <sensyu=\dashlines[40]{.1}>などによる
+          線種のローカルな変更
+   #2   : 複数の点列を`;'で区切る
 \end{verbatim}
 \end{boxnote}
 
-\subsection{$BLp@~(B}
-$BLp@~$r0z$/%3%^%s%I$O(B2$B<oN`MQ0U$7$F$"$j$^$9!#(B
+\subsection{矢線}
+矢線を引くコマンドは2種類用意してあります。
 
-\cmd{yasen}$B$O!$@.J,$r;XDj$7$^$9!#(B
+\cmd{yasen}は，成分を指定します。
 
-$B$b$&$R$H$D$N(B\cmd{ArrowLine}$B$O!$;OE@$H=*E@$r;XDj$7$^$9!#(B
+もうひとつの\cmd{ArrowLine}は，始点と終点を指定します。
 
 \subsubsection{\texorpdfstring{\cmd{yasen}}{yasen}}
-$B$^$:$O@.J,$rM?$($FLp@~$rIA2h$9$k%3%^%s%I(B \cmd{yasen} $B$r;HMQ$9$k0lNc$G$9!'(B
+まずは成分を与えて矢線を描画するコマンド \cmd{yasen} を使用する一例です：
 
 \begin{showEx}(.54,.4){\cmd{yasen}}
   \begin{zahyou*}[ul=10mm](0,4)(0,3)
@@ -390,9 +390,9 @@
   \end{zahyou*}
 \end{showEx}
 
-$B$3$N%3%^%s%I$O!$Lp@~$NK5$KJ8;zNs$rG[CV$9$k%*%W%7%g%s$r$b$C$F$$$^$9!#(B
+このコマンドは，矢線の傍に文字列を配置するオプションをもっています。
 
-\begin{showEx}(.54,.4){\texttt{<..>}$B%*%W%7%g%s(B}
+\begin{showEx}(.54,.4){\texttt{<..>}オプション}
   \begin{zahyou*}[ul=10mm](0,4)(0,3)
     \put(0,0){\kousi43}%
     \put(1,0){%
@@ -402,12 +402,12 @@
   \end{zahyou*}
 \end{showEx}
 
-$B$9$J$o$A(B\verb+<...>+$B%*%W%7%g%s$K!$J8;zNs$rM?$($^$9!#$=$N:]!$(B\cmd{Put}$B$N(B
-$BG[CV%*%W%7%g%s$rIm2C$9$k$3$H$,$G$-$^$9!#(B
-$B$J$*!$J8;zNs$rG[CV$9$k4p=`E@$O!$Lp@~$NCfE@$G$9!#(B
-$B$3$l$rF0$+$9$N$,(B\verb+[..]+$B%*%W%7%g%s$G$9!#(B
+すなわち\verb+<...>+オプションに，文字列を与えます。その際，\cmd{Put}の
+配置オプションを附加することができます。
+なお，文字列を配置する基準点は，矢線の中点です。
+これを動かすのが\verb+[..]+オプションです。
 
-\begin{showEx}(.54,.4){\texttt{[..]}$B%*%W%7%g%s(B}
+\begin{showEx}(.54,.4){\texttt{[..]}オプション}
   \begin{zahyou*}[ul=10mm](0,4)(0,4)
     \put(0,0){\kousi43}%
     \put(1,0){%
@@ -417,24 +417,24 @@
   \end{zahyou*}
 \end{showEx}
 
-\verb+[..]+$B%*%W%7%g%s$N%G%U%)%k%HCM$O(B\verb+0.5+$B!$$9$J$o$ACfE@$G$9!#(B
-$B$3$l$r(B\verb+[1]+$B$H$9$l$P!$=*E@!$(B\verb+[0]+$B$H$9$l$P!$;OE@$,$=$l$>$l(B
-$BJ8;zNsG[CV$N4p=`E@$H$J$j$^$9!#(B
+\verb+[..]+オプションのデフォルト値は\verb+0.5+，すなわち中点です。
+これを\verb+[1]+とすれば，終点，\verb+[0]+とすれば，始点がそれぞれ
+文字列配置の基準点となります。
 
-\cmd{yasen}$B$N=q<0$G$9!#(B
+\cmd{yasen}の書式です。
 
 \begin{boxnote}
 \begin{verbatim}
 \yasen[#1]<#2>(#3,#4)
 \Yasen[#1]<#2>#3
-  #1 : $B%i%Y%k$rCV$/0LCV!J%G%U%)%k%H(B=0.5, $BCfE@!K(B
-  #2 : $B%i%Y%k!J0LCV;XDj$r4^$a$F!K(B
-  (#3,#4) : $B@.J,!J;OE@$O(B \put (\Put) $B$G;XDj!K(B
+  #1 : ラベルを置く位置（デフォルト=0.5, 中点）
+  #2 : ラベル（位置指定を含めて）
+  (#3,#4) : 成分（始点は \put (\Put) で指定）
 \end{verbatim}
 \end{boxnote}
 \cindex{yasen}
 
-$B@.J,$r!$$^$H$a$F$R$H$D$K$7$F07$&$b$N$,(B \cmd{Yasen} $B$G$9!#(B
+成分を，まとめてひとつにして扱うものが \cmd{Yasen} です。
 \cindex{Yasen}
 
 \begin{showEx}(.54,.4){\cmd{Yasen}}
@@ -446,18 +446,18 @@
   \end{zahyou*}
 \end{showEx}
 
-\cmd{Yasen}$B$KBP$7$F$b!$(B\verb+[...]+, \verb+<...>+ $B%*%W%7%g%s$,(B
-\cmd{yasen}$B$HF1MM$K;HMQ$G$-$^$9!#(B
+\cmd{Yasen}に対しても，\verb+[...]+, \verb+<...>+ オプションが
+\cmd{yasen}と同様に使用できます。
 
 
 \subsubsection{\texorpdfstring{\cmd{ArrowLine}}{ArrowLine}}
-$BLp@~$r0z$/%3%^%s%I$,(B \cmd{ArrowLine} $B$G$9!%(B
+矢線を引くコマンドが \cmd{ArrowLine} です．
 
 \showexample[\cmd{ArrowLine}](0.55)(0.35){example/yasen01}
 
-$BLp@~$NK5$KJ8;zNs$rG[CV$9$k$3$H$b2DG=$G$9!#(B
+矢線の傍に文字列を配置することも可能です。
 
-\begin{showEx}(.54,.4){\cmd{ArrowLine}$B$NJ8;zNsG[CV%*%W%7%g%s(B}
+\begin{showEx}(.54,.4){\cmd{ArrowLine}の文字列配置オプション}
   \begin{zahyou*}[ul=10mm](0,4)(-1,4)
     \tenretu{A(0,0)s;B(3,0)s;
       C(4,3)n;D(1,3)n}
@@ -470,11 +470,11 @@
   \end{zahyou*}
 \end{showEx}
 
-$B$9$J$o$A!$(B\verb+<...>+$B%*%W%7%g%s$H$7$F!$(B\verb+putstr+$B$N1&JUCM$K!$(B
-$BJ8;zNs$rG[CV%*%W%7%g%s$H$H$b$K5-=R$7$^$9!#G[CV4p=`E@!J%G%U%)%k%H$OCfE@!K(B
-$B$rJQ99$9$k$K$O!$%-!<%o!<%I(B\verb+putpos+$B$rMQ$$$^$9!#(B
+すなわち，\verb+<...>+オプションとして，\verb+putstr+の右辺値に，
+文字列を配置オプションとともに記述します。配置基準点（デフォルトは中点）
+を変更するには，キーワード\verb+putpos+を用います。
 
-\begin{showEx}(.54,.4){\cmd{ArrowLine}$B$NJ8;zNsG[CV4p=`E@$NJQ99(B}
+\begin{showEx}(.54,.4){\cmd{ArrowLine}の文字列配置基準点の変更}
   \begin{zahyou*}[ul=10mm](0,4)(-1,4)
     \tenretu{A(0,0)s;B(3,0)s;
       C(4,3)n;D(1,3)n}
@@ -486,26 +486,26 @@
   \end{zahyou*}
 \end{showEx}
 
-\cmd{ArrowLine}$B$N=q<0$G$9!#(B
+\cmd{ArrowLine}の書式です。
 
 \begin{boxnote}
 \begin{verbatim}
 \ArrowLine<#1>[#2]#3#4
   #1 : key=val
          sensyu=
-         putstr=      $B!JLp@~$NK5$KCV$/G[CV%*%W%7%g%s(B+$BJ8;zNs!K(B
-         putpos=      $B!JJ8;zNs$NG[CV4p=`0LCV!'%G%U%)%k%H$O(B0.5, $BCfE@!K(B
-  #2 : $BLp0u$rCV$/0LCV!J%G%U%)%k%H(B = 1 $B$9$J$o$A=*E@!K(B
-       $B$?$@$7(B #2=b $B$N$H$-$O!$N>C<$KLp0u(B
-  #3 : $B;OE@(B
-  #4 : $B=*E@(B
+         putstr=      （矢線の傍に置く配置オプション+文字列）
+         putpos=      （文字列の配置基準位置：デフォルトは0.5, 中点）
+  #2 : 矢印を置く位置（デフォルト = 1 すなわち終点）
+       ただし #2=b のときは，両端に矢印
+  #3 : 始点
+  #4 : 終点
 \end{verbatim}
 \end{boxnote}
 \cindex{ArrowLine}
 
-\subsubsection{$B;OE@!&=*E@0LCV$NHyD4@0(B}
-\cmd{ArrowLine}$B$G0z$+$l$kLp@~$N;OE@!&=*E@$r>/$7$:$i$7$?$$$H$-$,$"$j$^$9!#(B
-$BNc$($P(B
+\subsubsection{始点・終点位置の微調整}
+\cmd{ArrowLine}で引かれる矢線の始点・終点を少しずらしたいときがあります。
+例えば
 
 \begin{showEx}(.64,.3){\cmd{ArrowLine}}
 \begin{zahyou*}[ul=10mm](-.5,2.5)(-.5,1.5)
@@ -516,19 +516,19 @@
 \end{showEx}
 
 \noindent
-$B$N$h$&$J>l9g!$Lp0u$,=*E@$N9u4]$K$a$j9~$s$G$$$^$9!#(B
-$BLp0u$N=*E@$r:82<$K>/$7$:$i$7$?$$$H$-$J$I$N$?$a$K(B
+のような場合，矢印が終点の黒丸にめり込んでいます。
+矢印の終点を左下に少しずらしたいときなどのために
 \begin{jquote}
 \begin{verbatim}
-<Henvi=..>    $B;OE@$KBP$9$k=$@5%Y%/%H%k(B
-<Henvii=...>  $B=*E@$KBP$9$k=$@5%Y%/%H%k(B
+<Henvi=..>    始点に対する修正ベクトル
+<Henvii=...>  終点に対する修正ベクトル
 \end{verbatim}
 \end{jquote}
-$B%*%W%7%g%s$r?7@_$7$^$7$?!#(B
-$B1&JUCM$O%Y%/%H%k$G!$@.J,$OC10L$rH<$C$?D9$5$G$9!#(B
-$B1&JUCM$K$O(B`,'$B$,F~$j$^$9$+$i!$1&JUCMA4BN$r(B\verb+{...}+$B$G$/$/$kI,MW$,$"$j$^$9!#(B
+オプションを新設しました。
+右辺値はベクトルで，成分は単位を伴った長さです。
+右辺値には`,'が入りますから，右辺値全体を\verb+{...}+でくくる必要があります。
 
-\begin{showEx}(.64,.3){\texttt{<Henvii=..>}$B%*%W%7%g%s(B}
+\begin{showEx}(.64,.3){\texttt{<Henvii=..>}オプション}
 \begin{zahyou*}[ul=10mm](-.5,2.5)(-.5,1.5)
   \tenretu{A(0,0)w;B(2,1)e}
   \Kuromaru\B
@@ -536,53 +536,53 @@
 \end{zahyou*}
 \end{showEx}
 
-$B$J$*(B
+なお
 \begin{jquote}
 \begin{verbatim}
-<henvi=..>    $B;OE@$KBP$9$k=$@5%Y%/%H%k(B
-<henvii=...>  $B=*E@$KBP$9$k=$@5%Y%/%H%k(B
+<henvi=..>    始点に対する修正ベクトル
+<henvii=...>  終点に対する修正ベクトル
 \end{verbatim}
 \end{jquote}
-$B$bF15!G=$G$9$,!$1&JUCM$N@.J,$O(B\cmd{unitlength}$B$rC10L$H$9$kL5L>?t$GM?$($^$9!#(B
+も同機能ですが，右辺値の成分は\cmd{unitlength}を単位とする無名数で与えます。
 
-\subsubsection{$Bo7$N7A>u(B}
-$Bo7$N%5%$%:$rJQ99$9$k$3$H$b$G$-$^$9!%Nc$($P(B
+\subsubsection{鏃の形状}
+鏃のサイズを変更することもできます．例えば
 \begin{jquote}
 \begin{verbatim}
 \changeArrowHeadSize{1.5}
 \end{verbatim}
 \end{jquote}
-$B$H$9$l$P!$o7$NBg$-$5$O(B1.5$BG\$K$J$j$^$9!#(B\cindex{changeArrowHeadSize}
+とすれば，鏃の大きさは1.5倍になります。\cindex{changeArrowHeadSize}
 
 {\showexample[\cmd{changeArrowHeadSize}](0.65)(0.3){example/yasen02}}
 
-$Bo7$N3+$-6q9g$bD4@0$G$-$^$9!%%G%U%)%k%H$O(B\cindex{ArrowHeadAngle}
+鏃の開き具合も調整できます．デフォルトは\cindex{ArrowHeadAngle}
 \begin{jquote}
 \begin{verbatim}
 \def\ArrowHeadAngle{18}%
 \end{verbatim}
 \end{jquote}
-$B$H$J$C$F$$$^$9!%$3$l$r(B 30 $B$H$9$k$H!$o7$O@5;03Q7A$K$J$j$^$9!%(B
+となっています．これを 30 とすると，鏃は正三角形になります．
 
 {\showexample[\cmd{ArrowHeadAngle}](0.65)(0.3){example/yasen03}}
 
-$B%5%$%:!&3+$-6q9g$NN>J}$rF1;~$KJQ99$9$k$H$-$O(B
+サイズ・開き具合の両方を同時に変更するときは
 \begin{jquote}
 \begin{verbatim}
 \changeArrowHeadSize[30]{3}
 \end{verbatim}
 \end{jquote}
 
-$B$H(B\cmd{changeArrowHeadSize}$B$N%*%W%7%g%s$G3+$-3Q$r;XDj$9$k$3$H$b$G$-$^$9!#(B
+と\cmd{changeArrowHeadSize}のオプションで開き角を指定することもできます。
 
 \showexample[\cmd{ArrowHeadAngle}](0.65)(0.3){example/yasen07}
 
-\cmd{ArrowLine}$B$G0z$+$l$kLp@~$K$*$$$F!$o7$OFsEyJU;03Q7A$rEI$j$D$V$7$F$$$^$9$,!$(B
-$B$=$NDlJU$K7&$_$r$D$1$k$3$H$b2DG=$G$9!#(B
-$B7&$_$N?<$5$N!VFsEyJU;03Q7A$N9b$5$r(B1$B$H$7$F$NHfN(!W(B
-$B$r(B\cmd{ArrowHeadPit}$B$G;XDj$7$^$9!#(B
+\cmd{ArrowLine}で引かれる矢線において，鏃は二等辺三角形を塗りつぶしていますが，
+その底辺に窪みをつけることも可能です。
+窪みの深さの「二等辺三角形の高さを1としての比率」
+を\cmd{ArrowHeadPit}で指定します。
 
-$B<!$N?^$G$O!$:BI8<4$,(B2$B8DIA2h$5$l$^$9$,!$>e$,=>Mh$N7A>u!$2<$,7&$_$r$D$1$?7A>u$G$9!#(B
+次の図では，座標軸が2個描画されますが，上が従来の形状，下が窪みをつけた形状です。
 
 \begin{showEx}(.5,.44){\cmd{ArrowHeadPit}}
 \begin{zahyou}[ul=8mm](-3,3)(-3,3)
@@ -595,20 +595,20 @@
 \end{zahyou}
 \end{showEx}
 
-\cmd{changeArrowHeadSize}$B$K(B\verb+<...>+$B%*%W%7%g%s$rMQ$$$F!$(B
-$B7&$_$r;XDj$9$k$3$H$b$G$-$^$9!#(B
+\cmd{changeArrowHeadSize}に\verb+<...>+オプションを用いて，
+窪みを指定することもできます。
 \begin{jquote}
 \begin{verbatim}
   \def\ArrowHeadPit{.25}
-$B$H(B
+と
   \changeArrowHeadSize<.25>{1}
 \end{verbatim}
-$B$OF1CM$G$9!#A0<T$NJ}$,4J7i$G$9$,!$Lp0u$ND9$5!&3+$-3Q$rJQ99$9$k:]$K$O8e<T$NJ}$,(B
-$BJXMx$G$7$g$&$+!#(B
+は同値です。前者の方が簡潔ですが，矢印の長さ・開き角を変更する際には後者の方が
+便利でしょうか。
 
-$B$=$s$JGO</$J!$$H$$$&6KC<$JNc$G$9!'(B
+そんな馬鹿な，という極端な例です：
 
-\begin{showEx}(.5,.44){\cmd{changeArrowSize}$B$K$h$k;XDj(B}
+\begin{showEx}(.5,.44){\cmd{changeArrowSize}による指定}
 \changeArrowHeadSize[30]<0.3333>{4}
 \bekutorukata{fill}
 
@@ -621,27 +621,27 @@
 
 \end{jquote}
 
-$B$J$*!$$3$l$iLp@~$G$Oo7$,EI$j$D$V$5$l$^$9$,!$$3$l$rOH@~$N$_IA2h$5$;$k$K$O(B
+なお，これら矢線では鏃が塗りつぶされますが，これを枠線のみ描画させるには
 \begin{jquote}
 \begin{verbatim}
 \renewcommand\ArrowHeadType{l}
 \end{verbatim}
 \end{jquote}
-$B$H$7$^$9!#(B
-$B%G%U%)%k%H$O(B \verb/\newcommand\ArrowHeadType{f}/ $B$H$7$F$"$j$^$9!%(B
+とします。
+デフォルトは \verb/\newcommand\ArrowHeadType{f}/ としてあります．
 \cindex{ArrowHeadType}
 
-\showexample[$BEI$j$D$V$5$J$$o7(B](0.55)(0.35){example/yasen06}
+\showexample[塗りつぶさない鏃](0.55)(0.35){example/yasen06}
 
-\subsubsection{$BLp0u$N0LCV(B}
-$BLp0u$rESCf$KIU$1$k$?$a$K$O!$(B\texttt{[...]} $B%*%W%7%g%s$G!$(B
-$BLp0u$rCV$/0LCV$r;XDj$7$^$9!%(B
+\subsubsection{矢印の位置}
+矢印を途中に付けるためには，\texttt{[...]} オプションで，
+矢印を置く位置を指定します．
 
 {\showexample[\cmd{ArrowLine[0.5]}](0.65)(0.4){example/yasen05}}
 
-$B$^$?!$Lp0u$rN>8~$-$K$D$1$?$$$H$-$O(B\verb+[b]+$B%*%W%7%g%s$r$D$1$^$9!#(B
+また，矢印を両向きにつけたいときは\verb+[b]+オプションをつけます。
 
-\begin{showEx}{$BN>8~$-Lp0u(B}
+\begin{showEx}{両向き矢印}
 \unitlength10mm\relax
 \begin{picture}(2,1)
 \def\A{(0,.5)}
@@ -650,12 +650,12 @@
 \end{picture}
 \end{showEx}
 
-\subsubsection{$BLp@~$rE@@~!&GK@~(B}
+\subsubsection{矢線を点線・破線}
 
-$BLp@~$N@~<o$rJQ99$9$k$K$O(B \cmd{ArrowLine} $B$K(B\verb+<sensyu=...>+ $B%*%W%7%g%s$r(B
-$BIUM?$7$^$9!#(B
+矢線の線種を変更するには \cmd{ArrowLine} に\verb+<sensyu=...>+ オプションを
+付与します。
 
-\begin{showEx}(.54,.4){$BLp@~$rE@@~$G(B}
+\begin{showEx}(.54,.4){矢線を点線で}
 \unitlength10mm\relax
 \begin{picture}(2,1)
 \def\A{(0,.5)}
@@ -666,7 +666,7 @@
 \end{picture}
 \end{showEx}
 
-\begin{showEx}(.54,.4){$BLp@~$rGK@~$G(B}
+\begin{showEx}(.54,.4){矢線を破線で}
 \unitlength10mm\relax
 \begin{picture}(2,1)
 \def\A{(0,.5)}
@@ -677,9 +677,9 @@
 \end{picture}
 \end{showEx}
 
-\subsubsection{$BJ#?t$NLp@~(B}
-$BJ#?t$NLp@~$r0z$/%3%^%s%I$,(B \cmd{ArrowLines} $B$G$9!#(B
-$B;OE@!&=*E@$r(B`;'$B$G6h@Z$C$FJB$Y$^$9!#(B
+\subsubsection{複数の矢線}
+複数の矢線を引くコマンドが \cmd{ArrowLines} です。
+始点・終点を`;'で区切って並べます。
 
 \begin{showEx}{\cmd{ArrowLines}}
 \unitlength=10mm
@@ -693,54 +693,54 @@
 \end{picture}
 \end{showEx}
 
-\subsection{$BB?3Q7A(B}
-$BB?3Q7A$rIA2h$9$k%3%^%s%I$,(B\cmd{Takakkei}$B$G$9!#(B\cindex{Takakkei}
+\subsection{多角形}
+多角形を描画するコマンドが\cmd{Takakkei}です。\cindex{Takakkei}
 \bigskip
 
-\showexample[\cmd{$BB?3Q7A(B}](0.55)(0.35){example/polygon2}
+\showexample[\cmd{多角形}](0.55)(0.35){example/polygon2}
 
-\cmd{Takakkei}$B$N;OE@(BO$B$H=*E@(BB$B$r7k$V@~J,$,6/@)E*$KIU2C$5$l$^$9!#(B
+\cmd{Takakkei}の始点Oと終点Bを結ぶ線分が強制的に付加されます。
 \bigskip
 
-\subsection{$B@5B?3Q7A!$6K:BI8"*D>8r:BI8(B}
-$B1_<~>e$KE@$r$H$k$H$-$O!$6K:BI87A<0$NJ}$,JXMx$G$9!%(B
-$B$3$l$rD>8r:BI8$KJQ49$9$k%3%^%s%I(B \cmd{kyokuTyoku} $B$G$9!%(B
-$B;HMQNc$H$7$F!$@5O;3Q7A$rIA2h$7$F$_$^$7$?!%(B\cindex{kyokuTyoku}
+\subsection{正多角形，極座標→直交座標}
+円周上に点をとるときは，極座標形式の方が便利です．
+これを直交座標に変換するコマンド \cmd{kyokuTyoku} です．
+使用例として，正六角形を描画してみました．\cindex{kyokuTyoku}
 
 \showexample[\cmd{kyokuTyoku}](0.6)(0.35){example/polygon0}
 
 \begin{jquote}
 \cmd{kyokuTyoku(1,90)}\cmd{A}
 \end{jquote}
-$B$G!$6K:BI8(B (1,90) $B$rD>8r:BI8$KJQ49$7$?(B (0,1) $B$,(B \cmd{A} $B$K(B
-$B%;%C%H$5$l$^$9!%(B\cmd{kyokuTyoku} $B$N=q<0$G$9!%(B
+で，極座標 (1,90) を直交座標に変換した (0,1) が \cmd{A} に
+セットされます．\cmd{kyokuTyoku} の書式です．
 
 \begin{boxnote}
 \begin{verbatim}
 \kyokuTyoku(#1,#2)#3
-    (#1,#2) : $B6K:BI8(B
-    #3      : $BJQ49$7$?D>8r:BI8$rBeF~$9$k%3%s%H%m!<%k%7!<%1%s%9(B
+    (#1,#2) : 極座標
+    #3      : 変換した直交座標を代入するコントロールシーケンス
 \end{verbatim}
 \end{boxnote}
 
 \begin{enumerate}[(1)]
-  \item $B$3$N%9%?%$%k%U%!%$%k$G$O!$86B'$H$7$F!$3Q$NC10L$OO;==J,K!$GI=$7$^$9!%(B
-  \item \cmd{kyokuTyoku}$B$OE@$r0l$D$:$DDj5A$7$^$9$,!$(B
-    $BJ#?t$NE@Ns$rDj5A$9$k%3%^%s%I(B
+  \item このスタイルファイルでは，原則として，角の単位は六十分法で表します．
+  \item \cmd{kyokuTyoku}は点を一つずつ定義しますが，
+    複数の点列を定義するコマンド
 \begin{jquote}
 \begin{verbatim}
 \rtenretu, \rtenretu*
 \end{verbatim}
 \end{jquote}
-    $B$b$"$j$^$9!#(B
-  \item $B@5B?3Q7A$rIA2h$9$k$?$a$N(B\textsf{emPoly.sty}$B$b$"$j$^$9!#(B
+    もあります。
+  \item 正多角形を描画するための\textsf{emPoly.sty}もあります。
 \end{enumerate}
 
-\subsection{$B3Q$N4]$$B?3Q7A(B}
-$BB?3Q7A$rIA2h$9$k%3%^%s%I(B\cmd{Takakkei}$B$N(B
-$B%P%j%(!<%7%g%s(B\cmd{ovalTakakkei}$B%3%^%s%I$O(B
-$BB?3Q7A$N%3!<%J!<$r4]$/$9$k%3%^%s%I$G$9!#(B
-$B$^$:$O!$(B\cmd{Takakkei}$B$N;HMQNc$+$i$4Mw$/$@$5$$!#(B
+\subsection{角の丸い多角形}
+多角形を描画するコマンド\cmd{Takakkei}の
+バリエーション\cmd{ovalTakakkei}コマンドは
+多角形のコーナーを丸くするコマンドです。
+まずは，\cmd{Takakkei}の使用例からご覧ください。
 
 \begin{showEx}(.54,.4){\cmd{Takakkei}}
   \begin{zahyou*}%
@@ -754,9 +754,9 @@
   \end{zahyou*}
 \end{showEx}
 
-$B%3!<%J!<$r@Z$j<h$C$F!$1_8L$G7k$S$^$9!#(B
-$B@Z$j<h$k@~J,$ND9$5$r(B\cmd{ovalTakakkei}$B$NBh(B1$B0z?t$KM?$($^$9!#(B
-$BC10L$rH<$C$??tCM$r;XDj$7$^$9!#(B
+コーナーを切り取って，円弧で結びます。
+切り取る線分の長さを\cmd{ovalTakakkei}の第1引数に与えます。
+単位を伴った数値を指定します。
 
 \begin{showEx}(.54,.4){\cmd{ovalTakakkei}}
   \begin{zahyou*}%
@@ -771,72 +771,72 @@
 \end{showEx}
 
 
-\subsection{$BJ,E@(B}
-$B@~J,$rFbJ,!J30J,!K$9$kE@$r5a$a$k%3%^%s%I(B \cmd{Bunten} $B$G$9!%(B
-\sankaku{ABC} $B$NJU(BBC$B$NCfE@(BM$B$H(BA$B$r7k$V@~J,$rIA2h$9$kNc$G$9!%(B
+\subsection{分点}
+線分を内分（外分）する点を求めるコマンド \cmd{Bunten} です．
+\sankaku{ABC} の辺BCの中点MとAを結ぶ線分を描画する例です．
 
 \showexample[\cmd{Bunten}](0.55)(0.35){example/bunten01}
 
-\cmd{Bunten} $B$N=q<0$O(B
+\cmd{Bunten} の書式は
 \begin{boxnote}
 \begin{verbatim}
 \Bunten#1#2#3#4#5
-    #1 : $BC<E@(B1
-    #2 : $BC<E@(B2
-    #3#4 : $BFb!J30!KJ,Hf(B
-    #5 : $BJ,E@(B
+    #1 : 端点1
+    #2 : 端点2
+    #3#4 : 内（外）分比
+    #5 : 分点
 \end{verbatim}
 \end{boxnote}
-$B$9$J$o$A(B \verb+#1+ $B$H(B \verb+#2+ $B$r7k$V@~J,$r(B \verb+#3:#4+ $B$K(B
-$BJ,$1$kE@$N:BI8$r(B \verb+#5+ $B$K%;%C%H$7$^$9!%(B
+すなわち \verb+#1+ と \verb+#2+ を結ぶ線分を \verb+#3:#4+ に
+分ける点の座標を \verb+#5+ にセットします．
 
-$BFC$K(B$1:1$$B$NFbJ,E@!$$9$J$o$ACfE@$r5a$a$k%3%^%s%I(B\cmd{Tyuuten}$B$bJXMx$G$9!#(B
+特に$1:1$の内分点，すなわち中点を求めるコマンド\cmd{Tyuuten}も便利です。
 
 \showexample[\cmd{Bunten}](0.55)(0.35){example/bunten02}
 
-\subsection{$B3J;R(B}
-$B8kHW$NL\>u$N39O)?^$J$I$ONI$/EP>l$7$^$9!%(B
-$B3J;R$rIA2h$9$k%3%^%s%I(B \cmd{kousi} $B$G$9!%(B\cindex{kousi}
+\subsection{格子}
+碁盤の目状の街路図などは良く登場します．
+格子を描画するコマンド \cmd{kousi} です．\cindex{kousi}
 
 \showexample[\cmd{kousi}](0.4)(0.4){example/kousi01}
 
-$B=D2#$N%5%$%:$rJQ99$7$?$$$H$-$O!$(B
-\texttt{($B2#%5%$%:(B,$B=D%5%$%:(B)} $B%*%W%7%g%s$r;XDj$7$^$9!%(B
-$B%5%$%:$NC10L$O(B \cmd{unitlength} $B$G$9!%(B
+縦横のサイズを変更したいときは，
+\texttt{(横サイズ,縦サイズ)} オプションを指定します．
+サイズの単位は \cmd{unitlength} です．
 
-\showexample[\cmd{kousi(..,..)$B%*%W%7%g%s(B}](0.45)(0.5){example/kousi02}
+\showexample[\cmd{kousi(..,..)オプション}](0.45)(0.5){example/kousi02}
 
-\cmd{kousi} $B$N=q<0$G$9!%(B
+\cmd{kousi} の書式です．
 
 \begin{boxnote}
 \begin{verbatim}
 \kousi(#1,#2)#3#4
-    #1 : $B2#J}8~(B1$B6h2h$ND9$5!J%G%U%)%k%H(B=1$B!K(B
-    #2 : $B=DJ}8~(B1$B6h2h$ND9$5!J%G%U%)%k%H(B=1$B!K(B
-    #3 : $B2#J}8~$N%V%m%C%/?t(B
-    #4 : $B=DJ}8~$N%V%m%C%/?t(B
-$BCV$/0LCV$O(B \put $B$G;XDj$9$k!%(B
+    #1 : 横方向1区画の長さ（デフォルト=1）
+    #2 : 縦方向1区画の長さ（デフォルト=1）
+    #3 : 横方向のブロック数
+    #4 : 縦方向のブロック数
+置く位置は \put で指定する．
 \end{verbatim}
 \end{boxnote}
 
-$B3J;R$rE@@~!&GK@~$G0z$$$F$_$^$9!#(B
+格子を点線・破線で引いてみます。
 
-\showexample[$B3J;R@~$rGK@~$G0z$/(B](0.6)(0.34){example/kousi03}
+\showexample[格子線を破線で引く](0.6)(0.34){example/kousi03}
 
-%$B30OH$@$1$O<B@~$G$H$J$k$H!$(B
+%外枠だけは実線でとなると，
 
-%\showexample[$B30OH$O<B@~$G(B](0.6)(0.34){example/kousi04}
+%\showexample[外枠は実線で](0.6)(0.34){example/kousi04}
 
-\subsection{$B$5$$$3$m(B}
-$B$5$$$3$m$NL\$rI=$9%3%^%s%I(B \cmd{saikoro} $B$rMQ0U$7$^$7$?!%(B
-\cindex{saikoro}\index{$B$5$$$3$m(B}
+\subsection{さいころ}
+さいころの目を表すコマンド \cmd{saikoro} を用意しました．
+\cindex{saikoro}\index{さいころ}
 
-\showexample[$B$5$$$3$m(B](0.45)(0.45){example/saikoro}
+\showexample[さいころ](0.45)(0.45){example/saikoro}
 
-$B$?$@$7!$$3$N%3%^%s%I$O(B\textsf{ascmac.sty}$B$GDj5A$5$l$F$$$k(B
-\cmd{keytop}$B%3%^%s%I$r;HMQ$7$F$$$^$9$+$i!$$3$N%9%?%$%k%U%!%$%k$r(B
-$B;HMQ$9$k$3$H$,A0Ds$G$9!%(B
-$B$5$i$K!$$3$N%9%?%$%k%U%!%$%k$O(B \textsf{emathP} $B$+$iFI$_9~$^$l$k(B
-\textsf{eepic.sty}$B$HAj@-$,0-$$$3$H$,$"$j$^$9!%$=$NBP:v$r(B
-\textsf{itembbox.sty}$B$G;\$7$F$$$^$9$N$G!$(B\textsf{ascmac.sty}$B$K(B
-$B0z$-B3$-(B \textsf{itembbox.sty}$B$bFI$_9~$s$G$*$/I,MW$,$"$j$^$9!%(B
+ただし，このコマンドは\textsf{ascmac.sty}で定義されている
+\cmd{keytop}コマンドを使用していますから，このスタイルファイルを
+使用することが前提です．
+さらに，このスタイルファイルは \textsf{emathP} から読み込まれる
+\textsf{eepic.sty}と相性が悪いことがあります．その対策を
+\textsf{itembbox.sty}で施していますので，\textsf{ascmac.sty}に
+引き続き \textsf{itembbox.sty}も読み込んでおく必要があります．

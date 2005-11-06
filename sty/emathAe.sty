@@ -3,23 +3,23 @@
 \def\tmpname{LaTeX2e}%
 \newif\ifappendanswer\appendanswerfalse
 
-%   $B2rEz$rCV$/0LCV$N;XDj(B
+%   解答を置く位置の指定
 \@ifundefined{c@kaitou@syorihou}{\newcounter{kaitou@syorihou}}{}%
-%                               0: $B%G%U%)%k%H$O4,Kv$K$^$H$a$k!%(B
-% continue                      1: $BLdBj$KB3$1$F(B
-% ignore                        2: $B$^$C$?$/L5;k$9$k(B($B%3%a%s%H07$$(B)
-% debug                         3: $B%G%P%C%0MQ(B (\kaitou $B$OL58z%3%^%s%I(B)
-%                                 (edaitemm $B4D6-!$(B\edaitemm $B%3%^%s%I$H$O(B
-%                                  $BJ;MQ$G$-$^$;$s!%$3$N>l9g$O(B
-%                                  continue $B%*%W%7%g%s$r$4MxMQ$/$@$5$$!%(B)
-% readonly                      4: .kai $B%U%!%$%k$r:n@.$O$;$:!$FI$_9~$`$@$1!%(B
-% nidan                         5: nidan $B$G2rEzItJ,$rFsCJAH(B
+%                               0: デフォルトは巻末にまとめる．
+% continue                      1: 問題に続けて
+% ignore                        2: まったく無視する(コメント扱い)
+% debug                         3: デバッグ用 (\kaitou は無効コマンド)
+%                                 (edaitemm 環境，\edaitemm コマンドとは
+%                                  併用できません．この場合は
+%                                  continue オプションをご利用ください．)
+% readonly                      4: .kai ファイルを作成はせず，読み込むだけ．
+% nidan                         5: nidan で解答部分を二段組
 % maskAnstrue
-%   continue $B%*%W%7%g%s$G!$(B\color{white}$B$H$7$FEz$($rGr$G0u:~(B
+%   continue オプションで，\color{white}として答えを白で印刷
 % maskAnsfalse
-%   continue $B%*%W%7%g%s$HF1$8!#(B
-% appendanswer                '\jobname a' $B%U%!%$%k$rFI$_9~$`!#(B
-% noappendanswer              '\jobname a' $B%U%!%$%k$rFI$_9~$^$J$$(B($B%G%U%)%k%H!K(B
+%   continue オプションと同じ。
+% appendanswer                '\jobname a' ファイルを読み込む。
+% noappendanswer              '\jobname a' ファイルを読み込まない(デフォルト）
 %
 \ifx\fmtname\tmpname%
   \NeedsTeXFormat{LaTeX2e}
@@ -27,28 +27,28 @@
 %
 \newif\ifmaskAns\maskAnsfalse
 %
-% continue $B%*%W%7%g%s$r;XDj$7$?$H$-$O!$LdBj$N2<!%(B
+% continue オプションを指定したときは，問題の下．
   \DeclareOption{continue}{\setcounter{kaitou@syorihou}{1}\relax
-    \def\KaitouTTL{\par\small$B!Z2rEz![(B\par}}%
-% ignore $B%*%W%7%g%s$r;XDj$7$?$H$-$O!$2rEz$O=PNO$7$J$$(B
+    \def\KaitouTTL{\par\small【解答】\par}}%
+% ignore オプションを指定したときは，解答は出力しない
   \DeclareOption{ignore}{\setcounter{kaitou@syorihou}{2}\relax}%
-% debug $B%*%W%7%g%s$r;XDj$7$?$H$-$O!$%G%P%C%0MQ(B
+% debug オプションを指定したときは，デバッグ用
   \DeclareOption{debug}{\setcounter{kaitou@syorihou}{3}\relax}%
-% readonly $B%*%W%7%g%s$r;XDj$7$?$H$-$O!$(B.kai $B%U%!%$%k$r:F9=C[$;$:$KFI$_9~$`(B
+% readonly オプションを指定したときは，.kai ファイルを再構築せずに読み込む
   \DeclareOption{readonly}{\setcounter{kaitou@syorihou}{4}\relax}%
-% nidan $B%*%W%7%g%s$r;XDj$7$?$H$-$O!$2rEzItJ,$r(B2$BCJAH(B
+% nidan オプションを指定したときは，解答部分を2段組
   \DeclareOption{nidan}{\setcounter{kaitou@syorihou}{5}\relax}%
 % maskAnstrue
   \DeclareOption{maskAnstrue}{%
     \maskAnstrue
     \@ifundefined{ifmaskhako}{}{\maskhakotrue}%
-    \def\KaitouTTL{\small\medskip\par\noindent $B!Z2rEz![(B}%
+    \def\KaitouTTL{\small\medskip\par\noindent 【解答】}%
     \setcounter{kaitou@syorihou}{1}\relax}%
 % maskAnsfalse
   \DeclareOption{maskAnsfalse}{%
     \maskAnsfalse
     \@ifundefined{ifmaskhako}{}{\maskhakofalse}%
-    \def\KaitouTTL{\small\medskip\par\noindent $B!Z2rEz![(B}%
+    \def\KaitouTTL{\small\medskip\par\noindent 【解答】}%
     \setcounter{kaitou@syorihou}{1}\relax}%
   \DeclareOption{appendanswer}{\appendanswertrue}
   \DeclareOption{noappendanswer}{\appendanswerfalse}
@@ -153,21 +153,21 @@
     \immediate\closeout\kaitou@out}%
 \def\inputKaiFile{\@ifnextchar[{\inputKaiFile@}{\@inputKaiFile}}
 \def\inputKaiFile@[#1]{%
-%%  \useitemfalse%            2004/01/07 $B;CDj(B
+%%  \useitemfalse%            2004/01/07 暫定
   \input{#1}
   \xdef\HakoKaiFilenum{0}\relax
 %%  \useitemtrue%             2004/01/07
 }
 \def\@inputKaiFile{%
-%%  \useitemfalse%            2004/01/07 $B;CDj(B
+%%  \useitemfalse%            2004/01/07 暫定
   \Cfor{\edef\inpKF@i{0}}{\inpKF@i<\KaiFilenum}{}\do{%
     \xIncr\inpKF@i
     \input{\jobname.k\inpKF@i}}
 %%  \useitemtrue              2004/01/07
-  \xdef\HakoKaiFilenum{0}%      2002/09/22  \do $B%k!<%W$N30$K=P$9!#(B
+  \xdef\HakoKaiFilenum{0}%      2002/09/22  \do ループの外に出す。
   \xdef\KaiFilenum{0}}
 
-%%% Kaitou $B$NDj5A(B -------------------------------------------------
+%%% Kaitou の定義 -------------------------------------------------
 \ifcase\value{kaitou@syorihou}%   % kaitou@syorihou=0
 %\def\Kaitou{\def\item@option{}\@ifnextchar<{\Kaitou@}{\@Kaitou}}
 %\def\Kaitou@<#1>{%
@@ -259,7 +259,7 @@
     \immediate\write\kaitou@out{\string\end{Aeans}}%
 \fi
 }
-% $B5lDj5A(B \kaitou $B$N(B Kaitou$B4D6-$X$NK]Lu(B
+% 旧定義 \kaitou の Kaitou環境への翻訳
 \long\def\kaitou#1{%
   \ifnum\K@currentenumdepth<\@enumdepth
     \xdef\K@currentenumdepth{\the\@enumdepth}%
@@ -384,7 +384,7 @@
   \def\openKaiFile{}%
   \def\closeKaiFile{}%
   \def\inputKaiFile{}%
-  \def\Kaitou{\medskip\hrule\medskip\small$B!Z2rEz![(B\par}%
+  \def\Kaitou{\medskip\hrule\medskip\small【解答】\par}%
   \def\endKaitou{}%
     \def\kaitou{\vspace{.5\baselineskip}\hrule\vspace{.5\baselineskip}}
 \or
@@ -397,12 +397,12 @@
   \def\openKaiFile{}%
   \def\closeKaiFile{}%
   \def\inputKaiFile{}%
-  \def\Kaitou{\begin{multicols}{2}\small$B!Z2rEz![(B\par}%
+  \def\Kaitou{\begin{multicols}{2}\small【解答】\par}%
   \def\endKaitou{\end{multicols}}%
   \long\def\kaitou#1{%
       \columnseprule.4pt%
       \begin{multicols}{2}%
-      \small $B!Z2r![(B\par
+      \small 【解】\par
       #1
       \end{multicols}
       }%
@@ -416,7 +416,7 @@
 \fi
 %-----------------------------------------------------------------
 %
-% $B4D6-7?(B Hint
+% 環境型 Hint
 %
 
 \newwrite\hint@out
@@ -503,7 +503,7 @@
   \def\openHintFile{}%
   \def\closeHintFile{}%
   \def\inputHintFile{}%
-  \def\Hint{\medskip\hrule\medskip\small$B!Z%R%s%H![(B}%
+  \def\Hint{\medskip\hrule\medskip\small【ヒント】}%
   \def\endHint{}%
 \or
   \def\openHintFile{}%
@@ -515,7 +515,7 @@
   \def\openHintFile{}%
   \def\closeHintFile{}%
   \def\inputHintFile{}%
-  \def\Hint{\medskip\hrule\medskip\small$B!Z%R%s%H![(B}%
+  \def\Hint{\medskip\hrule\medskip\small【ヒント】}%
   \def\endHint{}%
 \or
   \let\Hint\comment
@@ -526,7 +526,7 @@
   \def\openHintFile{}%
   \def\closeHintFile{}%
   \def\inputHintFile{}%
-  \def\Hint{\begin{multicols}{2}\small$B!Z%R%s%H![(B}%
+  \def\Hint{\begin{multicols}{2}\small【ヒント】}%
   \def\endHint{\end{multicols}}%
 \else
   \def\openHintFile{}%
@@ -560,7 +560,7 @@
 
 \newcommand{\closeFile}{\closeKaiFile\closeHintFile}%
 
-%%% $B2rEz$r%^%9%/$9$k5!G=(B
+%%% 解答をマスクする機能
 %%\ifmaskAns
 %%  \let\emKaitou\Kaitou
 %%  \def\Nurizen{0}%
@@ -569,7 +569,7 @@
 %%  \def\Kaitou{\color{white}\emKaitou}%
 %%\else
 %%  \@ifundefined{ifmaskhako}{}{\maskhakofalse}%
-%%  \def\KaitouTTL{\small\medskip\par\noindent $B!Z2rEz![(B}%
+%%  \def\KaitouTTL{\small\medskip\par\noindent 【解答】}%
 %%\fi
 %  \ifmaskAns
 %    \let\emKaitou\Kaitou
@@ -595,123 +595,123 @@
 \fi
 \endinput
 %%% end of emathAe.sty
-% ver.0.00$B&B(B  19990819
-%     emathA.sty $B$G$O!$(B\kaitou, \hint $B$J$I%3%^%s%I7?$G$"$C$?$b$N$r(B
-%     Kaitou, Hint $B$H4D6-7?$KJQ99$7$?!%(B
+% ver.0.00β  19990819
+%     emathA.sty では，\kaitou, \hint などコマンド型であったものを
+%     Kaitou, Hint と環境型に変更した．
 % ver.0.01    19991105
-%     \kaitou $B$b4D6-7?$KK]Lu$7$FJ;MQ2DG=$H$9$k!%(B
+%     \kaitou も環境型に翻訳して併用可能とする．
 % ver.0.02    19991107
-%     $B2rEzItJ,$r(B edaenumerate$B4D6-$G5-=R$9$k$?$a(B
-%       \edaenumopt $B$r?7@_$9$k!%(B
+%     解答部分を edaenumerate環境で記述するため
+%       \edaenumopt を新設する．
 % ver.0.03    20000229
-%     \xdef\edaenumopt{...} $B$G2rEzIt!&>.Ld$r(B edaenumerate $B4D6-$K$7$?$H$-!$(B
-%     $B=*N;$r(B \end{edaenumerate} $B$H$7$F$"$C$?$,!$IT==J,$G(B \par $B$rIm2C$7(B
+%     \xdef\edaenumopt{...} で解答部・小問を edaenumerate 環境にしたとき，
+%     終了を \end{edaenumerate} としてあったが，不十分で \par を附加し
 %         \end{edaenumerate}\par
-%     $B$H$9$k!%(B
+%     とする．
 % ver.0.04    20000304
-%     \end{enumerate} $B$rH/9T$9$k2s?t$ND4@0!%(B
+%     \end{enumerate} を発行する回数の調整．
 % v.0.05      20000325
-%     \openKaiFile $B%U%!%$%kL>$r(B [...] $B%*%W%7%g%s$G;XDj2DG=$H$9$k!#(B
+%     \openKaiFile ファイル名を [...] オプションで指定可能とする。
 % v0.06       2000/04/02
-%     nidan $B%*%W%7%g%s$r;XDj$7$?$H$-$O(B multicol $B$rFI$_9~$`!#(B
+%     nidan オプションを指定したときは multicol を読み込む。
 % v0.07       2000/04/10
-%     nidan $B%*%W%7%g%s$r;XDj$7$?$H$-$O(B \columnseprule=0.4pt $B$bIm2C(B
+%     nidan オプションを指定したときは \columnseprule=0.4pt も附加
 % v0.08       2000/06/22
-%     enum@fmti,ii,iii,iv $B%H!<%/%s$H$9$k!#(B
+%     enum@fmti,ii,iii,iv トークンとする。
 % v0.09       2000/07/10
-%     \enum@fmt $B$K(B \the $B$r$D$1$k$Y$-$H$3$m$,$"$C$?!#(B
+%     \enum@fmt に \the をつけるべきところがあった。
 % v0.11       2000/09/01
 % v0.12 2001/02/11
-%         hako.sty $B$H$NO"7H$G!$(B\HakoKaiFilenum $B$N=i4|2=$rIU2C!#(B
+%         hako.sty との連携で，\HakoKaiFilenum の初期化を付加。
 % v0.13 2001/06/22
-%         \item $B$K(B[...]$B%*%W%7%g%s$,$"$k>l9g$KBP1~(B
+%         \item に[...]オプションがある場合に対応
 % v0.14 2001/06/28
-%         $B>e5-=$@5$N(B Hint $B4D6-$NITHw=$@5(B
+%         上記修正の Hint 環境の不備修正
 % v0.15 2001/06/30
-%         edaenumerate $B4D6-$X$NBP1~(B
+%         edaenumerate 環境への対応
 % v0.16 2001/07/22
-%         mawarikomi $B4D6-$H$ND4@0(B
-%         debug, continue $B%*%W%7%g%s;~(B $B!Z2rEz![$N8e$m$K(B \par $B$rIm2C(B
+%         mawarikomi 環境との調整
+%         debug, continue オプション時 【解答】の後ろに \par を附加
 % v0.17 2001/07/23
-%         $B2rEzIt$r(B betaenumerate $B4D6-$G5-=R$9$k$?$a$K(B
+%         解答部を betaenumerate 環境で記述するために
 %             \xdef\betaenumopt{1}
 % v0.18 2001/07/29
-%         $B2rEzIt$N(B enumerate$B7A<0$r(B
+%         解答部の enumerate形式を
 %           \def\Kaienumerate{edaenumerate}
 %           \def\Kaienumopt{<3>}
-%         $B$J$I$G@Z$jBX$($k!#(B
+%         などで切り替える。
 % v0.19 2001/07/30
-%         \setKaienum{edaenumerate<3>}$B$K$h$j(B
+%         \setKaienum{edaenumerate<3>}により
 %           \def\Kaienumerate{edaenumerate}
 %           \def\Kaienumopt{<3>}
-%           $B$r$^$H$a$F;XDj$G$-$k$h$&$K$9$k!#(B
-%         \WriteKaiFile : writeKaiFile$B4D6-$N%3%^%s%IHG(B
-%                         $B$?$@$7!$(B\string\vspace{...} $B$J$I!$(B\string $B$,I,MW(B
+%           をまとめて指定できるようにする。
+%         \WriteKaiFile : writeKaiFile環境のコマンド版
+%                         ただし，\string\vspace{...} など，\string が必要
 % v 0.20 2001/08/17
-%         \def\emAe@item@ $B$K$*$$$F!$(B\edef ---> \def ???
+%         \def\emAe@item@ において，\edef ---> \def ???
 % v 0.21 2001/09/07
-%         perl $B$H$NO"7HBP1~(B
+%         perl との連携対応
 % v 0.22 2001/09/18-10/20
-%         $B$=$N=$@5(B
-%         \KaiFilenum $B$r?7@_$7!$2rEz%U%!%$%k3HD%;R$r(B
+%         その修正
+%         \KaiFilenum を新設し，解答ファイル拡張子を
 %           .k1, .k2, ......
-%         $B$H!$J#?t$N%U%!%$%k$r:n$l$k$h$&$K$7$?!#(B
-%         \OpenKaiFile \KaiFilenum $B$r(B 0 $B$K%j%;%C%H$7$F!$(B\openKaiFile $B$X!#(B
+%         と，複数のファイルを作れるようにした。
+%         \OpenKaiFile \KaiFilenum を 0 にリセットして，\openKaiFile へ。
 % v 0.23 2001/11/28
-%       \item[] $B$N$H$-!$HV9f$,=PNO$5$l$F$$$?%P%0$r=$@5(B
+%       \item[] のとき，番号が出力されていたバグを修正
 % v 0.24 2001/12/09
-%     \def\KaitouTTL#1 $B$G(B continue $B%b!<%I$N$H$-$N2rEzItJ,$N@hF,$r;XDj(B
+%     \def\KaitouTTL#1 で continue モードのときの解答部分の先頭を指定
 % v 0.25 2002/05/31
-%     \owariitem $B$N=q$-=P$7$r;_$a$k!#!J(B2$B2U=j!K(B
+%     \owariitem の書き出しを止める。（2箇所）
 % v 0.26 2002/09/22
-%    \xdef\HakoKaiFilenum{0}%  \inputKaiFile $B$K$*$$$F(B \do $B%k!<%W$N30$K=P$9!#(B
+%    \xdef\HakoKaiFilenum{0}%  \inputKaiFile において \do ループの外に出す。
 % v 0.27
-%    maskAnstrue, maskAnsfalse $B%*%W%7%g%s(B
+%    maskAnstrue, maskAnsfalse オプション
 % v 0.28
-%    maskAns... $B$H(B \Nuritubusi $B$H$ND4@0(B
+%    maskAns... と \Nuritubusi との調整
 % v 0.29
-%   \maskAnstrue $B$N>l9g$b(B \KaitouTTL $B$rDj5A$7$F$*$/!#(B
+%   \maskAnstrue の場合も \KaitouTTL を定義しておく。
 % v 0.30
-%   Hint $B4D6-$K$*$$$F!$(Benumdepth $B$NLa$j=hM}$KITHw$"$j!#(B
+%   Hint 環境において，enumdepth の戻り処理に不備あり。
 % v 0.31
-%   edaenumerate$B4D6-Fb$K%j%9%H7A4D6-$rCV$/$3$H$r2DG=$H$9$k!#(B
-%   edaenumerate$B4D6-Fb$O!$(B\item $B$KBX$($F(B
+%   edaenumerate環境内にリスト形環境を置くことを可能とする。
+%   edaenumerate環境内は，\item に替えて
 %       \Aeitem
-%   $B$r?7@_!#(B
-%   $B$=$N=i4|>uBV$O(B \item $B$G!$(Bedaenumerate$B4D6-$N$H$-$O(B \edaitem $B$H$J$k!#(B
-%   \inputKaiFile $B$O(B \useitemfalse $B$NA0Ds$G!$<B9T$9$k!#(B
+%   を新設。
+%   その初期状態は \item で，edaenumerate環境のときは \edaitem となる。
+%   \inputKaiFile は \useitemfalse の前提で，実行する。
 % v 0.32
-%    0.31$B2~D{$N%P%0=$@5(B
+%    0.31改訂のバグ修正
 % v 0.33
-%    0.31$B2~D{$N%P%0=$@5(B(2) ??????
+%    0.31改訂のバグ修正(2) ??????
 % v 0.34
-%     \inputKaiFile $B$G(B \useitemfalse $B$rCf;_(B
+%     \inputKaiFile で \useitemfalse を中止
 % v 0.35 2004/06/17
-%     \maskAnstrue $B;~!$(Bpszahyou $B4D6-$K$bBP1~(B
+%     \maskAnstrue 時，pszahyou 環境にも対応
 % v 0.36 2004/07/22
-%     \end{document}, \ReadTeXFile $B$N:G8e$K(B
-%       \jobname $B$NKvHx$K(B`a'$B$rIU$7$?%U%!%$%k$rFI$_9~$`(B
+%     \end{document}, \ReadTeXFile の最後に
+%       \jobname の末尾に`a'を付したファイルを読み込む
 % v 0.37 2004/08/04
-%     $B>e5-$r=$@5!'(B
-%       \ifappendanswer $B$N??56$K$h$k$3$H$H$9$k!#(B
-%       $B%G%U%)%k%H$O(B \appendanswerfalse
-%       $B%m!<%I%*%W%7%g%s(B[appendanswer/noappendanswer]
+%     上記を修正：
+%       \ifappendanswer の真偽によることとする。
+%       デフォルトは \appendanswerfalse
+%       ロードオプション[appendanswer/noappendanswer]
 % v 0.38 2005/03/04
-%       \maskAnstrue $B;~!$KAF,$G(B \par $B$rH/9T(B
+%       \maskAnstrue 時，冒頭で \par を発行
 % v 0.39 2005/06/10
-%       Kaitou$B4D6-$K(B <itemoption=..>$B%*%W%7%g%s$r?7@_(B -- $BJ]N1(B
+%       Kaitou環境に <itemoption=..>オプションを新設 -- 保留
 % v 0.40 2005/06/11
-%       yokoenumerate : emathAe.sty $B$H$NJ;MQ$G=$@5(B
+%       yokoenumerate : emathAe.sty との併用で修正
 % v 0.41 2005/06/15
 %       kaitou@yohaku
 % v 0.42 2005/07/16
-%       betaenumerate$B4D6-$K$*$1$k(B\kaitou $B$N%J%s%P%j%s%0=$@5(B
+%       betaenumerate環境における\kaitou のナンバリング修正
 % v 0.43 2005/07/19
-%       maskanstrue $B%*%W%7%g%s$r;XDj$7$?$H$-$O(B \let\normalcolor\relax
+%       maskanstrue オプションを指定したときは \let\normalcolor\relax
 % v 0.44 2005/08/03
-%       $BBh(B1$BAX$r(B newtheorem $B$GDj5A$9$k>l9g$O!$(B
-%              $BLdBj$N%+%&%s%?$r(B Aeprob
-%              $B2rEz$N%+%&%s%?$r(B Aeans
-%       $B$H$9$k!#(B
+%       第1層を newtheorem で定義する場合は，
+%              問題のカウンタを Aeprob
+%              解答のカウンタを Aeans
+%       とする。
 % v 0.45 2005/09/05
-%       emathEy.sty $BFHN)$K$h$k=$@5(B
+%       emathEy.sty 独立による修正

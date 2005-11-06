@@ -4,7 +4,7 @@
   \ProvidesPackage{emathPb}[2005/09/10 v 0.01]%
 %
 \@ifundefined{zahyou}{%
-	\errmessage{emathPh $B$,%m!<%I$5$l$F$$$^$;$s!#(B}%
+	\errmessage{emathPh がロードされていません。}%
 }{}%
 %
 \newbox\rectbox@item@box
@@ -36,11 +36,11 @@
 \define@key{emPb}{backgroundcolor}{\def\background@color{#1}}%
 \define@key{emPb}{liningcolor}{\def\lining@color{#1}}%
 %
-% $BGK@~$K$h$k0O$_OH(B
+% 破線による囲み枠
 %   \hasenframebox[#1](#2)#3
 %     #1 : \unitlength default=10mm
 %     #2 : \fboxsep default=\fboxsep
-%     #3 : $B0O$`FbMF(B
+%     #3 : 囲む内容
 %
 \def\hasenframebox{\@ifnextchar[{\@hasenframebox}{\@hasenframebox[10mm]}}
 \def\@hasenframebox[#1]{\@ifnextchar({\@@hasenframebox[#1]}{%
@@ -58,9 +58,9 @@
   \end{picture}%
   \fboxrule\z@\framebox{\box0}}}
 %
-% $B0O$_OH7S@~$N@~<o$rJQ99$G$-$k(B rectbox $B4D6-(B
+% 囲み枠罫線の線種を変更できる rectbox 環境
 %
-% $B%J%s%P%j%s%0$r9T$&(B rectbox$B4D6-(B
+% ナンバリングを行う rectbox環境
 %
 \newcounter{rectboxenum}
 \def\enum@rectbox{0}%
@@ -79,7 +79,7 @@
   \def\enum@rectbox{0}%
   \endrectbox}
 %
-% rectbox$B4D6-(B
+% rectbox環境
 %
 \def\default@hsep{\the\fboxsep}%
 \def\default@vsep{\the\fboxsep}%
@@ -181,7 +181,7 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \advance\@tempdimc-\rectbox@oval\edef\hasenbox@r{\strip@pt\@tempdimc}%
   \Div\hasenbox@r{10}\hasenbox@r
-% $BGX7J?'(B
+% 背景色
       \ifthenelse{\equal\background@color\empty}{}{%
         \put(0,0){%
           \Nuritubusi[nuriiro=\background@color]{%
@@ -189,20 +189,20 @@
             \hasenbox@w,\hasenbox@h)(0,\hasenbox@h)(0,\hasenbox@d)}%
         }%
       }%
-% $B%3!<%J!<;MJ,1_(B
+% コーナー四分円
       \ifdim\rectbox@oval>\z@
         \Enko{(\hasenbox@l,\hasenbox@hh)}\hasenbox@l{90}{180}%
         \Enko{(\hasenbox@l,\hasenbox@dd)}\hasenbox@l{-180}{-90}%
         \Enko{(\hasenbox@r,\hasenbox@dd)}\hasenbox@l{-90}{0}%
         \Enko{(\hasenbox@r,\hasenbox@hh)}\hasenbox@l{0}{90}%
       \fi
-% $B:81&$NOH@~(B
+% 左右の枠線
       \put(0,0){{%
         \ifthenelse{\equal\frame@color\empty}{}{\color{\frame@color}}%
         \sensyu(0,\hasenbox@hh)(0,\hasenbox@dd)%
         \sensyu(\hasenbox@w,\hasenbox@dd)(\hasenbox@w,\hasenbox@hh)%
       }}%
-% $B8+=P$7!J>e!K(B
+% 見出し（上）
       \ukansan{\wd\rectbox@item@box}\wd@rectbox@item@box
       \ifthenelse{\equal\rectbox@item\empty}{%
         \put(0,0){{%
@@ -247,7 +247,7 @@
           }}%
         \fi\fi
       }%
-% $B8+=P$7!J2<!K(B
+% 見出し（下）
       \ukansan{\w@rectbox@bitem}\wd@rectbox@bitem
       \ifthenelse{\equal\rectbox@bitem\empty}{%
         \put(0,0){{%
@@ -370,7 +370,7 @@
       \setlength{\@tempdimc}{\mekurebox@width}%
       \edef\hasenbox@w{\strip@pt\@tempdimc}%
 %     \Div\hasenbox@w{10}\hasenbox@w
-%% $BGX7J?'(B
+%% 背景色
 %      \ifthenelse{\equal\background@color\empty}{}{%
 %        \put(0,0){%
 %          \Nuritubusi[nuriiro=\background@color]{%
@@ -378,14 +378,14 @@
 %            \hasenbox@w,\hasenbox@h)(0,\hasenbox@h)(0,-\hasenbox@d)}%
 %        }%
 %      }%
-%% $B:81&$NOH@~(B
+%% 左右の枠線
       \put(0,0){{%
         \ifthenelse{\equal\frame@color\empty}{}{\color{\frame@color}}%
         \sensyu(0,\hasenbox@h)(0,-\hasenbox@d)%
         \Add{-\hasenbox@d}{\mekure@y}\mekure@ms
         \sensyu(\hasenbox@w,\mekure@ms)(\hasenbox@w,\hasenbox@h)%
       }}%
-%% $B8+=P$7!J>e!K(B
+%% 見出し（上）
         \put(0,0){{%
 %         \ifthenelse{\equal\frame@color\empty}{}{\color{\frame@color}}%
           \sensyu(0,\hasenbox@h)(\hasenbox@w,\hasenbox@h)%
@@ -434,7 +434,7 @@
 %          }}%
 %        \fi\fi
 %      }%
-%% $B8+=P$7!J2<!K(B
+%% 見出し（下）
         \put(0,0){{%
 %         \ifthenelse{\equal\frame@color\empty}{}{\color{\frame@color}}%
           \Sub\hasenbox@w\mekure@x\mekure@sm
@@ -506,7 +506,7 @@
   \@ignoretrue
 }
 %
-% $B%3%^%s%I7A<0(B $B2#I}$r<+A3D9$K@)8B(B
+% コマンド形式 横幅を自然長に制限
 %
 \def\Rectbox{\@ifnextchar[{\@Rectbox}{\@Rectbox[\empty]}}
 \long\def\@Rectbox[#1]#2{%
@@ -528,7 +528,7 @@
   }%
 }
 
-% \marginpar $B$r;HMQ$G$-$k0O$_OH(B kakomiwaku $B4D6-(B
+% \marginpar を使用できる囲み枠 kakomiwaku 環境
 
 \newwrite\kakomiwaku@out%
 \def\kakomiwaku{\@ifnextchar[{\@kakomiwaku}{\@kakomiwaku[\empty]}}
@@ -577,15 +577,15 @@
 %  \vspace{.5\baselineskip}%
 }
 
-% \\, \par $B$r4^$`CJMn$r2#I}$r5a$a$F0O$`!#(B
+% \\, \par を含む段落を横幅を求めて囲む。
 %   \kakomi<#1>[#2]#3
 %     #1 : key=val
 %            fboxsep=..
 %            fboxrule=..
 %            parindent=..
-%     #2 : \parbox $B$NG[CV%*%W%7%g%s(B
-%     #3 : $B0O$`FbMF(B
-%     $B@)8B!'FbMF$K$O!$JL9TN)$F?t<09T$r4^$a$i$l$J$$!#(B
+%     #2 : \parbox の配置オプション
+%     #3 : 囲む内容
+%     制限：内容には，別行立て数式行を含められない。
 %
 \def\kakomi{\@ifnextchar<{\@kakomi}{\@kakomi<>}}
 \def\@kakomi<#1>{\@ifnextchar[{\@@kakomi<#1>}{\@@kakomi<#1>[c]}}
@@ -647,7 +647,7 @@
   \edef\EMovalbox@w{\strip@pt\wd0}%
   \edef\EMovalbox@vsep{\strip@pt\fboxsep}%
   \@tempdima\ht0\advance\@tempdima\dp0
-  \@tempdimc\@tempdima%                 $BD>7B(B
+  \@tempdimc\@tempdima%                 直径
   \divide\@tempdima\tw@
   \advance\@tempdima\fboxsep
   \edef\EMovalbox@r{\strip@pt\@tempdima}%
@@ -687,7 +687,7 @@
   \hspace*{\fboxsep}#2\hspace*{\fboxsep}\relax
 }}
 %
-% $B?a$-=P$7(B
+% 吹き出し
 %
 \def\hukidasibox{\def\rectbox@item{\empty}\def\@pos{c}\def\rectbox@width{}%
   \edef\HDS@r{0pt}\edef\HDS@w{20pt}\edef\HDS@h{10pt}\edef\HDS@pos{T}%
@@ -874,5 +874,5 @@
 }
 \endinput
 
-v 0.00 2005/09/03 emathPh.sty $B$+$iJ,N%(B
-v 0.01 2005/09/10 $BJ,N%$9$Y$-$b$NDI2C(B
+v 0.00 2005/09/03 emathPh.sty から分離
+v 0.01 2005/09/10 分離すべきもの追加

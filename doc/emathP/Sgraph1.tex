@@ -1,111 +1,111 @@
-\section{$B4X?t$N%0%i%U(B(1) $B@04X?t(B}
-$B$3$N@a$N%^%/%m$O(B,\textsf{emathPg.sty}$B$GDj5A$5$l$F$$$^$9!#(B
+\section{関数のグラフ(1) 整関数}
+この節のマクロは,\textsf{emathPg.sty}で定義されています。
 
-\subsection{$B0l<!4X?t$N%0%i%U(B}
-$B@04X?t$O78?t$r9_$Y$-=g$K%3%s%^$G@Z$C$FJB$Y$k$3$H$K$h$jI=8=$7$^$9!%(B
-$BNc$($P!$(B$y=2x-1$ $B$O(B \verb+{2,-1}+ $B$HI=$5$l$^$9!%(B
-$B$=$N%0%i%U$rIA$+$;$F$_$^$9!%(B\cindex{Gurafu}
+\subsection{一次関数のグラフ}
+整関数は係数を降べき順にコンマで切って並べることにより表現します．
+例えば，$y=2x-1$ は \verb+{2,-1}+ と表されます．
+そのグラフを描かせてみます．\cindex{Gurafu}
 
-\showexample[$B0l<!4X?t$N%0%i%U(B](0.5)(0.45){example/func11}
+\showexample[一次関数のグラフ](0.5)(0.45){example/func11}
 \vspace{3\baselineskip}
 
 \begin{boxnote}
 \begin{verbatim}
 \Gurafu<#1>[#2]#3[#4]#5[#6]#7
-  #1 : x$B$N9o$_CM!J(B3$B<!0J>e$N>l9g!K(B
-  #2 : $B6J@~>e$NE@$N8D?t(B
-  #3 : $B@04X?t!J%3%s%^6h@Z$j$N78?tJB$S!K(B
-  #4 : y $B$^$?$O(B Y
-  #5 : $B%0%i%U$rIA2h$9$k(B x $B$N2<8B(B
-  #6 : y $B$^$?$O(B Y
-  #7 : $B%0%i%U$rIA2h$9$k(B x $B$N>e8B(B
+  #1 : xの刻み値（3次以上の場合）
+  #2 : 曲線上の点の個数
+  #3 : 整関数（コンマ区切りの係数並び）
+  #4 : y または Y
+  #5 : グラフを描画する x の下限
+  #6 : y または Y
+  #7 : グラフを描画する x の上限
 
-  #4 $B$G(B y $B$r;XDj$7$?$H$-$O(B y=#5 $B$H$J$k(B x $B$,2<8B$H$J$k!%(B
-  #6 $B$G(B y $B$r;XDj$7$?$H$-$O(B y=#7 $B$H$J$k(B x $B$,>e8B$H$J$k!%(B
-  $BFs<!4X?t$G$O!$(By=y1 $B$H$J$k(B x $B$OFs$D$"$k$,!$(B
-      y $B$G>.$5$$J}$r!$(B Y $B$GBg$-$$J}(B
-  $B$rI=$9!%(B
+  #4 で y を指定したときは y=#5 となる x が下限となる．
+  #6 で y を指定したときは y=#7 となる x が上限となる．
+  二次関数では，y=y1 となる x は二つあるが，
+      y で小さい方を， Y で大きい方
+  を表す．
 \end{verbatim}
 \end{boxnote}
 
-$B$3$l$b0z?t$NB?$$%3%^%s%I$G$9$,!$4pK\E*$J;HMQK!$O(B
+これも引数の多いコマンドですが，基本的な使用法は
 \begin{jquote}
-\cmd{Gurafu}\verb+{$B@04X?t(B}{x $B$N2<8B(B}{x $B$N>e8B(B}+
+\cmd{Gurafu}\verb+{整関数}{x の下限}{x の上限}+
 \end{jquote}
-$B$G$9!%(B
+です．
 
-$B$J$*!$(B\textsf{zahyou}$B4D6-Fb$G$O!$(B$x$$B$N2<8B!$>e8B$r(B \cmd{xmin},
-\cmd{xmax} $B$G0zMQ$9$k$3$H$,$G$-$^$9!%(B$y$ $B$K$D$$$F$b(B
-\cmd{ymin}, \cmd{ymax} $B$,;H$($^$9!%(B
+なお，\textsf{zahyou}環境内では，$x$の下限，上限を \cmd{xmin},
+\cmd{xmax} で引用することができます．$y$ についても
+\cmd{ymin}, \cmd{ymax} が使えます．
 
-$B$5$F!$>e$N%0%i%U$G:82<$,IA2hHO0O$+$iHt$S=P$7$F$$$^$9!%(B
+さて，上のグラフで左下が描画範囲から飛び出しています．
 
-$B$3$N>l9g!$(B\verb+/\xmin\leqq x \leqq xmax+ $B$H;XDj$9$k$N$G$O$J$/!$(B
-$B:8C<$O(B \texttt{y} $B$,(B \verb+\ymin+ $B$H$J$k$H$-$N(B \texttt{x} $B$NCM!$(B
-$B$H;XDj$7$?$$$b$N$G$9!%$3$l$r<B8=$9$k$N$,(B \texttt{[y]} $B%*%W%7%g%s$G$9!%(B
+この場合，\verb+/\xmin\leqq x \leqq xmax+ と指定するのではなく，
+左端は \texttt{y} が \verb+\ymin+ となるときの \texttt{x} の値，
+と指定したいものです．これを実現するのが \texttt{[y]} オプションです．
 
 \showexample(0.5)(0.45){example/func12}
 
-$B78?t$,J,?t$N$H$-$O!$$=$l$r>.?t$G6a;w$7$^$9!#(B
+係数が分数のときは，それを小数で近似します。
 
 \showexample(0.5)(0.45){example/func13}
 
-$BJ,?t$N$^$^$GIA2h$5$;$k(B \cmd{GurafuB} $B$b$"$j$^$9!#(B
-$BJ,?t$O(B \verb+-1/2+ $B$N$h$&$KI=8=$7$^$9!#(B
+分数のままで描画させる \cmd{GurafuB} もあります。
+分数は \verb+-1/2+ のように表現します。
 
 \showexample(0.5)(0.45){example/func14}
 
-\subsection{$BFs<!4X?t$N%0%i%U(B}
-$B$D$.$OFs<!4X?t$N%0%i%U$G$9!%(B
+\subsection{二次関数のグラフ}
+つぎは二次関数のグラフです．
 
-\showexample[$BFs<!4X?t$N%0%i%U(B](0.5)(0.45){example/func21}
+\showexample[二次関数のグラフ](0.5)(0.45){example/func21}
 
-$B$3$l$O!$%Y%8%'6J@~$rIA$/%3%^%s%I(B \cmd{qbezier} $B$rMQ$$$F$$$^$9$,!$(B
-$BD:E@$NJU$j$HB>$NItJ,$H$GE@$NcGL)EY$,0[$J$k$h$&$G$9!%(B
-$BD:E@6aJU$HB>$NItJ,$rJ,$1$FIA$/J}$,NI$5$=$&$G$9!%(B
+これは，ベジェ曲線を描くコマンド \cmd{qbezier} を用いていますが，
+頂点の辺りと他の部分とで点の稠密度が異なるようです．
+頂点近辺と他の部分を分けて描く方が良さそうです．
 
-\showexample[$BFs<!4X?t$N%0%i%U(B(2)](0.5)(0.45){example/func22}
+\showexample[二次関数のグラフ(2)](0.5)(0.45){example/func22}
 
-$B0lIt$rE@@~$GIA2h$7$?$$$3$H$b$"$j$^$9!%(B
-$B$=$N>l9g$O!$(B\cmd{qbezier} $B$N%*%W%7%g%s0z?t$rM?$($^$9!%(B
+一部を点線で描画したいこともあります．
+その場合は，\cmd{qbezier} のオプション引数を与えます．
 
-\showexample[$B0lIt$rE@@~$G(B](0.7)(0.65){example/func23}
+\showexample[一部を点線で](0.7)(0.65){example/func23}
 
-\subsection{$BFsD>@~$N8rE@(B}
-2$B$D$N@04X?t$N%0%i%U$N8rE@$r5a$a$k%3%^%s%I$,(B \cmd{GKouten} $B$G$9!%(B
+\subsection{二直線の交点}
+2つの整関数のグラフの交点を求めるコマンドが \cmd{GKouten} です．
 \cindex{GKouten}
 
-\showexample[$BFsD>@~$N8rE@(B](0.75)(0.45){example/kouten11}
+\showexample[二直線の交点](0.75)(0.45){example/kouten11}
 
-\cmd{GKouten} $B$N=q<0$G$9!%(B
+\cmd{GKouten} の書式です．
 
 \begin{boxnote}
 \begin{verbatim}
 \GKouten#1#2#3#4
-  #1 : $B@04X?t(B1
-  #2 : $B@04X?t(B2
+  #1 : 整関数1
+  #2 : 整関数2
 
-#1, #2 $B$,$H$b$K(B1$B<!4X?t$N$H$-$O(B
-  #3 : $B8rE@$N(Bx$B:BI8(B
-  #4 : $B8rE@$N(By$B:BI8(B
-#1, #2 $B$N$$$:$l$+$,(B2$B<!4X?t$N$H$-$O(B
-  #3 : 2$B$D$N8rE@$N$&$A!$(Bx$B:BI8$N>.$5$$J}(B
-  #4 : 2$B$D$N8rE@$N$&$A!$(Bx$B:BI8$NBg$-$$J}(B
+#1, #2 がともに1次関数のときは
+  #3 : 交点のx座標
+  #4 : 交点のy座標
+#1, #2 のいずれかが2次関数のときは
+  #3 : 2つの交点のうち，x座標の小さい方
+  #4 : 2つの交点のうち，x座標の大きい方
 \end{verbatim}
 \end{boxnote}
 
-\subsection{$BD>@~$HJ|J*@~$N8rE@(B}
+\subsection{直線と放物線の交点}
 
-\showexample[$BD>@~$HJ|J*@~$N8rE@(B](0.8)(0.45){example/kouten12}
+\showexample[直線と放物線の交点](0.8)(0.45){example/kouten12}
 
-\subsection{$B;0<!4X?t$N%0%i%U(B}
-$B;0<!0J>e$N4X?t$N%0%i%U$O@^$l@~$G6a;w$5$l$^$9!%(B
-x$B$N9o$_CM$N%G%U%)%k%H$O(B 0.05 $B$G$9!%$3$NCM$O(B \verb+<#1>+ $B%*%W%7%g%s(B
-$B$GJQ99$9$k$3$H$,$G$-$^$9!%(B
+\subsection{三次関数のグラフ}
+三次以上の関数のグラフは折れ線で近似されます．
+xの刻み値のデフォルトは 0.05 です．この値は \verb+<#1>+ オプション
+で変更することができます．
 
-\showexample[$B;0<!4X?t$N%0%i%U(B](0.65)(0.45){example/func31}
+\showexample[三次関数のグラフ](0.65)(0.45){example/func31}
 
-$BHO0O30$O<+F0E*$K%/%j%C%T%s%0$5$l$^$9!%(B
+範囲外は自動的にクリッピングされます．
 
-$B%0%i%U!J$N0lIt!K$rE@@~$GIA2h$9$k$K$O!$(B\cmd{Gurafu} $B$G$O$J$/!$(B
-$B0lHL4X?t$N%0%i%UIA2h%3%^%s%I(B \cmd{yGurafu} $B$r$4MxMQ$/$@$5$$!%(B
+グラフ（の一部）を点線で描画するには，\cmd{Gurafu} ではなく，
+一般関数のグラフ描画コマンド \cmd{yGurafu} をご利用ください．

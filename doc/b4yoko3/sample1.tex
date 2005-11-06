@@ -1,35 +1,35 @@
-%%% $B9M::MQ;f%9%?%$%k(B $B#B#42#;0CJAH(B $B%5%s%W%k%U%!%$%k(B
+%%% 考査用紙スタイル Ｂ４横三段組 サンプルファイル
 \documentclass[b4paper,landscape,fleqn]{jarticle}
 \usepackage[papersize]{emath}%
 \usepackage{b4yoko3}%
 
 \begin{document}
 %%% step 1 ------------------------------------------------------------
-%%% $B9M::$N%?%$%H%k$r(B \testname $B$N0z?t$H$7$F5-=R$7$^$9!%(B
-%%% $B$3$N(B step $B$OI,?\$G$9!%>JN,$9$k$H%(%i!<$K$J$j$^$9!%(B
+%%% 考査のタイトルを \testname の引数として記述します．
+%%% この step は必須です．省略するとエラーになります．
 %
-\testname{\ 1$B3XG/!X?t3X(BI$B!YFs3X4|Cf4V9M::(B\ \ 1998.10.22($BLZ(B)\ }%
+\testname{\ 1学年『数学I』二学期中間考査\ \ 1998.10.22(木)\ }%
 %
 %%% step 2 ------------------------------------------------------------
 %
-\begin{sheet}%  $B0lKg$N%7!<%H$r(B sheet $B4D6-Fb$K5-=R$7$^$9!%(B
-  \begin{column}% $B0l$D$NCJ$r(B column $B4D6-Fb$K5-=R$7$^$9!%(B
-                %%% 1$BCJL\$NLdBj$r(B column $B4D6-$NCf$K5-=R$7$^$9!%(B
-                %%% $B$3$NItJ,$O(B enumerate $B4D6-$NCf$KF~$k$H$$$&A0Ds$G$9$+$i!$(B
-                %%% $BLdBj$N$O$8$a$K(B \item $B$rI,MW$H$7$^$9!%(B
-    \item 1$BCJL\$N(B1$BLdL\$G$9!%(B\vspace{10cm}% $BLdBj$N2<$N6uGrNL$r;XDj$7$^$9!%(B
-    \item 1$BCJL\$N(B2$BLdL\$G$9!%(B% $B3FCJ$N:G8e$NLdBj$K$O!$2<$N6uGrNL$OITMW$G$9!%(B
+\begin{sheet}%  一枚のシートを sheet 環境内に記述します．
+  \begin{column}% 一つの段を column 環境内に記述します．
+                %%% 1段目の問題を column 環境の中に記述します．
+                %%% この部分は enumerate 環境の中に入るという前提ですから，
+                %%% 問題のはじめに \item を必要とします．
+    \item 1段目の1問目です．\vspace{10cm}% 問題の下の空白量を指定します．
+    \item 1段目の2問目です．% 各段の最後の問題には，下の空白量は不要です．
   \end{column}%
-  \begin{column}% $BFsCJL\$N5-=R$G$9!%(B
-    \item 2$BCJL\$N$O$8$a$NLdBj$G$9!%(B
-        \begin{enumerate}% $BI,MW$J$i>.Ld$r(B enumerate $B4D6-$G5-=R$7$^$9!%(B
-            \item $B>.Ld(B1 \vspace{4.5cm}%   $B3FLdBj$N2<$N6uGrNL$r;XDj$7$^$9!%(B
-            \item $B>.Ld(B2 \vspace{4.5cm}
+  \begin{column}% 二段目の記述です．
+    \item 2段目のはじめの問題です．
+        \begin{enumerate}% 必要なら小問を enumerate 環境で記述します．
+            \item 小問1 \vspace{4.5cm}%   各問題の下の空白量を指定します．
+            \item 小問2 \vspace{4.5cm}
         \end{enumerate}
-    \item 2$BCJL\$N<!$NLdBj$G$9!%(B
+    \item 2段目の次の問題です．
   \end{column}%
-  \begin{column}% % 3$BCJL\$N5-=R$G$9!%(B
-    \item 3$BCJL\$NLdBj$G$9!%(B
+  \begin{column}% % 3段目の記述です．
+    \item 3段目の問題です．
   \end{column}%
-\end{sheet}%  $B0lKg$N%7!<%H$N=*$o$j$G$9!%(B
+\end{sheet}%  一枚のシートの終わりです．
 \end{document}

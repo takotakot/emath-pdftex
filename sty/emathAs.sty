@@ -1,35 +1,35 @@
 %%% emathAs.sty by tDB(CQB00260@nifty.ne.jp)
-%%% $BJ#?t$N4D6-$KBP$9$k!$2rEzJL:~$jMQ(B
+%%% 複数の環境に対する，解答別刷り用
 
 \NeedsTeXFormat{pLaTeX2e}
-\ProvidesPackage{emathAs}[2004/08/17 v0.01$B&B(B]
+\ProvidesPackage{emathAs}[2004/08/17 v0.01β]
 
-\newif\iftoosi@bangou\toosi@bangoufalse% rensyuu $B$H(B mondai $B$rDL$7HV9f(B
+\newif\iftoosi@bangou\toosi@bangoufalse% rensyuu と mondai を通し番号
 \DeclareOption{toosibangou}{\toosi@bangoutrue}
 
-\newif\ifdebugkai%              $B2rEz$rCV$/0LCV$N;XDj(B
-%                               $B%G%U%)%k%H$O4,Kv$K$^$H$a$k!%(B
-\DeclareOption{debug}{\debugkaitrue}%   debug $B%*%W%7%g%s$r(B
-%                                       $B;XDj$7$?$H$-$O!$LdBj$N2<!%(B
+\newif\ifdebugkai%              解答を置く位置の指定
+%                               デフォルトは巻末にまとめる．
+\DeclareOption{debug}{\debugkaitrue}%   debug オプションを
+%                                       指定したときは，問題の下．
 \ProcessOptions\relax
 
 \@ifundefined{c@kaitou@syorihou}{\newcounter{kaitou@syorihou}}{}%
 \ifdebugkai\setcounter{kaitou@syorihou}{1}\fi
 
 \theorembodyfont{\normalfont}
-\newtheorem{teigi}{$BDj5A(B}
-\newtheorem{teiri}{$BDjM}(B}
-\newtheorem{reidai}{$BNcBj(B}
-\newtheorem{rei}{$BNc(B}
+\newtheorem{teigi}{定義}
+\newtheorem{teiri}{定理}
+\newtheorem{reidai}{例題}
+\newtheorem{rei}{例}
 
 \newif\ifrensyuu\rensyuufalse%
 \newif\ifmondai\mondaifalse%
 \newif\ifhatten\hattenfalse%
 
 
-\def\label@mondai@s{$BLdBj(B}%
-\def\label@rensyuu@s{$BN}=,(B}%
-\def\label@hatten@s{$BH/E8LdBj(B}%
+\def\label@mondai@s{問題}%
+\def\label@rensyuu@s{練習}%
+\def\label@hatten@s{発展問題}%
 
 \def\labelmondai#1{\def\label@mondai@s{#1}}%
 \def\labelrensyuu#1{\def\label@rensyuu@s{#1}}%
@@ -38,9 +38,9 @@
 \newtheorem{@mondai@s}{\label@mondai@s}[section]
 
 \iftoosi@bangou%
-%   $BN}=,$HLdBj$rDL$7HV9f$G(B
+%   練習と問題を通し番号で
   \newtheorem{@rensyuu@s}[@mondai@s]{\label@rensyuu@s}\else%
-%   $BN}=,$HLdBj$rJLHV9f$G(B
+%   練習と問題を別番号で
   \newtheorem{@rensyuu@s}{\label@rensyuu@s}[section]%
     \fi%
 
@@ -53,24 +53,24 @@
 \newenvironment{hatten}{\hattentrue\begin{@hatten@s}}{%
   \hattenfalse\end{@hatten@s}}%
 
-%%% $B%U%!%$%k%O%s%I%k(B
-\newwrite\kai@hndl%   $B0l;~%U%!%$%k$N%O%s%I%k(B
-\newwrite\rensyuu@hndl%   rensyuu $B4D6-$N%U%!%$%k%O%s%I%k(B
-\newwrite\mondai@hndl%    mondai $B4D6-$N%U%!%$%k%O%s%I%k(B
-\newwrite\hatten@hndl%    hatten $B4D6-$N%U%!%$%k%O%s%I%k(B
+%%% ファイルハンドル
+\newwrite\kai@hndl%   一時ファイルのハンドル
+\newwrite\rensyuu@hndl%   rensyuu 環境のファイルハンドル
+\newwrite\mondai@hndl%    mondai 環境のファイルハンドル
+\newwrite\hatten@hndl%    hatten 環境のファイルハンドル
 
 %%% open files
-%  $BN}=,$N2rEz$r=q$-=P$90l;~%U%!%$%k$N:n@.(B
+%  練習の解答を書き出す一時ファイルの作成
 \newcommand{\openrensyuuFile}{%
     \immediate\openout\rensyuu@hndl=\jobname.ren%
     \openFileSub{\rensyuu@hndl}%
     }%
-%   $BLdBj$N2rEz$r=q$-=P$90l;~%U%!%$%k$N:n@.(B
+%   問題の解答を書き出す一時ファイルの作成
 \newcommand{\openmondaiFile}{%
     \immediate\openout\mondai@hndl=\jobname.mon%
     \openFileSub{\mondai@hndl}%
     }%
-% $BH/E8LdBj$N2rEz$r=q$-=P$90l;~%U%!%$%k$N:n@.(B
+% 発展問題の解答を書き出す一時ファイルの作成
 \newcommand{\openhattenFile}{%
     \immediate\openout\hatten@hndl=\jobname.ten%
     \openFileSub{\hatten@hndl}%
@@ -82,45 +82,45 @@
   }%
 
 
-%%% $B2rEz$NHV9fIU$1%i%Y%k(B
-\def\@rensyuuLabel{\the@rensyuu@s\ }% $BN}=,$N2rEz$NHV9fIU$1(B
-%                               $B%G%U%)%k%H$O(B rensyuu $B4D6-$KBP1~(B
-\def\@mondaiLabel{\the@mondai@s\ }%   $BLdBj$N2rEz$NHV9fIU$1(B
-%                               $B%G%U%)%k%H$O(B mondai $B4D6-$KBP1~(B
+%%% 解答の番号付けラベル
+\def\@rensyuuLabel{\the@rensyuu@s\ }% 練習の解答の番号付け
+%                               デフォルトは rensyuu 環境に対応
+\def\@mondaiLabel{\the@mondai@s\ }%   問題の解答の番号付け
+%                               デフォルトは mondai 環境に対応
 \def\@hattenLabel{\the@hatten@s\ }%
 
-\newcommand{\rensyuuLabel}[1]{%     $BN}=,$NHV9fIU$1$rJQ99$9$k%3%^%s%I(B
+\newcommand{\rensyuuLabel}[1]{%     練習の番号付けを変更するコマンド
   \def\@rensyuuLabel{#1}}%
-\newcommand{\toiLabel}[1]{%         $BLdBj$NHV9fIU$1$rJQ99$9$k%3%^%s%I(B
+\newcommand{\toiLabel}[1]{%         問題の番号付けを変更するコマンド
   \def\@toiLabel{#1}}%
-\newcommand{\hattenLabel}[1]{%      $BH/E8LdBj$NHV9fIU$1$rJQ99$9$k%3%^%s%I(B
+\newcommand{\hattenLabel}[1]{%      発展問題の番号付けを変更するコマンド
   \def\@hattenLabel{#1}}%
 
-% $B2~9T$9$k%l%Y%k(B
+% 改行するレベル
 \newcounter{kaikaigyou@suizyun}%
   \setcounter{kaikaigyou@suizyun}{0}%
 \newcommand{\kaikaigyousuizyun}[1]{%
   \setcounter{kaikaigyou@suizyun}{#1}}%
-\newcounter{kaikaigyou@kinsi}% 0$B$N$H$-2~9T$"$j!$$=$NB>$N$H$-2~9T$J$7(B
+\newcounter{kaikaigyou@kinsi}% 0のとき改行あり，その他のとき改行なし
 
-%%% $B2rEz$N=q$-=P$7(B
+%%% 解答の書き出し
 \ifdebugkai
-  \newcommand{\kaimdsb}{\par\begin{small}$B!Z2r![(B}%
+  \newcommand{\kaimdsb}{\par\begin{small}【解】}%
   \newcommand{\kaimdse}{\end{small}}%
   \long\def\kaitou#1{
     \if\empty#1\else%
     \ifmmode $\kaimdsb #1\kaimdse $\else\kaimdsb #1\kaimdse%
         \fi\fi}%
 \else
-\def\kaitou{%                   \kaitou $B%3%^%s%I$N0z?t$K2rEz$r=q$-!$(B
-%                               $B$=$l$r0l;~%U%!%$%k$K=q$-=P$9!%(B
+\def\kaitou{%                   \kaitou コマンドの引数に解答を書き，
+%                               それを一時ファイルに書き出す．
   \ifrensyuu\let\kai@hndl=\rensyuu@hndl%
     \def\@KaiLabel{\@rensyuuLabel}\else%
   \ifmondai\let\kai@hndl=\mondai@hndl%
       \def\@KaiLabel{\@mondaiLabel}\else%
   \ifhatten\let\kai@hndl=\hatten@hndl%
       \def\@KaiLabel{\@hattenLabel}%
-        \fi\fi\fi%    $B8=:_$N4D6-$NH=Dj$H!$E,@Z$J%U%!%$%k%O%s%I%k$rA*Dj(B
+        \fi\fi\fi%    現在の環境の判定と，適切なファイルハンドルを選定
   \ifcase\@enumdepth%
     \def\@@KaiLabel{\@KaiLabel}%
   \or%
@@ -161,7 +161,7 @@
       \def\@KaiLabel{\@mondaiLabel}\else%
   \ifhatten\let\kai@hndl=\hatten@hndl%
       \def\@KaiLabel{\@hattenLabel}%
-        \fi\fi\fi%    $B8=:_$N4D6-$NH=Dj$H!$E,@Z$J%U%!%$%k%O%s%I%k$rA*Dj(B
+        \fi\fi\fi%    現在の環境の判定と，適切なファイルハンドルを選定
   \ifcase\@enumdepth%
     \def\@@KaiLabel{\@KaiLabel}%
   \or%
@@ -197,30 +197,30 @@
 \def\endKaitou{\@esphack}
 
 %%% close files
-%    $BN}=,$N2rEz$r=q$-=P$9%U%!%$%k$N:n@.=*N;@k8@(B
+%    練習の解答を書き出すファイルの作成終了宣言
 \newcommand{\closerensyuuFile}{%
     \immediate\closeout\rensyuu@hndl}%
-%    $BLdBj$N2rEz$r=q$-=P$9%U%!%$%k$N:n@.=*N;@k8@(B
+%    問題の解答を書き出すファイルの作成終了宣言
 \newcommand{\closemondaiFile}{%
     \immediate\closeout\mondai@hndl}%
 \newcommand{\closehattenFile}{%
   \immediate\closeout\hatten@hndl}%
 
-%%% $B2rEz%U%!%$%k$NFI$_9~$_(B
+%%% 解答ファイルの読み込み
 \newcommand{\inputrensyuuFile}{%
-    \input{\jobname.ren}}%      $BN}=,$N2rEz$N0l;~%U%!%$%k$NFI$_<h$j(B
+    \input{\jobname.ren}}%      練習の解答の一時ファイルの読み取り
 \newcommand{\inputmondaiFile}{%
-    \input{\jobname.mon}}%      $BLdBj$N2rEz$N0l;~%U%!%$%k$NFI$_<h$j(B
+    \input{\jobname.mon}}%      問題の解答の一時ファイルの読み取り
 \newcommand{\inputhattenFile}{%
     \input{\jobname.ten}}%
 
 \def\pre@kailabel{\bfseries}%
 \newcommand{\prekailabel}[1]{\def\pre@kailabel{#1}}%
 
-% $BFI$_<h$C$?2rEz$r%?%$%W%;%C%H$9$k!%(B
+% 読み取った解答をタイプセットする．
 \def\kaidukuri`#1`#2>{{\pre@kailabel{#1}}}%
 \endinput%
 %%% end of emathAs.sty
 v 0.00 1998/02/26
 v 0.01 2004/08/17
-       \kaitou $B%3%^%s%I$KBe$($F!$(BKaitou$B4D6-$b;HMQ2DG=$H$9$k!#(B
+       \kaitou コマンドに代えて，Kaitou環境も使用可能とする。

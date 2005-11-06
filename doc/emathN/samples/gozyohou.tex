@@ -5,11 +5,11 @@
 \fbox{%
 \begin{caprm}
 \begin{nagarezu}(20zw,25zh)(6zw,0zh)
-	\termbox{$B;O$a(B}
+	\termbox{始め}
 	\downto
-	\iobox{A, B$B$rF~NO(B}
+	\iobox{A, Bを入力}
 	\downto[loop0]
-	\opbox{R $\longleftarrow$ A $\div$ B $B$NM>$j(B}
+	\opbox{R $\longleftarrow$ A $\div$ B の余り}
 	\downto
 	\begin{ifbox}<2><2>{$R>0$}
 		\begin{migibunki}
@@ -28,9 +28,9 @@
 		\end{migibunki}
 		\begin{sitabunki}
 			\downto"$R=0$"
-			\iobox{B $B$rI=<((B}
+			\iobox{B を表示}
 			\downto
-			\termbox{$B=*$o$j(B}
+			\termbox{終わり}
 		\end{sitabunki}
 	\end{ifbox}
 \end{nagarezu}

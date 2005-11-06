@@ -3,25 +3,25 @@
   \NeedsTeXFormat{LaTeX2e}
   \ProvidesPackage{emathLb}[2004/09/27 v 0.04]%
 
-% $BAj8_;2>H7A<0%i%Y%k=q$-=P$7(B
+% 相互参照形式ラベル書き出し
 % \WriteLabel#1#2
-%   #1 : $B%i%Y%kL>(B
-%   #2 : $B=q$-=P$9FbMF(B
+%   #1 : ラベル名
+%   #2 : 書き出す内容
 \def\writeLabel#1#2{%
 \@ifundefined{Fld@menulength}{%
   \@bsphack%
   \protected@write\@auxout{}%
          {\string\newlabel{#1}{{#2}{\thepage}}}%
   \@esphack
-}{% (hyperref.sty $B7A<0(B --- $B1~5^<jEvHG(B)
+}{% (hyperref.sty 形式 --- 応急手当版)
   \@bsphack%
   \protected@write\@auxout{}%
     {\string\newlabel{#1}{{#2}{\thepage}{\string\relax\space}{}{}}}%
   \@esphack
 }}
 %
-% hyperref.sty $BBP:v(B
-% LaTeX $B$N(B \ref $B$r(B \ltxref $B$H$7$F!$$3$N%U%!%$%k$G$O$3$A$i$rMQ$$$k!#(B
+% hyperref.sty 対策
+% LaTeX の \ref を \ltxref として，このファイルではこちらを用いる。
 \def\ltx@setref#1#2#3{%
   \ifx#1\relax
    \protect\G@refundefinedtrue
@@ -33,9 +33,9 @@
   \fi}
 \def\ltxref#1{\expandafter\ltx@setref\csname r@#1\endcsname\@firstoftwo{#1}}
 %
-% $BC10LIU?tCM$r<u$1<h$k(B $B!JL$Dj5A;~(B [#1:default=0pt]$B!K(B
-%   \dimenref : $BLa$jCM$O(B pt $B$D$-(B
-%   \dimenref*: $BLa$jCM$OL5L>?t(B
+% 単位付数値を受け取る （未定義時 [#1:default=0pt]）
+%   \dimenref : 戻り値は pt つき
+%   \dimenref*: 戻り値は無名数
 \def\dimenref{\@ifstar{\@dimenref@}{\@dimenref}}
 \def\@dimenref{\@ifnextchar[{\@@dimenref}{\@@dimenref[0pt]}}
 \def\@@dimenref[#1]#2#3{\@ifundefined{r@#2}{\edef#3{#1}}{%
@@ -46,7 +46,7 @@
     \@tempdima=\ltxref{#2}\edef#3{\strip@pt\@tempdima}}%
 }
 
-% $B%Y%/%H%k$r<u$1<h$k(B $B!JL$Dj5A;~(B (0,0)$B!K(B
+% ベクトルを受け取る （未定義時 (0,0)）
 \def\vec@ref#1{\@ifundefined{r@#1}{\edef\vec@refX{0}\edef\vec@refY{0}}{%
   \def\vecXY@r(##1,##2){\edef\vec@refX{##1}\edef\vec@refY{##2}}%
   \edef\Nlabel@xy{\ltxref{#1}}\expandafter\vecXY@r\Nlabel@xy}}%
@@ -54,13 +54,13 @@
 
 % \getWHD#1#2
 % \getWHD*#1#2
-% #2 $B$N%5%$%:$r(B $B%i%Y%k(B #1 $B$K=q$-=P$9!#(B
+% #2 のサイズを ラベル #1 に書き出す。
 %   W#1 : width
 %   H#1 : height
 %   D#1 : depth
 %   T#1 : totalheight
-% $B;2>H$O(B \dimenref $B$K$h$k!#(B
-% *$BIU$O!$(B#2$B$r<B9T$7$J$$!#(B
+% 参照は \dimenref による。
+% *付は，#2を実行しない。
 
 \def\getWHD{\@ifstar{\getWHD@}{\@getWHD}}
 \def\@getWHD#1#2{{%
@@ -91,12 +91,12 @@
 
 v 0.00 2003/11/28
 v 0.01 2003/11/29-12/01
-        getWHD* $B%5%$%:$N$_$r=q$-=P$9(B
+        getWHD* サイズのみを書き出す
 v 0.02 2003/12/05
-        \dimenref : $B%i%Y%kL$Dj5A$N$H$-JV$9CM$r(B[#1]$B%*%W%7%g%s$G;XDj2DG=(B
-        \dimenref*: `pt'$B$r$D$1$J$$!$L5L>?t$rJV$9!#(B
+        \dimenref : ラベル未定義のとき返す値を[#1]オプションで指定可能
+        \dimenref*: `pt'をつけない，無名数を返す。
 v 0.03 2004/07/15
-        hyperref.sty $BBP:v(B
-          LaTeX $BK\Mh$N(B \ref $B$r(B \ltxref $B$H$7$F!$$3$N%U%!%$%k$G$O$3$A$i$rMQ$$$k(B
+        hyperref.sty 対策
+          LaTeX 本来の \ref を \ltxref として，このファイルではこちらを用いる
 v 0.04 2004/09/27
-        \getWHD : $B?t<0%b!<%IFb$+H]$+$GJ,N`(B
+        \getWHD : 数式モード内か否かで分類

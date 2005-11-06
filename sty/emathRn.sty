@@ -1,17 +1,17 @@
 % emathRn.sty by tDB(CQB00260@nifty.ne.jp)
 
-% $BMp?t=hM}(B
+% 乱数処理
 
-\ProvidesPackage{emathRn}[2002/10/01 v0.03 $BMp?t=hM}(B]%
+\ProvidesPackage{emathRn}[2002/10/01 v0.03 乱数処理]%
 
 \RequirePackage{fp-random}
 \RequirePackage{emath}
 \FPmessagesfalse
 
 % \rndsuji[#1][#2]#3
-%   #1 : $B<h$j=P$9Mp?t$N8D?t(B  $B!J%G%U%)%k%HCM(B=10$B!K(B
-%   #2 :               $B>e8BCM!J%G%U%)%k%HCM(B=#1$B!K(B
-%   #3 : $B7k2L$r<u$1<h$k@)8fDV$j(B
+%   #1 : 取り出す乱数の個数  （デフォルト値=10）
+%   #2 :               上限値（デフォルト値=#1）
+%   #3 : 結果を受け取る制御綴り
 
 \def\rndsuji{\@ifnextchar[{\@rndsuji}{\@rndsuji[10]}}
 \def\@rndsuji[#1]{\@ifnextchar[{\@@rndsuji[#1]}{\@@rndsuji[#1][#1]}}
@@ -37,9 +37,9 @@
     }\edef#3{\@y}}%
 
 % \RandomList<#1>#2#3
-%       #2 $B$KM?$($i$l$??t;zNs!J%3%s%^6h@Z$j!K$+$i(B
-%       #1 $B8D$N?t;z$rMp?tE*$KA*$s$@$b$N$r!J%G%U%)%k%H$OM?$($i$l$?A4It!K(B
-%       #3 $B$N@)8fDV$j$KJV$9!%(B
+%       #2 に与えられた数字列（コンマ区切り）から
+%       #1 個の数字を乱数的に選んだものを（デフォルトは与えられた全部）
+%       #3 の制御綴りに返す．
 
 \def\RandomList{\@ifnextchar<{\@RandomList}{\@RandomList<0>}}
 \def\@RandomList<#1>#2#3{%

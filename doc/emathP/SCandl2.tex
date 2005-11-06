@@ -1,320 +1,320 @@
-\section{$BE@!&D>@~!&1_(B}
-\subsection{$BE@$N0LCV$K9u4](B}
-$B50@W$r5a$a$kLdBj$J$I$G!$C<E@$,4^$^$l$k$H$+4^$^$l$J$$$H$+$r(B
-$B9u4]!&CfH4$-$NGr4]$J$I$GI=<($9$k$3$H$,$"$j$^$9!%(B
-$B$=$N$?$a$N%3%^%s%I$,(B \cmd{Kuromaru}, \cmd{Siromaru} $B$G$9!%(B
+\section{点・直線・円}
+\subsection{点の位置に黒丸}
+軌跡を求める問題などで，端点が含まれるとか含まれないとかを
+黒丸・中抜きの白丸などで表示することがあります．
+そのためのコマンドが \cmd{Kuromaru}, \cmd{Siromaru} です．
 
-\showexample[$B9u4]!&Gr4](B](0.6)(0.34){example/zahyou01}
+\showexample[黒丸・白丸](0.6)(0.34){example/zahyou01}
 
-$B$=$N=q<0$O(B\cindex{Kuromaru}\cindex{Siromaru}
+その書式は\cindex{Kuromaru}\cindex{Siromaru}
 
 \begin{boxnote}
 \begin{verbatim}
-$B9u4]!$Gr4](B
+黒丸，白丸
 \Kuromaru[#1]#2
 \Siromaru[#1]#2
-   #1 : $B4]$NH>7B!JC10L$r$D$1$k!K%G%U%)%k%H$O(B 1pt
-   #2 : $B0LCV(B
+   #1 : 丸の半径（単位をつける）デフォルトは 1pt
+   #2 : 位置
 \end{verbatim}
 \end{boxnote}
 
-$B9u4]$NBg$-$5$rJQ99$7$?$$$H$-$O!$(B\cmd{Kuromaru}$B$N(B\verb/[#1]/$B%*%W%7%g%s$r(B
-$BMxMQ$9$l$P$h$$$N$G$9$,!$(B
-$BJ8=qA4BN$G!$$"$k$$$O9-HO0O$K(B\cmd{Kuromaru}$B$NBg$-$5$rJQ99$7$?$$$H$-$O(B
-\cmd{KuromaruHankei}$B%3%^%s%I$N0z?t$K9u4]$NH>7B!JC10L$D$-!K(B $B$r(B
-$BM?$($kJ}K!$b$"$j$^$9!#(B\cindex{KuromaruHankei}
+黒丸の大きさを変更したいときは，\cmd{Kuromaru}の\verb/[#1]/オプションを
+利用すればよいのですが，
+文書全体で，あるいは広範囲に\cmd{Kuromaru}の大きさを変更したいときは
+\cmd{KuromaruHankei}コマンドの引数に黒丸の半径（単位つき） を
+与える方法もあります。\cindex{KuromaruHankei}
 
-\showexample[$B9u4]$NBg$-$5(B](0.6)(0.34){example/zahyou02}
+\showexample[黒丸の大きさ](0.6)(0.34){example/zahyou02}
 
-$BJ#?t$NE@$K9u4]!JGr4]!K$r$D$1$k%3%^%s%I$,(B \cmd{kuromaru}(\cmd{siromaru})
-$B$G$9!#J#?t$NE@$r(B`;'$B$G6h@Z$j$^$9!#(B\cindex{kuromaru}\cindex{siromaru}
+複数の点に黒丸（白丸）をつけるコマンドが \cmd{kuromaru}(\cmd{siromaru})
+です。複数の点を`;'で区切ります。\cindex{kuromaru}\cindex{siromaru}
 
-\showexample[$BJ#?t$NE@$K9u4](B](0.6)(0.34){example/zahyou03}
+\showexample[複数の点に黒丸](0.6)(0.34){example/zahyou03}
 
-$B4]$N%5%$%:$r;XDj$9$k(B \texttt{[..]}$B%*%W%7%g%s$b(B \cmd{Kuromaru} $B$J$I$H(B
-$BF1MM$KM-8z$G$9!#(B
+丸のサイズを指定する \texttt{[..]}オプションも \cmd{Kuromaru} などと
+同様に有効です。
 
-\subsection{2$BE@4V$N5wN%(B}
-2$BE@4V$N5wN%$r5a$a$k$K$O!$%3%^%s%I(B \cmd{Kyori} $B$rMQ$$$^$9!%(B\cindex{Kyori}
+\subsection{2点間の距離}
+2点間の距離を求めるには，コマンド \cmd{Kyori} を用います．\cindex{Kyori}
 
     \showexample[\cmd{Kyori}](0.52)(0.42){example/kyori01}\bigskip
 
-\cmd{Kyori} $B$N=q<0$G$9!%(B
+\cmd{Kyori} の書式です．
 
 \begin{boxnote}
 \begin{verbatim}
-% 2$BE@4V$N5wN%(B
+% 2点間の距離
 % \Kyori#1#2#3
-%   2$BE@(B #1, #2 $B$N5wN%$r(B #3 $B$KBeF~(B
+%   2点 #1, #2 の距離を #3 に代入
 \end{verbatim}
 \end{boxnote}\bigskip
 
-$B5wN%$NJ?J}$r5a$a$k%3%^%s%I$,(B \cmd{Kyorii} $B$G$9!%(B
+距離の平方を求めるコマンドが \cmd{Kyorii} です．
 
     \showexample[\cmd{Kyorii}](0.52)(0.42){example/kyori02}\bigskip
 
-\cmd{Kyorii} $B$N=q<0$G$9!%(B\cindex{Kyorii}
+\cmd{Kyorii} の書式です．\cindex{Kyorii}
 
 \begin{boxnote}
 \begin{verbatim}
-% 2$BE@4V$N5wN%$NJ?J}(B
+% 2点間の距離の平方
 % \Kyorii#1#2#3
-%   2$BE@(B #1, #2 $B$N5wN%$NJ?J}$r(B #3 $B$KBeF~(B
+%   2点 #1, #2 の距離の平方を #3 に代入
 \end{verbatim}
 \end{boxnote}\bigskip
 
 
-\subsection{$BD>@~(B}
-\subsubsection{$B#2E@$rDL$kD>@~(B}
-2$BE@$rDL$kD>@~$rIA2h$9$k%3%^%s%I$,(B \cmd{Tyokusen} $B$G$9!%(B
+\subsection{直線}
+\subsubsection{２点を通る直線}
+2点を通る直線を描画するコマンドが \cmd{Tyokusen} です．
 
-\showexample[2$BE@$rDL$kD>@~(B](0.5)(0.45){example/tyoku01}
+\showexample[2点を通る直線](0.5)(0.45){example/tyoku01}
 
-\cmd{Tyokusen}$B$N=q<0$G$9!%(B\cindex{Tyokusen}
+\cmd{Tyokusen}の書式です．\cindex{Tyokusen}
 
 \begin{boxnote}
 \begin{verbatim}
-2$BE@$rM?$($FD>@~$rIA2h$9$k!%(B
+2点を与えて直線を描画する．
 \Tyokusen[#1]#2#3[#4]#5[#6]#7
-   #1 : \qbezier $B$N(B [...]
-        #1$B$rM?$($J$$$H$-$OD>@~$r(B
-        \qbezier $B$G$O$J$/!$(B\drawline $B$GIA2h$9$k!%(B
-   #2,3 : $BD>@~>e$N#2E@(B
-   #5 : $B:8C<$N(B x$B:BI8(B $B!J(B#4 $B$K(B [y] $B$H$9$l$P!$(By$B:BI8!K(B
-   #7 : $B1&C<$N(B x$B:BI8(B $B!J(B#6 $B$K(B [y] $B$H$9$l$P!$(By$B:BI8!K(B
+   #1 : \qbezier の [...]
+        #1を与えないときは直線を
+        \qbezier ではなく，\drawline で描画する．
+   #2,3 : 直線上の２点
+   #5 : 左端の x座標 （#4 に [y] とすれば，y座標）
+   #7 : 右端の x座標 （#6 に [y] とすれば，y座標）
 \end{verbatim}
 \end{boxnote}
 
-$BD>@~$rIA2hNN0h$$$C$Q$$$K$+$/$H$-$O!$(B\verb/#5, #7/$B$r(B
-$B6u$K$9$k$3$H$,$G$-$^$9!#(B
+直線を描画領域いっぱいにかくときは，\verb/#5, #7/を
+空にすることができます。
 
-\showexample[2$BE@$rDL$kD>@~(B](0.5)(0.45){example/tyoku04}
+\showexample[2点を通る直線](0.5)(0.45){example/tyoku04}
 
-\subsubsection{1$BE@$HJ}8~%Y%/%H%k$K$h$kD>@~(B}
-1$BE@$HJ}8~%Y%/%H%k$rM?$($FD>@~$rIA2h$9$k%3%^%s%I$,(B
-\cmd{mTyokusen} $B$G$9!%(B
+\subsubsection{1点と方向ベクトルによる直線}
+1点と方向ベクトルを与えて直線を描画するコマンドが
+\cmd{mTyokusen} です．
 
-\showexample[1$BE@$HJ}8~%Y%/%H%k$r;XDj(B](0.5)(0.45){example/tyoku02}
+\showexample[1点と方向ベクトルを指定](0.5)(0.45){example/tyoku02}
 
-$B$=$N=q<0$O(B\cindex{mTyokusen}
+その書式は\cindex{mTyokusen}
 \begin{boxnote}
 \begin{verbatim}
-$B#1E@$HJ}8~%Y%/%H%k$rM?$($FD>@~$rIA2h$9$k!%(B
+１点と方向ベクトルを与えて直線を描画する．
 \mTyokusen[#1]#2#3[#4]#5[#6]#7
-   #1 : \qbezier $B$N(B [...]
-        #1$B$rM?$($J$$$H$-$OD>@~$r(B
-        \qbezier $B$G$O$J$/!$(B\drawline $B$GIA2h$9$k!%(B
-   #2 : $BD>@~>e$N#1E@(B
-   #3 : $BJ}8~%Y%/%H%k(B
-   #5 : $B:8C<$N(B x$B:BI8(B $B!J(B#4 $B$K(B [y] $B$H$9$l$P!$(By$B:BI8!K(B
-   #7 : $B1&C<$N(B x$B:BI8(B $B!J(B#6 $B$K(B [y] $B$H$9$l$P!$(By$B:BI8!K(B
+   #1 : \qbezier の [...]
+        #1を与えないときは直線を
+        \qbezier ではなく，\drawline で描画する．
+   #2 : 直線上の１点
+   #3 : 方向ベクトル
+   #5 : 左端の x座標 （#4 に [y] とすれば，y座標）
+   #7 : 右端の x座標 （#6 に [y] とすれば，y座標）
 \end{verbatim}
 \end{boxnote}
 
-$BD>@~$rIA2hNN0h$$$C$Q$$$K$+$/$H$-$O!$(B\verb/#5, #7/$B$r(B
-$B6u$K$9$k$3$H$,$G$-$^$9!#(B
+直線を描画領域いっぱいにかくときは，\verb/#5, #7/を
+空にすることができます。
 
-\showexample[$BC<E@$N;XDj>JN,(B](0.5)(0.45){example/tyoku05}
+\showexample[端点の指定省略](0.5)(0.45){example/tyoku05}
 
-\subsubsection{1$BE@$HJ}8~3Q$K$h$kD>@~(B}
-1$BE@$HJ}8~3Q$rM?$($FD>@~$rIA2h$9$k%3%^%s%I$,(B
-\cmd{kTyokusen} $B$G$9!%(B
+\subsubsection{1点と方向角による直線}
+1点と方向角を与えて直線を描画するコマンドが
+\cmd{kTyokusen} です．
 
-\showexample[1$BE@$HJ}8~3Q$r;XDj(B](0.5)(0.45){example/tyoku06}
+\showexample[1点と方向角を指定](0.5)(0.45){example/tyoku06}
 
-$B$=$N=q<0$O(B\cindex{kTyokusen}
+その書式は\cindex{kTyokusen}
 \begin{boxnote}
 \begin{verbatim}
-$B#1E@$HJ}8~3Q$rM?$($FD>@~$rIA2h$9$k!%(B
+１点と方向角を与えて直線を描画する．
 \kTyokusen[#1]#2#3[#4]#5[#6]#7
-   #1 : \qbezier $B$N(B [...]
-        #1$B$rM?$($J$$$H$-$OD>@~$r(B
-        \qbezier $B$G$O$J$/!$(B\drawline $B$GIA2h$9$k!%(B
-   #2 : $BD>@~>e$N#1E@(B
-   #3 : $BJ}8~3Q(B
-   #5 : $B:8C<$N(B x$B:BI8(B $B!J(B#4 $B$K(B [y] $B$H$9$l$P!$(By$B:BI8!K(B
-   #7 : $B1&C<$N(B x$B:BI8(B $B!J(B#6 $B$K(B [y] $B$H$9$l$P!$(By$B:BI8!K(B
+   #1 : \qbezier の [...]
+        #1を与えないときは直線を
+        \qbezier ではなく，\drawline で描画する．
+   #2 : 直線上の１点
+   #3 : 方向角
+   #5 : 左端の x座標 （#4 に [y] とすれば，y座標）
+   #7 : 右端の x座標 （#6 に [y] とすれば，y座標）
 \end{verbatim}
 \end{boxnote}
 
-$BD>@~$rIA2hNN0h$$$C$Q$$$K$+$/$H$-$O!$(B\verb/#5, #7/$B$r(B
-$B6u$K$9$k$3$H$,$G$-$^$9!#(B
+直線を描画領域いっぱいにかくときは，\verb/#5, #7/を
+空にすることができます。
 
-\subsubsection{$B@~<o$NJQ99(B}
-$BD>@~$r<B@~$G$O$J$/!$E@@~$H$+GK@~$GIA2h$9$k$K$O(B \cmd{sensyu}$B$r:FDj5A$7$^$9!#(B
+\subsubsection{線種の変更}
+直線を実線ではなく，点線とか破線で描画するには \cmd{sensyu}を再定義します。
 \cindex{sensyu}
-$B%G%U%)%k%H$O(B
+デフォルトは
 \begin{jquote}(4zw)
 \begin{verbatim}
 \def\sensyu{\drawline}
 \end{verbatim}
 \end{jquote}
-$B$H$J$C$F$$$^$9!#(B
+となっています。
 
-\showexample[$B@~<o$NJQ99(B](0.5)(0.45){example/tyoku07}
+\showexample[線種の変更](0.5)(0.45){example/tyoku07}
 
-\subsubsection{$BD>@~(B \texorpdfstring{%
+\subsubsection{直線 \texorpdfstring{%
       \protect $ax+by+c=0$}{ax+by+c=0}}
-$BJ}Dx<0(B $ax+by+c=0$ $B$GM?$($i$l$?D>@~$rIA2h$9$k(B \cmd{tyokusen} $B$G$9!%(B
+方程式 $ax+by+c=0$ で与えられた直線を描画する \cmd{tyokusen} です．
 
-\showexample[$BJ}Dx<0$N78?t;XDj(B](0.5)(0.45){example/tyoku03}
+\showexample[方程式の係数指定](0.5)(0.45){example/tyoku03}
 
-$B$=$N=q<0$O(B\cindex{tyokusen}
+その書式は\cindex{tyokusen}
 \begin{boxnote}
 \begin{verbatim}
-$BD>@~(B ax+by+c=0 $B$rIA2h$9$k!%(B
+直線 ax+by+c=0 を描画する．
 \tyokusen[#1]#2#3#4[#5]#6[#7]#8
-   #1 : \qbezier $B$N(B [...]
-        #1$B$rM?$($J$$$H$-$OD>@~$r(B
-        \qbezier $B$G$O$J$/!$(B\drawline $B$GIA2h$9$k!%(B
+   #1 : \qbezier の [...]
+        #1を与えないときは直線を
+        \qbezier ではなく，\drawline で描画する．
    #2 : a
    #3 : b
    #4 : c
-   #6 : $B:8C<$N(B x$B:BI8(B $B!J(B#5 $B$K(B [y] $B$H$9$l$P!$(By$B:BI8!K(B
-   #8 : $B1&C<$N(B x$B:BI8(B $B!J(B#7 $B$K(B [y] $B$H$9$l$P!$(By$B:BI8!K(B
+   #6 : 左端の x座標 （#5 に [y] とすれば，y座標）
+   #8 : 右端の x座標 （#7 に [y] とすれば，y座標）
 \end{verbatim}
 \end{boxnote}
 
-$B$3$N%3%^%s%I$G$b!$:BI8J?LLA4BN$KIA2h$9$k$H$-$O(B
-\verb/#5, #7/$B$O6u$G$+$^$$$^$;$s!#(B
+このコマンドでも，座標平面全体に描画するときは
+\verb/#5, #7/は空でかまいません。
 
-\subsubsection{$BD>@~(B \texorpdfstring{\protect $y=ax+b$}{y=ax+b}}
-$B$3$l$O!$<!@a$N0l<!4X?t$N%0%i%UIA2h%3%^%s%I$r$4MxMQ$/$@$5$$!%(B
+\subsubsection{直線 \texorpdfstring{\protect $y=ax+b$}{y=ax+b}}
+これは，次節の一次関数のグラフ描画コマンドをご利用ください．
 
 \subsubsection{\texorpdfstring{%
-  $BE@(BP\protect\retu(x_1,y_1)$B$HD>@~(B$ax+by+c=0$$B$N5wN%(B}{%
-  $BE@(BP(x1,y1)$B$HD>@~(Bax+by+c=0}}
-$BE@(BP$B$HD>@~(B$l$$B$N5wN%$r5a$a$k$3$H$K$h$j!$E@(BP$B$rCf?4$H$7$F(B$l$$B$K@\$9$k1_$r(B
-$BIA2h$9$k$3$H$,=PMh$^$9!%(B
+  点P\protect\retu(x_1,y_1)と直線$ax+by+c=0$の距離}{%
+  点P(x1,y1)と直線ax+by+c=0}}
+点Pと直線$l$の距離を求めることにより，点Pを中心として$l$に接する円を
+描画することが出来ます．
 
     \showexample[\cmd{tentotyokusen}](0.52)(0.42){example/kyori03}\bigskip
 
-$B$=$N=q<0$O(B\cindex{tentotyokusen}
+その書式は\cindex{tentotyokusen}
 
 \begin{boxnote}
 \begin{verbatim}
-% $BE@$HD>@~$N5wN%(B(1)
-% $BE@(B P$(x1,y1)$ $B$HD>@~(B $ax+by+c=0$ $B$H$N5wN%$r5a$a$k!%(B
+% 点と直線の距離(1)
+% 点 P$(x1,y1)$ と直線 $ax+by+c=0$ との距離を求める．
 % \tentotyokusen#1#2#3#4#5{%
-%   #1 : $BE@(BP
+%   #1 : 点P
 %   #2 : $a$
 %   #3 : $b$
 %   #4 : $c$
-%   #5 : $BE@$HD>@~$N5wN%(B
+%   #5 : 点と直線の距離
 \end{verbatim}
 \end{boxnote}\bigskip
 
-\subsubsection{$BE@(BP(x1,y1)$B$H(B2$BE@(BA,B$B$rDL$kD>@~$N5wN%(B}
-$BD>@~$,$=$N>e$N(B2$BE@$G;XDj$5$l$?>l9g$G$9!%(B
+\subsubsection{点P(x1,y1)と2点A,Bを通る直線の距離}
+直線がその上の2点で指定された場合です．
 
     \showexample[\cmd{tentoTyokusen}](0.52)(0.42){example/kyori04}\bigskip
 
-$B$=$N=q<0$O(B\cindex{tentoTyokusen}
+その書式は\cindex{tentoTyokusen}
 
 \begin{boxnote}
 \begin{verbatim}
-% $BE@$HD>@~$N5wN%(B(2)
-% $BE@(B P(x1,y1) $B$HD>@~(B AB $B$H$N5wN%$r5a$a$k!%(B
+% 点と直線の距離(2)
+% 点 P(x1,y1) と直線 AB との距離を求める．
 % \tentoTyokusen#1#2#3#4{%
-%   #1 : $BE@(BP
-%   #2 : $BE@(BA
-%   #3 : $BE@(BB
-%   #4 : $BE@$HD>@~$N5wN%(B
+%   #1 : 点P
+%   #2 : 点A
+%   #3 : 点B
+%   #4 : 点と直線の距離
 \end{verbatim}
 \end{boxnote}\bigskip
 
-\subsection{$B1_$N@\@~(B}
-\subsubsection{$B1_<~>e$NE@$K$*$1$k@\@~(B}
-$B1_<~>e$NE@$K$*$1$k@\@~$rIA2h$9$k$?$a$K!$(B
-$B$=$NJ}8~%Y%/%H%k$r5a$a$k%3%^%s%I$,(B \cmd{ennoSessen} $B$G$9!%(B
+\subsection{円の接線}
+\subsubsection{円周上の点における接線}
+円周上の点における接線を描画するために，
+その方向ベクトルを求めるコマンドが \cmd{ennoSessen} です．
 
-\showexample[$B!!1_<~>e$NE@$K$*$1$k@\@~(B](0.5)(0.45){example/sessen01}
+\showexample[　円周上の点における接線](0.5)(0.45){example/sessen01}
 
-$B$=$N=q<0$O(B\cindex{ennoSessen}
+その書式は\cindex{ennoSessen}
 
 \begin{boxnote}
 \begin{verbatim}
-$B1_<~>e$NE@$K$*$1$k@\@~$NC10LJ}8~%Y%/%H%k$r5a$a$k!%(B
+円周上の点における接線の単位方向ベクトルを求める．
 \ennoSessen#1#2#3{%
-   #1 : $B1_$NCf?4(B
-   #2 : $B1_<~>e$NE@(B
-   #3 : $B@\@~$NJ}8~%Y%/%H%k!JC10L%Y%/%H%k!K(B
+   #1 : 円の中心
+   #2 : 円周上の点
+   #3 : 接線の方向ベクトル（単位ベクトル）
 \end{verbatim}
 \end{boxnote}
 
-\subsubsection{$B1_30$NE@$+$i$N@\@~(B}
-$B1_$N30It$NE@$+$i1_$K0z$$$?@\@~$N(B2$B8D$N@\E@$r5a$a$k%3%^%s%I$,(B
-\cmd{enniSessen}$B$G$9!%(B
+\subsubsection{円外の点からの接線}
+円の外部の点から円に引いた接線の2個の接点を求めるコマンドが
+\cmd{enniSessen}です．
 
-\showexample[$B1_30$NE@$+$i$N@\@~(B](0.5)(0.45){example/sessen02}
+\showexample[円外の点からの接線](0.5)(0.45){example/sessen02}
 
-$B=q<0$O(B\cindex{enniSessen}
+書式は\cindex{enniSessen}
 \begin{boxnote}
 \begin{verbatim}
-$B1_$N30It$NE@$+$i1_$K0z$$$?@\@~$N@\E@$r5a$a$k!%(B
+円の外部の点から円に引いた接線の接点を求める．
 \enniSessen#1#2#3#4#5{%
-   #1 : $B1_$NCf?4(B
-   #2 : $B1_$NH>7B(B
-   #3 : $B1_$N30It$NE@(B
-   #4 : $B@\E@(B(1)
-   #5 : $B@\E@(B(2)
-      2$B$D$N@\E@$N$&$A(B
-         x$B:BI8$N>.$5$$J}(B
-            $BEy$7$$$H$-$O(B y$B:BI8$N>.$5$$J}(B
-         $B$,(B #4 $B$KF~$j$^$9!%(B
+   #1 : 円の中心
+   #2 : 円の半径
+   #3 : 円の外部の点
+   #4 : 接点(1)
+   #5 : 接点(2)
+      2つの接点のうち
+         x座標の小さい方
+            等しいときは y座標の小さい方
+         が #4 に入ります．
 \end{verbatim}
 \end{boxnote}
 
-\subsubsection{$BFs$D$N1_$N6&DL@\@~(B}
-2$B$D$N1_$N6&DL30!JFb!K@\@~$rIA2h$9$k$?$a$N%3%^%s%I$,(B
-\cmd{KTGAISessen}, \cmd{KTNAISessen} $B$G$9!#(B
-$B=q<0$O(B \cindex{KTGAISessen}\cindex{KTNAISessen}
+\subsubsection{二つの円の共通接線}
+2つの円の共通外（内）接線を描画するためのコマンドが
+\cmd{KTGAISessen}, \cmd{KTNAISessen} です。
+書式は \cindex{KTGAISessen}\cindex{KTNAISessen}
 \begin{boxnote}
 \begin{verbatim}
 \KTGAISessen#1#2#3#4#5#6#7#8
 \KTNAISessen#1#2#3#4#5#6#7#8
-  #1 : $B1_(B1$B$NCf?4(B
-  #2 : $B1_(B1$B$NH>7B(B
-  #3 : $B1_(B2$B$NCf?4(B
-  #4 : $B1_(B2$B$NH>7B(B
-  #5 : $B6&DL@\@~(B1$B$H1_(B1$B$N@\E@(B
-  #6 : $B6&DL@\@~(B1$B$H1_(B2$B$N@\E@(B
-  #7 : $B6&DL@\@~(B2$B$H1_(B1$B$N@\E@(B
-  #8 : $B6&DL@\@~(B2$B$H1_(B2$B$N@\E@(B
+  #1 : 円1の中心
+  #2 : 円1の半径
+  #3 : 円2の中心
+  #4 : 円2の半径
+  #5 : 共通接線1と円1の接点
+  #6 : 共通接線1と円2の接点
+  #7 : 共通接線2と円1の接点
+  #8 : 共通接線2と円2の接点
 \end{verbatim}
 \end{boxnote}
 \noindent
-$B$G!$6&DL@\@~$H1_$H$N@\E@$r5a$a!$(B
-\cmd{Tyokusen} $B$J$I$G6&DL@\@~$r0z$-$^$9!#$=$N0lNc$G$9!#(B
+で，共通接線と円との接点を求め，
+\cmd{Tyokusen} などで共通接線を引きます。その一例です。
 
-\showexample[$B6&DL@\@~(B](0.9)(0.9){example/sessen03}
+\showexample[共通接線](0.9)(0.9){example/sessen03}
 
-\subsection{$BH>D>@~(B}
-$BC<E@$HJ}8~3Q$rO;==J,K!$G;XDj$7$FH>D>@~$rIA2h$9$k(B
-$B%3%^%s%I$,(B \cmd{kHantyokusen} $B$G$9!#(B
+\subsection{半直線}
+端点と方向角を六十分法で指定して半直線を描画する
+コマンドが \cmd{kHantyokusen} です。
 
-\showexample[$BH>D>@~!JC<E@$HJ}8~3Q;XDj(B)](0.5)(0.45){example/tyoku08}
+\showexample[半直線（端点と方向角指定)](0.5)(0.45){example/tyoku08}
 
-$BC<E@$HJ}8~%Y%/%H%k$r;XDj$9$k(B \cmd{mHantyokusen} $B$G$9!#(B
+端点と方向ベクトルを指定する \cmd{mHantyokusen} です。
 
-\showexample[$BH>D>@~!JC<E@$HJ}8~%Y%/%H%k;XDj(B)](0.5)(0.45){example/tyoku09}
+\showexample[半直線（端点と方向ベクトル指定)](0.5)(0.45){example/tyoku09}
 
-$BC<E@$HDL2a$9$k(B1$BE@$r;XDj$9$k(B \cmd{Hantyokusen} $B$G$9!#(B
+端点と通過する1点を指定する \cmd{Hantyokusen} です。
 
-\showexample[$BH>D>@~!JC<E@$HDL2a$9$k(B1$BE@;XDj(B)](0.5)(0.45){example/tyoku10}
+\showexample[半直線（端点と通過する1点指定)](0.5)(0.45){example/tyoku10}
 
-$B$3$l$i$NH>D>@~$N@~<o$rJQ99$9$k$K$O!$(B
+これらの半直線の線種を変更するには，
 \begin{jquote}
 \begin{verbatim}
 <sensyu=....>
 \end{verbatim}
 \end{jquote}
-$B%*%W%7%g%s$rMxMQ$7$^$9!#0lNc$G$9!#(B
+オプションを利用します。一例です。
 
-\showexample[$B:?@~$GH>D>@~(B](0.5)(0.45){example/tyoku11}
+\showexample[鎖線で半直線](0.5)(0.45){example/tyoku11}
 
-$BH>D>@~$NIA2hNN0h$K$*$1$kC<E@$rJV$9%3%^%s%I$,(B\cmd{HtyokuT}$B$G$9!#(B
-$BH>D>@~$K%i%Y%k$r$D$1$?$j$9$k$N$KJXMx$G$7$g$&!#(B
+半直線の描画領域における端点を返すコマンドが\cmd{HtyokuT}です。
+半直線にラベルをつけたりするのに便利でしょう。
 \cindex{HtyokuT}
 
 \begin{showEx}{\cmd{HtyokuT}}

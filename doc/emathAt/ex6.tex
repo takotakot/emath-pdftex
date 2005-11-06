@@ -10,10 +10,10 @@
 \def\tyuumark{$\blacktriangleleft$}
 \def\tyuuitemizeoption{%
   \labelwidth=6pt\labelsep=3pt\leftmargin9pt\footnotesize}
-\begin{itembox}{$B3Q$NFsEyJ,@~(B}
+\begin{itembox}{角の二等分線}
 \begin{caprm}
-\sankaku{ABC}$B$K$*$$$F!$(B$AB=5$, $AC=3$, $\kaku A=120\Deg$$B$H$9$k!#(B
-\kaku A$B$NFsEyJ,@~$H(BBC$B$H$N8rE@$r(BD$B$H$9$k$H$-!$<!$N@~J,$ND9$5$r5a$a$h!#(B
+\sankaku{ABC}において，$AB=5$, $AC=3$, $\kaku A=120\Deg$とする。
+\kaku Aの二等分線とBCとの交点をDとするとき，次の線分の長さを求めよ。
 \end{caprm}
 \begin{edaenumerate}<3>[(1)]
   \item BC
@@ -22,14 +22,14 @@
 \end{edaenumerate}
 \end{itembox}\bigskip
 
-\noindent $B!Z2rK!$N<j=g![(B\vspace{1ex}
+\noindent 【解法の手順】\vspace{1ex}
 
 \begin{small}
 \begin{rectbox}[sensyu=\protect\hasen]
 \begin{enumerate}[\protect\expandafter\fbox1]
-  \item $BM>89DjM}$rMQ$$$F!$(BBC$B$r7W;;$9$k!#(B
-  \item $B3Q$NFsEyJ,@~$N@-<A$h$j!$(BBD$B$r5a$a$k!#(B
-  \item $BLL@Q$rMxMQ$7$F!$(BAD$B$r5a$a$k!#(B
+  \item 余弦定理を用いて，BCを計算する。
+  \item 角の二等分線の性質より，BDを求める。
+  \item 面積を利用して，ADを求める。
 \end{enumerate}
 \end{rectbox}
 \end{small}\bigskip
@@ -37,7 +37,7 @@
 \hidarityuukeisentrue
 \begin{tyuukai}
 \begin{caprm}
-$B!Z2rEz![(B
+【解答】
 \begin{enumerate}[(1)]
   \item 
     \begin{mawarikomi}{}{%
@@ -52,7 +52,7 @@
         \Drawline{\A\B\C\A\D}
       \end{zahyou*}}
     \gyoutou{\small\fbox1}
-    $BM>89DjM}$h$j(B
+    余弦定理より
     {\mathindent=0pt\relax
     \begin{align*}
       BC^2&=AB^2+AC^2-2AB\cdot AC\cos120\Deg\\
@@ -60,24 +60,24 @@
         &=49
     \end{align*}}%
     \tyuu<-4\baselineskip>{\makebox[0pt][l]{$\cos120\Deg=-\bunsuu12$}}%
-    $BC>0$$B$G$"$k$+$i(B $\bm{BC=7}$
+    $BC>0$であるから $\bm{BC=7}$
     \end{mawarikomi}
   \item 
     \gyoutou{\small\fbox2}
-    \tyuu<-.5\baselineskip>{$BFsEyJ,@~$HHfNc$N4X78(B}
-    $AB:AC=BD:DC$$B$G$"$k$+$i(B
+    \tyuu<-.5\baselineskip>{二等分線と比例の関係}
+    $AB:AC=BD:DC$であるから
     \[ BD:DC=5:3 \]
-    $B$h$C$F(B $BD=\bunsuu{5}{8}BC=\bm{\bunsuu{35}{8}}$
+    よって $BD=\bunsuu{5}{8}BC=\bm{\bunsuu{35}{8}}$
   \item 
     \gyoutou{\small\fbox3}%
-    \tyuu<-.75\baselineskip>{$BLL@Q$K4X$9$kEy<0(B}%
+    \tyuu<-.75\baselineskip>{面積に関する等式}%
     \tyuu{$\sin120\Deg=\bunsuu{\sqrt3}{2}$,\\
       $\sin60\Deg=\bunsuu{\sqrt3}{2}$}
-    $\sankaku{ABC}=\sankaku{ABD}+\sankaku{ADC}$$B$G$"$k$+$i!$(B
-    $AD=x$$B$H$*$/$H(B
+    $\sankaku{ABC}=\sankaku{ABD}+\sankaku{ADC}$であるから，
+    $AD=x$とおくと
     \[ \bunsuu{1}{2}\cdot5\cdot3\sin120\Deg
       =\bunsuu{1}{2}\cdot5x\sin60\Deg+\bunsuu{1}{2}\cdot3x\sin60\Deg \]
-    $B$h$C$F(B $\bm{AD=\bunsuu{15}{8}}$
+    よって $\bm{AD=\bunsuu{15}{8}}$
 \end{enumerate}
 \end{caprm}
 \end{tyuukai}

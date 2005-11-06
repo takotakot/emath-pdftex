@@ -1,141 +1,141 @@
-\section{$B<P@~EI$j(B(1)}
-$BA0@a$N%3%^%s%I$NKvHx$K99$K(B \texttt{*} $B$rIU2C$9$k$H!$<P@~EI$j$H$J$j$^$9!%(B
+\section{斜線塗り(1)}
+前節のコマンドの末尾に更に \texttt{*} を付加すると，斜線塗りとなります．
 
-\subsection{$BB?3Q7A(B}
-$B$^$:$O!$B?3Q7A$NFbIt$K<P@~$r0z$$$F$_$^$9!%(B
+\subsection{多角形}
+まずは，多角形の内部に斜線を引いてみます．
 
-\showexample[$BB?3Q7A$NFbIt$K<P@~(B](0.5)(0.45){example/hatch01}
+\showexample[多角形の内部に斜線](0.5)(0.45){example/hatch01}
 
-\cmd{Nuritubusi*} $B$N=q<0$O(B\cindex{Nuritubusi*}
+\cmd{Nuritubusi*} の書式は\cindex{Nuritubusi*}
 
 \begin{boxnote}
 \begin{verbatim}
 \Nuritubusi*[#1]<#2>#3
-  #1 : $B<P@~$NJ}8~3Q(B
-      ( -90 $B$H(B 90 $B$N4V$N?t!JC10L$OEY!K!%%G%U%)%k%H$O(B 45)
-  #2 : $B<P@~$N4V3V(B $B!J%G%U%)%k%H$O(B 0.125 $B!K(B
-  #3 : $BB?3Q7A$NE@Ns!JJD$8$F$$$J$1$l$P$J$j$^$;$s!%(B)
+  #1 : 斜線の方向角
+      ( -90 と 90 の間の数（単位は度）．デフォルトは 45)
+  #2 : 斜線の間隔 （デフォルトは 0.125 ）
+  #3 : 多角形の点列（閉じていなければなりません．)
 \end{verbatim}
 \end{boxnote}\medskip
 
-\subsection{$B1_(B}
-$B1_$NFbIt$r<P@~EI$j$9$kNc$G$9!%(B
-\verb+[-45]+ $B%*%W%7%g%s$r$D$1$F!$<P@~$NJ}8~3Q$rJQ99$7$F$_$^$7$?!%(B
+\subsection{円}
+円の内部を斜線塗りする例です．
+\verb+[-45]+ オプションをつけて，斜線の方向角を変更してみました．
 
-\showexample[$B1_$NFbIt$K<P@~(B](0.45)(0.45){example/hatch02}
+\showexample[円の内部に斜線](0.45)(0.45){example/hatch02}
 
-\cmd{En**} $B$N=q<0$G$9!%(B\cindex{En**}
+\cmd{En**} の書式です．\cindex{En**}
 
 \begin{boxnote}
 \begin{verbatim}
 \En**[#1]<#2>#3#4
-    #1 : $B<P@~$NJ}8~3Q(B
-      ( -90 $B$H(B 90 $B$N4V$N?t!JC10L$OEY!K!%%G%U%)%k%H$O(B 45)
-    #2 : $B<P@~$N4V3V(B $B!J%G%U%)%k%H$O(B 0.125 $B!K(B
-    #3 : $BCf?4$N:BI8(B
-    #4 : $BH>7B(B
+    #1 : 斜線の方向角
+      ( -90 と 90 の間の数（単位は度）．デフォルトは 45)
+    #2 : 斜線の間隔 （デフォルトは 0.125 ）
+    #3 : 中心の座標
+    #4 : 半径
 \end{verbatim}
 \end{boxnote}
 
-\subsection{$B@p7A$J$I(B}
+\subsection{扇形など}
 \cmd{Daen**}, \cmd{yumigata**}, \cmd{ougigata**}, \cmd{Daenko**},
-\cmd{Nuritubusi*} $B$bF1MM$G$9!%(B
+\cmd{Nuritubusi*} も同様です．
 \cindex{Daen**}\cindex{yumigata**}\cindex{ougigata**}
 \cindex{Daenko**}\cindex{Nuritubusi*}
 
-$BBeI=E*$K(B\verb/\yumigata**/ $B$N=q<0$r5-$7$^$9!#(B
+代表的に\verb/\yumigata**/ の書式を記します。
 
 \begin{boxnote}
 \begin{verbatim}
 \yumigata**[#1]<#2>#3#4#5
-  #1 : $B<P@~EI$j$N79<P3Q!J%G%U%)%k%H$O(B45$B!K(B
-  #2 : $B%*%W%7%g%s(B
-        <border=1> $B$G6-3&@~$rIA2h$9$k!#(B
-        <syanurisiteiten=xx> $B$G<P@~72$,;XDjE@(Bxx$B$rDL$k$h$&$K$9$k!#(B
-        <syanurikankaku=xx> $B<P@~$N4V3V$r;XDj$9$kL5L>?t!J%G%U%)%k%H$O(B 0.125$B!K(B
-          #2 $B$KC1$KL5L>?t$r5-=R$9$l$P!$<P@~$N4V3V$rJQ99$9$k;X<($H2r<a$5$l$k!#(B
-  #3 $B!A(B #5 : \yumigata $B$N(B #1$B!A(B#3 $B$HF1$8(B
+  #1 : 斜線塗りの傾斜角（デフォルトは45）
+  #2 : オプション
+        <border=1> で境界線を描画する。
+        <syanurisiteiten=xx> で斜線群が指定点xxを通るようにする。
+        <syanurikankaku=xx> 斜線の間隔を指定する無名数（デフォルトは 0.125）
+          #2 に単に無名数を記述すれば，斜線の間隔を変更する指示と解釈される。
+  #3 〜 #5 : \yumigata の #1〜#3 と同じ
 
-$B!JCm!K;O$a3Q$H=*$j3Q$NM?$(J}$N=g=x$K$D$$$F(B
-    2$B$D$N3Q$r;XDj$9$k$H!$1_$O(B2$B$D$N5]7A$KJ,3d$5$l$^$9!#(B
-    $B$=$N$I$A$i$,IA2h$5$l$k$N$+$H$$$&OC$G$9!#(B
-    $B;O$a3Q$G;XDj$5$l$?F07B$r@5$N8~$-$K!J;~7W$N?K$HH?BP8~$-!K(B
-    $B2sE>$7$F=*$j3Q$G;XDj$7$?F07B$H=E$J$k$^$G$rIA2h$7$^$9!#(B
+（注）始め角と終り角の与え方の順序について
+    2つの角を指定すると，円は2つの弓形に分割されます。
+    そのどちらが描画されるのかという話です。
+    始め角で指定された動径を正の向きに（時計の針と反対向き）
+    回転して終り角で指定した動径と重なるまでを描画します。
 \end{verbatim}
 \end{boxnote}
 
-\showexample[$B5]7A$N<P@~EI$j(B](0.5)(0.45){example/hatch04}
+\showexample[弓形の斜線塗り](0.5)(0.45){example/hatch04}
 
-\showexample[$B@p7A$N<P@~EI$j(B](0.5)(0.45){example/hatch03}
+\showexample[扇形の斜線塗り](0.5)(0.45){example/hatch03}
 
-$B$?$@$7!$@p7A$NCf?43Q$O(B180$BEY0J2<$G$J$1$l$P$J$j$^$;$s!%(B
-$BM%3Q$N@p7A$N<P@~EI$j$O!$1_$r<P@~EI$j$7$?8e!$M>J,$N@p7A$rGrEI$j$7$^$9!%(B
+ただし，扇形の中心角は180度以下でなければなりません．
+優角の扇形の斜線塗りは，円を斜線塗りした後，余分の扇形を白塗りします．
 
-\showexample[$B@p7A$N<P@~EI$j!JM%3Q$N>l9g!K(B](0.5)(0.45){example/hatch05}
+\showexample[扇形の斜線塗り（優角の場合）](0.5)(0.45){example/hatch05}
 
-\showexample[$B5]7A!JBJ1_8L!K$N<P@~EI$j(B](0.5)(0.45){example/hatch06}
+\showexample[弓形（楕円弧）の斜線塗り](0.5)(0.45){example/hatch06}
 
-\subsection{$B3J;R%;%k$N$L$j$D$V$7(B}
-$B3J;R$rIA2h$9$k(B \cmd{kousi} $B$K(B
+\subsection{格子セルのぬりつぶし}
+格子を描画する \cmd{kousi} に
 \begin{jquote}
 \begin{verbatim}
-$B%;%k$rEI$k(B
-$B%;%k$N:BI8$r;XDj$7$F$N(B \put, 
-$B9u4]G[CV(B
+セルを塗る
+セルの座標を指定しての \put, 
+黒丸配置
 \end{verbatim}
 \end{jquote}
-$B$J$I$N$r<B8=$9$k(B\texttt{<nuri=..>}$B%*%W%7%g%s$N@bL@$G$9!#(B
-\verb+<nuri=..>+$B$N1&JU$K!$EI$j$D$V$7$r9T$&%;%k$N:82<%3!<%J!<$N(B
-$B3J;R:BI8$rM?$($^$9!#(B
+などのを実現する\texttt{<nuri=..>}オプションの説明です。
+\verb+<nuri=..>+の右辺に，塗りつぶしを行うセルの左下コーナーの
+格子座標を与えます。
 
-\begin{showEx}(.64,.3){$BEI$j$D$V$7(B}
+\begin{showEx}(.64,.3){塗りつぶし}
 \begin{zahyou*}[ul=4mm](0,8)(0,8)
 \kousi<nuri={(1,2)}>(2,1.5){4}{5}
 \end{zahyou*}
 \end{showEx}
 
-\verb+<nuri=..>+$B$N1&JU$O!$%3%s%^$r4^$_$^$9$+$i!$(B\verb+{...}+$B$G(B
-$B$/$/$C$F$*$/I,MW$,$"$j$^$9!#G;EY;XDj$O(B\verb+[..]+$B%*%W%7%g%s$H$$$&$N$O(B
-\cmd{Nuritubusi}$B$HF1MM$G$9!#(B
+\verb+<nuri=..>+の右辺は，コンマを含みますから，\verb+{...}+で
+くくっておく必要があります。濃度指定は\verb+[..]+オプションというのは
+\cmd{Nuritubusi}と同様です。
 
-\begin{showEx}(.64,.3){$BG;EY;XDj(B}
+\begin{showEx}(.64,.3){濃度指定}
 \begin{zahyou*}[ul=4mm](0,8)(0,8)
 \kousi<nuri={[1](3,1)}>(2,1.5){4}{5}
 \end{zahyou*}
 \end{showEx}
 
-\verb+<nuri=..(x,y)>+$B$K$*$1$k(B\verb+..+$B$NItJ,$O(B\cmd{Nuritubusi}$B$N(B
-$B%*%W%7%g%s$H$7$F0z$-EO$5$l$^$9!#@V$GEI$j$D$V$7$F$_$^$7$g$&!#(B
+\verb+<nuri=..(x,y)>+における\verb+..+の部分は\cmd{Nuritubusi}の
+オプションとして引き渡されます。赤で塗りつぶしてみましょう。
 
-\begin{showEx}(.64,.3){$B%+%i!<EI$j(B}
+\begin{showEx}(.64,.3){カラー塗り}
 \begin{zahyou*}[ul=4mm](0,8)(0,8)
 \kousi<nuri={[nuriiro=red](3,0)}>(2,1.5){4}{5}
 \end{zahyou*}
 \end{showEx}
 
 \noindent
-$B$H$$$&$3$H$J$l$P!$<P@~EI$j$O(B
+ということなれば，斜線塗りは
 
-\begin{showEx}(.64,.3){$B<P@~EI$j(B}
+\begin{showEx}(.64,.3){斜線塗り}
 \begin{zahyou*}[ul=4mm](0,8)(0,8)
 \kousi<nuri={*(1,4)}>(2,1.5){4}{5}
 \end{zahyou*}
 \end{showEx}
 
-$B<P@~$N3QEY!$4V3V;XDj$b(B
+斜線の角度，間隔指定も
 
-\begin{showEx}(.64,.3){$B<P@~3QEY!$4V3V(B}
+\begin{showEx}(.64,.3){斜線角度，間隔}
 \begin{zahyou*}[ul=4mm](0,8)(0,8)
 \kousi<nuri={*[-45]<.5>(0,2)}>(2,1.5){4}{5}
 \end{zahyou*}
 \end{showEx}
 
-\cmd{Nuritubusi}$B$N%*%W%7%g%s$HF1MM$G$"$k$3$H$,G<F@$$$?$@$1$?$G$7$g$&$+!#(B
+\cmd{Nuritubusi}のオプションと同様であることが納得いただけたでしょうか。
 
-$BJ#?t$N%;%k$KBP$7$FEI$j$r;XDj$9$k$K$O!$(B\verb+<nuri=..>+$B$N1&JU$K!$(B
-$B>e5-$N;XDj$r(B`;'$B$G6h@Z$C$FJB$Y$l$P<B8=$G$-$^$9!#(B
+複数のセルに対して塗りを指定するには，\verb+<nuri=..>+の右辺に，
+上記の指定を`;'で区切って並べれば実現できます。
 
-\begin{showEx}(.64,.3){$BJ#?t;XDj(B}
+\begin{showEx}(.64,.3){複数指定}
 \begin{zahyou*}[ul=4mm](0,8)(0,8)
 \kousi<nuri={%
   (1,2);%
@@ -148,33 +148,33 @@
 \end{showEx}
 
 
-\subsection{$B6-3&@~$H<P@~$N4V$r6u$1$k(B}
-$BNN0h$N6-3&$r4^$^$J$$$3$H$r<($9$N$K!$(B
-$B<P@~$H6-3&$r$/$C$D$1$:!$>/$76u$1$kN.57$,$"$j$^$9!#(B
+\subsection{境界線と斜線の間を空ける}
+領域の境界を含まないことを示すのに，
+斜線と境界をくっつけず，少し空ける流儀があります。
 
-$B$3$l$r<B8=$9$k$K$O$$$/$D$+$NJ}K!$,$"$j$^$9$,!$(B
-$BEDCf(B $BE0(B $B$5$s$,(B\verb+BBS #354+$B$KEj9F$5$l$?J}K!(B
+これを実現するにはいくつかの方法がありますが，
+田中 徹 さんが\verb+BBS #354+に投稿された方法
 \begin{jquote}\relax
-(1) $B$R$H$^$:EI$j$D$V$7$r9T$&(B\\
-(2) $B6-3&@~$rB@$a$NGr$$@~$G>e=q$-(B\\
-(3) $B2~$a$F6-3&@~$r0z$/(B
+(1) ひとまず塗りつぶしを行う\\
+(2) 境界線を太めの白い線で上書き\\
+(3) 改めて境界線を引く
 \end{jquote}
-$B$OM-NO$J<jK!$G$9!#(B
+は有力な手法です。
 
-$B$=$N%"%$%G%"$rD:$$$F%^%/%m2=$7$F$_$^$7$?!#(B
-\textsf{emathPh.sty v 1.07}$B$G(B
+そのアイデアを頂いてマクロ化してみました。
+\textsf{emathPh.sty v 1.07}で
 \begin{jquote}
 \begin{verbatim}
-syasentanmatu=...$B!JC10LIU$ND9$5!K(B
+syasentanmatu=...（単位付の長さ）
 \end{verbatim}
 \end{jquote}
-$B%*%W%7%g%s$K$h$jGrEI$j$NI}$r;XDj$9$k$3$H$K$7$F$_$^$7$?!#(B
-$B6-3&@~$rCf?4$H$7$F!$$=$N:81&$K;XDj$7$?I}$rM-$9$kGr$$6J@~$rIA2h$7$^$9!#(B
+オプションにより白塗りの幅を指定することにしてみました。
+境界線を中心として，その左右に指定した幅を有する白い曲線を描画します。
 
-$B!J<P@~$NC<E@$H6-3&@~$N5wN%$,;XDj$7$?D9$5$H$J$j!$(B
-$BGrEI$j$N6J@~$NB@$5$O;XDj$7$?I}$N(B2$BG\$H$J$j$^$9!#!K(B
+（斜線の端点と境界線の距離が指定した長さとなり，
+白塗りの曲線の太さは指定した幅の2倍となります。）
 
-\begin{showEx}(.6,.34){\texttt{syasentanmatu=..}$B%*%W%7%g%s(B}
+\begin{showEx}(.6,.34){\texttt{syasentanmatu=..}オプション}
 \begin{zahyou*}[ul=6mm](0,5)(0,4)
   \tenretu*{A(0,0);B(5,0);C(4,4);D(1,3)}
   \Nuritubusi*<syasentanmatu=1mm>%
@@ -183,13 +183,13 @@ syasentanmatu=...$B!JC10LIU$ND9$5!K(B
 \end{zahyou*}
 \end{showEx}
 
-\subsection{2$B1_$N6&DLItJ,$K<P@~(B}
-2$B1_$N6&DLItJ,$r<P@~EI$j$9$k$N$O!$7k9=LLE]$G$9!#(B
+\subsection{2円の共通部分に斜線}
+2円の共通部分を斜線塗りするのは，結構面倒です。
 
-$B$^$:$O<P@~EI$j$G$O$J$/!$%Y%?EI$j$N>l9g$r8!F$$7$^$9!#(B
-$B$3$l$O!$6&DL89$G(B2$BJ,3d$7$?$=$l$>$l$N5]7A$rEI$j$D$V$7$^$9!#(B
+まずは斜線塗りではなく，ベタ塗りの場合を検討します。
+これは，共通弦で2分割したそれぞれの弓形を塗りつぶします。
 
-\begin{showEx}(.6,.34){2$B1_$N6&DLItJ,$N%Y%?EI$j(B}
+\begin{showEx}(.6,.34){2円の共通部分のベタ塗り}
 \unitlength12mm\drawaxisfalse
 \begin{zahyou}(-1.5,1.5)(-1.5,2.5)
   \tenretu*{A(0,0);B(0,1)}
@@ -205,9 +205,9 @@ syasentanmatu=...$B!JC10LIU$ND9$5!K(B
 \end{zahyou}
 \end{showEx}
 
-$B$3$l$,<P@~EI$j$H$J$k$H(B
+これが斜線塗りとなると
 
-\begin{showEx}(.6,.34){2$B1_$N6&DLItJ,$N<P@~EI$j(B(1)}
+\begin{showEx}(.6,.34){2円の共通部分の斜線塗り(1)}
 \unitlength12mm\drawaxisfalse
 \begin{zahyou}(-1.5,1.5)(-1.5,2.5)
   \tenretu*{A(0,0);B(0,1)}
@@ -222,17 +222,17 @@ syasentanmatu=...$B!JC10LIU$ND9$5!K(B
     hazimeten=\P}{owariten=\Q}}
 \end{zahyou}
 \end{showEx}
-2$B$D$N5]7A$N<P@~$,$D$J$,$j$^$;$s!#(B
+2つの弓形の斜線がつながりません。
 
-$B$=$3$G!$<P@~EI$j$K(B
+そこで，斜線塗りに
 \begin{verbatim}
   syanurisiteiten=
 \end{verbatim}
-$B$H$$$&=q<0$G!$(B
-$B<P@~72$,DL2a$9$Y$-(B1$BE@$r;XDj$9$k$?$a$N%*%W%7%g%s$rIU2C$7$^$7$?!#(B
-$B$=$N8z2L$O(B
+という書式で，
+斜線群が通過すべき1点を指定するためのオプションを付加しました。
+その効果は
 
-\begin{showEx}(.6,.34){2$B1_$N6&DLItJ,$N<P@~EI$j(B(1)}
+\begin{showEx}(.6,.34){2円の共通部分の斜線塗り(1)}
 \unitlength12mm\drawaxisfalse
 \begin{zahyou}(-1.5,1.5)(-1.5,2.5)
   \tenretu*{A(0,0);B(0,1)}
@@ -250,20 +250,20 @@ syasentanmatu=...$B!JC10LIU$ND9$5!K(B
 \end{zahyou}
 \end{showEx}
 
-$B0l8+$D$J$,$C$?$h$&$K8+$($^$9$,!$$h$/L\$r6E$i$9$H$A$g$C$H$:$l$F$$$^$9!#(B
-$B$3$l$,5$$K$J$l$P!$<P@~EI$j$9$kNN0h$N6-3&@~$rB?3Q7A6a;w$7$F!$(B
-$BB?3Q7A$r<P@~EI$j$9$k%3%^%s%I(B \cmd{Nuritubusi} $B$r;H$&$3$H$K$J$j$^$7$g$&!#(B
-$B1_8L$r@^$l@~6a;w$9$k$K$O!$(B
+一見つながったように見えますが，よく目を凝らすとちょっとずれています。
+これが気になれば，斜線塗りする領域の境界線を多角形近似して，
+多角形を斜線塗りするコマンド \cmd{Nuritubusi} を使うことになりましょう。
+円弧を折れ線近似するには，
 \begin{verbatim}
-  $n$$B<!4X?t$N%0%i%U$r@^$l@~6a;w$9$k(B \KinziOresen
-  $B0lHL$N4X?t$N%0%i%U$r@^$l@~6a;w$9$k(B \yKinziOresen
-  $BG^2pJQ?tI=<($N6J@~$r@^$l@~6a;w$9$k(B \bKinziOresen
+  $n$次関数のグラフを折れ線近似する \KinziOresen
+  一般の関数のグラフを折れ線近似する \yKinziOresen
+  媒介変数表示の曲線を折れ線近似する \bKinziOresen
 \end{verbatim}
-$B$J$I$rMQ$$$l$P2DG=$G$9$,!$$3$N:]!$1_8L$r@^$l@~6a;w$9$k%3%^%s%I(B
-$B$r:n$C$F$_$^$7$?!#L>IU$1$F(B \cmd{KinziEnko}
-$B=q<0$O$"$H$G5-=R$9$k$3$H$K$7$F!$$H$j$"$($:;HMQ8z2L$r8+$F$_$^$7$g$&!#(B
+などを用いれば可能ですが，この際，円弧を折れ線近似するコマンド
+を作ってみました。名付けて \cmd{KinziEnko}
+書式はあとで記述することにして，とりあえず使用効果を見てみましょう。
 
-\begin{showEx}(.65,.29){2$B1_$N6&DLItJ,$N<P@~EI$j(B(1)}
+\begin{showEx}(.65,.29){2円の共通部分の斜線塗り(1)}
 \unitlength12mm\drawaxisfalse
 \begin{zahyou}(-1.1,1.1)(-1.5,2.5)
   \tenretu*{A(0,0);B(0,1)}
@@ -279,53 +279,53 @@ syasentanmatu=...$B!JC10LIU$ND9$5!K(B
   \Nuritubusi*\oresen
 \end{zahyou}
 \end{showEx}
-$B$-$l$$$K<P@~EI$j$,$G$-$?$h$&$G$9!#(B
+きれいに斜線塗りができたようです。
 
-\cmd{KinziEnko} $B$N=q<0$G$9!#(B
+\cmd{KinziEnko} の書式です。
 
 \begin{boxnote}
 \begin{verbatim}
-$B1_8L$r6a;w$9$k@^$l@~(B
+円弧を近似する折れ線
 \KinziEnko<#1>#2#3#4#5#6
-  #1 : $B9o$_CM(B
-  #2 : $BCf?4(B
-  #3 : $BH>7B$rD>@\M?$($k$+(B
-       tuukaten=xx $B$H$7$F!$1_8L$N<~>e$N0lE@$rM?$($k(B
-  #4 : $B;O$a3Q$rD>@\M?$($k$+(B
-       hazimeten=xx $B$H$7$F!$Cf?4$r;OE@!$(Bxx $B$r=*E@$H$9$k%Y%/%H%k$N(B
-       $BJ}8~3Q$r(B $B;O$a3Q$H$9$k$h$&$K;XDj$9$k!#(B
-  #5 : $B=*$j3Q$rD>@\M?$($k$+(B
-       owariten=xx $B$H$7$F!$Cf?4$r;OE@!$(Bxx $B$r=*E@$H$9$k%Y%/%H%k$N(B
-       $BJ}8~3Q$r(B $B=*$j3Q$H$9$k$h$&$K;XDj$9$k!#(B
-  #6 : $B6a;w@^$l@~$r<u$1<h$k@)8fDV(B
+  #1 : 刻み値
+  #2 : 中心
+  #3 : 半径を直接与えるか
+       tuukaten=xx として，円弧の周上の一点を与える
+  #4 : 始め角を直接与えるか
+       hazimeten=xx として，中心を始点，xx を終点とするベクトルの
+       方向角を 始め角とするように指定する。
+  #5 : 終り角を直接与えるか
+       owariten=xx として，中心を始点，xx を終点とするベクトルの
+       方向角を 終り角とするように指定する。
+  #6 : 近似折れ線を受け取る制御綴
 \end{verbatim}
 \end{boxnote}
 
-\subsection{$BGK@~$K$h$k<P@~EI$j(B}\label{S-hasen}
-$B<P@~$rGK@~$G0z$/$K$O(B
+\subsection{破線による斜線塗り}\label{S-hasen}
+斜線を破線で引くには
 \begin{jquote}
 \verb/\def\sensyu{\hasen}%/
 \end{jquote}
-$B$J$I$H$7$^$9!%(B
+などとします．
 
-\showexample[$BGK@~$K$h$k<P@~EI$j(B](0.5)(0.45){example/hatch08}
+\showexample[破線による斜線塗り](0.5)(0.45){example/hatch08}
 
-$B$J$*!$<P@~$r(B \verb/\color{lightgray}/ $B$J$I$H$9$k$N$bM-NO$J<jK!$G$9!%(B
-$B$?$@$7!$(Bgray $B$NG;EY$O%W%j%s%?4D6-$K$h$C$FD4@0$9$kI,MW$,$"$j$^$9!%(B
+なお，斜線を \verb/\color{lightgray}/ などとするのも有力な手法です．
+ただし，gray の濃度はプリンタ環境によって調整する必要があります．
 
-\showexample[$B%0%l!<%9%1!<%k$K$h$k<P@~EI$j(B](0.5)(0.45){example/hatch09}
+\showexample[グレースケールによる斜線塗り](0.5)(0.45){example/hatch09}
 
-\subsection{$B<P@~EI$j$N@)Ls>r9`(B}
+\subsection{斜線塗りの制約条項}
 %\begin{jquote}
 \begin{description}
-\item[\textgt{$B<P@~EI$j$N@)Ls>r9`(B}]
-        $B<P@~$NJ}8~3Q$r(B$\theta$$B$H$7$F!$D>@~72(B $y\cos\theta-x\sin\theta=k$ 
-        $B$,NN0h$K$h$C$F$-$j<h$i$l$k@~J,$OC10l$NO"7k$J@~J,$G$"$k$3$H!%(B
+\item[\textgt{斜線塗りの制約条項}]
+        斜線の方向角を$\theta$として，直線群 $y\cos\theta-x\sin\theta=k$ 
+        が領域によってきり取られる線分は単一の連結な線分であること．
 
-    $B!!!!BLL\$J>l9g$NE57?$O!$%I!<%J%C%D$G$9!%$3$l$O$I$N$h$&$JJ}8~$G@Z$C$F$b(B
-        $BCf?4$rDL$kD>@~$,%I!<%J%C%D$K$h$C$F@Z$j<h$i$l$kItJ,$O#28D$N@~J,$K(B
-        $B$J$C$F$7$^$7$^$9!%$3$N$h$&$JNN0h$N<P@~EI$j$O$$$C$Z$s$K$O$G$-$^$;$s!%(B
-        $B%I!<%J%C%D$N>l9g$O!$Bg$-$$1_$NFbItA4It$r0lC6<P@~EI$j$7$?$&$($G!$(B
-        $B>.$5$$1_$NFbIt$rGrEI$j$9$k$3$H$G<B8=$G$-$^$9!%(B
+    　　駄目な場合の典型は，ドーナッツです．これはどのような方向で切っても
+        中心を通る直線がドーナッツによって切り取られる部分は２個の線分に
+        なってしまします．このような領域の斜線塗りはいっぺんにはできません．
+        ドーナッツの場合は，大きい円の内部全部を一旦斜線塗りしたうえで，
+        小さい円の内部を白塗りすることで実現できます．
 \end{description}
 %\end{jquote}

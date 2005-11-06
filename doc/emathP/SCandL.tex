@@ -1,16 +1,16 @@
-\section{$B1_!&D>@~$N8rE@(B}
-$BD>@~$HD>@~!$1_$HD>@~!$1_$H1_$N8rE@$r5a$a$k%3%^%s%IN`$G$9!%(B
-$B%3%^%s%IL>$O(B \verb+\*and*+ $B$N7A$G(B \texttt{*} $B$N$H$3$m$O(B
+\section{円・直線の交点}
+直線と直線，円と直線，円と円の交点を求めるコマンド類です．
+コマンド名は \verb+\*and*+ の形で \texttt{*} のところは
 
 \begin{jquote}
 \begin{verbatim}
-    C : $B1_(B
-    L : 2$BE@$rM?$($?D>@~(B
-    l : 1$BE@$HJ}8~%Y%/%H%k$rM?$($?D>@~(B
-    k : 1$BE@$HJ}8~3Q$rM?$($?D>@~(B
+    C : 円
+    L : 2点を与えた直線
+    l : 1点と方向ベクトルを与えた直線
+    k : 1点と方向角を与えた直線
 \end{verbatim}
 \end{jquote}
-$B$N$$$:$l$+$G!$(B
+のいずれかで，
 \begin{jquote}
 \begin{verbatim}
 \CandC
@@ -24,25 +24,25 @@
 \kandk
 \end{verbatim}
 \end{jquote}
-$B$N(B9$B<oN`$,$"$j$^$9!%(B
+の9種類があります．
 
-\subsection{2$BD>@~$N8rE@(B}
-\subsubsection{2$BD>@~$N8rE@(B(1) \texorpdfstring{\cmd{LandL}}{LandL}}
+\subsection{2直線の交点}
+\subsubsection{2直線の交点(1) \texorpdfstring{\cmd{LandL}}{LandL}}
 
-\cmd{LandL} $B$N;HMQNc$G$9!%(B\cindex{LandL}
+\cmd{LandL} の使用例です．\cindex{LandL}
 
 \showexample[\cmd{LandL}](0.55)(0.4){example/LandL01}
 
 \begin{boxnote}
 \begin{verbatim}
 \LandL#1#2#3#4#5
-    2$BE@(B #1, #2 $B$rDL$kD>@~$H(B
-    2$BE@(B #3, #4 $B$rDL$kD>@~$N8rE@$r(B #5 $B$KM?$($k!%(B
+    2点 #1, #2 を通る直線と
+    2点 #3, #4 を通る直線の交点を #5 に与える．
 \end{verbatim}
 \end{boxnote}
 
-\subsubsection{2$BD>@~$N8rE@(B(2) \texorpdfstring{\cmd{Landl}}{Landl}}
-\sankaku{ABC} $B$NJU(BAB$B>e$K(B $\kaku{BCD}=30\Deg$ $B$H$J$kE@(BD$B$r5a$a$kNc$G$9!%(B
+\subsubsection{2直線の交点(2) \texorpdfstring{\cmd{Landl}}{Landl}}
+\sankaku{ABC} の辺AB上に $\kaku{BCD}=30\Deg$ となる点Dを求める例です．
 \cindex{Landl}
 
 \showexample[\cmd{Landl}](0.55)(0.4){example/LandL02}
@@ -50,67 +50,67 @@
 \begin{boxnote}
 \begin{verbatim}
 \Landl#1#2#3#4#5
-    2$BE@(B #1, #2 $B$rDL$kD>@~$H(B
-    $BE@(B #3 $B$rDL$j!$J}8~%Y%/%H%k$,(B #4 $B$ND>@~$N8rE@$r(B #5 $B$KM?$($k!%(B
+    2点 #1, #2 を通る直線と
+    点 #3 を通り，方向ベクトルが #4 の直線の交点を #5 に与える．
 \end{verbatim}
 \end{boxnote}
 
-\subsubsection{2$BD>@~$N8rE@(B(3) \texorpdfstring{\cmd{landl}}{landl}}
-$BD>@~$r(B1$BE@$HJ}8~%Y%/%H%k$GM?$($k>l9g$N!$8rE@$r5a$a$k%3%^%s%I$,(B
-\cmd{landl} $B$G$9!%(B\cindex{landl}
+\subsubsection{2直線の交点(3) \texorpdfstring{\cmd{landl}}{landl}}
+直線を1点と方向ベクトルで与える場合の，交点を求めるコマンドが
+\cmd{landl} です．\cindex{landl}
 
 \showexample[\cmd{landl}](0.6)(0.34){example/LandL03}
 
 \begin{boxnote}
 \begin{verbatim}
 \landl#1#2#3#4#5
-    $BE@(B #1 $B$rDL$j(B, $BJ}8~%Y%/%H%k$,(B #2 $B$ND>@~$H(B
-    $BE@(B #3 $B$rDL$j!$J}8~%Y%/%H%k$,(B #4 $B$ND>@~$N8rE@$r(B #5 $B$KM?$($k!%(B
+    点 #1 を通り, 方向ベクトルが #2 の直線と
+    点 #3 を通り，方向ベクトルが #4 の直線の交点を #5 に与える．
 \end{verbatim}
 \end{boxnote}
 
-\subsubsection{2$BD>@~$N8rE@(B(4) \texorpdfstring{\cmd{Landk}}{Landk}}
-$BD>@~$r(B1$BE@$HJ}8~3Q(B($x$$B<4$N@5$N8~$-$H$J$93Q(B---$BO;==J,K!!K$GM?$($?>l9g$G$9!#(B
-$B$^$:$O(B \cmd{kandk} $B$N;HMQNc$G$9!#(B\cindex{Landk}
+\subsubsection{2直線の交点(4) \texorpdfstring{\cmd{Landk}}{Landk}}
+直線を1点と方向角($x$軸の正の向きとなす角---六十分法）で与えた場合です。
+まずは \cmd{kandk} の使用例です。\cindex{Landk}
 
 \showexample[\cmd{kandk}](0.54)(0.4){example/LandL04}
 
 \begin{boxnote}
 \begin{verbatim}
 \kandk#1#2#3#4#5
-    $BE@(B #1 $B$rDL$j(B, $BJ}8~3Q$,(B #2 $B$ND>@~$H(B
-    $BE@(B #3 $B$rDL$j!$J}8~3Q$,(B #4 $B$ND>@~$N8rE@$r(B #5 $B$KM?$($k!%(B
+    点 #1 を通り, 方向角が #2 の直線と
+    点 #3 を通り，方向角が #4 の直線の交点を #5 に与える．
 \end{verbatim}
 \end{boxnote}
 
-$B$D$$$G!$(B\cmd{Landk} $B$N;HMQNc$G$9!#(B\cindex{Landk}
+ついで，\cmd{Landk} の使用例です。\cindex{Landk}
 
 \showexample[\cmd{Landk}](0.54)(0.4){example/LandL05}
 
 \begin{boxnote}
 \begin{verbatim}
 \Landk#1#2#3#4#5
-    2$BE@(B #1, #2 $B$rDL$kD>@~$H(B
-    $BE@(B #3 $B$rDL$j!$J}8~3Q$,(B #4 $B$ND>@~$N8rE@$r(B #5 $B$KM?$($k!%(B
+    2点 #1, #2 を通る直線と
+    点 #3 を通り，方向角が #4 の直線の交点を #5 に与える．
 \end{verbatim}
 \end{boxnote}
 
-\subsubsection{$B?b@~$NB-(B}
-$B;03Q7A$ND:E@$+$iBPJU!J$^$?$O$=$N1dD9!K$K2<$7$??b@~$NB-$r5a$a$k(B
-$B%3%^%s%I(B \cmd{Suisen} $B$G$9!%(B\cindex{Suisen}
+\subsubsection{垂線の足}
+三角形の頂点から対辺（またはその延長）に下した垂線の足を求める
+コマンド \cmd{Suisen} です．\cindex{Suisen}
 
 \showexample[\cmd{Suisen}](0.55)(0.35){example/suisen01}
 
 \begin{boxnote}
 \begin{verbatim}
 \Suisen#1#2#3#4
-    $BE@(B #1 $B$+$iD>@~(B #2#3 $B$X2<$m$7$??b@~$NB-$r(B #4 $B$K%;%C%H(B
+    点 #1 から直線 #2#3 へ下ろした垂線の足を #4 にセット
 \end{verbatim}
 \end{boxnote}
 
-$B4XO"$7$F!$D>@~$,(B1$BE@$HJ}8~%Y%/%H%k$^$?$OJ}8~3Q$GM?$($i$l$F$$$k>l9g$K(B
-$BMQ$$$k%3%^%s%I$,$=$l$>$l(B
-\cmd{mSuisen}, \cmd{kSuisen} $B$G$9!#;HMQNc$r0l$D$:$D$"$2$^$9!#(B
+関連して，直線が1点と方向ベクトルまたは方向角で与えられている場合に
+用いるコマンドがそれぞれ
+\cmd{mSuisen}, \cmd{kSuisen} です。使用例を一つずつあげます。
 \cindex{mSuisen}
 \cindex{kSuisen}
 
@@ -141,16 +141,16 @@
 \end{zahyou}
 \end{showEx}
 
-\subsubsection{$BD>@~$K4X$9$kBP>NE@(B}
-$BA0@a$N?b@~$rH/E8$5$;$F!$E@$ND>@~$K4X$9$kBP>NE@$r5a$a$k%3%^%s%I(B
+\subsubsection{直線に関する対称点}
+前節の垂線を発展させて，点の直線に関する対称点を求めるコマンド
 \begin{jquote}
 \begin{verbatim}
-\Taisyouten 2$BE@$rDL$kD>@~(B
-\mTaisyouten 1$BE@$HJ}8~%Y%/%H%k$r;XDj$7$?D>@~(B
-\kTaisyouten 1$BE@$HJ}8~3Q$r;XDj$7$?D>@~(B
+\Taisyouten 2点を通る直線
+\mTaisyouten 1点と方向ベクトルを指定した直線
+\kTaisyouten 1点と方向角を指定した直線
 \end{verbatim}
 \end{jquote}
-$B$r?7@_$7$^$7$?!#0J2<!$$=$N;HMQNc$rJB$Y$^$9!#(B
+を新設しました。以下，その使用例を並べます。
 \cindex{Taisyouten}
 \cindex{mTaisyouten}
 \cindex{kTaisyouten}
@@ -194,10 +194,10 @@
 \end{showEx}
 \bigskip
 
-$BBP>N$NCf?4!J?b@~$NB-!K$,I,MW$J$H$-$O!$%*%W%7%g%s0z?t(B \verb/[#4]/ $B$K(B
-$B$=$NE@$r<u<h$k@)8fDV$rM?$($F$*$-$^$9!#(B
+対称の中心（垂線の足）が必要なときは，オプション引数 \verb/[#4]/ に
+その点を受取る制御綴を与えておきます。
 
-\begin{showEx}(.5,.44){$BBP>N$NCf?4(B}
+\begin{showEx}(.5,.44){対称の中心}
 \unitlength9mm\footnotesize
 \begin{zahyou}(-3,3)(-3,3)
 \tenretu{A(-2,-1)s;B(1,1)s;P(-1,2)n}
@@ -211,7 +211,7 @@
 \end{zahyou}
 \end{showEx}
 
-$B$3$N5!G=$O!$(B\cmd{mTaisyouten}, \cmd{kTaisyouten} $B$K$b;HMQ$G$-$^$9!#(B
+この機能は，\cmd{mTaisyouten}, \cmd{kTaisyouten} にも使用できます。
 
 \begin{showEx}(.5,.44){\cmd{mTaisyouten}}
 \unitlength9mm\footnotesize
@@ -243,9 +243,9 @@
 \end{zahyou}
 \end{showEx}
 
-\subsection{$B1_$HD>@~$N8rE@(B}
-\subsubsection{$B1_$HD>@~$N8rE@(B(1) \texorpdfstring{\cmd{CandL}}{CandL}}
-\sankaku{ABC}$B$NCf@~(BAM$B$N1dD9$,(B\sankaku{ABC}$B$N30@\1_$H8r$o$kE@(BD$B$r5a$a$^$9!%(B
+\subsection{円と直線の交点}
+\subsubsection{円と直線の交点(1) \texorpdfstring{\cmd{CandL}}{CandL}}
+\sankaku{ABC}の中線AMの延長が\sankaku{ABC}の外接円と交わる点Dを求めます．
 \cindex{CandL}
 
 \showexample[\cmd{CandL}](0.5)(0.45){example/CandL01}
@@ -254,54 +254,54 @@
 \begin{verbatim}
 \CandL#1#2#3#4#5#6
 \CandL*#1#2#3#4#5#6
-        $BE@(B #1 $B$rCf?4$H$7!$H>7B(B #2 $B$N1_$H(B
-        2$BE@(B #3, #4 $B$rDL$kD>@~$H$N8rE@$r(B #5 $B$H(B #6 $B$K%;%C%H$9$k!%(B
-$B1_$HD>@~$N(B2$B$D$N8rE@$N$I$A$i$r(B #5 $B$H$9$k$+$K$D$$$F$O(B
-  \CandL $B$N>l9g(B
-    2$B$D$N8rE@$N$&$A!$(Bx$B:BI8$N>.$5$$J}$,(B #5
-    2$B$D$N8rE@$N(Bx$B:BI8$,0lCW$9$k$H$-$O!$(By$B:BI8$N>.$5$$J}$,(B #5
-  \CandL* $B$N>l9g(B
-    $B1_$NCf?4(B(#1)$B$H(B2$B$D$N8rE@(B(#5, #6)$B$G:n$i$l$k;03Q7A$N<~$r(B
-        #1 $B"*(B #5 $B"*(B #6 $B"*(B #1
-    $B$H$?$I$k2s$jJ}$,@5$N2sE>$H$J$k$h$&$KDj$a$k!#(B
-    $B!J;03Q7A$,$D$V$l$k>l9g$O!$(B\CandL $B$NDj$aJ}$K=>$&!K(B
+        点 #1 を中心とし，半径 #2 の円と
+        2点 #3, #4 を通る直線との交点を #5 と #6 にセットする．
+円と直線の2つの交点のどちらを #5 とするかについては
+  \CandL の場合
+    2つの交点のうち，x座標の小さい方が #5
+    2つの交点のx座標が一致するときは，y座標の小さい方が #5
+  \CandL* の場合
+    円の中心(#1)と2つの交点(#5, #6)で作られる三角形の周を
+        #1 → #5 → #6 → #1
+    とたどる回り方が正の回転となるように定める。
+    （三角形がつぶれる場合は，\CandL の定め方に従う）
 \end{verbatim}
 \end{boxnote}
 
-\subsubsection{$B1_$HD>@~$N8rE@(B(2) \texorpdfstring{\cmd{Candl}}{Candl}}
-$B86E@Cf?4!$H>7B(B1$B$N1_$H!$E@(B(2,0)$B$rDL$j79$-(B$-\bunsuu13$$B$ND>@~$H$N8rE@$r5a$a$^$9!%(B\cindex{Candl}
+\subsubsection{円と直線の交点(2) \texorpdfstring{\cmd{Candl}}{Candl}}
+原点中心，半径1の円と，点(2,0)を通り傾き$-\bunsuu13$の直線との交点を求めます．\cindex{Candl}
 
 \showexample[\cmd{Candl}](0.5)(0.45){example/CandL02}
 
 \begin{boxnote}
 \begin{verbatim}
 \Candl#1#2#3#4#5#6
-        $BE@(B #1 $B$rCf?4$H$7!$H>7B(B #2 $B$N1_$H(B
-        $BE@(B #3 $B$rDL$j(B, $BJ}8~%Y%/%H%k$,(B #4 $B$ND>@~(B
-        $B$H$N8rE@$r(B #5 $B$H(B #6 $B$K%;%C%H$9$k!%(B
-    2$B$D$N8rE@$N$&$A!$$I$A$i$r(B #5 $B$H$9$k$+$O(B \CandL $B$HF1$8!#(B
+        点 #1 を中心とし，半径 #2 の円と
+        点 #3 を通り, 方向ベクトルが #4 の直線
+        との交点を #5 と #6 にセットする．
+    2つの交点のうち，どちらを #5 とするかは \CandL と同じ。
 \end{verbatim}
 \end{boxnote}
 
-\subsubsection{$B1_$HD>@~$N8rE@(B(3) \texorpdfstring{\cmd{Candk}}{Candk}}
-$B86E@Cf?4!$H>7B(B1$B$N1_$H!$E@(B(2,0)$B$rDL$j79$-J}8~3Q(B15\Deg $B$ND>@~(B
-$B$H$N8rE@$r5a$a$^$9!%(B\cindex{Candk}
+\subsubsection{円と直線の交点(3) \texorpdfstring{\cmd{Candk}}{Candk}}
+原点中心，半径1の円と，点(2,0)を通り傾き方向角15\Deg の直線
+との交点を求めます．\cindex{Candk}
 
 \showexample[\cmd{Candl}](0.5)(0.45){example/CandL03}
 
 \begin{boxnote}
 \begin{verbatim}
 \Candk#1#2#3#4#5#6
-        $BE@(B #1 $B$rCf?4$H$7!$H>7B(B #2 $B$N1_$H(B
-        $BE@(B #3 $B$rDL$j(B, $BJ}8~3Q$,(B #4 $B$ND>@~(B
-        $B$H$N8rE@$r(B #5 $B$H(B #6 $B$K%;%C%H$9$k!%(B
-    2$B$D$N8rE@$N$&$A!$$I$A$i$r(B #5 $B$H$9$k$+$O(B \CandL $B$HF1$8!#(B
+        点 #1 を中心とし，半径 #2 の円と
+        点 #3 を通り, 方向角が #4 の直線
+        との交点を #5 と #6 にセットする．
+    2つの交点のうち，どちらを #5 とするかは \CandL と同じ。
 \end{verbatim}
 \end{boxnote}
 
-\subsection{$B1_$H1_$N8rE@(B \texorpdfstring{\cmd{CandC}}{CandC}}
-$B@~J,(BBC$B$ND9$5$,(B7$B$N$H$-!$(BB$B$rCf?4$H$9$kH>7B(B5$B$N1_$H!$(BC$B$rCf?4$H$9$kH>7B(B3$B$N(B
-$B1_$H$N8rE@$r(BA$B$H$9$l$P!$(B3$BJU$ND9$5$,(B7, 5, 3$B$N;03Q7A$,$($i$l$^$9!%(B
+\subsection{円と円の交点 \texorpdfstring{\cmd{CandC}}{CandC}}
+線分BCの長さが7のとき，Bを中心とする半径5の円と，Cを中心とする半径3の
+円との交点をAとすれば，3辺の長さが7, 5, 3の三角形がえられます．
 \cindex{CandC}
 
 \showexample[\cmd{CandC}](0.5)(0.42){example/CandC01}
@@ -309,16 +309,16 @@
 \begin{boxnote}
 \begin{verbatim}
 \CandC#1#2#3#4#5#6
-        $BE@(B #1 $B$rCf?4!$H>7B(B #2 $B$N1_$H(B
-        $BE@(B #3 $B$rCf?4!$H>7B(B #4 $B$N1_$H$N8rE@$r(B#5$B$H(B#6$B$K%;%C%H(B
-$B1_$H1_$N(B2$B$D$N8rE@$N$I$A$i$r(B #5 $B$H$9$k$+$K$D$$$F$O(B
-  \CandC $B$N>l9g(B
-    2$B$D$N8rE@$N$&$A!$(Bx$B:BI8$N>.$5$$J}$,(B #5
-    2$B$D$N8rE@$N(Bx$B:BI8$,0lCW$9$k$H$-$O!$(By$B:BI8$N>.$5$$J}$,(B #5
-  \CandC* $B$N>l9g(B
-    $B1_$NCf?4(B(#1)$B$H(B2$B$D$N8rE@(B(#5, #6)$B$G:n$i$l$k;03Q7A$N<~$r(B
-        #1 $B"*(B #5 $B"*(B #6 $B"*(B #1
-    $B$H$?$I$k2s$jJ}$,@5$N2sE>$H$J$k$h$&$KDj$a$k!#(B
-    $B!J;03Q7A$,$D$V$l$k>l9g$O!$(B\CandC $B$NDj$aJ}$K=>$&!K(B
+        点 #1 を中心，半径 #2 の円と
+        点 #3 を中心，半径 #4 の円との交点を#5と#6にセット
+円と円の2つの交点のどちらを #5 とするかについては
+  \CandC の場合
+    2つの交点のうち，x座標の小さい方が #5
+    2つの交点のx座標が一致するときは，y座標の小さい方が #5
+  \CandC* の場合
+    円の中心(#1)と2つの交点(#5, #6)で作られる三角形の周を
+        #1 → #5 → #6 → #1
+    とたどる回り方が正の回転となるように定める。
+    （三角形がつぶれる場合は，\CandC の定め方に従う）
 \end{verbatim}
 \end{boxnote}

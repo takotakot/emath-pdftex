@@ -1,127 +1,127 @@
-\section{$B;03Q7A$N8^?4(B}
-\subsection{$B=E?4(B}
+\section{三角形の五心}
+\subsection{重心}
 
-\showexample[$B=E?4(B](0.55)(0.4){example/zyusin01}
+\showexample[重心](0.55)(0.4){example/zyusin01}
 \cindex{Zyuusin}
 
 \begin{boxnote}
 \begin{verbatim}
 \Zyuusin#1#2#3#4
-    #1,#2,#3 $B$rD:E@$H$9$k;03Q7A$N=E?4$r(B #4 $B$K%;%C%H$7$^$9!%(B
+    #1,#2,#3 を頂点とする三角形の重心を #4 にセットします．
 \end{verbatim}
 \end{boxnote}
 
-\subsection{$B30?4(B}
-$B;03Q7A$N30?4$r5a$a$k%3%^%s%I(B \cmd{Gaisin} $B$G$9!%(B
+\subsection{外心}
+三角形の外心を求めるコマンド \cmd{Gaisin} です．
 
-\showexample[$B30?4(B](0.55)(0.4){example/gaisin01}
+\showexample[外心](0.55)(0.4){example/gaisin01}
 \cindex{Gaisin}
 
 \begin{boxnote}
 \begin{verbatim}
 \Gaisin#1#2#3#4
-    #1,#2,#3 $B$rD:E@$H$9$k;03Q7A$N30?4$r(B #4 $B$K%;%C%H$7$^$9!%(B
+    #1,#2,#3 を頂点とする三角形の外心を #4 にセットします．
 \end{verbatim}
 \end{boxnote}
 
-$B;03Q7A$N30@\1_$rIA$/%3%^%s%I(B \cmd{Gaisetuen} $B$b$"$j$^$9!%(B
+三角形の外接円を描くコマンド \cmd{Gaisetuen} もあります．
 \cindex{Gaisetuen}
 
-\showexample[$B30@\1_(B](0.55)(0.4){example/gaisin02}
+\showexample[外接円](0.55)(0.4){example/gaisin02}
 
 \begin{boxnote}
 \begin{verbatim}
 \Gaisetuen#1#2#3
-    #1,#2,#3 $B$rD:E@$H$9$k;03Q7A$N30@\1_$rIA2h$7$^$9!%(B
-        $B30?4$O(B \vGaisin $B$K%;%C%H!$H>7B$O(B \lR
+    #1,#2,#3 を頂点とする三角形の外接円を描画します．
+        外心は \vGaisin にセット，半径は \lR
 \end{verbatim}
 \end{boxnote}
 \cindex{vGaisin}\cindex{lR}
 
-\subsection{$BFb?4(B}
-$B;03Q7A$NFb?4$r5a$a$k%3%^%s%I(B \cmd{Naisin} $B$G$9!%(B
+\subsection{内心}
+三角形の内心を求めるコマンド \cmd{Naisin} です．
 \cindex{Naisin}
 
-\showexample[$BFb?4(B](0.55)(0.4){example/naisin01}
+\showexample[内心](0.55)(0.4){example/naisin01}
 
 \begin{boxnote}
 \begin{verbatim}
 \Naisin#1#2#3#4
-    #1,#2,#3 $B$rD:E@$H$9$k;03Q7A$NFb?4$r(B #4 $B$K%;%C%H$7$^$9!%(B
+    #1,#2,#3 を頂点とする三角形の内心を #4 にセットします．
 \end{verbatim}
 \end{boxnote}
 
 
-$B;03Q7A$NFb@\1_$rIA$/%3%^%s%I(B \cmd{Naisetuen} $B$b$"$j$^$9!%(B
+三角形の内接円を描くコマンド \cmd{Naisetuen} もあります．
 \cindex{Naisetuen}
 
-\showexample[$BFb@\1_(B](0.55)(0.4){example/naisin02}
+\showexample[内接円](0.55)(0.4){example/naisin02}
 
 \begin{boxnote}
 \begin{verbatim}
 \Naisetuen#1#2#3
-    #1,#2,#3 $B$rD:E@$H$9$k;03Q7A$NFb@\1_$rIA2h$7$^$9!%(B
-        $BFb?4$O(B \vNaisin $B$K%;%C%H!$H>7B$O(B \lr
+    #1,#2,#3 を頂点とする三角形の内接円を描画します．
+        内心は \vNaisin にセット，半径は \lr
 \end{verbatim}
 \end{boxnote}
 \cindex{vNaisin}\cindex{lr}
 
-\subsection{$BK5?4(B}
-$B;03Q7A$NK5?4$r5a$a$k%3%^%s%I(B \cmd{Bousin} $B$G$9!%(B
+\subsection{傍心}
+三角形の傍心を求めるコマンド \cmd{Bousin} です．
 \cindex{Bousin}
 
-\showexample[$BK5?4(B](0.55)(0.4){example/bousin01}
+\showexample[傍心](0.55)(0.4){example/bousin01}
 
 \begin{boxnote}
 \begin{verbatim}
 \Bousin#1#2#3#4
-    #1,#2,#3 $B$rD:E@$H$9$k;03Q7A$N!$(B
-      $B"\(BA$BFb$K$"$kK5?4$r(B #4 $B$K%;%C%H$7$^$9!%(B
+    #1,#2,#3 を頂点とする三角形の，
+      ∠A内にある傍心を #4 にセットします．
 \end{verbatim}
 \end{boxnote}
 
 
-$B;03Q7A$NK5@\1_$rIA$/%3%^%s%I(B \cmd{Bousetuen} $B$b$"$j$^$9!%(B
+三角形の傍接円を描くコマンド \cmd{Bousetuen} もあります．
 \cindex{Bousetuen}
 
-\showexample[$BK5@\1_(B](0.55)(0.4){example/bousin02}
+\showexample[傍接円](0.55)(0.4){example/bousin02}
 
 \begin{boxnote}
 \begin{verbatim}
 \Bousetuen#1#2#3
-    #1,#2,#3 $B$rD:E@$H$9$k;03Q7A$NK5@\1_$rIA2h$7$^$9!%(B
-        $BK5?4$O(B \vBousin $B$K%;%C%H!$H>7B$O(B \BousetuenHankei
+    #1,#2,#3 を頂点とする三角形の傍接円を描画します．
+        傍心は \vBousin にセット，半径は \BousetuenHankei
 \end{verbatim}
 \end{boxnote}
 \cindex{vBousin}\cindex{BousetuenHankei}
 
-$B;03Q7A$NFb@\1_!$(B3$B$D$NK5@\1_$rIA2h$9$kNc$G$9!#(B
+三角形の内接円，3つの傍接円を描画する例です。
 
-\showexample[$BFb@\1_$HK5@\1_(B](0.9)(0.9){example/bousin03}
+\showexample[内接円と傍接円](0.9)(0.9){example/bousin03}
 
-\subsection{$B?b?4(B}
-$B;03Q7A$N?b?4$r5a$a$k%3%^%s%I$OMQ0U$7$F$"$j$^$;$s!%(B
-\cmd{Suisen} $B$G?b@~$r0z$-!$(B\cmd{LandL} $B$G8rE@$r5a$a$k$3$H$G(B
-$B?b?4$,F@$i$l$^$9!%(B
+\subsection{垂心}
+三角形の垂心を求めるコマンドは用意してありません．
+\cmd{Suisen} で垂線を引き，\cmd{LandL} で交点を求めることで
+垂心が得られます．
 
-\showexample[$B?b?4(B](0.55)(0.4){example/suisin01}
+\showexample[垂心](0.55)(0.4){example/suisin01}
 
-\subsection{$B3Q$NFsEyJ,@~(B}
-$B;03Q7A$NFsEyJ,@~$HBPJU$N8rE@$r5a$a$k$K$O!$(B
-$B%3%^%s%I(B\cmd{Nitoubunsen}$B$rMQ$$$^$9!#(B
-$B$=$N=q<0$G$9!#(B
+\subsection{角の二等分線}
+三角形の二等分線と対辺の交点を求めるには，
+コマンド\cmd{Nitoubunsen}を用います。
+その書式です。
 
 \begin{boxnote}
 \begin{verbatim}
-$B;03Q7A$NFsEyJ,@~$HBPJU$N8rE@$r5a$a$k!#(B
+三角形の二等分線と対辺の交点を求める。
 \Nitoubunsen[#1]#2#3#4#5
-  $B3Q(B#2#3#4$B!J(B#3$B$,3Q$ND:E@!K$r(B2$BEyJ,$9$kD>@~$,JU(B#2#4$B$H8r$o$kE@$r(B#5$B$KM?$($k!#(B
-  #1$B$rM?$($?$H$-$O!$303Q$N(B2$BEyJ,@~$r(B#1$B$KM?$($k!#(B
+  角#2#3#4（#3が角の頂点）を2等分する直線が辺#2#4と交わる点を#5に与える。
+  #1を与えたときは，外角の2等分線を#1に与える。
 \end{verbatim}
 \end{boxnote}
 %\clearpage
 
-$B$^$:$O!$Fb3Q$NFsEyJ,@~$G$9!#(B
+まずは，内角の二等分線です。
 
 \begin{showEx}(1,1){\cmd{Nitoubunsen}}
 \begin{zahyou*}[ul=10mm](-1,5)(-1,3)\footnotesize
@@ -135,10 +135,10 @@
 \end{showEx}
 %\clearpage
 
-$B303Q$NFsEyJ,@~$HBPJU!J$N1dD9!K$H$N8rE@$rF@$k$K$O!$(B
-$B%*%W%7%g%s0z?t(B\verb+[#1]+$B$K8rE@$r<u$1<h$k@)8fDV$rM?$($^$9!#(B
+外角の二等分線と対辺（の延長）との交点を得るには，
+オプション引数\verb+[#1]+に交点を受け取る制御綴を与えます。
 
-\begin{showEx}(1,1){$B303Q$NFsEyJ,@~(B}
+\begin{showEx}(1,1){外角の二等分線}
 \begin{zahyou*}[ul=10mm](-1,12)(-1,4)\footnotesize
   \tenretu{A(3,2)n;B(0,0)s;C(4,0)s}
   \Nitoubunsen[\E]\B\A\C\D

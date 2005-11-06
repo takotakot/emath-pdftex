@@ -5,23 +5,23 @@
 %
 \RequirePackage{hako}%
 \RequirePackage{emathPh}%
-%  \RequirePackage{emath}%   emath $B$OA0Ds(B
-%  \RequirePackage{emathPh}% $B@5EzIt$rM?$($k$H$-$O(B color $B%Q%C%1!<%8$,I,MW(B
+%  \RequirePackage{emath}%   emath は前提
+%  \RequirePackage{emathPh}% 正答部を与えるときは color パッケージが必要
 %
-% \EMmarksheet<key=val>[$BG[E@(B]'$B@5Ez(B'{$B9T?t(B}{$B5-9fG[Ns(B}
+% \EMmarksheet<key=val>[配点]'正答'{行数}{記号配列}
 %
 \newcounter{gyouban}
 %
 \define@key{HMS}{syokiti}{\edef\HMS@syokiti{#1}}%
 %
-%\def\h@komozisyu{$B%"(B}
+%\def\h@komozisyu{ア}
 \def\h@kosyotai{\normalfont}%
 %\def\hakosyotai#1{\def\h@kosyotai{#1}}%
-%\def\@aiueo{$B%"(B}%
-%\def\@AIUEO{$B$"(B}%
-%\def\@iroha{$B%$(B}%
-%\def\@IROHA{$B$$(B}%
-%\def\@kan{$B0l(B}%
+%\def\@aiueo{ア}%
+%\def\@AIUEO{あ}%
+%\def\@iroha{イ}%
+%\def\@IROHA{い}%
+%\def\@kan{一}%
 %\def\hakomozisyu#1{\def\h@komozisyu{#1}}%
 %
 \def\EMmarksheet{\def\HMS@syokiti{0}\@ifnextchar<{\EMmarksheet@}{%
@@ -39,20 +39,20 @@
     \do {%
       \ifx\@c\@aiueo%
         \ifnum\c@gyouban>48\relax
-          \errmessage{$B%"(B,$B%$(B,$B%&(B,... $B$O(B48$B8D$^$G$7$+$"$j$^$;$s!#(B}\fi
-        \edefappend\m@ziretu{\$B%+%?%+%J(B{gyouban}}%
+          \errmessage{ア,イ,ウ,... は48個までしかありません。}\fi
+        \edefappend\m@ziretu{\カタカナ{gyouban}}%
       \else\ifx\@c\@iroha%
         \ifnum\c@gyouban>48\relax
-          \errmessage{$B%$(B,$B%m(B,$B%O(B,... $B$O(B48$B8D$^$G$7$+$"$j$^$;$s!#(B}\fi
-        \edefappend\m@ziretu{\$B%$%m%O(B{gyouban}}%
+          \errmessage{イ,ロ,ハ,... は48個までしかありません。}\fi
+        \edefappend\m@ziretu{\イロハ{gyouban}}%
       \else\ifx\@c\@AIUEO%
         \ifnum\c@gyouban>48\relax
-          \errmessage{$B$"(B,$B$$(B,$B$&(B,... $B$O(B48$B8D$^$G$7$+$"$j$^$;$s!#(B}\fi
-        \edefappend\m@ziretu{\$B$R$i$,$J(B{gyouban}}%
+          \errmessage{あ,い,う,... は48個までしかありません。}\fi
+        \edefappend\m@ziretu{\ひらがな{gyouban}}%
       \else\ifx\@c\@IROHA%
         \ifnum\c@gyouban>48\relax
-          \errmessage{$B$$(B,$B$m(B,$B$O(B,... $B$O(B48$B8D$^$G$7$+$"$j$^$;$s!#(B}\fi
-        \edefappend\m@ziretu{\$B$$$m$O(B{gyouban}}%
+          \errmessage{い,ろ,は,... は48個までしかありません。}\fi
+        \edefappend\m@ziretu{\いろは{gyouban}}%
       \else\ifx\@c\@kan\edef\m@ziretu{%
                             \m@ziretu \Kanji{gyouban}}%
       \else\if\@c a\edef\m@ziretu{%
@@ -89,15 +89,15 @@
     \expandafter\edef\csname kigou@\kigousuu\endcsname{\@@c}}%
   \IAdd\kigousuu{1}\ransuu
   \ifnum\haiten@suu>\z@
-    \ifnum\haiten@suu=#3\else\errmessage{$BG[E@$H9T?t$,IT0lCW$G$9(B}\fi
+    \ifnum\haiten@suu=#3\else\errmessage{配点と行数が不一致です}\fi
   \fi
   \ifnum\kotae@suu>\z@
-    \ifnum\kotae@suu=#3\else\errmessage{$B@5Ez$H9T?t$,IT0lCW$G$9(B}\fi
+    \ifnum\kotae@suu=#3\else\errmessage{正答と行数が不一致です}\fi
   \fi
   \ifnum\haiten@suu>\z@
     \IAdd\kigousuu{2}\Ransuu
     \begin{tabular}{|c|*{\kigousuu}{c}|r|}\hline
-      & \multicolumn{\kigousuu}{c|}{$B2r!!!!!!!!Ez!!!!!!!!Ms(B}& $BG[E@(B
+      & \multicolumn{\kigousuu}{c|}{解　　　　答　　　　欄}& 配点
           \\\cline{2-\Ransuu}
       \Cfor{\xdef\i{0}}{\i<\kigousuu}{}\do{%
         &\xIncr\i\csname kigou@\i\endcsname}&\\\hline
@@ -147,7 +147,7 @@
     \end{tabular}%
   \else
     \begin{tabular}{|c|*{\kigousuu}{c}|}\hline
-      & \multicolumn{\kigousuu}{c|}{$B2r!!!!!!!!Ez!!!!!!!!Ms(B} \\\cline{2-\ransuu}
+      & \multicolumn{\kigousuu}{c|}{解　　　　答　　　　欄} \\\cline{2-\ransuu}
       \Cfor{\xdef\i{0}}{\i<\kigousuu}{}\do{%
         &\xIncr\i\csname kigou@\i\endcsname}\\\hline
         \Cfor{\setcounter{gyouban}{\HMS@syokiti}}{\thegyouban<\HMS@owariti}{}%
@@ -191,11 +191,11 @@
 \endinput
 v 0.00 2004/06/20
 v 0.01 2004/06/20
-    hako.sty $B$N(B \hakomozisyu, \hakosyotai $B$rM-8z$H$9$k!#(B
+    hako.sty の \hakomozisyu, \hakosyotai を有効とする。
 v 0.02 2004/07/30
-    <key=val> $B%*%W%7%g%s$rDI2C(B
+    <key=val> オプションを追加
         syokiti=..
 v 0.03 2004/09/06
-    syokiti $B$r;XDj$7$?:]$N!$G[E@Ms!&@52rMs$N=$@5(B
+    syokiti を指定した際の，配点欄・正解欄の修正
 v 0.04 2005/04/12
-    hako.sty $B$rFI$_9~$`(B
+    hako.sty を読み込む

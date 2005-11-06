@@ -3,7 +3,7 @@
 %\def\tmpname{LaTeX2e}%
 %\ifx\fmtname\tmpname%
   \NeedsTeXFormat{LaTeX2e}
-  \ProvidesPackage{showexample}[2005/09/03 v0.21 TeX $BBPLu(B ]
+  \ProvidesPackage{showexample}[2005/09/03 v0.21 TeX 対訳 ]
   \DeclareOption{nobs2yen}{\def\no@bstoyen{}}%
   \ProcessOptions\relax
 %
@@ -80,11 +80,11 @@
   \endgroup
 }}%
 %
-% \showex $B%3%^%s%I(B -----------------------------------------------
+% \showex コマンド -----------------------------------------------
 \def\showex{\@ifnextchar({\@showex}{\@showx(.45,.45)}}%
 \def\@showex(#1,#2)#3#4{\@@@showexample[#3](#1)(#2){#4}}%
 %
-% \showexample $B%3%^%s%I(B ------------------------------------------
+% \showexample コマンド ------------------------------------------
 \def\showexample{\@ifnextchar[{\@showexample}{\@showexample[\empty]}}%
 \def\@showexample[#1]{\@ifnextchar({\@@showexample[#1]}{%
   \@@showexample[#1](.45)}}%
@@ -110,7 +110,7 @@
   \def\listingoffset{.5zw}%
   \def\listinglabel#1{\llap{\small\the#1}:\hskip\listingoffset\relax}}%
 %
-% showEx $B4D6-(B ------------------------------------------------------
+% showEx 環境 ------------------------------------------------------
 \newcounter{showExNum}
 \define@key{showEx}{label}{\def\showEx@label{#1}}%
 \define@key{showEx}{midasi}{\def\showEx@midasi{#1}}%
@@ -155,7 +155,7 @@
   \@tempdima=\@lsz pt\advance\@tempdima\@rsz pt\relax%
   \ifdim\@tempdima>.95pt\relax\vspace{2pt}\par\noindent\fi%
   \@tempdima\@rsz pt\relax\ifdim\@tempdima>.95pt\relax%
-  \hspace*{2zw}$B"-(B\par\noindent\else\hfill $B"*(B \hfill\fi%
+  \hspace*{2zw}↓\par\noindent\else\hfill → \hfill\fi%
     \begin{minipage}{\@rsz\linewidth}%
     \begin{shadebox}%
     \input{showex.tmp}%
@@ -163,9 +163,9 @@
     \end{minipage}\smallskip%
     \egroup
     \par\noindent}%
-% showpEx $B4D6-(B ------------------------------------------------------
-% $BItJ,E*(B showEx $B4D6-(B
-% ! $B$G;O$^$k9T$O:8B&!J%=!<%9%j%9%H!K$KI=<($7$J$$!#(B
+% showpEx 環境 ------------------------------------------------------
+% 部分的 showEx 環境
+% ! で始まる行は左側（ソースリスト）に表示しない。
 
 \newwrite\showex@s@out%
 
@@ -201,7 +201,7 @@
   \@tempdima=\@lsz pt\advance\@tempdima\@rsz pt\relax%
   \ifdim\@tempdima>.95pt\relax\vspace{2pt}\par\noindent\fi%
   \@tempdima\@rsz pt\relax\ifdim\@tempdima>.95pt\relax%
-  \hspace*{2zw}$B"-(B\par\noindent\else\hfill $B"*(B \hfill\fi%
+  \hspace*{2zw}↓\par\noindent\else\hfill → \hfill\fi%
     \begin{minipage}{\@rsz\linewidth}%
     \begin{shadebox}%
     \input{showex.tmp}%
@@ -209,50 +209,50 @@
     \end{minipage}\smallskip%
     \par\noindent}%
 %
-% showExample $B4D6-(B ----------------------------------------------
+% showExample 環境 ----------------------------------------------
 \def\showExample{\@ifnextchar[{\@showExample}{\@showExample[\empty]}}%
 \def\@showExample[#1](#2)(#3){\showEx(#2,#3){#1}}%
 \let\endshowExample\endshowEx%
 %
 \endinput
-% ver.0.03$B&B(B 1999/08/25
-% showExample $B4D6-$r?7@_(B
+% ver.0.03β 1999/08/25
+% showExample 環境を新設
 % ver.0.04 1999/08/28
-% showEx $B4D6-$r?7@_(B
-% \showex $B%3%^%s%I$r?7@_(B
+% showEx 環境を新設
+% \showex コマンドを新設
 % ver.0.05 1999/10/02
-% backslash $B$r(B \ $B$GI=<($9$k$?$a$N%Q%C%A$rAH$_9~$`!%(B
+% backslash を \ で表示するためのパッチを組み込む．
 % ver.0.06 1999/10/19
-% bs2yen.sty $B$N2~Dj$KBP1~!%(B
+% bs2yen.sty の改定に対応．
 % ver.0.07 1999/10/27
-% $B?75l$N(B bs2yen.sty $B$KBP1~(B
+% 新旧の bs2yen.sty に対応
 % ver.0.08  1999/12/10
-% ot1jcmtt.fd $B$,B8:_$7$J$$>l9g$K$bF0:n$5$;$k!%(B
+% ot1jcmtt.fd が存在しない場合にも動作させる．
 % ver.0.09  2000/02/07
-%   \usepackage{bs2yen} $B$r30$9!%(B
+%   \usepackage{bs2yen} を外す．
 % v0.10     2000/03/19-22
-%   bs2yen.sty $B$r;HMQ$9$k>l9g!$(Bot1jcmtt.fd $B$r%W%j%m!<%I$9$k!#(B
-%   ot1jcmtt.fd $B$,B8:_$9$l$P(B bs2yen.sty $B$r%m!<%I$9$k!#(B
+%   bs2yen.sty を使用する場合，ot1jcmtt.fd をプリロードする。
+%   ot1jcmtt.fd が存在すれば bs2yen.sty をロードする。
 % v0.12     2000/09/01
 % v0.13     2001/07/05
-%   showpEx $B4D6-(B $BItJ,E*(BshowEx$B4D6-(B
+%   showpEx 環境 部分的showEx環境
 % v0.14     2002/11/08
-%   showEx$B4D6-$K(B [listing] $B%*%W%7%g%s$G9THV9f$rIUM?$9$k!#(B
+%   showEx環境に [listing] オプションで行番号を付与する。
 % v 0.15    2003/12/14
-%   showpEx$B4D6-$G(B \headchar $B$r;HMQ$9$k$?$a!$(B
+%   showpEx環境で \headchar を使用するため，
 %       \RequirePackage{emathC}%  2003/12/14
-%   $B$rIm2C$9$k!#(B
+%   を附加する。
 % v 0.16    2004/07/09
-%   hyperref.sty $B$rFI$_9~$s$G$"$k$H$-$O(B \ $B$KBe$($F(B backslash $B$rMQ$$$k!#(B
+%   hyperref.sty を読み込んであるときは \ に代えて backslash を用いる。
 % v 0.17    2004/08/23
-%   ASCII ptex 3.1.4 $B$KBP1~$9$k$?$a(B
-%     nobs2yen $B%*%W%7%g%s$G!$(Bbs2yen.sty $B$rFI$_9~$^$J$$(B
-%     js*.cls $B$+$i(B \DeclareRobustCommand\ttfamily $B$r<ZMQ(B
+%   ASCII ptex 3.1.4 に対応するため
+%     nobs2yen オプションで，bs2yen.sty を読み込まない
+%     js*.cls から \DeclareRobustCommand\ttfamily を借用
 % v 0.18    2004/08/25
-%     LaTeX 2.09 $B$r@Z$j<N$F$k(B
+%     LaTeX 2.09 を切り捨てる
 % v 0.19    2004/08/30
-%     showEx$B4D6-Fb$G$O!$(Bmawarikomi$B$N6/@)2~%Z!<%8$r6X;_(B
+%     showEx環境内では，mawarikomiの強制改ページを禁止
 % v 0.20    2004/12/11
-%     $B8+=P$7$KO"HV$r$D$1$k5!G=$r(B
+%     見出しに連番をつける機能を
 % v 0.21    2005/09/03
-%     emathMw.sty $B$NFHN)$KH<$&=$@5(B
+%     emathMw.sty の独立に伴う修正

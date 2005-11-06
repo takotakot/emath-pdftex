@@ -1,25 +1,25 @@
-\section{$BBJ1_$HD>@~$N8rE@(B}
+\section{楕円と直線の交点}
 \subsection{\texorpdfstring{\cmd{EandL}}{EandL}}
-$B1_$HD>@~$N8rE@$r5a$a$k%3%^%s%I$rH/E8$5$;!$(B
-$BBJ1_$HD>@~$N8rE@$r5a$a$k%3%^%s%I$,(B\cmd{EandL}$B$G$9!#(B
-$B$=$N=q<0$O(B
+円と直線の交点を求めるコマンドを発展させ，
+楕円と直線の交点を求めるコマンドが\cmd{EandL}です。
+その書式は
 
 \begin{boxnote}
 \begin{verbatim}
 \def\EandL#1#2#3#4#5#6#7{%
-  #1 : $BBJ1_$NCf?4(B
-  #2 : x$B<4J}8~$NH>7B(B
-  #3 : y$B<4J}8~$NH>7B(B
-  #4 : $BD>@~>e$NE@(B1
-  #5 : $BD>@~>e$NE@(B2
-  #6 : $B8rE@(B1$B$r<u$1<h$k@)8fDV(B
-  #7 : $B8rE@(B2$B$r<u$1<h$k@)8fDV(B
+  #1 : 楕円の中心
+  #2 : x軸方向の半径
+  #3 : y軸方向の半径
+  #4 : 直線上の点1
+  #5 : 直線上の点2
+  #6 : 交点1を受け取る制御綴
+  #7 : 交点2を受け取る制御綴
 \end{verbatim}
 \end{boxnote}
 \bigskip
 
-$B;HMQNc$G$9!#(B2$BE@(BA($-1$, 0), B(2, 1)$B$rDL$kD>@~$H(B
-$BBJ1_(B$\bunsuu{x^2}{4}+y^2=1$$B$H$N8rE@(BP, Q$B$r5a$a$^$9!#(B
+使用例です。2点A($-1$, 0), B(2, 1)を通る直線と
+楕円$\bunsuu{x^2}{4}+y^2=1$との交点P, Qを求めます。
 
 \begin{showEx}{\cmd{EandL}}
 \begin{zahyou}[ul=10mm]%
@@ -37,11 +37,11 @@
 %\clearpage
 
 \subsection{\texorpdfstring{\cmd{Eandl}}{Eandl}}
-$BD>@~$r(B1$BE@$HJ}8~%Y%/%H%k$GM?$($k>l9g$G$9!#(B
+直線を1点と方向ベクトルで与える場合です。
 
-$BBJ1_(B$\bunsuu{(x-2)^2}{4}+(y-1)^2=1$$B$H!$(B
-$BE@(BA(0, 1)$B$rDL$jJ}8~%Y%/%H%k$,(B(2, 1)$B$ND>@~$N8rE@$r5a$a$^$9!#(B
-$B$3$N>l9g!$E@(BA$B$OBJ1_>e$K$"$j$^$9$+$i!$8rE@$N0lJ}(BP$B$H(BA$B$O0lCW$7$^$9!#(B
+楕円$\bunsuu{(x-2)^2}{4}+(y-1)^2=1$と，
+点A(0, 1)を通り方向ベクトルが(2, 1)の直線の交点を求めます。
+この場合，点Aは楕円上にありますから，交点の一方PとAは一致します。
 
 \begin{showEx}{\cmd{Eandl}}
 \begin{zahyou}[ul=10mm]%
@@ -59,10 +59,10 @@
 \end{showEx}
 
 \subsection{\texorpdfstring{\cmd{Eandk}}{Eandk}}
-$BD>@~$r(B1$BE@$HJ}8~3Q!JO;==J,K!!K$GM?$($k>l9g$G$9!#(B
+直線を1点と方向角（六十分法）で与える場合です。
 
-$BBJ1_(B$\bunsuu{(x-2)^2}{4}+(y-1)^2=1$$B$H!$(B
-$BE@(BA(1, 2)$B$rDL$jJ}8~3Q$,(B$-45\Deg$$B$G$"$kD>@~$H$N8rE@$r5a$a$^$9!#(B
+楕円$\bunsuu{(x-2)^2}{4}+(y-1)^2=1$と，
+点A(1, 2)を通り方向角が$-45\Deg$である直線との交点を求めます。
 
 
 \begin{showEx}{\cmd{Eandk}}
@@ -81,25 +81,25 @@
 \end{zahyou}
 \end{showEx}
 
-\subsection{$BBJ1_$N@\@~(B}
+\subsection{楕円の接線}
 \subsubsection{\texorpdfstring{\cmd{DaennoSessen}}{DaennnoSessen}}
-$BBJ1_$N<~>e$NE@$K$*$1$k@\@~$NJ}8~%Y%/%H%k$r5a$a$k%3%^%s%I$G$9!#(B
+楕円の周上の点における接線の方向ベクトルを求めるコマンドです。
 
 \begin{boxnote}
 \begin{verbatim}
 \DaennoSessen#1#2#3#4#5{%
- #1 : $BBJ1_$NCf?4(B
- #2 : x$B<4J}8~$NH>7B(B
- #3 : y$B<4J}8~$NH>7B(B
- #4 : $B@\E@(B
- #5 : $B@\@~$NJ}8~%Y%/%H%k$r<u$1<h$k@)8fDV(B
+ #1 : 楕円の中心
+ #2 : x軸方向の半径
+ #3 : y軸方向の半径
+ #4 : 接点
+ #5 : 接線の方向ベクトルを受け取る制御綴
 \end{verbatim}
 \end{boxnote}
 \bigskip
 
-$BBJ1_(B$\bunsuu{(x-1)^2}{9}+\bunsuu{y^2}{4}=1$$B>e$NE@(BA
+楕円$\bunsuu{(x-1)^2}{9}+\bunsuu{y^2}{4}=1$上の点A
 $\left(\bunsuu{5}{2},~\sqrt{3} \right)$
-$B$K$*$1$k@\@~$r0z$-$^$9!#(B
+における接線を引きます。
 
 \begin{showEx}(.54,.4){\cmd{EandL}}
 \begin{zahyou}[ul=5mm]%
@@ -114,23 +114,23 @@ $\left(\bunsuu{5}{2},~\sqrt{3} \right)$
 %\clearpage
 
 \subsubsection{\texorpdfstring{\cmd{DaenniSessen}}{DaenniSessen}}
-$B$D$.$O!$BJ1_$N30It$NE@$+$iBJ1_$K0z$$$?@\@~$N@\E@$r5a$a$^$9!#(B
+つぎは，楕円の外部の点から楕円に引いた接線の接点を求めます。
 
 \begin{boxnote}
 \begin{verbatim}
 \DaenniSessen#1#2#3#4#5#6{%
- #1 : $BBJ1_$NCf?4(B
- #2 : x$B<4J}8~$NH>7B(B
- #3 : y$B<4J}8~$NH>7B(B
- #4 : $BBJ1_$N30It$NE@(B
- #5 : $B@\E@(B1$B$r<u$1<h$k@)8fDV(B
- #6 : $B@\E@(B2$B$r<u$1<h$k@)8fDV(B
+ #1 : 楕円の中心
+ #2 : x軸方向の半径
+ #3 : y軸方向の半径
+ #4 : 楕円の外部の点
+ #5 : 接点1を受け取る制御綴
+ #6 : 接点2を受け取る制御綴
 \end{verbatim}
 \end{boxnote}
 \bigskip
 
-$BBJ1_(B$\bunsuu{(x-3)^2}{9}+\bunsuu{(y+2)^2}{4}=1$$B$K(B
-$BE@(BA(6, 1)$B$+$i@\@~$r0z$-$^$9!#(B
+楕円$\bunsuu{(x-3)^2}{9}+\bunsuu{(y+2)^2}{4}=1$に
+点A(6, 1)から接線を引きます。
 
 \begin{showEx}{\cmd{DaennnoSessen}}
 \begin{zahyou}[ul=5mm]%
@@ -149,21 +149,21 @@ $\left(\bunsuu{5}{2},~\sqrt{3} \right)$
 %\clearpage
 
 \subsubsection{\texorpdfstring{\cmd{Earg}}{Earg}}
-$BBJ1_$NG^2pJQ?tI=<((B
+楕円の媒介変数表示
 \begin{align*}
   x&=x_0+a\cos\theta\\
   y&=y_0+b\sin\theta
 \end{align*}
-$B$K$*$$$F!$<~>e$NE@(B($x$, $y$)$B$r;XDj$7$F(B$\theta$$B$r5a$a$k%^%/%m$G$9!#(B
+において，周上の点($x$, $y$)を指定して$\theta$を求めるマクロです。
 
 \begin{boxnote}
 \begin{verbatim}
 \Earg#1#2#3#4#5{%
- #1 : $BBJ1_$NCf?4(B
- #2 : x$B<4J}8~$NH>7B(B
- #3 : y$B<4J}8~$NH>7B(B
- #4 : $B<~>e$NE@(B
- #5 : $BG^2pJQ?t$NCM!JO;==J,K!!K(B
+ #1 : 楕円の中心
+ #2 : x軸方向の半径
+ #3 : y軸方向の半径
+ #4 : 周上の点
+ #5 : 媒介変数の値（六十分法）
 \end{verbatim}
 \end{boxnote}
 \bigskip

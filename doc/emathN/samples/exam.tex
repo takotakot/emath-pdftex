@@ -1,7 +1,7 @@
-% $BG/EY(B 1998
-% $B=PBj(B 0032 $BEE5$DL?.Bg3X(B $B8e4|(B
-% $B8!:w%-!<%o!<%I(B  $B%3%s%T%e!<%?(B
-% $B2JL\(B $B?t#A(B
+% 年度 1998
+% 出題 0032 電気通信大学 後期
+% 検索キーワード  コンピュータ
+% 科目 数Ａ
 
 \documentclass[a4j,fleqn]{jarticle}
 \usepackage{alltt}
@@ -20,18 +20,18 @@
 \noindent
 \begin{caprm}
 \begin{nagarezu}[.45](32em,37\baselineskip)%
-  \tansi{$B$O$8$a(B}%
+  \tansi{はじめ}%
   \sitahe%
   \nyuusyuturyoku{%
-  \parbox{8zw}{\ $S(1),\cdots,S(5)$$B$NCM$rF~NO(B}}%
+  \parbox{8zw}{\ $S(1),\cdots,S(5)$の値を入力}}%
   \sitahe
   \syori{$J=1$}%
   \sitahe[label1]%
-  \begin{handan}<.6><1.2>{$B!!(B$\strut J>4$ ?$B!!(B}%
+  \begin{handan}<.6><1.2>{　$\strut J>4$ ?　}%
     \begin{migibunki}%
       \migihe<n>(50pt)"yes"%
       \sitahe%
-      \tansi{$B$*$o$j(B}%
+      \tansi{おわり}%
     \end{migibunki}%
     \begin{sitabunki}%
       \sitahe"No"
@@ -40,11 +40,11 @@
         M&=J\\ K&=J+1
         \end{align*}}}%
     \sitahe[label2]%
-    \begin{handan}<.6><1.2>{$B!!(B$\strut K>5$ ?$B!!(B}%
+    \begin{handan}<.6><1.2>{　$\strut K>5$ ?　}%
     \begin{hidaribunki}%
       \hidarihe<n>"no"%
       \sitahe
-        \begin{handan}<.6><1.2>{$B!!(B$\strut S(M)<S(K)$ ?$B!!(B}%
+        \begin{handan}<.6><1.2>{　$\strut S(M)<S(K)$ ?　}%
           \begin{sitabunki}%
             \sitahe"no"%
             \syori{$M=K$}%
@@ -75,7 +75,7 @@
           \end{align*}}}%
         \sitahe
         \nyuusyuturyoku{%
-        \parbox{8zw}{$S(1),\cdots,S(5)$$B$NCM$rI=<((B}}%
+        \parbox{8zw}{$S(1),\cdots,S(5)$の値を表示}}%
       \Put\migityuuten(0,0)[l]{ $\cdots\cdots(\ast)$}%
         \sitahe
         \syori{$J=J+1$}%
@@ -90,53 +90,53 @@
 \end{nagarezu}%
 \end{caprm}
 }%
-$B2<$N(BBASIC$B$K$h$k%W%m%0%i%`$O!$(B
+下のBASICによるプログラムは，
 \begin{jquote}
-$S(I)$$B$,6v?t$N$H$-(B\\
-$B!!(B$S(I+1)=S(I)/2$ \\
-$S(I)$$B$,4q?t$N$H$-(B\\
-$B!!(B$S(I+1)=3\times S(I)-1$
+$S(I)$が偶数のとき\\
+　$S(I+1)=S(I)/2$ \\
+$S(I)$が奇数のとき\\
+　$S(I+1)=3\times S(I)-1$
 \end{jquote}
-$B$H$$$&5,B'$K=>$&?tNs$r@8@.$9$k!%(B
+という規則に従う数列を生成する．
 \begin{alltt}
 10 DIM S(10)
 20 N=6:I=1
 30 S(I)=N
 40 PRINT S(I)
 50 IF \Hako THEN N=N/2
-$B!!(B ELSE N=3*N-1
+　 ELSE N=3*N-1
 60 I=I+1
 7O IF N<>1 GOTO 30
 8O END
 \end{alltt}
-($BCm0U(B:DIM S(10)$B$H$$$&L?Na$O!$(B$S(1)$B!$(BS(2)$B!$(B\cdots\cdots$B!$(BS(10)$$B$H$$$&G[Ns$r(B
-$B;H$($k$h$&$K$9$k$?$a$N$b$N$G$"$k!%(B\texttt{N<>1}$B$O(B$N\neqq 1$$B$rI=$9!%(B)
+(注意:DIM S(10)という命令は，$S(1)，S(2)，\cdots\cdots，S(10)$という配列を
+使えるようにするためのものである．\texttt{N<>1}は$N\neqq 1$を表す．)
 \end{nidan}
 \begin{Enumerate}[(1)]
-  \item $B%W%m%0%i%`Cf$N6uMs$KF~$k$Y$-<0$rEz$($h!%$?$@$7!$(B
-    $B@5$N?t$,M?$($i$l$?$H$-!$$=$N>.?tItJ,$r@Z$j<N$F$?@0?t$r5a$a$k4X?t(BINT$B$r(B
-    $BMQ$$$F$h$$!%(B
-  \item $B$3$N%W%m%0%i%`$K$h$jI=<($5$l$k?t$r!$I=<($5$l$k=g$K$9$Y$FEz$($h!%(B
+  \item プログラム中の空欄に入るべき式を答えよ．ただし，
+    正の数が与えられたとき，その小数部分を切り捨てた整数を求める関数INTを
+    用いてよい．
+  \item このプログラムにより表示される数を，表示される順にすべて答えよ．
 \end{Enumerate}
 
-$B<!$K!$$3$N%W%m%0%i%`$GF@$i$l$??tNs$N$&$A!$(BS(1)$B$+$i(BS(5)$B$^$G$NCM$r(B
-$BF~NO$H$7$F!$>e$NN.$l?^$K<($5$l$k<j=g$G7W;;$r9T$&!%(B
+次に，このプログラムで得られた数列のうち，S(1)からS(5)までの値を
+入力として，上の流れ図に示される手順で計算を行う．
 \begin{Enumerate*}
   \item 
     \begin{nidan}{21zw}{%
       \begin{tabular}[t]{|l|*{5}{c|}} \hline
           & S(1) & S(2) & S(3) & S(4) & S(5) \\\hline
-      2$B2sL\(B &&&&& \\\hline
-      4$B2sL\(B &&&&& \\\hline
+      2回目 &&&&& \\\hline
+      4回目 &&&&& \\\hline
       \end{tabular}
     }\noindent
-    $B?^Cf$N(B$(*)$$B$r(B2$B2sL\$H(B4$B2sL\$K<B9T$9$k$H$-$KI=<($5$l$k(B
-    $S(1)$B!$(BS(2)$B!$(B\cdots\cdots$B!$(BS(5)$$B$NCM$r$=$l$>$l5a$a!$(B
-    $B1&$NI=$N7A$G2rEzMs(B($B>JN,(B)$B$K5-F~$;$h!%(B
+    図中の$(*)$を2回目と4回目に実行するときに表示される
+    $S(1)，S(2)，\cdots\cdots，S(5)$の値をそれぞれ求め，
+    右の表の形で解答欄(省略)に記入せよ．
     \end{nidan}
-  \item $B<!$N6uMs$KEv$F$O$^$k8@MU$rEz$($h!%(B
-    $B!V$3$NN.$l?^$K$h$k=hM}$O!$0lHL$K!$F~NO$H$7$FM?$($i$l$??tNs(B
-    $S(1),~S(2),~\cdots\cdots,~S(5)$$B$r(B\Hako $B$KJB$YBX$($kF/$-$r$9$k!%(B
+  \item 次の空欄に当てはまる言葉を答えよ．
+    「この流れ図による処理は，一般に，入力として与えられた数列
+    $S(1),~S(2),~\cdots\cdots,~S(5)$を\Hako に並べ替える働きをする．
 \end{Enumerate*}
 \end{caprm}
 \end{document}

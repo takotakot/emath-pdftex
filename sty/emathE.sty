@@ -1,14 +1,14 @@
 % emathE.sty by tDB (emath@nifty.com)
 
 \NeedsTeXFormat{LaTeX2e}%
-\ProvidesPackage{emathE}[2005/09/05 v0.79 $B3HD%(Benumerate]%
+\ProvidesPackage{emathE}[2005/09/05 v0.79 拡張enumerate]%
 \@ifundefined{edaenumerate}{}{%
-	  \errmessage{emathEy.sty $B$h$j$bA0$K(B enumerate.sty $B$rFI$_9~$_$^$9!#(B}%
+	  \errmessage{emathEy.sty よりも前に enumerate.sty を読み込みます。}%
 }%
 \RequirePackage{enumerate}%
 \RequirePackage{emathEc}%
 \RequirePackage{jquote}%
-\@ifundefined{$B%+%?%+%J(B}{\input emathK.sty}{}%
+\@ifundefined{カタカナ}{\input emathK.sty}{}%
 %
 \newcount\kizami@ti\kizami@ti=\@ne
 \newcount\syoki@ti\syoki@ti=\z@
@@ -18,10 +18,10 @@
 %
 \let\orgltxitem\item
 %
-% $B:8$K(B0$B$r5M$a$F;XDj7e?t$K$9$k!%(B
+% 左に0を詰めて指定桁数にする．
 %   \Ofil#1#2
-%     #1 : $B;XDj7e?t(B
-%     #2 : $B?t;zNs(B
+%     #1 : 指定桁数
+%     #2 : 数字列
 \def\Ofil#1#2{%
   \edef\Ofil@a{#2}%
   \Strlen\Ofil@a\Ofil@n
@@ -37,11 +37,11 @@
 \def\Ofilii#1{\Ofil{2}{#1}}
 \def\Ofiliii#1{\Ofil{3}{#1}}
 %
-% $B%m!<%^?t;z$r0lDj$NI}$NCf$KCV$/(B
+% ローマ数字を一定の幅の中に置く
 % \emRoman(#1)#2
 % \emroman(#1)#2
-%   #1 : $B2#I}$N4p=`J8;zNs(B
-%   #2 : $B%m!<%^?t;zNs(B
+%   #1 : 横幅の基準文字列
+%   #2 : ローマ数字列
 %
 \def\emroman{\@ifnextchar({\em@roman}{\em@roman(iii)}}
 \def\em@roman(#1)#2{{\setbox0=\hbox{#1}\templa\wd0
@@ -53,17 +53,17 @@
 \def\emRomanII{\emRoman(II)}
 \def\emRomanVIII{\emRoman(VIII)}
 
-% ($BHV9f(B)$B$rA43Q(B1$BJ8;zI}(B
+% (番号)を全角1文字幅
 \def\emnumzw#1{\resizebox{1zw}{\height}{(#1)}}
 
-% $BA43Q?t;z$K$h$k%J%s%P%j%s%0(B
+% 全角数字によるナンバリング
 \def\zarabic#1{\@zarabic{\@nameuse{c@#1}}}%
 \def\@zarabic#1{\expandafter\@izarabic\number#1\relax*}%
 \def\@izarabic#1#2*{\char\jis"233#1%
   \ifx \empty #2\else\@izarabic#2*\fi}%
 
 
-% list $B4D6-$N=$@5(B
+% list 環境の修正
 \def\apn@list{\relax}
 \def\apnlist#1{\def\apn@list{#1}}
 \def\narrowsep{\parsep\z@\itemsep\z@\parskip\z@}
@@ -71,14 +71,14 @@
 \def\list#1#2{\ltxlist{#1}{\apn@list #2}}
 
 %
-% enumerate$B4D6-$N9T4V(B
+% enumerate環境の行間
 %
 \def\enumsep{}%
 %\def\oldenumsep{%
 % \topsep=7.5pt\parskip=0pt\parsep=0pt\itemsep0pt\leftmargin=9.62216pt}%
 \def\narrowenumsep{\topsep=\z@\parsep=\z@\itemsep\z@\parskip\z@}%
 %
-% enumerate$B4D6-$N:8%^!<%8%s(B
+% enumerate環境の左マージン
 %
 \def\@enumlmargini{}%
 \def\@enumlmarginii{}%
@@ -139,7 +139,7 @@
 \apn@enum
   \def\makelabel##1{\hss\llap{##1}}}}
 
-%%% $B8=:_$N%l%Y%k$N(B enumi(ii,iii,iv) $B$K?tCM$r%;%C%H$9$k!%(B
+%%% 現在のレベルの enumi(ii,iii,iv) に数値をセットする．
 
 \newcommand{\setcurrentenum}[1]{%
 \edef\@currentenum{enum\romannumeral \@enumdepth}%
@@ -240,7 +240,7 @@
   \ignorespaces}
 
 %%%
-%%% enumerate $B4D6-$NCfCG!&7QB3(B
+%%% enumerate 環境の中断・継続
 %%%
 \newcounter{Enumi}
 \newcounter{Enumii}
@@ -288,7 +288,7 @@
   \endenumerate}%
 
 
-%%% enumerate $B4D6-$N(B\item $B$K$D$$$F!$Aj8_;2>HHV9f$rEv3:%l%Y%k$N$_$K$9$k!%(B
+%%% enumerate 環境の\item について，相互参照番号を当該レベルのみにする．
 %
 \def\refcurrentenum{\def\p@enumii{}\def\p@enumiii{}\def\p@enumiv{}}%
 \def\refallenum{%
@@ -297,12 +297,12 @@
 \renewcommand{\p@enumiv}{\p@enumiii\theenumiii}%
 }%
 
-%%% \item $BD>8e$KJL9TN)$F?t<0$rG[CV$9$k:]$N=D0LCV$ND4@0(B
+%%% \item 直後に別行立て数式を配置する際の縦位置の調整
 %%%
 %%% \itemtopmath<#1>[#2]
-%%%   #1 : $BHyD4@0NL!JC10L$D$-!K(B+$B$G>e$K!$(B-$B$G2<$K0\F0(B
-%%%   #2 : 1$B9TL\$N9b$5$,9b$$$H$-!$$=$NItJ,$rM?$($k(B
-%%%        ( \emtokena $B$KJ]B8$5$l$k(B)
+%%%   #1 : 微調整量（単位つき）+で上に，-で下に移動
+%%%   #2 : 1行目の高さが高いとき，その部分を与える
+%%%        ( \emtokena に保存される)
 
 \newtoks\emtokena
 \def\itemtopmath{\@ifnextchar<{\item@topmath}{\item@topmath<\z@>}}
@@ -318,7 +318,7 @@
   \bgroup
     \EMresetstrutbox
     \@tempdima=\baselineskip
-    \@tempdimb=\ht0%\advance\@tempdimb\dp0\divide\@tempdimb\tw@% $B$5$F$I$C$A(B
+    \@tempdimb=\ht0%\advance\@tempdimb\dp0\divide\@tempdimb\tw@% さてどっち
     \ifdim\@tempdimb>\ht\strutbox
       \advance\@tempdima\@tempdimb\advance\@tempdima-\ht\strutbox
     \fi
@@ -342,7 +342,7 @@
 \def\dmyln{\@ifnextchar[{\@dmyln}{\@dmyln[0pt]}}%
 \def\@dmyln[#1]{\leavevmode\vspace{#1}\par\noindent}%
 %
-% list $B4D6-2<$G!$6IItE*$KHGLL$$$C$Q$$$K3H$2$k$?$a$N4D6-(B
+% list 環境下で，局部的に版面いっぱいに拡げるための環境
 %
 \def\escapelist{\@ifnextchar[{\@escapelist}{\@escapelist[\z@]}}
 \def\@escapelist[#1]{%
@@ -390,184 +390,184 @@
 \endinput
 % ver.0.07
 % 19990513
-%   \edakaigyou $B=$@5(B
+%   \edakaigyou 修正
 % ver.0.08
 % 19990704
-%   \enumsep $B$G(B list $B4D6-$K$*$1$k(B \parsep $B$J$I$rD4@0$9$k5!G=$rIm2C(B
+%   \enumsep で list 環境における \parsep などを調整する機能を附加
 % 19990706
-%   edaenumerate $B4D6-Fb$G(B \vfill $B$r(B \edakaiyou\vfill $B$H:FDj5A(B
+%   edaenumerate 環境内で \vfill を \edakaiyou\vfill と再定義
 % ver.0.09
 % 19990712
-%   nidan $B4D6-$KAH$_J}8~%*%W%7%g%s(B <t|y|z> $B$r$D$1$k!%(B
+%   nidan 環境に組み方向オプション <t|y|z> をつける．
 % ver.0.10 19990724-31
-% zu $B4D6-Fb$N%$%s%G%s%HNL$r;XDj$9$k%*%W%7%g%s$rIm2C(B
-% \templa, \templb $BL$Dj5A$N$H$-$X$NBP1~(B
+% zu 環境内のインデント量を指定するオプションを附加
+% \templa, \templb 未定義のときへの対応
 % ver.0.11 19990823
-% \enumLmargin enumerate $B4D6-$N:8%^!<%8%s$rD4@0$9$k!%(B
+% \enumLmargin enumerate 環境の左マージンを調整する．
 % ver.0.12 1999/10/06-12/16
-% \suuziToZen $BH>3Q?t;zNs$rA43Q?t;zNs$KJQ49$9$k!%(B
-% \enumerate [...] $B%*%W%7%g%s$N=hM}$K(B \relax $B$rA^F~$9$k!%(B
-% headingminipage $B4D6-(B
-% jdescription $B4D6-(B
-% nidan, zu $B4D6-$N=*$o$j$K(B \endtrivlist $B$rIm2C(B
-% enumerate $B4D6-$N%*%W%7%g%sJ8;z$K(B M $B$rDI2C(B
-% \enumsep $B$rAXJL$K;XDj$G$-$k$h$&$K$9$k$?$a(B
+% \suuziToZen 半角数字列を全角数字列に変換する．
+% \enumerate [...] オプションの処理に \relax を挿入する．
+% headingminipage 環境
+% jdescription 環境
+% nidan, zu 環境の終わりに \endtrivlist を附加
+% enumerate 環境のオプション文字に M を追加
+% \enumsep を層別に指定できるようにするため
 %   \enumSep, \enumSepi, \enumSepii, \enumSepiii, \enumSepiv
-%   $B$r?7@_(B
-%   $B$?$@$7!$(B\enumSep? $B$r;HMQ8e$O(B \enumsep $B$OL58z$H$J$k!%(B
+%   を新設
+%   ただし，\enumSep? を使用後は \enumsep は無効となる．
 % ver.0.13  2000/01/25
-%   zu $B4D6-(B wrapfig $B$N>l9g$N=$@5(B
+%   zu 環境 wrapfig の場合の修正
 % ver.0.14  2000/02/19-26
-%   \Ofil 0$B$r:8$K5M$a$F;XDj7e?t$K$9$k!%(B
-%   \zu \long $B$rIm2C!%(B
+%   \Ofil 0を左に詰めて指定桁数にする．
+%   \zu \long を附加．
 % v0.15 2000/06/22-24
-%   \@enum@ $B$NBh#20z?t$N=*$o$j=$@5(B
-%   betaenumerate $B4D6-$r?7@_!J2#$K%Y%?$KJB$Y$k(B enumerate)
+%   \@enum@ の第２引数の終わり修正
+%   betaenumerate 環境を新設（横にベタに並べる enumerate)
 % v0.16 2000/06/27
-%   edaenumerateb $B=$@5(B
+%   edaenumerateb 修正
 % v0.17 2000/07/23
-%   edaenumerateb $B$NJLL>(B betaenumerate
+%   edaenumerateb の別名 betaenumerate
 % v0.18 2000/08/17
-%   zu, ninda $B4D6-$K!$?^$N:8G[CV$r2DG=$H$9$k$?$a!$(B<l>$B%*%W%7%g%s$rIU2C(B
+%   zu, ninda 環境に，図の左配置を可能とするため，<l>オプションを付加
 % v 0.19  2000/10/24
-%   \OfilStr $B7k2L$r@)8fDV$KJV$9(B0$B;z5M$a(B
+%   \OfilStr 結果を制御綴に返す0字詰め
 % v 0.20  2000/11/03-11
-%   \Nidan list $B4D6-2<$K$*$1$k?^$N2s$j$3$_(B
-%   \Nidan* $B7QB3(B
-%   \Akeru $B1&6u$1!J%3%^%s%I7?!K(B
-%   nidanenumerate $B4D6-(B
+%   \Nidan list 環境下における図の回りこみ
+%   \Nidan* 継続
+%   \Akeru 右空け（コマンド型）
+%   nidanenumerate 環境
 % v 0.21  2000/11/13
-%   nidanenumerate $B4D6-(B
-%     $B0lHV30B&$N$b$N$r=*N;$9$k$H$-!$(B\ND@gyousuu $B$r:F7W;;$5$;$k!#(B
-%   mawarikomi $B4D6-(B
+%   nidanenumerate 環境
+%     一番外側のものを終了するとき，\ND@gyousuu を再計算させる。
+%   mawarikomi 環境
 % v 0.22  2000/11/15-16
-%   mawarikomi $B4D6-$K?^$N0LCV$rHyD4@0$9$k%*%W%7%g%s(B (#2,#3) $B$rIUM?(B
-%   \mawarikomishape mawarikomi $B$N(B shape $B$r:F7W;;$5$;$k!#(B
-%     \after@end $B$r9M0F$7!$(B\mawarikomishape $B$OITMW$H$J$k!#(B
-%   <#1>$B%*%W%7%g%s$GCJMnESCf$+$i$N2s$j9~$_$r2DG=$H$9$k!#(B
-%   Fmawarikomi, Tmawarikomi $B4D6-(B
-%     $B$=$l$>$l!$(Bfigure, table $B$G(B caption $B$r$D$1$k!#(B
+%   mawarikomi 環境に図の位置を微調整するオプション (#2,#3) を付与
+%   \mawarikomishape mawarikomi の shape を再計算させる。
+%     \after@end を考案し，\mawarikomishape は不要となる。
+%   <#1>オプションで段落途中からの回り込みを可能とする。
+%   Fmawarikomi, Tmawarikomi 環境
+%     それぞれ，figure, table で caption をつける。
 % v 0.23  2000/11/19
-%   mawarikomi$B4D6-$K(B[l]$B%*%W%7%g%s$G?^$r:8$K(B
+%   mawarikomi環境に[l]オプションで図を左に
 % v 0.27  2001/01/11
-%   edaenumerate$B4D6-$N(B <...> $B%*%W%7%g%s$K<!$N=q<0$rDI2C(B
-%     retusuu=$B@0?t!J2#$KJB$Y$k>.Ld?t!K(B
-%     gyoukan=dimension$B!JC10LIU$N?tCM$G9T4V$N%5%$%:!K(B
-%     gyoukan=\vfill$B!J9T4V$r6QEy3d!K(B
+%   edaenumerate環境の <...> オプションに次の書式を追加
+%     retusuu=整数（横に並べる小問数）
+%     gyoukan=dimension（単位付の数値で行間のサイズ）
+%     gyoukan=\vfill（行間を均等割）
 % v 0.28  2001/05/13
-%   \def\narrowenumsep{\topsep=0pt\parsep=0pt\itemsep0pt}%$B$H=$@5(B
+%   \def\narrowenumsep{\topsep=0pt\parsep=0pt\itemsep0pt}%と修正
 % v 0.29  2001/07/23
-%   \betaitemindent $B$r?7@_(B
+%   \betaitemindent を新設
 % v 0.30  2001/07/24
-%   betaenumerate $B4D6-$G!$1&$K$O$_=P$9D>A0$K6/@)2~9T$9$k!#(B
+%   betaenumerate 環境で，右にはみ出す直前に強制改行する。
 % v 0.31  2001/07/27
-%   enumerate, edaenumerate$B4D6-$G!$HV9f$NA08e$K%^!<%/$r$D$1$k(B
+%   enumerate, edaenumerate環境で，番号の前後にマークをつける
 %       (\preitem, \postitem)
 % v 0.32  2001/07/28
-%   betaenumerate $BM>GrD4@0(B
-%   edaenumerate $B2~9T%?%$%_%s%0D4@0(B
-%   \betaitemindent $BJ]N1(B
-%   yokoenumerate$B4D6-(B $B2#$KJB$Y$k8D?t$r<+F0E*$K5a$a$k!#(B
+%   betaenumerate 余白調整
+%   edaenumerate 改行タイミング調整
+%   \betaitemindent 保留
+%   yokoenumerate環境 横に並べる個数を自動的に求める。
 % v 0.33  2001/07/30
-%   edaenumerate $B2~9T$N%?%$%_%s%0D4@0$KH<$$!$(B
-%   \edakaigyou $B=$@5(B
+%   edaenumerate 改行のタイミング調整に伴い，
+%   \edakaigyou 修正
 % v 0.34  2001/08/06-11
-%   \emroman $B%m!<%^?t;z$r0lDj$NI}$NCf$KCV$/(B
+%   \emroman ローマ数字を一定の幅の中に置く
 % v 0.35  2001/09/24-10/17
 %   \emRoman
-%   mawarikomi $B?^I}$r>JN,$7$?$H$-$O<+A3$NI}$H$9$k!#(B
-%     $B!J$3$N>l9g!$(B\mawarikomisep=10pt $B$H$J$k!#!K(B
+%   mawarikomi 図幅を省略したときは自然の幅とする。
+%     （この場合，\mawarikomisep=10pt となる。）
 % v 0.36  2001/10/23-27
 %   \wakudori
-%   zuhaiti $B4D6-$H(B \haiti
+%   zuhaiti 環境と \haiti
 % v 0.37  2001/11/22
 %   \templa, \templb \newlength ---> \newdimen
 % v 0.38  2001/11/28
-%   \orgltx@item $B%*%j%8%J%k$N(B \item $B$rJ]B8(B
+%   \orgltx@item オリジナルの \item を保存
 % v 0.39  2001/12/21
-%   \narrowenumsep $B$K(B \parskip\z@ $B$rDI2C!#5U$K(B \topsep\z@ $B$r:o=|(B
-%   \apnlist list $B4D6-$X$NDI2C(B
+%   \narrowenumsep に \parskip\z@ を追加。逆に \topsep\z@ を削除
+%   \apnlist list 環境への追加
 % v 0.40  2002/01/10
-%   \mawarikomiowari \leavevmode $B$r@hF,$KIm2C(B
-%   \itemtopmath \item $BD>8e$KJL9TN)$F?t<0$rG[CV$9$k:]$K;HMQ(B
+%   \mawarikomiowari \leavevmode を先頭に附加
+%   \itemtopmath \item 直後に別行立て数式を配置する際に使用
 % v 0.41  2002/01/31
-%   \narrowenumsep \topsep=\z@ $B$rI|85(B
-%   mawarikomi $B4D6-Fb$N(B edaenumerate $B4D6-$G$N2~9T%?%$%_%s%0D4@0(B
-%   edaenumerate $B4D6-$N(B <#1> $B%*%W%7%g%s$N%-!<%o!<%I$K(B tateiti= $B$rDI2C(B
+%   \narrowenumsep \topsep=\z@ を復元
+%   mawarikomi 環境内の edaenumerate 環境での改行タイミング調整
+%   edaenumerate 環境の <#1> オプションのキーワードに tateiti= を追加
 % v 0.42  2002/05/04
-%   mawarikomi $B4D6-D4@0(B
-%     edaenumerate $B4D6-$N:FDj5A$r;_$a$k!#(B
+%   mawarikomi 環境調整
+%     edaenumerate 環境の再定義を止める。
 %     \global\@mawarikomisep=\mawarikomisep
 % v 0.43  2002/05/29
-%   edaEnumerate, edaEnumerate* $B4D6-(B
-%   gyoukan@a : div by edamonsuu $B$rGQ;_(B
+%   edaEnumerate, edaEnumerate* 環境
+%   gyoukan@a : div by edamonsuu を廃止
 % v 0.44 2002/09/23-29
-%   \itemtopmath : $B?bD>0\F0NLD4@0(B
-%   \endmawarikomo, \begin{mawarikomi*}$B$H$ND4@0(B
+%   \itemtopmath : 垂直移動量調整
+%   \endmawarikomo, \begin{mawarikomi*}との調整
 % v 0.45 2002/10/30
-%   \emnumzw : ($BHV9f(B) $B$rA43Q(B1$BJ8;zI}$K(B
+%   \emnumzw : (番号) を全角1文字幅に
 % v 0.46 2002/12/30
 %   nidan, Nidan ---> emathOld
 % v 0.47 2003/02/13
-%   escapelist$B4D6-(B
+%   escapelist環境
 % v 0.48 2003/02/14
-%   escapelist $B:8%$%s%G%s%H$r$D$1$k$3$H$r2DG=$H$9$k!#(B
+%   escapelist 左インデントをつけることを可能とする。
 % v 0.49 2003/04/12
-%   \setedasep : \pre@edasep, \post@edasep $B$N@_Dj(B
+%   \setedasep : \pre@edasep, \post@edasep の設定
 % v 0.50 2003/05/25
-%   mawarikomi $B4D6-$G!$?^I}$r>JN,$7$?>l9g!$@_DjCM$r%m%0%U%!%$%k$K=q$-=P$9!#(B
+%   mawarikomi 環境で，図幅を省略した場合，設定値をログファイルに書き出す。
 % v 0.51 2003/06/10
 %   \emRomanII, \emRomanVIII
 % v 0.52 2003/07/03
-%   \edaenumerate $B2~9T$N%?%$%_%s%0=$@5(B
+%   \edaenumerate 改行のタイミング修正
 % v 0.53 2003/07/21
-%   mawarikomi<0> $B$H(B jsarticle $B$H$N4X78$rD4@0(B
+%   mawarikomi<0> と jsarticle との関係を調整
 % v 0.54 2003/07/28
-%   mawarikomi<0> $B$N=DJ}8~$ND4@0(B
+%   mawarikomi<0> の縦方向の調整
 % v 0.55 2003/08/17
-%   mawarikomi*$B4D6-$H(B\enumLmargin$B$ND4@0(B
+%   mawarikomi*環境と\enumLmarginの調整
 % v 0.56 2003/08/24
-%   v0.55 $B$N=$@5$,!V?^$N:8G[CV!W$N>l9g!$ITE,@Z$G$"$C$?!#(B
+%   v0.55 の修正が「図の左配置」の場合，不適切であった。
 % v 0.57 2003/09/03
-%   mawarikomi$B4D6-$r(B emathMw.sty $B$KJ,N%(B
+%   mawarikomi環境を emathMw.sty に分離
 % v 0.58 2003/09/19
-%   edaenumerate $B$N(B <...> $B%*%W%7%g%s$K(B
-%            edasikiri=true $B$rDI2C(B
+%   edaenumerate の <...> オプションに
+%            edasikiri=true を追加
 % v 0.59 2003/09/19
-%   v0.58 $B$N%P%0=$@5(B
+%   v0.58 のバグ修正
 % v 0.60 2003/11/30
-%   \ifuseitem $B$r?7@_$7!$(Bedaenumerate$B4D6-2<$K(B list$B7O4D6-$rCV$/$3$H$KG[N8(B
-%     \useitemfalse $B$H$7!$(Bedaenumerate$B$G$O(B \item $B$KBX$($F(B \edaitem $B$r(B
-%     $BMQ$$$k$3$H$G!$(Bedaenumerate$B4D6-2<$G(B list $B7O4D6-$r;HMQ2DG=$H$9$k!#(B
+%   \ifuseitem を新設し，edaenumerate環境下に list系環境を置くことに配慮
+%     \useitemfalse とし，edaenumerateでは \item に替えて \edaitem を
+%     用いることで，edaenumerate環境下で list 系環境を使用可能とする。
 % v 0.61 2004/01/18
-%   edaenumerate$B4D6-$K$*$$$F!$(B\itemindent $BJ,$@$11&$K$O$_=P$9$N$r=$@5(B
+%   edaenumerate環境において，\itemindent 分だけ右にはみ出すのを修正
 % v 0.62 2004/04/02
-%   yokoenumerate$B4D6-$K$*$1$k!$(B1$B9`L\$NJd@5CM$r(B truept $B$GM?$($k!#(B
+%   yokoenumerate環境における，1項目の補正値を truept で与える。
 % v 0.63 2004/05/20
-%   enumerate$B4D6-$K$*$$$F!$HV9f$N=i4|CM!$9o$_CM$r;XDj$9$k%*%W%7%g%s(B
-%       <kizamiti=...,syokiti=...> $B$r?7@_(B
+%   enumerate環境において，番号の初期値，刻み値を指定するオプション
+%       <kizamiti=...,syokiti=...> を新設
 % v 0.64 2004/05/31
-%   \itemtopmath : \EMresetstrutbox $B$rIm2C(B
+%   \itemtopmath : \EMresetstrutbox を附加
 % v 0.65 2004/06/05
 %   \Ofilii, \Ofiliii
 % v 0.66 2004/07/24
-%   jdescription$B4D6-$r:o=|(B
+%   jdescription環境を削除
 % v 0.67 2004/08/19
-%   enumerate$B4D6-$K(B<apnenum=..>$B%*%W%7%g%s(B
-% v 0.68 v0.61$B$NJQ99$rJ]N1(B
-%   apnenum= .. $B$r(B edaenumerate$B4D6-$G$bM-8z$H$9$k(B
-%   preedaesep=.., postedasep=.. $B?7@_(B
-% v 0.69 \@@enum@[#1] : #1$B$,6u$N>l9g(B --- $BJ]N1(B
-% v 0.70 2005/05/27 edaenumerate$B4D6-$K(B <edaframe> $B%*%W%7%g%s(B
+%   enumerate環境に<apnenum=..>オプション
+% v 0.68 v0.61の変更を保留
+%   apnenum= .. を edaenumerate環境でも有効とする
+%   preedaesep=.., postedasep=.. 新設
+% v 0.69 \@@enum@[#1] : #1が空の場合 --- 保留
+% v 0.70 2005/05/27 edaenumerate環境に <edaframe> オプション
 %                   \betalabel
-% v 0.71 2005/05/29 edasikiri, gyoukan $B$NJ;MQ(B
-% v 0.72 2005/05/29 edasikiri, vfill $B$NJ;MQIT2D$N%(%i!<%a%C%;!<%8=PNO(B
-% v 0.73 2005/06/10 edaenumerate$B4D6-$K(B<edaitemindent=..>$B$r?7@_(B
-% v 0.74 2005/06/11 edaenumerate$B4D6-$K(B<edafirstindent=..>
-% v 0.75 2005/06/12 betaenumerate$B4D6-!':G=*9T$O6QEy3d$j$r$7$J$$(B
-% v 0.76 2005/06/15 \ifbetaraggedlastlinefalse $B$H$9$l$P!$:G=*9T$b6QEy3d$j(B
-                    edaenumerate$B4D6-(B : <kaitouYohaku=..>
-% v 0.77 2005/08/01 edaenumerate$B4D6-!'(Bmawarikomi $B$H$ND4@0(B
-% v 0.78 2005/09/03 emathMw.sty $B$N6/@)%m!<%I<h$j$d$a(B
-%                   edaenumerate $B$J$I(B ---> emathYe.sty $B$KJ,N%(B
-% v 0.79 2005/09/05 emathEy.sty $B$rFHN)$5$;$k$?$a(B emathEc.sty
+% v 0.71 2005/05/29 edasikiri, gyoukan の併用
+% v 0.72 2005/05/29 edasikiri, vfill の併用不可のエラーメッセージ出力
+% v 0.73 2005/06/10 edaenumerate環境に<edaitemindent=..>を新設
+% v 0.74 2005/06/11 edaenumerate環境に<edafirstindent=..>
+% v 0.75 2005/06/12 betaenumerate環境：最終行は均等割りをしない
+% v 0.76 2005/06/15 \ifbetaraggedlastlinefalse とすれば，最終行も均等割り
+                    edaenumerate環境 : <kaitouYohaku=..>
+% v 0.77 2005/08/01 edaenumerate環境：mawarikomi との調整
+% v 0.78 2005/09/03 emathMw.sty の強制ロード取りやめ
+%                   edaenumerate など ---> emathYe.sty に分離
+% v 0.79 2005/09/05 emathEy.sty を独立させるため emathEc.sty

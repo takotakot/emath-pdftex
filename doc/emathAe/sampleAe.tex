@@ -20,187 +20,187 @@
 }%
 
 \begin{document}
-\title{$B2rEz$r4,Kv$K!J4D6-7A<0!K(B\\
-emathAe.sty {\normalsize ver.0.36}\\$B;HMQNc(B}
+\title{解答を巻末に（環境形式）\\
+emathAe.sty {\normalsize ver.0.36}\\使用例}
 \author{tDB}
 \date{2004/07/22}
 
 \maketitle\thispagestyle{empty}
 \begin{abstract}%
 \parindent1zw%
-$B?t3X$NLdBj=8$G2rEz$r4,Kv$K$^$H$a$k$?$a$N%9%?%$%k%U%!%$%k$G$9!%(B
-\LaTeX2e $B$,A0Ds$G$9!%(B
+数学の問題集で解答を巻末にまとめるためのスタイルファイルです．
+\LaTeX2e が前提です．
 
-$B$3$N%^%/%m=8$N%^%/%m$K$D$$$F$N$4<ALd!$%P%0Js9p!$=$@5!&DI2C$NDs0FEy$O(B
+このマクロ集のマクロについてのご質問，バグ報告，修正・追加の提案等は
 \begin{center}
 http://emath.s40.xrea.com/
 \end{center}
-$B$N7G<(HD$X$I$&$>!#(B
+の掲示板へどうぞ。
 \end{abstract}
 
 \tableofcontents
 
 \pagebreak
 
-\section{$B$O$8$a$K(B}
-$B$3$N%9%?%$%k%U%!%$%k$G$O!$LdBj$H2rEz$r(B \textsf{enumerate} $B4D6-$GG[Ns$9$k!%(B
-$B$9$J$o$A(B
+\section{はじめに}
+このスタイルファイルでは，問題と解答を \textsf{enumerate} 環境で配列する．
+すなわち
 \begin{screen}
 \begin{jquote}
 \begin{verbatim}
     \begin{enumerate}
-        \item 1$BHV$NLdBjJ8(B
-              1$BHV$N2rEzJ8(B
-        \item 2$BHV$NLdBjJ8(B
-              2$BHV$N2rEzJ8(B
-        \item 3$BHV$NLdBjJ8(B
-              3$BHV$N2rEzJ8(B
+        \item 1番の問題文
+              1番の解答文
+        \item 2番の問題文
+              2番の解答文
+        \item 3番の問題文
+              3番の解答文
     \end{enumerate}
 \end{verbatim}
 \end{jquote}
 \end{screen}
-$B$H5-=R$7$?%=!<%9$r%?%$%W%;%C%H$7$?$H$-!$(B
-$BBh(B1$BIt$KLdBjItJ,$r=8$a!$(B
+と記述したソースをタイプセットしたとき，
+第1部に問題部分を集め，
 \begin{shadebox}
 \begin{jquote}
 \begin{verbatim}
-           $B!ZBh(B1$BIt!&LdBj![(B
-        1. 1$BHV$NLdBjJ8(B
-        2. 2$BHV$NLdBjJ8(B
-        3. 3$BHV$NLdBjJ8(B
+           【第1部・問題】
+        1. 1番の問題文
+        2. 2番の問題文
+        3. 3番の問題文
 \end{verbatim}
 \end{jquote}
 \end{shadebox}
-$B$=$N8e$m$K2rEzItJ,$r=8$a$k!%(B
+その後ろに解答部分を集める．
 \begin{shadebox}
 \begin{jquote}
 \begin{verbatim}
-           $B!ZBh(B2$BIt!&2rEz![(B
-        1. 1$BHV$N2rEzJ8(B
-        2. 2$BHV$N2rEzJ8(B
-        3. 3$BHV$N2rEzJ8(B
+           【第2部・解答】
+        1. 1番の解答文
+        2. 2番の解答文
+        3. 3番の解答文
 \end{verbatim}
 \end{jquote}
 \end{shadebox}
-$B$9$J$o$A!$LdBj$H2rEz$rJ,N%$9$k$3$H$rL\;X$7$F$$$^$9!%(B
+すなわち，問題と解答を分離することを目指しています．
 
 \clearpage
 
-\section{$B4pK\E*$J;HMQK!(B}
-$B$^$:$O!$4pK\E*$J;HMQK!$+$i$4>R2p$7$^$7$g$&!%(B
-$B2<$N%j%9%H$r%?%$%W%;%C%H$9$k$H!$<!%Z!<%8$N7k2L$,F@$i$l$^$9!%(B
+\section{基本的な使用法}
+まずは，基本的な使用法からご紹介しましょう．
+下のリストをタイプセットすると，次ページの結果が得られます．
 
-\showExP{$B4pK\Nc(B}{example/ex01}
+\showExP{基本例}{example/ex01}
 
 \clearpage
 
-$B$9$J$o$A!$5-=R$N<j=g$O(B
+すなわち，記述の手順は
 \begin{enumerate}[1.\ ]
     \item \verb/\openKaiFile/\\
-        $B$G!$2rEzItJ,$r$^$H$a$kJd=u%U%!%$%k$rMQ0U$7$^$9!%(B
-        $BJd=u%U%!%$%k$O!$%=!<%9%U%!%$%k$HF10lL>$G3HD%;R$,(B \texttt{.kai}
-        $B$H$J$j$^$9!%(B
-    \item $BLdBj!&2rEz$r(B \textsf{enumerate}$B4D6-$G5-=R$7$^$9!%(B
-        $B$=$N:]!$2rEz$O3FLdBjKh$K(B \textsf{Kaitou} $B4D6-Fb$K5-=R$7$^$9!%(B
+        で，解答部分をまとめる補助ファイルを用意します．
+        補助ファイルは，ソースファイルと同一名で拡張子が \texttt{.kai}
+        となります．
+    \item 問題・解答を \textsf{enumerate}環境で記述します．
+        その際，解答は各問題毎に \textsf{Kaitou} 環境内に記述します．
     \item \verb/\closeKaiFile/\\
-        $B$G!$Jd=u%U%!%$%k$rJD$8!$(B
+        で，補助ファイルを閉じ，
     \item \verb/\inputKaiFile/\\
-        $B$G2rEz%U%!%$%k$rFI$_9~$_!$2rEzIt$r:n@.$7$^$9!%(B
+        で解答ファイルを読み込み，解答部を作成します．
 \end{enumerate}
 \clearpage
 
-\section{$B2rEzIt$N>.Ld$r2#$KG[CV(B}
-$BLdBjIt$N>.Ld$r(B \textsf{edaenumerate} $B4D6-$G2#$KG[CV$7$F$b!$(B
-$B2rEzIt$OIaDL$N(B\\
-\textsf{enumerate} $B4D6-$G=D$KG[CV$5$l$^$9!%(B
+\section{解答部の小問を横に配置}
+問題部の小問を \textsf{edaenumerate} 環境で横に配置しても，
+解答部は普通の\\
+\textsf{enumerate} 環境で縦に配置されます．
 
-$B>.Ld$N2rEzIt$r(B \textsf{edaenumerate} $B4D6-$G2#$KG[CV$9$k$K$O!$(B
-$BBgLd$N2rEzIt$K(B 
+小問の解答部を \textsf{edaenumerate} 環境で横に配置するには，
+大問の解答部に 
 
 \begin{screen}
 \begin{verbatim}
-$B!!!!(B\setKaienum{edaenumerate}
+　　\setKaienum{edaenumerate}
 \end{verbatim}
 \end{screen}
-$B$=$NNc$G$9!%2<$NNc$r%?%$%W%;%C%H$7$?7k2L$,<!JG$G$9!%(B
+その例です．下の例をタイプセットした結果が次頁です．
 
-\showExP{$B2rEzIt$r2#G[CV(B}{example/ex02}
+\showExP{解答部を横配置}{example/ex02}
 
-\section{\textsf{emathR.sty}$B$H$NJ;MQ(B}
-$B4{$K:n@.:Q$_$NFHN)$7$F%?%$%W%;%C%H$G$-$kJ#?t$N%U%!%$%k$r(B \textsf{emathR.sty}
-$B$rMQ$$$FFI$_9~$`$3$H$b=PMh$^$9!%$=$NNc$G$9!%(B
+\section{\textsf{emathR.sty}との併用}
+既に作成済みの独立してタイプセットできる複数のファイルを \textsf{emathR.sty}
+を用いて読み込むことも出来ます．その例です．
 
-$B2<$NNc$G$O!$FHN)$7$F%?%$%W%;%C%H$G$-$k(B2$B$D$N%U%!%$%k(B
+下の例では，独立してタイプセットできる2つのファイル
 \begin{verbatim}
     tan03.tex, sin03.tex
 \end{verbatim}
-$B$rFI$_9~$s$G!$LdBjItJ,$H2rEzItJ,$rJ,N%$7$F$$$^$9!%(B
-$B%?%$%W%;%C%H$7$?7k2L$O<!JG$G$9!%(B
+を読み込んで，問題部分と解答部分を分離しています．
+タイプセットした結果は次頁です．
 
-\showExP{\textsf{emathR}$B$H$NJ;MQ(B}{example/ex03}
+\showExP{\textsf{emathR}との併用}{example/ex03}
 
-\section{$B9M::LdBj$KEz$($rKd$a9~$`(B}
-$B%F%9%HLdBj$N0u:~$K$*$$$F!$(B\textsf{Kaitou}$B4D6-Fb$N2rEz$r!$(B
-$B%m!<%I%*%W%7%g%s(B
+\section{考査問題に答えを埋め込む}
+テスト問題の印刷において，\textsf{Kaitou}環境内の解答を，
+ロードオプション
 \begin{jquote}
 \begin{verbatim}
 maskAnstrue
 maskAnstfalse
 \end{verbatim}
 \end{jquote}
-$B$r@Z$jBX$($k$3$H$G!$(B
+を切り替えることで，
 \begin{jquote}
 \begin{verbatim}
-$B0u:~$7$J$$(B
-$B0u:~$9$k(B
+印刷しない
+印刷する
 \end{verbatim}
 \end{jquote}
-$B$r@Z$jBX$($k$3$H$,$G$-$^$9!#(B
+を切り替えることができます。
 
-$B6qBNNc$H$7$F(B test $B%U%)%k%@$K(B
+具体例として test フォルダに
 \begin{enumerate}[(1)]
-  \item 2$BKgAH$NDj4|%F%9%HLdBj!JLdBjMQ;f$K2rEz$b5-=R$5$;$k!K(B test.tex
-  \item $BLdBjMQ;f$H2rEzMQ;f$rJ,$1$k<BNO%F%9%H(B zitute.lzh
+  \item 2枚組の定期テスト問題（問題用紙に解答も記述させる） test.tex
+  \item 問題用紙と解答用紙を分ける実力テスト zitute.lzh
 \end{enumerate}
-$B$NNc$rCV$$$F$"$j$^$9!#(B
+の例を置いてあります。
 
-$B8e<T$N%Q%C%1!<%8$K$O(B
+後者のパッケージには
 \begin{jquote}
 \begin{verbatim}
-$B!!!!(Bzitute2.tex $BLdBjMQ;f(B
-$B!!!!(Bzitute2a1.tex $B2rEzMQ;f!J#1!K(B
-$B!!!!(Bzitute2a2.tex $B2rEzMQ;f!J#2!K(B
-$B!!!!!!(Bans4.tex, ans5.tex, ans6.tex
-$B!!!!!!!!2rEzMQ;f!J#2!K$N3FLdBj$N2rEz$G(B 
-$B!!!!!!!!(Bzitute2a2.tex $B$K$h$C$FFI$_9~$^$l$k%5%V%U%!%$%k(B
+　　zitute2.tex 問題用紙
+　　zitute2a1.tex 解答用紙（１）
+　　zitute2a2.tex 解答用紙（２）
+　　　ans4.tex, ans5.tex, ans6.tex
+　　　　解答用紙（２）の各問題の解答で 
+　　　　zitute2a2.tex によって読み込まれるサブファイル
 \end{verbatim}
 \end{jquote}
-$B$,4^$^$l$F$$$^$9!#(B
+が含まれています。
 
 \if0
-\section{\textsf{emathA.sty} $B$H$NHf3S(B}
-$B4{$KF1<o$N%9%?%$%k%U%!%$%k$H$7$F(B \textsf{emathA.sty} $B$r:n@.$7$F$$$^$9$,!$(B
-$B$"$($F;w$?%9%?%$%k%U%!%$%k$r:n@.$7$?:GBg$NM}M3$O!$(B
-\textsf{emathA} $B$G$O2rEzItJ,$r(B \cmd{kaitou}$B%3%^%s%I$N0z?t$H$7$F(B
-$B5-=R$7$F$$$^$7$?!%2rEzItJ,$,D9$/$J$k$H%3%^%s%I$G$O$J$/!$4D6-Fb$K5-=R$7$?$$$H(B
-$B$$$&$3$H$G$9!%(B
+\section{\textsf{emathA.sty} との比較}
+既に同種のスタイルファイルとして \textsf{emathA.sty} を作成していますが，
+あえて似たスタイルファイルを作成した最大の理由は，
+\textsf{emathA} では解答部分を \cmd{kaitou}コマンドの引数として
+記述していました．解答部分が長くなるとコマンドではなく，環境内に記述したいと
+いうことです．
 
-$B$?$@$7!$(B\textsf{emathA} $B$O!$(B
-\textsf{enumerate}$B4D6-$@$1$G$O$J$/!$(B\textsf{newtheorem}$B$GDj5A$5$l$?4D6-$K$b(B
-$BE,MQ$G$-$F$$$^$7$?$,!$(B\textsf{emathAe} $B$O(B \textsf{enumerate}$B4D6-$@$1$K$7$+(B
-$BMQ$$$k$3$H$,=PMh$^$;$s!%(B
-$B$^$?!$(B\textsf{emathA}$B$G$O!$2rEzItJ,$rDI$$9~$_7A<0$G5M$a$3$`$3$H$,=PMh$^$7$?$,!$(B
-\textsf{emathAe} $B$G$OIT2DG=$G$9!%(B
+ただし，\textsf{emathA} は，
+\textsf{enumerate}環境だけではなく，\textsf{newtheorem}で定義された環境にも
+適用できていましたが，\textsf{emathAe} は \textsf{enumerate}環境だけにしか
+用いることが出来ません．
+また，\textsf{emathA}では，解答部分を追い込み形式で詰めこむことが出来ましたが，
+\textsf{emathAe} では不可能です．
 
-\section{\cmd{kaitou}$B%3%^%s%I$NJ;MQ(B}
-\textsf{emathAe}$B$G$O!$(B\cmd{kaitou}$B%3%^%s%I$r(B\textsf{Kaitou}$B4D6-$K(B
-$BK]Lu$7$F=hM}$9$k5!G=$,IU$$$F$$$^$9!%$9$J$o$A(B
+\section{\cmd{kaitou}コマンドの併用}
+\textsf{emathAe}では，\cmd{kaitou}コマンドを\textsf{Kaitou}環境に
+翻訳して処理する機能が付いています．すなわち
 \begin{screen}
 \begin{verbatim}
     \kaitou{.....}
 \end{verbatim}
 \end{screen}
-$B$H$$$&5-=R$O(B
+という記述は
 \begin{screen}
 \begin{verbatim}
     \begin{Kaitou}
@@ -208,8 +208,8 @@ maskAnstfalse
     \end{Kaitou}
 \end{verbatim}
 \end{screen}
-$B$H$$$&5-=R$H$7$F07$o$l$^$9!%=>$C$F!$4{$K(B \textsf{emathA} $BMQ$K:n$i$l$?%U%!%$%k$r(B
-$B$=$N$^$^(B \textsf{emathAe} $B$G=hM}$9$k$3$H$,2DG=$G$9!%(B
-$B$^$?!$(B\textsf{Kaitou}$B4D6-$H(B\cmd{kaitou}$B%3%^%s%I$rJ;MQ$9$k$3$H$b2DG=$G$9!%(B
+という記述として扱われます．従って，既に \textsf{emathA} 用に作られたファイルを
+そのまま \textsf{emathAe} で処理することが可能です．
+また，\textsf{Kaitou}環境と\cmd{kaitou}コマンドを併用することも可能です．
 \fi
 \end{document}

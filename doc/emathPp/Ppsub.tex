@@ -1,93 +1,93 @@
-\textsf{Perl}$B$rMQ$$$?%3%^%s%I$N>R2p$r$7$^$9!#(B
-\subsection{$B4X?tCM$N7W;;(B}
+\textsf{Perl}を用いたコマンドの紹介をします。
+\subsection{関数値の計算}
 \subsubsection{\cmd{calcval}}
-$B7W;;<0$rM?$($F7W;;7k2L$r<u$1<h$k$?$a$N%3%^%s%I$G$9!#=q<0$O(B
+計算式を与えて計算結果を受け取るためのコマンドです。書式は
 
 \begin{boxnote}
 \begin{verbatim}
 \calcval#1#2
-  #1 : $B7W;;<0!JJ8K!$O(B Perl $B$K=>$$$^$9!#!K(B
-  #2 : $B7W;;7k2L$r<u$1<h$k@)8fDV!#(B
+  #1 : 計算式（文法は Perl に従います。）
+  #2 : 計算結果を受け取る制御綴。
 \end{verbatim}
 \end{boxnote}
 
-$B0lNc$G$9!#(B
+一例です。
 
 \begin{showEx}{\cmd{calcval}}
 \calcval{exp(-1)}\x
-$\bunsuu1e$$B$N6a;wCM$O(B\x $B$G$9!#(B
+$\bunsuu1e$の近似値は\x です。
 \end{showEx}
 
 \subsubsection{\cmd{funcval}}
-$B4X?t<0!$FHN)JQ?t$NCM$rM?$($F4X?tCM$r<u$1<h$k%3%^%s%I$G$9!#(B
+関数式，独立変数の値を与えて関数値を受け取るコマンドです。
 
 \begin{boxnote}
 \begin{verbatim}
 \funcval#1#2#3
-  #1 : $B4X?t<0(B y=f(x)$B!JJ8K!$O(B Perl $B$K=>$$$^$9!#!K(B
-  #2 : x $B$NCM(B
-  #2 : y $B$NCM$r<u$1<h$k@)8fDV!#(B
+  #1 : 関数式 y=f(x)（文法は Perl に従います。）
+  #2 : x の値
+  #2 : y の値を受け取る制御綴。
 \end{verbatim}
 \end{boxnote}
 
-$B0lNc$G$9!#(B
+一例です。
 
 \begin{showEx}{\cmd{funcval}}
 \def\Fx{log2(10,X)}
 \funcval\Fx{2}\xii
 \funcval\Fx{3}\xiii
-2, 3 $B$N>oMQBP?t$N6a;wCM$O$=$l$>$l(B\xii, \xiii $B$G$9!#(B
+2, 3 の常用対数の近似値はそれぞれ\xii, \xiii です。
 \end{showEx}
 
-$B$J$*!$(B\texttt{log2} $B$O(B \textsf{Perl} $B$K$O$"$j$^$;$s$,!$(B
-\textsf{emath.pl} $B$GDI2C$7$F$"$j$^$9!#$3$N%9%/%j%W%H%U%!%$%k$G(B
-$BDI2C$7$F$$$k5!G=$O<!$N$H$*$j$G$9!#(B
+なお，\texttt{log2} は \textsf{Perl} にはありませんが，
+\textsf{emath.pl} で追加してあります。このスクリプトファイルで
+追加している機能は次のとおりです。
 
 \begin{boxnote}
 \begin{verbatim}
-$BDj?t!'1_<~N((B $pi
-$B4X?t!'@5@\(B  tan(X)
-      $BBP?t(B log2(a,X) : a$B$rDl$H$9$kBP?t(B
+定数：円周率 $pi
+関数：正接  tan(X)
+      対数 log2(a,X) : aを底とする対数
 \end{verbatim}
 \end{boxnote}
 
-\subsubsection{$BLa$jCM$N=q<0(B}
-\cmd{calcval}, \cmd{funcval}$B$NLa$jCM$N=q<0$r@)8f$9$k%*%W%7%g%s$G$9!#(B
-$B$^$:$O!$8=>u$N3NG'$G$9!#(B
+\subsubsection{戻り値の書式}
+\cmd{calcval}, \cmd{funcval}の戻り値の書式を制御するオプションです。
+まずは，現状の確認です。
 
 \begin{showEx}(.64,.3){\cmd{calcval}}
 \calcval{68/2}\y
 \y
 \end{showEx}
 
-$B$9$J$o$A7k2L$,@0?t$G$b!$>.?tE@$rH<$C$?J8;zNs$,La$C$F$-$^$9!#(B
-$B$3$l$O(B
+すなわち結果が整数でも，小数点を伴った文字列が戻ってきます。
+これは
 \begin{jquote}
 \begin{verbatim}
 printf"%f",....
 \end{verbatim}
 \end{jquote}
-$B$H!$(B\textsf{Perl}$B$N=PNO%U%)!<%^%C%H$,(B`\texttt{f}'$B;XDj$K$J$C$F$$$k$+$i$G$9!#(B
+と，\textsf{Perl}の出力フォーマットが`\texttt{f}'指定になっているからです。
 
-$B$=$3$G!$(B\cmd{calcval}, \cmd{funcval}$B$K(B\verb+[#1]+$B%*%W%7%g%s$r$D$1$?$H$-$O(B
+そこで，\cmd{calcval}, \cmd{funcval}に\verb+[#1]+オプションをつけたときは
 \begin{jquote}
 \begin{verbatim}
 printf"%#1",....
 \end{verbatim}
 \end{jquote}
-$B$N=q<0$G=PNO$9$k$3$H$,=PMh$k$h$&$K$7$^$7$?!#(B
-$B@h$[$I$N=PNO$r@0?t$K;XDj$7$F$_$^$9!#(B
+の書式で出力することが出来るようにしました。
+先ほどの出力を整数に指定してみます。
 
-\begin{showEx}(.64,.3){\texttt{[d]}$B%*%W%7%g%s(B}
+\begin{showEx}(.64,.3){\texttt{[d]}オプション}
 \calcval[d]{68/2}\y
 \y
 \end{showEx}
 
-\subsubsection{\cmd{tenretu}$B$X$N1~MQ(B}
-$B$3$N5!G=$rMxMQ$7$F!$(B\cmd{tenretu}$B$J$I$N:BI8$K7W;;<0$rF~$l!$(B
-\textsf{perl}$B$HO"7H$5$;$k$3$H$,$G$-$^$9!#(B
+\subsubsection{\cmd{tenretu}への応用}
+この機能を利用して，\cmd{tenretu}などの座標に計算式を入れ，
+\textsf{perl}と連携させることができます。
 
-\begin{showEx}(.5,.44){$B@5<73Q7A(B}
+\begin{showEx}(.5,.44){正七角形}
 \begin{zahyou*}[ul=25mm]%
       (-1.1,1.1)(-1.1,1.2)
   \rtenretu<perl>{%
@@ -103,7 +103,7 @@ printf"%#1",....
 \end{zahyou*}
 \end{showEx}
 
-\begin{showEx}(.5,.44){$BFs<!4X?t$N%0%i%U$H(B$x$$B<4(B}
+\begin{showEx}(.5,.44){二次関数のグラフと$x$軸}
 \begin{zahyou}[ul=8mm]%
       (-2.5,4.5)(-4,4)
   \def\Fx{2+2*X-X*X}
@@ -119,25 +119,25 @@ printf"%#1",....
 \end{showEx}
 
 
-\subsection{$B%0%i%UIA2h(B}
+\subsection{グラフ描画}
 \subsubsection{\cmd{YGurafu}}
-$B:G=i$K?($l$?(B $y=f(x)$ $B$N%0%i%U$rIA2h$7$^$9!#(B
-$B=q<0$O(B \cmd{yGurafu} $B$H$[$H$s$IF1$8$G$9!#(B
+最初に触れた $y=f(x)$ のグラフを描画します。
+書式は \cmd{yGurafu} とほとんど同じです。
 
-$B4X?t<0$N5-=R$K$*$$$F!$FHN)JQ?t(B$x$$B$O(B`X'$B$rMQ$$$^$9!#(B
+関数式の記述において，独立変数$x$は`X'を用います。
 
 \begin{boxnote}
 \begin{verbatim}
 \YGurafu(#1)(#2)#3#4#5
-      #1 : x$B$N9o$_CM(B $B%G%U%)%k%H(B=0.05
-      #2 : $BE@@~$GIA2h$9$k$H$-$NIA2h$9$kItJ,$N(B x $B$N%l%s%8(B
-      #3 : $B4X?t<0(B y=f(X) $BFHN)JQ?t$O(B `X' $B$r;HMQ$7$^$9!#(B
-      #4 : x$B$N;O$aCM(B
-      #5 : x$B$N=*$jCM(B
+      #1 : xの刻み値 デフォルト=0.05
+      #2 : 点線で描画するときの描画する部分の x のレンジ
+      #3 : 関数式 y=f(X) 独立変数は `X' を使用します。
+      #4 : xの始め値
+      #5 : xの終り値
 \end{verbatim}
 \end{boxnote}
 
-$B$^$:$O!$4JC1$J(B2$B<!4X?t$N%0%i%U$rIA2h$9$kNc$G$9!#(B
+まずは，簡単な2次関数のグラフを描画する例です。
 
 \begin{showEx}{\cmd{YGurafu}}
 \unitlength3mm\small
@@ -146,10 +146,10 @@ printf"%#1",....
 \end{zahyou}
 \end{showEx}
 
-$B$3$N>l9g!$(B\textsf{zahyou}$B4D6-$K$*$1$k(B$y$$B$NHO0O$,IT==J,$G$9$+$i!$(B
-$BHO0O30$N6J@~$O%/%j%C%W$5$l$F$7$^$$$^$9!#(B
+この場合，\textsf{zahyou}環境における$y$の範囲が不十分ですから，
+範囲外の曲線はクリップされてしまいます。
 
-$BB3$$$F(B$y=x^2(4-x)$ $B$N%0%i%U$r0lItJ,E@@~$GIA2h$9$kNc$G$9!#(B
+続いて$y=x^2(4-x)$ のグラフを一部分点線で描画する例です。
 
 \begin{showEx}{\cmd{YGurafu}}
 \unitlength2mm\small
@@ -161,15 +161,15 @@ printf"%#1",....
 \end{zahyou}
 \end{showEx}
 
-$B$J$*!$@04X?t$N%0%i%U$rIA2h$9$k$K$O(B \cmd{Gurafu} $B%3%^%s%I$,$"$j$^$9$,!$(B
-\cmd{YGurafu} $B$N>l9g$OIA2hHO0O30$r<+F0E*$K%/%j%C%W$7$F$/$l$kE@$,JXMx$G$9!#(B
+なお，整関数のグラフを描画するには \cmd{Gurafu} コマンドがありますが，
+\cmd{YGurafu} の場合は描画範囲外を自動的にクリップしてくれる点が便利です。
 
-\verb+\YGurafu+$B$K$*$$$F!$%G%U%)%k%H$N(B$x$$B$N9o$_CM$O(B
-\verb+0.05\unitlength+$B$H$J$C$F$$$^$9!#(B
-$B$3$l$O(B\verb+\unitlength=10mm+$B$rA[Dj$7$F$$$^$9$+$i!$(B
-\verb+[ul=30mm]+$B$KBP$7$F$O(B0.15mm$B$H$J$j!$>/$79S$/$J$j$^$9!#(B
+\verb+\YGurafu+において，デフォルトの$x$の刻み値は
+\verb+0.05\unitlength+となっています。
+これは\verb+\unitlength=10mm+を想定していますから，
+\verb+[ul=30mm]+に対しては0.15mmとなり，少し荒くなります。
 
-\begin{showEx}(.4,.54){$B%G%U%)%k%H(B}
+\begin{showEx}(.4,.54){デフォルト}
 \begin{zahyou}[ul=30mm]
   (-1.1,1.2)(-1,1)%
 \def\Fx{X**2*sqrt(1-X**2)}%
@@ -179,9 +179,9 @@ printf"%#1",....
 \end{zahyou}
 \end{showEx}
 
-$B$=$3$G!$(B\verb+(0.01667)+$B%*%W%7%g%s$rIm2C$7$F$_$^$9$H(B
+そこで，\verb+(0.01667)+オプションを附加してみますと
 
-\begin{showEx}(.4,.54){$x$$B$N9o$_CM$r>.$5$/(B}
+\begin{showEx}(.4,.54){$x$の刻み値を小さく}
 \begin{zahyou}[ul=30mm]
   (-1.1,1.2)(-1,1)%
 \def\Fx{X**2*sqrt(1-X**2)}%
@@ -191,18 +191,18 @@ printf"%#1",....
 \end{zahyou}
 \end{showEx}
 
-$B>/$7$O2~A1$5$l$^$7$?$,!$(B\retu(\pm1,0)$B$N$H$3$m$G@^$l$F$$$k46$8$O;D$j$^$9!#(B
-$B$=$3$G!$(B
+少しは改善されましたが，\retu(\pm1,0)のところで折れている感じは残ります。
+そこで，
 \begin{jquote}
 \begin{verbatim}
 emathPp.sty ver. 0.21 2003/11/07
 \end{verbatim}
 \end{jquote}
-$B$K$*$$$F!$(B\verb+\YGurafu+ $B$K(B\verb+(*)+$B%*%W%7%g%s$r?7@_$7$^$7$?!#(B
-$B$3$N%*%W%7%g%s$O!$(B$y$$B$NJQ2=$NBg$-$$$H$3$m$G$O!$(B
-$B<+F0E*$K(B$x$$B$N9o$_$r>.$5$/$9$k5!G=$r<B8=$7$F$$$^$9!#(B
+において，\verb+\YGurafu+ に\verb+(*)+オプションを新設しました。
+このオプションは，$y$の変化の大きいところでは，
+自動的に$x$の刻みを小さくする機能を実現しています。
 
-\begin{showEx}(.4,.54){$B?7@_(B\texttt{(*)}$B%*%W%7%g%s(B}
+\begin{showEx}(.4,.54){新設\texttt{(*)}オプション}
 \begin{zahyou}[ul=30mm]
   (-1.1,1.2)(-1,1)%
 \def\Fx{X**2*sqrt(1-X**2)}%
@@ -212,13 +212,13 @@ emathPp.sty ver. 0.21 2003/11/07
 \end{zahyou}
 \end{showEx}
 
-$B$3$N>lLL$K$*$1$k:GA1$NBP1~K!$O!$(B
-$BG^2pJQ?tI=<($rMQ$$$k$3$H$G$"$k$3$H$OO@$rBT$A$^$;$s!#(B\\
-$BG^2pJQ?tI=<($,$&$^$/8+$D$+$i$J$$!$(B\\
-$B6K:BI8I=<($bBLL\!$(B\\
-$B$H$$$&$h$&$J>l9g$NNO5;$rMQ0U$7$?!$$H$$$&$3$H$G$9!#(B
+この場面における最善の対応法は，
+媒介変数表示を用いることであることは論を待ちません。\\
+媒介変数表示がうまく見つからない，\\
+極座標表示も駄目，\\
+というような場合の力技を用意した，ということです。
 
-\begin{showEx}(.4,.54){$BG^2pJQ?tI=<((B}
+\begin{showEx}(.4,.54){媒介変数表示}
 \begin{zahyou}[ul=30mm]
   (-1.1,1.2)(-1,1)%
 \def\Fx{cos(T)}%
@@ -228,9 +228,9 @@ emathPp.sty ver. 0.21 2003/11/07
 \end{showEx}
 
 \subsubsection{\cmd{YGurafu*}}
-$B%0%i%U$rIA2h$9$k(B$x$$B$NHO0O$,(B \verb+{\xmin}{\xmax}+ $B$G$"$k$H$-!$(B
-$B$3$l$r$$$A$$$A5-=R$9$k$N$OLLE]$@$+$i>JN,$7$h$&$H$$$&$N$,(B
-\cmd{YGurafu*}$B$G$9!#A0@a:G=i$NNc$r(B\cmd{YGurafu*}$B$rMQ$$$k$H(B
+グラフを描画する$x$の範囲が \verb+{\xmin}{\xmax}+ であるとき，
+これをいちいち記述するのは面倒だから省略しようというのが
+\cmd{YGurafu*}です。前節最初の例を\cmd{YGurafu*}を用いると
 
 \begin{showEx}{\cmd{YGurafu*}}
 \unitlength3mm\small
@@ -239,31 +239,31 @@ emathPp.sty ver. 0.21 2003/11/07
 \end{zahyou}
 \end{showEx}
 
-\cmd{YGurafu*}$B$N=q<0$G$9!#(B
+\cmd{YGurafu*}の書式です。
 
 \begin{boxnote}
 \begin{verbatim}
 \YGurafu*[#1](#2)(#3)#4
-      #1 : key=val $B$N7A<0$G(B
-              hidarix=... $BIA2h6h4V$N:8C<$N(Bx$B$NCM$r;XDj$7$^$9!#(B
-              migix=...   $BIA2h6h4V$N1&C<$N(Bx$B$NCM$r;XDj$7$^$9!#(B
-      #2 : x$B$N9o$_CM(B $B%G%U%)%k%H(B=0.05
-      #3 : $BE@@~$GIA2h$9$k$H$-$NIA2h$9$kItJ,$N(B x $B$N%l%s%8(B
-      #4 : $B4X?t<0(B y=f(X) $BFHN)JQ?t$O(B `X' $B$r;HMQ$7$^$9!#(B
-      $BHw9M(B $B$3$N%3%^%s%I$,<B9T$5$l$k$H!$IA2h$7$?%0%i%U$N(B
-               $B:8C<E@$,(B \hidariT
-               $B1&C<E@$,(B \migiT
-           $B$HDj5A$5$l$k!#(B
+      #1 : key=val の形式で
+              hidarix=... 描画区間の左端のxの値を指定します。
+              migix=...   描画区間の右端のxの値を指定します。
+      #2 : xの刻み値 デフォルト=0.05
+      #3 : 点線で描画するときの描画する部分の x のレンジ
+      #4 : 関数式 y=f(X) 独立変数は `X' を使用します。
+      備考 このコマンドが実行されると，描画したグラフの
+               左端点が \hidariT
+               右端点が \migiT
+           と定義される。
 \end{verbatim}
 \end{boxnote}
 
-$BFHN)JQ?t$NHO0O$r;XDj$9$k0z?t$,$J$/$J$j$^$7$?$,!$(B
-\verb+[#1]+$B%*%W%7%g%s$,Im2C$5$l$F$$$^$9!#$3$l$rMxMQ$9$kNc$G$9!#(B
+独立変数の範囲を指定する引数がなくなりましたが，
+\verb+[#1]+オプションが附加されています。これを利用する例です。
 
-$B1&$OIA2hNN0h0lGU$KIA$-$?$$$,!$:8$O@)8B$7$?$$!$$J$I$H$$$&$H$-$O(B
-\cmd{YGurafu*}$B$N(B\texttt{[hidarix=...]}$B%*%W%7%g%s$rM?$($^$9!#(B
+右は描画領域一杯に描きたいが，左は制限したい，などというときは
+\cmd{YGurafu*}の\texttt{[hidarix=...]}オプションを与えます。
 
-\begin{showEx}(.59,.35){\texttt{[hidarix=...]}$B%*%W%7%g%s(B}
+\begin{showEx}(.59,.35){\texttt{[hidarix=...]}オプション}
 \begin{zahyou}[ul=5mm](-3,3)(-1,6)
 \zahyouMemori[g]
 \YGurafu*[hidarix=-1]{X*X}
@@ -271,7 +271,7 @@ emathPp.sty ver. 0.21 2003/11/07
 \end{zahyou}
 \end{showEx}
 
-$B$3$l$O!$(B$y=\log x$ $B$J$I$N>l9g$KFC$KM-8z$G$9!#(B
+これは，$y=\log x$ などの場合に特に有効です。
 
 \begin{showEx}(.59,.35){$y=\log x$}
 \begin{zahyou}[ul=5mm](-1,8)(-3,3)
@@ -281,14 +281,14 @@ emathPp.sty ver. 0.21 2003/11/07
 \end{zahyou}
 \end{showEx}
 
-\verb/hidarix=0/$B$HM?$($?CM$O(B$y=\log x$$B$NDj5A0h$KF~$j$^$;$s!#(B
-$B%^%/%m=hM}$G$O!$M?$($i$l$?6h4V$NCfE@$K$*$1$k4X?tCM$,(B
-$BIA2hNN0h$KF~$k$+H]$+$rD4$Y$k(B2$BJ,K!$GIA2h$9$Y$-:81&$NC<E@(B
-\cmd{hidariT}, \cmd{migiT}$B$r5a$a$F$$$^$9!#(B
-\cmd{YGurafu*}$B%3%^%s%I$r<B9T$9$k$H!$%0%i%U$N:81&$NC<E@$,(B
-$BDj5A$5$l$F$$$^$9$+$i!$$3$l$rMxMQ$7$F<0$rI=<($7$?$j$9$k$3$H$,$G$-$^$9!#(B
+\verb/hidarix=0/と与えた値は$y=\log x$の定義域に入りません。
+マクロ処理では，与えられた区間の中点における関数値が
+描画領域に入るか否かを調べる2分法で描画すべき左右の端点
+\cmd{hidariT}, \cmd{migiT}を求めています。
+\cmd{YGurafu*}コマンドを実行すると，グラフの左右の端点が
+定義されていますから，これを利用して式を表示したりすることができます。
 
-$B1&C<$r@)8B$9$k(B\verb/[migix=...]/$B%*%W%7%g%s$b;H$($^$9!#(B
+右端を制限する\verb/[migix=...]/オプションも使えます。
 
 \begin{showEx}(.59,.35){$y=\bunsuu{1}{x^2}$}
 \begin{zahyou}[ul=5mm](-4,4)(-1,8)
@@ -299,52 +299,52 @@ emathPp.sty ver. 0.21 2003/11/07
 \end{zahyou}
 \end{showEx}
 
-$B!XCm0U!Y(B
+『注意』
 
-\cmd{YGurafu*}$B$GIA2h$9$k4X?t$,IA2hNN0h$N0lIt$K$7$+8=$l$J$$>l9g!$(B
-$B%0%i%U$,$^$C$?$/IA2h$5$l$J$$>l9g$,$"$j$^$9!#0lNc$G$9!#(B
+\cmd{YGurafu*}で描画する関数が描画領域の一部にしか現れない場合，
+グラフがまったく描画されない場合があります。一例です。
 
-\begin{showEx}(.6,.34){\cmd{YGurafu*}$B$,L58z$J>l9g(B}
+\begin{showEx}(.6,.34){\cmd{YGurafu*}が無効な場合}
 \begin{zahyou}[ul=5mm](-4,4)(-1,4)
   \def\Fx{(X+2)**2+1}
   \YGurafu*\Fx
 \end{zahyou}
 \end{showEx}
 
-\cmd{YGurafu*}$B$O(B\cmd{YGurafu}$B$N<jH4$-HG$G$9$,!$(B
-$B<!$N>r7o$rK~$?$5$J$1$l$P$J$j$^$;$s!#(B
+\cmd{YGurafu*}は\cmd{YGurafu}の手抜き版ですが，
+次の条件を満たさなければなりません。
 
 \begin{jquote}
 \begin{verbatim}
-$BIA2h6h4V$NCfE@$K$*$$$F!$%0%i%U$OIA2hNN0h$KB0$7$F$$$k!#(B
+描画区間の中点において，グラフは描画領域に属している。
 \end{verbatim}
 \end{jquote}
-$B>e$NNc$G$O!$IA2h6h4V(B$-4\leqq x\leqq 4$$B$NCfE@(B$x=0$$B$K$*$1$k4X?tCM(B
-$y=5$$B$O(B$y$$B$NIA2h6h4V(B$-1\leqq y\leqq 4$$B$KB0$7$F$$$^$;$s!#(B
+上の例では，描画区間$-4\leqq x\leqq 4$の中点$x=0$における関数値
+$y=5$は$y$の描画区間$-1\leqq y\leqq 4$に属していません。
 
-$B:#2s$N2~Dj$G!$$3$N$h$&$J>l9g!$%m%0%U%!%$%k$K(B Warning $B$r=P$9$3$H$K$7$^$7$?!#(B
+今回の改定で，このような場合，ログファイルに Warning を出すことにしました。
 \begin{jquote}
 \begin{verbatim}
-LaTeX Warning: YGurafu* : $BIA2hHO0O$r5a$a$k$3$H$,=PMh$^$;$s$G$7$?!#(B
-  hidarix=, migix= $B%*%W%7%g%s$GIA2hHO0O$r69$a$F2<$5$$!#(B on input line ***.
+LaTeX Warning: YGurafu* : 描画範囲を求めることが出来ませんでした。
+  hidarix=, migix= オプションで描画範囲を狭めて下さい。 on input line ***.
 \end{verbatim}
 \end{jquote}
-Warning $B$K$"$k$h$&$K!$>e$N>r7o$,K~$?$5$l$k$h$&$KIA2hNN0h$r69$a$F$d$j$^$9!#(B
+Warning にあるように，上の条件が満たされるように描画領域を狭めてやります。
 
-\begin{showEx}(.6,.34){$B=$@5(B1}
+\begin{showEx}(.6,.34){修正1}
 \begin{zahyou}[ul=5mm](-4,4)(-1,4)
   \def\Fx{(X+2)**2+1}
   \YGurafu*[migix=0]\Fx
 \end{zahyou}
 \end{showEx}
 
-$B$9$J$o$A!$%*%W%7%g%s(B\verb+[migix=0]+$B$G!$(B$x$$B$NIA2h6h4V$r(B$-4\leqq x\leqq 0$$B$H(B
-$B69$a$F$d$l$P!$$=$NCfE@(B$x=-2$$B$K$*$1$k4X?tCM(B$y=1$$B$O(B$y$$B$NIA2hNN0h$KB0$7$^$9$+$i!$(B
-$B%0%i%U$,IA2h$5$l$k$3$H$H$J$j$^$7$?!#(B
+すなわち，オプション\verb+[migix=0]+で，$x$の描画区間を$-4\leqq x\leqq 0$と
+狭めてやれば，その中点$x=-2$における関数値$y=1$は$y$の描画領域に属しますから，
+グラフが描画されることとなりました。
 
-$BIA2h6h4V$r69$a$k$N$,LLE]$J$i!$(B\cmd{YGurafu}$B$rMQ$$$k$N$b$"$j$^$9!#(B
+描画区間を狭めるのが面倒なら，\cmd{YGurafu}を用いるのもあります。
 
-\begin{showEx}(.6,.34){$B=$@5(B2}
+\begin{showEx}(.6,.34){修正2}
 \begin{zahyou}[ul=5mm](-4,4)(-1,4)
   \def\Fx{(X+2)**2+1}
   \YGurafu\Fx{}{}
@@ -353,10 +353,10 @@ Warning $B$K$"$k$h$&$K!$>e$N>r7o$,K~$?$5$l$k$h$&$KIA2hNN0h$r69$a$F$d$j$^$9!#(B
 
 
 \subsubsection{\cmd{XGurafu}}
-$x=f(y)$ $B$GM?$($i$l$?6J@~$rIA2h$7$^$9!#(B
-$BFHN)JQ?t$O(B `Y' $B$^$?$O(B `X' $B$rMQ$$$^$9!#(B
+$x=f(y)$ で与えられた曲線を描画します。
+独立変数は `Y' または `X' を用います。
 
-$B2<$NNc$O!$(B$y=\sqrt x$$B$r(B$x=y^2$$B$H$7$FIA2h$9$kNc$G$9!#(B
+下の例は，$y=\sqrt x$を$x=y^2$として描画する例です。
 
 \begin{showEx}(.55,.39){\cmd{XGurafu}}
 \begin{zahyou}[ul=8mm](-1,5)(-1,3)
@@ -365,7 +365,7 @@ $x=f(y)$ $B$GM?$($i$l$?6J@~$rIA2h$7$^$9!#(B
 \end{zahyou}
 \end{showEx}
 
-$B$3$l$r(B $y=\sqrt x$ $B$H$7$F(B \cmd{YGurafu}$B$rMQ$$$k$H(B
+これを $y=\sqrt x$ として \cmd{YGurafu}を用いると
 
 \begin{showEx}(.55,.39){$y=\sqrt x$}
 \begin{zahyou}[ul=8mm](-1,5)(-1,3)
@@ -373,10 +373,10 @@ $x=f(y)$ $B$GM?$($i$l$?6J@~$rIA2h$7$^$9!#(B
   \YGurafu{sqrt(X)}{0}{\xmax}
 \end{zahyou}
 \end{showEx}
-$B86E@$NIU6a$,$.$4$A$J$/$J$j$^$9!#(B
+原点の付近がぎごちなくなります。
 
-$BF1MM$K!$AP6J@~(B $x^2-y^2=1$$B$b(B$x=\sqrt{1+y^2}$$B$H$9$kJ}$,3j$i$+$KIA$1$^$9!#(B
-\cmd{XGurafu*}$B$rMQ$$$F$_$^$9!#(B
+同様に，双曲線 $x^2-y^2=1$も$x=\sqrt{1+y^2}$とする方が滑らかに描けます。
+\cmd{XGurafu*}を用いてみます。
 
 \begin{showEx}(.55,.39){$x^2-y^2=1$}
 \begin{zahyou}[ul=8mm](-3,3)(-3,3)
@@ -387,9 +387,9 @@ $x=f(y)$ $B$GM?$($i$l$?6J@~$rIA2h$7$^$9!#(B
 \end{zahyou}
 \end{showEx}
 
-$B$J$*!$(B\cmd{XGurafu}$B$K$*$$$F!$(B
-$y$$B$NHO0O$N>e8B!$2<8B$r;XDj$9$k(B \verb+key+ $B$O(B \verb+uey, sitay+ $B$G$9!#(B
-$B$^$?%0%i%U$N>eC<!$2<C<$,(B \verb+\ueT, \sitaT+ $B$KDj5A$5$l$F$$$^$9!#(B
+なお，\cmd{XGurafu}において，
+$y$の範囲の上限，下限を指定する \verb+key+ は \verb+uey, sitay+ です。
+またグラフの上端，下端が \verb+\ueT, \sitaT+ に定義されています。
 
 \begin{showEx}(.55,.39){\cmd{XGurafu*}}
 \begin{zahyou}[ul=8mm](-1,5)(-1,3)
@@ -401,23 +401,23 @@ $y$$B$NHO0O$N>e8B!$2<8B$r;XDj$9$k(B \verb+key+ $B$O(B \verb+uey, sitay+ $B$
 
 
 \subsubsection{\cmd{BGurafu}}
-$BG^2pJQ?tI=<($5$l$?6J@~$rIA2h$9$k%3%^%s%I(B \cmd{bGurafu} $B$KBP$7$F$b(B
-\textsf{Perl} $B$r;HMQ$9$k%3%^%s%I(B \cmd{BGurafu} $B$rMQ0U$7$^$7$?!#(B
-$BG^2pJQ?t$O(B `T' $B$GI=$7$^$9!#(B
+媒介変数表示された曲線を描画するコマンド \cmd{bGurafu} に対しても
+\textsf{Perl} を使用するコマンド \cmd{BGurafu} を用意しました。
+媒介変数は `T' で表します。
 
 \begin{boxnote}
 \begin{verbatim}
 \BGurafu(#1)(#2)#3#4#5#6
-   #1 : t $B$N9o$_CM!J%G%U%)%k%HCM$O(B 0.05 $B!K(B
-   #2 : $BE@@~$GIA2h$9$k$H$-$NIA2h$9$kItJ,$N(B t $B$N%l%s%8(B
-   #3 : x=f(t) $BG^2pJQ?t$O(B T $B$HI=5-$9$k!#!J(BX, Y $B$b2D!K(B
+   #1 : t の刻み値（デフォルト値は 0.05 ）
+   #2 : 点線で描画するときの描画する部分の t のレンジ
+   #3 : x=f(t) 媒介変数は T と表記する。（X, Y も可）
    #4 : y=g(t)
-   #5 : t $B$N;O$aCM(B
-   #6 :     $B=*$jCM(B
+   #5 : t の始め値
+   #6 :     終り値
 \end{verbatim}
 \end{boxnote}
 
-$B%j%5!<%8%e6J@~$N0l$D$G$9!#(B
+リサージュ曲線の一つです。
 \begin{showEx}(0.51,0.43){\cmd{BGurafu}}
 \unitlength20mm\small
 \begin{zahyou}(-1.2,1.2)(-1.2,1.2)
@@ -426,22 +426,22 @@ $y$$B$NHO0O$N>e8B!$2<8B$r;XDj$9$k(B \verb+key+ $B$O(B \verb+uey, sitay+ $B$
 \end{showEx}
 
 \subsubsection{\cmd{RGurafu}}
-$B6K:BI8J?LL$G6KJ}Dx<0(B $r=f(\theta)$ $B$GI=$5$l$k6J@~$r(B
-$BIA2h$9$k%3%^%s%I(B \cmd{rGurafu} $B$KBP$7$F$b(B
-\textsf{Perl} $B$r;HMQ$9$k%3%^%s%I(B \cmd{RGurafu} $B$rMQ0U$7$^$7$?!#(B
+極座標平面で極方程式 $r=f(\theta)$ で表される曲線を
+描画するコマンド \cmd{rGurafu} に対しても
+\textsf{Perl} を使用するコマンド \cmd{RGurafu} を用意しました。
 
 \begin{boxnote}
 \begin{verbatim}
 \RGurafu(#1)(#2)#3#4#5
-   #1 : t $B$N9o$_CM!J%G%U%)%k%HCM$O(B 0.05 $B!K(B
-   #2 : $BE@@~$GIA2h$9$k$H$-$NIA2h$9$kItJ,$N(B t $B$N%l%s%8(B
-   #3 : r=f($B&((B) : $B&($b(B T $B$G5-=R$9$k!#(B
-   #4 : $B&((B $B$N;O$aCM(B
-   #5 :      $B=*$jCM(B
+   #1 : t の刻み値（デフォルト値は 0.05 ）
+   #2 : 点線で描画するときの描画する部分の t のレンジ
+   #3 : r=f(Θ) : Θも T で記述する。
+   #4 : Θ の始め値
+   #5 :      終り値
 \end{verbatim}
 \end{boxnote}
 
-$r=1+\cos\theta$ $B$rIA2h$7$^$9!#(B
+$r=1+\cos\theta$ を描画します。
 
 \begin{showEx}(0.51,0.43){\cmd{RGurafu}}
 \unitlength10mm\small
@@ -451,9 +451,9 @@ $r=1+\cos\theta$ $B$rIA2h$7$^$9!#(B
 \end{showEx}
 
 \subsubsection{\cmd{iiiBGurafu}}
-$B6u4V:BI8$GG^2pJQ?t$rMQ$$$FI=$5$l$?6J@~$rIA2h$9$k(B
-\cmd{iiibGurafu}$B$KBP$7$F$b!$(B\textsf{Perl}$B$HO"7H$9$k(B
-\cmd{iiiBGurafu}$B$rMQ0U$7$^$7$?!#(B
+空間座標で媒介変数を用いて表された曲線を描画する
+\cmd{iiibGurafu}に対しても，\textsf{Perl}と連携する
+\cmd{iiiBGurafu}を用意しました。
 
 \begin{showEx}(0.61,0.33){\cmd{iiiBGurafu}}
 \unitlength16mm\footnotesize
@@ -477,9 +477,9 @@ $r=1+\cos\theta$ $B$rIA2h$7$^$9!#(B
 \end{Zahyou}
 \end{showEx}
 
-\subsection{$BGH@~(B}
+\subsection{波線}
 \subsubsection{\cmd{namisen}}
-$B;XDj$7$?(B2$BE@$r@5896J@~$G7k$V%3%^%s%I$,(B\cmd{namisen}$B$G$9!#(B
+指定した2点を正弦曲線で結ぶコマンドが\cmd{namisen}です。
 
 \begin{showEx}(.6,.34){\cmd{namisen}}
 \begin{zahyou}[ul=5mm](-4,4)(-2,2)
@@ -488,9 +488,9 @@ $r=1+\cos\theta$ $B$rIA2h$7$^$9!#(B
 \end{zahyou}
 \end{showEx}
 
-\subsubsection{$BGH$N?t(B}
-$B%G%U%)%k%H$G$O!$;XDj$7$?(B2$BE@$N4V$r(B5$B<~4|J,$N@5896J@~$rIA$-$^$9!#(B
-$B$3$l$rJQ99$9$k$K$O(B
+\subsubsection{波の数}
+デフォルトでは，指定した2点の間を5周期分の正弦曲線を描きます。
+これを変更するには
 
 \begin{showEx}(.6,.34){\texttt{namisuu=...}}
 \begin{zahyou}[ul=5mm](-4,4)(-2,2)
@@ -499,8 +499,8 @@ $r=1+\cos\theta$ $B$rIA2h$7$^$9!#(B
 \end{zahyou}
 \end{showEx}
 
-\subsubsection{$BGH$N9b$5(B}
-$BGH$N9b$5$rJQ99$9$k%*%W%7%g%s$O(B
+\subsubsection{波の高さ}
+波の高さを変更するオプションは
 
 \begin{showEx}(.6,.34){\texttt{namitakasa=..}}
 \begin{zahyou}[ul=5mm](-4,4)(-2,2)
@@ -509,11 +509,11 @@ $r=1+\cos\theta$ $B$rIA2h$7$^$9!#(B
 \end{zahyou}
 \end{showEx}
 
-$B%G%U%)%k%HCM$O(B0.25$B$G$9!#(B
+デフォルト値は0.25です。
 
 \subsubsection{\cmd{namisen*}}
-$B%"%9%?%j%9%/IU$N%3%^%s%I(B\cmd{namisen*}$B$O!$(B
-2$BK\$NJ?9T$JGH@~$rIA2h$7!$$=$l$K$h$C$F64$^$l$?ItJ,$rGrEI$j$7$^$9!#(B
+アスタリスク付のコマンド\cmd{namisen*}は，
+2本の平行な波線を描画し，それによって挟まれた部分を白塗りします。
 
 \begin{showEx}(.6,.34){\cmd{namisen*}}
 \begin{zahyou}[ul=5mm](-4,4)(-2,2)
@@ -522,9 +522,9 @@ $r=1+\cos\theta$ $B$rIA2h$7$^$9!#(B
 \end{zahyou}
 \end{showEx}
 
-\subsubsection{$BGH@~$N4V3V(B}
-$BGH@~$N4V3V$O%G%U%)%k%H$G$O(B0.1$B$H$J$C$F$$$^$9$,!$(B
-$B$3$l$rJQ99$9$k%*%W%7%g%s$G$9!#(B
+\subsubsection{波線の間隔}
+波線の間隔はデフォルトでは0.1となっていますが，
+これを変更するオプションです。
 
 \begin{showEx}(.6,.34){\texttt{namikankaku=..}}
 \begin{zahyou}[ul=5mm](-4,4)(-2,2)
@@ -533,13 +533,13 @@ $r=1+\cos\theta$ $B$rIA2h$7$^$9!#(B
 \end{zahyou}
 \end{showEx}
 
-\subsubsection{\textsf{hyou}$B4D6-!&=D7S@~$KGH@~(B}
-$BI=$N=D7S@~$KFs=E$NGH@~$rIA$$$F$_$^$7$g$&!#(B
+\subsubsection{\textsf{hyou}環境・縦罫線に波線}
+表の縦罫線に二重の波線を描いてみましょう。
 
-\begin{showEx}(.64,.3){$B=PH/E@(B}
+\begin{showEx}(.64,.3){出発点}
 $
 \begin{hyou}{*4{|C{1zw}}C{1zw}|} \hline
-    & A & B & C & $B;D(B \\\hline
+    & A & B & C & 残 \\\hline
   1 & R & B & R & R \\\hline
   2 & R & R & B & R \\\hline
   3 & R & R & R & B \\\hline
@@ -548,15 +548,15 @@ $
 \end{showEx}
 
 \noindent
-$B$3$NI=$G!$Bh(B4$BNs$HBh(B5$BNs$N4V$KGH@~$rF~$l$k$3$H$rL\E*$H$7$^$9!#(B
+この表で，第4列と第5列の間に波線を入れることを目的とします。
 
-$B7k2L$r@h$K$4MwD:$-$^$7$g$&!#(B
+結果を先にご覧頂きましょう。
 %\fi
 
-\begin{showEx}(.64,.3){$B7k2L(B}
+\begin{showEx}(.64,.3){結果}
 $
 \begin{hyou}{*4{|C{1zw}}C{1zw}|} \hline
-    & A & B & C & $B;D(B \\\hline
+    & A & B & C & 残 \\\hline
   1 & R & B & R & R \\\hline
   2 & R & R & B & R \\\hline
   3 & R & R & R &
@@ -579,12 +579,12 @@ $
 \end{showEx}
 
 
-$BGH@~$O!$(B\textsf{zahyou*}$B4D6-$G(B\cmd{namisen}$B$r;HMQ$7$^$7$g$&!#(B
-$B$=$N$?$a$K$O!$I=$N2#I}$rCN$i$M$P$J$j$^$;$s!#(B
+波線は，\textsf{zahyou*}環境で\cmd{namisen}を使用しましょう。
+そのためには，表の横幅を知らねばなりません。
 
-\begin{showEx}(.64,.3){$BI=$N2#I}(B}
+\begin{showEx}(.64,.3){表の横幅}
   \dimenref{Whyou1}\yokohaba
-  $B2<$NI=$N2#I}$O(B\yokohaba $B$G$9!#(B
+  下の表の横幅は\yokohaba です。
   
   \getWHD{hyou1}{%
     $\begin{hyou}{|c|r|r|}\hline
@@ -595,13 +595,13 @@ $
   }
 \end{showEx}
 
-$B$9$J$o$A!$(B\cmd{getWHD}$B$H(B\cmd{dimenref}$B$NAH9g$;$GI=$N2#I}$rCN$k$3$H$,$G$-$^$9!#(B
+すなわち，\cmd{getWHD}と\cmd{dimenref}の組合せで表の横幅を知ることができます。
 
-$BGH@~$r0z$/$K$O!$GH@~$N$9$0>e$N9T$N:8C<$NNs$K(B\cmd{sya}$B$rE,MQ$7$^$9!#(B
-\cmd{sya}$B$N(B\verb+<..>+$B%*%W%7%g%sFb$O(B\textsf{picture}$B4D6-$K$J$C$F$$$^$9$+$i!$(B
-$B$=$3$K(B\cmd{namisen}$B$rF~$l$^$7$g$&!#(B
+波線を引くには，波線のすぐ上の行の左端の列に\cmd{sya}を適用します。
+\cmd{sya}の\verb+<..>+オプション内は\textsf{picture}環境になっていますから，
+そこに\cmd{namisen}を入れましょう。
 
-\begin{showEx}(.7,.24){$B2#7S@~$rGH@~$G(B}
+\begin{showEx}(.7,.24){横罫線を波線で}
   \dimenref{Whyou2}\yokohaba
   \setlength{\mydimena}{\yokohaba-2\arrayrulewidth}%
   \edef\Lw{\mumeisuu\mydimena}%
@@ -620,9 +620,9 @@ $
   }
 \end{showEx}
 
-$B=D$NGH@~$bF1MM$G$9!#(B
+縦の波線も同様です。
 
-\begin{showEx}(.7,.24){$B=D7S@~$rGH@~$G(B}
+\begin{showEx}(.7,.24){縦罫線を波線で}
   \dimenref{Thyou3}\tatehaba
   \setlength{\mydimena}{\tatehaba-2\arrayrulewidth}%
   \edef\Lw{\mumeisuu\mydimena}%
@@ -643,9 +643,9 @@ $
 \end{showEx}
 \clearpage
 
-$BGH@~$rFs=E$K$7$F$_$^$9!#(B
+波線を二重にしてみます。
 
-\begin{showEx}(.7,.24){$BFs=EGH@~(B}
+\begin{showEx}(.7,.24){二重波線}
   \dimenref{Thyou4}\tatehaba
   \setlength{\mydimena}{\tatehaba-2\arrayrulewidth}%
   \edef\Lw{\mumeisuu\mydimena}%
@@ -666,16 +666,16 @@ $
   }
 \end{showEx}
 
-$BGH@~$N7A>u$O(B\cmd{namisen}$B$N%*%W%7%g%s$G$$$m$$$mJQ$($k$3$H$,$G$-$^$9!#(B
+波線の形状は\cmd{namisen}のオプションでいろいろ変えることができます。
 \clearpage
 
-\subsection{$B6J@~>e$NE@(B}
+\subsection{曲線上の点}
 \subsubsection{\cmd{YTen}}
-$y=f(x)$$B$GM?$($i$l$?6J@~$K$*$$$F!$(B
-$x$$B$NCM$rM?$($FE@(B($x$, $f(x)$)$B$r5a$a$k%3%^%s%I$,(B
-\cmd{YTen}$B$G$9!#(B
+$y=f(x)$で与えられた曲線において，
+$x$の値を与えて点($x$, $f(x)$)を求めるコマンドが
+\cmd{YTen}です。
 
-$BNc$($P!$(B
+例えば，
 
 \begin{showEx}{\cmd{YTen}}
 \begin{zahyou}[ul=10mm]%
@@ -690,67 +690,67 @@ $x$$B$NCM$rM?$($FE@(B($x$, $f(x)$)$B$r5a$a$k%3%^%s%I$,(B
 \end{zahyou}
 \end{showEx}
 
-\cmd{YTen}$B$N=q<0$G$9!#(B
+\cmd{YTen}の書式です。
 
 \begin{boxnote}
 \begin{verbatim}
-y=f(x) $B>e$NE@$N:BI8$r5a$a$k!#(B
+y=f(x) 上の点の座標を求める。
 
 \YTen[#1]#2#3#4
-     #1 : $BLa$jCM$N%U%)!<%^%C%H@)8f$r$9$k%*%W%7%g%s(B
-          key=val $B$N7A<0(B
-          xformat=.. : x$B:BI8$N%U%)!<%^%C%H;XDj!J%G%U%)%k%H$O(B`s'$B!K(B
-          yformat=.. : y$B:BI8$N%U%)!<%^%C%H;XDj!J%G%U%)%k%H$O(B`f')
-     #2 : $B4X?t<0(B
-     #3 : x $B$NCM(B
-     #4 : $BE@$N:BI8$r<u$1<h$k@)8fDV(B
+     #1 : 戻り値のフォーマット制御をするオプション
+          key=val の形式
+          xformat=.. : x座標のフォーマット指定（デフォルトは`s'）
+          yformat=.. : y座標のフォーマット指定（デフォルトは`f')
+     #2 : 関数式
+     #3 : x の値
+     #4 : 点の座標を受け取る制御綴
 \end{verbatim}
 \end{boxnote}
 
-\cmd{YTen}$B$O!$E@$N:BI8$rLa$7$^$9$,!$$=$N%U%)!<%^%C%H$O(B
+\cmd{YTen}は，点の座標を戻しますが，そのフォーマットは
 \begin{jquote}
 \begin{verbatim}
-x$B:BI8$O(B`s', $B$9$J$o$A(B#3$B$GM?$($?$b$N$,J8;zNs$H$7$F$=$N$^$^La$j$^$9!#(B
-y$B:BI8$O(B`f', $BDL>o$N>.?tI=<((B
+x座標は`s', すなわち#3で与えたものが文字列としてそのまま戻ります。
+y座標は`f', 通常の小数表示
 \end{verbatim}
 \end{jquote}
 
-$x$$B$NCM$r7W;;<0$GM?$($k$H$-$O!$(B\verb+xformat=f+$B$H;XDj$9$kI,MW$,$"$j$^$9!#(B
+$x$の値を計算式で与えるときは，\verb+xformat=f+と指定する必要があります。
 
-\begin{showEx}{\texttt{xformat=..}$B%*%W%7%g%s(B}
+\begin{showEx}{\texttt{xformat=..}オプション}
 \def\Fx{X*X}
 \YTen\Fx{1/2}\P
-$B%G%U%)%k%H$NLa$jCM$O(B
+デフォルトの戻り値は
 \[ \P \]
 
 \YTen[xformat=f]\Fx{1/2}\P
-\verb+xformat=f+$B$r;XDj$7$?$H$-$NLa$jCM$O(B
+\verb+xformat=f+を指定したときの戻り値は
 \[ \P \]
 \end{showEx}
 
-$y$$B:BI8$,@0?t$H$J$k$H$-$O!$(B\verb+yformat=d+$B%*%W%7%g%s(B
-$B$rM?$($?$[$&$,$h$$$G$7$g$&$+!#(B
+$y$座標が整数となるときは，\verb+yformat=d+オプション
+を与えたほうがよいでしょうか。
 
-\begin{showEx}{\texttt{yformat=..}$B%*%W%7%g%s(B}
+\begin{showEx}{\texttt{yformat=..}オプション}
 \def\Fx{X*X}
 \YTen\Fx{3}\P
-$B%G%U%)%k%H$G$O!$7k2L$,@0?t$G$"$C$F$b(B
+デフォルトでは，結果が整数であっても
 \[ \P \]
 
 \YTen[yformat=d]\Fx{3}\P
-\verb+yformat=d+$B$rM?$($l$P(B
+\verb+yformat=d+を与えれば
 \[ \P \]
 \end{showEx}
 
 
-$BF1MM$K!$(B$x=g(y)$$B$GM?$($i$l$?6J@~$K$*$$$F!$(B$y$$B$NCM$r;XDj$7$F(B
-$BE@(B($g(y)$, $y$)$B$r5a$a$k%3%^%s%I(B\cmd{XTen}$B$b$"$j$^$9!#(B
+同様に，$x=g(y)$で与えられた曲線において，$y$の値を指定して
+点($g(y)$, $y$)を求めるコマンド\cmd{XTen}もあります。
 
 \subsubsection{\cmd{BTen}}
-$B6J@~$,G^2pJQ?tI=<((B
+曲線が媒介変数表示
 \renritu*{x&=f(t) \\ y&=g(t)}
-$B$GM?$($i$l$F$$$k>l9g$K!$G^2pJQ?t(B$t$$B$NCM$rM?$($F6J@~>e$NE@$r(B
-$B5a$a$k%3%^%s%I$,(B\cmd{BTen}$B$G$9!#(B
+で与えられている場合に，媒介変数$t$の値を与えて曲線上の点を
+求めるコマンドが\cmd{BTen}です。
 
 \begin{showEx}{\cmd{Bten}}
 \footnotesize
@@ -765,22 +765,22 @@ $y$$B:BI8$,@0?t$H$J$k$H$-$O!$(B\verb+yformat=d+$B%*%W%7%g%s(B
 \end{zahyou}
 \end{showEx}
 
-\cmd{BTen}$B$N=q<0$G$9!#(B
+\cmd{BTen}の書式です。
 
 \begin{boxnote}
 \begin{verbatim}
 \BTen#1#2#3#4
-   $BG^2pJQ?t6J@~>e$N(B1$BE@$N:BI8$r5a$a$k!#(B
+   媒介変数曲線上の1点の座標を求める。
    #1 : x=f(t)
    #2 : y=g(t)
-   #3 : t $B$NCM(B
-   #4 : $B7k2L$r<u$1<h$k@)8fDV(B
+   #3 : t の値
+   #4 : 結果を受け取る制御綴
 \end{verbatim}
 \end{boxnote}
 
 \subsubsection{\cmd{RTen}}
-$B6KJ}Dx<0(B$r=f(\theta)$$B$GM?$($i$l$k6J@~>e$NE@$r5a$a$k%3%^%s%I$,(B
-\cmd{RTen}$B$G$9!#(B
+極方程式$r=f(\theta)$で与えられる曲線上の点を求めるコマンドが
+\cmd{RTen}です。
 
 \begin{showEx}(.5,.44){\cmd{RTen}}
 \begin{zahyou}[ul=10mm]%
@@ -793,25 +793,25 @@ $y$$B:BI8$,@0?t$H$J$k$H$-$O!$(B\verb+yformat=d+$B%*%W%7%g%s(B
 \end{zahyou}
 \end{showEx}
 
-\subsection{$y=f(x)$$B$H(B$y=g(x)$$B$N8rE@(B}
-2$B$D$N%0%i%U(B$y=f(x)$, $y=g(x)$$B$N8rE@$r5a$a$k%3%^%s%I$,(B\cmd{YKouten}$B$G$9(B
-$B!J$b$A$m$s6a;wCM$G$9!K!#$=$N=q<0$G$9!#(B
+\subsection{$y=f(x)$と$y=g(x)$の交点}
+2つのグラフ$y=f(x)$, $y=g(x)$の交点を求めるコマンドが\cmd{YKouten}です
+（もちろん近似値です）。その書式です。
 
 \begin{boxnote}
 \begin{verbatim}
 \def\YKouten#1#2#3#4#5#6
   #1 : f(x)
   #2 : g(x)
-  #3 : $B6h4V:8C<E@!J>JN,;~$O(B \xmin)
-  #4 : $B6h4V1&C<E@!J>JN,;~$O(B \xmax)
-  #5 : $B8rE@$N(Bx$B:BI8$r<u$1<h$k@)8fDV(B
-  #6 : $B8rE@$N:BI8$r<u$1<h$k@)8fDV(B
+  #3 : 区間左端点（省略時は \xmin)
+  #4 : 区間右端点（省略時は \xmax)
+  #5 : 交点のx座標を受け取る制御綴
+  #6 : 交点の座標を受け取る制御綴
 \end{verbatim}
 \end{boxnote}
 
-$B$^$:$O!$(B2$BD>@~(B$y=1-x$, $y=\bunsuu12x$$B$N8rE@$r5a$a$F$_$^$9!#(B
+まずは，2直線$y=1-x$, $y=\bunsuu12x$の交点を求めてみます。
 
-\begin{showEx}(0.5,0.44){2$BD>@~$N8rE@(B}
+\begin{showEx}(0.5,0.44){2直線の交点}
 \begin{zahyou}[ul=15mm](-.5,3)(-1,2)
   \def\Fx{1-X}
   \def\Gx{X/2}
@@ -824,11 +824,11 @@ $y$$B:BI8$,@0?t$H$J$k$H$-$O!$(B\verb+yformat=d+$B%*%W%7%g%s(B
 \end{zahyou}
 \end{showEx}
 
-$B<!$O!$J|J*@~(B$y=x^2$$B$HD>@~(B$y=x+1$$B$H$N8rE@$G$9!#(B
-$B:#EY$O8rE@$,(B2$B8D$"$j$^$9$+$i!$$=$l$>$l$N8rE@$r4^$`(B$x$$B$NHO0O$rL@<($7$F(B
-$B$*$/I,MW$,$"$j$^$9!#(B
+次は，放物線$y=x^2$と直線$y=x+1$との交点です。
+今度は交点が2個ありますから，それぞれの交点を含む$x$の範囲を明示して
+おく必要があります。
 
-\begin{showEx}(.46,.485){$BJ|J*@~$HD>@~$N8rE@(B}
+\begin{showEx}(.46,.485){放物線と直線の交点}
 \begin{zahyou}
 [%
   ul=10mm,Ueyohaku=15pt,%
@@ -850,10 +850,10 @@ $y$$B:BI8$,@0?t$H$J$k$H$-$O!$(B\verb+yformat=d+$B%*%W%7%g%s(B
 \end{zahyou}
 \end{showEx}
 
-$BB3$$$F!$;03Q4X?t$N%0%i%U$N8rE@$r5a$a$^$9!#(B
-$B:#EY$O@\E@$b4^$^$l$^$9$,!$$&$^$/5a$a$i$l$k$G$7$g$&$+!#(B
+続いて，三角関数のグラフの交点を求めます。
+今度は接点も含まれますが，うまく求められるでしょうか。
 
-\begin{showEx}(0.46,.485){$BD61[6J@~$N8rE@(B}
+\begin{showEx}(0.46,.485){超越曲線の交点}
 \begin{zahyou}%
 [ul=8mm](-1,7)(-2,2)
 \def\Fx{sin(X)}
@@ -874,23 +874,23 @@ $y$$B:BI8$,@0?t$H$J$k$H$-$O!$(B\verb+yformat=d+$B%*%W%7%g%s(B
 \end{zahyou}
 \end{showEx}
 
-\subsection{$BEI$j$D$V$7(B}
-\textsf{Perl}$B$rMQ$$$k<jK!$O!$EI$j$D$V$7%3%^%s%I$K$bE,MQ$5$l$^$9!#(B
+\subsection{塗りつぶし}
+\textsf{Perl}を用いる手法は，塗りつぶしコマンドにも適用されます。
 
 \begin{boxnote}
 \begin{verbatim}
-\YNuri[$BG;$5(B]<x$B$N9o$_CM(B>{$B4X?t(B}{x1}{x2}
-\YNurii[$BG;$5(B]<x$B$N9o$_CM(B>{$B4X?t(B1}{$B4X?t(B2}{x1}{x2}
-\YNuri*[$B<P@~J}8~3Q(B]<$B<P@~4V3V(B>(x$B$N9o$_CM(B){$B4X?t(B}{x1}{x2}
-\YNurii*[$B<P@~J}8~3Q(B]<$B<P@~4V3V(B>(x$B$N9o$_CM(B){$B4X?t(B1}{$B4X?t(B2}{x1}{x2}
+\YNuri[濃さ]<xの刻み値>{関数}{x1}{x2}
+\YNurii[濃さ]<xの刻み値>{関数1}{関数2}{x1}{x2}
+\YNuri*[斜線方向角]<斜線間隔>(xの刻み値){関数}{x1}{x2}
+\YNurii*[斜線方向角]<斜線間隔>(xの刻み値){関数1}{関数2}{x1}{x2}
 \end{verbatim}
 \end{boxnote}
 
-$B$$$:$l$b(B \cmd{yNuri...} $B$HF1MM$G$9!#>\$7$/$O!$(B\textsf{sampleP.tex}$B$r(B
-$B$4Mw$/$@$5$$!#(B
+いずれも \cmd{yNuri...} と同様です。詳しくは，\textsf{sampleP.tex}を
+ご覧ください。
 
 \subsubsection{\cmd{YNuri}}
-$B$^$:$O(B$y=f(x)$$B$H!$$=$N>e$N(B2$BE@$r7k$V89$H$G0O$^$l$k?^7A$NEI$j$D$V$7$G$9!#(B
+まずは$y=f(x)$と，その上の2点を結ぶ弦とで囲まれる図形の塗りつぶしです。
 
 \begin{showEx}{\cmd{YNuri}}
 \begin{zahyou}[ul=10mm](-1,3)(-2,3)
@@ -903,7 +903,7 @@ $y$$B:BI8$,@0?t$H$J$k$H$-$O!$(B\verb+yformat=d+$B%*%W%7%g%s(B
 \end{showEx}
 
 \subsubsection{\cmd{YNurii}}
-$BB3$$$F!$Fs$D$N6J@~(B$y=f(x)$$B$H(B$y=g(x)$$B$G0O$^$l$kNN0h$G$9!#(B
+続いて，二つの曲線$y=f(x)$と$y=g(x)$で囲まれる領域です。
 
 \begin{showEx}{\cmd{YNurii}}
 \begin{zahyou}[ul=10mm](-1,3)(-2,3)
@@ -918,7 +918,7 @@ $y$$B:BI8$,@0?t$H$J$k$H$-$O!$(B\verb+yformat=d+$B%*%W%7%g%s(B
 
 
 \subsubsection{\cmd{XNuri}, \cmd{XNurii}}
-\cmd{XNuri}, \cmd{XNurii}$B$b$"$j$^$9!#(B
+\cmd{XNuri}, \cmd{XNurii}もあります。
 
 \begin{showEx}{\cmd{XNurii}}
 \begin{zahyou}[ul=10mm](-4.5,1.5)(-1,3)
@@ -934,12 +934,12 @@ $y$$B:BI8$,@0?t$H$J$k$H$-$O!$(B\verb+yformat=d+$B%*%W%7%g%s(B
 \subsubsection{\cmd{BNuri}}
 \begin{boxnote}
 \begin{verbatim}
-\BNuri[$BG;$5(B]<t$B$N9o$_CM(B>{f(t)}{g(t)}{t1}{t2}
+\BNuri[濃さ]<tの刻み値>{f(t)}{g(t)}{t1}{t2}
 \end{verbatim}
 \end{boxnote}
 \noindent
-$B$O!$G^2pJQ?t(B$x=f(t)$, $y=g(t)$$B$GI=$5$l$?6J@~$N(B$t_1\leqq t\leqq t_2$
-$B$NItJ,$HN>C<$r7k$V89$G0O$^$l$?NN0h$rEI$j$D$V$7$^$9!#(B
+は，媒介変数$x=f(t)$, $y=g(t)$で表された曲線の$t_1\leqq t\leqq t_2$
+の部分と両端を結ぶ弦で囲まれた領域を塗りつぶします。
 
 \begin{showEx}(.6,.34){\cmd{BNuri}}
   \def\Ft{T-sin(T)}
@@ -949,7 +949,7 @@ $y$$B:BI8$,@0?t$H$J$k$H$-$O!$(B\verb+yformat=d+$B%*%W%7%g%s(B
     \BGurafu\Ft\Gt{-$pi}{3*$pi}
   \end{zahyou}
 \end{showEx}
-$B$O$h$$$H$7$F(B
+はよいとして
 
 \begin{showEx}(.6,.34){\cmd{BNuri}}
   \def\Ft{cos(T)**3}
@@ -959,21 +959,21 @@ $y$$B:BI8$,@0?t$H$J$k$H$-$O!$(B\verb+yformat=d+$B%*%W%7%g%s(B
     \BGurafu\Ft\Gt{0}{2*$pi}
   \end{zahyou}
 \end{showEx}
-$B$OE*30$l$G$7$g$&$M!#(B\cmd{BNuri}$B$O!$6J@~$N8L$H$=$NN>C<$r7k$V89$G0O$^$l$??^7A$r(B
-$BEI$j$D$V$7$^$9$+$i!$>e$N?^$O;XNa$I$*$j$K$J$C$F$$$k$N$G$9$,!%!%!%!%!%(B
+は的外れでしょうね。\cmd{BNuri}は，曲線の弧とその両端を結ぶ弦で囲まれた図形を
+塗りつぶしますから，上の図は指令どおりになっているのですが．．．．．
 
-$B6J@~FbIt$NBh(B1$B>]8B$rEI$j$D$V$7$?$$$H$9$l$P!$(B
-$B;03Q7A$rEI$j$D$V$7$F!$>e?^$NItJ,$rGrEI$j$9$k$N$b$"$j$^$9$,!$(B
-$B6J@~$N8L$r@^$l@~6a;w$7$FB?3Q7AEI$j$D$V$7%3%^%s%I(B\cmd{Nuritubusi} $B$rMQ$$$k$N$b$"$j$^$9!#(B
+曲線内部の第1象限を塗りつぶしたいとすれば，
+三角形を塗りつぶして，上図の部分を白塗りするのもありますが，
+曲線の弧を折れ線近似して多角形塗りつぶしコマンド\cmd{Nuritubusi} を用いるのもあります。
 
 \begin{boxnote}
 \begin{verbatim}
-\BKinziOresen{f(t)}{g(t)}{t1}{t_2}{t$B$N9o$_CM(B}{$B@^$l@~$r<u$1<h$k@)8fDV(B}
+\BKinziOresen{f(t)}{g(t)}{t1}{t_2}{tの刻み値}{折れ線を受け取る制御綴}
 \end{verbatim}
 \end{boxnote}
 \noindent
-$B$O!$G^2pJQ?tI=<((B$x=f(t)$, $y=g(t)$, $(t_1\leqq t\leqq t_2)$$B$5$l$?6J@~$N8L$r(B
-$B@^$l@~$G6a;w$7$^$9!#(B
+は，媒介変数表示$x=f(t)$, $y=g(t)$, $(t_1\leqq t\leqq t_2)$された曲線の弧を
+折れ線で近似します。
 
 \begin{showEx}(.6,.34){\cmd{BKinziOresen}}
   \def\Ft{cos(T)**3}
@@ -985,28 +985,28 @@ $y$$B:BI8$,@0?t$H$J$k$H$-$O!$(B\verb+yformat=d+$B%*%W%7%g%s(B
     \BGurafu\Ft\Gt{0}{2*$pi}
   \end{zahyou}
 \end{showEx}
-$B6J@~$N8L(BAB$B$r6a;w$7$?@^$l@~$,(B\cmd{oresen}$B$KF@$i$l$^$9!#(B
-$B$=$l$KE@(B\cmd{O}$B$rIU2C$7$F!$(B\cmd{Nuritubusi}$B%3%^%s%I$KM?$($^$9!#(B
+曲線の弧ABを近似した折れ線が\cmd{oresen}に得られます。
+それに点\cmd{O}を付加して，\cmd{Nuritubusi}コマンドに与えます。
 
 \begin{description}
-\item[$B!JCm(B1$B!K(B]
-$BE@(B\cmd{O}$B$rIU2C$7$?$@$1$G$O!$@^$l@~$O(B\verb+(A->B->O)+$B$H$J$C$F!$JD$8$F$$$^$;$s!#(B
-$BE@(B\cmd{A}$B$r$5$i$KIU2C$9$Y$-$G$9$,!$(B\cmd{Nuritubusi}$B$O!$(B
-$B;OE@$H=*E@$r6/@)E*$K7k$s$GJD$8$5$;$?>e$GEI$j$D$V$9;EMM$H$J$C$F$$$^$9$+$i!$(B
-$BE@(B\cmd{A}$B$rIU2C$9$k<j4V$O>JN,$9$k$3$H$,$G$-$^$9!#(B
+\item[（注1）]
+点\cmd{O}を付加しただけでは，折れ線は\verb+(A->B->O)+となって，閉じていません。
+点\cmd{A}をさらに付加すべきですが，\cmd{Nuritubusi}は，
+始点と終点を強制的に結んで閉じさせた上で塗りつぶす仕様となっていますから，
+点\cmd{A}を付加する手間は省略することができます。
 
-\item[$B!JCm(B2$B!K(B]
-$B6J@~(B$y=f(x)$$B$r6a;w$9$k(B\cmd{YKinziOresen}$B$bMQ0U$O$7$F$"$j$^$9!#(B
+\item[（注2）]
+曲線$y=f(x)$を近似する\cmd{YKinziOresen}も用意はしてあります。
 \end{description}
 
 \subsubsection{\cmd{RNuri}}
-$B6KJ}Dx<0(B$r=f(\theta)$$B$GM?$($i$l$?6J@~$N8L$H89$r7k$V?^7A$rEI$j$D$V$9(B\cmd{RNuri}$B$b$"$j$^$9!#(B
-$B6a;w@^$l@~$rF@$k(B\cmd{RKinziOresen}$B$b;HMQ2DG=$G$9!#(B
+極方程式$r=f(\theta)$で与えられた曲線の弧と弦を結ぶ図形を塗りつぶす\cmd{RNuri}もあります。
+近似折れ線を得る\cmd{RKinziOresen}も使用可能です。
 
 \begin{boxnote}
 \begin{verbatim}
-\RNuri[$BG;$5(B]<$B&H$N9o$_CM(B>{f($B&H(B)}{t1}{t2}
-\RKinziOresen{f($B&H(B)}{t1}{t_2}{$B&H$N9o$_CM(B}{$B@^$l@~$r<u$1<h$k@)8fDV(B}
+\RNuri[濃さ]<θの刻み値>{f(θ)}{t1}{t2}
+\RKinziOresen{f(θ)}{t1}{t_2}{θの刻み値}{折れ線を受け取る制御綴}
 \end{verbatim}
 \end{boxnote}
 
@@ -1017,21 +1017,21 @@ $y$$B:BI8$,@0?t$H$J$k$H$-$O!$(B\verb+yformat=d+$B%*%W%7%g%s(B
   \RGurafu\Ft{0}{2*$pi}
 \end{zahyou}
 \end{showEx}
-\subsection{$B<P@~EI$j(B}
-\textsf{Perl}$B$rMQ$$$k<jK!$O!$<P@~EI$j%3%^%s%I$K$bE,MQ$5$l$^$9!#(B
+\subsection{斜線塗り}
+\textsf{Perl}を用いる手法は，斜線塗りコマンドにも適用されます。
 
 \begin{boxnote}
 \begin{verbatim}
-\YNuri*[$B<P@~J}8~3Q(B]<$B<P@~4V3V(B>(x$B$N9o$_CM(B){$B4X?t(B}{x1}{x2}
-\YNurii*[$B<P@~J}8~3Q(B]<$B<P@~4V3V(B>(x$B$N9o$_CM(B){$B4X?t(B1}{$B4X?t(B2}{x1}{x2}
+\YNuri*[斜線方向角]<斜線間隔>(xの刻み値){関数}{x1}{x2}
+\YNurii*[斜線方向角]<斜線間隔>(xの刻み値){関数1}{関数2}{x1}{x2}
 \end{verbatim}
 \end{boxnote}
 
-$B$$$:$l$b(B \cmd{yNuri*...} $B$HF1MM$G$9!#>\$7$/$O!$(B\textsf{sampleP.tex}$B$r(B
-$B$4Mw$/$@$5$$!#(B
+いずれも \cmd{yNuri*...} と同様です。詳しくは，\textsf{sampleP.tex}を
+ご覧ください。
 
 \subsubsection{\cmd{YNuri*}}
-\cmd{YNuri*}$B$rMQ$$$?Nc$G$9!#(B
+\cmd{YNuri*}を用いた例です。
 
 \begin{showEx}{\cmd{YNuri*}}
 \begin{zahyou}[ul=8mm](-3,3)(-1,5)
@@ -1043,7 +1043,7 @@ $y$$B:BI8$,@0?t$H$J$k$H$-$O!$(B\verb+yformat=d+$B%*%W%7%g%s(B
 \end{showEx}
 
 \subsubsection{\cmd{YNurii*}}
-\cmd{YNurii*} $B$rMQ$$$?Nc$G$9!#(B
+\cmd{YNurii*} を用いた例です。
 
 \begin{showEx}(.55,.39){\cmd{YNurii*}}
 \begin{zahyou}[ul=4mm](-1,7)(-1.5,1.5)
@@ -1056,7 +1056,7 @@ $y$$B:BI8$,@0?t$H$J$k$H$-$O!$(B\verb+yformat=d+$B%*%W%7%g%s(B
 \end{showEx}
 
 \subsubsection{\cmd{XNuri*}}
-\cmd{XNuri*} $B$b$"$j$^$9!#(B
+\cmd{XNuri*} もあります。
 
 \begin{showEx}(.55,.39){\cmd{XNuri*}}
 \begin{zahyou}[ul=6mm](-1,6)(-.5,3)
@@ -1069,8 +1069,8 @@ $y$$B:BI8$,@0?t$H$J$k$H$-$O!$(B\verb+yformat=d+$B%*%W%7%g%s(B
 \end{showEx}
 
 \subsubsection{\cmd{XNurii*}}
-$B:G8e$K(B\cmd{XNurii*}$B$G!$(B$y=\log x$$B$H$=$N@\@~(B $y=ex$ $B$*$h$S(B
-$x$$B<4$G0O$^$l$?NN0h$N<P@~EI$j$G$9!#(B
+最後に\cmd{XNurii*}で，$y=\log x$とその接線 $y=ex$ および
+$x$軸で囲まれた領域の斜線塗りです。
 
 \begin{showEx}(.55,.39){\cmd{XNurii*}}
 \begin{zahyou}[ul=8mm](-1,5)(-3,3)
@@ -1084,18 +1084,18 @@ $x$$B<4$G0O$^$l$?NN0h$N<P@~EI$j$G$9!#(B
 \end{showEx}
 
 \subsubsection{\cmd{BNuri*}}
-$BG^2pJQ?tI=<($5$l$?6J@~$KBP$9$k<P@~EI$j$G$9!#(B
+媒介変数表示された曲線に対する斜線塗りです。
 
 \begin{boxnote}
 \begin{verbatim}
-\BNuri*[$B<P@~J}8~3Q(B]<$B<P@~4V3V(B>(t$B$N9o$_CM(B){f(t)}{g(t)}{t1}{t2}
+\BNuri*[斜線方向角]<斜線間隔>(tの刻み値){f(t)}{g(t)}{t1}{t2}
 \end{verbatim}
 \end{boxnote}
 
-$BG^2pJQ?tI=<((B
+媒介変数表示
 \[ x(t)=\bunsuu{3t}{1+t^3},~y(t)=\bunsuu{3t^2}{1+t^3} 
   \quad (0\leqq t \leqq 1) \]
-$B$GI=$5$l$k6J@~(B$C$$B$HD>@~(B$y=x$$B$G0O$^$l$?NN0h$r<P@~EI$j$7$^$9!#(B
+で表される曲線$C$と直線$y=x$で囲まれた領域を斜線塗りします。
 
 \begin{showEx}(.6,.34){\cmd{BNuri*}}
   \begin{zahyou}[ul=10mm](-.5,2)(-.5,2)
@@ -1107,11 +1107,11 @@ $x$$B<4$G0O$^$l$?NN0h$N<P@~EI$j$G$9!#(B
   \end{zahyou}
 \end{showEx}
 
-$B<P@~EI$j$OLq2p$G!$?^7A$,FL$G$J$$$J$I!$J#;($J>l9g$O9)IW$,I,MW$G$9!#(B
-$B<!$NNc$O!$FL$G$J$$?^7A$KBP$7!$FLJDJq$r<P@~EI$j$7$F!$(B
-$BM>J,$J$H$3$m$rGrEI$j$7$F$$$^$9!#(B
+斜線塗りは厄介で，図形が凸でないなど，複雑な場合は工夫が必要です。
+次の例は，凸でない図形に対し，凸閉包を斜線塗りして，
+余分なところを白塗りしています。
 
-\begin{showEx}(.6,.34){$BFLJDJq$rMxMQ(B}
+\begin{showEx}(.6,.34){凸閉包を利用}
 \begin{zahyou}[ul=15mm](-1.2,1.5)(-1.2,1.5)
   \def\Ft{cos(X)**3}
   \def\Gt{sin(X)**3}
@@ -1125,9 +1125,9 @@ $x$$B<4$G0O$^$l$?NN0h$N<P@~EI$j$G$9!#(B
 \end{zahyou}
 \end{showEx}
 
-$B$Y$?EI$j$J$i4JC1$G(B
+べた塗りなら簡単で
 
-\begin{showEx}(.6,.34){$B$Y$?EI$j(B}
+\begin{showEx}(.6,.34){べた塗り}
 \begin{zahyou}[ul=15mm](-1.2,1.5)(-1.2,1.5)
   \def\Ft{cos(X)**3}
   \def\Gt{sin(X)**3}
@@ -1137,16 +1137,16 @@ $x$$B<4$G0O$^$l$?NN0h$N<P@~EI$j$G$9!#(B
 \end{showEx}
 
 \noindent
-$B$G$*$7$^$$!#(B
+でおしまい。
 
 \subsubsection{\cmd{RNuri*}}
-$B6KJ}Dx<0$GM?$($i$l$?6J@~$KBP$9$k<P@~EI$j$G$9!#(B
+極方程式で与えられた曲線に対する斜線塗りです。
 
 
 \begin{boxnote}
 \begin{verbatim}
-\RNuri*[$B<P@~J}8~3Q(B]<$B<P@~4V3V(B>($B&H$N9o$_CM(B){f(t)}{t1}{t2}
-\RKinziOresen{f($B&H(B)}{t1}{t_2}{$B&H$N9o$_CM(B}{$B@^$l@~$r<u$1<h$k@)8fDV(B}
+\RNuri*[斜線方向角]<斜線間隔>(θの刻み値){f(t)}{t1}{t2}
+\RKinziOresen{f(θ)}{t1}{t_2}{θの刻み値}{折れ線を受け取る制御綴}
 \end{verbatim}
 \end{boxnote}
 
@@ -1159,7 +1159,7 @@ $x$$B<4$G0O$^$l$?NN0h$N<P@~EI$j$G$9!#(B
 \end{showEx}
 
 \noindent
-$B$O4JC1$G$9$,!$?^$,J#;($K$J$k$H9)IW$,I,MW$@$H$$$&$3$H$OG^2pJQ?t$N$H$3$m$G$b=R$Y$^$7$?!#(B
+は簡単ですが，図が複雑になると工夫が必要だということは媒介変数のところでも述べました。
 
 \begin{showEx}(.6,.34){\cmd{RNuri*}}
 \begin{zahyou}[ul=6mm](-2,3.5)(-3,2)
@@ -1169,13 +1169,13 @@ $x$$B<4$G0O$^$l$?NN0h$N<P@~EI$j$G$9!#(B
 \end{zahyou}
 \end{showEx}
 
-$B?^$,FL$G$J$$$?$a!$86E@$N1&>e$N$H$3$m$G<P@~$,$O$_$@$7$F$$$^$9!#(B
-$B<P@~$NJ}8~3Q$rD4@0$9$k$N$b$R$H$D$N2r7hK!$G$9$,!$(B
-$B$"$($FJL$NJ}K!$r>R2p$7$^$9!#(B
+図が凸でないため，原点の右上のところで斜線がはみだしています。
+斜線の方向角を調整するのもひとつの解決法ですが，
+あえて別の方法を紹介します。
 
-$\theta$$B$NHO0O$rJ,$1$F!$;O@~$N>e2<$KJ,$1$FIA2h$7$F$_$^$9!#(B
+$\theta$の範囲を分けて，始線の上下に分けて描画してみます。
 
-\begin{showEx}(.6,.34){$BJ,3d(B}
+\begin{showEx}(.6,.34){分割}
 \begin{zahyou}[ul=6mm](-2,3.5)(-3,2)
   \def\Ft{.5*T}
   \RNuri*[-45]\Ft{0}{$pi}
@@ -1184,10 +1184,10 @@ $\theta$$B$NHO0O$rJ,$1$F!$;O@~$N>e2<$KJ,$1$FIA2h$7$F$_$^$9!#(B
 \end{zahyou}
 \end{showEx}
 
-$B$O$_=P$7$O$J$/$J$j$^$7$?$,!$J,3d$7$?>e2<$N<P@~$,$D$J$,$C$F$$$^$;$s!#(B
-$B<P@~$NDL2a$9$k(B1$BE@$r;XDj$7$^$7$g$&!#(B
+はみ出しはなくなりましたが，分割した上下の斜線がつながっていません。
+斜線の通過する1点を指定しましょう。
 
-\begin{showEx}(.6,.34){$BDL2aE@;XDj(B}
+\begin{showEx}(.6,.34){通過点指定}
 \begin{zahyou}[ul=6mm](-2,3.5)(-3,2)
   \def\Ft{.5*T}
   \RNuri*[-45]<syanurisiteiten=\O>\Ft{0}{$pi}
@@ -1196,9 +1196,9 @@ $\theta$$B$NHO0O$rJ,$1$F!$;O@~$N>e2<$KJ,$1$FIA2h$7$F$_$^$9!#(B
 \end{zahyou}
 \end{showEx}
 
-$B$3$l$b$Y$?EI$j$J$i$I$&$H$$$&$3$H$O$"$j$^$;$s!#(B
+これもべた塗りならどうということはありません。
 
-\begin{showEx}(.6,.34){$B$Y$?EI$j(B}
+\begin{showEx}(.6,.34){べた塗り}
 \begin{zahyou}[ul=6mm](-2,3.5)(-3,2)
   \def\Ft{.5*T}
   \RNuri\Ft{0}{2*$pi}
@@ -1206,33 +1206,33 @@ $\theta$$B$NHO0O$rJ,$1$F!$;O@~$N>e2<$KJ,$1$FIA2h$7$F$_$^$9!#(B
 \end{zahyou}
 \end{showEx}
 
-\subsection{$B3+NN0h$N<P@~EI$j(B}
-$BNN0h$r<P@~EI$j$9$k:]!$6-3&$,4^$^$l$J$$$3$H$r?^<($9$k$?$a$K!$(B
-$B<P@~$H6-3&$N4V$r@Z$k$H$$$&I=8=K!$,$"$j$^$9!#(B
+\subsection{開領域の斜線塗り}
+領域を斜線塗りする際，境界が含まれないことを図示するために，
+斜線と境界の間を切るという表現法があります。
 
-$B$3$l$r<B8=$9$k$K$O$$$/$D$+$NJ}K!$,$"$j$^$9$,!$(B
-$BEDCf(B $BE0(B $B$5$s$,(B\verb+BBS #354+$B$KEj9F$5$l$?J}K!(B
+これを実現するにはいくつかの方法がありますが，
+田中 徹 さんが\verb+BBS #354+に投稿された方法
 \begin{jquote}\relax
-(1) $B$R$H$^$:EI$j$D$V$7$r9T$&(B\\
-(2) $B6-3&@~$rB@$a$NGr$$@~$G>e=q$-(B\\
-(3) $B2~$a$F6-3&@~$r0z$/(B
+(1) ひとまず塗りつぶしを行う\\
+(2) 境界線を太めの白い線で上書き\\
+(3) 改めて境界線を引く
 \end{jquote}
-$B$OM-NO$J<jK!$G$9!#(B
+は有力な手法です。
 
-$B$=$N%"%$%G%"$rD:$$$F%^%/%m2=$7$F$_$^$7$?!#(B
-\textsf{emathPh.sty v 1.07}$B$G(B
+そのアイデアを頂いてマクロ化してみました。
+\textsf{emathPh.sty v 1.07}で
 \begin{jquote}
 \begin{verbatim}
-syasentanmatu=...$B!JC10LIU$ND9$5!K(B
+syasentanmatu=...（単位付の長さ）
 \end{verbatim}
 \end{jquote}
-$B%*%W%7%g%s$K$h$jGrEI$j$NI}$r;XDj$9$k$3$H$K$7$F$_$^$7$?!#(B
-$B6-3&@~$rCf?4$H$7$F!$$=$N:81&$K;XDj$7$?I}$rM-$9$kGr$$6J@~$rIA2h$7$^$9!#(B
+オプションにより白塗りの幅を指定することにしてみました。
+境界線を中心として，その左右に指定した幅を有する白い曲線を描画します。
 
-$B!J<P@~$NC<E@$H6-3&@~$N5wN%$,;XDj$7$?D9$5$H$J$j!$(B
-$BGrEI$j$N6J@~$NB@$5$O;XDj$7$?I}$N(B2$BG\$H$J$j$^$9!#!K(B
+（斜線の端点と境界線の距離が指定した長さとなり，
+白塗りの曲線の太さは指定した幅の2倍となります。）
 
-\begin{showEx}(.6,.34){\texttt{syasentanmatu=..}$B%*%W%7%g%s(B}
+\begin{showEx}(.6,.34){\texttt{syasentanmatu=..}オプション}
 \begin{zahyou}[ul=6mm](-3,3)(-1,6)
   \def\Fx{X*X}
   \def\Gx{2-X}
@@ -1242,22 +1242,22 @@ syasentanmatu=...$B!JC10LIU$ND9$5!K(B
 \end{zahyou}
 \end{showEx}
 
-$B$?$@$76-3&@~$rGrEI$j$9$k7k2L!$:BI8<4$J$I$,>C$(!$(B
-$B$=$N$*2=>QD>$7$,I,MW$H$J$k>l9g$b$"$j$^$9!#(B
+ただし境界線を白塗りする結果，座標軸などが消え，
+そのお化粧直しが必要となる場合もあります。
 
-\begin{showEx}(.6,.34){$B$*2=>QD>$7(B}
+\begin{showEx}(.6,.34){お化粧直し}
 \begin{zahyou}[ul=6mm](-3,3)(-1,6)
   \def\Fx{X*X}
   \def\Gx{2-X}
   \YNurii*<syasentanmatu=1mm>\Fx\Gx{-2}{1}
   \YGurafu*\Fx
   \YGurafu*\Gx
-  \drawXaxis\drawYaxis% $B$*2=>QD>$7(B
+  \drawXaxis\drawYaxis% お化粧直し
 \end{zahyou}
 \end{showEx}
 
-\subsection{$B6hJ,5a@Q$N?^(B}
-\subsubsection{$BC;:}$N$_(B}
+\subsection{区分求積の図}
+\subsubsection{短冊のみ}
 \begin{showEx}(.64,.3){\cmd{kubunkyuusekizu}}
 \begin{zahyou}[ul=20mm](-.2,1.2)(-.2,1.2)
   \def\Fx{X*X}
@@ -1265,12 +1265,12 @@ syasentanmatu=...$B!JC10LIU$ND9$5!K(B
   \kubunkyuusekizu\Fx{0}{1}{10}{l}
 \end{zahyou}
 \end{showEx}
-$B$O!$4X?t(B\verb+\Fx+$B$N6h4V(B$0\leqq x\leqq 1$$B$r(B10$BEyJ,$7$F!$(B
-$B6h4V$N:8C<$r9b$5$H$9$kC;:}$r4s$;=8$a$??^$r:n$j$^$9!#(B
+は，関数\verb+\Fx+の区間$0\leqq x\leqq 1$を10等分して，
+区間の左端を高さとする短冊を寄せ集めた図を作ります。
 
-$B6h4V$N1&C<$r9b$5$H$9$k$H$-$O!$:G8e$N0z?t$r(B\verb+{r}+$B$H$7$^$9!#(B
+区間の右端を高さとするときは，最後の引数を\verb+{r}+とします。
 
-\begin{showEx}(.64,.3){$B6h4V$N1&C<$r9b$5$H$9$k(B}
+\begin{showEx}(.64,.3){区間の右端を高さとする}
 \begin{zahyou}[ul=20mm](-.2,1.2)(-.2,1.2)
   \def\Fx{X*X}
   \YGurafu*\Fx
@@ -1278,8 +1278,8 @@ syasentanmatu=...$B!JC10LIU$ND9$5!K(B
 \end{zahyou}
 \end{showEx}
 
-\subsubsection{$BC;:}Fb$r%Y%?EI$j(B}
-$BC;:}Fb$r%Y%?EI$j$9$k$K$O!$(B\verb+*+$BIU$N%3%^%s%I$rMQ$$$^$9!#(B
+\subsubsection{短冊内をベタ塗り}
+短冊内をベタ塗りするには，\verb+*+付のコマンドを用います。
 \begin{showEx}(.64,.3){\cmd{kubunkyuusekizu*}}
 \begin{zahyou}[ul=20mm](-.2,1.2)(-.2,1.2)
   \def\Fx{X*X}
@@ -1288,8 +1288,8 @@ syasentanmatu=...$B!JC10LIU$ND9$5!K(B
 \end{zahyou}
 \end{showEx}
 
-\subsubsection{$BC;:}Fb$r<P@~EI$j(B}
-$BC;:}Fb$r<P@~EI$j$9$k$K$O!$(B\verb+**+$BIU$N%3%^%s%I$rMQ$$$^$9!#(B
+\subsubsection{短冊内を斜線塗り}
+短冊内を斜線塗りするには，\verb+**+付のコマンドを用います。
 \begin{showEx}(.64,.3){\cmd{kubunkyuusekizu**}}
 \begin{zahyou}[ul=20mm](-.2,1.2)(-.2,1.2)
   \def\Fx{X*X}
@@ -1298,11 +1298,11 @@ syasentanmatu=...$B!JC10LIU$ND9$5!K(B
 \end{zahyou}
 \end{showEx}
 
-$B%Y%?EI$j$NG;$5!$<P@~$NJ}8~3Q!&4V3V$J$I$rJQ99$9$kJ}K!$O(B
-\cmd{Nuritubusi}$B%3%^%s%I$K=`$8$^$9!#(B
+ベタ塗りの濃さ，斜線の方向角・間隔などを変更する方法は
+\cmd{Nuritubusi}コマンドに準じます。
 
-$B<P@~4V3V$r:Y$+$/$7$F$_$^$9!#(B
-\begin{showEx}(.64,.3){$B<P@~4V3V$ND4@0(B}
+斜線間隔を細かくしてみます。
+\begin{showEx}(.64,.3){斜線間隔の調整}
 \begin{zahyou}[ul=20mm](-.2,1.2)(-.2,1.2)
   \def\Fx{X*X}
   \YGurafu*\Fx
@@ -1312,35 +1312,35 @@ syasentanmatu=...$B!JC10LIU$ND9$5!K(B
 
 %\clearpage
 
-\subsubsection{$B=q<0(B}
-\cmd{kubunkyuusekizu}$B$N=q<0$G$9!#(B
+\subsubsection{書式}
+\cmd{kubunkyuusekizu}の書式です。
 \begin{boxnote}
 \begin{verbatim}
-\kubunkyuusekizu[#1]<#2>#3#4#5#6#7%     $BC;:}$N$_(B
-\kubunkyuusekizu*[#1]<#2>#3#4#5#6#7%    $B%Y%?EI$j(B
-\kubunkyuusekizu**[#1]<#2>#3#4#5#6#7%   $B<P@~EI$j(B
-     #1 : $BEI$j$NG;$5!?<P@~$NJ}8~3Q(B
-     #2 : $B<P@~EI$j$N>l9g$N<P@~4V3V(B
-     #3 : $B4X?t<0(B
-     #4 : $B6h4V$N:8C<(B
-     #5 :       $B1&C<(B
-     #6 : $BJ,3d?t(B
-     #7 : l = $B6h4V$N:8C<$r9b$5(B
-          r =       $B1&C<(B
+\kubunkyuusekizu[#1]<#2>#3#4#5#6#7%     短冊のみ
+\kubunkyuusekizu*[#1]<#2>#3#4#5#6#7%    ベタ塗り
+\kubunkyuusekizu**[#1]<#2>#3#4#5#6#7%   斜線塗り
+     #1 : 塗りの濃さ／斜線の方向角
+     #2 : 斜線塗りの場合の斜線間隔
+     #3 : 関数式
+     #4 : 区間の左端
+     #5 :       右端
+     #6 : 分割数
+     #7 : l = 区間の左端を高さ
+          r =       右端
 \end{verbatim}
 \end{boxnote}
 
 \clearpage
 
-\subsubsection{$B<BNc(B(1)}
-$B6h4V(B$0\leqq x\leqq 1$$B$r:YJ,$9$k$H$-$@$1$G$O$J$$!$$H$$$&$3$H$G!$(B
-$BL58B5i?t(B
+\subsubsection{実例(1)}
+区間$0\leqq x\leqq 1$を細分するときだけではない，ということで，
+無限級数
 \[ \bunsuu{1}{1^2}+\bunsuu{1}{2^2}+\bunsuu{1}{3^2}+\cdots
 +\bunsuu{1}{n^2}+\cdots \]
-$B$,<}B+$9$k$3$H$r<($9@bL@?^$r$4MwD:$-$^$7$g$&!#(B
+が収束することを示す説明図をご覧頂きましょう。
 
 \begin{squarebox}
-$B<!$NITEy<0$,@.$jN)$D$3$H$r>ZL@$;$h!#$?$@$7!$(B$n$$B$O(B2$B0J>e$N<+A3?t$H$9$k!#(B
+次の不等式が成り立つことを証明せよ。ただし，$n$は2以上の自然数とする。
 \[ 1-\bunsuu{1}{n}+\bunsuu{1}{n^2}
 <\bunsuu{1}{1^2}+\bunsuu{1}{2^2}+\bunsuu{1}{3^2}+\cdots+\bunsuu{1}{n^2}
 <2-\bunsuu{1}{n} \]
@@ -1363,13 +1363,13 @@ syasentanmatu=...$B!JC10LIU$ND9$5!K(B
   \Put{(6,0)}[s]{$n-1$}
   \Put{(7,0)}[s]{$n\vphantom+$}
 \end{zahyou}}
-$B1&>e?^$K$*$$$F!$6J@~(B$y=\bunsuu{1}{x^2}\quad (1\leqq x\leqq n)$$B$H(B
-$x$$B<4$H$N4V$NLL@Q$H!$<P@~It$NLL@Q$rHf3S$7$F(B
+右上図において，曲線$y=\bunsuu{1}{x^2}\quad (1\leqq x\leqq n)$と
+$x$軸との間の面積と，斜線部の面積を比較して
 \begin{align*}
   &\dumyeq\dint{1}{n+1}\bunsuu{dx}{x^2}\\
   &<\bunsuu{1}{1^2}+\bunsuu{1}{2^2}+\bunsuu{1}{3^2}+\cdots+\bunsuu{1}{(n-1)^2}
 \end{align*}
-$BDj@QJ,$r7W;;$7!$N>JU$K(B$\bunsuu{1}{n^2}$$B$r2C$($k$H(B
+定積分を計算し，両辺に$\bunsuu{1}{n^2}$を加えると
 \begin{align}
   &\dumyeq 1-\bunsuu{1}{n}+\bunsuu{1}{n^2} \notag\\
   &<\bunsuu{1}{1^2}+\bunsuu{1}{2^2}+\bunsuu{1}{3^2}+\cdots+\bunsuu{1}{n^2}
@@ -1392,54 +1392,54 @@ $x$$B<4$H$N4V$NLL@Q$H!$<P@~It$NLL@Q$rHf3S$7$F(B
   \Put{(7,0)}[s]{$n\vphantom+$}
 \end{zahyou}}
 
-$B<!$K!$1&2<?^$K$*$$$F$O(B
+次に，右下図においては
 \begin{align*}
   &\dumyeq\dint{1}{n}\bunsuu{dx}{x^2}\\
   &>\bunsuu{1}{2^2}+\bunsuu{1}{3^2}+\cdots+\bunsuu{1}{n^2}
 \end{align*}
-$BN>JU$K(B1$B$r2C$($F(B
+両辺に1を加えて
 \begin{align}
   &\dumyeq 2-\bunsuu{1}{n}\notag\\
   &>\bunsuu{1}{1^2}+\bunsuu{1}{2^2}+\bunsuu{1}{3^2}+\cdots+\bunsuu{1}{n^2}
   \label{E-2}
 \end{align}
-\eqref{E-1}, \eqref{E-2}$B$h$j(B
+\eqref{E-1}, \eqref{E-2}より
 \[ 1-\bunsuu{1}{n}+\bunsuu{1}{n^2}
 <\bunsuu{1}{1^2}+\bunsuu{1}{2^2}+\bunsuu{1}{3^2}+\cdots+\bunsuu{1}{n^2}
-<2-\bunsuu{1}{n} \owari[$B!J>ZL@=*$j!K(B] \]
+<2-\bunsuu{1}{n} \owari[（証明終り）] \]
 \end{mawarikomi}
 
 \clearpage
-\subsubsection{$B<BNc(B(2)}
-$B@h$N(B\cmd{namisen*}$B$HJ;MQ$7$?Nc$G$9!#(B
+\subsubsection{実例(2)}
+先の\cmd{namisen*}と併用した例です。
 
-\begin{itembsquarebox}{2002 $B7DXf5A=NBg3X(B}
+\begin{itembsquarebox}{2002 慶應義塾大学}
 \hakosyokika
-\hakomozisyu{$B!J%"!K(B}
+\hakomozisyu{（ア）}
 \hakoxyohaku{0pt}
-$B5eLL$rNX@Z$j$K$7!$$=$l$>$l$NItJ,$r1_?m$NB&LL$N0lItJ,$G6a;w$9$k$3$H$K$h$C$F!$(B
-$B5e$NI=LL@Q$r5a$a$k$3$H$r9M$($k!#(B
+球面を輪切りにし，それぞれの部分を円錐の側面の一部分で近似することによって，
+球の表面積を求めることを考える。
 \begin{enumerate}[(1)]
-  \item $BH>7B(B$r(>0)$$B$NH>1_(B$S:y=\sqrt{r^2-x^2}$$B$HD>@~(B$L_s:y=s$ ($0<s<r$)$B$O(B
-    2$B$D$N8rE@$r$b$D!#$=$l$>$l$N8rE@$K$*$1$kH>1_(B$S$$B$N(B2$BK\$N@\@~$O(B
-    $BE@(B(0, \Hako'\bunsuu{r^2}{S}')$B$G8r$o$k!#$3$N(B2$BK\$N@\@~$HD>@~(B$L_s$$B$G(B
-    $B0O$^$l$?;03Q7A$r(B$y$$B<4$N$^$o$j$K(B1$B2sE>$7$F$G$-$k1_?m$NB&LL@Q$O(B
-    \Hako'\bunsuu{\pi r(r^2-s^2)}{s}'$B$G$"$k!#$5$i$K!$$3$N1_?m$+$i(B
-    $BJ?LL(B$y=t$ ($0<s<t\leqq r$)$B$h$j>e$K$"$kItJ,$r<h$j=|$$$?N)BN?^7A$N(B
-    $BB&LL@Q$O(B$\pi r(t-s)\times\Hako'\bunsuu{2r^2-s^2-st}{r^2-s^2}'$$B$G$"$k!#(B
-  \item $n$$B$r<+A3?t$H$7!$(B$k=1$, 2, $\cdots$, $n-1$$B$H$9$k!#(B
-    (1)$B$GDj5A$5$l$?N)BN?^7A$G!$(B$s=\bunsuu knr$, $t=\bunsuu{k+1}{n}r$$B$N$H$-$N(B
-    $BB&LL@Q$r(B$A_k$$B$HI=$9$H!$(B
+  \item 半径$r(>0)$の半円$S:y=\sqrt{r^2-x^2}$と直線$L_s:y=s$ ($0<s<r$)は
+    2つの交点をもつ。それぞれの交点における半円$S$の2本の接線は
+    点(0, \Hako'\bunsuu{r^2}{S}')で交わる。この2本の接線と直線$L_s$で
+    囲まれた三角形を$y$軸のまわりに1回転してできる円錐の側面積は
+    \Hako'\bunsuu{\pi r(r^2-s^2)}{s}'である。さらに，この円錐から
+    平面$y=t$ ($0<s<t\leqq r$)より上にある部分を取り除いた立体図形の
+    側面積は$\pi r(t-s)\times\Hako'\bunsuu{2r^2-s^2-st}{r^2-s^2}'$である。
+  \item $n$を自然数とし，$k=1$, 2, $\cdots$, $n-1$とする。
+    (1)で定義された立体図形で，$s=\bunsuu knr$, $t=\bunsuu{k+1}{n}r$のときの
+    側面積を$A_k$と表すと，
     \[ A_k=\bunsuu{2\pi r^2}{n}-\bunsuu{\pi r^2}{n^2}
       \times\Hako'\bunsuu{nk}{n^2-k^2}' \]
-    $B$H$J$k!#(B
-  \item $\dlim{n\to\infty}\retuwa{k=1}{n-1}A_k=2\pi r^2$$B$r>ZL@$7!$(B
-    $B$=$l$r(B\Hako[L2062200204syoumei] $B$K=q$-$J$5$$!#(B
+    となる。
+  \item $\dlim{n\to\infty}\retuwa{k=1}{n-1}A_k=2\pi r^2$を証明し，
+    それを\Hako[L2062200204syoumei] に書きなさい。
 \end{enumerate}
 \closeHakoKaiFile
 \end{itembsquarebox}
 \begin{small}
-$B!Z2rEz![(B
+【解答】
 \HakoKaiKata{t}
 \HakoKaiSityuu[1zh]{1.75zh}
 \inputHakoKaiFile
@@ -1447,7 +1447,7 @@ $x$$B<4$H$N4V$NLL@Q$H!$<P@~It$NLL@Q$rHf3S$7$F(B
 
 \resetcounter{equation}
 \preEqlabel{$\cdots\cdots$}
-\refHako*{L2062200204syoumei}$B$NItJ,!'(B
+\refHako*{L2062200204syoumei}の部分：
 \begin{align}
   \dlim{n\to\infty}\retuwa{k=1}{n-1}A_k
     &=\dlim{n\to\infty}\left(
@@ -1458,7 +1458,7 @@ $x$$B<4$H$N4V$NLL@Q$H!$<P@~It$NLL@Q$rHf3S$7$F(B
         \times\retuwa{k=1}{n-1}\bunsuu{k}{n^2-k^2}\right\}
           \label{L2062200204ans}
 \end{align}
-$B$K$*$$$F(B
+において
 \begin{center}
 \begin{zahyou}[ul=6mm,yscale=5](-1,10)(-.2,1.5)
   \footnotesize
@@ -1483,63 +1483,63 @@ $x$$B<4$H$N4V$NLL@Q$H!$<P@~It$NLL@Q$rHf3S$7$F(B
   &= \bunsuu12\left(1+\teisekibun{\log x}{1}{n-1}\right)\\
   &= \bunsuu12(1+\log (n-1))
 \end{align*}
-$B=>$C$F(B
+従って
 \[ 0<\bunsuu1n\retuwa{k=1}{n-1}\bunsuu{k}{n^2-k^2}
   < \bunsuu12\left(\bunsuu1n+\bunsuu{\log (n-1)}{n}\right) \]
-$\dlim{n\to\infty}\bunsuu{\log (n-1)}{n}=0$$B$G$"$k$+$i(B
+$\dlim{n\to\infty}\bunsuu{\log (n-1)}{n}=0$であるから
 \[ \dlim{n\to\infty}\bunsuu1n\retuwa{k=1}{n-1}\bunsuu{k}{n^2-k^2}=0 \]
-$B$f$($K(B\eqref{L2062200204ans}$B$h$j(B
+ゆえに\eqref{L2062200204ans}より
 \[ \dlim{n\to\infty}\retuwa{k=1}{n-1}A_k=2\pi r^2 \]
 \end{small}
 
 \subsection{\cmd{checkPerl}}
-\cmd{checkPerl}$B$O!$(B\texttt{Perl}$B$H$NO"7H5!G=$r3NG'$9$k%3%^%s%I$G$9!#(B
-$B=>Mh!$$3$l$,%(%i!<$H$J$k$N$O!$<!$N(B2$B$D$N>l9g$,$"$j$^$7$?!#(B
+\cmd{checkPerl}は，\texttt{Perl}との連携機能を確認するコマンドです。
+従来，これがエラーとなるのは，次の2つの場合がありました。
 \begin{jquote}
 \begin{verbatim}
-1. Perl $B$H$NO"7H$,$G$-$F$$$J$$(B
-2. Perl $B$H$NO"7H$O$G$-$k$F$$$,!$(B-shell-escape $B%*%W%7%g%s$r$D$1$:$K5/F0$7$F$$$k!#(B
+1. Perl との連携ができていない
+2. Perl との連携はできるていが，-shell-escape オプションをつけずに起動している。
 \end{verbatim}
 \end{jquote}
-$B3QF#@h@8$,G[I[$5$l$F$$$k(B ptex $B$K!$(B\cmd{write18}$B$,(B\verb+enable+$B$+H]$+$r(B
-$B3NG'$9$k%3%^%s%I(B\cmd{ifeof18}$B$,MQ0U$5$l$^$7$?$N$G!$(B
-$B$=$l$rMxMQ$7$F!$>e5-(B2$B<oN`$N%(%i!<$rJ,N%$9$k$3$H$r2DG=$H$7$?$N$,(B
-$B%"%9%?%j%9%/$D$-%3%^%s%I(B\cmd{checkPerl*}$B$G$9!#(B
+角藤先生が配布されている ptex に，\cmd{write18}が\verb+enable+か否かを
+確認するコマンド\cmd{ifeof18}が用意されましたので，
+それを利用して，上記2種類のエラーを分離することを可能としたのが
+アスタリスクつきコマンド\cmd{checkPerl*}です。
 
-$B$3$N%3%^%s%I$,$&$^$/5!G=$7$J$$>l9g$O!$<!$N(B3$B$D$N%(%i!<$N$I$l$+$,H/@8$7$^$9!#(B
+このコマンドがうまく機能しない場合は，次の3つのエラーのどれかが発生します。
 \begin{enumerate}[(1)]
   \item \verb+Bad number+\\
-    $B$3$l$O!$(Bptex $B$,8E$/$F?75!G=(B \cmd{ifeof18} $B$,Dj5A$5$l$F$$$^$;$s!#(B
-    $BBP1~:v$O!$(Bptex $B$r99?7$9$k$3$H$G$9!#(B
-    $B$"$k$$$O!$(B\cmd{checkPerl*}$B$r$"$-$i$a$F!$(B
-    $B=>Mh$I$*$j(B\cmd{checkPerl} $B$rMQ$$$^$9!#(B
+    これは，ptex が古くて新機能 \cmd{ifeof18} が定義されていません。
+    対応策は，ptex を更新することです。
+    あるいは，\cmd{checkPerl*}をあきらめて，
+    従来どおり\cmd{checkPerl} を用います。
   \item \verb+Please enable shell escape by --shell option+\\
-    $BJ8;zDL$j!$(B\texttt{platex}$B$N5/F0$K$*$$$F!$(B\verb+-shell-escape+$B%*%W%7%g%s$r(B
-    $BIU2C$9$k$N$rK:$l$?%(%i!<$G$9!#(B
-  \item \verb+Perl $B$H$NO"7H$,$G$-$F$$$^$;$s!#(B+\\
-    $B$3$l$O!$(B\texttt{Perl}$B$H$NO"7H5!G=$,F/$$$F$$$J$$$3$H$r<($7$F$$$^$9!#(B
-    $B<!$N(B3$BE@$r%A%'%C%/$7$^$9!#(B
+    文字通り，\texttt{platex}の起動において，\verb+-shell-escape+オプションを
+    付加するのを忘れたエラーです。
+  \item \verb+Perl との連携ができていません。+\\
+    これは，\texttt{Perl}との連携機能が働いていないことを示しています。
+    次の3点をチェックします。
     \begin{enumerate}[(\protect\expandafter\emroman i)]
-      \item \texttt{Perl}$B$O%$%s%9%H!<%k$5$l$F$$$k$+!#(B
-      \item \texttt{Perl}$B$K(B \texttt{PATH} $B$,DL$C$F$$$k$+!#(B
-      \item \textsf{emath.pl}$B$J$I$,=jDj$N>l=j$KB8:_$9$k$+!#(B
+      \item \texttt{Perl}はインストールされているか。
+      \item \texttt{Perl}に \texttt{PATH} が通っているか。
+      \item \textsf{emath.pl}などが所定の場所に存在するか。
     \end{enumerate}
     
 \end{enumerate}
 
-\subsection{Perl library $B$NDI2C(B}
-\textsf{perl}$B$rMxMQ$7$F!$7W;;7k2L$r<u$1<h$kJ}K!$K$*$$$F!$(B
-$B4pK\E*$J4X?t$OMQ0U$5$l$F$$$^$9$,!$(B
-$B$5$i$K<+J,$G:n@.$7$?$b$N$rDI2C$7$?$$!$$H$$$&$4MWK>$,$"$j$^$7$?$N$G!$(B
-\cmd{useperllib}$B%3%^%s%I$rMQ0U$7$^$7$?!#(B
-$B$3$l$O!$(B\textsf{perl}$B$N%i%$%V%i%j$r:n@.$7$F!$$=$l$rMxMQ$9$k$3$H$K$J$j$^$9!#(B
-$B0J2<!$(B2$B$D$NNc$r>R2p$7$^$9!#(B
+\subsection{Perl library の追加}
+\textsf{perl}を利用して，計算結果を受け取る方法において，
+基本的な関数は用意されていますが，
+さらに自分で作成したものを追加したい，というご要望がありましたので，
+\cmd{useperllib}コマンドを用意しました。
+これは，\textsf{perl}のライブラリを作成して，それを利用することになります。
+以下，2つの例を紹介します。
 
 \subsubsection{\textsf{degsine.pl}}
-\textsf{perl}$B$N;03Q4X?t(B$\sin$, $\cos$, $\tan$$B$G$O!$0z?t$O%i%8%"%s$G$9!#(B
-$BO;==J,K!$N?tCM$r0z?t$H$9$k;03Q4X?t$rMQ$$$?$$$H$-$b$"$j$^$9!#(B
-$B$=$N$?$a$KMQ0U$7$?$N$,!$(B\textsf{perl}$B$N%i%$%V%i%j(B\textsf{degsine.pl}$B$G$9!#(B
-$B$=$NFbMF$O!$<!$N$h$&$K$J$C$F$$$^$9!#(B
+\textsf{perl}の三角関数$\sin$, $\cos$, $\tan$では，引数はラジアンです。
+六十分法の数値を引数とする三角関数を用いたいときもあります。
+そのために用意したのが，\textsf{perl}のライブラリ\textsf{degsine.pl}です。
+その内容は，次のようになっています。
 \begin{boxnote}
 \begin{verbatim}
 sub degsin{my $x=shift;return sin($pi*$x/180);}
@@ -1548,18 +1548,18 @@ sub degtan{my $x=shift;return tan($pi*$x/180);}
 1;
 \end{verbatim}
 \end{boxnote}
-$B$d$C$F$$$k$3$H$OC1=c$G!$O;==J,K!$N3Q$r%i%8%"%s$KJQ49$7$F!$(B
-$\sin$, $\cos$, $\tan$$B$K0z$-EO$7$F$$$k$@$1$G$9!#(B
+やっていることは単純で，六十分法の角をラジアンに変換して，
+$\sin$, $\cos$, $\tan$に引き渡しているだけです。
 
-$B4JC1$JNc$r$4MwD:$-$^$7$g$&!#(B
+簡単な例をご覧頂きましょう。
 
 \begin{showEx}{\cmd{degsine}}
 \calcval{degsin(30)}\stmp
 $\sin30\Deg=\stmp$
 \end{showEx}
 
-$y=\sin x\Deg$$B$N%0%i%U$rIA$$$F$_$^$7$g$&!#(B
-\begin{showEx}(.9,.9){$y=\sin x\Deg$$B$N%0%i%U(B}
+$y=\sin x\Deg$のグラフを描いてみましょう。
+\begin{showEx}(.9,.9){$y=\sin x\Deg$のグラフ}
 \begin{pszahyou}[ul=10mm,xscale=0.017453294](-90,450)(-1.2,1.5)
   \zahyouMemori[g]<dx=90>
   \YGurafu*(1){degsin(X)}
@@ -1567,8 +1567,8 @@ $y=\sin x\Deg$$B$N%0%i%U$rIA$$$F$_$^$7$g$&!#(B
 \end{showEx}
 
 \subsubsection{\textsf{nCr.pl}}
-$BBh(B2$B$NNc$O!$(B$n!$, $\zyunretu{n}{r}$, $\kumiawase{n}{r}$$B$NCM$r7W;;$9$k(B
-$B%i%$%V%i%j$G!$$=$NFbMF$O<!$N$h$&$K$J$C$F$$$^$9!#(B
+第2の例は，$n!$, $\zyunretu{n}{r}$, $\kumiawase{n}{r}$の値を計算する
+ライブラリで，その内容は次のようになっています。
 
 \begin{boxnote}
 \begin{verbatim}
@@ -1585,64 +1585,64 @@ sub nCr{my $n=shift; my $r=shift;
 \end{verbatim}
 \end{boxnote}
 
-$B;HMQNc$G$9!#(B
-\begin{showEx}{$B3,>h(B}
+使用例です。
+\begin{showEx}{階乗}
 \calcval[d]{kaizyou(10)}\kotae
 $10!=\kotae$
 \end{showEx}
 
-\begin{showEx}{$B=gNs(B}
+\begin{showEx}{順列}
 \calcval[d]{nPr(10,3)}\ans
 $\zyunretu{10}{3}=\ans$
 \end{showEx}
 
-\begin{showEx}{$BAH9g$;(B}
+\begin{showEx}{組合せ}
 \calcval[d]{nCr(10,3)}\tmp
 $\kumiawase{10}{3}=\tmp$
 \end{showEx}
 
-\begin{enumerate}[$BCm(B 1.~]
-  \item $B$3$l$i$N4X?t$r;HMQ$9$k$K$O!$%W%j%"%s%V%k$K(B
+\begin{enumerate}[注 1.~]
+  \item これらの関数を使用するには，プリアンブルに
 \begin{jquote}
 \begin{verbatim}
 \useperllib{nCr}
 \end{verbatim}
 \end{jquote}
-    $B$H@k8@$r$7$F$*$/I,MW$,$"$j$^$9!#(B
+    と宣言をしておく必要があります。
 
-    $B@h$N(B\textsf{degsine.pl}$B$bJ;MQ$7$?$1$l$P(B
+    先の\textsf{degsine.pl}も併用したければ
 \begin{jquote}
 \begin{verbatim}
 \useperllib{degsine}
 \useperllib{nCr}
 \end{verbatim}
 \end{jquote}
-$B$HJ;5-$9$k$3$H$K$J$j$^$9!#(B
+と併記することになります。
 
-  \item \textsf{degsine.pl, nCr.pl}$B$J$I$O!$(B
-    \textsf{emath.pl}$B$HF1$8%G%#%l%/%H%j$KCV$+$J$1$l$P$J$j$^$;$s!#(B
+  \item \textsf{degsine.pl, nCr.pl}などは，
+    \textsf{emath.pl}と同じディレクトリに置かなければなりません。
 \end{enumerate}
 
 \subsubsection{\cmd{useperlpm}}
-perl $B$N%b%8%e!<%k$rMxMQ$9$k$?$a$N%3%^%s%I(B\cmd{useperlpm}$B$r?7@_$7$^$7$?!#(B
-$BNc$($P!$(Bperl $B$GI8=`G[I[$5$l$F$$$k%b%8%e!<%k$N0l$D(B \textsf{POSIX.pm}$B$r(B
-$B;HMQ$7$?$$$H$-$O!$%W%j%"%s%V%k$K(B
+perl のモジュールを利用するためのコマンド\cmd{useperlpm}を新設しました。
+例えば，perl で標準配布されているモジュールの一つ \textsf{POSIX.pm}を
+使用したいときは，プリアンブルに
 \begin{jquote}
 \begin{verbatim}
 \useperlpm{POSIX}
 \end{verbatim}
 \end{jquote}
-$B$r@k8@$7$^$9!#$3$N%b%8%e!<%k$rMQ$$$k$H(B
+を宣言します。このモジュールを用いると
 \begin{jquote}
 \begin{verbatim}
 acos asin atan ceil cosh fabs floor fmod
 frexp ldexp log10 modf pow sinh tan tanh
 \end{verbatim}
 \end{jquote}
-$B$J$I$r;HMQ$9$k$3$H$,2DG=$H$J$j$^$9!#(B
-\texttt{cosh}$B$r;HMQ$7$?0lNc$G$9!#(B
+などを使用することが可能となります。
+\texttt{cosh}を使用した一例です。
 
-\begin{showEx}(.9,.6){$y=\cosh(x)$$B$N%0%i%U(B}
+\begin{showEx}(.9,.6){$y=\cosh(x)$のグラフ}
 \begin{zahyou}[ul=6mm,Ueyohaku=1zh](-3,3)(-1,10)
   \def\E{(1,2.71828)}\Put\E[syaei=xy,ylabel=e]{}
   \Put{(0,1)}(1pt,8pt)[lb]{1}
@@ -1653,40 +1653,40 @@ frexp ldexp log10 modf pow sinh tan tanh
 \end{showEx}
 
 \subsubsection{emath.pl v0.04}
-\textsf{emathPp.sty}$B$G;HMQ$7$F$$$k(B Perl $BMQ$N%i%$%V%i%j(B \textsf{emath.pl} $B$K(B
-$B$$$/$D$+$N4X?t$rDI2C$7$^$7$?!#(B
+\textsf{emathPp.sty}で使用している Perl 用のライブラリ \textsf{emath.pl} に
+いくつかの関数を追加しました。
 
 \paragraph{\texttt{Int}}
-\textsf{Perl}$B$N4pK\4X?t$K(B\texttt{int}$B$H$$$&$N$,$"$j$^$9$,!$$3$l$O(B BASIC $B$N(B
-\texttt{INT}$B$H$O0[$J$j$^$9!#(B
+\textsf{Perl}の基本関数に\texttt{int}というのがありますが，これは BASIC の
+\texttt{INT}とは異なります。
 
-\begin{showEx}{\texttt{int} $B$H(B \texttt{INT} $B$NHf3S(B}
-$B@5$N?t$KBP$7$F$O(B
+\begin{showEx}{\texttt{int} と \texttt{INT} の比較}
+正の数に対しては
 \calcval{int($pi)}\y
 \[ \mathrm{int}(\pi)=\y \]
-$BIi$N?t$KBP$7$F$O(B
+負の数に対しては
 \calcval{int(-$pi)}\y
 \[ \mathrm{int}(-\pi)=\y \]
 \end{showEx}
 \bigskip
 
-$B$=$3$G!$!V(B$x$$B$rD6$($J$$:GBg$N@0?t!W$rF@$k$?$a$N(B \textsf{Perl}$B$N4X?t(B
-\texttt{Int}$B$r?7@_$7$^$7$?!#(B
+そこで，「$x$を超えない最大の整数」を得るための \textsf{Perl}の関数
+\texttt{Int}を新設しました。
 
 \begin{showEx}{\texttt{Int}}
-$B@5$N?t$KBP$7$F$O(B
+正の数に対しては
 \calcval{Int($pi)}\y
 \[ \mathrm{Int}(\pi)=\y \]
-$BIi$N?t$KBP$7$F$O(B
+負の数に対しては
 \calcval{Int(-$pi)}\y
 \[ \mathrm{Int}(-\pi)=\y \]
 \end{showEx}
 
 \paragraph{\texttt{Degsin}, \texttt{Degcos}, \texttt{Degtan}}
-\textsf{perl}$B$N;03Q4X?t$O!$C10L$,%i%8%"%s$G$9!#(B
-$BO;==J,K!$rC10L$H$9$k;03Q4X?t$rDI2C$7$^$7$?!#(B
+\textsf{perl}の三角関数は，単位がラジアンです。
+六十分法を単位とする三角関数を追加しました。
 
-\begin{showEx}{\texttt{Degsin}$B$J$I(B}
+\begin{showEx}{\texttt{Degsin}など}
 \calcval{Degsin(60)}\y
 \[ \sin60\Deg=\y \]
 \calcval{Degcos(60)}\y

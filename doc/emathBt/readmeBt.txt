@@ -1,30 +1,30 @@
-emathBt.sty $B$O(B
-$B!!!!K\J8$HK5Cm$N4V$K=D7S@~$r0z$/(B
-$B$3$H$r<gL\E*$H$7$F$$$^$9!#(B
-Bt $B$O(B
-$B!!!!(BBou Tyuu
-$B!!!!(B^   ^
-$B$N$D$b$j$G$9!#(B
-emath $B$r4'$7$F$$$^$9$,!$(Bemath$B$NB>$N%U%!%$%k$H$O$^$C$?$/FHN)$G$9!#(B
-$B!J8=;~E@$G$O!$$NOC$G>-MhE*$K$O$o$+$j$^$;$s!#!K(B
+emathBt.sty は
+　　本文と傍注の間に縦罫線を引く
+ことを主目的としています。
+Bt は
+　　Bou Tyuu
+　　^   ^
+のつもりです。
+emath を冠していますが，emathの他のファイルとはまったく独立です。
+（現時点では，の話で将来的にはわかりません。）
 
-$B7S@~$NI}$O(B
-$B!!!!(B\marginparseprule
-$B$G7h$^$j!$%G%U%)%k%HCM$O(B 0.4pt $B$H$J$C$F$$$^$9!#(B
+罫線の幅は
+　　\marginparseprule
+で決まり，デフォルト値は 0.4pt となっています。
 
-$B=D7S@~$r0z$/$K$O!$(B
-$B!!!!(B\usepackage{emathBt}
-$B$H$9$k$@$1$G$9!#<BNc$r(B ex1.tex $B$H$7$^$9!#(B
+縦罫線を引くには，
+　　\usepackage{emathBt}
+とするだけです。実例を ex1.tex とします。
 
-$B5SCm$HF1$8$/!$K5Cm$K$bCmHV9f$r$D$1$k%3%^%s%I(B
-$B!!!!(B\boutyuu
-$B$r(B\marginpar $B$KJQ$($FMQ$$$k$3$H$,=PMh$^$9!#(B---> ex2.tex
+脚注と同じく，傍注にも注番号をつけるコマンド
+　　\boutyuu
+を\marginpar に変えて用いることが出来ます。---> ex2.tex
 
-$B>O!$@a$J$I$NItJ,$N7S@~$r@Z$k$K$O!$$=$NItJ,$r(B
-$B!!!!(Bnomarginparseprule$B4D6-(B
-$BFb$K5-=R$7$^$9!#(B ---> ex3.tex
-$B$?$@$7!$$3$N5!G=$O(B color.sty $B$rI,MW$H$7$^$9!#(B
+章，節などの部分の罫線を切るには，その部分を
+　　nomarginparseprule環境
+内に記述します。 ---> ex3.tex
+ただし，この機能は color.sty を必要とします。
 
-$B@)8B;v9`(B
-1. $B=DAH$K$OBP1~$7$F$$$^$;$s!#(B
-2. twocolumn, \reversemarginpar $B$K$OBP1~$7$F$$$^$;$s!#(B
+制限事項
+1. 縦組には対応していません。
+2. twocolumn, \reversemarginpar には対応していません。

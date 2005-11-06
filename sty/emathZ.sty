@@ -24,32 +24,32 @@
 \fi
 
 \newskip\emZ@baselineskip
-\edef\zyukeizu@kata{s}% s = $B<P@~!J%G%U%)%k%H!K(B
-%                       k = $B=D2#@~!J3Q7?!K(B
+\edef\zyukeizu@kata{s}% s = 斜線（デフォルト）
+%                       k = 縦横線（角型）
 \def\zyukeizuKata#1{\edef\eda@hukasa{0}\edef\zyukeizu@kata{#1}}%
 
-\def\eda@vpitch{0}% $B;^$N=D4V3V(B
+\def\eda@vpitch{0}% 枝の縦間隔
 \def\zyukeizuEdaVpitch#1{\edef\eda@vpitch{#1}}%
 
 \define@key{emZ}{hutosa}{\def\edahutosa@@{#1}}%
 \define@key{emZ}{iti}{\def\eda@tyuu@iti{#1}}%
 
-\edef\edahutosa@{0.4pt}% $B;^$NB@$5(B
+\edef\edahutosa@{0.4pt}% 枝の太さ
 \def\edahutosa#1{\edef\edahutosa@{#1}}%
-\def\z@Eda{15}%     $B3Q7?$N>l9g!$;^$N:8H>J,$ND9$5(B
-\def\z@Edaii{30}%   $B;^$ND9$5(B
+\def\z@Eda{15}%     角型の場合，枝の左半分の長さ
+\def\z@Edaii{30}%   枝の長さ
 \def\zyukeizuEdaNagasa{\@ifnextchar[{\zyukeizu@EdaNagasa}{%
     \@zyukeizuEdaNagasa}}%
 \def\@zyukeizuEdaNagasa#1{\edef\z@Edaii{#1}\IDiv{#1}{2}\z@Eda}%
 \def\zyukeizu@EdaNagasa[#1]#2{\edef\z@Edaii{#2}\edef\z@Eda{#1}}%
 
 % \eda[#1]<#2>(#3,#4)[#5]#6
-%   #1      : $B;^$NK5$KCV$/J8;zNs!J%G%U%)%k%H$O6uJ8;zNs!K(B
-%   #2      : #1 $B$NJ8;zNs$rCV$/0LCV(B (0 $B!A(B 1) $B!J%G%U%)%k%H$O(B 0.5$B!K(B
-%   (#3,#4) : $BJ8;zNs$rCV$/0LCV$N=$@5%Y%/%H%k(B $B!J%G%U%)%k%H$O(B (0,0)$B!K(B
-%   #5      : $BJ8;zNs$NG[CV(B
-%   #6      : $B;^$NKvC<$KCV$/J8;zNs(B
-%       (\sPut[#2]{$B;^$N:8C<(B}{$B;^$N1&C<(B}(#3,#4)[#5]{#1} $B$H$7$F(B\sPut$B$r8F$S=P$9!%(B)
+%   #1      : 枝の傍に置く文字列（デフォルトは空文字列）
+%   #2      : #1 の文字列を置く位置 (0 〜 1) （デフォルトは 0.5）
+%   (#3,#4) : 文字列を置く位置の修正ベクトル （デフォルトは (0,0)）
+%   #5      : 文字列の配置
+%   #6      : 枝の末端に置く文字列
+%       (\sPut[#2]{枝の左端}{枝の右端}(#3,#4)[#5]{#1} として\sPutを呼び出す．)
 %
 \def\eda{\@ifnextchar[{\eda@}{\eda@[\empty]}}%
 \def\eda@[#1]{\@ifnextchar<{\eda@@[#1]}{\eda@@[#1]<.5>}}%
@@ -156,23 +156,23 @@
 %%%
 \def\zyukeizusyokika#1{}%
 \endinput
-% 0.01$B&B(B    1999/07/12-20
-%   $B3Q7?!J=D2#@~!K(B
-%   $B=DAHBP1~(B
-%   sPut $B;HMQ(B
-% 0.02$B&B(B2   1999/07/22-24
-%   pLaTeX2.09 $BBP1~(B
-%   minipage $B$KBe$($F(B \vbox $B;HMQ(B
+% 0.01β    1999/07/12-20
+%   角型（縦横線）
+%   縦組対応
+%   sPut 使用
+% 0.02β2   1999/07/22-24
+%   pLaTeX2.09 対応
+%   minipage に代えて \vbox 使用
 % 0.03      2000/07/12
-%   tabular $B4D6-Cf$G$O(B \baselineskip $B$,;H$($J$$$N$G!$(B
-%   \strut $B$rMQ$$$k$h$&$KJQ99$7$?!#(B
+%   tabular 環境中では \baselineskip が使えないので，
+%   \strut を用いるように変更した。
 % 0.05      2002/06/15
-%   $B3Q7?$b!$;^$NK5$KJ8;zNs$rCV$/$3$H$r2DG=$H$9$k!#(B
+%   角型も，枝の傍に文字列を置くことを可能とする。
 % 0.06      2002/06/16
-%   $B;^$NB@$5$r2DJQ$H$9$k!#(B
+%   枝の太さを可変とする。
 % 0.07      2002/08/16
-%   \sensyu $B$G@~$N<oN`$rE@@~$J$I$K$9$k$3$H$r2DG=$H$9$k!#(B
+%   \sensyu で線の種類を点線などにすることを可能とする。
 % 0.08      2002/11/20
-%   $B%m!<%I%*%W%7%g%s$r(B emathP* $B$H$=$m$($k!#(B
+%   ロードオプションを emathP* とそろえる。
 % 0.09      2005/09/19
-    $B%m!<%I%*%W%7%g%s(B dvipdfmx
+    ロードオプション dvipdfmx

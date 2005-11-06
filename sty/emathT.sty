@@ -35,7 +35,7 @@
 \def\Lmidasiiti{\if r\syasen@muki(3pt,1pt)[lb]\else(3pt,-1pt)[lt]\fi}
 %\def\Rmidasiiti{(-3pt,-1pt)[rt]}%
 \def\Rmidasiiti{\if r\syasen@muki(-3pt,-1pt)[rt]\else(-3pt,1pt)[rb]\fi}
-% $BA}8:$rI=$9Lp0u(B
+% 増減を表す矢印
   \def\NE{{\unitlength1zw\def\Arr@wHeadSize{.45}%
     \begin{picture}(1,0)%
       \put(0,0){\ArrowLine{(0,-0.2)}{(1,0.8)}}%
@@ -92,23 +92,23 @@
   \let\SSE\SES
   \let\NNE\NEN
 %
-% $BI=(B
+% 表
 %   \begin{hyou}[#1]#2
-%       #1 : $BG[CV(B(t, c, b)
-%       #2 : tabular, array $B$N0z?t$HF1$8(B
-%             $B$?$@$7!$(Bl,c,r $B$KBe$($F(B
-%                     L,C,R $B$rMQ$$!$D9$5$r0z?t$GM?$($k$3$H$,=PMh$k!%(B
+%       #1 : 配置(t, c, b)
+%       #2 : tabular, array の引数と同じ
+%             ただし，l,c,r に代えて
+%                     L,C,R を用い，長さを引数で与えることが出来る．
 %   \sya(#1)[#2][#4]<#4>
-%       #1 : $B2#I}(B
-%       #2 : $B<P@~$N8~$-(B
-%         n = $B1&>e$+$i:82<(B
-%         r = $B:8>e$+$i1&2<(B
-%         x = $B%/%m%9(B
-%         o = $B$J$7(B
-%       #3=$B9b$5$H?<$5(B
-%       #4 picture $B4D6-Fb$N5-=R(B
+%       #1 : 横幅
+%       #2 : 斜線の向き
+%         n = 右上から左下
+%         r = 左上から右下
+%         x = クロス
+%         o = なし
+%       #3=高さと深さ
+%       #4 picture 環境内の記述
 %
-% array.sty $B$H(B amsmath.sty 2.14 $B$r6&B8$5$;$k$?$a$N%Q%C%A(B
+% array.sty と amsmath.sty 2.14 を共存させるためのパッチ
 %
 \@ifundefined{new@ams}{}{%
   \def\@array[#1]#2{%
@@ -131,7 +131,7 @@
     \lineskip \z@
     \baselineskip \z@
     \m@th
-%%%%%%%%%%%%%%%%% $B=$@5ItJ,(B %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%% 修正部分 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%=============== original ====================================
 %% \let\\\@arraycr
 %%--------------- changed by tDB ------------------------------
@@ -141,7 +141,7 @@
   \let\@@array\@array
 }%
 %
-% array.sty $B$H(B plext.sty $B$r6&B8$5$;$k$?$a$N%Q%C%A(B
+% array.sty と plext.sty を共存させるためのパッチ
 %
 \@ifundefined{X@tabular}{}{%
 \@ifundefined{extrarowheight}{}{%
@@ -163,7 +163,7 @@
    \copy\@arstrutbox \@preamble
    \null
    \ignorespaces}%
-%\def\tabular{\gdef\@halignto{}\X@tabular}%%% $B$H$j$"$($:30$9(B 2003/03/12
+%\def\tabular{\gdef\@halignto{}\X@tabular}%%% とりあえず外す 2003/03/12
 \def\p@tabular<#1>{\leavevmode
   \hbox \bgroup $\col@sep\tabcolsep \let\d@llarbegin\begingroup
                                     \let\d@llarend\endgroup
@@ -238,13 +238,13 @@
   \emT@tabular
 }
 %
-% array$B4D6-$K$*$$$F!$9T$N9b$5!&?<$5$rF@$k!#(B
+% array環境において，行の高さ・深さを得る。
 % \getrowHD[#1]#2#3#4
-% \getrowHD*[#1]#2#3#4 \arraystretch$BJ,A}$d$9(B
-%   #1 : \\[..] $B$H!$2~9T%*%W%7%g%s$rM?$($k$H$-$NNL(B
-%   #2 : $B$=$N9T$N:GBg$N9b$5$H$J$k$b$N(B
-%   #3 : $B9b$5$r<}G<$9$k@)8fDV(B
-%   #4 : $B?<$5$r<}G<$9$k@)8fDV(B
+% \getrowHD*[#1]#2#3#4 \arraystretch分増やす
+%   #1 : \\[..] と，改行オプションを与えるときの量
+%   #2 : その行の最大の高さとなるもの
+%   #3 : 高さを収納する制御綴
+%   #4 : 深さを収納する制御綴
 %
 \def\getrowHD{\@ifstar{\getrowHD@}{\@getrowHD}}
 \def\@getrowHD{\@ifnextchar[{\@@getrowHD}{\@@getrowHD[0pt]}}
@@ -270,7 +270,7 @@
 
 \newdimen\hyouretuhaba
 
-% $B9T$N9b$5!&?<$5$r;XDj$9$k(B
+% 行の高さ・深さを指定する
 \def\gyousityuu{\strut}
 %\def\gyoudaka{\@ifnextchar[{\@gyoudaka}{\@gyoudaka[\z@]}}
 \def\gyoudaka{\@testopt\@gyoudaka{\z@}}
@@ -282,7 +282,7 @@
   \setbox0=\hbox{#1}\edef\gyou@h{\the\ht0}\edef\gyou@d{\the\dp0}%
   \def\gyousityuu{\vrule width 0pt height \gyou@h depth \gyou@d}}
 %
-% $BI=$K<P@~(B
+% 表に斜線
 %
 \def\emTsya{\@ifnextchar({\@syasen}{\@syasen(\hyouretuhaba)}}%
 \def\@syasen(#1){\@ifnextchar[{\@@syasen(#1)}{\@@syasen(#1)[n]}}%
@@ -378,7 +378,7 @@
       \ifthenelse{\equal{#2}{r}}{%
         \put(0,0){%
           \syasen(-\masuhabah,\masutakasa)(\masuhabah,-\masuhukasa)}%
-%%% $B<P@~0LCV3NG'(B(1) ------
+%%% 斜線位置確認(1) ------
 \@ifundefined{emT@debug}{}{{\color{red}%
    \Put{(-\masuhabah,\masutakasa)}{\Drawlines{(-1,-1)(1,1);(-1,1)(1,-1)}}%
    \Put{(\masuhabah,-\masuhukasa)}{\Drawlines{(-1,-1)(1,1);(-1,1)(1,-1)}}%
@@ -405,7 +405,7 @@
 }}%
 \let\sya\emTsya
 %
-% $B<P@~8+=P$7(B(array)
+% 斜線見出し(array)
 %
   \def\hyoumidasi#1#2{%
       \edef\mds@tmp{{(-\masuhabah,-\masuhukasa)}\Lmidasiiti}%
@@ -420,7 +420,7 @@
       \expandafter\emathPut\mds@tmp{$#2$}%
   }%
 %
-% $B<P@~8+=P$7(B(tabular)
+% 斜線見出し(tabular)
 %
   \def\Hyoumidasi#1#2{%
       \edef\mds@tmp{{(-\masuhabah,-\masuhukasa)}\Lmidasiiti}%
@@ -450,9 +450,9 @@
   \@ifnextchar[{\@@hyou<\hyou@ty@ption>}{\@@hyou<\hyou@ty@ption>[c]}}
 \newdimen\emT@w%  width
 \newdimen\emT@h%  height
-\newdimen\emT@@h%  height $B!J=$@5J,!K(B
+\newdimen\emT@@h%  height （修正分）
 \newdimen\emT@d%  depth
-\newdimen\emT@@d%  depth$B!J=$@5J,!K(B
+\newdimen\emT@@d%  depth（修正分）
 \newdimen\emT@r%  raise
 \define@key{emT}{S}{\def\emT@string{#1}}%
 \define@key{emT}{W}{\setlength\emT@w{#1}}%
@@ -790,12 +790,12 @@
       \else\if c#3\relax
         \makebox[\@tempdimb]{\hfill \box0\hfill\null}%
       \else
-        \errmessage{EMcell $B$NG[CV;XDj(B(lcr)$B$,0[>o$G$9!#(B}%
+        \errmessage{EMcell の配置指定(lcr)が異常です。}%
       \fi\fi\fi
     }%
 }}%
 %
-% $BI=$N7S@~$rB@$/$9$k!#(B
+% 表の罫線を太くする。
 %
 \newdimen\arrayrulewidthb
 \arrayrulewidthb=\p@\relax
@@ -826,12 +826,12 @@
   \cr
   \noalign{\vskip-\arrayrulewidthb}}
 
-% \hhline $B$N0z?t$KB@7S@~;XDj$N(B`I'$B$r;HMQ2DG=$H$9$k$?$a$N=$@5(B
+% \hhline の引数に太罫線指定の`I'を使用可能とするための修正
 \def\HH@loop{%
   \ifx\@tempb`\def\next##1{\the\toks@\cr}\else\let\next\HH@let
   \ifx\@tempb|\if@tempswa\HH@add{\hskip\doublerulesep}\fi\@tempswatrue
           \HH@add{\@tempc\vrule width\arrayrulewidth\@tempc}\else
-% $B<!$N(B2$B9T$rIU2C(B
+% 次の2行を付加
   \ifx\@tempb I\if@tempswa\HH@add{\hskip\doublerulesep}\fi\@tempswatrue
           \HH@add{\@tempc\vrule width\arrayrulewidthb\@tempc}\else
   \ifx\@tempb:\if@tempswa\HH@add{\hskip\doublerulesep}\fi\@tempswatrue
@@ -856,10 +856,10 @@
   \fi\fi\fi\fi\fi\fi\fi\fi\fi\fi
   \next}
 %
-% longtable $B4D6-$G!$Ms;XDj;R(B L, C, R, I
+% longtable 環境で，欄指定子 L, C, R, I
 %                   \hlineb
-%           $B$r;HMQ$9$k$?$a$N=$@5(B
-% (emathT.sty $B$h$jA0$K!$(Blongtable.sty $B$rFI$_9~$s$G$*$/$3$H(B)
+%           を使用するための修正
+% (emathT.sty より前に，longtable.sty を読み込んでおくこと)
 %
 \@ifundefined{longtable}{}{%
 \let\emTlongtable\longtable
@@ -890,9 +890,9 @@
   \newcolumntype{C}[1]{>{\hbox to ##1\bgroup\hss }c<{\hss\egroup}}%
   \emTlongtable}}%
 %
-% arydshln, hhline $B$rJ;MQ$9$k$?$a$NNW;~=$@5(B
+% arydshln, hhline を併用するための臨時修正
 % \\\hhline{.....}
-%   $B$KBe$($F(B
+%   に代えて
 % \hhcr\hline{....}
 
 \def\hhcr{\@ifnextchar[{\@hhcr}{\@hhcr[3.2pt]}}
@@ -918,94 +918,94 @@
 %
 \endinput
 
-v 0.01 \hlineb, \clineb, \newcolumntype{I}{..} $BI=$N7S@~$rB@$/(B
-      \arrayrulewidthb  $B$=$NB@$5!J%G%U%)%k%H(B 1pt)
-v 0.02 \extrarowheight $B$KBP1~(B
-v 0.03 txfonts $B$J$I$N%*%W%7%g%s=hM}JQ99(B
-v 0.04 2002/07/24 dvipdfm $B%m!<%I%*%W%7%g%s(B
-v 0.05 2002/08/04 arydshln, hhline $B$H$NJ;MQ$X$N;n$_(B
-v 0.06 2002/08/10 \sya $B$N9b$5!??<$5%*%W%7%g%s$X(B \arraystretch $B$r1F6A$5$;$k!#(B
+v 0.01 \hlineb, \clineb, \newcolumntype{I}{..} 表の罫線を太く
+      \arrayrulewidthb  その太さ（デフォルト 1pt)
+v 0.02 \extrarowheight に対応
+v 0.03 txfonts などのオプション処理変更
+v 0.04 2002/07/24 dvipdfm ロードオプション
+v 0.05 2002/08/04 arydshln, hhline との併用への試み
+v 0.06 2002/08/10 \sya の高さ／深さオプションへ \arraystretch を影響させる。
 v 0.07 2002/08/25-26
-          \sya $B$N(B()$B%*%W%7%g%s$K(B
+          \sya の()オプションに
               W=..,H=..,D=..,R=..
-              C=...$B!J%+%i%`$N(Bbackgound $B%+%i!<;XDj!K(B
+              C=...（カラムのbackgound カラー指定）
 v 0.08 2002/09/01
-              d= \arraystretch $B$N1F6A$r<u$1$J$$?<$5$N=$@5NL(B
-              h= \arraystretch $B$N1F6A$r<u$1$J$$9b$5$N=$@5NL(B
+              d= \arraystretch の影響を受けない深さの修正量
+              h= \arraystretch の影響を受けない高さの修正量
 v 0.09 2002/09/10
-          \sya $B$N(B <...> $B%*%W%7%g%s$K$h$kJ8;zNsG[CV!$;EMMJQ99(B
+          \sya の <...> オプションによる文字列配置，仕様変更
 v 0.10 2002/11/13
-          \gyoudaka, \Gyoudaka $B$G9T$N9b$5;XDj$r2DG=$H$9$k!#(B
+          \gyoudaka, \Gyoudaka で行の高さ指定を可能とする。
 v 0.11 2003/01/20
-          $BI=8+=P$79T$ND4@0(B
-            \def\agezoko{0} : baseline $B$r>e$2$k(B
-            \def\Lmidasiiti : $B:82<8+=P$7$N0LCVD4@0%*%W%7%g%s(B (3pt,1pt)[lb]
-            \def\Rmidasiiti : $B1&>e8+=P$7$N0LCVD4@0%*%W%7%g%s(B (-3pt,-1pt)[rt]
+          表見出し行の調整
+            \def\agezoko{0} : baseline を上げる
+            \def\Lmidasiiti : 左下見出しの位置調整オプション (3pt,1pt)[lb]
+            \def\Rmidasiiti : 右上見出しの位置調整オプション (-3pt,-1pt)[rt]
 v 0.12 2003/01/29
-          onlyT $B%*%W%7%g%s(B
-v 0.13 v0.11 $B$NJQ99$r(B hyou$B4D6-$K$bE,MQ(B
-       \NEN $B$J$I!$Lp0u0LCV$NHyD4@0(B
+          onlyT オプション
+v 0.13 v0.11 の変更を hyou環境にも適用
+       \NEN など，矢印位置の微調整
 v 0.14 2003/03/15
-    %\def\tabular{\gdef\@halignto{}\X@tabular}%%% $B$H$j$"$($:30$9(B 2003/03/12
-    \Hyou : $B0z?t2r<a$r(B \hyou $B$KB7$($k!#(B
+    %\def\tabular{\gdef\@halignto{}\X@tabular}%%% とりあえず外す 2003/03/12
+    \Hyou : 引数解釈を \hyou に揃える。
 v 0.15 2003/09/02
-    $B<P@~$NN>C<0LCV$K$D$$$F!$7S@~I}$r9MN8(B
+    斜線の両端位置について，罫線幅を考慮
 v 0.16 2003/10/19
     \NW, \SW
 v 0.17 2003/11/11
-    \NE $B$J$I$r(B \hyou $B$N30$K=P$9!#(B
+    \NE などを \hyou の外に出す。
 v 0.18 2003/11/25
-    \Hyou$B4D6-Fb$N(B \sya $B=$@5(B
+    \Hyou環境内の \sya 修正
 v 0.19 2003/11/27
-    \sya $B$K(B [o]$B%*%W%7%g%s(B --- $B<P@~$r0z$+$J$$!#(B
-            (S=...)$B%*%W%7%g%s(B --- $BJ8;zNs$r<P@~$H=E$M=q$-(B
-    \getrowHD : * $BIU$G!$(B\arraystretch$B$r9MN8$7$?7k2L$rJV$9!#(B
+    \sya に [o]オプション --- 斜線を引かない。
+            (S=...)オプション --- 文字列を斜線と重ね書き
+    \getrowHD : * 付で，\arraystretchを考慮した結果を返す。
 v 0.20 2003/11/28
-    emathLb.sty $B$rFI$_9~$`(B
+    emathLb.sty を読み込む
 v 0.21 2003/12/23-27
-    notMy $B%*%W%7%g%s2D(B
-    \sya ##3$B$K$D$$$F$ND4@0(B (BBS No.492)
+    notMy オプション可
+    \sya ##3についての調整 (BBS No.492)
 v 0.22 2004/02/02
-    Hyou$B4D6-$N(B \sya $B$r(B hyou$B4D6-$N$=$l$HF14|$9$k!#(B
+    Hyou環境の \sya を hyou環境のそれと同期する。
 v 0.23 2004/02/07
-    hyou$B4D6-$NA}8:$r<($9Lp0u$K(B \EE, \WW, \NN, \SS $B$rDI2C(B
+    hyou環境の増減を示す矢印に \EE, \WW, \NN, \SS を追加
 v 0.24 2004/03/11
-    colortbl.sty $B$H$N6&B8$rL\;X$7$F(B
+    colortbl.sty との共存を目指して
 v 0.25 2004/03/12
-    \sya $BEI$j$HJ8;zNsG[CV$N=g=x5UE>(B
+    \sya 塗りと文字列配置の順序逆転
 v 0.26 2004/08/14
-    \Hyoumidasi $B<P@~J}8~$,(B[n]$B$N>l9g$K$bBP1~(B
+    \Hyoumidasi 斜線方向が[n]の場合にも対応
 v 0.27 2004/09/27-28
-    amsmath.sty 2.14 $B$H$N4X78$GFI$_9~$_=gD4@0(B
-    \EMcell : $BI=$N%;%k$r=$>~(B
+    amsmath.sty 2.14 との関係で読み込み順調整
+    \EMcell : 表のセルを修飾
 v 0.28 2004/09/29-10/03
-    syasenKankaku : $BC10LIU$GM?$($k(B
+    syasenKankaku : 単位付で与える
 v 0.29 2004/10/03
-    array.sty $B$K%Q%C%A$rEv$F$k(B
+    array.sty にパッチを当てる
 v 0.30 2004/11/11
-    hyou*$B4D6-!'(B\hyouretuhaba$B$r7W;;$7$J$$!#(B
+    hyou*環境：\hyouretuhabaを計算しない。
 v 0.31 2004/11/13
-    amsmath.sty 2.14 $B$H$ND4@0$NI{:nMQ$"$j!#(B
-    $B%m!<%I%*%W%7%g%s(B[ams214]$B$r$D$1$?$H$-$N$_D4@0$9$k(B
+    amsmath.sty 2.14 との調整の副作用あり。
+    ロードオプション[ams214]をつけたときのみ調整する
 v 0.32 2004/12/19
-    Hyou : hyou $B$HF14|(B
-    L, R, C $B$r(B array, tabular $B$G$b;HMQ2D(B
-    \sya $B$r(B \emTsya $B$H$7!$(Bhyou, Hyou $B6&DL$H$9$k!#(B
-    longtable $B4D6-$G!$(BL, C, R, I, \hlineb $B$r;HMQ2D(B
+    Hyou : hyou と同期
+    L, R, C を array, tabular でも使用可
+    \sya を \emTsya とし，hyou, Hyou 共通とする。
+    longtable 環境で，L, C, R, I, \hlineb を使用可
 v 0.33 2005/01/06
-    hyou : retuhaba=.. $B%*%W%7%g%s(B
+    hyou : retuhaba=.. オプション
 v 0.34 2005/01/09
-    $B%m!<%I%*%W%7%g%s(B papersize
+    ロードオプション papersize
 v 0.35 2005/05/28
-    \sya $B$GIA2h$9$k<P@~$K$D$$$F!$(B\rotateline $B$,;H$($k$h$&$K$9$k(B
+    \sya で描画する斜線について，\rotateline が使えるようにする
 v 0.36 2005/07/09
-    \sya [#3]$B$,L58z$H$J$k>l9g$N=$@5(B
+    \sya [#3]が無効となる場合の修正
 v 0.38 2005/09/12
-    [ceo]$B%*%W%7%g%s;~!$(B\NEE $B$J$I(B ceo $B$rMQ$$$k!#(B
+    [ceo]オプション時，\NEE など ceo を用いる。
 v 0.39 2005/09/19
-    $B%m!<%I%*%W%7%g%s(B dvipdfmx
+    ロードオプション dvipdfmx
 v 0.40 2005/09/24
-    \emTarray, \emTtabular : \newcolumntype $B$rDj5A$7$J$$(B
+    \emTarray, \emTtabular : \newcolumntype を定義しない
 v 0.41 2005/09/25
-    \Hyoumidasi : [o] $B$N>l9g(B
-    \sya : <#4> $B$r(B`;'$B$G6h@Z$j!$<P@~$r0z$/A08e$KG[CV2DG=(B
+    \Hyoumidasi : [o] の場合
+    \sya : <#4> を`;'で区切り，斜線を引く前後に配置可能

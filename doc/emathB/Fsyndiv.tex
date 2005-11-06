@@ -3,82 +3,82 @@
 \usepackage{showexample}
 
 \begin{document}
-\section{\cmd{Fsyndiv}$B$NB7$((B}
-\subsection{$B%G%U%)%k%H$NB7$($rCf1{$KJQ99(B}
-\cmd{Fsyndiv}$B$K$*$$$F!$78?t$r1&B7$($K$7$F$$$^$7$?$,!$(B
-$BJ,?t$H@0?t$r=D$KB7$($k$K$O1&B7$($h$j$b!$(B
-$BCf1{B7$($,E,@Z$H;W$o$l$^$9$+$i!$(B
-$B%G%U%)%k%H$G$O!$Cf1{B7$($H$9$k$h$&$K;EMM$rJQ99$7$^$7$?!#(B
-\begin{showEx}(.54,.4){$B%G%U%)%k%H$OCf1{B7$((B}
+\section{\cmd{Fsyndiv}の揃え}
+\subsection{デフォルトの揃えを中央に変更}
+\cmd{Fsyndiv}において，係数を右揃えにしていましたが，
+分数と整数を縦に揃えるには右揃えよりも，
+中央揃えが適切と思われますから，
+デフォルトでは，中央揃えとするように仕様を変更しました。
+\begin{showEx}(.54,.4){デフォルトは中央揃え}
 $\Fsyndiv{3,1,0,2}{-2/3}$
 \end{showEx}
 
-\subsection{$B1&B7$($K$9$k%*%W%7%g%s(B}
-$B1&B7$($K$9$k$K$O!$(B\verb+<soroe=r>+$B$rIm2C$7$^$9!#(B
+\subsection{右揃えにするオプション}
+右揃えにするには，\verb+<soroe=r>+を附加します。
 
 \begin{showEx}(.54,.4){\texttt{<soroe=r>}}
 $\Fsyndiv<soroe=r>{3,1,0,2}{-2/3}$
 \end{showEx}
 
-$B=D$KB7$C$F$J$$$G$9$+(B $B!)(B
+縦に揃ってないですか ？
 
-$B$3$l$O!$(B\TeX $B$K$*$$$F!$J,?t$H@0?t$r1&B7$($K$9$k;EMM$G$9!#(B
-$B$=$l$r8+$F$$$?$@$-$^$7$g$&!#(B
+これは，\TeX において，分数と整数を右揃えにする仕様です。
+それを見ていただきましょう。
 
-\begin{showEx}(.54,.4){\textsf{array}$B4D6-$N1&B7$((B}
+\begin{showEx}(.54,.4){\textsf{array}環境の右揃え}
 $\begin{array}{rr}
   -2 & 2 \\
   \bunsuu25 & \bunsuu25
 \end{array}$
 \end{showEx}
 
-\TeX $B$O!$$3$l$G!V1&B7$(!W$r$7$?!$$H$$$C$F$$$k$N$G$9!#(B
+\TeX は，これで「右揃え」をした，といっているのです。
 
-$B?t;z$rB7$($?$$!$$H$$$&$44uK>$,=P$=$&$J$N$G(B
-\verb+<soroe=R>+$B%*%W%7%g%s$rMQ0U$7$^$7$?!#(B
+数字を揃えたい，というご希望が出そうなので
+\verb+<soroe=R>+オプションを用意しました。
 
 \begin{showEx}(.54,.4){\texttt{<soroe=R>}}
 $\Fsyndiv<soroe=R>{3,1,0,2}{-2/3}$
 \end{showEx}
 
-$B$*5$IU$-$N$3$H$H;W$$$^$9$,!$(B$\bunsuu{14}{9}$$B$N$h$&$K!$(B
-$BJ,;R!&J,Jl$N7e?t$,0[$J$k$H$-$OCf1{B7$($,I8=`$G$9$,!$(B
-\verb+<soroe=r/R>+$B%*%W%7%g%s$r$D$1$?$H$-$O!$$3$3$b(B
-$B1&B7$($K$3$@$o$C$F$$$^$9!#(B
+お気付きのことと思いますが，$\bunsuu{14}{9}$のように，
+分子・分母の桁数が異なるときは中央揃えが標準ですが，
+\verb+<soroe=r/R>+オプションをつけたときは，ここも
+右揃えにこだわっています。
 \newpage
 
-\subsection{$BEz9T$N=D0LCV(B}
-$BEz$($N9T$KJ,?t$,4^$^$l$k$H$-!$$=$NJ,?t$H>e$N2#7S@~$,$D$$$F$7$^$$$^$9!#(B
-$B$3$l$O(B\textsf{array}$B4D6-$N;EMM$G!$(B\verb+\arraystretch+$B$rJQ99$9$k$J$I$N(B
-$BBP:v$b$"$j$^$9!#(B
+\subsection{答行の縦位置}
+答えの行に分数が含まれるとき，その分数と上の横罫線がついてしまいます。
+これは\textsf{array}環境の仕様で，\verb+\arraystretch+を変更するなどの
+対策もあります。
 
-\begin{showEx}(.54,.4){\cmd{arraystretch}$B$NJQ99(B}
+\begin{showEx}(.54,.4){\cmd{arraystretch}の変更}
 \def\arraystretch{1.33}%
 $\Fsyndiv{3,1,0,2}{-2/3}$
 \end{showEx}
 
-$B$?$@!$J,?t$N>e2<$N6u$-6q9g$,$$$^$R$H$D!$$H$$$&$3$H$G(B\cmd{Fsyndiv}$B$K(B
-\verb+<kotaegyousityuu=..>+$B%*%W%7%g%s$r$D$1$kJ}K!$bMQ0U$7$^$7$?!#(B
+ただ，分数の上下の空き具合がいまひとつ，ということで\cmd{Fsyndiv}に
+\verb+<kotaegyousityuu=..>+オプションをつける方法も用意しました。
 
 \begin{showEx}(.54,.4){\texttt{<kotaegyousityuu=\bsityuu>}}
 $\Fsyndiv<kotaegyousityuu=\bsityuu>%
   {3,1,0,2}{-2/3}$
 \end{showEx}
 
-$B$3$3$GEP>l$7$F$$$k(B\cmd{bsityuu}$B$O!$J,?t(B$\bunsuu12$$B$N9b$5!$?<$5$K(B
-$B$=$l$>$l(B\texttt{4pt, 3pt}$B$rIm2C$7$?;YCl$G$9!#(B
+ここで登場している\cmd{bsityuu}は，分数$\bunsuu12$の高さ，深さに
+それぞれ\texttt{4pt, 3pt}を附加した支柱です。
 
-$B>e$NNc$G$O!$(B3$B9TL\$NEz$(9T$N$_$K;YCl$rN)$F$F$$$^$9$,!$(B
-3$B9TA4$F$K;YCl$rN)$F$k%*%W%7%g%s$O(B\verb+<gyousityuu=..>+$B$G$9!#(B
+上の例では，3行目の答え行のみに支柱を立てていますが，
+3行全てに支柱を立てるオプションは\verb+<gyousityuu=..>+です。
 
 \begin{showEx}(.54,.4){\texttt{<gyousityuu=\bsityuu>}}
 $\Fsyndiv<gyousityuu=\bsityuu>%
   {3,1,0,2}{-2/3}$
 \end{showEx}
 
-$BA0@a$NB7$(%*%W%7%g%s$H$NJ;MQ$b2DG=$G$9!#(B
+前節の揃えオプションとの併用も可能です。
 
-\begin{showEx}(.54,.4){$B=D2#%*%W%7%g%s(B}
+\begin{showEx}(.54,.4){縦横オプション}
 $\Fsyndiv
   <kotaegyousityuu=\bsityuu,soroe=R>%
   {3,1,0,2}{-2/3}$

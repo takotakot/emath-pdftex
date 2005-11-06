@@ -1,5 +1,5 @@
 % emathB.sty by tDB(CQB00260@nifty.ne.jp)
-%   $BJ,?t7W;;(B
+%   分数計算
 
 \NeedsTeXFormat{LaTeX2e}
 \ProvidesPackage{emathB}[2005/03/20 v0.14]%
@@ -42,15 +42,15 @@
   \BMul{#1}{#2}{#4}{#3}#5#6}
 
 % \StoB#1#2#3
-%   #1 : $B>.?tI=<((B
-%   #2 : $BJ,;R(B
-%   #3 : $BJ,Jl(B
+%   #1 : 小数表示
+%   #2 : 分子
+%   #3 : 分母
 \def\StoB#1#2#3{%
   \strsep{#1}{.}\StoB@a\StoB@b
   \Strchr{#1}{-}\StoB@h
   \ifnum\StoB@h>\z@\edef\StoB@h{-}\IMul{-1}\StoB@a\StoB@a\else\edef\StoB@h{}\fi
   \Strchr{#1}{(}\StoB@z%)
-  \ifnum\StoB@z>\z@%  $B=[4D>.?t(B
+  \ifnum\StoB@z>\z@%  循環小数
     \ZtoB{#1}#2#3%
   \else
     \Strlen\StoB@b\n@syousuu
@@ -69,8 +69,8 @@
 }
 
 % \StoF#1#2
-%   #1 : $B>.?tI=<((B
-%   #2 : $BJ,?tI=<((B
+%   #1 : 小数表示
+%   #2 : 分数表示
 \def\StoF#1#2{%
   \StoB{#1}\StoF@a\StoF@b
   \edef#2{\StoF@a/\StoF@b}%
@@ -81,9 +81,9 @@
 }
 
 % \FtoB#1#2#3
-%   #1 : $BJ,?tI=<(!JNc!'(B3/4$B!K(B
-%   #2 : $BJ,;R(B
-%   #3 : $BJ,Jl(B
+%   #1 : 分数表示（例：3/4）
+%   #2 : 分子
+%   #3 : 分母
 %\def\FtoB#1#2#3{%
 % \def\F@bunkai##1/##2/##3\@nil{\ifthenelse{\equal{##2}{}}{%
 %   \edef#2{##1}\edef#3{1}}{\edef#2{##1}\edef#3{##2}}%
@@ -141,7 +141,7 @@
 }
 
 \def\IntF#1#2{%
-%   F $B7?J,?t(B #1 $B$N@0?tItJ,$r(B #2 $B$KM?$($k!%(B
+%   F 型分数 #1 の整数部分を #2 に与える．
   \FtoB{#1}\IntF@a\IntF@b
   \IDiv\IntF@a\IntF@b#2}
 
@@ -196,11 +196,11 @@
 \def\SMul#1#2#3{\FPmul\@FPadd@t{#1}{#2}\Sclip\@FPadd@t#3}%
 \def\SDiv#1#2#3{\FPdiv\@FPadd@t{#1}{#2}\Sclip\@FPadd@t#3}%
 
-% $B>.?t$r4]$a$k(B
+% 小数を丸める
 %   \Scut[#1]#2#3#4
-%     $B>.?t(B #2 $B$r>.?tE@0J2<(B #3 $B0L$^$G$H$9$k!%7k2L$r(B #4 $B$KJV$9!%(B
-%     #1 : r (default) $B;M<N8^F~(B
-%     #1 : t (trunc)   $B@Z$j<N$F(B
+%     小数 #2 を小数点以下 #3 位までとする．結果を #4 に返す．
+%     #1 : r (default) 四捨五入
+%     #1 : t (trunc)   切り捨て
 %
 \def\Scut{\@ifnextchar[{\@Scut}{\@Scut[r]}}
 \def\@Scut[#1]#2#3#4{%
@@ -248,22 +248,22 @@
 \def\prF{\@ifnextchar[{\@prF}{\@prF[]}}
 \def\@prF[#1]#2{%
   \issyousuu{#2}%
-  \ifsyousuu%   $B>.?t(B
+  \ifsyousuu%   小数
     \Strchr{#2}{(}\prF@zyunkan
     \ifnum\prF@zyunkan>\z@\prZ{#2}\else #2\fi
-  \else%        $BJ,?t(B
+  \else%        分数
   \strsep{#2}{;}\prF@obi\prF@bunsuu
   \ifthenelse{\equal\prF@bunsuu{}}%
-  {%  $BBS$J$7(B
+  {%  帯なし
     \strsep\prF@obi{/}\prF@bunsi\prF@bunbo
     \ifthenelse{\equal\prF@bunbo{}}%
-    {%  $B@0?t(B
+    {%  整数
       \prF@bunsi
     }
     {%
       \prB[#1]\prF@bunsi\prF@bunbo
     }
-  }{% $BBSJ,?t(B
+  }{% 帯分数
     \prF@obi
     \strsep\prF@bunsuu{/}\prF@bunsi\prF@bunbo
     \prB\prF@bunsi\prF@bunbo
@@ -282,7 +282,7 @@
   \prF\prFK@a
 }
 
-%----------------------------------- $B=[4D>.?t(B --------------
+%----------------------------------- 循環小数 --------------
 \def\ZyunkanSyousuu#1{%
   \strsep{#1}{(}\@nonZ\@Ztmp
   \@nonZ
@@ -354,11 +354,11 @@
   \BtoZ\FtoB@a\FtoB@b#2}
 
 % \BtoS[#1][#2]#3#4#5
-%   #3/#4 $B$r>.?t$KJQ49$7$?$b$N$r(B #5 $B$KJV$9!%(B
-%     $B4]$aJ}$N;XDj$O(B
-%       #1 : $B$G;XDj$7$?>.?tE@0J2<$N7e?t(B
-%       #2 = r $B;M<N8^F~!J%G%U%)%k%H!K(B
-%          = t $B@Z$j<N$F(B
+%   #3/#4 を小数に変換したものを #5 に返す．
+%     丸め方の指定は
+%       #1 : で指定した小数点以下の桁数
+%       #2 = r 四捨五入（デフォルト）
+%          = t 切り捨て
 %
 \def\BtoS{\@ifnextchar[{\@BtoS}{\@BtoS[\empty]}}
 \def\@BtoS[#1]{\@ifnextchar[{\@@BtoS[#1]}{\@@BtoS[#1][r]}}
@@ -377,14 +377,14 @@
 \let\prB\Bfrac
 \let\prBT\Tfrac
 
-% F $B7?J,?t$NId9fH=Dj(B
+% F 型分数の符号判定
 %
 % \Fhugou#1#2
-%   #1 : F$B7?J,?t(B
-%   #2 : $B7k2L$r<u$1<h$k%3%s%H%m!<%k%7!<%1%s%9(B
-%        $B!JLa$jCM!K(B #1>0 $B$N$H$-$O(B 1
-%                   #1=0 $B$N$H$-$O(B 0
-%                   #1<0 $B$N$H$-$O(B -1
+%   #1 : F型分数
+%   #2 : 結果を受け取るコントロールシーケンス
+%        （戻り値） #1>0 のときは 1
+%                   #1=0 のときは 0
+%                   #1<0 のときは -1
 %
 \def\Fhugou#1#2{\FtoB{#1}\Fhugou@a\Fhugou@b
   \IMul\Fhugou@a\Fhugou@b\Fhugou@a
@@ -393,15 +393,15 @@
   \edef#2{0}\fi\fi
 }
 
-% F $B7?J,?t$NBg>.Hf3S(B
+% F 型分数の大小比較
 %
 % \Fhikaku#1#2#3
-%   #1 : F$B7?J,?t(B
-%   #2 : F$B7?J,?t(B
-%   #3 : $B7k2L$r<u$1<h$k%3%s%H%m!<%k%7!<%1%s%9(B
-%        $B!JLa$jCM!K(B #1>#2 $B$N$H$-$O(B 1
-%                   #1=#2 $B$N$H$-$O(B 0
-%                   #1<#2 $B$N$H$-$O(B -1
+%   #1 : F型分数
+%   #2 : F型分数
+%   #3 : 結果を受け取るコントロールシーケンス
+%        （戻り値） #1>#2 のときは 1
+%                   #1=#2 のときは 0
+%                   #1<#2 のときは -1
 %
 \def\Fhikaku#1#2#3{\FSub{#1}{#2}\Fhikaku@s\Fhugou\Fhikaku@s #3}
 
@@ -413,7 +413,7 @@
     \Incr\@i
     \ifnum\csname @lvl\romannumeral\@i\endcsname>\max@klvl
       \edef\max@klvl{\csname @lvl\romannumeral\@i\endcsname}\fi}%
-  \Cfor{}{\max@klvl>1}{\Decr\max@klvl}\do{%   $B3g8LM%@h(B
+  \Cfor{}{\max@klvl>1}{\Decr\max@klvl}\do{%   括弧優先
     \Cfor{\edef\@i{0}}{\@i<\nlvl}{\Incr\@i}\do{%
       \Incr\@i
       \ifnum \csname @lvl\romannumeral\@i\endcsname=\max@klvl\relax
@@ -428,21 +428,21 @@
       \fi
     }%
   }%
-  \Cfor{\edef\@i{2}}{\@i<\nlvl}{}\do{%  $BQQ7W;;(B
+  \Cfor{\edef\@i{2}}{\@i<\nlvl}{}\do{%  冪計算
     \ifnum\csname @opcode\romannumeral\@i\endcsname = 5\relax
       \ISub\@i{1}\@j
       \doFcalc@ne{@kou}{@opcode}{@lvl}{\@j}\nlvl
     \else\Incr[2]\@i
     \fi
   }%
-  \Cfor{\edef\@i{2}}{\@i<\nlvl}{}\do{% $B>h=|(B
+  \Cfor{\edef\@i{2}}{\@i<\nlvl}{}\do{% 乗除
     \ifnum\csname @opcode\romannumeral\@i\endcsname >\tw@
       \ISub\@i{1}\@j
       \doFcalc@ne{@kou}{@opcode}{@lvl}{\@j}\nlvl
     \else\Incr[2]\@i
     \fi
   }%
-  \Cfor{}{\nlvl>\@ne}{}\do{%          $B2C8:(B
+  \Cfor{}{\nlvl>\@ne}{}\do{%          加減
     \doFcalc@ne{@kou}{@opcode}{@lvl}{1}\nlvl
   }%
 }
@@ -550,7 +550,7 @@
   \if \@t :\edef#2{\@t}\edef#4{4}\else
   \if \@t /\edef#2{\@t}\edef#4{4}\else
     \ifthenelse{\equal\@t{}}{}{%
-      \errmessage{$B9`$N;O$a$O3g8L$,I,MW$G$9!%(B#1$B$r(B(#1)$B$H=$@5$7$F$/$@$5$$!%(B}}%
+      \errmessage{項の始めは括弧が必要です．#1を(#1)と修正してください．}}%
   \fi\fi\fi\fi\fi\fi\fi\fi
   \Cfor{}{\kakko@lvl>\z@}{}\do{%
     \headchar\@remain\@t\@remain
@@ -624,7 +624,7 @@
             \@j<#4\and\csname #2\romannumeral\@j\endcsname=5\and\not\@b=1}{%
             \left(\prF\@tmp\right)}{%
               \ifthenelse{\equal\@tmp\dumy@X}{%
-                \framebox{$B!!!!(B}}{\prF\@tmp}%
+                \framebox{　　}}{\prF\@tmp}%
             }%
         \fi
       \fi
@@ -659,7 +659,7 @@
   }%
 }
 
-% $BAH$_N)$F=|K!(B
+% 組み立て除法
 \def\Fsyndiv{\def\Fsyn@strut{}\def\ans@strut{}\def\s@r@e{c}%
   \@ifnextchar<{\Fsyndiv@}{\@Fsyndiv}}
 \def\Fsyndiv@<#1>{\setkeys{emB}{#1}\@Fsyndiv} 
@@ -748,8 +748,8 @@
 %
 \newwrite\Fkeisan@hndl
 \def\dumy@X{00000}%
-\let\prfunc\prFK%   $BEz$N=PNO$KMQ$$$k%@%_!<4X?t$N;XDj(B($B2>J,?tI=<($r;XDj(B)
-%\let\prfunc\prFT%  $BEz$N=PNO$KMQ$$$k%@%_!<4X?t$N;XDj(B($BBSJ,?tI=<($r;XDj(B)
+\let\prfunc\prFK%   答の出力に用いるダミー関数の指定(仮分数表示を指定)
+%\let\prfunc\prFT%  答の出力に用いるダミー関数の指定(帯分数表示を指定)
 \def\Fkeisan{\@ifnextchar<{\@Fkeisan}{\@Fkeisan<M>}}
 \def\@Fkeisan<#1>#2{%
   \if A#1\relax
@@ -765,38 +765,38 @@
 }
 \def\xFcalc#1=#2{%
   \Strsep{#1}{=}\sahen\uhen
-  \ifthenelse{\equal\uhen\empty}{% $BEy9fL5$7(B
+  \ifthenelse{\equal\uhen\empty}{% 等号無し
     \Fcalc#1=#2\relax
-  }{% $BEy9fM-$j(B ax+b=c
+  }{% 等号有り ax+b=c
     \Strchr\sahen{X}\dmy@
-    \ifnum\dmy@=\z@%  $B1&JU$KEy9f(B
+    \ifnum\dmy@=\z@%  右辺に等号
       \edef\dmy@@{\sahen}\edef\sahen{\uhen}\edef\uhen{\dmy@@}%
     \fi
-% X=0 $B$H$*$/(B b
+% X=0 とおく b
     \edef\@tmp{}%
     \expandafter\@tfor\expandafter\@@c\expandafter:\expandafter=\sahen\do{%
       \if X\@@c\edefappend\@tmp{(0)}\else\edefappend\@tmp{\@@c}\fi}%
     \Fcalc\@tmp=\b@val
-% X=1 $B$H$*$/(B a+b
+% X=1 とおく a+b
     \edef\@tmp{}%
     \expandafter\@tfor\expandafter\@@c\expandafter:\expandafter=\sahen\do{%
       \if X\@@c\edefappend\@tmp{(1)}\else\edefappend\@tmp{\@@c}\fi}%
     \Fcalc\@tmp=\ab@val
 % a
     \Fcalc{(\ab@val)-(\b@val)}=\a@val
-% $B1&JU$N7W;;(B c
+% 右辺の計算 c
     \Fcalc\uhen=\c@val
-% X $B$r5a$a$k(B x=(c-b)/a
+% X を求める x=(c-b)/a
     \Fcalc{((\c@val)-(\b@val))/(\a@val)}=#2\relax
   }%
 }
 \def\prxFkeisanSiki#1{%
   \Strsep{#1}{=}\sahen\uhen
-  \ifthenelse{\equal\uhen\empty}{% $BEy9fL5$7(B
+  \ifthenelse{\equal\uhen\empty}{% 等号無し
     \prFkeisanSiki{#1}%
-  }{% $BEy9fM-$j(B
+  }{% 等号有り
     \Strchr\sahen{X}\dmy@
-    \ifnum\dmy@=\z@%  $B1&JU$K(B X
+    \ifnum\dmy@=\z@%  右辺に X
       \prFkeisanSiki\sahen
       =
       \edef\@tmp{}%
@@ -816,53 +816,53 @@
 \endinput
 %
 % 0.03  1999/12/27-28
-%   \Fcalc $B7W;;<0$rM?$($FEz$r5a$a$k!%(B
-%   $BJ,?t$NI=8=7A<0$r(B F, B, T $B$N#3$D$N7A<0$H$7!$Aj8_JQ49$G$-$k$h$&$K$9$k!%(B
-%     F : #1      : #1=$BJ,;R(B/$BJ,Jl(B   $B!J@0?t$b2D!K(B  3 = 3/1
-%                   #1=$BBS(B;$BJ,;R(B/$BJ,Jl!J2>J,?t$b2D!K(B1;2/3 = 5/3
-%     B : #1#2    : #1=$BJ,;R(B #2=$BJ,Jl(B
-%     T : #1#2#3  : #1=$BBS(B   #2=$BJ,;R(B #3=$BJ,Jl(B
-%     3$B7?$NAj8_JQ49(B
+%   \Fcalc 計算式を与えて答を求める．
+%   分数の表現形式を F, B, T の３つの形式とし，相互変換できるようにする．
+%     F : #1      : #1=分子/分母   （整数も可）  3 = 3/1
+%                   #1=帯;分子/分母（仮分数も可）1;2/3 = 5/3
+%     B : #1#2    : #1=分子 #2=分母
+%     T : #1#2#3  : #1=帯   #2=分子 #3=分母
+%     3型の相互変換
 % 0.04  1999/12/29
-%   \Fcalc $BB?=E3g8L$N=hM}(B
-%          $BJ,?t!&>.?t:.9g<0$N=hM}(B
-%       $B$r2DG=$H$9$k!%(B
+%   \Fcalc 多重括弧の処理
+%          分数・小数混合式の処理
+%       を可能とする．
 %
 % 0.05  1999/12/30
-%   \Fcalc  $BB?=E3g8L$N%+%&%s%H$K%P%0(B
-%   \FPower $B@0?t>h$rDI2C(B
-%   $BB?=E3g8L$r!$>.CfBg$G6hJL$9$k!%(B
+%   \Fcalc  多重括弧のカウントにバグ
+%   \FPower 整数乗を追加
+%   多重括弧を，小中大で区別する．
 %
 % 0.06  1999/12/30
-%   \hidarikakko $BB?=E3g8L$NI=<(<o$r;XDj$9$k!%(B
-%       $B%G%U%)%k%H$O(B
+%   \hidarikakko 多重括弧の表示種を指定する．
+%       デフォルトは
 %         \hidarikakko{1}{(}, \hidarikakko{2}{\lbrace}, \hidarikakko{3}{[}
-%   \StoB, \StoF $B$K%P%0(B
+%   \StoB, \StoF にバグ
 % 0.07  1999/12/30
-%   \ZtoB, \ZtoF $B$KF1MM$J%P%0(B
-%   \prF  $B!J=[4D!K>.?t(B ---> $B!J=[4D!K>.?t(B
-%         $BBSJ,?t(B ---> $BBSJ,?t(B
-%         $B2>J,?t(B ---> $B2>J,?t(B
-%   \prFK $B$9$Y$F2>J,?t(B
-%   \prFT $B$9$Y$FBSJ,?t(B
+%   \ZtoB, \ZtoF に同様なバグ
+%   \prF  （循環）小数 ---> （循環）小数
+%         帯分数 ---> 帯分数
+%         仮分数 ---> 仮分数
+%   \prFK すべて仮分数
+%   \prFT すべて帯分数
 % 0.08  2000/01/02-06
-%   \BtoS, \FtoS [..] $B%*%W%7%g%s$G4]$aJ}$N;XDj(B
-%   \getF $B1i;;;R(B : $B$H(B @ $B$rDI2C(B
+%   \BtoS, \FtoS [..] オプションで丸め方の指定
+%   \getF 演算子 : と @ を追加
 % 0.09  2000/02/11
-%   \BtoS $B$N0z?t$N@bL@$r=$@5(B
-%   \Fhugou F$B7?J,?t$NId9fH=Dj(B
-%   \Fhikaku F$B7?J,?t$NBg>.Hf3S(B
+%   \BtoS の引数の説明を修正
+%   \Fhugou F型分数の符号判定
+%   \Fhikaku F型分数の大小比較
 % 0.10  2000/02/16
-%   \IntF F$B7?J,?t$N@0?tIt(B
+%   \IntF F型分数の整数部
 % 0.11  2000/06/04
-%   \Fsyndiv $BAH$_N)$F=|K!!JJ,?t78?t!K(B
+%   \Fsyndiv 組み立て除法（分数係数）
 % 0.12  2003/08/04
-%   \Fsyndiv $B$K%*%W%7%g%s0z?t(B<#1>$B$G(B
-%       kotaegyousityuu=... $B$GEz$(9T$K;YCl$rN)$F$k(B
+%   \Fsyndiv にオプション引数<#1>で
+%       kotaegyousityuu=... で答え行に支柱を立てる
 %       (ansstrut=...)
-%       gyousityuu=... 3$B9T$H$b$9$Y$F$K;YCl(B
-%       soroe=c/r/R (c$B$,%G%U%)%k%H(B)
+%       gyousityuu=... 3行ともすべてに支柱
+%       soroe=c/r/R (cがデフォルト)
 % 0.13 2003/08/06
-%   \Fsyndiv array.sty $B$H$N6&B8(B
+%   \Fsyndiv array.sty との共存
 % 0.14 2005/03/20
-%   \xFcalc : $BL$CN?t$r(B X $B$H$7$F!$0l<!J}Dx<0$r2r$/(B
+%   \xFcalc : 未知数を X として，一次方程式を解く

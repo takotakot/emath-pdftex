@@ -71,7 +71,7 @@
     }%
 
 %%%
-%%% $BItJ,E*FsCJAH(B
+%%% 部分的二段組
 %%%
 %\newdimen\nidanmigihaba
 \newdimen\nidansep
@@ -88,13 +88,13 @@
 \def\@@nidan<#1><#2>(#3)[#4]{\@ifnextchar[{\@@@nidan<#1><#2>(#3)[#4]}{%
   \@@@nidan<#1><#2>(#3)[#4][t]}}%
 \long\def\@@@nidan<#1><#2>(#3)[#4][#5]#6#7{%
-%   #1 : l|r $B?^$N0LCV(B t|y|z $B1&CJ$N=DAH(B/$B2#AH;XDj!J%G%U%)%k%H$O(B r$B!K(B
-%   #2 : #1=t $B$N>l9g$N(B minipage $B$N%5%$%:(B
-%   #3 : $B$=$N$^$^<B9T$7$^$9!%(B
-%   #4 : $B:8CJ(B minipage $B$NG[CV%*%W%7%g%s(B
-%   #5 : $B1&CJ(B $B!7(B
-%   #6 : $B1&CJ$N2#6R(B
-%   #7 : $B1&CJ(B
+%   #1 : l|r 図の位置 t|y|z 右段の縦組/横組指定（デフォルトは r）
+%   #2 : #1=t の場合の minipage のサイズ
+%   #3 : そのまま実行します．
+%   #4 : 左段 minipage の配置オプション
+%   #5 : 右段 〃
+%   #6 : 右段の横巾
+%   #7 : 右段
   \par
 % \setlength{\nidanmigihaba}{#3}%
   \noindent
@@ -122,12 +122,12 @@
     \box\nidan@boxi\fi
   \vskip\topsep\vskip\parskip\endtrivlist}%
 
-% list $B4D6-2<$K$*$1$k?^$N2s$j9~$_(B
+% list 環境下における図の回り込み
 %
 % \Nidan[#1]#2#3
-%   #1 : $B2s$j9~$_9T?t(B
-%   #2 : $B?^$N2#I}(B
-%   #3 : $B?^(B
+%   #1 : 回り込み行数
+%   #2 : 図の横幅
+%   #3 : 図
 %
 
 %\edef\ND@lvl{0}%
@@ -211,7 +211,7 @@
 \def\endNidan{%\xDecr\ND@lvl
   \par\parshape 1\@totalleftmargin \linewidth}
 
-% $B1&6u$1$N7QB3(B
+% 右空けの継続
 \expandafter\def\csname Nidan*\endcsname{%
   \@ifnextchar[{\@cNidan}{\@cNidan[\empty]}}
 \def\@cNidan[#1]{%
@@ -267,7 +267,7 @@
 
 \expandafter\def\csname endNidan*\endcsname{\endNidan}
 
-%%% $B25It(B pLaTeX2e for Windows Another Manual Vol.1   p.226
+%%% 乙部 pLaTeX2e for Windows Another Manual Vol.1   p.226
 \newcommand{\tabtopsp}[1]{\vbox{\vbox to #1{}\vbox to1zw{}}}
 
 \endinput
@@ -275,4 +275,4 @@
 
 ver 0.01 nidan, Nidan
 ver 0.02 \tabtopsep
-ver 0.04 emathEy.sty emathMw.sty $BFHN)BP:v(B
+ver 0.04 emathEy.sty emathMw.sty 独立対策

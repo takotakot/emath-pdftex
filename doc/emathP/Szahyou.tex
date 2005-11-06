@@ -1,29 +1,29 @@
-\section{$B:BI8J?LL(B}
-\subsection{$B?tD>@~(B}
-$BL\@9IU$-$N?tD>@~$rIA2h$9$k%3%^%s%I$,(B \cmd{suutyokusen} $B$G$9!%(B
+\section{座標平面}
+\subsection{数直線}
+目盛付きの数直線を描画するコマンドが \cmd{suutyokusen} です．
 \cindex{suutyokusen}
 
-\showexample[$B?tD>@~(B](0.5)(0.45){example/sutyoku1}
+\showexample[数直線](0.5)(0.45){example/sutyoku1}
 
 \begin{boxnote}
 \begin{verbatim}
    \suutyokusen[#1](#2)#3#4
-       #1 : [+] $B$H$7$?$H$-$O@5$NL\@9$K$O(B + $B$r$D$1$k!%(B
-       #2 : $BL\@9$N9o$_CM!J%G%U%)%k%H$O(B 1$B!K(B
-       #3 : x $B$N2<8B(B
-       #4 : x $B$N>e8B(B
-   $BIA2h0LCV$O(B \put $BJ8$G?tD>@~$N86E@0LCV$r;XDj$9$k!%(B
+       #1 : [+] としたときは正の目盛には + をつける．
+       #2 : 目盛の刻み値（デフォルトは 1）
+       #3 : x の下限
+       #4 : x の上限
+   描画位置は \put 文で数直線の原点位置を指定する．
 \end{verbatim}
 \end{boxnote}
 
-\subsection{$BO"N)ITEy<0$N2r$r?^I=<((B}
-$BO"N)J}Dx<0$N2r$r?tD>@~>e$K?^I=<($9$kOC$G$9!#(B
+\subsection{連立不等式の解を図表示}
+連立方程式の解を数直線上に図表示する話です。
 
 {\unitlength10mm\drawaxisfalse
-\begin{showEx}(.8,.8){$BNc(B1}
-  $BO"N)ITEy<0(B
+\begin{showEx}(.8,.8){例1}
+  連立不等式
     \renritu{&x+1<0 \\ &x^2<4}
-  $B$N2r$O(B
+  の解は
 
 \begin{zahyou}(-5,5)(-.5,1.5)%
 \ArrowLine{(\xmin,0)}{(\xmax,0)}%
@@ -36,10 +36,10 @@
 \end{zahyou}
 \end{showEx}
 
-\begin{showEx}(.8,.8){$BNc(B2}
-  $BO"N)ITEy<0(B
+\begin{showEx}(.8,.8){例2}
+  連立不等式
     \renritu{&x^2>x \label{E2-1}\\ &x^2\leqq 4\label{E2-2}}
-$B$N2r$O(B
+の解は
 
 \begin{zahyou}(-5,5)(-.5,1.5)%
 \ArrowLine{(\xmin,0)}{(\xmax,0)}%
@@ -53,115 +53,115 @@
 \end{showEx}
 }
 
-\cmd{KTkukan}$B$N=q<0$G$9!#(B
+\cmd{KTkukan}の書式です。
 
 \begin{boxnote}
 \begin{verbatim}
 \KTkukan[#1]#2#3
-    #1 : $B3F6h4V$N%i%Y%k;XDj%*%W%7%g%s(B
-    #2 : $B3F6h4V$r(B`;'$B6h@Z$j$GJB$Y$k(B
-    #3 : $B7k2L$N6h4V(B
+    #1 : 各区間のラベル指定オプション
+    #2 : 各区間を`;'区切りで並べる
+    #3 : 結果の区間
 
-    $B6h4V$O(B
-        $B3+6h4V(B   : (-3,5)
-        $BJD6h4V(B   : [-3,5]
-        $BH>3+6h4V(B : (-3,5], [-3,5)
-        $BL58B6h4V(B : (,-3), (5,)
-      $B$J$I$HI=$9!#(B
-      2$B$D$N6h4V$NOB=89g$O(B (,-3)|(5,) $B$J$I$N$h$&$K!$(B`|'$B$rMQ$$$k(B
+    区間は
+        開区間   : (-3,5)
+        閉区間   : [-3,5]
+        半開区間 : (-3,5], [-3,5)
+        無限区間 : (,-3), (5,)
+      などと表す。
+      2つの区間の和集合は (,-3)|(5,) などのように，`|'を用いる
 
-    $B%i%Y%k;XDj%*%W%7%g%s$O!$(B
-        $B%G%U%)%k%H$O(B [auto] $B$G!$(B\maru1, \maru2, .....$B$,IUM?$5$l$k!#(B
-        $B3FITEy<0$K(B \label $B$,$D$$$F$$$k$H$-$O!$%i%Y%kL>$r(B`;'$B6h@Z$j$GJB$Y$k!#(B
-        [] $B$H;XDj$9$l$P!$6h4V$K%i%Y%k$O$D$+$J$$!#(B
-        $B2<$N(B \kukantakasa $B$rMQ$$$F!$<+M3$KG[CV$7$F$b$h$$!#(B
+    ラベル指定オプションは，
+        デフォルトは [auto] で，\maru1, \maru2, .....が付与される。
+        各不等式に \label がついているときは，ラベル名を`;'区切りで並べる。
+        [] と指定すれば，区間にラベルはつかない。
+        下の \kukantakasa を用いて，自由に配置してもよい。
 
-    $B6h4V$rI=$92#7S@~$N(B y$B:BI8$O(B \kukantakasa $B$G!$$=$N%G%U%)%k%HCM$O(B 0.5
-        $BAX$r=E$M$k$H$-$O!$$=$N(B 2, 3, ... $BG\$H$J$k!#(B
+    区間を表す横罫線の y座標は \kukantakasa で，そのデフォルト値は 0.5
+        層を重ねるときは，その 2, 3, ... 倍となる。
 \end{verbatim}
 \end{boxnote}
 
-\subsection{\textsf{zahyou} $B4D6-(B}
-$B:BI8<4$rIA$-$^$9!%(B
+\subsection{\textsf{zahyou} 環境}
+座標軸を描きます．
 
-$B4pK\E*$J;HMQK!$O(B
+基本的な使用法は
 
 \begin{jquote}
 \begin{verbatim}
-\begin{zahyou}(x$B$N2<8B(B, x$B$N>e8B(B)(y$B$N2<8B(B, y$B$N>e8B(B)
+\begin{zahyou}(xの下限, xの上限)(yの下限, yの上限)
 \end{verbatim}
 \end{jquote}
 
-$BNc$($P!$(B
+例えば，
 
-\showexample[$B:BI8J?LL(B](0.5)(0.45){example/zahyo01}
+\showexample[座標平面](0.5)(0.45){example/zahyo01}
 
-\textsf{zahyou}$B4D6-$O!$<B<A(B \textsf{picture} $B4D6-$G$9!%(B
-$B$3$3$X!$(B1$B<!4X?t!$(B2$B<!4X?t$N%0%i%U$rIA$3$&$H$$$&:2C@$G$9!%(B
+\textsf{zahyou}環境は，実質 \textsf{picture} 環境です．
+ここへ，1次関数，2次関数のグラフを描こうという魂胆です．
 
-$B$J$*!$:BI8<4$rIA2h$7$?$/$J$$$H$-$O!$(B\verb/*/$BIU$N(B
-\textsf{zahyou*}$B4D6-$r;HMQ$7$^$9!#(B
-$B2<$NNc$O!$(B\cmd{drawXaxis}$B$G(B$x$$B<4$@$1$rIA2h$7$F$$$^$9!#(B
+なお，座標軸を描画したくないときは，\verb/*/付の
+\textsf{zahyou*}環境を使用します。
+下の例は，\cmd{drawXaxis}で$x$軸だけを描画しています。
 \cindex{drawaxisfalse}\cindex{drawXaxis}
 
 \showexample[\cmd{drawaxisfalse}](0.5)(0.45){example/zahyo08}
 
-$y$$B<4$N$_$rIA2h$9$k(B\cmd{drawYaxis}$B$bDj5A$5$l$F$$$^$9!#(B
+$y$軸のみを描画する\cmd{drawYaxis}も定義されています。
 \cindex{drawYaxis}
 
-\subsection{$B:BI8<4IA2h$N%?%$%_%s%0(B}
-$B:BI8<4$rIA2h$9$k%?%$%_%s%0$O!$(Bzahyou$B4D6-$N:G8e$G$9$,!$(B
-$B:BI8<4$rIA2h$7$?8e$K!$:BI8<4>e$NE@$K(B\cmd{Siromaru}$B$GGr4]$r$D$1$?$$$H$-$J$I$O(B
-$B$&$^$/$"$j$^$;$s!#2<$N?^$N$h$&$K!$Gr4]$NCf$r:BI8<4$,FM$-H4$1$F$7$^$$$^$9!#(B
+\subsection{座標軸描画のタイミング}
+座標軸を描画するタイミングは，zahyou環境の最後ですが，
+座標軸を描画した後に，座標軸上の点に\cmd{Siromaru}で白丸をつけたいときなどは
+うまくありません。下の図のように，白丸の中を座標軸が突き抜けてしまいます。
 
-\showexample[$B:BI8<4IA2h$N%?%$%_%s%0(B](.6)(.34){example/zahyo15}
+\showexample[座標軸描画のタイミング](.6)(.34){example/zahyo15}
 
-$B$=$N$h$&$J$H$-$O(B\verb+zahyou*+$B4D6-$rMQ$$$F!$(B
-$BE,@Z$J%?%$%_%s%0$G(B\cmd{drawXYaxis}$B$rH/9T$7$F!$:BI8<4$rJLESIA2h$7$^$9!#(B
+そのようなときは\verb+zahyou*+環境を用いて，
+適切なタイミングで\cmd{drawXYaxis}を発行して，座標軸を別途描画します。
 \cindex{drawXYaxis}
 
 \showexample[\cmd{drawXYaxis}](.6)(.34){example/zahyo16}
 
-\subsection{\textsf{zahyou}$B4D6-$N%*%W%7%g%s(B}
-\textsf{zahyou}$B4D6-$K$D$$$F$O!$0lHV=i$a$K>R2p$7$^$7$?$,!$(B
-$B:Y$+$$E@$r=$@5$9$k%*%W%7%g%s$K$D$$$F@bL@$7$^$9!#(B
+\subsection{\textsf{zahyou}環境のオプション}
+\textsf{zahyou}環境については，一番初めに紹介しましたが，
+細かい点を修正するオプションについて説明します。
 
-\textsf{zahyou}$B4D6-$N:Y$+$$;XDj$r$9$k$N$K!$(B
-$B%*%W%7%g%s0z?t$rMQ0U$7$F$$$^$9!#$3$l$i$O(B
+\textsf{zahyou}環境の細かい指定をするのに，
+オプション引数を用意しています。これらは
 \begin{jquote}
 \begin{verbatim}
 key = val
 \end{verbatim}
 \end{jquote}
-$B$N7A<0$G!$%3%s%^$G6h@Z$k$3$H$GJ#?t$N%*%W%7%g%s$r;XDj$G$-$^$9!#(B
-\subsubsection{\texorpdfstring{\cmd{unitlength}}{unitlength}$B$N;XDj(B}
-\textsf{picture}$B4D6-$NC10LD9(B(\cmd{unitlength})$B$O!$%G%U%)%k%H$G$O(B
-\verb/1pt/$B$H$J$C$F$$$^$9!#$3$l$rJQ99$9$k%*%W%7%g%s$,(B
+の形式で，コンマで区切ることで複数のオプションを指定できます。
+\subsubsection{\texorpdfstring{\cmd{unitlength}}{unitlength}の指定}
+\textsf{picture}環境の単位長(\cmd{unitlength})は，デフォルトでは
+\verb/1pt/となっています。これを変更するオプションが
 \begin{jquote}
 \begin{verbatim}
 ul=...
 \end{verbatim}
 \end{jquote}
-$B$G!$1&JUCM$OC10L$rH<$C$?D9$5$G$9!#(B
+で，右辺値は単位を伴った長さです。
 
-\begin{showEx}(.5,.44){\texttt{ul=...}$B%*%W%7%g%s(B}
+\begin{showEx}(.5,.44){\texttt{ul=...}オプション}
 \begin{zahyou}[ul=8mm]%
   (-3,3)(-2,2)%
   \xmemori{1}%
 \end{zahyou}%
 \end{showEx}
 
-\begin{enumerate}[$BCm(B 1.~]
-  \item \TeX $B$,07$($k<B?tCM$O(B
+\begin{enumerate}[注 1.~]
+  \item \TeX が扱える実数値は
 \begin{jquote}
 \begin{verbatim}
 \maxdimen=16383.99999pt % the largest legal <dimen>
 \end{verbatim}
 \end{jquote}
-$B$,>e8B$H$5$l$F$$$^$9!#(B\textsf{emathPh}$B$K$*$1$k7W;;$b$3$N@)8B$r<u$1$^$9!#(B
-$B5wN%7W;;$G$OJ?J}7W;;$,I,MW$G$9$,!$(B$128^2$$B$G%*!<%P!<%U%m!<$7$F$7$^$$$^$9!#(B
-$B=>$C$F:BI8$NCM$rBg$-$/$7$J$$$h$&$K!$(B\cmd{unitlength}$B$r(B\verb/1cm/$BA08e$K(B
-$B$7$F$*$/J}$,NI$$$G$7$g$&!#(B
+が上限とされています。\textsf{emathPh}における計算もこの制限を受けます。
+距離計算では平方計算が必要ですが，$128^2$でオーバーフローしてしまいます。
+従って座標の値を大きくしないように，\cmd{unitlength}を\verb/1cm/前後に
+しておく方が良いでしょう。
   \item
 \begin{jquote}
 \begin{verbatim}
@@ -171,7 +171,7 @@ ul=...
 \end{zahyou}
 \end{verbatim}
 \end{jquote}
-$B$H(B
+と
 \begin{jquote}
 \begin{verbatim}
 \begin{zahyou}[ul=8mm]....
@@ -179,25 +179,25 @@ ul=...
 \end{zahyou}
 \end{verbatim}
 \end{jquote}
-$B$H$NBg$-$J0c$$$O!$(B\cmd{unitlength}$BJQ99$NM-8zHO0O$G$9!#(B
+との大きな違いは，\cmd{unitlength}変更の有効範囲です。
 
-$BA0<T$O(B\textsf{zahyou}$B4D6-$,=*$o$C$?8e$G$b$3$NJQ99$,M-8z!J;D$C$F$7$^$&!K(B
-$B$N$KBP$7$F!$8e<T$O$3$NJQ99$,Ev3:(B\textsf{zahyou}$B4D6-Fb$N$_$KM-8z$G$"$k!$(B
-$B$9$J$o$A$3$N(B\textsf{zahyou}$B4D6-$,=*$o$l$P!$(B\cmd{unitlength}$B$O0JA0$NCM$K(B
-$BLa$k$3$H$G$9!#(B
+前者は\textsf{zahyou}環境が終わった後でもこの変更が有効（残ってしまう）
+のに対して，後者はこの変更が当該\textsf{zahyou}環境内のみに有効である，
+すなわちこの\textsf{zahyou}環境が終われば，\cmd{unitlength}は以前の値に
+戻ることです。
 
-\textsf{zahyou}$B$N(B\verb+[...]+$B%*%W%7%g%s$K$h$kJQ99$O$9$Y$FEv3:(B
-\textsf{zahyou}$B4D6-Fb$K8BDj$5$l$^$9!#(B
+\textsf{zahyou}の\verb+[...]+オプションによる変更はすべて当該
+\textsf{zahyou}環境内に限定されます。
 \end{enumerate}
 
-\subsubsection{$B:BI8<4$NL>>NJQ99(B}
-$B%G%U%)%k%H$G$O!$(B
+\subsubsection{座標軸の名称変更}
+デフォルトでは，
 \begin{jquote}
-$B86E@$K$O(B O\\
-$B2#<4$K$O(B $x$\\
-$B=D<4$K$O(B $y$
+原点には O\\
+横軸には $x$\\
+縦軸には $y$
 \end{jquote}
-$B$,I=<($5$l$^$9$,!$$3$l$rJQ99$9$k%*%W%7%g%s$,(B
+が表示されますが，これを変更するオプションが
 \begin{jquote}
 \begin{verbatim}
 \gentenkigou=
@@ -205,10 +205,10 @@ ul=...
 \tatezikukigou=
 \end{verbatim}
 \end{jquote}
-$B$G!$1&JUCM$OJ8;zNs$G$9!#(B
+で，右辺値は文字列です。
 
-$B86E@5-9f$rJQ99$7$^$9!#(B
-\begin{showEx}(.5,.44){$B86E@5-9f$NJQ99(B}
+原点記号を変更します。
+\begin{showEx}(.5,.44){原点記号の変更}
 \begin{zahyou}%
   [%
     ul=8mm,
@@ -219,8 +219,8 @@ ul=...
 \end{zahyou}%
 \end{showEx}
 
-$B:BI8<4L>>N$NJQ99Nc$G$9!#(B
-\begin{showEx}(.5,.44){$B:BI8<4L>$NJQ99(B}
+座標軸名称の変更例です。
+\begin{showEx}(.5,.44){座標軸名の変更}
 \begin{zahyou}%
   [%
     ul=8mm,
@@ -232,14 +232,14 @@ ul=...
 \end{zahyou}%
 \end{showEx}
 
-\subsubsection{$B<45-9f$NG[CV%*%W%7%g%s(B}
-$B%G%U%)%k%H$G$O!$(B
+\subsubsection{軸記号の配置オプション}
+デフォルトでは，
 \begin{jquote}
-$B86E@5-9f$O(B $B:82<(B\\
-$B2#<4L>$O(B   $B2<(B\\
-$B=D<4L>$O(B   $B:8(B
+原点記号は 左下\\
+横軸名は   下\\
+縦軸名は   左
 \end{jquote}
-$B$KI=<($5$l$^$9$,!$$3$l$rJQ99$9$k%*%W%7%g%s$,(B
+に表示されますが，これを変更するオプションが
 \begin{jquote}
 \begin{verbatim}
 \gentenhaiti=
@@ -247,11 +247,11 @@ ul=...
 \tatezikuhaiti=
 \end{verbatim}
 \end{jquote}
-$B$G!$1&JUCM$O(B\cmd{Put}$B$N%*%W%7%g%s$HF17A<0$G$9!#(B
-$B86E@5-9f$O%G%U%)%k%H$G$O:82<$KG[CV$5$l$^$9$,!$(B
-$B$3$l$r1&2<$KJQ99$7$F$_$^$7$g$&!#(B
+で，右辺値は\cmd{Put}のオプションと同形式です。
+原点記号はデフォルトでは左下に配置されますが，
+これを右下に変更してみましょう。
 
-\begin{showEx}(.5,.44){$B86E@5-9f$NG[CVJQ99(B}
+\begin{showEx}(.5,.44){原点記号の配置変更}
 \begin{zahyou}%
   [%
     ul=8mm,
@@ -262,14 +262,14 @@ ul=...
 \end{zahyou}%
 \end{showEx}
 
-\cmd{Put}$B$NG[CV%*%W%7%g%s(B \verb+[se]+$B$r(B\texttt{gentenhaiti=}$B$N(B
-$B1&JUCM$K;XDj$7$^$9$,!$(B\verb+]+$B$,(B\textsf{zahyou}$B4D6-$KBP$9$k(B\verb+[...]+
-$B%*%W%7%g%s$N=*N;$H2r<a$5$l$k$N$rKI$0$?$a(B\verb+{[se]}+$B$H!$(B\verb+{ }+ $B$G(B
-$B3g$C$F$*$/I,MW$,$"$j$^$9!#(B
+\cmd{Put}の配置オプション \verb+[se]+を\texttt{gentenhaiti=}の
+右辺値に指定しますが，\verb+]+が\textsf{zahyou}環境に対する\verb+[...]+
+オプションの終了と解釈されるのを防ぐため\verb+{[se]}+と，\verb+{ }+ で
+括っておく必要があります。
 
-$B<!$K:BI8<4L>$NG[CV$rJQ99$9$kNc$G$9!#(B
+次に座標軸名の配置を変更する例です。
 
-\begin{showEx}(.5,.44){$B:BI8<4L>$NG[CVJQ99(B}
+\begin{showEx}(.5,.44){座標軸名の配置変更}
 \begin{zahyou}%
   [%
     ul=8mm,
@@ -281,9 +281,9 @@ ul=...
 \end{zahyou}%
 \end{showEx}
 
-$B$3$N>l9g!$:BI8<4L>(B$x$, $y$$B$O(B\textsf{zahyou}$B4D6-$N30$KHt$S=P$7$F$$$^$9!#(B
-$B$3$l$rKI$0$?$a$K!$<~0O$K>/$7M>Gr$rIU$1$F$*$-$?$$!$(B
-$B$H$$$&$N$,8e=R$N(B
+この場合，座標軸名$x$, $y$は\textsf{zahyou}環境の外に飛び出しています。
+これを防ぐために，周囲に少し余白を付けておきたい，
+というのが後述の
 \begin{jquote}
 \begin{verbatim}
 migiyohaku=
@@ -292,19 +292,19 @@ ueyohaku=
 sitayohaku=
 \end{verbatim}
 \end{jquote}
-$B%*%W%7%g%s$G$9!#(B
+オプションです。
 
-\subsubsection{$BLp0u$N%5%$%:JQ99(B}
-$B:BI8<4$NLp0u$r4^$a!$(B\textsf{zahyou}$B4D6-Fb$NLp0u$N%5%$%:$rJQ99$9$k(B
-$B%*%W%7%g%s$,(B
+\subsubsection{矢印のサイズ変更}
+座標軸の矢印を含め，\textsf{zahyou}環境内の矢印のサイズを変更する
+オプションが
 \begin{jquote}
 \begin{verbatim}
 arrowheadsize=
 \end{verbatim}
 \end{jquote}
-$B$G$9!#(B
+です。
 
-\begin{showEx}(.5,.44){$BLp0u$N%5%$%:JQ99(B}
+\begin{showEx}(.5,.44){矢印のサイズ変更}
 \begin{zahyou}%
   [%
     ul=8mm,
@@ -315,17 +315,17 @@ arrowheadsize=
 \end{zahyou}%
 \end{showEx}
 
-$BLp0u$,Bg$-$/$J$j$9$.$^$7$?$+!#(B
-\verb+arrowheadsize+$B$N1&JUCM$rE,Ev$KJQ99$7$F$/$@$5$$!#(B
-$B$3$N?tCM$O!$8=:_$N%5%$%:$N2?G\$K$9$k$+$r;XDj$9$k$b$N$G$9!#(B
+矢印が大きくなりすぎましたか。
+\verb+arrowheadsize+の右辺値を適当に変更してください。
+この数値は，現在のサイズの何倍にするかを指定するものです。
 
-$B5U$KLp0u$,$$$i$J$$>l9g$O!$$D$.$N(B\verb/zikusensyu/$B%*%W%7%g%s$rMQ$$$^$9!#(B
+逆に矢印がいらない場合は，つぎの\verb/zikusensyu/オプションを用います。
 
-\subsubsection{$B<4$N@~<oJQ99(B}
-$B:BI8<4$K$O!$%G%U%)%k%H$GLp0u$,IU2C$5$l$F$$$^$9$,!$(B
-$B<4$N@~<o$rJQ99$9$k$3$H$GLp0u$rIU$1$J$$$h$&$K$9$k$3$H$,$G$-$^$9!#(B
+\subsubsection{軸の線種変更}
+座標軸には，デフォルトで矢印が付加されていますが，
+軸の線種を変更することで矢印を付けないようにすることができます。
 
-\begin{showEx}(.5,.44){$B<4$NLp0u$J$7(B}
+\begin{showEx}(.5,.44){軸の矢印なし}
 \begin{zahyou}%
   [%
     ul=8mm,
@@ -336,9 +336,9 @@ arrowheadsize=
 \end{zahyou}%
 \end{showEx}
 
-$B<4$rB@$/$7$F$_$^$7$g$&$+!#(B
+軸を太くしてみましょうか。
 
-\begin{showEx}(.5,.44){$B<4$rB@L\$K(B}
+\begin{showEx}(.5,.44){軸を太目に}
 \begin{zahyou}%
   [%
     ul=8mm,
@@ -348,10 +348,10 @@ arrowheadsize=
 \end{zahyou}%
 \end{showEx}
 
-$B<4$rB@$/$7!$Lp0u$bIU$1$k$K$O!$@~<o$r%G%U%)%k%H$N(B
-\cmd{arrowdrawline}$B$K$7$F(B\cmd{thicklines}$B$J$I$r$+$V$;$^$9!#(B
+軸を太くし，矢印も付けるには，線種をデフォルトの
+\cmd{arrowdrawline}にして\cmd{thicklines}などをかぶせます。
 
-\begin{showEx}(.54,.4){$B<4$rB@L\$K!$Lp0u$b(B}
+\begin{showEx}(.54,.4){軸を太目に，矢印も}
 \begin{zahyou}[%
   ul=8mm,
   zikusensyu=\thicklines\arrowdrawline,
@@ -361,9 +361,9 @@ arrowheadsize=
 \end{zahyou}%
 \end{showEx}
 
-\subsubsection{$BIA2hNN0h$N<~JU$KM>Gr(B}
-$BIA2hNN0h$N<~JU$KJ8;z$rG[CV$9$k$?$a$J$I$KM>Gr$r$H$C$F$*$-$?$$$3$H$,$"$j$^$9!#(B
-$B$=$N$?$a$N%*%W%7%g%s$,(B
+\subsubsection{描画領域の周辺に余白}
+描画領域の周辺に文字を配置するためなどに余白をとっておきたいことがあります。
+そのためのオプションが
 \begin{jquote}
 \begin{verbatim}
 migiyohaku
@@ -372,12 +372,12 @@ ueyohaku
 sitayohaku
 \end{verbatim}
 \end{jquote}
-$B$G$9!#(B
+です。
 
-$B$^$:4p=`$N3NG'$G$9!#(B\TeX $B$,G'<1$7$F$$$k(B\textsf{zahyou}$B4D6-$r(B\cmd{fbox}$B$G(B
-$BOH$r$D$1$F$_$^$9!#(B
+まず基準の確認です。\TeX が認識している\textsf{zahyou}環境を\cmd{fbox}で
+枠をつけてみます。
 
-\begin{showEx}(.5,.44){$B4p=`%5%$%:(B}
+\begin{showEx}(.5,.44){基準サイズ}
 \fboxsep=0pt\fbox{%
 \begin{zahyou}%
   [%
@@ -391,11 +391,11 @@ sitayohaku
   \yGurafu\Fx{}{}
 \end{zahyou}}%
 \end{showEx}
-$B:BI8<4$N%i%Y%k$,OH30$K$O$_$@$7$F$$$^$9!#(B
+座標軸のラベルが枠外にはみだしています。
 
-$B>e$H1&$KM>Gr$rIU$1$F8+$^$9!#(B
+上と右に余白を付けて見ます。
 
-\begin{showEx}(.5,.44){$B>e$H1&$KM>Gr(B}
+\begin{showEx}(.5,.44){上と右に余白}
 \fboxsep=0pt\fbox{%
 \begin{zahyou}%
   [%
@@ -413,11 +413,11 @@ sitayohaku
 \end{zahyou}}%
 \end{showEx}
 
-$BOHFb$KG<$^$j$^$7$?$M!#(B
+枠内に納まりましたね。
 
-\verb+ueyohaku+$B$J$I$N1&JUCM$O!$L5L>?t$G!$C10L$O(B \cmd{unitlength} $B$G$9!#(B
+\verb+ueyohaku+などの右辺値は，無名数で，単位は \cmd{unitlength} です。
 
-$B$3$l$KBP$7$F(B
+これに対して
 \begin{jquote}
 \begin{verbatim}
 Migiyohaku=
@@ -427,7 +427,7 @@ Sitayohaku=
 Yohaku=
 \end{verbatim}
 \end{jquote}
-$B$O!$1&JUCM$KC10L$rH<$&D9$5$rM?$($^$9!#(B
+は，右辺値に単位を伴う長さを与えます。
 
 \begin{showEx}(.5,.44){\cmd{Ueyohaku}}
 \fboxsep=0pt\fbox{%
@@ -447,31 +447,31 @@ Yohaku=
 \end{zahyou}}%
 \end{showEx}
 
-\subsubsection{$B=D2#Hf$NJQ99(B}
-\textsf{zahyou}$B4D6-$G$O!$=D$H2#$NC10LD9$OF10l$K$J$C$F$$$^$9!#(B
-$B$3$l$rJL!9$K@_Dj$9$k$?$a$N%*%W%7%g%s(B
+\subsubsection{縦横比の変更}
+\textsf{zahyou}環境では，縦と横の単位長は同一になっています。
+これを別々に設定するためのオプション
 \begin{jquote}
 \begin{verbatim}
 yscale, xscale
 \end{verbatim}
 \end{jquote}
-$B$,$"$j$^$9!#(B\cindex{xscale}\cindex{yscale}
+があります。\cindex{xscale}\cindex{yscale}
 
-$B$?$@$7!$$3$N5!G=$O(B\textsf{emathPxy.sty}$B$GDj5A$5$l$F$$$^$9$+$i!$(B
+ただし，この機能は\textsf{emathPxy.sty}で定義されていますから，
 \begin{jquote}
 \begin{verbatim}
 \usepackage{emathPxy}
 \end{verbatim}
 \end{jquote}
-$B$H$7$F$*$/I,MW$,$"$j$^$9!#(B
+としておく必要があります。
 
 
 
 
-$B<!$N%j%9%H$O(B\verb/yscale=.25/$B$H$7$F!$(B$y$$B<4J}8~$r(B1/4$B$K=L$a!$(B
-$y=x^2$ ($-4<x<4$)$B$N%0%i%U$rIA2h$7$F$$$^$9!#(B
+次のリストは\verb/yscale=.25/として，$y$軸方向を1/4に縮め，
+$y=x^2$ ($-4<x<4$)のグラフを描画しています。
 
-\begin{showEx}{\texttt{<yscale=...>}$B%*%W%7%g%s(B}
+\begin{showEx}{\texttt{<yscale=...>}オプション}
 \begin{zahyou}%
   [ul=6mm,yscale=.25]%
   (-4,4)(-4,16)
@@ -481,26 +481,26 @@ $y=x^2$ ($-4<x<4$)$B$N%0%i%U$rIA2h$7$F$$$^$9!#(B
 \end{zahyou}
 \end{showEx}
 
-$B%0%i%UIA2h%3%^%s%I(B \cmd{yGurafu} $B$K$D$$$F$O8e=R$7$^$9!#(B
+グラフ描画コマンド \cmd{yGurafu} については後述します。
 \bigskip
 
-$B<!$O2#D9$N3J;R$rIA$/Nc$G$9!#(B
+次は横長の格子を描く例です。
 \begin{jquote}
 \begin{verbatim}
 ul=3mm,xscale=3,yscale=2
 \end{verbatim}
 \end{jquote}
-$B$H$$$&%*%W%7%g%s$G(B
+というオプションで
 \begin{jquote}
 \begin{verbatim}
-ul=3mm $B$G(B \unitlength $B$O(B 3mm
-x$B<4J}8~$NC10LD9$O(B ul$B!_(Bxscale 9mm $B$G(B \xunitlength $B$,(B 9mm
-y$B<4J}8~$NC10LD9$O(B ul$B!_(Byscale 6mm $B$G(B \yunitlength $B$,(B 6mm
+ul=3mm で \unitlength は 3mm
+x軸方向の単位長は ul×xscale 9mm で \xunitlength が 9mm
+y軸方向の単位長は ul×yscale 6mm で \yunitlength が 6mm
 \end{verbatim}
 \end{jquote}
-$B$K@_Dj$5$l$^$9!#(B
+に設定されます。
 
-\begin{showEx}{$B2#D9$N3J;R(B}
+\begin{showEx}{横長の格子}
 \begin{zahyou*}[%
     ul=3mm,xscale=3,%
     yscale=2](0,4)(0,5)%
@@ -509,7 +509,7 @@ y$B<4J}8~$NC10LD9$O(B ul$B!_(Byscale 6mm $B$G(B \yunitlength $B$,(B 6mm
 \end{zahyou*}%
 \end{showEx}
 
-\subsection{\textsf{zahyou}$B4D6-$N=DJ}8~G[CV(B}
+\subsection{\textsf{zahyou}環境の縦方向配置}
 \bgroup
 \def\kizyunsen{{\color{red}\relax
         \unitlength=1pt\relax
@@ -517,20 +517,20 @@ y$B<4J}8~$NC10LD9$O(B ul$B!_(Byscale 6mm $B$G(B \yunitlength $B$,(B 6mm
           \Drawline{(0,0)(260,0)}%
         \end{picture}}}%
 \fboxsep=0pt\relax
-$B$^$:$O!$(B
+まずは，
 \begin{jquote}
-\textsf{picture(zahyou)}$B4D6-$G:n@.$7$??^!$(B\\
-\textsf{tabular(array)}$B4D6-$G:n@.$7$?I=(B
+\textsf{picture(zahyou)}環境で作成した図，\\
+\textsf{tabular(array)}環境で作成した表
 \end{jquote}
-$B$r2#$KJB$Y$?$H$-$N=D0LCV$K4X$9$kOC$+$i;O$a$^$9!#(B
+を横に並べたときの縦位置に関する話から始めます。
 %\clearpage
 
-\subsubsection{$B%G%U%)%k%H$N3NG'(B}
-$B$^$:$O%G%U%)%k%H$N>uBV$N3NG'$G$9!#(B
+\subsubsection{デフォルトの確認}
+まずはデフォルトの状態の確認です。
 
-\begin{showEx}(1,.8){$B%G%U%)%k%H(B}
+\begin{showEx}(1,.8){デフォルト}
 \kizyunsen
-$B$"$$$&(B%
+あいう%
 \fbox{\begin{zahyou}[ul=10mm](-2,2)(-1,5)
   \En\O{1}
 \end{zahyou}}%
@@ -539,30 +539,30 @@ xyz%
   1 & 1 \\\hline
   1 & 1 \\\hline
 \end{tabular}%
-$B$+4A;z(B%
+か漢字%
 \end{showEx}
 
-$B@V$N2#@~$,4p=`@~!J%Y!<%9%i%$%s!K$G$9!#(B\TeX $B$O!$$3$N@~$rJ8;zDL$j4p=`$H$7$F(B
-$BJ8;z!$I=!$?^$J$I%\%C%/%9$rG[CV$7$F9T$-$^$9!#$^$:$O!$J8;z$K$4CmL\$/$@$5$$!#(B
-`y'$B$O4p=`@~$+$i2<$K$O$_=P$97A$GG[CV$5$l$F$$$^$9!#(B
-$B$9$J$o$A!V?<$5!W$r$b$C$F$$$^$9!#A43QJ8;z$bNI$/8+$k$H0lIt4p=`@~$+$i2<$K(B
-$B$O$_=P$7$F$$$^$9!#(B
+赤の横線が基準線（ベースライン）です。\TeX は，この線を文字通り基準として
+文字，表，図などボックスを配置して行きます。まずは，文字にご注目ください。
+`y'は基準線から下にはみ出す形で配置されています。
+すなわち「深さ」をもっています。全角文字も良く見ると一部基準線から下に
+はみ出しています。
 
-$B$5$F!$?^$G$9$,!$(B\textsf{picture}$B4D6-$N2<JU$r4p=`@~$K=E$M$k!$(B
-$B$H$$$&$N$,(B\LaTeX $B$N;EMM$G$9!#(B
+さて，図ですが，\textsf{picture}環境の下辺を基準線に重ねる，
+というのが\LaTeX の仕様です。
 
-$BI=$N$[$&$O!$%G%U%)%k%H$G$O!$=DJ}8~Cf1{B7$($H$J$j$^$9!#(B
-$B%G%U%)%k%H$G$O!$$H$$$C$?$N$O!$%*%W%7%g%s$GJQ992DG=$H$$$&$3$H$G!$(B
-$B<!@a$G$=$l$r8+$F$$$-$^$9!#(B
+表のほうは，デフォルトでは，縦方向中央揃えとなります。
+デフォルトでは，といったのは，オプションで変更可能ということで，
+次節でそれを見ていきます。
 %\clearpage
 
-\subsubsection{$B2<B7$((B}
-$BI=$N2<JU$r4p=`@~$K=E$M$k$N$,!$(B\textsf{tabular, array}$B$N(B
-\verb+[b]+$B%*%W%7%g%s$G$9!#(B
+\subsubsection{下揃え}
+表の下辺を基準線に重ねるのが，\textsf{tabular, array}の
+\verb+[b]+オプションです。
 
-\begin{showpEx}(1,.8){$B2<B7$((B}
+\begin{showpEx}(1,.8){下揃え}
 !\kizyunsen
-!$B$"$$$&(B%
+!あいう%
 !\fbox{\begin{zahyou}[ul=10mm](-2,2)(-1,5)
 !  \En\O{1}
 !\end{zahyou}}%
@@ -571,19 +571,19 @@ xyz%
 !  1 & 1 \\\hline
 !  1 & 1 \\\hline
 !\end{tabular}%
-!$B$+4A;z(B%
+!か漢字%
 \end{showpEx}
 
-$B%=!<%9%j%9%H$O!$%G%U%)%k%H$N$b$N$+$iJQ99$7$?9T$@$1$r5-$7$^$9!#(B
+ソースリストは，デフォルトのものから変更した行だけを記します。
 
-\subsubsection{$B>eB7$((B}
-$B5U$K!$I=$N>eJU$r4p=`@~$K=E$M$k$N$,!$(B\textsf{tabular, array}$B$N(B
-\verb+[t]+$B%*%W%7%g%s$G$9!#(B
-\textsf{zahyou}$B4D6-$K$b(B\verb+[haiti=t]+$B%*%W%7%g%s$,$"$j$^$9!#(B
+\subsubsection{上揃え}
+逆に，表の上辺を基準線に重ねるのが，\textsf{tabular, array}の
+\verb+[t]+オプションです。
+\textsf{zahyou}環境にも\verb+[haiti=t]+オプションがあります。
 
-\begin{showpEx}(1,.8){$B>eB7$((B}
+\begin{showpEx}(1,.8){上揃え}
 !\kizyunsen
-!$B$"$$$&(B%
+!あいう%
 \fbox{\begin{zahyou}[ul=10mm,haiti=t](-2,2)(-1,5)
 !  \En\O{1}
 !\end{zahyou}}%
@@ -592,17 +592,17 @@ xyz%
 !  1 & 1 \\\hline
 !  1 & 1 \\\hline
 !\end{tabular}%
-!$B$+4A;z(B%
+!か漢字%
 \end{showpEx}
 
-\textsf{zahyou}$B4D6-$N>eJU$r$5$i$K>e$K0z$CD%$C$FJ8;z$N9b$5$HB7$($?$$!$(B
-$B$H$$$&$4MWK>$b$"$j$=$&$G$9!#(B
-$B$=$N$?$a$K(B\verb+haiti=t/c/b+$B%*%W%7%g%s$K$O!$$=$N$"$H$KJd@5NL$rM?$($k$3$H$,(B
-$B$G$-$k$h$&$K$7$F$"$j$^$9!#(B
+\textsf{zahyou}環境の上辺をさらに上に引っ張って文字の高さと揃えたい，
+というご要望もありそうです。
+そのために\verb+haiti=t/c/b+オプションには，そのあとに補正量を与えることが
+できるようにしてあります。
 
-\begin{showpEx}(1,.8){$B>eB7$((B--$B$5$i$KD4@0(B}
+\begin{showpEx}(1,.8){上揃え--さらに調整}
 !\kizyunsen
-!$B$"$$$&(B%
+!あいう%
 \fbox{\begin{zahyou}[ul=10mm,haiti=t+1zh](-2,2)(-1,5)
 !  \En\O{1}
 !\end{zahyou}}%
@@ -611,19 +611,19 @@ xyz%
 !  1 & 1 \\\hline
 !  1 & 1 \\\hline
 !\end{tabular}%
-!$B$+4A;z(B%
+!か漢字%
 \end{showpEx}
 
-$B@5$NJd@5NL$G>eJ}$K!$Ii$NJd@5NL$G2<J}$K0\F0$7$^$9!#(B
+正の補正量で上方に，負の補正量で下方に移動します。
 
-\subsubsection{$BCf1{B7$((B}
-$BI=$r=DJ}8~%;%s%?%j%s%0$9$k$N$,!$(B\textsf{tabular, array}$B$N(B
-\verb+[c]+$B%*%W%7%g%s$G$9!#(B\\
-\textsf{zahyou}$B4D6-$K$b(B\verb+[haiti=c]+$B%*%W%7%g%s$,$"$j$^$9!#(B
+\subsubsection{中央揃え}
+表を縦方向センタリングするのが，\textsf{tabular, array}の
+\verb+[c]+オプションです。\\
+\textsf{zahyou}環境にも\verb+[haiti=c]+オプションがあります。
 
-\begin{showpEx}(1,.8){$BCf1{B7$((B}
+\begin{showpEx}(1,.8){中央揃え}
 !\kizyunsen
-!$B$"$$$&(B%
+!あいう%
 \fbox{\begin{zahyou}[ul=10mm,haiti=c](-2,2)(-1,5)
 !  \En\O{1}
 !\end{zahyou}}%
@@ -632,16 +632,16 @@ xyz%
 !  1 & 1 \\\hline
 !  1 & 1 \\\hline
 !\end{tabular}%
-!$B$+4A;z(B%
+!か漢字%
 \end{showpEx}
 
-\textsf{zahyou}$B4D6-$K$O!$(B\verb+[haiti=x]+$B%*%W%7%g%s$b$"$j$^$9!#(B
-$B$3$l$O(B$x$$B<4$r4p=`@~$K=E$M$^$9!#(B
+\textsf{zahyou}環境には，\verb+[haiti=x]+オプションもあります。
+これは$x$軸を基準線に重ねます。
 
 
-\begin{showpEx}(1,.8){$B2#<4B7$((B}
+\begin{showpEx}(1,.8){横軸揃え}
 !\kizyunsen
-!$B$"$$$&(B%
+!あいう%
 \fbox{\begin{zahyou}[ul=10mm,haiti=x](-2,2)(-1,5)
 !  \En\O{1}
 !\end{zahyou}}%
@@ -650,83 +650,83 @@ xyz%
 !  1 & 1 \\\hline
 !  1 & 1 \\\hline
 !\end{tabular}%
-!$B$+4A;z(B%
+!か漢字%
 \end{showpEx}
 
-\textsf{emathPh.sty v 1.70}$B$^$G$O!$(B\verb+[haiti=c]+$B%*%W%7%g%s$G!$(B
-$x$$B<4$r4p=`@~$K=E$M$F$$$^$7$?$,!$(B\textsf{v 1.71}$B$G>e5-$N$h$&$K(B
-$B=$@5$$$?$7$^$7$?!#(B
+\textsf{emathPh.sty v 1.70}までは，\verb+[haiti=c]+オプションで，
+$x$軸を基準線に重ねていましたが，\textsf{v 1.71}で上記のように
+修正いたしました。
 \egroup
 
-\subsection{\textsf{zahyou}$B4D6-$N=q<0(B}
+\subsection{\textsf{zahyou}環境の書式}
 \begin{boxnote}
 \begin{verbatim}
     \begin{zahyou}[#1](#2,#3)(#4,#5)
-      #1 : key=val $B$N7A<0$G!$(Bkey $B$K$O<!$N$b$N$,;H$($^$9!#(B
-          yokozikukigou $B%G%U%)%k%H$O(B $x$
-          tatezikukigou $B%G%U%)%k%H$O(B $y$
-          gentenkigou   $B%G%U%)%k%H$O(B O
-          yokozikuhaiti $B%G%U%)%k%H$O(B (0,-3pt)[rt]
-          tatezikuhaiti $B%G%U%)%k%H$O(B (-3pt,0)[rt]
-          gentenhaiti   $B%G%U%)%k%H$O(B [sw]
-          ul            \unitlength $B$rJQ99$7$^$9!#%G%U%)%k%H$O(B 1pt
-          yscale        $B%G%U%)%k%H$O(B1 --> emathPxy.sty
-          xscale        $B%G%U%)%k%H$O(B1 --> emathPxy.sty
-          arrowheadsize $BLp0u$N%5%$%:!J$=$N;~E@$N$b$N$KBP$9$kHfN(!K(B
-          zikusensyu    $B:BI8<4$N@~<o(B
-                        $B%G%U%)%k%H$O(B \arrowdrawline
-          ueyohaku      $B1&JUCM$OL5L>?t!JC10L$O(B\unitlength)
+      #1 : key=val の形式で，key には次のものが使えます。
+          yokozikukigou デフォルトは $x$
+          tatezikukigou デフォルトは $y$
+          gentenkigou   デフォルトは O
+          yokozikuhaiti デフォルトは (0,-3pt)[rt]
+          tatezikuhaiti デフォルトは (-3pt,0)[rt]
+          gentenhaiti   デフォルトは [sw]
+          ul            \unitlength を変更します。デフォルトは 1pt
+          yscale        デフォルトは1 --> emathPxy.sty
+          xscale        デフォルトは1 --> emathPxy.sty
+          arrowheadsize 矢印のサイズ（その時点のものに対する比率）
+          zikusensyu    座標軸の線種
+                        デフォルトは \arrowdrawline
+          ueyohaku      右辺値は無名数（単位は\unitlength)
           sitayohaku
           migiyohaku
           hidariyohaku
-          Ueyohaku      $B1&JUCM$OC10L$rH<$&D9$5(B
+          Ueyohaku      右辺値は単位を伴う長さ
           Sitayohaku
           Migiyohaku
           Hidariyohaku
           haiti         t/c/b/x
-      (#2,#3) : x$B$NHO0O(B
-      (#4,#5) : y$B$NHO0O(B
+      (#2,#3) : xの範囲
+      (#4,#5) : yの範囲
 \end{verbatim}
 \end{boxnote}
-\index{zahyou@zahyou $B4D6-(B}
+\index{zahyou@zahyou 環境}
 
-\subsection{$BL\@9$j(B}
-\subsubsection{$B:BI8<4>e$KEy4V3V$NL\@9$j(B}
-$B:BI8<4$KEy4V3V$KL\@9$j$rBG$D%3%^%s%I$,(B \cmd{zahyouMemori} $B$G$9!%(B
+\subsection{目盛り}
+\subsubsection{座標軸上に等間隔の目盛り}
+座標軸に等間隔に目盛りを打つコマンドが \cmd{zahyouMemori} です．
 \cindex{zahyouMemori}
 
-\showexample[$B:BI8L\@9$j(B](0.95)(0.65){example/zahyo04}
+\showexample[座標目盛り](0.95)(0.65){example/zahyo04}
 
 \begin{boxnote}
 \begin{verbatim}
 \zahyouMemori[#1][#2]<#3>
-   #1 : g : $B%0%j%C%I(B
-        + : $B3J;RE@$K(B +$B%^!<%/(B
-        o : $B3J;RE@$K9u4](B
-        z : $B:BI8<4>e$N3J;RE@$K(B +$B%^!<%/(B
-   #2 : n : $B%0%j%C%I$N$_$G!$L\@9$j?tCM$rBG$?$J$$!%(B
-   #3 : $B9o$_(B
-        key=val $B$N7A<0(B ---> emathPxy.sty
-           key $B$O(B
-            dx= x$B$N9o$_CM(B
-            dy= y$B$N9o$_CM(B
-            xo= x$B$N4p=`CM(B
-            yo= y$B$N4p=`CM(B
+   #1 : g : グリッド
+        + : 格子点に +マーク
+        o : 格子点に黒丸
+        z : 座標軸上の格子点に +マーク
+   #2 : n : グリッドのみで，目盛り数値を打たない．
+   #3 : 刻み
+        key=val の形式 ---> emathPxy.sty
+           key は
+            dx= xの刻み値
+            dy= yの刻み値
+            xo= xの基準値
+            yo= yの基準値
 \end{verbatim}
 \end{boxnote}
 
-$BL\@9$j$N4V3V$O%G%U%)%k%H$G$O(B1$B$G$9$,!$$3$l$r(B2$B$KJQ99$7$F$_$^$7$g$&!#(B
+目盛りの間隔はデフォルトでは1ですが，これを2に変更してみましょう。
 
-\begin{showEx}(.5,.44){$B4V3V(B2$B$NL\@9@~(B}
+\begin{showEx}(.5,.44){間隔2の目盛線}
 \small
 \begin{zahyou}[ul=4mm](-5,5)(-5,5)
 \zahyouMemori<2>
 \end{zahyou}
 \end{showEx}
 
-$x$$B<4$H(B$y$$B<4$H$G4V3V$rJQ$($k$3$H$b$G$-$^$9!#(B
+$x$軸と$y$軸とで間隔を変えることもできます。
 
-\begin{showEx}{\texttt{<dx=..,dy=..>}$B%*%W%7%g%s(B}
+\begin{showEx}{\texttt{<dx=..,dy=..>}オプション}
 \small
 \begin{zahyou}%
   [ul=3mm](-7,7)(-5,5)
@@ -734,9 +734,9 @@ $x$$B<4$H(B$y$$B<4$H$G4V3V$rJQ$($k$3$H$b$G$-$^$9!#(B
 \end{zahyou}
 \end{showEx}
 
-\cmd{xscale}, \cmd{yscale} $B$HJ;MQ$7$F(B
+\cmd{xscale}, \cmd{yscale} と併用して
 
-\begin{showEx}{\texttt{\cmd{xscale}$B$HJ;MQ(B}$B%*%W%7%g%s(B}
+\begin{showEx}{\texttt{\cmd{xscale}と併用}オプション}
 \small
 \begin{zahyou}%
   [ul=8mm,yokozikuhaiti={[n]},%
@@ -746,10 +746,10 @@ $x$$B<4$H(B$y$$B<4$H$G4V3V$rJQ$($k$3$H$b$G$-$^$9!#(B
 \end{zahyou}
 \end{showEx}
 
-$B4p=`E@$O%G%U%)%k%H$G$O86E@$G$9$,!$(B
-$B$3$l$rJQ99$9$k$K$O!$(B\verb+<xo=...,yo=...>+$B%*%W%7%g%s$rMQ$$$^$9!#(B
+基準点はデフォルトでは原点ですが，
+これを変更するには，\verb+<xo=...,yo=...>+オプションを用います。
 
-\begin{showEx}{$B4p=`E@$NJQ99(B}
+\begin{showEx}{基準点の変更}
 \small
 \begin{zahyou}%
   [ul=8mm,%
@@ -761,43 +761,43 @@ $x$$B<4$H(B$y$$B<4$H$G4V3V$rJQ$($k$3$H$b$G$-$^$9!#(B
 \end{zahyou}
 \end{showEx}
 
-\subsubsection{$B%0%j%C%I@~(B}
-\texttt{[g]}$B%*%W%7%g%s$r$D$1$k$HJ}4c$rIA$-$^$9!%(B
+\subsubsection{グリッド線}
+\texttt{[g]}オプションをつけると方眼を描きます．
 
-\showexample[$BJ}4c(B \& $BL\@9$j(B](0.95)(0.65){example/zahyo05}
+\showexample[方眼 \& 目盛り](0.95)(0.65){example/zahyo05}
 
-$B%0%j%C%I@~$N@~<o$rJQ99$9$k$K$O!$(B
-\verb+<sensyu=...>+ $B%*%W%7%g%s$rMQ$$$^$9!#(B
+グリッド線の線種を変更するには，
+\verb+<sensyu=...>+ オプションを用います。
 
-\showexample[$B@~<o$NJQ99(B](0.95)(0.65){example/zahyo14}
+\showexample[線種の変更](0.95)(0.65){example/zahyo14}
 
-\texttt{[+]}$B%*%W%7%g%s$G$O!$3J;RE@$K(B + $B%^!<%/$r$D$1$^$9!#(B
+\texttt{[+]}オプションでは，格子点に + マークをつけます。
 
-\showexample[$B3J;RE@$K(B + ](0.95)(0.65){example/zahyo11}
+\showexample[格子点に + ](0.95)(0.65){example/zahyo11}
 
-\texttt{[o]}$B%*%W%7%g%s$G$O!$3J;RE@$K9u4]$r$D$1$^$9!#(B
+\texttt{[o]}オプションでは，格子点に黒丸をつけます。
 
-\showexample[$B3J;RE@$K(B $\bullet$ ](0.95)(0.65){example/zahyo12}
+\showexample[格子点に $\bullet$ ](0.95)(0.65){example/zahyo12}
 
-$B$J$*!$L\@9$j$N?tCM$OMW$i$J$$$H$$$&$H$-$OBh(B2$B$N(B\texttt{[n]}$B%*%W%7%g%s$r(B
-$B$D$1$^$9!%(B
+なお，目盛りの数値は要らないというときは第2の\texttt{[n]}オプションを
+つけます．
 
 
-\showexample[$BJ}4c(B](0.45)(0.5){example/zahyo07}
+\showexample[方眼](0.45)(0.5){example/zahyo07}
 
-\subsubsection{$B<4>e$KL\@9$j(B}
-$B$^$?!$:BI8<4>e$N;XDj$7$?0LCV$KL\@9$j$rBG$D%3%^%s%I$,(B
+\subsubsection{軸上に目盛り}
+また，座標軸上の指定した位置に目盛りを打つコマンドが
 \begin{jquote}
 \cmd{xmemori}, \cmd{ymemori}
 \end{jquote}
-$B$G$9!%(B
+です．
 
-\showexample[$BL\@9$j(B](0.45)(0.4){example/zahyo06}
+\showexample[目盛り](0.45)(0.4){example/zahyo06}
 
-$BL\@9$j$N0LCV$r$:$i$7$?$$$H$-$O!$(B
-\verb+[..]+$B%*%W%7%g%s$K(B\cmd{emathPut}$B$NG[CV%*%W%7%g%s$r5-=R$7$^$9!#(B
+目盛りの位置をずらしたいときは，
+\verb+[..]+オプションに\cmd{emathPut}の配置オプションを記述します。
 
-\begin{showEx}(1,1){\cmd{xmemori}$B$N(B\texttt{[...]}$B%*%W%7%g%s(B}
+\begin{showEx}(1,1){\cmd{xmemori}の\texttt{[...]}オプション}
 \begin{zahyou}[ul=10mm](-5,5)(-1,1)
   \xmemori[b]{1}
   \xmemori[t]{2}
@@ -806,7 +806,7 @@ $x$$B<4$H(B$y$$B<4$H$G4V3V$rJQ$($k$3$H$b$G$-$^$9!#(B
 \end{zahyou}
 \end{showEx}
 
-\begin{showEx}(.64,.3){\cmd{ymemori}$B$N(B\texttt{[...]}$B%*%W%7%g%s(B}
+\begin{showEx}(.64,.3){\cmd{ymemori}の\texttt{[...]}オプション}
 \begin{zahyou}[ul=10mm](-1,1)(-2,4)
   \ymemori[l]{1}
   \ymemori[r]{2}
@@ -815,27 +815,27 @@ $x$$B<4$H(B$y$$B<4$H$G4V3V$rJQ$($k$3$H$b$G$-$^$9!#(B
 \end{zahyou}
 \end{showEx}
 
-\cmd{xmemori}, \cmd{ymemori}$B$N=q<0$O(B
+\cmd{xmemori}, \cmd{ymemori}の書式は
 
 \begin{boxnote}
 \begin{verbatim}
-$B:BI8<4>eG$0U0LCV$KL\@9(B
+座標軸上任意位置に目盛
 \xmemori[#1]<#2>#3
 \ymemori[#1]<#2>#3
-   #1 : t = $B:BI8<4$N2<$KL\@9(B
-        b =         $B>e(B
-        l =         $B1&(B
-        r =         $B:8(B
-        \emathPut $B$NG[CV;XDj%*%W%7%g%s(B
-   #2 : $BL\@9$NJ8;z(B
-       $B!J>JN,$9$l$P!$(B#3 $B$K;XDj$7$?$b$N$,BeMQ$5$l$^$9!%!K(B
-   #3 : $BL\@9$N0LCV(B
+   #1 : t = 座標軸の下に目盛
+        b =         上
+        l =         右
+        r =         左
+        \emathPut の配置指定オプション
+   #2 : 目盛の文字
+       （省略すれば，#3 に指定したものが代用されます．）
+   #3 : 目盛の位置
 \end{verbatim}
 \end{boxnote}
 
-\cmd{xscale}$B$HJ;MQ$7$?Nc$G$9!#(B
+\cmd{xscale}と併用した例です。
 
-\begin{showEx}(.5,.44){\cmd{xscale}$B$HJ;MQ(B}
+\begin{showEx}(.5,.44){\cmd{xscale}と併用}
 \footnotesize
 \begin{zahyou}[ul=5mm](-5,5)(-1.5,2)
 \zahyouMemori[g][n]<dx=1.57,dy=.5>
@@ -846,10 +846,10 @@ $x$$B<4$H(B$y$$B<4$H$G4V3V$rJQ$($k$3$H$b$G$-$^$9!#(B
 \end{zahyou}
 \end{showEx}
 
-\texttt{dx}$B$G;XDj$7$?4V3V$GL\@9$rBG$D$?$a$K(B \cmd{xmemori} $B$N(B
-$B5!G=$r6/2=$7$?(B \cmd{xMemori} $B$,(B \textsf{emathPxy.sty} $B$GDj5A$5$l$F$$$^$9!#(B
+\texttt{dx}で指定した間隔で目盛を打つために \cmd{xmemori} の
+機能を強化した \cmd{xMemori} が \textsf{emathPxy.sty} で定義されています。
 
-$B2<$N%j%9%H$O!$(B$x$$B<4J}8~(B$\mbox{\cmd{Pis}}=\pi/6$$B4V3V$GL\@9$rF~$l$F$$$^$9!#(B
+下のリストは，$x$軸方向$\mbox{\cmd{Pis}}=\pi/6$間隔で目盛を入れています。
 
 \begin{showEx}(.5,.44){\cmd{xmemori}}
 \footnotesize
@@ -867,25 +867,25 @@ dx=\Pis,dy=.5,sensyu=\drawline>
 \end{zahyou}
 \end{showEx}
 
-$B?7@_$7$?(B\cmd{xMemori}, \cmd{yMemori}$B$N=q<0$G$9!#(B
+新設した\cmd{xMemori}, \cmd{yMemori}の書式です。
 
 \begin{boxnote}
 \begin{verbatim}
-$B:BI8<4>eG$0U0LCV$KL\@9(B
+座標軸上任意位置に目盛
 \xMemori[#1]<#2>(#3)#4
 \yMemori[#1]<#2>(#3)#4
-  #1 : t = $B:BI8<4$N2<$KL\@9!J%G%U%)%k%H!K(B
-       b =         $B>e(B
-  #2 : $BL\@9$NJ8;z(B
-       $B!J>JN,$9$l$P!$(B#4 $B$K;XDj$7$?$b$N$,BeMQ$5$l$^$9!%!K(B
-  #3 : $BC10L$ND9$5!J%G%U%)%k%HCM(B=\zahyouMemori$B$G;XDj$7$?(Bdx$B!K(B
-  #4 : $BC10L$ND9$5$N(B#4$BG\$N0LCV$KL\@9$rBG$D(B
+  #1 : t = 座標軸の下に目盛（デフォルト）
+       b =         上
+  #2 : 目盛の文字
+       （省略すれば，#4 に指定したものが代用されます．）
+  #3 : 単位の長さ（デフォルト値=\zahyouMemoriで指定したdx）
+  #4 : 単位の長さの#4倍の位置に目盛を打つ
 \end{verbatim}
 \end{boxnote}
 
-$B$5$i$K!$(B\verb+<xo=...,yo=....>+ $B%*%W%7%g%s$HJ;MQ$7$?Nc$G$9!#(B
+さらに，\verb+<xo=...,yo=....>+ オプションと併用した例です。
 
-\begin{showEx}(.5,.44){\texttt{xo,yo}$B%*%W%7%g%s$HJ;MQ(B}
+\begin{showEx}(.5,.44){\texttt{xo,yo}オプションと併用}
 \footnotesize
 \begin{zahyou}[%
 ul=6mm,gentenhaiti={[se]}](%
@@ -902,16 +902,16 @@ ul=6mm,gentenhaiti={[se]}](%
 \end{zahyou}
 \end{showEx}
 
-\subsection{$B:BI8<4$X$N?b@~(B}
-$BJ?LL>e$KE@$r%W%m%C%H$7$?$H$-!$$=$NE@$+$i:BI8<4$K2<$m$7$??b@~$r(B
-$BGK@~$GIA2h$7$?$$$H$-$,$"$j$^$9!#(B
-$B$3$NL\E*$N$?$a$K(B \cmd{Put} $B$K%*%W%7%g%s$rDI2C$7$^$7$?!#(B
+\subsection{座標軸への垂線}
+平面上に点をプロットしたとき，その点から座標軸に下ろした垂線を
+破線で描画したいときがあります。
+この目的のために \cmd{Put} にオプションを追加しました。
 
 \begin{boxnote}
 \begin{verbatim}
 \emathPut#1[#2].....
-  #1 : $BJ8;zNs$rCV$/0LCV!J:BI8!K(B
-  #2 : $BJ}0L(B
+  #1 : 文字列を置く位置（座標）
+  #2 : 方位
           syaei=x|y|xy
           houi=n|nw|w|sw|s|se|e|ne
           xlabel=..
@@ -922,12 +922,12 @@ ul=6mm,gentenhaiti={[se]}](%
 \end{verbatim}
 \end{boxnote}
 
-$B=>Mh!$(B\verb/[#2]/ $B%*%W%7%g%s$O!$J8;zNs$NE@$KBP$9$kJ}0L$r;XDj$9$k$b$N$G$7$?!#(B
-$B$3$l$O$=$N$^$^M-8z$G$9$,!$$3$3$K(B
+従来，\verb/[#2]/ オプションは，文字列の点に対する方位を指定するものでした。
+これはそのまま有効ですが，ここに
 \begin{verbatim}
     syaei=xy
 \end{verbatim}
-$B$H$9$l$P!$E@$+$iN>:BI8<4$X$N?b@~$rIA2h$9$k$3$H$,$G$-$^$9!#(B
+とすれば，点から両座標軸への垂線を描画することができます。
 
 \begin{showEx}(.6,.34){\texttt{[syaei=xy]}}
 \unitlength10mm\footnotesize
@@ -940,7 +940,7 @@ ul=6mm,gentenhaiti={[se]}](%
 \begin{verbatim}
     syaei=x
 \end{verbatim}
-$B$H$9$l$P!$(B$x$$B<4$X$N?b@~$,IA2h$5$l$^$9!#(B
+とすれば，$x$軸への垂線が描画されます。
 
 \begin{showEx}(.6,.34){\texttt{[syaei=x]}}
 \unitlength10mm\footnotesize
@@ -950,11 +950,11 @@ ul=6mm,gentenhaiti={[se]}](%
 \end{zahyou}
 \end{showEx}
 
-$B=>Mh$NJ}0L%*%W%7%g%s$b$3$3$K5-=R$7$?$$$H$-$O(B
+従来の方位オプションもここに記述したいときは
 \begin{verbatim}
   houi=..
 \end{verbatim}
-$B$H5-=R$7$^$9!#(B
+と記述します。
 
 \begin{showEx}(.6,.34){\texttt{[houi=..]}}
 \unitlength10mm\footnotesize
@@ -965,13 +965,13 @@ ul=6mm,gentenhaiti={[se]}](%
 \end{showEx}
 
 
-$B:BI8<4>e$N%i%Y%k$G$9$,!$%G%U%)%k%H$G$O;XDjE@$N(B $x$, $y$$B:BI8$,I=<($5$l$^$9!#(B
-$B$3$l$,@0?t$N>l9g$OLdBj$J$$$N$G$9$,!$J,?t!$L5M}?t!$J8;z$rI=<($7$?$$$H$-$O(B
+座標軸上のラベルですが，デフォルトでは指定点の $x$, $y$座標が表示されます。
+これが整数の場合は問題ないのですが，分数，無理数，文字を表示したいときは
 \begin{verbatim}
   xlabel=..
   ylabel=..
 \end{verbatim}
-$B%*%W%7%g%s$rMQ$$$^$9!#(B
+オプションを用います。
 
 \begin{showEx}(.6,.34){\texttt{[xlabel=..]}}
 \unitlength10mm\footnotesize
@@ -982,10 +982,10 @@ ul=6mm,gentenhaiti={[se]}](%
 \end{zahyou}
 \end{showEx}
 
-$B$3$N%*%W%7%g%s$N1&JUCM$O?t<0%b!<%IFb$G$"$k$H$$$&A0Ds$G$9!#(B
-$B$^$?(B \verb/[...,xlabel=]/ $B$H1&JUCM$r6u$K$9$l$P%i%Y%k$OBG$?$l$^$;$s!#(B
+このオプションの右辺値は数式モード内であるという前提です。
+また \verb/[...,xlabel=]/ と右辺値を空にすればラベルは打たれません。
 
-$B$^$?!$?b@~$N@~<o$rJQ99$9$k$K$O!$(B\verb+syaeisensyu=..+$B%*%W%7%g%s$rMQ$$$^$9!#(B
+また，垂線の線種を変更するには，\verb+syaeisensyu=..+オプションを用います。
 
 \begin{showEx}(.6,.34){\texttt{[syaeisensyu=]}}
 \unitlength10mm\footnotesize
@@ -996,14 +996,14 @@ ul=6mm,gentenhaiti={[se]}](%
 \end{zahyou}
 \end{showEx}
 
-$B?b@~$NB-$K$D$1$kL\@9$j0LCV$r=$@5$9$k$H$-$O!$(B\verb+[xpos=..]+, \verb+[ypos=..]+
-$B%*%W%7%g%s$G!$1&JUCM$K(B\cmd{Put}$B$NG[CV%*%W%7%g%s$r5-=R$7$^$9!#(B
+垂線の足につける目盛り位置を修正するときは，\verb+[xpos=..]+, \verb+[ypos=..]+
+オプションで，右辺値に\cmd{Put}の配置オプションを記述します。
 
-$x$$B<4$K2<$m$7$??b@~$NB-0LCV$K$D$1$kJ8;z0LCV$O(B
-\verb+[xpos=..]+$B%*%W%7%g%s$G=$@5$7$^$9!#(B
-\index{xpos @ xpos $B%*%W%7%g%s(B}
+$x$軸に下ろした垂線の足位置につける文字位置は
+\verb+[xpos=..]+オプションで修正します。
+\index{xpos @ xpos オプション}
 
-\begin{showEx}{\texttt{xpos=..}$B%*%W%7%g%s(B}
+\begin{showEx}{\texttt{xpos=..}オプション}
 \begin{zahyou}[ul=10mm]%
     (-2.5,2.5)(-1.5,1.5)
   \tenretu{A(2,1)ne;B(-2,-1)sw}
@@ -1013,11 +1013,11 @@ $x$$B<4$K2<$m$7$??b@~$NB-0LCV$K$D$1$kJ8;z0LCV$O(B
 \end{zahyou}
 \end{showEx}
 
-$y$$B<4$K2<$m$7$??b@~$NB-0LCV$K$D$1$kJ8;z0LCV$ND4@0$O(B
-\verb+[ypos=..]+$B%*%W%7%g%s$G$9!#(B
-\index{ypos @ ypos $B%*%W%7%g%s(B}
+$y$軸に下ろした垂線の足位置につける文字位置の調整は
+\verb+[ypos=..]+オプションです。
+\index{ypos @ ypos オプション}
 
-\begin{showEx}{\texttt{ypos=..}$B%*%W%7%g%s(B}
+\begin{showEx}{\texttt{ypos=..}オプション}
 \begin{zahyou}[ul=10mm]%
     (-2.5,2.5)(-1.5,1.5)
   \tenretu{A(2,1)ne;B(-2,-1)sw}

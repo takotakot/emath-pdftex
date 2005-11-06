@@ -3,51 +3,51 @@
 \usepackage{emathEy}
 
 %-------------------------------------------------------------
-% emathAs $B%Q%C%1!<%8$O!$(B
-%     $BN}=,$HLdBj$NHV9f$rJLN)$F$K$9$k$+!$(B
-%     $BDL$7HV9f$K$9$k$+$G!$(B
-% $B%m!<%IJ}K!$,0[$J$j$^$9!%(B
+% emathAs パッケージは，
+%     練習と問題の番号を別立てにするか，
+%     通し番号にするかで，
+% ロード方法が異なります．
 %
-\usepackage{emathAs}%                 $BN}=,$HLdBj$rJLHV9f(B
-%\usepackage[toosibangou]{emathAs}%   $BN}=,$HLdBj$rDL$7HV9f(B
+\usepackage{emathAs}%                 練習と問題を別番号
+%\usepackage[toosibangou]{emathAs}%   練習と問題を通し番号
 %
-% $B2rEz$rCV$/0LCV$N;XDj$O(B emathA $B$HF1MM$G$9!%(B
+% 解答を置く位置の指定は emathA と同様です．
 %\usepackage[debug]{emathAs}%
 %\usepackage[debug,toosibangou]{emathAs}%
 %
 %-------------------------------------------------------------
-% mondai$B4D6-$N%-%c%W%7%g%s$J$I$N=$@5(B
-% emathAs.sty $B$G$O!$LdBj$N4D6-$,<!$N(B3$B<oN`Dj5A$5$l$F$$$^$9!%(B
+% mondai環境のキャプションなどの修正
+% emathAs.sty では，問題の環境が次の3種類定義されています．
 %
-%     $B4D6-L>(B      $B%-%c%W%7%g%s(B
-% 1:  rensyuu     $BN}=,(B
-% 2:  mondai      $BLdBj(B
-% 3:  hatten      $BH/E8LdBj(B
+%     環境名      キャプション
+% 1:  rensyuu     練習
+% 2:  mondai      問題
+% 3:  hatten      発展問題
 %
-%   $B$3$N$&$A!$N}=,!$LdBj$O(B section $BKh$KHV9f$,%j%;%C%H$5$l$^$9$,!$(B
-%   $BH/E8LdBj$O%U%!%$%k$rDL$7$F$NHV9f$H$J$j$^$9!%(B
+%   このうち，練習，問題は section 毎に番号がリセットされますが，
+%   発展問題はファイルを通しての番号となります．
 %
-% $B$3$N4D6-L>$H%-%c%W%7%g%s$r=$@5$9$kNc$G$9!%(B
+% この環境名とキャプションを修正する例です．
 %
-\labelmondai{$BLd(B}%
+\labelmondai{問}%
 \newenvironment{mon}{ \begin{mondai}}{%
   \end{mondai}}%
 \labelhatten{}%
 %
-% $B$3$NB>!$LdBj$G$O$"$j$^$;$s$,!$(B
-% $B<!$N4D6-$b(B \newtheorem $B$GDj5A$5$l$F$$$^$9!%(B
+% この他，問題ではありませんが，
+% 次の環境も \newtheorem で定義されています．
 %
-%     $B4D6-L>(B      $B%-%c%W%7%g%s(B
-% 4:  teigi       $BDj5A(B
-% 5:  teiri       $BDjM}(B
-% 6:  reidai      $BNcBj(B
-% 7:  rei         $BNc(B
+%     環境名      キャプション
+% 4:  teigi       定義
+% 5:  teiri       定理
+% 6:  reidai      例題
+% 7:  rei         例
 %
 %-------------------------------------------------------------
-% $B2rEz$NIt$G!$2~9T$9$kLdBj%l%Y%k$N@_Dj(B
-%\kaikaigyousuizyun{1}%   enumerate $BBh(B1$BAX$NLdBj$G2~9T(B
-%\kaikaigyousuizyun{0}%   $B%G%U%)%k%H(B $BN}=,!JLdBj!K$4$H$K2~9T(B
-%\kaikaigyousuizyun{-1}%  $B2~9T0l@Z$J$7!%(B
+% 解答の部で，改行する問題レベルの設定
+%\kaikaigyousuizyun{1}%   enumerate 第1層の問題で改行
+%\kaikaigyousuizyun{0}%   デフォルト 練習（問題）ごとに改行
+%\kaikaigyousuizyun{-1}%  改行一切なし．
 %-------------------------------------------------------------
 
 \renewcommand{\labelenumi}{(\arabic{enumi})}%
@@ -59,15 +59,15 @@
 \preedaenumskip=-.25\baselineskip%
 %\postedaenumskip=-2.5\baselineskip%
 
-%\renewcommand{\kaitou}{\par $B!Z2r![(B}% $B%G%P%C%0Cf$O@hF,$N(B % $B$r<h$k!%(B
+%\renewcommand{\kaitou}{\par 【解】}% デバッグ中は先頭の % を取る．
 
 \begin{document}
 \openrensyuuFile%
 \openmondaiFile%
 \openhattenFile%
-\section{$BF34X?t(B}
+\section{導関数}
 \begin{rensyuu}
-    $BDj5A$K$h$j!$<!$N4X?t$NF34X?t$r5a$a$h!%(B%
+    定義により，次の関数の導関数を求めよ．%
     \kaitou{}%
     \begin{edaenumerate}
       \item $x^2$
@@ -81,7 +81,7 @@
     \end{edaenumerate}
 \end{rensyuu}
 \begin{mon}
-  $B<!$N4X?t$rHyJ,$;$h!%(B\kaitou{}%
+  次の関数を微分せよ．\kaitou{}%
   \begin{edaenumerate}<3>
     \item $y=x^2$
       \kaitou{$2x$}
@@ -92,7 +92,7 @@
   \end{edaenumerate}
 \end{mon}
 \begin{rensyuu}
-    $B<!$N4X?t$rHyJ,$;$h!%(B\kaitou{}
+    次の関数を微分せよ．\kaitou{}
     \begin{edaenumerate}<1>
     \item $y=x^3-5x^2+6x-7$
       \kaitou{$3x^2-10x+6$}
@@ -100,53 +100,53 @@
       \kaitou{$12x-1$}
     \end{edaenumerate}
 \end{rensyuu}
-\section{$B@\@~(B}
+\section{接線}
 \begin{mon}
-  $BJ|J*@~(B $y=x^2$ $B>e$NE@(B $(-1,~1)$ $B$K$*$1$k@\@~$NJ}Dx<0$r5a$a$h!%(B
+  放物線 $y=x^2$ 上の点 $(-1,~1)$ における接線の方程式を求めよ．
 \kaitou{$y=-2x-1$}
 \end{mon}
 
 \begin{rensyuu}
-  $BJ|J*@~(B $y=x^2$ $B$KE@(B $(1,~0)$ $B$+$i0z$$$?@\@~$NJ}Dx<0$r5a$a$h!%(B
+  放物線 $y=x^2$ に点 $(1,~0)$ から引いた接線の方程式を求めよ．
 \kaitou{
-  $y=x^2$ $B$rHyJ,$7$F!$(B$y'=2x$
+  $y=x^2$ を微分して，$y'=2x$
 
-  $B@\E@$N(B $x$$B:BI8$r(B $t$ $B$H$9$l$P@\@~$NJ}Dx<0$O(B\
+  接点の $x$座標を $t$ とすれば接線の方程式は\
   \begin{equation}
     y-t^2=2t(x-t) \label{eq:setu1}
   \end{equation}
-  $B$3$l$,E@(B $(1,~0)$ $B$rDL$k$+$i!$(B
+  これが点 $(1,~0)$ を通るから，
   \[0-t^2=2t(1-t)\]
-  $B$3$l$r2r$$$F!$(B $t=0,~2$
+  これを解いて， $t=0,~2$
   
-  $B$=$l$>$l(B \eqref{eq:setu1} $B$KBeF~$7$F!$5a$a$kJ}Dx<0$O(B
+  それぞれ \eqref{eq:setu1} に代入して，求める方程式は
   \[ \boldsymbol{y=0,~y=4x-4} \]
 }
 \end{rensyuu}
 \vspace{\baselineskip}
 
 \begin{center}
-\textgt{\large $BH/E8LdBj(B}
+\textgt{\large 発展問題}
 \end{center}
 
 \begin{hatten}
 \hakosyokika
 \hangafter=1\hangindent2zw%
-$p$ $B$r@5$N?t$H$7!$4X?t(B $f(x)=\bunsuu{1}{3}x^3-px^2+4$ $B$r9M$($k!%(B$f(x)$ $B$O(B
+$p$ を正の数とし，関数 $f(x)=\bunsuu{1}{3}x^3-px^2+4$ を考える．$f(x)$ は
 \begin{quote}
-  $x=\Hako[L0000199837a] $ $B$G6KBgCM(B \Hako $B$r$H$j!$(B\\
-  $x=\Hako[L0000199837u] p$ $B$G6K>.CM(B $\bunsuu{\Hako<2>}{\Hako}p^3+\Hako $ 
-  $B$r$H$k!%(B
+  $x=\Hako[L0000199837a] $ で極大値 \Hako をとり，\\
+  $x=\Hako[L0000199837u] p$ で極小値 $\bunsuu{\Hako<2>}{\Hako}p^3+\Hako $ 
+  をとる．
 \end{quote}
 \hangafter=0\hangindent2zw%
-$a=\refHako*{L0000199837a}$, $b=\refHako*{L0000199837u} p$ $B$H$*$/!%(B
+$a=\refHako*{L0000199837a}$, $b=\refHako*{L0000199837u} p$ とおく．
 
-4$BE@(B A$(a,~f(a))$, B$(a,~f(b))$, C$(b,~f(b))$, D$(b,~f(a))$ $B$rD:E@$H$9$k(B
-$B;M3Q7A(BABCD$B$,@5J}7A$H$J$k$N$O(B
+4点 A$(a,~f(a))$, B$(a,~f(b))$, C$(b,~f(b))$, D$(b,~f(a))$ を頂点とする
+四角形ABCDが正方形となるのは
 \[ p=\bunsuu{\sqrt{\Hako }}{\Hako } \]
-$B$N$H$-$G$"$k!%(B
-\syutten{1998 $B%;%s%?!<(B}
-\kaitou{$$B%"(B=0$, $$B%$(B=4$, $$B%&(B=2$, $$B%((B=-$, $$B%*(B=4$, $$B%+(B=3$, $$B%-(B=4$, $$B%/(B=6$, $$B%1(B=2$}
+のときである．
+\syutten{1998 センター}
+\kaitou{$ア=0$, $イ=4$, $ウ=2$, $エ=-$, $オ=4$, $カ=3$, $キ=4$, $ク=6$, $ケ=2$}
 \end{hatten}
 \closerensyuuFile
 \closemondaiFile
@@ -166,15 +166,15 @@ $a=\refHako*{L0000199837a}$, $b=\refHako*{L0000199837u} p$ $B$H$*$/!%(B
 \begin{multicols}{2}
 %\prekailabel{\bfseries}
 
-\section*{$BLd$N2rEz(B}
+\section*{問の解答}
 \everypar{\hangafter1\hangindent1zw\parindent2zw}
 \inputmondaiFile
 \vspace{\baselineskip}
-\section*{$BN}=,$N2rEz(B}
+\section*{練習の解答}
 \everypar{\hangafter1\hangindent1zw\parindent2zw}
 \inputrensyuuFile
 \vspace{\baselineskip}
-\section*{$BH/E8LdBj$N2rEz(B}
+\section*{発展問題の解答}
 \everypar{\hangafter1\hangindent1zw\parindent2zw}
 \inputhattenFile
 \end{multicols}

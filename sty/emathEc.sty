@@ -18,28 +18,28 @@
   \ifx m\@entemp         \def\@tempa{\@enLabel\marucnt}\else
   \ifx M\@entemp         \def\@tempa{\@enLabel\Marucnt}\else
   \ifx n\@entemp         \def\@tempa{\@enLabel\nagamarucnt}\else
-  \ifx $B%"(B\@entemp         \def\@tempa{\@enLabel\$B%+%?%+%J(B}\else
-  \ifx $B%$(B\@entemp         \def\@tempa{\@enLabel\$B%$%m%O(B}\else
-  \ifx $B$"(B\@entemp         \def\@tempa{\@enLabel\$B$R$i$,$J(B}\else
-  \ifx $B$$(B\@entemp         \def\@tempa{\@enLabel\$B$$$m$O(B}\else
-  \ifx $B0l(B\@entemp         \renzifalse\def\@tempa{\@enLabel\Kanji}\else
-  \ifx $B#1(B\@entemp         \def\@tempa{\@enLabel\rensuzi}\else
+  \ifx ア\@entemp         \def\@tempa{\@enLabel\カタカナ}\else
+  \ifx イ\@entemp         \def\@tempa{\@enLabel\イロハ}\else
+  \ifx あ\@entemp         \def\@tempa{\@enLabel\ひらがな}\else
+  \ifx い\@entemp         \def\@tempa{\@enLabel\いろは}\else
+  \ifx 一\@entemp         \renzifalse\def\@tempa{\@enLabel\Kanji}\else
+  \ifx １\@entemp         \def\@tempa{\@enLabel\rensuzi}\else
   \ifx \@sptoken\@entemp \let\@tempa\@enSpace         \else
   \ifx \bgroup\@entemp   \let\@tempa\@enGroup         \else
   \ifx \@enum@\@entemp   \let\@tempa\@gobble          \else
-%%% enumerate $B%Q%C%1!<%8$K2<$N(B1$B9T$rDI2C(B
+%%% enumerate パッケージに下の1行を追加
   \ifx \@edaenum@\@entemp   \let\@tempa\@gobble       \else
                          \let\@tempa\@enOther
              \fi\fi\fi\fi\fi\fi\fi\fi\fi\fi\fi\fi\fi\fi\fi\fi\fi\fi
   \@tempa}
 
-% $BA43Q?t;z$K$h$k%J%s%P%j%s%0(B
-%\def\labelenumi{$B#Q(B\suuziToZen{\the\c@enumi}}%
-%\def\labelenumi{$B#Q(B\suuziToZen{\the\value{enumi}}.\ }%
-% $BH>3Q?t;zNs$rA43Q?t;zNs$KJQ49$9$k!%(B
+% 全角数字によるナンバリング
+%\def\labelenumi{Ｑ\suuziToZen{\the\c@enumi}}%
+%\def\labelenumi{Ｑ\suuziToZen{\the\value{enumi}}.\ }%
+% 半角数字列を全角数字列に変換する．
 \def\suuziToZen#1{%
   \expandafter\@tfor\expandafter\@c\expandafter:\expandafter=#1%
   \do{{\@tempcnta33359\advance\@tempcnta\@c\char\@tempcnta}}}%
 \endinput
 
-v 0.00 2005/09/05 emathE, emathEy $B$N6&DLItJ,(B
+v 0.00 2005/09/05 emathE, emathEy の共通部分

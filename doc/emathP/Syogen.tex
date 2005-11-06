@@ -1,83 +1,83 @@
-\section{$B@589DjM}!&M>89DjM}(B}
-\subsection{$B@589DjM}(B}
-$B@589DjM}$rMQ$$$F;03Q7A$NJU!&3Q!$30@\1_$NH>7B$r5a$a$k%3%^%s%I$r(B
-$B2r@b$7$^$9!%(B
-$B0lNc$H$7$F!$(B
+\section{正弦定理・余弦定理}
+\subsection{正弦定理}
+正弦定理を用いて三角形の辺・角，外接円の半径を求めるコマンドを
+解説します．
+一例として，
 \begin{jquote}
 $A=120\Deg$,~B=15\Deg,~c=10 
 \end{jquote}
-$B$G$"$k;03Q7A$r(B BC $B$rDlJU$H$7$FIA2h$9$k$3$H$r9M$($F$_$^$9!%(B
-$B$=$N$?$a$K(B $\mathrm{BC}=a$ $B$r@589DjM}$G5a$a$^$9!%(B
+である三角形を BC を底辺として描画することを考えてみます．
+そのために $\mathrm{BC}=a$ を正弦定理で求めます．
 
 \resetcounter{equation}
-$B$^$:$O(B $C=45\Deg$ $B$H(B $c=10$ $B$+$i(B
+まずは $C=45\Deg$ と $c=10$ から
 \[ \bunsuu{c}{\sin C}=2R \]
-$B$rMQ$$$F30@\1_$NH>7B$r5a$a$^$9!%$=$N$?$a$N%3%^%s%I$,(B
-\cmd{seigenR}$B$G$9!%=q<0$O(B\cindex{seigenR}\cindex{lR}\cindex{lRR}
+を用いて外接円の半径を求めます．そのためのコマンドが
+\cmd{seigenR}です．書式は\cindex{seigenR}\cindex{lR}\cindex{lRR}
 \begin{boxnote}
 \begin{verbatim}
 \seigenR#1#2
-    #1 : $B8~$+$$9g$C$?JU!&3Q$N$&$AJU(B
-    #2 : $B!!!!!!!!!!!!!!!!!!!!!!!!3Q(B
-$B!!!!30@\1_$ND>7B$,(B \lRR, $BH>7B$,(B \lR $B$K%;%C%H$5$l$k!%(B
+    #1 : 向かい合った辺・角のうち辺
+    #2 : 　　　　　　　　　　　　角
+　　外接円の直径が \lRR, 半径が \lR にセットされる．
 \end{verbatim}
 \end{boxnote}
-$B$3$3$G$O!$(B\verb/\seigenR{10}{45}/ $B$H$7$^$9!%(B
+ここでは，\verb/\seigenR{10}{45}/ とします．
 
-$B<!$$$G!$(B
+次いで，
 \[ \bunsuu{a}{\sin A}=2R \]
-$B$rMQ$$$F(B $a$ $B$r5a$a$^$9!%$=$N$?$a$N%3%^%s%I$,(B \cmd{seigen} $B$G$9!%(B
+を用いて $a$ を求めます．そのためのコマンドが \cmd{seigen} です．
 \cindex{seigen}
 \begin{boxnote}
 \begin{verbatim}
 \seigen#1#2
-   #1 : $B3Q(B
-   #2 : $B3Q$H8~$+$$9g$C$?JU$ND9$5$r<u<h$k%3%s%H%m!<%k%7!<%1%s%9(B
+   #1 : 角
+   #2 : 角と向かい合った辺の長さを受取るコントロールシーケンス
 \end{verbatim}
 \end{boxnote}
-$B$3$3$G$O(B \verb/\seigen{120}\la/ $B$H$7$F(B \verb/\la/ $B$K(B $a$ $B$,(B
-$B%;%C%H$5$l$^$9!%(B
+ここでは \verb/\seigen{120}\la/ として \verb/\la/ に $a$ が
+セットされます．
 
-$B4XO"$7$F!$5U$KJU$rM?$($F3Q$r5a$a$k%3%^%s%I$,(B \cmd{Seigen} $B$G$9!%(B
+関連して，逆に辺を与えて角を求めるコマンドが \cmd{Seigen} です．
 \cindex{Seigen}
 \begin{boxnote}
 \begin{verbatim}
 \Seigen[#1]#2#3
   #2 : a
-  #3 : A $B$r<u<h$k%3%s%H%m!<%k%7!<%1%s%9(B
-  #1 = e $B$N$H$-$O!$3Q(BA$B!J1T3Q!K$r5a$a$k!%!J%G%U%)%k%H!K(B
-  #1 = d $B$N$H$-$O!$3Q(BA$B!JF_3Q!K$r5a$a$k!%(B
+  #3 : A を受取るコントロールシーケンス
+  #1 = e のときは，角A（鋭角）を求める．（デフォルト）
+  #1 = d のときは，角A（鈍角）を求める．
 \end{verbatim}
 \end{boxnote}
 
-$B$G$O!$$3$N@a$N$O$8$a$K<h$j>e$2$?;03Q7A$r<B:]$KIA2h$7$F$_$^$7$g$&!%(B
+では，この節のはじめに取り上げた三角形を実際に描画してみましょう．
 
-\showexample[$B@589DjM}(B](0.9)(0.6){example/seigen01}
+\showexample[正弦定理](0.9)(0.6){example/seigen01}
 
-\subsection{$BM>89DjM}(B}
-2$BJUTs3Q$,$o$+$C$F$$$k$H$-$K!$Bh(B3$BJU$r5a$a$k%3%^%s%I$,(B
-\cmd{yogen} $B$G$9!%(B\cindex{yogen}
+\subsection{余弦定理}
+2辺夾角がわかっているときに，第3辺を求めるコマンドが
+\cmd{yogen} です．\cindex{yogen}
 \begin{boxnote}
 \begin{verbatim}
-2$BJUTs3Q$+$iBh(B3$BJU$ND9$5$r5a$a$k!%(B
+2辺夾角から第3辺の長さを求める．
 \yogen#1#2#3#4
-  #1=b, #2=c, #3=A $B"*(B a $B$r(B#4$B$K%;%C%H$9$k!%(B
+  #1=b, #2=c, #3=A → a を#4にセットする．
 \end{verbatim}
 \end{boxnote}
-$B$G$O!$$3$N%3%^%s%I$rMQ$$$F(B
+では，このコマンドを用いて
 \[ b=2,~c=3,~A=60\Deg \]
-$B$G$"$k;03Q7A$r(B BC $B$rDlJU$H$7$FIA2h$7$F$_$^$9!%(B
+である三角形を BC を底辺として描画してみます．
 
-\showexample[$BM>89DjM}(B](0.9)(0.4){example/yogen01}
+\showexample[余弦定理](0.9)(0.4){example/yogen01}
 
-$B4XO"$7$F!$(B3$BJU$ND9$5$,$o$+$C$F$$$k$H$-!$(B
-$B3Q$r5a$a$k%3%^%s%I$,(B \cmd{Yogen} $B$G$9!%(B\cindex{Yogen}
+関連して，3辺の長さがわかっているとき，
+角を求めるコマンドが \cmd{Yogen} です．\cindex{Yogen}
 \begin{boxnote}
 \begin{verbatim}
-3$BJU$ND9$5$+$i3Q$NM>89$r5a$a$k!%(B
+3辺の長さから角の余弦を求める．
 \Yogen[#1]#2#3#4#5
    cos(A)=(b^2+c^2-a^2)/(2bc)
-   #2=a, #3=b, #4=c $B7k2L$O(B #5 $B$K%;%C%H(B
-   #1=a $B$N$H$-$O3Q$r5a$a$k!%!JC10L$OEY!K(B
+   #2=a, #3=b, #4=c 結果は #5 にセット
+   #1=a のときは角を求める．（単位は度）
 \end{verbatim}
 \end{boxnote}

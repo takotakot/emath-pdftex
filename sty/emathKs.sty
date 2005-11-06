@@ -6,23 +6,23 @@
   \ProvidesPackage{emathKs}[2001/08/29 v 0.02]%
 \fi
 
-% $B@0?t$N(B
-% A.  3(4)$B7e$4$H$N%3%s%^!J$"$k$$$O(B $B;MJ,%"%-!K6h@Z$j(B
-%   $B!JNc#1(B) 84987100000000 ---> 84,987,100,000,000
-%       $B$O(B \ketakugiri{84987100000000} $B$G<B8=$5$l$^$9!#(B
-%   $B!JNc#2(B) 84987100000000 ---> 84,9871,0000,0000
-%       $B$O(B \ketakugiri<4>{84987100000000} $B$G<B8=$5$l$^$9!#(B
-%   $B6h@Z$j5-9f$K$D$$$F$O!$%G%U%)%k%H$G(B `,' $B$H$7$F$"$j$^$9!#(B
-%     $BJQ99$9$k$K$O(B 
-%       \ketakugiri $B$N(B [...] $B%*%W%7%g%s$rMQ$$$k$+!$(B
-%       \ketakugirikigou $B%3%^%s%I$K$h$j(B \ketakugirikigou{\,} $B$J$I$H$7$^$9!#(B
-% B. $B4A?t;zI=8=(B
-%   $B!JNc#1!K(B84987100000000 ---> $BH,==;MC{6e@iH,I4<7==0l2/(B
-%       $B$O(B \Kansuuzi{84987100000000} $B$G<B8=$5$l$^$9!#(B
-%   $B!JNc#2!K(B84987100000000 ---> 84$BC{(B9,871$B2/(B
-%       $B$O(B \Kansuuzi[a]{84987100000000} $B$G<B8=$5$l$^$9!#(B
-%   $BIi$N?t$N4A?t;zI=8=$O%G%U%)%k%H$G$O@hF,$K(B `$B"%(B' $B$r$D$1$k$h$&$K$7$F$"$j$^$9!#(B
-%     $BJQ99$9$k$K$O(B \hukigou $B%3%^%s%I$K$h$j(B \hukigou{$B"&(B} $B$J$I$H$7$^$9!#(B
+% 整数の
+% A.  3(4)桁ごとのコンマ（あるいは 四分アキ）区切り
+%   （例１) 84987100000000 ---> 84,987,100,000,000
+%       は \ketakugiri{84987100000000} で実現されます。
+%   （例２) 84987100000000 ---> 84,9871,0000,0000
+%       は \ketakugiri<4>{84987100000000} で実現されます。
+%   区切り記号については，デフォルトで `,' としてあります。
+%     変更するには 
+%       \ketakugiri の [...] オプションを用いるか，
+%       \ketakugirikigou コマンドにより \ketakugirikigou{\,} などとします。
+% B. 漢数字表現
+%   （例１）84987100000000 ---> 八十四兆九千八百七十一億
+%       は \Kansuuzi{84987100000000} で実現されます。
+%   （例２）84987100000000 ---> 84兆9,871億
+%       は \Kansuuzi[a]{84987100000000} で実現されます。
+%   負の数の漢数字表現はデフォルトでは先頭に `▲' をつけるようにしてあります。
+%     変更するには \hukigou コマンドにより \hukigou{▽} などとします。
 
 % ---------------------------------------------------------------------
 \edef\keta@kugirikigou{{,}}
@@ -64,15 +64,15 @@
 %}
 
 % ---------------------------------------------------------------------
-\edef\@Ktani{$B==(B}%
-\edef\@Ktanii{$BI4(B}%
-\edef\@Ktaniii{$B@i(B}%
-\edef\@Ktan@i{$Bh_(B}%
-\edef\@Ktan@ii{$B2/(B}%
-\edef\@Ktan@iii{$BC{(B}%
-\edef\@Ktan@iv{$B5~(B}%
-\edef\@Ktan@v{$BT6(B}%
-\edef\hu@kigou{$B"%(B}
+\edef\@Ktani{十}%
+\edef\@Ktanii{百}%
+\edef\@Ktaniii{千}%
+\edef\@Ktan@i{萬}%
+\edef\@Ktan@ii{億}%
+\edef\@Ktan@iii{兆}%
+\edef\@Ktan@iv{京}%
+\edef\@Ktan@v{垓}%
+\edef\hu@kigou{▲}
 \def\hukigou#1{\edef\hu@kigou{#1}}
 
 \def\Kansuuzi{\@ifnextchar[{\@Kansuuzi}{\@Kansuuzi[k]}}
@@ -111,7 +111,7 @@
     \if -\@h\edef\Kansuuzi@retu{\@r}\hu@kigou\fi
     \Strlen{\Kansuuzi@retu}\Kansuuzi@len
     \ifthenelse{\Kansuuzi@len=\@ne \and #2=\z@}{%
-        \if k#1\relax $BNm(B\else 0\fi}{%
+        \if k#1\relax 零\else 0\fi}{%
         \IDivMod\Kansuuzi@len{4}\Kansuuzi@len@q\Kansuuzi@len@r
         \ifnum\Kansuuzi@len@r=\z@
           \Decr\Kansuuzi@len@q\edef\Kansuuzi@len@r{4}\fi
@@ -128,6 +128,6 @@
 %
 % v0.00   1999/03/19
 % v0.01   1999/03/20
-%   \ketakugiri $B$r(B emath.sty $B$J$7$G$bF0$/$h$&$K=$@5$9$k!#(B
+%   \ketakugiri を emath.sty なしでも動くように修正する。
 % v 0.02  2001/08/29
-%   \edef\keta@kugirikigou{{,}}$B$H=$@5!J(B, $B$@$1$G$O$J$/(B{,}$B!K(B
+%   \edef\keta@kugirikigou{{,}}と修正（, だけではなく{,}）

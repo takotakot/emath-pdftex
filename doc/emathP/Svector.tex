@@ -1,69 +1,69 @@
-\section{$B%Y%/%H%k(B}
-\subsection{$B%Y%/%H%k1i;;(B}
-$BE@$N:BI8$r0LCV%Y%/%H%k$N@.J,$H8+$F!$%Y%/%H%k1i;;$r$9$k%3%^%s%I$r(B
-$BMQ0U$7$^$7$?!%(B
+\section{ベクトル}
+\subsection{ベクトル演算}
+点の座標を位置ベクトルの成分と見て，ベクトル演算をするコマンドを
+用意しました．
 
 \begin{boxnote}
 \begin{list}{}{\leftmargin7zw\labelwidth7zw}
-\item[$BOB!'(B]\cmd{Addvec}\verb+#1#2#3+$B!'(B
-    2$B$D$N%Y%/%H%k(B\verb+#1, #2+$B$NOB%Y%/%H%k$r(B\verb+#3+$B$KM?$($^$9!%(B
+\item[和：]\cmd{Addvec}\verb+#1#2#3+：
+    2つのベクトル\verb+#1, #2+の和ベクトルを\verb+#3+に与えます．
 
-\item[$B:9!'(B]\cmd{Subvec}\verb+#1#2#3+$B!'(B
-    2$B$D$N%Y%/%H%k(B\verb+#1, #2+$B$N:9%Y%/%H%k$r(B\verb+#3+$B$KM?$($^$9!%(B
+\item[差：]\cmd{Subvec}\verb+#1#2#3+：
+    2つのベクトル\verb+#1, #2+の差ベクトルを\verb+#3+に与えます．
 
-\item[$B%9%+%i!<G\!'(B]\cmd{Mulvec}\verb+#1#2#3+$B!'(B
-    $B%Y%/%H%k(B\verb+#2+ $B$N%9%+%i!<(B\verb+#1+$BG\$r(B\verb+#3+$B$KM?$($^$9!%(B
+\item[スカラー倍：]\cmd{Mulvec}\verb+#1#2#3+：
+    ベクトル\verb+#2+ のスカラー\verb+#1+倍を\verb+#3+に与えます．
 
-\item[$BBg$-$5!'(B] \cmd{Absvec}\verb+#1#2+:
-    $B%Y%/%H%k(B\verb+#1+ $B$NBg$-$5$r(B \verb+#2+ $B$KM?$($^$9!%(B
+\item[大きさ：] \cmd{Absvec}\verb+#1#2+:
+    ベクトル\verb+#1+ の大きさを \verb+#2+ に与えます．
 
-\item[$BJ}8~3Q!'(B] \cmd{Argvec}\verb+#1#2+:
-    $B%Y%/%H%k$,(B x$B<4$N@5$N8~$-$H$J$93Q$r(B \verb+#2+ $B$KM?$($^$9!%(B
+\item[方向角：] \cmd{Argvec}\verb+#1#2+:
+    ベクトルが x軸の正の向きとなす角を \verb+#2+ に与えます．
 
-\item[$BK!@~%Y%/%H%k!'(B]\cmd{Nvec}\verb+#1#2+:
-    $B%Y%/%H%k(B \verb+#1+ $B$K?bD>$JC10L%Y%/%H%k$r(B \verb+#2+ $B$KM?$($^$9!%(B
+\item[法線ベクトル：]\cmd{Nvec}\verb+#1#2+:
+    ベクトル \verb+#1+ に垂直な単位ベクトルを \verb+#2+ に与えます．
 
-\item[$B2sE>!'(B] \cmd{Rotvec}\verb+[#1]<#2>#3#4#5+:
-    $B%Y%/%H%k(B \verb+#3+ $B$r(B $B3Q(B \verb+#4+ $B$@$12sE>$7$?%Y%/%H%k$r(B \verb+#5+$B$K(B
-    $BM?$($^$9!%(B\verb+[#1]+ $B$r;XDj$7$?>l9g$O!$D9$5$r;XDj$7$?CM$K$7$^$9!%(B
-    $B$^$?!$(B\verb+<#2>+ $B$r;XDj$7$?>l9g$O!$D9$5$r85$N%Y%/%H%k$N(B \verb+#2+ $BG\(B
-    $B$K$7$^$9!%(B
+\item[回転：] \cmd{Rotvec}\verb+[#1]<#2>#3#4#5+:
+    ベクトル \verb+#3+ を 角 \verb+#4+ だけ回転したベクトルを \verb+#5+に
+    与えます．\verb+[#1]+ を指定した場合は，長さを指定した値にします．
+    また，\verb+<#2>+ を指定した場合は，長さを元のベクトルの \verb+#2+ 倍
+    にします．
 
-\item[$B@.J,!'(B] \cmd{vecXY}\verb+#1#2#3+:
-    $B%Y%/%H%k(B \verb+#1+ $B$N(Bx$B@.J,$r(B \verb+#2+ $B$X!$(By$B@.J,$r(B \verb+#3+ $B$XCj=P$7$^$9!%(B
+\item[成分：] \cmd{vecXY}\verb+#1#2#3+:
+    ベクトル \verb+#1+ のx成分を \verb+#2+ へ，y成分を \verb+#3+ へ抽出します．
 \end{list}
 \end{boxnote}
 \cindex{Addvec}\cindex{Subvec}\cindex{Mulvec}\cindex{Absvec}
 \cindex{Argvec}\cindex{Nvec}\cindex{Rotvec}\cindex{vecXY}
 
-\subsection{$BJ?9T;MJU7A(B}
-A(2,3), B(1,1), C(4,1) $B$rD:E@$H$9$kJ?9T;MJU7A(B ABCD $B$r:n?^$9$k$K$O(B
-3$BE@$N:BI8(B \cmd{A}, \cmd{B}, \cmd{C} $B$r0LCV%Y%/%H%k$H8+$F(B
+\subsection{平行四辺形}
+A(2,3), B(1,1), C(4,1) を頂点とする平行四辺形 ABCD を作図するには
+3点の座標 \cmd{A}, \cmd{B}, \cmd{C} を位置ベクトルと見て
 \begin{quote}
     $\mbox{\cmd{A}}+\mbox{\cmd{C}}-\mbox{\cmd{B}}$
 \end{quote}
-$B$H$7$F(B \cmd{D} $B$r5a$a$^$9!%(B
+として \cmd{D} を求めます．
 
-\showexample[$BJ?9T;MJU7A(B](0.6)(0.55){example/sikakkei}
+\showexample[平行四辺形](0.6)(0.55){example/sikakkei}
 
-\subsection{$B2sE>(B}
-$B%Y%/%H%k$r2sE>$5$;$k%3%^%s%I(B \cmd{Rotvec} $B$rMQ$$$F(B
-$B2sE>$r9T$&$3$H$,$G$-$^$9!%$3$3$G$O$5$i$K0lHL2=$7$?(B
-\cmd{Kaiten} $B$rMQ$$$F!$(B
-$B;XDj$7$?(B2$BE@(B A, B $B$r7k$V@~J,$r0lJU$H$9$k@5;03Q7A$r:n?^$7$^$9!%(B
+\subsection{回転}
+ベクトルを回転させるコマンド \cmd{Rotvec} を用いて
+回転を行うことができます．ここではさらに一般化した
+\cmd{Kaiten} を用いて，
+指定した2点 A, B を結ぶ線分を一辺とする正三角形を作図します．
 \cindex{Kaiten}
 
-\showexample[$B2sE>(B](0.55)(0.35){example/kaiten01}
+\showexample[回転](0.55)(0.35){example/kaiten01}
 
-\cmd{Kaiten} $B%3%^%s%I$N=q<0$G$9!%(B
+\cmd{Kaiten} コマンドの書式です．
 \begin{boxnote}
 \begin{verbatim}
    \Kaiten[#1]<#2>#3#4#5#6
-      #1 : $BD9$5;XDj(B
-      #2 : $BD9$5$NG\N(;XDj(B
-      #3 : $B2sE>$NCf?4(B
-      #4 : $B2sE>$5$;$kE@(B
-      #5 : $B2sE>3Q(B
-      #6 : $B7k2L$N:BI8$r<u$1<h$k%3%s%H%m!<%k%7!<%1%s%9(B
+      #1 : 長さ指定
+      #2 : 長さの倍率指定
+      #3 : 回転の中心
+      #4 : 回転させる点
+      #5 : 回転角
+      #6 : 結果の座標を受け取るコントロールシーケンス
 \end{verbatim}
 \end{boxnote}

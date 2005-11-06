@@ -4,10 +4,10 @@
 \usepackage{showexample}
 
 \begin{document}
-\section{$B7S@~$rE@@~$G(B}
+\section{罫線を点線で}
 \subsection{\textsf{arydshln.sty}}
-\textsf{tabular}, \textsf{array}$B4D6-$N7S@~$rE@@~$H$9$k$K$O!$(B
-\textsf{arydshln.sty}$B$rMQ$$$^$9!#(B
+\textsf{tabular}, \textsf{array}環境の罫線を点線とするには，
+\textsf{arydshln.sty}を用います。
 
 \begin{showEx}(.6,.34){\textsf{arydshln.sty}}
 \begin{tabular}{|c|c:c|}\hline
@@ -17,21 +17,21 @@ A&B&C\\\hline
 \end{tabular}
 \end{showEx}
 
-$B$9$J$o$A!$=D7S@~$rE@@~$H$9$k$K$O!$Ms;XDj;R$N(B`$|$'$B$KBX$($F(B`:'$B$rMQ$$$^$9!#(B
-$B$^$?!$2#7S@~$rE@@~$H$9$k$K$O!$(B\cmd{hline}$B$KBX$($F!$(B\cmd{hdashline}
-$B$rMQ$$$^$9!#(B\textsf{arydshln.sty}$B$K$D$$$F$O(B
+すなわち，縦罫線を点線とするには，欄指定子の`$|$'に替えて`:'を用います。
+また，横罫線を点線とするには，\cmd{hline}に替えて，\cmd{hdashline}
+を用います。\textsf{arydshln.sty}については
 \begin{jquote}
 \begin{verbatim}
 http://www.para.tutics.tut.ac.jp/~nakasima/latex/
 \end{verbatim}
 \end{jquote}
-$B$r$*?R$M$/$@$5$$!#(B
+をお尋ねください。
 
-\subsection{\textsf{hhline.sty}$B$H(B\textsf{arydshln.sty}$B$NJ;MQ(B}
-\textsf{hhline.sty}$B$H(B\textsf{arydshln.sty}$B$rJ;MQ$9$k$H!$(B
-$B=D2#$N7S@~$,$D$J$,$i$J$$8=>]$,H/@8$7$^$9!#(B
+\subsection{\textsf{hhline.sty}と\textsf{arydshln.sty}の併用}
+\textsf{hhline.sty}と\textsf{arydshln.sty}を併用すると，
+縦横の罫線がつながらない現象が発生します。
 
-\begin{showEx}(.6,.34){\textsf{hhline}$B$H(B\textsf{arydshln}$B$H$NJ;MQ(B}
+\begin{showEx}(.6,.34){\textsf{hhline}と\textsf{arydshln}との併用}
 \begin{tabular}{|c|c:c|}\hline
 A&B&C\\\hhline{|=|=|=|}
 1&2&3\\\hdashline
@@ -39,23 +39,23 @@ A&B&C\\\hhline{|=|=|=|}
 \end{tabular}
 \end{showEx}
 
-$BI=$N:G>eIt2#7S@~$H=D7S@~$,N%$l$F$$$^$9!#(B
-$B$3$N8=>]$O!$;HMQ%Q%C%1!<%8$r(B
+表の最上部横罫線と縦罫線が離れています。
+この現象は，使用パッケージを
 \begin{jquote}
   \sffamily
   hhline, arydshln
 \end{jquote}
-$B$N(B2$B$D$@$1$K$7$F$bH/@8$9$k$3$H$r$*3N$+$a$/$@$5$$!#(B
-$B$9$J$o$A(B\textsf{emath}$B$N$;$$$G$O$"$j$^$;$s!#(B
+の2つだけにしても発生することをお確かめください。
+すなわち\textsf{emath}のせいではありません。
 
-$B=>$C$F2r7h$O!$>e$N(B2$B$D$N%Q%C%1!<%8B&$K$*$$$F$J$5$l$k$Y$-;vJA$G$9!#(B
+従って解決は，上の2つのパッケージ側においてなされるべき事柄です。
 
-\subsection{\textsf{emathT}$B$K$*$1$kEvLL$NNW;~A<CV(B}
-$B$=$l$^$G$N4V$NNW;~A<CV$H$7$F!$(B\textsf{emathT.sty}$B$G$O!$(B
-\cmd{hhcr}$B$rMQ0U$7$^$7$?!#(B\cmd{hhline}$B$ND>A0$N(B\verb+\\+$B$KBe$($FMQ$$$^$9!#(B
+\subsection{\textsf{emathT}における当面の臨時措置}
+それまでの間の臨時措置として，\textsf{emathT.sty}では，
+\cmd{hhcr}を用意しました。\cmd{hhline}の直前の\verb+\\+に代えて用います。
 
-$B$?$@$7!$%m!<%I=g$,LdBj$G!$(B\textsf{emathT}$B$r@h!$$=$N8e$G(B \textsf{arydshln}
-$B$r%m!<%I$7$J$1$l$P$J$j$^$;$s!#(B
+ただし，ロード順が問題で，\textsf{emathT}を先，その後で \textsf{arydshln}
+をロードしなければなりません。
 
 \begin{showEx}(.6,.34){\cmd{hhcr}}
 \begin{tabular}{|c|c:c|}\hline
@@ -65,9 +65,9 @@ A&B&C\hhcr\hhline{|=|=|=|}
 \end{tabular}
 \end{showEx}
 
-$B$?$@$7!$$3$NA<CV$O$4$^$+$7$G$7$F!$E@@~$N=D7S@~$NItJ,$r(B
-\verb+\hhline{|=|=:=|}+$B$H$7$F$b2#Fs=E7S@~$NItJ,$r=D7S@~$,FM$C@Z$C$F$7$^$$$^$9!#(B
-$B$=$N$/$i$$$OL\$r$D$V$m$&!$$H$$$&4V$K9g$o$;$G$9!#(B
+ただし，この措置はごまかしでして，点線の縦罫線の部分を
+\verb+\hhline{|=|=:=|}+としても横二重罫線の部分を縦罫線が突っ切ってしまいます。
+そのくらいは目をつぶろう，という間に合わせです。
 
 \begin{showEx}(.6,.34){\cmd{hhcr}}
 \begin{tabular}{|c|c:c|}\hline
@@ -77,9 +77,9 @@ A&B&C\hhcr\hhline{|=|=:=|}
 \end{tabular}
 \end{showEx}
 
-\subsection{\textsf{emathT}$B$NB@7S@~$H$NJ;MQ(B}
-\textsf{emathT}$B$NB@7S@~$H$NJ;MQ$r8+$F$*$-$^$9!#(B
-\begin{showEx}(.6,.34){$BB@7S@~$H$NJ;MQ(B}
+\subsection{\textsf{emathT}の太罫線との併用}
+\textsf{emathT}の太罫線との併用を見ておきます。
+\begin{showEx}(.6,.34){太罫線との併用}
 \begin{Hyou}{IC{1zw}|C{1zw}:C{1zw}I}\hlineb
 A&B&C\hhcr\hhline{I=|=:=I}
 1&2&3\\\hdashline
@@ -87,11 +87,11 @@ A&B&C\hhcr\hhline{I=|=:=I}
 \end{Hyou}
 \end{showEx}
 
-$B%(%C!*(B
-$B$^$?7S@~$,$D$J$,$C$F$$$^$;$s$+!#7S@~$,B@$/$J$C$?J,=$@5NL$rJQ99$7$J$1$l$P(B
-$B$J$i$J$$$h$&$G$9!#(B
+エッ！
+また罫線がつながっていませんか。罫線が太くなった分修正量を変更しなければ
+ならないようです。
 
-\begin{showEx}(.6,.34){$BB@7S@~$H$NJ;MQ(B--$B=$@5(B}
+\begin{showEx}(.6,.34){太罫線との併用--修正}
 \begin{Hyou}{IC{1zw}|C{1zw}:C{1zw}I}\hlineb
 A&B&C\hhcr[4.4pt]\hhline{I=|=:=I}
 1&2&3\\\hdashline
@@ -99,14 +99,14 @@ A&B&C\hhcr[4.4pt]\hhline{I=|=:=I}
 \end{Hyou}
 \end{showEx}
 
-$B$9$J$o$A!$(B\cmd{hhcr}$B$N%*%W%7%g%s0z?t$K(B\verb+[4.4pt]+$B$H!$(B
-$B=$@5NL$r;XDj$7$F$$$^$9!#$3$N%G%U%)%k%HCM$O(B\verb+[3.2pt]+$B$G$9!#(B
-$BIaDL7S@~$HB@7S@~$H$NB@$5$N:9(B$2\times(1.0-0.4)=1.2$(pt)$BA}$d$7$F$$$k$o$1$G$9!#(B
+すなわち，\cmd{hhcr}のオプション引数に\verb+[4.4pt]+と，
+修正量を指定しています。このデフォルト値は\verb+[3.2pt]+です。
+普通罫線と太罫線との太さの差$2\times(1.0-0.4)=1.2$(pt)増やしているわけです。
 
-\subsection{\cmd{arraystretch}$B$X$NBP1~(B}
-\cmd{arraystretch}$B$NJQ99$OBg>fIW$G$7$g$&$+!#3NG'$7$F$*$-$^$9!#(B
+\subsection{\cmd{arraystretch}への対応}
+\cmd{arraystretch}の変更は大丈夫でしょうか。確認しておきます。
 
-\begin{showEx}(.6,.34){\cmd{arraystretch}$B$NJQ99(B}
+\begin{showEx}(.6,.34){\cmd{arraystretch}の変更}
 \def\arraystretch{2}
 \begin{Hyou}{IC{1zw}|C{1zw}:C{1zw}I}\hlineb
 A&B&C\hhcr[4.4pt]\hhline{I=|=:=I}
@@ -115,9 +115,9 @@ A&B&C\hhcr[4.4pt]\hhline{I=|=:=I}
 \end{Hyou}
 \end{showEx}
 
-$B$D$.$O!$(B\cmd{extrarowheight}
+つぎは，\cmd{extrarowheight}
 
-\begin{showEx}(.6,.34){\cmd{extrarowheight}$B$N;XDj(B}
+\begin{showEx}(.6,.34){\cmd{extrarowheight}の指定}
 \extrarowheight=20pt\relax
 \begin{Hyou}{IC{1zw}|C{1zw}:C{1zw}I}\hlineb
 A&B&C\hhcr[4.4pt]\hhline{I=|=:=I}
@@ -125,13 +125,13 @@ A&B&C\hhcr[4.4pt]\hhline{I=|=:=I}
 4&5&6\\\hlineb
 \end{Hyou}
 \end{showEx}
-$B$$$:$l$bLdBj$J$$$h$&$G$9!#(B
+いずれも問題ないようです。
 
-\subsection{$B2~9TNL$NJQ99(B}
-\cmd{extrarowheight}$B$HH?BP$K!$2~9TNL$rJQ99$7$F$_$^$9!#(B
-$BI=$N:G2<9T$K2<M>Gr$r$D$1$F$_$^$9!#(B
+\subsection{改行量の変更}
+\cmd{extrarowheight}と反対に，改行量を変更してみます。
+表の最下行に下余白をつけてみます。
 
-\begin{showEx}(.6,.34){$B2~9TNL$NJQ99(B}
+\begin{showEx}(.6,.34){改行量の変更}
 \begin{Hyou}{IC{1zw}|C{1zw}:C{1zw}I}\hlineb
 A&B&C\hhcr[4.4pt]\hhline{I=|=:=I}
 1&2&3\\\hdashline
@@ -139,14 +139,14 @@ A&B&C\hhcr[4.4pt]\hhline{I=|=:=I}
 \end{Hyou}
 \end{showEx}
 
-$B$3$A$i$b$h$5$=$&$G$9$,!$8e$G<h$j>e$2$k$h$&$K(B\cmd{multicolumn}$B$H(B
-$BJ;MQ$9$k$HLdBj$,H/@8$7$^$9!#(B
+こちらもよさそうですが，後で取り上げるように\cmd{multicolumn}と
+併用すると問題が発生します。
 
-\subsection{2$B2U=j$K2#Fs=E7S@~(B}
-$B2#Fs=E7S@~$r(B2$B2U=j0J>e$G;HMQ$9$k$H$-$O(B\cmd{hhcr}$B$N=$@5NL$r(B
-$BD4@0$9$kI,MW$,$"$j$^$9!#(B
+\subsection{2箇所に横二重罫線}
+横二重罫線を2箇所以上で使用するときは\cmd{hhcr}の修正量を
+調整する必要があります。
 
-\begin{showEx}(.6,.34){2$B2U=j$K2#Fs=E7S@~(B}
+\begin{showEx}(.6,.34){2箇所に横二重罫線}
 \begin{tabular}{|c|c:c|}\hline
 A&B&C\hhcr\hhline{|=|=|=|}
 1&2&3\\\hdashline
@@ -156,10 +156,10 @@ A&B&C\hhcr[2.8pt]\hhline{|=|=|=|}
 \end{showEx}
 \clearpage
 
-\subsection{$B?t<0$r4^$s$@I=(B}
-$BI=$N%+%i%`$K?t<0$r4^$`>l9g!$9T$N9b$5$,JQ2=$9$k$3$H$,$"$j$^$9!#(B
+\subsection{数式を含んだ表}
+表のカラムに数式を含む場合，行の高さが変化することがあります。
 
-\begin{showEx}(.64,.3){$B?t<0$r4^$`>l9g(B}
+\begin{showEx}(.64,.3){数式を含む場合}
 $\begin{hyou}{IC{1zw}|C{1zw}:C{1zw}I}\hlineb
 A&B&C\hhcr[4.4pt]\hhline{I=|=:=I}
 1&\bunsuu{\bunsuu1c}{\bunsuu1d}&3\\\hdashline
@@ -167,12 +167,12 @@ A&B&C\hhcr[4.4pt]\hhline{I=|=:=I}
 \end{hyou}$
 \end{showEx}
 
-$B??Cf$N%+%i%`$KHKJ,?t<0$rJ|$j9~$s$G8+$^$7$?!#(B
-$B7S@~$ODI?o$7$F$$$k$h$&$G$9!#(B
-$B$b$C$H$b$3$N>l9g$O(B2$B9TL\$N9b$5$r$b$&>/$7A}$d$7$F$d$j$?$$$G$9$M!#(B
-\textsf{emath}$B$N(B\cmd{EMvphantom}$B$H$$$&%3%^%s%I$,JXMx$G$7$g$&!#(B
+真中のカラムに繁分数式を放り込んで見ました。
+罫線は追随しているようです。
+もっともこの場合は2行目の高さをもう少し増やしてやりたいですね。
+\textsf{emath}の\cmd{EMvphantom}というコマンドが便利でしょう。
 
-\begin{showEx}(.64,.3){\cmd{EMvphantom}$B$K$h$kD4@0(B}
+\begin{showEx}(.64,.3){\cmd{EMvphantom}による調整}
 $\begin{hyou}{IC{1zw}|C{1zw}:C{1zw}I}\hlineb
 A&B&C\hhcr[4.4pt]\hhline{I=|=:=I}
 \EMvphantom[5pt]{\bunsuu{\bunsuu1c}{\bunsuu1d}}
@@ -181,15 +181,15 @@ A&B&C\hhcr[4.4pt]\hhline{I=|=:=I}
 \end{hyou}$
 \end{showEx}
 
-\subsection{\cmd{multicolumn}$B$OLdBj$G$9(B}
-$B=PH/E@$KLa$C$F!$;HMQ%Q%C%1!<%8$r(B
+\subsection{\cmd{multicolumn}は問題です}
+出発点に戻って，使用パッケージを
 \begin{jquote}
   \sffamily
   hhline, arydshln
 \end{jquote}
-$B$N(B2$B$D$@$1$K$7$F>u67$r$_$F$*$-$^$9!#(B
+の2つだけにして状況をみておきます。
 
-\begin{showEx}(.6,.34){\textsf{multicolumn}$B$OLdBj$G$9!#(B}
+\begin{showEx}(.6,.34){\textsf{multicolumn}は問題です。}
 \begin{tabular}{|c|c:c|}\hline
 A&B&C\\\hhline{|=|=|=|}
 1&2&3\\\hdashline
@@ -197,9 +197,9 @@ A&B&C\\\hhline{|=|=|=|}
 \end{tabular}
 \end{showEx}
 
-$B$J$s$H$bHa;4$J>u67$G$9!#(B\cmd{hhcr}$B$r;HMQ$7$F$b(B
+なんとも悲惨な状況です。\cmd{hhcr}を使用しても
 
-\begin{showEx}(.6,.34){\cmd{hhcr}$B$bIT==J,(B}
+\begin{showEx}(.6,.34){\cmd{hhcr}も不十分}
 \begin{tabular}{|c|c:c|}\hline
 A&B&C\hhcr\hhline{|=|=|=|}
 1&2&3\\\hdashline
@@ -207,21 +207,21 @@ A&B&C\hhcr\hhline{|=|=|=|}
 \end{tabular}
 \end{showEx}
 
-\cmd{hhcr}$B$N=$@5NL$rJQ99$7$F$b(B
-\begin{showEx}(.6,.34){\cmd{hhcr}$B$N=$@5NLJQ99$b(B}
+\cmd{hhcr}の修正量を変更しても
+\begin{showEx}(.6,.34){\cmd{hhcr}の修正量変更も}
 \begin{tabular}{|c|c:c|}\hline
 A&B&C\hhcr[23.2pt]\hhline{|=|=|=|}
 1&2&3\\\hdashline
 4&\multicolumn{2}{c|}{11}\\[20pt]\hline
 \end{tabular}
 \end{showEx}
-$B$@$$$V2~A1$5$l$^$7$?$,!$1&2<$NMs$K=D$NE@@~$,?/F~$7$F$$$^$9!#(B
+だいぶ改善されましたが，右下の欄に縦の点線が侵入しています。
 
-\cmd{hhcr}$B$N$$$$2C8:$5$,$P$l$F$7$^$$$^$7$?!#(B
+\cmd{hhcr}のいい加減さがばれてしまいました。
 
-$B2?$H$+$N>eEI$j$G!$1&C<$K%@%_!<Ns$rCV$$$F$_$^$7$?!#(B
+何とかの上塗りで，右端にダミー列を置いてみました。
 
-\begin{showEx}(.6,.34){$B1&C<$K%@%_!<Ns(B}
+\begin{showEx}(.6,.34){右端にダミー列}
 \begin{Hyou}{|C{1zw}|C{1zw}:C{1zw}C{-8pt}|}
   \hline
 A&B&C&\hhcr\hhline{|=|=:==|}
@@ -230,21 +230,21 @@ A&B&C&\hhcr\hhline{|=|=:==|}
 \end{Hyou}
 \end{showEx}
 
-$B6l$7J6$l$N$7$N$.$G$9!#(B
+苦し紛れのしのぎです。
 
-$B$G$b?6$j=P$7$KLa$j!$2r7h$O(B
+でも振り出しに戻り，解決は
 \begin{jquote}
   \sffamily
   hhline, arydshln
 \end{jquote}
-$BB&$K$*$$$F$J$5$l$k$Y$-$3$H$G!$$=$l$^$G$N4V$K9g$o$;$G$9!#(B
+側においてなされるべきことで，それまでの間に合わせです。
 
-$B$3$l$GIT40A4$G$O$"$j$^$9$,!$(B
+これで不完全ではありますが，
 \begin{jquote}
-  $B:Y7S@~(B\\
-  $BB@7S@~(B\\
-  $BFs=E7S@~(B\\
-  $BE@@~7S@~(B
+  細罫線\\
+  太罫線\\
+  二重罫線\\
+  点線罫線
 \end{jquote}
-$B$rJ;MQ$9$k$3$H$,2DG=$H$J$C$?$N$O!$I=$NI=8=NO$rA}$9$3$H$K$J$k$G$7$g$&!#(B
+を併用することが可能となったのは，表の表現力を増すことになるでしょう。
 \end{document}

@@ -3,40 +3,40 @@
 \usepackage{emathOld}
 \usepackage{hako}
 \usepackage{b4yoko3}
-%\usepackage[maskAnstrue]{emathAe}% $B2rEz$r%^%9%/$9$k!#$9$J$o$A2rEz$O0u:~$7$J$$(B
-\usepackage[maskAnsfalse]{emathAe}% $B2rEz$r%^%9%/$7$J$$!#$9$J$o$A2rEz$O0u:~$9$k(B
+%\usepackage[maskAnstrue]{emathAe}% 解答をマスクする。すなわち解答は印刷しない
+\usepackage[maskAnsfalse]{emathAe}% 解答をマスクしない。すなわち解答は印刷する
 
 \AtBeginDvi{\special{papersize=36.4cm,25.7cm}}
 
 \begin{document}
 \hakosyokika
-\prpagetrue% $B%Z!<%8$r0u:~$9$k$H$-$O9TF,$N(B % $B$r:o=|$9$k!%(B
-\pageran{\thepage/\pageref{lastpage}}% $B%Z!<%8HV9f$N=PNOMM<0$rJQ99$7$F$_$^$9!%(B
-                                     % $BAm%Z!<%8?t$rI,MW$H$9$k$H$-$O!$(B
-                                     % $B:G=*%Z!<%8$G(B \label{lastpage} $B$H$7$F(B
-                                     % $B%i%Y%k(B lastpage $B$rDj5A$7$^$9!%(B
-\testname{2$B3X4|4|Kv9M::(B 1$BG/?t3X(BI 2001/12}
+\prpagetrue% ページを印刷するときは行頭の % を削除する．
+\pageran{\thepage/\pageref{lastpage}}% ページ番号の出力様式を変更してみます．
+                                     % 総ページ数を必要とするときは，
+                                     % 最終ページで \label{lastpage} として
+                                     % ラベル lastpage を定義します．
+\testname{2学期期末考査 1年数学I 2001/12}
 \begin{sheet}
 \begin{column}
-\item $B<!$N(B\karaHako $B$rJd$(!#(B(38$BE@(B)
+\item 次の\karaHako を補え。(38点)
   \begin{Enumerate}[(1)]
-    \item 1$B8D$N$5$$$3$m$r(B5$B2sEj$2$k$H$-!$(B
+    \item 1個のさいころを5回投げるとき，
       \begin{enumerate}[(\protect\expandafter\emroman i)]
-        \item 3$B$NG\?t$NL\$,(B2$B2s=P$k3NN($O(B
-          \maskHako(4zw)[2zh][1zh]{\bunsuu{80}{243}}$B$G$"$k!#(B
-        \item 3$B$NG\?t$NL\$,>/$J$/$H$b(B1$B2s=P$k3NN($O(B\\
-          \maskHako(4zw)[2zh][1zh]{\bunsuu{211}{243}}$B$G$"$k!#(B
+        \item 3の倍数の目が2回出る確率は
+          \maskHako(4zw)[2zh][1zh]{\bunsuu{80}{243}}である。
+        \item 3の倍数の目が少なくとも1回出る確率は\\
+          \maskHako(4zw)[2zh][1zh]{\bunsuu{211}{243}}である。
       \end{enumerate}
 \vfill
-    \item $B$5$$$3$m$r(B
+    \item さいころを
       \begin{enumerate}[(\protect\expandafter\emroman i)]
-        \item 1$B2sEj$2$?$H$-!$=P$kL\$N?t$N4|BTCM$O(B
-          \maskHako(4zw)[2zh][1zh]{\bunsuu{7}{2}}$B$G$"$k!#(B
-        \item 2$B2sEj$2$?$H$-!$=P$kL\$NOB$r(B$X$$B$H$7$?$H$-!$(B$\sin(30X)\Deg$$B$N(B
-          $B4|BTCM$O(B\maskHako(8zw)[2zh][1zh]{-\bunsuu{2+\sqrt3}{18}}$B$G$"$k!#(B
+        \item 1回投げたとき，出る目の数の期待値は
+          \maskHako(4zw)[2zh][1zh]{\bunsuu{7}{2}}である。
+        \item 2回投げたとき，出る目の和を$X$としたとき，$\sin(30X)\Deg$の
+          期待値は\maskHako(8zw)[2zh][1zh]{-\bunsuu{2+\sqrt3}{18}}である。
       \end{enumerate}
 \vfill
-    \item $B<!$N;03QHf$NCM$r=q$1!#(B
+    \item 次の三角比の値を書け。
       \begin{edaenumerate}[(1)]
         \item $\sin60\Deg=\maskHako(4zw)[2zh][1zh]{\bunsuu{\sqrt3}{2}}$
         \item $\cos45\Deg=\maskHako(4zw)[2zh][1zh]{\bunsuu{\sqrt2}{2}}$
@@ -56,7 +56,7 @@
           \Drawline{\A\B\C\A}
         \end{zahyou*}
       }
-      $B1&$N?^$G(B
+      右の図で
       \begin{align*}
         \sin A&=\maskHako(4zw)[2zh][1zh]{\bunsuu{2\sqrt{13}}{13}}\\
         \cos A&=\maskHako(4zw)[2zh][1zh]{\bunsuu{3\sqrt{13}}{13}}\\
@@ -68,23 +68,23 @@
 \begin{column}
   \item []
     \begin{Enumerate*}
-    \item $B<!$NCM$r(B0\Deg $B$+$i(B90\Deg $B$N4V$N3Q$N;03QHf$rMQ$$$FI=$;!#(B
+    \item 次の値を0\Deg から90\Deg の間の角の三角比を用いて表せ。
       \begin{enumerate}[(\protect\expandafter\emroman i)]
-        \item[$BNc(B.] $\sin130\Deg=\hako{\makebox[8zw]{$\sin50\Deg$}}$
+        \item[例.] $\sin130\Deg=\hako{\makebox[8zw]{$\sin50\Deg$}}$
         \item $\cos140\Deg=\maskHako(8zw)[2zh][1zh]{-\cos40\Deg}$
         \item $\tan190\Deg=\maskHako(8zw)[2zh][1zh]{\tan10\Deg}$
         \item $\sin290\Deg=\maskHako(8zw)[2zh][1zh]{-\sin70\Deg}$
       \end{enumerate}
 \vfill
-    \item $\sin\theta+\cos\theta=\bunsuu{5}{4}$$B$N$H$-!$(B
+    \item $\sin\theta+\cos\theta=\bunsuu{5}{4}$のとき，
       $\sin\theta\cos\theta=\maskHako(4zw)[2zh][1zh]{\bunsuu{9}{32}}$,\\
       $\sin^3\theta+\cos^3\theta=\maskHako(4zw)[2zh][1zh]{\bunsuu{115}{128}}$
 \vfill
     \end{Enumerate*}
 
-\item $\mathrm{BC}=7$, $\kaku{C}=90\Deg$, $\kaku{A}=62\Deg$$B$ND>3Q;03Q7A(BABC$B$N(B
-$BJU(BAB, AC$B$ND9$5$r2<$N;03QHf$NI=$rMxMQ$7$F5a$a$h!#(B
-$B$?$@$7!$;M<N8^F~$7$F>.?tBh(B1$B0L$^$G$H$9$k!#(B(8$BE@(B)
+\item $\mathrm{BC}=7$, $\kaku{C}=90\Deg$, $\kaku{A}=62\Deg$の直角三角形ABCの
+辺AB, ACの長さを下の三角比の表を利用して求めよ。
+ただし，四捨五入して小数第1位までとする。(8点)
 
 \begin{zahyou*}[ul=4mm](-7,0)(0,3.66)
   \tenretu{A(0,3.66)n;B(-7,0)s;C(0,0)s}
@@ -96,11 +96,11 @@
 \hfill
 \raisebox{2zh}{%
 \begin{minipage}{19zw}
-\centerline{$B;03QHf$NI=(B}
+\centerline{三角比の表}
 
 \footnotesize
 $\begin{array}{|c||c|c|c|}\hline
-$B3QEY(B & $B@589(B(\sin) &$BM>89(B(\cos) & $B@5@\(B(\tan)\\\hline
+角度 & 正弦(\sin) &余弦(\cos) & 正接(\tan)\\\hline
 26\Deg & 0.438 & 0.899 & 0.488\\\hline
 27\Deg & 0.454 & 0.891 & 0.510\\\hline
 28\Deg & 0.470 & 0.883 & 0.532\\\hline
@@ -109,16 +109,16 @@ $\begin{array}{|c||c|c|c|}\hline
 \end{array}$
 \end{minipage}}
 \begin{Kaitou}
-$\kaku B=90\Deg-62\Deg=28\Deg$$B$G$"$k$+$i(B
+$\kaku B=90\Deg-62\Deg=28\Deg$であるから
 \begin{caprm}
 \[ \cos28\Deg=\bunsuu{7}{AB} \]
-$B$7$?$,$C$F(B
+したがって
 \[AB=\bunsuu{7}{\cos28\Deg}=\bunsuu{7}{0.883}=7.9\teisei[r]{2}\cdots
-  \owari[\color{red}$\longleftarrow$~4$BE@(B] \]
-$BF1MM$K!$(B$\tan28\Deg=\bunsuu{AC}{7}$$B$h$j(B
+  \owari[\color{red}$\longleftarrow$~4点] \]
+同様に，$\tan28\Deg=\bunsuu{AC}{7}$より
 \[ AC=7\tan28\Deg=7\times0.532=3.7\teisei[r]2\cdots
-  \owari[\color{red}$\longleftarrow$~4$BE@(B] \]
-\qquad $B!JEz!K(B$\bm{AB=7.9}$, $\bm{AC=3.7}$
+  \owari[\color{red}$\longleftarrow$~4点] \]
+\qquad （答）$\bm{AB=7.9}$, $\bm{AC=3.7}$
 \end{caprm}
 \end{Kaitou}
 \vfill
@@ -145,10 +145,10 @@ $\kaku B=90\Deg-62\Deg=28\Deg$$B$G$"$k$+$i(B
   \end{zahyou*}
   }
 \item
-  $B1&?^$N(B\sankaku{ABC}$B$K$*$$$F<!$NJU$ND9$5$r5a$a$h!#(B
-  $B$?$@$7!$(B\\
+  右図の\sankaku{ABC}において次の辺の長さを求めよ。
+  ただし，\\
   $\tan17\Deg=0.3$, $\tan35\Deg=0.7$\\
-  $B$H$7$F7W;;$;$h!#(B(8$BE@(B)
+  として計算せよ。(8点)
 \end{nidan}
   \begin{edaenumerate}[(1)]
     \item PB
@@ -158,27 +158,27 @@ $\kaku B=90\Deg-62\Deg=28\Deg$$B$G$"$k$+$i(B
   \resetcounter{equation}
   \preEqlabel{$\cdots\cdots$}
   \begin{caprm}
-    $PB=x$, $BC=y$$B$H$*$/$H!$(B
+    $PB=x$, $BC=y$とおくと，
     \begin{alignat}{2}
-      \tan17\Deg&=\bunsuu{y}{x+80}~$B$h$j(B\quad&\therefore y&=0.3(x+80)\\
-      \tan35\Deg&=\bunsuu{y}{x}~$B$h$j(B        &\therefore y&=0.7x
+      \tan17\Deg&=\bunsuu{y}{x+80}~より\quad&\therefore y&=0.3(x+80)\\
+      \tan35\Deg&=\bunsuu{y}{x}~より        &\therefore y&=0.7x
     \end{alignat}
-    $\maru2-\maru1$$B$h$j(B $x=60$ $B$9$J$o$A(B $\bm{PB=60}$
-      \owari[{$\Cdots[3]$} (1)$B$NEz(B]
-    \maru2$B$KBeF~$7$F(B $y=42$ $B$9$J$o$A(B $\bm{BC=42}$
-      \owari[{$\Cdots[3]$} (2)$B$NEz(B]
+    $\maru2-\maru1$より $x=60$ すなわち $\bm{PB=60}$
+      \owari[{$\Cdots[3]$} (1)の答]
+    \maru2に代入して $y=42$ すなわち $\bm{BC=42}$
+      \owari[{$\Cdots[3]$} (2)の答]
   \end{caprm}
 \end{Kaitou}
   \vfill
 
-\item $B<!$NJ}Dx<0$rK~$?$9(B$\theta$$B$NCM$r5a$a$h!#$?$@$7!$(B$0\Deg\leqq \theta
-  <360\Deg$$B$H$9$k!#(B(14$BE@(B)
+\item 次の方程式を満たす$\theta$の値を求めよ。ただし，$0\Deg\leqq \theta
+  <360\Deg$とする。(14点)
   \begin{edaenumerate}[(1)]
     \item $2\sin\theta+1=0$
       \begin{Kaitou}
-        $BJQ7A$7$F(B $\sin\theta=-\bunsuu{1}{2}$$B$H$J$k$+$i!$(B
-        $BD>@~(B$y=-\bunsuu{1}{2}$$B$H86E@$rCf?4$H$9$kH>7B(B1$B$N1_$H$N8rE@$H(B
-        $BCf?4$r7k$s$G!$5a$a$k3Q$O(B
+        変形して $\sin\theta=-\bunsuu{1}{2}$となるから，
+        直線$y=-\bunsuu{1}{2}$と原点を中心とする半径1の円との交点と
+        中心を結んで，求める角は
         \[ \theta=\bm{210\Deg},~\bm{330\Deg} \kotae \]
         \centerline{\begin{zahyou}[ul=10mm,gentenhaiti={[nw]}]%
           (-1.2,1.5)(-1.2,1.5)
@@ -194,8 +194,8 @@ $\kaku B=90\Deg-62\Deg=28\Deg$$B$G$"$k$+$i(B
       \end{Kaitou}
     \item $\tan^2\theta=3$
       \begin{Kaitou}
-        $BJQ7A$7$F(B $\tan\theta=\pm\sqrt3$$B$H$J$k$+$i!$(B
-        $BE@(B(1, $\pm\sqrt3$)$B$H86E@$r7k$s$G!$5a$a$k3Q$O(B
+        変形して $\tan\theta=\pm\sqrt3$となるから，
+        点(1, $\pm\sqrt3$)と原点を結んで，求める角は
         \[ \theta=\bm{60\Deg},~\bm{120\Deg},~\bm{240\Deg},~\bm{300\Deg}
            \kotae \]
         \centerline{\begin{zahyou}[ul=10mm,gentenhaiti={[nw]}]%
@@ -219,23 +219,23 @@ $\kaku B=90\Deg-62\Deg=28\Deg$$B$G$"$k$+$i(B
 
 \begin{sheet}
 \begin{column}
-\item $B86E@(BO$B$+$i=PH/$7$F?tD>@~>e$rF0$/E@(BP$B$O!$$5$$$3$m$rEj$2$F(B4$B0J2<$NL\$,=P$k$H(B
-  $+2$$B0\F0$7!$(B5$B0J>e$NL\$,=P$k$H(B$-1$$B0\F0$9$k!#(B(14$BE@(B)%\kaitou{}
+\item 原点Oから出発して数直線上を動く点Pは，さいころを投げて4以下の目が出ると
+  $+2$移動し，5以上の目が出ると$-1$移動する。(14点)%\kaitou{}
   \begin{enumerate}[(1)]
-    \item $B$5$$$3$m$r(B4$B2sEj$2$?$H$-!$E@(BP$B$N:BI8$,(B$2$$B$H$J$k3NN($r5a$a$h!#(B
+    \item さいころを4回投げたとき，点Pの座標が$2$となる確率を求めよ。
       \begin{Kaitou}
-        4$B0J2<$NL\$,=P$?2s?t$r(B$n$$B$H$9$k$H!$E@(BP$B$N:BI8$O(B
+        4以下の目が出た回数を$n$とすると，点Pの座標は
         \[ 2n-(4-n)=2 \qquad \therefore n=2 \]
-        $B$7$?$,$C$F5a$a$k3NN($O(B
+        したがって求める確率は
         \[ \kumiawase42\left(\bunsuu46\right)^2\left(\bunsuu26\right)^2
           =\bm{\bunsuu{8}{27}} \kotae \]
       \end{Kaitou}
 \vfill
-    \item $B$5$$$3$m$r(B3$B2sEj$2$?$H$-!$E@(BP$B$N:BI8$,(B0$B0J2<$H$J$k3NN($r5a$a$h!#(B
+    \item さいころを3回投げたとき，点Pの座標が0以下となる確率を求めよ。
       \begin{Kaitou}
-        4$B0J2<$NL\$,=P$?2s?t$r(B$n$$B$H$9$k$H!$E@(BP$B$N:BI8$O(B
+        4以下の目が出た回数を$n$とすると，点Pの座標は
         \[ 2n-(3-n)\leqq 0\qquad \therefore n\leqq 1\]
-        $B$7$?$,$C$F5a$a$k3NN($O(B
+        したがって求める確率は
         \begin{align*}
           P(n\leqq 1)&=P(n=0)+P(n=1)\\
             &=\left(\bunsuu26\right)^3
@@ -248,23 +248,23 @@ $\kaku B=90\Deg-62\Deg=28\Deg$$B$G$"$k$+$i(B
   \end{enumerate}
 \end{column}
 \begin{column}
-\item $B@V5e(B4$B8D!$Gr5e(B3$B8D!$9u5e(B2$B8D$,F~$C$?B^$+$i(B4$B8D$N5e$rF1;~$K<h$j=P$9!#(B
-  $B<h$j=P$5$l$?@V5e$N8D?t$r(B$X$, $BGr5e$N8D?t$r(B$Y$$B$H$9$k!#(B(18$BE@(B)%\kaitou{}
+\item 赤球4個，白球3個，黒球2個が入った袋から4個の球を同時に取り出す。
+  取り出された赤球の個数を$X$, 白球の個数を$Y$とする。(18点)%\kaitou{}
   \begin{enumerate}[(1)]
-    \item $X=1$$B$H$J$k3NN($r5a$a$h!#(B
+    \item $X=1$となる確率を求めよ。
       \begin{Kaitou}
-        $X=1$$B$H$J$k$N$O!$<h$j=P$7$?(B4$B8D$N5e$N?'$,(B
+        $X=1$となるのは，取り出した4個の球の色が
         \begin{jquote}
-          1$B8D$O@V!$B>$N(B3$B8D$OGr$^$?$O9u(B
+          1個は赤，他の3個は白または黒
         \end{jquote}
-        $B$H$J$k>l9g$G$"$k$+$i!$5a$a$k3NN($O(B
+        となる場合であるから，求める確率は
         \[ \bunsuu{\kumiawase41\times\kumiawase53}{\kumiawase94}
           =\bunsuu{40}{126}=\bm{\bunsuu{20}{63}} \kotae \]
       \end{Kaitou}
 \vfill
-    \item $X$$B$N4|BTCM$r5a$a$h!#(B
+    \item $X$の期待値を求めよ。
       \begin{Kaitou}
-        (1)$B$HF1MM$K$7$F!$(B
+        (1)と同様にして，
         \begin{align*}
           P(X=0)&=\bunsuu{\kumiawase54}{\kumiawase94}=\bunsuu{5}{126}\\
           P(X=2)&=\bunsuu{\kumiawase42\times\kumiawase52}{\kumiawase94}
@@ -274,20 +274,20 @@ $\kaku B=90\Deg-62\Deg=28\Deg$$B$G$"$k$+$i(B
           P(X=4)&=\bunsuu{\kumiawase44}{\kumiawase94}
             =\bunsuu{1}{126}
         \end{align*}
-        $B$H$J$k$+$i5a$a$k4|BTCM$O(B
+        となるから求める期待値は
         \[ E(X)=\bunsuu{0\cdot5+1\cdot40+2\cdot60+3\cdot20+4\cdot1}{126}
           =\bm{\bunsuu{16}{9}} \kotae \]
       \end{Kaitou}
 \vfill
-    \item $X-Y=2$$B$H$J$k3NN($r5a$a$h!#(B
+    \item $X-Y=2$となる確率を求めよ。
       \begin{Kaitou}
-        $B<h$j=P$5$l$?(B4$B8D$N5e$N$&$A9u5e$N8D?t$r(B$Z$$B$H$9$k$H!$(B$X-Y=2$$B$H$J$k$N$O!$(B
-        $B<!$N(B2$B$D$N>l9g$G$"$k!#(B
+        取り出された4個の球のうち黒球の個数を$Z$とすると，$X-Y=2$となるのは，
+        次の2つの場合である。
         \begin{enumerate}[(\expandafter\emroman i)]
           \item $X=2$, $Y=0$, $Z=2$
           \item $X=3$, $Y=1$, $Z=0$
         \end{enumerate}
-        $B$h$C$F5a$a$k3NN($O(B
+        よって求める確率は
         \[\bunsuu{\kumiawase42\times\kumiawase22}{\kumiawase94}
           +\bunsuu{\kumiawase43\times\kumiawase31}{\kumiawase94}
           =\bm{\bunsuu{1}{7}} \kotae \]
@@ -298,9 +298,9 @@ $\kaku B=90\Deg-62\Deg=28\Deg$$B$G$"$k$+$i(B
 \end{column}
 \begin{column}
 \ifmaskAns
-  \item []\centerline{\textgt{$B7W;;Ms(B}}
+  \item []\centerline{\textgt{計算欄}}
 \else
-  \item[]\textbf{\fbox{1}~$B$NN,2r(B}
+  \item[]\textbf{\fbox{1}~の略解}
 \def\labelenumi{(\theenumi)}
 \setcounter{enumi}{0}
 \small
@@ -308,23 +308,23 @@ $\kaku B=90\Deg-62\Deg=28\Deg$$B$G$"$k$+$i(B
 \belowdisplayskip=0pt
   \item
     \begin{enumerate}[(\expandafter\emroman i)]
-      \item 3$B$NG\?t$NL\$,=P$k3NN($O(B$\bunsuu{2}{6}=\bunsuu{1}{3}$$B$G$"$k$+$i!$(B
-        $BH?I|;n9T$NDjM}$h$j(B~
+      \item 3の倍数の目が出る確率は$\bunsuu{2}{6}=\bunsuu{1}{3}$であるから，
+        反復試行の定理より~
         $\kumiawase52\left(\bunsuu13\right)^2\left(1-\bunsuu13\right)^3
           =\kumiawase52\left(\bunsuu13\right)^2\left(\bunsuu23\right)^3
           =\bm{\bunsuu{80}{243}} $
-      \item $BM>;v>]!V(B5$B2s$H$b(B3$B$NG\?t$G$J$$L\$,=P$k!W$r9M$($F(B
+      \item 余事象「5回とも3の倍数でない目が出る」を考えて
         \[ 1-\left(\bunsuu23\right)^5=1-\bunsuu{32}{243}
           =\bm{\bunsuu{211}{243}} \]
     \end{enumerate}
   \item
     \begin{enumerate}[(\expandafter\emroman i)]
-      \item 1$B$+$i(B6$B$^$G$I$NL\$,=P$k3NN($b(B$\bunsuu{1}{6}$$B$G$"$k$+$i!$(B
-        $B5a$a$k4|BTCM$O(B
+      \item 1から6までどの目が出る確率も$\bunsuu{1}{6}$であるから，
+        求める期待値は
         \[ 1\cdot\bunsuu16+2\cdot\bunsuu16+3\cdot\bunsuu16+4\cdot\bunsuu16
           +5\cdot\bunsuu16+6\cdot\bunsuu16=\bm{\bunsuu{7}{2}} \]
       \item \def\arraystretch{1.72}
-        $B$5$$$3$m$NL\$NOB(B$X$$B$H!$(B$\sin(30X\Deg)$$B$NCM!$$=$N3NN($H$N4X78$O(B\\
+        さいころの目の和$X$と，$\sin(30X\Deg)$の値，その確率との関係は\\
         $\begin{hyou}{|c|*7{C{18pt}|}}\hline
           X & 2 & 3 & 4 & 5 & 6 & 7 & 8 \\\hline
           \sin(30X)\Deg& \bunsuu{\sqrt3}{2} & 1 & \bunsuu{\sqrt3}{2}
@@ -341,7 +341,7 @@ $\kaku B=90\Deg-62\Deg=28\Deg$$B$G$"$k$+$i(B
           & \bunsuu{4}{36} & \bunsuu{3}{36} & \bunsuu{2}{36}
               & \bunsuu{1}{36} \\\cline{2-5}
         \end{hyou}$\\[5pt]
-        $B$H$J$k$+$i!$5a$a$k4|BTCM$O(B
+        となるから，求める期待値は
         \begin{multline*}
           \bunsuu{\sqrt3}{2}\cdot\bunsuu{1}{36}+1\cdot\bunsuu{2}{36}
           +\bunsuu{\sqrt3}{2}\cdot\bunsuu{3}{36}+\bunsuu12\cdot\bunsuu{4}{36}\\
@@ -352,7 +352,7 @@ $\kaku B=90\Deg-62\Deg=28\Deg$$B$G$"$k$+$i(B
           +0\cdot\bunsuu{1}{36}=\bm{-\bunsuu{2+\sqrt3}{18}}
         \end{multline*}
     \end{enumerate}
-  \item (4)~~$BN,(B\refstepcounter{enumi}
+  \item (4)~~略\refstepcounter{enumi}
   \item
     \begin{mawarikomi}(0,6pt){}{%
     \footnotesize
@@ -381,14 +381,14 @@ $\kaku B=90\Deg-62\Deg=28\Deg$$B$G$"$k$+$i(B
         =-\sin70\Deg
     \end{align*}
     \end{mawarikomi}
-    $B$"$k$$$O1&$N$h$&$J?^$rMQ$$$F$b$h$$!#(B
-  \item $\sin\theta+\cos\theta=\bunsuu54$$B$NN>JU$rJ?J}$7$F(B
+    あるいは右のような図を用いてもよい。
+  \item $\sin\theta+\cos\theta=\bunsuu54$の両辺を平方して
         \[ \sin^2\theta+2\sin\theta\cos\theta+\cos^2\theta=\bunsuu{25}{16} \]
-        $\sin^2\theta+\cos^2\theta=1$$B$G$"$k$+$i(B
+        $\sin^2\theta+\cos^2\theta=1$であるから
         \[ 1+2\sin\theta\cos\theta=\bunsuu{25}{16}\quad
         \therefore \sin\theta\cos\theta
         =\bunsuu{1}{2}\left(\bunsuu{25}{16}-1\right)=\bm{\bunsuu{9}{32}} \]
-    $B$D$.$K(B
+    つぎに
     \begin{align*}
       \sin^3\theta+\cos^3\theta
         &=(\sin\theta+\cos\theta)
@@ -398,6 +398,6 @@ $\kaku B=90\Deg-62\Deg=28\Deg$$B$G$"$k$+$i(B
 \fi
 \end{column}
 \end{sheet}
-\label{lastpage}%     $BA4%Z!<%8>pJs$r%X%C%@$J$I$G;HMQ$9$k$H$-$O(B
-                %     lastpage $B$H$$$&L>A0$N%i%Y%k$rMxMQ$7$^$9!%(B
+\label{lastpage}%     全ページ情報をヘッダなどで使用するときは
+                %     lastpage という名前のラベルを利用します．
 \end{document}

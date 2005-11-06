@@ -11,7 +11,7 @@
 \useperllib{nCr}
 \useperlpm{POSIX}
 
-\usepackage{type1cm}% PS, PDF $B$r:n$k>l9g$OI,MW(B
+\usepackage{type1cm}% PS, PDF を作る場合は必要
 
 \newdimen\mydimena
 \newdimen\mydimenb
@@ -19,15 +19,15 @@
 \checkPerl*
 
 \begin{document}
-\title{\textsf{Perl}$B$HO"7H$7$?%0%i%UIA2h(B\\
+\title{\textsf{Perl}と連携したグラフ描画\\
 emathPp.sty {\normalsize ver.0.39}}
 \author{tDB}
 \date{2005/11/07}
 
 \maketitle\thispagestyle{empty}
 \begin{abstract}%
-\centering{\textsf{Perl}$B$HO"7H$7$F%0%i%U$rIA2h$9$k<jK!$rDs6!$7$^$9!#(B
-$B$?$@$7!$(BOS$B0MB8$G$9!#(B}
+\centering{\textsf{Perl}と連携してグラフを描画する手法を提供します。
+ただし，OS依存です。}
 \end{abstract}
 \pagebreak
 \pagenumbering{roman}%
@@ -37,11 +37,11 @@ emathPp.sty {\normalsize ver.0.39}}
 \pagebreak
 \pagenumbering{arabic}
 
-\section{$B$J$<(B \texttt{perl} $B$+(B}
-\textsf{emathP.sty}$B$G(B$y=f(x)$$B$N%0%i%U$rIA2h$9$k$N$K!$(B
-\cmd{yGurafu}$B$H$$$&%3%^%s%I$,$"$j$^$9!#(B
+\section{なぜ \texttt{perl} か}
+\textsf{emathP.sty}で$y=f(x)$のグラフを描画するのに，
+\cmd{yGurafu}というコマンドがあります。
 
-$y=\sin x+\cos x$ $B$N%0%i%U$rIA$$$F$_$^$7$g$&!#(B
+$y=\sin x+\cos x$ のグラフを描いてみましょう。
 
 \begin{showEx}(.5,.44){\cmd{yGurafu}}
 \begin{zahyou}[ul=4mm](-2,8)(-2,2)
@@ -53,14 +53,14 @@ $y=\sin x+\cos x$ $B$N%0%i%U$rIA$$$F$_$^$7$g$&!#(B
 \end{zahyou}
 \end{showEx}
 
-$B4X?t<0$N5-=R$,LLE]$G$9!#(B
-\verb/sin(x)+cos(x)/$B$H4J7i$K5-=R$7$?$$$N$G$9$,!$(B
-\TeX $B$K$O7W;;<0$r2r@O$9$k5!G=$,$"$j$^$;$s!#(B
-$B$=$l$r%^%/%m$G<B8=$9$k$N$O!$=jMQ;~4V$r9M$($F$bF@:v$H$O;W$($^$;$s!#(B
+関数式の記述が面倒です。
+\verb/sin(x)+cos(x)/と簡潔に記述したいのですが，
+\TeX には計算式を解析する機能がありません。
+それをマクロで実現するのは，所用時間を考えても得策とは思えません。
 
 \noindent
-$B$H$$$&$3$H$G7W;;$r(B \texttt{perl} $B$H$$$&%=%U%H$K(B
-$B30Cm$9$k$3$H$K$7$^$7$?!#$=$N7k2L!$>e$N%j%9%H$O(B
+ということで計算を \texttt{perl} というソフトに
+外注することにしました。その結果，上のリストは
 \begin{minipage}{.5\linewidth}
 \begin{itembox}{\cmd{YGurafu}}
 \begin{verbatim}
@@ -71,27 +71,27 @@ $y=\sin x+\cos x$ $B$N%0%i%U$rIA$$$F$_$^$7$g$&!#(B
 \end{verbatim}
 \end{itembox}
 \end{minipage}\\
-$B$H4J7i$KI=$9$3$H$,$G$-$^$9!#(B
+と簡潔に表すことができます。
 
-$B$?$@$7!$<B9T$9$k$K$O$3$l$+$i=R$Y$k=`Hw$,I,MW$G$9!#(B
+ただし，実行するにはこれから述べる準備が必要です。
 
-\section{\texttt{perl}$B$H$O2?$+(B}
-Larry Wall $B;a$N3+H/$7$?%F%-%9%H=hM}MQ$N8@8l$G!$7W;;5!G=$b$b$C$F$$$^$9!#(B
-$B85Mh$O!$(BUNIX $BMQ$N%D!<%k$H$7$F3+H/$5$l$^$7$?$,!$(B
-Windows, Macintosh $B$K$b0\?"$5$l$F$$$^$9!#(B
+\section{\texttt{perl}とは何か}
+Larry Wall 氏の開発したテキスト処理用の言語で，計算機能ももっています。
+元来は，UNIX 用のツールとして開発されましたが，
+Windows, Macintosh にも移植されています。
 
-\section{\texttt{perl}$B$NF~<j@h(B}
-UNIX, Mac OS X $B$G$O!$I8=`G[I[$G$9!#(B
+\section{\texttt{perl}の入手先}
+UNIX, Mac OS X では，標準配布です。
 
-Windows, Macintosh (Mac OS 9) $B$N>l9g$O!$(B
-$B<!$N%5%$%H$+$i%@%&%s%m!<%I$7$FE,Ev$J%U%)%k%@$K%$%s%9%H!<%k$7$^$9!#(B
-\texttt{perl.exe}$B$NB8:_$9$k%U%)%k%@$K(B \texttt{PATH} $B$rDL$7$F!$(B
-\texttt{perl}$BC1BN$GF0:n$9$k$3$H$r3NG'$7$F$*$-$^$9!#(B
-%$B$J$*!$(B\textsf{emath}$B$G$N;HMQ$K$*$$$F$O!$F|K\8l2=$9$kI,MW$O$"$j$^$;$s!#(B
+Windows, Macintosh (Mac OS 9) の場合は，
+次のサイトからダウンロードして適当なフォルダにインストールします。
+\texttt{perl.exe}の存在するフォルダに \texttt{PATH} を通して，
+\texttt{perl}単体で動作することを確認しておきます。
+%なお，\textsf{emath}での使用においては，日本語化する必要はありません。
 
 \if0
-$B!JCm!K(Bperl $B$N%P!<%8%g%s$K$h$C$F$O!$4D6-JQ?t(B`PERLLIB'$B$r@_Dj$9$kI,MW$,$"$j$^$9!#(B
-$B8e$G!$(B\textsf{ex1.tex}$B$N<B9T$N$H$3$m$G?($l$^$9!#(B
+（注）perl のバージョンによっては，環境変数`PERLLIB'を設定する必要があります。
+後で，\textsf{ex1.tex}の実行のところで触れます。
 \fi
 
 \subsection{Windows}
@@ -100,72 +100,72 @@ http://www.activestate.com/Products/ActivePerl/
 \subsection{Macintosh (OS 9)}
 http://world.std.com/~habilis/MacJP5.j.htm
 
-\section{\textsf{emath}$B$G(B\texttt{perl}$B$r;HMQ$9$k=`Hw(B}
+\section{\textsf{emath}で\texttt{perl}を使用する準備}
 \subsection{\textsf{emath.pl}}
-\textsf{emath.pl, degsine.pl, nCr.pl} $B$H$$$&%U%!%$%k$r!$(B\texttt{perl}$B$r(B
-$B%$%s%9%H!<%k$7$?%U%)%k%@$N2<$K$"$k(B`lib'$B%U%)%k%@Fb$KCV$-$^$9!#(B
-$B!J(B Mac OS X $B$G$O(B /Library/Perl )
+\textsf{emath.pl, degsine.pl, nCr.pl} というファイルを，\texttt{perl}を
+インストールしたフォルダの下にある`lib'フォルダ内に置きます。
+（ Mac OS X では /Library/Perl )
 
-\textsf{emath.pl} $B$J$I$O(B emath $B$N%[!<%`%Z!<%8!$(B
+\textsf{emath.pl} などは emath のホームページ，
 \begin{jquote}
 \begin{verbatim}
-    $B!V$=$NB>!W(B
-          2. perl $B$HO"7H$9$k$?$a$NJd=u%U%!%$%k(B emath.pl $B$J$I(B
+    「その他」
+          2. perl と連携するための補助ファイル emath.pl など
 \end{verbatim}
 \end{jquote}
-$B$K$"$j$^$9!#(B
+にあります。
 
 \subsection{\cmd{write18}}
-Windows, Unix$B7O(BOS $B$G$O!$(Btex $B$+$i;R%W%m%;%9$r5/F0$9$k$3$H$,=PMh$^$9!#(B
-$B$?$@$7!$%G%U%)%k%H$G$O$3$N5!G=$OF/$+$J$$$h$&$K$J$C$F$$$^$9!#(B
+Windows, Unix系OS では，tex から子プロセスを起動することが出来ます。
+ただし，デフォルトではこの機能は働かないようになっています。
 
-$B$=$N5!G=$rM-8z$K$9$k$?$a$K$O(B
+その機能を有効にするためには
 \begin{jquote}
 \begin{verbatim}
   platex -shell-escape
 \end{verbatim}
 \end{jquote}
-$B$H%*%W%7%g%s$r$D$1$F(B \texttt{platex}$B$r5/F0$9$kI,MW$,$"$j$^$9!#(B
+とオプションをつけて \texttt{platex}を起動する必要があります。
 
-$B!ZCm0U![$3$N5!G=$rMxMQ$9$k$N$O!$4m81$rH<$$$^$9!#?.MQ$N=PMh$k%=!<%9%j%9%H$K(B
-$BBP$7$F$N$_!$<B9T$7$F$/$@$5$$!#(B
+【注意】この機能を利用するのは，危険を伴います。信用の出来るソースリストに
+対してのみ，実行してください。
 
-\section{\texttt{perl}$B$rMQ$$$?%0%i%UIA2h(B}
-$B$G$O!$@h$[$I$N(B$y=\sin x+\cos x$$B$N%0%i%U$J$I$rIA2h$7$F$_$^$7$g$&!#(B
+\section{\texttt{perl}を用いたグラフ描画}
+では，先ほどの$y=\sin x+\cos x$のグラフなどを描画してみましょう。
 
-$B$=$NA0$K$4Cm0U!#$3$NJ}<0$G$OJd=u$N:n6HMQ%U%!%$%k$,:n$i$l$^$9!#(B
-$BF1L>$N%U%!%$%k$,$"$k$H:o=|$5$l$^$9$+$i$4Cm0U$/$@$5$$!#(B
-$B$=$N%U%!%$%kL>$O(B
+その前にご注意。この方式では補助の作業用ファイルが作られます。
+同名のファイルがあると削除されますからご注意ください。
+そのファイル名は
 \begin{jquote}
 \begin{verbatim}
 temp.pl
-$B%?%$%W%;%C%H$7$F$$$k%U%!%$%k$HF1L>$G3HD%;R$,(B
-.d1, .d2, .d3, ..... $B!J(B perl $B$r8F$S=P$7$?2s?tJ,$@$1!K(B
+タイプセットしているファイルと同名で拡張子が
+.d1, .d2, .d3, ..... （ perl を呼び出した回数分だけ）
 \end{verbatim}
 \end{jquote}
-\subsection{Windows, UNIX, Mac OS X $B$N>l9g(B}
-$BF1:-$N(B \textsf{ex1.tex} $B$r%?%$%W%;%C%H$7$F$_$^$7$g$&!#(B
+\subsection{Windows, UNIX, Mac OS X の場合}
+同梱の \textsf{ex1.tex} をタイプセットしてみましょう。
 \begin{jquote}
 \begin{verbatim}
-DOS $B%W%m%s%W%H$G(B ex1.tex $B$,B8:_$7$F$$$k%G%#%l%/%H%j$r(B
-$B%+%l%s%H%G%#%l%/%H%j$K$7$F(B
+DOS プロンプトで ex1.tex が存在しているディレクトリを
+カレントディレクトリにして
   platex -shell-escape ex1.tex
 \end{verbatim}
 \end{jquote}
-$B$HBG$A9~$_$^$9!#(B
-$B$?$@$7!$<!$N%U%!%$%k$,:n@.$5$l$^$9!#F1L>$N%U%!%$%k$O:o=|$5$l$^$9$+$i(B
-$B$4Cm0U$/$@$5$$!#(B
+と打ち込みます。
+ただし，次のファイルが作成されます。同名のファイルは削除されますから
+ご注意ください。
 \begin{jquote}
 \begin{verbatim}
 temp.pl
 ex1.d1
 \end{verbatim}
 \end{jquote}
-$y=\sin x+\cos x$$B$N%0%i%U$,IA2h$5$l$^$7$?$+!#(B
-$B%(%i!<$,5/$-$k>l9g$O!$A0@a$^$G$N=`Hw$r:F3NG'$7$F$/$@$5$$!#(B
+$y=\sin x+\cos x$のグラフが描画されましたか。
+エラーが起きる場合は，前節までの準備を再確認してください。
 
 \if0
-$B$J$*!$4D6-$K$h$C$F$O<!$N%(%i!<$,H/@8$9$k$3$H$,$"$j$^$9!#(B
+なお，環境によっては次のエラーが発生することがあります。
 \begin{jquote}
 \begin{verbatim}
 Runaway argument?
@@ -174,36 +174,36 @@ Runaway argument?
 \end{verbatim}
 \end{jquote}
 
-$B$3$N>l9g$O!$(BDOS $B%W%m%s%W%H$G(B ex1.tex $B$,B8:_$7$F$$$k%G%#%l%/%H%j$r(B
-$B%+%l%s%H%G%#%l%/%H%j$K$7$F(B
+この場合は，DOS プロンプトで ex1.tex が存在しているディレクトリを
+カレントディレクトリにして
 
 \begin{jquote}
 \begin{verbatim}
 perl temp.pl
 \end{verbatim}
 \end{jquote}
-$B$r<B9T$9$k$H(B
+を実行すると
 \begin{jquote}
 \begin{verbatim}
 Can't locate emath.pl in @INC at temp.pl line 2.
 \end{verbatim}
 \end{jquote}
-$B$H$$$&%a%C%;!<%8$,JV$C$F$/$k$G$7$g$&!#(B
+というメッセージが返ってくるでしょう。
 
-$B$3$l$O!$(Bperl $B$N%i%$%V%i%j%5!<%A%Q%9$,@_Dj$G$-$F$$$J$$$3$H$r<($7$F$$$^$9!#(B
-$BBP1~:v$O!$(Bperl $B$r%P!<%8%g%s%"%C%W$9$k$+!$$^$?$O4D6-JQ?t$r(B
+これは，perl のライブラリサーチパスが設定できていないことを示しています。
+対応策は，perl をバージョンアップするか，または環境変数を
 \begin{jquote}
 \begin{verbatim}
 PERLLIB=c:/Perl/lib 
 \end{verbatim}
 \end{jquote}
-$B$J$I$H@_Dj$7$^$9!#1&JUCM$O(B emath.pl $B$rCV$$$?%U%)%k%@L>$G!$>e$N$O0lNc$G$9!#(B
+などと設定します。右辺値は emath.pl を置いたフォルダ名で，上のは一例です。
 
-$B$3$l0J30$N%(%i!<$,=P$k>l9g$O(B emath $B$N(B BBS $B$J$I$G$*J9$-$/$@$5$$!#(B
+これ以外のエラーが出る場合は emath の BBS などでお聞きください。
 \fi
 
-$B<!$$$G!$(B\textsf{ex2.tex}$B$O(B $y=\log_2{x}$$B$N%0%i%U$rIA2h$7$^$9!#(B
-$B:n6HMQ%U%!%$%k$O<!$N(B3$B8D$G$9!#(B
+次いで，\textsf{ex2.tex}は $y=\log_2{x}$のグラフを描画します。
+作業用ファイルは次の3個です。
 \begin{jquote}
 \begin{verbatim}
 temp.pl
@@ -211,140 +211,140 @@ ex2.d1, ex2.d2
 \end{verbatim}
 \end{jquote}
 
-$B$3$A$i$b$&$^$/$$$C$?$G$7$g$&$+!#(B
+こちらもうまくいったでしょうか。
 
-\subsection{Mac OS 9 $B$N>l9g(B}
-\subsubsection{$B0lHLE*$J<j=g(B}
-Windows, UNIX, Mac OS X $B$N>l9g$K$O(B \TeX $B$+$i(B\texttt{perl}$B$r5/F0$9$k$3$H$,$G$-$k$N$G$9$,!$(B
-Macintosh OS 9 $B$N>l9g$=$NJ}K!$O;H$($^$;$s!#(B
+\subsection{Mac OS 9 の場合}
+\subsubsection{一般的な手順}
+Windows, UNIX, Mac OS X の場合には \TeX から\texttt{perl}を起動することができるのですが，
+Macintosh OS 9 の場合その方法は使えません。
 
-$B$=$3$G<!A1$N:v$H$7$F<!$N(B3$B%9%F%C%W$KJ,$1$F=hM}$r$9$k$3$H$K$J$j$^$9!#(B
-\begin{enumerate}[$B<j=g(B 1.~]
-  \item \TeX $B$G(B \texttt{perl} $B$K0z$-EO$9%9%/%j%W%H%U%!%$%k$r:n@.$9$k!#(B
-  \item $B<j=g(B1$B$G:n@.$5$l$?%9%/%j%W%H%U%!%$%k$r(B\texttt{perl}$B$G=hM}$9$k!#(B
-  \item $B:F$S(B\TeX $B$G<j=g(B2$B$G:n@.$5$l$?IA2h%G!<%?$r<u$1<h$j%0%i%U$r$+$/!#(B
+そこで次善の策として次の3ステップに分けて処理をすることになります。
+\begin{enumerate}[手順 1.~]
+  \item \TeX で \texttt{perl} に引き渡すスクリプトファイルを作成する。
+  \item 手順1で作成されたスクリプトファイルを\texttt{perl}で処理する。
+  \item 再び\TeX で手順2で作成された描画データを受け取りグラフをかく。
 \end{enumerate}
 
-\subsubsection{$B6qBNNc(B --- ex1.tex}
-$B$G$O!$(B$y=\sin x+\cos x$$B$N%0%i%U$rIA$/!$(B
-$BF1:-$N(B \textsf{ex1.tex} $B$r=hM}$7$F$_$^$9!#(B
+\subsubsection{具体例 --- ex1.tex}
+では，$y=\sin x+\cos x$のグラフを描く，
+同梱の \textsf{ex1.tex} を処理してみます。
 
-$B:n6HMQ%U%!%$%k$H$7$F(B
+作業用ファイルとして
 \begin{jquote}
 \begin{verbatim}
 temp.pl
 ex1.d1
 \end{verbatim}
 \end{jquote}
-$B$,:n@.$5$l$^$9!#F1L>$N%U%!%$%k$,B8:_$7$F$$$k>l9g!$:o=|$5$l$F$7$^$$$^$9!#(B
-$B$4Cm0U$/$@$5$$!#(B
+が作成されます。同名のファイルが存在している場合，削除されてしまいます。
+ご注意ください。
 
-\begin{enumerate}[$B<j=g(B 1.~]
-  \item \textsf{ex1.tex}$B$r%?%$%W%;%C%H$7$^$9!#(B
-    $B%0%i%U$OIA2h$5$l$:!$:BI8<4$N$_$,IA$+$l$^$9!#(B
-  \item $B<j=g(B1$B$N7k2L!$(B\textsf{temp.pl}$B$H$$$&!$(B\texttt{perl}$B$N(B
-    $B%9%/%j%W%H%U%!%$%k$,:n@.$5$l$^$9!#$3$l$r(B\texttt{perl}$B$G=hM}$7$^$9!#(B
-    $B$=$N7k2L$O(B\textsf{ex1.d1}$B$J$k%U%!%$%k$K=q$-=P$5$l!$(B
-    $B<!$N<j=g$G(B\TeX $B$,MxMQ$7$F%0%i%U$rIA2h$7$^$9!#(B
-  \item $B:FEY(B{ex1.tex}$B$r%?%$%W%;%C%H$7$^$9!#(B
-    $B:#EY$O%0%i%U$,IA$+$l$k$O$:$G$9!#(B
+\begin{enumerate}[手順 1.~]
+  \item \textsf{ex1.tex}をタイプセットします。
+    グラフは描画されず，座標軸のみが描かれます。
+  \item 手順1の結果，\textsf{temp.pl}という，\texttt{perl}の
+    スクリプトファイルが作成されます。これを\texttt{perl}で処理します。
+    その結果は\textsf{ex1.d1}なるファイルに書き出され，
+    次の手順で\TeX が利用してグラフを描画します。
+  \item 再度{ex1.tex}をタイプセットします。
+    今度はグラフが描かれるはずです。
 \end{enumerate}
-$B$5$F$$$+$,$G$7$g$&$+!#$&$^$/$$$+$J$$$H$-$OA0@a$^$G$N=`Hw:n6H$r$b$&0lEY(B
-$B8+D>$7$F$/$@$5$$!#$=$l$G$bBLL\$J>l9g$O!$(Bemath $B$N(B BBS $B$J$I$G$*?R$M$/$@$5$$!#(B
+さていかがでしょうか。うまくいかないときは前節までの準備作業をもう一度
+見直してください。それでも駄目な場合は，emath の BBS などでお尋ねください。
 
-$B<j=g(B1$B$H<j=g(B3$B$N0c$$$O(B
+手順1と手順3の違いは
 \begin{jquote}
 \begin{verbatim}
 ex1.d1
 \end{verbatim}
 \end{jquote}
-$B$H$$$&%U%!%$%k$,B8:_$7$F$$$k$+$$$J$$$+$GH=CG$5$l$^$9!#(B
+というファイルが存在しているかいないかで判断されます。
 
-$BB8:_$7$F$$$J$$>l9g$O!$<j=g(B1$B$NCJ3,$G$"$k$HH=CG$5$l!$%0%i%UIA2h$O9T$o$:!$(B
-\texttt{perl}$BMQ$N%9%/%j%W%H%U%!%$%k$r:n@.$7$^$9!#(B
+存在していない場合は，手順1の段階であると判断され，グラフ描画は行わず，
+\texttt{perl}用のスクリプトファイルを作成します。
 
-$B$=$l$KBP$7$F!$B8:_$7$F$$$k>l9g$O<j=g(B3$B$NCJ3,$G$"$k$HH=CG$5$l!$(B
-$B%0%i%UIA2h$K?J$`$3$H$K$J$j$^$9!#(B
+それに対して，存在している場合は手順3の段階であると判断され，
+グラフ描画に進むことになります。
 
-$B$7$?$,$C$F!$$$$C$?$s(B\textsf{ex1.d1}$B$,:n@.$5$l$k$H<j=g(B1$B$O9T$o$l$^$;$s$+$i!$(B
-$B$3$N$^$^$G$O%0%i%U$N=$@5$,$G$-$^$;$s!#(B
+したがって，いったん\textsf{ex1.d1}が作成されると手順1は行われませんから，
+このままではグラフの修正ができません。
 
-$BNc$($P!$(Bex1.tex $B$G(B \verb+\unitlength+$B$r(B\texttt{10mm}$B$+$i(B\texttt{8mm}$B$K(B
-$BJQ99$7$?$$$H$$$&>l9g!$%=!<%9%j%9%H$r=q$-49$($F%?%$%W%;%C%H$7$F$b!$(B
-$B4{$K:n@.:Q$_$N%G!<%?%U%!%$%k(B\textsf{ex1.d1}$B$r;H$C$F%0%i%UIA2h$,9T$o$l$^$9$+$i!$(B
-$B%0%i%U$OA0$N$^$^$H$J$C$F$7$^$$$^$9!#(B
+例えば，ex1.tex で \verb+\unitlength+を\texttt{10mm}から\texttt{8mm}に
+変更したいという場合，ソースリストを書き換えてタイプセットしても，
+既に作成済みのデータファイル\textsf{ex1.d1}を使ってグラフ描画が行われますから，
+グラフは前のままとなってしまいます。
 
-$B$G$O!$$I$&$9$k$+$H$$$($P!$(B\textsf{ex1.d1}$B$r:o=|$7$?>e$G!$(B
-$B<j=g(B1, 2, 3$B$r7+$jJV$9$H$$$&$3$H$K$J$k$N$G$9!#(B
+では，どうするかといえば，\textsf{ex1.d1}を削除した上で，
+手順1, 2, 3を繰り返すということになるのです。
 
-\subsubsection{$B6qBNNc(B --- ex2.tex}
-$B$G$O!$<!$NNc$K?J$_$^$7$g$&!#$3$l$OLLE]$N(B2$B>h(B\verb+(!?)+$B$G$9!#(B
+\subsubsection{具体例 --- ex2.tex}
+では，次の例に進みましょう。これは面倒の2乗\verb+(!?)+です。
 
-$B:n6HMQ%U%!%$%k$O(B
+作業用ファイルは
 \begin{jquote}
 \begin{verbatim}
 temp.pl
 ex2.d1, ex2.d2
 \end{verbatim}
 \end{jquote}
-$B$G$9!#F1L>$N%U%!%$%k$,B8:_$7$F$$$k>l9g!$:o=|$5$l$F$7$^$$$^$9!#(B
-$B$4Cm0U$/$@$5$$!#(B
+です。同名のファイルが存在している場合，削除されてしまいます。
+ご注意ください。
 
-$B$G$O!$$O$8$a$^$7$g$&!#(B
-\begin{enumerate}[$B<j=g(B 1.~]
-  \item \textsf{ex2.tex}$B$r%?%$%W%;%C%H$7$^$9!#(B
-    $B$J$s$H!*(B $B%(%i!<(B
+では，はじめましょう。
+\begin{enumerate}[手順 1.~]
+  \item \textsf{ex2.tex}をタイプセットします。
+    なんと！ エラー
 \begin{jquote}
 \begin{verbatim}
 ! #calcval ---> ex2.d1.
 \end{verbatim}
 \end{jquote}
-$B$,H/@8$7$^$9!#$7$+$7!$(B\texttt{perl}$BMQ$N%9%/%j%W%H%U%!%$%k(B\textsf{temp.pl}
-$B$O:n@.$5$l$F$$$^$9$+$i!$(B
-  \item \textsf{temp.pl}$B$r(B\texttt{perl}$B$G=hM}$7$^$9!#(B
+が発生します。しかし，\texttt{perl}用のスクリプトファイル\textsf{temp.pl}
+は作成されていますから，
+  \item \textsf{temp.pl}を\texttt{perl}で処理します。
 \end{enumerate}
-$B%(%i!<$,5/$-$?>l9g$O!$<j=g(B1, 2 $B$r%(%i!<$,H/@8$7$J$/$J$k$^$G7+$jJV$7$^$9!#(B
-$B$9$J$o$A(B
-\begin{enumerate}[$B<j=g(B 1$'$.~]
-  \item \textsf{ex2.tex}$B$r%?%$%W%;%C%H$7$^$9!#(B
-    $B:#EY$O%(%i!<$O5/$-$J$$$O$:$G$9!#(B
-  \item $B:FEY(B\textsf{temp.pl}$B$r(B\texttt{perl}$B$G=hM}$7$^$9!#(B
+エラーが起きた場合は，手順1, 2 をエラーが発生しなくなるまで繰り返します。
+すなわち
+\begin{enumerate}[手順 1$'$.~]
+  \item \textsf{ex2.tex}をタイプセットします。
+    今度はエラーは起きないはずです。
+  \item 再度\textsf{temp.pl}を\texttt{perl}で処理します。
 \end{enumerate}
-$B$d$C$H:G=*<j=g(B3$B$r<B9T$9$kCJ3,$K$?$I$jCe$-$^$7$?!#(B
-\begin{enumerate}[$B<j=g(B 1.~]
-  \item[$B<j=g(B3.~] $B:FEY(B{ex2.tex}$B$r%?%$%W%;%C%H$7$^$9!#(B
-    $B:#EY$O%0%i%U$,IA$+$l$k$O$:$G$9!#(B
+やっと最終手順3を実行する段階にたどり着きました。
+\begin{enumerate}[手順 1.~]
+  \item[手順3.~] 再度{ex2.tex}をタイプセットします。
+    今度はグラフが描かれるはずです。
 \end{enumerate}
 
-\textsf{ex2.tex}$B$G$O!$(B\textsf{ex1.tex}$B$H0c$C$F!$$J$<$3$s$J$KLLE]$K$J$C$F(B
-$B$7$^$C$?$N$+$r@bL@$7$^$9!#(B
+\textsf{ex2.tex}では，\textsf{ex1.tex}と違って，なぜこんなに面倒になって
+しまったのかを説明します。
 
-\textsf{ex2.tex}$B$G$O!$(B\texttt{perl}$B$HO"7H$9$k%3%^%s%I$,(B2$B2s8F$P$l$^$9$,!$(B
+\textsf{ex2.tex}では，\texttt{perl}と連携するコマンドが2回呼ばれますが，
 \begin{jquote}
 \begin{verbatim}
 (1) \calcval{1/log(2)}\lgii
 (2) \YGurafu\Fx{0.125}\xmax
 \end{verbatim}
 \end{jquote}
-(1)$B$O(B\texttt{perl}$B$K(B$\bunsuu{1}{\log{2}}$$B$NCM$r7W;;$5$;$F!$$=$N7k2L$r(B
-\cmd{lgii}$B$K<u$1<h$j$^$9!#$H$3$m$,<j=g(B1$B$NCJ3,$G$O$=$N7W;;$r$9$k%9%/%j%W%H(B
-$B%U%!%$%k(B--- \textsf{temp.pl} ---$B$r:n$k$@$1$G7W;;$O9T$o$l$^$;$s!#(B
-$B$D$.$N(B(2)$B$N%0%i%UIA2h$G$O$3$N7W;;7k2L$rI,MW$H$9$k$N$G(B
-$B%9%/%j%W%H%U%!%$%k$N:n$j$h$&$,$"$j$^$;$s!#(B
-$B$=$3$G%(%i!<=*N;$r$5$;$k$3$H$K$7$^$7$?!#(B
+(1)は\texttt{perl}に$\bunsuu{1}{\log{2}}$の値を計算させて，その結果を
+\cmd{lgii}に受け取ります。ところが手順1の段階ではその計算をするスクリプト
+ファイル--- \textsf{temp.pl} ---を作るだけで計算は行われません。
+つぎの(2)のグラフ描画ではこの計算結果を必要とするので
+スクリプトファイルの作りようがありません。
+そこでエラー終了をさせることにしました。
 
-$B<j=g(B2$B$G7W;;7k2L$,(B\textsf{ex2.d1}$B$K5-O?$5$l$^$9!#(B
+手順2で計算結果が\textsf{ex2.d1}に記録されます。
 
-$B<j=g(B1$'$$B$G$O!$(B\textsf{ex2.d1}$B$,B8:_$7$F$$$^$9$+$i!$(B(1)$B$N%3%^%s%I$G7W;;7k2L$,(B
-\cmd{lgii}$B$KFI$_9~$^$l!$(B(2)$B$N%0%i%UIA2hMQ$N%9%/%j%W%H%U%!%$%k(B
----\textsf{temp.pl} ---$B$r:n@.$9$k$3$H$,$G$-$^$9!#(B
+手順1$'$では，\textsf{ex2.d1}が存在していますから，(1)のコマンドで計算結果が
+\cmd{lgii}に読み込まれ，(2)のグラフ描画用のスクリプトファイル
+---\textsf{temp.pl} ---を作成することができます。
 
-$B<j=g(B2$'$$B$G%0%i%UIA2hMQ%G!<%?(B \textsf{ex2.d2} $B$,:n@.$5$l!$IA2h=`Hw$,40N;$7!$(B
-$B:G=*$N<j=g(B3$B$K?J$`$3$H$,$G$-$k!$$H$J$k$o$1$G$9!#(B
+手順2$'$でグラフ描画用データ \textsf{ex2.d2} が作成され，描画準備が完了し，
+最終の手順3に進むことができる，となるわけです。
 
-$B$*$*$7$s$I!#(B
+おおしんど。
 
-$B$3$N$h$&$K!$La$jCM$rI,MW$H$9$k%3%^%s%I(B
+このように，戻り値を必要とするコマンド
 \begin{jquote}
 \begin{verbatim}
 \calcval
@@ -354,68 +354,68 @@ ex2.d1, ex2.d2
 \RTen
 \end{verbatim}
 \end{jquote}
-$B$r;HMQ$9$k$H!$$=$3$G%(%i!<=*N;$7$^$9!#(B
-$B%(%i!<$,=P$J$/$J$k$^$G<j=g(B1, 2$B$r7+$jJV$7!$<j=g(B3$B$K?J$`$3$H$K$J$j$^$9!#(B
+を使用すると，そこでエラー終了します。
+エラーが出なくなるまで手順1, 2を繰り返し，手順3に進むことになります。
 
 \if0
 \section{\cmd{skipCallPerl}}
-$B$3$N@a$O!$(BMac OS 9 $B$r$4MxMQ$NJ}$K$O4X78$J$$OCBj$G$9!#(B
+この節は，Mac OS 9 をご利用の方には関係ない話題です。
 
-\texttt{perl}$B$,:n@.$7$?%G!<%?%U%!%$%k$O!$(B
-$B%?%$%W%;%C%H$7$F$$$k%U%!%$%k$HF1L>$G3HD%;R$,(B
+\texttt{perl}が作成したデータファイルは，
+タイプセットしているファイルと同名で拡張子が
 \begin{jquote}
 \begin{verbatim}
 .d1, .d2, .d3, .....
-$B!J(Bperl $B$r8F$s$@2s?t$@$1!K(B
+（perl を呼んだ回数だけ）
 \end{verbatim}
 \end{jquote}
-$B$H$$$&L>A0$K$J$j$^$9!#(B
+という名前になります。
 
-$B%G%U%)%k%H$G$O$;$C$+$/:n$C$?%U%!%$%k$r<!$N%?%$%W%;%C%H$G$O;H$$$^$;$s!#(B
-$B$3$l$r<!2s0J9_;HMQ$9$k$3$H$K$9$l$P!$(B
-\texttt{perl}$B$r8F$S=P$9I,MW$O$"$j$^$;$s$+$i!$=hM};~4V$,H>8:$7$^$9!#(B
-$B$=$l$r2DG=$H$9$k%3%^%s%I$,(B \cmd{skipCallPerl}$B$G$9!#(B
+デフォルトではせっかく作ったファイルを次のタイプセットでは使いません。
+これを次回以降使用することにすれば，
+\texttt{perl}を呼び出す必要はありませんから，処理時間が半減します。
+それを可能とするコマンドが \cmd{skipCallPerl}です。
 
-$B$?$@$7!$$3$l$r@k8@$9$k$H!$%=!<%9%j%9%H$G%0%i%UIA2hItJ,$rJQ99$7$F$b(B
-$B5l%G!<%?%U%!%$%k$r;HMQ$7$^$9$+$i!$JQ99$OH?1G$5$l$^$;$s!#(B
-$B%0%i%UIA2hItJ,$rJQ99$7$?$H$-$O(B \cmd{skipCallPerl} $B$r%3%a%s%H%"%&%H$7$F(B
-$B%?%$%W%;%C%H$7!$%G!<%?%U%!%$%k$r99?7$9$kI,MW$,$"$j$^$9!#(B
+ただし，これを宣言すると，ソースリストでグラフ描画部分を変更しても
+旧データファイルを使用しますから，変更は反映されません。
+グラフ描画部分を変更したときは \cmd{skipCallPerl} をコメントアウトして
+タイプセットし，データファイルを更新する必要があります。
 
-$B62=L$G$9$,!$;d$NL\O@8+$r=q$+$;$F$$$?$@$-$^$9!#(B
+恐縮ですが，私の目論見を書かせていただきます。
 
-$B8D!9$N%U%!%$%k$O(B\cmd{skipCallPerl}$B$r@k8@$;$:$K:n@.$7$^$9!#(B
-$B:n@.Cf$O%0%i%UIA2hItJ,$O2?2s$b=q$-D>$7$^$9$N$G!#(B
+個々のファイルは\cmd{skipCallPerl}を宣言せずに作成します。
+作成中はグラフ描画部分は何回も書き直しますので。
 
-$B$=$l$i$r(B \cmd{ReadTeXFile}$B$G4s$;=8$a$kLdBj=8$J$I$G$O!$(B
-\cmd{skipCallPerl}$B$r@k8@$7$F%?%$%W%;%C%H;~4V$r@aLs$7$^$9!#(B
+それらを \cmd{ReadTeXFile}で寄せ集める問題集などでは，
+\cmd{skipCallPerl}を宣言してタイプセット時間を節約します。
 \fi
 \clearpage
 
-\section{$B%3%^%s%I$N>R2p(B}
+\section{コマンドの紹介}
 \if0
-\texttt{perl}$B$H$NO"7H$,$G$-$k4D6-$,@0$C$?$i!$(B
-$B%=!<%9%U%!%$%k(B\textsf{sampelPp.tex}$B$N(B434$B9TL\(B
+\texttt{perl}との連携ができる環境が整ったら，
+ソースファイル\textsf{sampelPp.tex}の434行目
 \begin{verbatim}
 %\input{Ppsub.tex}
 \end{verbatim}
-$B$NKAF,(B`\verb+%+'$B$r<h$j5n$C$F%?%$%W%;%C%H$7$F$/$@$5$$!#(B
+の冒頭`\verb+%+'を取り去ってタイプセットしてください。
 \fi
 
 \input{Ppsub.tex}
 
 %\clearpage
-\section{\texttt{perl}$B$N;29MJ88%(B}
-\texttt{perl}$B$K$J$8$_$N$J$$J}$K$O(B
+\section{\texttt{perl}の参考文献}
+\texttt{perl}になじみのない方には
 
 \begin{jquote}
 \begin{verbatim}
-R.L.Schwartz E.Olson T.Phoenix $B6&Cx$NK.Lu(B
-  $B=i$a$F$N(B Perl $BBh(B3$BHG(B
-      $BH/9T85(B $B%*%i%$%j!<!&%8%c%Q%s(B
-      $BDj2A(B   3,600+$B@G(B
+R.L.Schwartz E.Olson T.Phoenix 共著の邦訳
+  初めての Perl 第3版
+      発行元 オライリー・ジャパン
+      定価   3,600+税
       ISBN:4-87311-126-9
-      $BH/9TG/7n!'(B2003.5
+      発行年月：2003.5
 \end{verbatim}
 \end{jquote}
-$B$r$*4+$a$7$^$9!#(B
+をお勧めします。
 \end{document}

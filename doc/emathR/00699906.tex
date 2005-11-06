@@ -1,7 +1,7 @@
-% $BG/EY(B 1999
-% $B=PBj(B 0069 $B6e=#Bg3X(B
-% $B8!:w%-!<%o!<%I(B  $B%W%m%0%i%_%s%0(B
-% $B2JL\(B $B?t#B(B
+% 年度 1999
+% 出題 0069 九州大学
+% 検索キーワード  プログラミング
+% 科目 数Ｂ
 
 \documentclass[fleqn]{jarticle}
 \usepackage{emath}
@@ -9,47 +9,47 @@
 \pagestyle{empty}
 
 \begin{document}
-$B<!$N(B(1)$B!$(B(2)$B$G$O!$$=$l$>$l!$$=$NL\E*$r<B9T$9$k$?$a$N(BBASIC$B$K$h$k(B
-$B%W%m%0%i%`$N;O$a$NItJ,$,M?$($i$l$F$$$k!%J}?K$r5-=R$7$F$+$i!$(B
-$B%W%m%0%i%`$N;D$j$NItJ,$r40@.$;$h!%$?$@$7!$JQ?t(BA(1)$B!$(BA(2)$BEy$K$O:BI8(B
-$a_1$$B!$(B$a_2$$BEy$,F~NO$5$l$k$b$N$H$9$k!%(B
+次の(1)，(2)では，それぞれ，その目的を実行するためのBASICによる
+プログラムの始めの部分が与えられている．方針を記述してから，
+プログラムの残りの部分を完成せよ．ただし，変数A(1)，A(2)等には座標
+$a_1$，$a_2$等が入力されるものとする．
 
 \begin{description}
-\item[$BCm0U!'(B] (1)$B$N%V%m%0%i%`$G$OG[Ns$rI=$9$?$a$K(BDIM$BJ8$r;H$C$F$$$k$,!$(B
-  DIM$BJ8$r;H$o$J$$%V%m%0%i%`$r:n@.$7$F$b$h$$!%(B
-  $B$=$N$H$-$O!$9THV9f(B10$B$NJ8$O>C5n$7!$9THV9f(B20$B!$(B30$B$NJ8$O(B
+\item[注意：] (1)のブログラムでは配列を表すためにDIM文を使っているが，
+  DIM文を使わないブログラムを作成してもよい．
+  そのときは，行番号10の文は消去し，行番号20，30の文は
     \begin{jquote}
     \begin{verbatim}
-20 INPUT Al$B!$(BA2
-30 INPUT Pl$B!$(BP2
+20 INPUT Al，A2
+30 INPUT Pl，P2
     \end{verbatim}
     \end{jquote}
-$B$GCV$-49$($k$b$N$H$9$k!%(B(2)$B$K$D$$$F$b!$F1MM$G$"$k!%(B
+で置き換えるものとする．(2)についても，同様である．
 \end{description}
 \begin{enumerate}[(1)]
-  \item $B:BI8J?LL>e$N86E@(BO$B$H0[$J$kE@(BA$(a_1$B!$(Ba_2)$$B$K$D$$$F!$(B
-    $BG$0U$NE@(BP$(p_1$B!$(Bp_2)$$B$+$iD>@~(BOA$B$X$N5wN%$rI=<($9$k$3$H!%(B
+  \item 座標平面上の原点Oと異なる点A$(a_1，a_2)$について，
+    任意の点P$(p_1，p_2)$から直線OAへの距離を表示すること．
     \begin{jquote}
     \begin{verbatim}
-10 DIM A(2)$B!$(BP(2)
-2O INPUT A(1)$B!$(BA(2)
-30 INPUT P(1)$B!$(BP(2)
+10 DIM A(2)，P(2)
+2O INPUT A(1)，A(2)
+30 INPUT P(1)，P(2)
     \end{verbatim}
     \end{jquote}
-  \item $BE@(BA$(a_1$B!$(Ba_2)$$B!$(BB$(b_l$B!$(Bb_2)$$B$r:BI8J?LL>e$NAj0[$J$kE@$H$7!$(B
-    $BD>@~(BAB$B$GJ?LL$rFsJ,$9$k!%E@(BP$(p_1$B!$(Bp_2)$$B!$(BQ$(q_1$B!$(Bq_2)$$B$,(B
-    $B$3$ND>@~$NF1$8B&$K$"$k$H$-$O(B1$B$r!$0[$J$kB&$K$"$k$H$-$O(B$-1$$B$r!$(B
-    P$B!$(BQ$B$N>/$J$/$H$b0lJ}$,$3$ND>@~>e$K$"$k$H$-$O(B0$B$rI=<($9$k$3$H!%(B
-    $B$?$@$7!$$"$kE@$HD>@~$H$N5wN%$,!$M?$($i$l$?@5?t(B0.00001$B$h$j(B
-    $B>.$5$$$H$-$O$=$NE@$OD>@~>e$K$"$k$H$_$J$9$3$H$K$9$k!%(B
+  \item 点A$(a_1，a_2)$，B$(b_l，b_2)$を座標平面上の相異なる点とし，
+    直線ABで平面を二分する．点P$(p_1，p_2)$，Q$(q_1，q_2)$が
+    この直線の同じ側にあるときは1を，異なる側にあるときは$-1$を，
+    P，Qの少なくとも一方がこの直線上にあるときは0を表示すること．
+    ただし，ある点と直線との距離が，与えられた正数0.00001より
+    小さいときはその点は直線上にあるとみなすことにする．
     \begin{jquote}
     \begin{verbatim}
-10 DIM A(2)$B!$(BB(2)$B!$(BP(2)$B!$(BQ(2)
+10 DIM A(2)，B(2)，P(2)，Q(2)
 20 EPS=0.00001
-3O INPUT A(1)$B!$(BA(2)
-40 INPUT B(1)$B!$(BB(2)
-5O INPUT P(1)$B!$(BP(2)
-60 INPUT Q(1)$B!$(BQ(2)
+3O INPUT A(1)，A(2)
+40 INPUT B(1)，B(2)
+5O INPUT P(1)，P(2)
+60 INPUT Q(1)，Q(2)
     \end{verbatim}
     \end{jquote}
 \end{enumerate}

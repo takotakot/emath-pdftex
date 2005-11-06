@@ -7,9 +7,9 @@
 \usepackage{emathMw}
 \usepackage{showexample}
 %\usepackage{makeidx}
-\usepackage{type1cm}% PS, PDF $B:n@.$K$OI,MW(B
+\usepackage{type1cm}% PS, PDF 作成には必要
 %
-% $B[Y:n@.$N$H$-$O(B
+% 栞作成のときは
 %\usepackage[dvips]{hyperref}%
 %
 \makeatletter
@@ -26,27 +26,27 @@
 \def\enditembox{\endEMpsrectbox}
 
 \begin{document}
-\title{eps $B7A<0$K$h$k?^7AIA2h%^%/%m(B\\
-emathPs.sty {\normalsize ver.0.93$B&B(B}\\$B;HMQNc(B}
+\title{eps 形式による図形描画マクロ\\
+emathPs.sty {\normalsize ver.0.93β}\\使用例}
 \author{tDB}
 \date{2005/10/15}
 
 \maketitle\thispagestyle{empty}
 \begin{abstract}%
 \parindent1zw%
-$B=>Mh!$(Bemath $B$G$O!$?^7AIA2h$K(B \texttt{tpic specials} $B$rMQ$$$F$-$^$7$?!#(B
-$B$=$l$r(B \texttt{EPS}$B7A<0$N%U%!%$%k$r:n@.$7$F$=$l$rMxMQ$9$k$d$jJ}$r(B
-$BLO:w$7$F9T$-$^$9!#(B
+従来，emath では，図形描画に \texttt{tpic specials} を用いてきました。
+それを \texttt{EPS}形式のファイルを作成してそれを利用するやり方を
+模索して行きます。
 
 
-$B8=;~E@$G$O%W%m%H%?%$%W$G!$;EMM$NJQ99$J$I$,IQHK$K9T$o$l$^$9$N$G!$(B
-$B$=$N$*$D$b$j$G$*IU$-9g$$4j$$$^$9!#(B
+現時点ではプロトタイプで，仕様の変更などが頻繁に行われますので，
+そのおつもりでお付き合い願います。
 
-$B$3$N%^%/%m=8$N%^%/%m$K$D$$$F$N$4<ALd!$%P%0Js9p!$=$@5!&DI2C$NDs0FEy$O(B
+このマクロ集のマクロについてのご質問，バグ報告，修正・追加の提案等は
 \begin{center}
 http://emath.s40.xrea.com/
 \end{center}
-$B$N7G<(HD$X$I$&$>!#(B
+の掲示板へどうぞ。
 \end{abstract}
 \pagebreak
 \pagenumbering{roman}%
@@ -58,45 +58,45 @@ http://emath.s40.xrea.com/
 
 \pagenumbering{arabic}
 
-\section{$B?7@_%3%^%s%I!&4D6-(B}
-\subsection{\textsf{pszahyou}$B4D6-(B}
-$B$$$^$^$G$N(B\textsf{zahyou}$B4D6-$KAjEv$9$k$b$N$r(B\textsf{pszahyou}$B4D6-$H>N$7$^$9!#(B
-$B$3$N4D6-Fb$G$O!$?^7AIA2hItJ,$O(B PostScript $B8@8l$KK]Lu$5$l(B eps $B%U%!%$%k$K(B
-$B=q$-=P$5$l$^$9!#0lJ}!$J8;z$rG[CV$9$kItJ,$O!$(B\LaTeX $B$N(B\textsf{picture}$B4D6-$G(B
-$B<B9T$5$l$^$9!#(B
+\section{新設コマンド・環境}
+\subsection{\textsf{pszahyou}環境}
+いままでの\textsf{zahyou}環境に相当するものを\textsf{pszahyou}環境と称します。
+この環境内では，図形描画部分は PostScript 言語に翻訳され eps ファイルに
+書き出されます。一方，文字を配置する部分は，\LaTeX の\textsf{picture}環境で
+実行されます。
 
-$B:n@.$5$l$?(Beps$B%U%!%$%k$rFI$_9~$`%?%$%_%s%0$O!$(B
-$B$=$N(Beps$B%U%!%$%k$,B8:_$7$F$$$l$P!$(B\textsf{pszahyou}$B4D6-$NKAF,$GFI$_9~$^$l!$(B
-\textsf{pszahyou}$B4D6-Fb$G?^7AIA2hItJ,$O%9%-%C%W$5$l!$J8;zG[CV$N$_$,9T$o$l$^$9!#(B
+作成されたepsファイルを読み込むタイミングは，
+そのepsファイルが存在していれば，\textsf{pszahyou}環境の冒頭で読み込まれ，
+\textsf{pszahyou}環境内で図形描画部分はスキップされ，文字配置のみが行われます。
 
-$B0lJ}!$(Beps$B%U%!%$%k$,B8:_$7$J$$$H$-$O!$(Beps$B%U%!%$%k$r:n@.$7!$(B\textsf{pszahyou}
-$B4D6-$N=*$j$GFI$_9~$^$l$^$9!#(B
-$BJ8;zG[CV$bF1;~?J9T$H$J$j$^$9$+$i!$$=$N>e$K?^7A%U%!%$%k(B(eps)$B$,FI$_9~$^$l$^$9!#(B
-$B=>$C$F!$IA2hItJ,$KEI$j$D$V$7$,$"$k$H!$J8;z$,>C$($F$7$^$&;vBV$,H/@8$7$^$9!#(B
-$B$=$N$H$-$O!$$b$&0lEY%?%$%W%;%C%H$9$kI,MW$,$"$j$^$9!#(B
+一方，epsファイルが存在しないときは，epsファイルを作成し，\textsf{pszahyou}
+環境の終りで読み込まれます。
+文字配置も同時進行となりますから，その上に図形ファイル(eps)が読み込まれます。
+従って，描画部分に塗りつぶしがあると，文字が消えてしまう事態が発生します。
+そのときは，もう一度タイプセットする必要があります。
 
 
-$B$?$@$7!$(B\texttt{debug}$B%*%W%7%g%sIU$G(B
+ただし，\texttt{debug}オプション付で
 \begin{jquote}
 \begin{verbatim}
 \usepackage[debug]{emathPs}
 \end{verbatim}
 \end{jquote}
-$B$H$7$?$H$-$O!$(Beps $B%U%!%$%k$,B8:_$7$F$b:n$jD>$7$^$9!#=>$C$F(B \textsf{pszahyou}
-$B4D6-$N:G8e$K(B eps $B%U%!%$%k$,FI$_9~$^$l$k$3$H$K$J$j$^$9!#(B
+としたときは，eps ファイルが存在しても作り直します。従って \textsf{pszahyou}
+環境の最後に eps ファイルが読み込まれることになります。
 
-\begin{showEx}(.5,.44){\textsf{pszahyou}$B4D6-(B}
+\begin{showEx}(.5,.44){\textsf{pszahyou}環境}
 \begin{pszahyou}[ul=8mm]%
     (-2.5,2.5)(-2.5,2.5)
   \zahyouMemori[g]
 \end{pszahyou}
 \end{showEx}
 
-$B$3$N?^$K$*$$$F!$:BI8<4$NLp0uIU@~J,$*$h$S%0%j%C%I@~!JGK@~!K$O!$(B
-eps $B%U%!%$%k(B \texttt{samplePs1.eps}$B$K(B 
-\texttt{PostScript}$B8@8l$G=q$-=P$5$l$?IA2hL?Na$K$h$jIA$+$l$F$$$^$9!#(B
+この図において，座標軸の矢印付線分およびグリッド線（破線）は，
+eps ファイル \texttt{samplePs1.eps}に 
+\texttt{PostScript}言語で書き出された描画命令により描かれています。
 
-\texttt{eps}$B%U%!%$%k$O(B\textsf{pszahyou}$B4D6-$,8=$l$k$?$S$K!$(B
+\texttt{eps}ファイルは\textsf{pszahyou}環境が現れるたびに，
 \begin{jquote}
 \begin{verbatim}
 \jobname1.eps
@@ -105,17 +105,17 @@ eps $B%U%!%$%k(B \texttt{samplePs1.eps}$B$K(B
 .....
 \end{verbatim}
 \end{jquote}
-$B$H:n$i$l$F9T$-$^$9!#(B
+と作られて行きます。
 
-$B8=;~E@$G$O!$(B
-\textsf{pszahyou}$B4D6-Fb$K5-=R$G$-$k%3%^%s%I$O>/$J$/!$(B
-$B>e$NNc$GMQ$$$i$l$F$$$k(B\cmd{zahyouMemori}$B$N$[$+!$(B
-$B$I$N$h$&$J$b$N$,;HMQ2DG=$G$"$k$+$r!$<!@a$G8+$F$$$?$@$/$3$H$K$7$^$9!#(B
+現時点では，
+\textsf{pszahyou}環境内に記述できるコマンドは少なく，
+上の例で用いられている\cmd{zahyouMemori}のほか，
+どのようなものが使用可能であるかを，次節で見ていただくことにします。
 
-\subsection{\textsf{pszahyou*}$B4D6-(B}
-$B:BI8<4$rIA2h$7$J$$4D6-$G$9!#(B
+\subsection{\textsf{pszahyou*}環境}
+座標軸を描画しない環境です。
 
-\begin{showEx}(.64,.3){\textsf{pszahyou*}$B4D6-(B}
+\begin{showEx}(.64,.3){\textsf{pszahyou*}環境}
 \begin{pszahyou*}[ul=10mm]%
     (-1.1,1.1)(-1.1,1.1)
   \rtenretu*{A(1,0);B(1,60);C(1,120);%
@@ -124,14 +124,14 @@ eps $B%U%!%$%k(B \texttt{samplePs1.eps}$B$K(B
 \end{pszahyou*}
 \end{showEx}
 
-%$B?7@_%3%^%s%I(B\cmd{Takakkei}$B$K$D$$$F$O!$8e=R$7$^$9!#(B
+%新設コマンド\cmd{Takakkei}については，後述します。
 
-%\subsection{\textsf{EMpspicture}$B4D6-(B}
-%\textsf{picture}$B4D6-$N(B \textsf{emathPs} $BHG$G$9$,!$(B
-%\textsf{pszahyou*}$B4D6-$N;HMQ$r$*4+$a$7$^$9!#(B
+%\subsection{\textsf{EMpspicture}環境}
+%\textsf{picture}環境の \textsf{emathPs} 版ですが，
+%\textsf{pszahyou*}環境の使用をお勧めします。
 
 \subsection{\texorpdfstring{\cmd{setlinewidth}}{setlinewidth}}
-$BIA2h$9$k$9$Y$F$N%3%^%s%I$KBP$7!$@~$NB@$5$r;XDj$7$^$9!#(B
+描画するすべてのコマンドに対し，線の太さを指定します。
 
 \begin{showEx}(.64,.3){\cmd{setlinewidth}}
 \begin{pszahyou*}[ul=4mm]%
@@ -143,16 +143,16 @@ eps $B%U%!%$%k(B \texttt{samplePs1.eps}$B$K(B
 \end{pszahyou*}
 \end{showEx}
 
-\cmd{setlinewidth}$B$N0z?t$NCM$H$=$NB@$5$NJQ2=$r$4Mw$/$@$5$$!#(B
-$B$3$N$"$?$j!$(BTeX, GS, printer (driver) $B$J$I$N4D6-$K$h$C$F(B
-$B7k2L$O0[$J$k$3$H$G$7$g$&!#(B
+\cmd{setlinewidth}の引数の値とその太さの変化をご覧ください。
+このあたり，TeX, GS, printer (driver) などの環境によって
+結果は異なることでしょう。
 
-\textsf{pszahyou}$B4D6-$N%G%U%)%k%H$O(B\verb+\setlinewidth{10}+$B$H$J$C$F$$$^$9!#(B
-$B!J(B tpic specials $B$KHf$7$FB@L\$G$9!#(Btpic specials $B$O(B \verb+\setlinewidth{3}+
-$B$KAjEv$9$k$h$&$G$9!#!K(B
+\textsf{pszahyou}環境のデフォルトは\verb+\setlinewidth{10}+となっています。
+（ tpic specials に比して太目です。tpic specials は \verb+\setlinewidth{3}+
+に相当するようです。）
 
 \subsection{\texorpdfstring{\cmd{setdash}}{setdash}}
-$BIA2h$9$k@~<o$O<B@~$,%G%U%)%k%H$G$9$,!$$3$l$rGK@~$K$9$k%3%^%s%I$G$9!#(B
+描画する線種は実線がデフォルトですが，これを破線にするコマンドです。
 
 \begin{showEx}(.64,.3){\cmd{setdash}}
 \begin{pszahyou*}[ul=10mm]%
@@ -172,23 +172,23 @@ eps $B%U%!%$%k(B \texttt{samplePs1.eps}$B$K(B
 \end{pszahyou*}
 \end{showEx}
 
-$B$9$J$o$A!$(B\cmd{setdash}$B$N0z?t$K6v?t8D$N?tCM$rM?$($^$9!#(B
-$BIA2hItJ,$ND9$5!$IA2h$7$J$$ItJ,$ND9$5$N7+$jJV$7$G$9!#(B
+すなわち，\cmd{setdash}の引数に偶数個の数値を与えます。
+描画部分の長さ，描画しない部分の長さの繰り返しです。
 
-$BIA2h$r<B@~$KLa$9$K$O!$(B\verb+\setdash{}+$B$H!$(B
-$B6u$N0z?t$rM?$($^$9!#(B
+描画を実線に戻すには，\verb+\setdash{}+と，
+空の引数を与えます。
 
-\cmd{setdash}$B$K$O!$(B\verb+[..]+$B%*%W%7%g%s$G!$3+;O0LCV$N%*%U%;%C%H$r(B
-$B;XDj$9$k5!G=$,$"$j$^$9!#(B
-$B>e$N?^$G!$2<$+$i(B2$BHVL\$N(B\verb+\setdash{.3,.3}+$B$N>l9g!$(B
-\verb/2=0.3*6+0.2/$B$G$9$+$i!$1&C<$N<B@~$O%/%j%C%W5!G=$G(B0.3$B$G$O$J$/!$(B
-0.2$B$7$+$"$j$^$;$s!#$=$3$G:8C<$N3+;O%*%U%;%C%H$r(B0.05$B$H;XDj$9$l$P!$(B
+\cmd{setdash}には，\verb+[..]+オプションで，開始位置のオフセットを
+指定する機能があります。
+上の図で，下から2番目の\verb+\setdash{.3,.3}+の場合，
+\verb/2=0.3*6+0.2/ですから，右端の実線はクリップ機能で0.3ではなく，
+0.2しかありません。そこで左端の開始オフセットを0.05と指定すれば，
 \begin{jquote}
 0.25(-) 0.3 0.3(-) 0.3 0.3(-) 0.3 0.25(-)
 \end{jquote}
-$B$H!$N>C<$N<B@~ItJ,$ND9$5$,B7$$$^$9!#(B
+と，両端の実線部分の長さが揃います。
 
-\begin{showEx}(.64,.3){\cmd{setdash}$B$N%*%U%;%C%H(B}
+\begin{showEx}(.64,.3){\cmd{setdash}のオフセット}
 \begin{pszahyou*}[ul=10mm]%
     (-1.5,2.1)(0,1.5)
   \put(-1.5,1){.3,.3}
@@ -203,20 +203,20 @@ eps $B%U%!%$%k(B \texttt{samplePs1.eps}$B$K(B
 \end{showEx}
 
 \subsection{\texorpdfstring{\cmd{setarrowsize}}{setarrowsize}}
-$BLp@~$N7A>u$rJQ99$9$k$K$O!$(B\cmd{setarrowsize}$B$rMQ$$$^$9!#(B
-$B$^$:$O!$%G%U%)%k%H$N3NG'$G$9!#(B
-$B0J2<!$$3$l$r4p=`$K3F<o$N%5%$%:$rJQ99$7$F8+$^$9!#(B
+矢線の形状を変更するには，\cmd{setarrowsize}を用います。
+まずは，デフォルトの確認です。
+以下，これを基準に各種のサイズを変更して見ます。
 
-\begin{showEx}(.64,.3){$BLp@~!$%G%U%)%k%H$N7A>u(B}
+\begin{showEx}(.64,.3){矢線，デフォルトの形状}
 \begin{pszahyou*}[ul=10mm](-.5,1.5)(-.5,1.5)
   \def\A{(1,1)}
   \ArrowLine\O\A
 \end{pszahyou*}
 \end{showEx}
 
-$BD>@~ItJ,$rB@$/$7$F$_$^$7$g$&!#(B
+直線部分を太くしてみましょう。
 
-\begin{showEx}(.64,.3){$BD>@~ItJ,$NB@$5(B}
+\begin{showEx}(.64,.3){直線部分の太さ}
 \begin{pszahyou*}[ul=10mm](-.5,1.5)(-.5,1.5)
   \def\A{(1,1)}
   \setarrowsize{10}{}{}
@@ -224,9 +224,9 @@ eps $B%U%!%$%k(B \texttt{samplePs1.eps}$B$K(B
 \end{pszahyou*}
 \end{showEx}
 
-$B<!$O!$o7$rD9$/$7$F$_$^$9!#(B
+次は，鏃を長くしてみます。
 
-\begin{showEx}(.64,.3){$Bo7$ND9$5(B}
+\begin{showEx}(.64,.3){鏃の長さ}
 \begin{pszahyou*}[ul=10mm](-.5,1.5)(-.5,1.5)
   \def\A{(1,1)}
   \setarrowsize{}{}{100}
@@ -234,9 +234,9 @@ eps $B%U%!%$%k(B \texttt{samplePs1.eps}$B$K(B
 \end{pszahyou*}
 \end{showEx}
 
-$Bo7$NB@$5JQ99$G$9!#(B
+鏃の太さ変更です。
 
-\begin{showEx}(.64,.3){$Bo7$NB@$5(B}
+\begin{showEx}(.64,.3){鏃の太さ}
 \begin{pszahyou*}[ul=10mm](-.5,1.5)(-.5,1.5)
   \def\A{(1,1)}
   \setarrowsize{}{50}{}
@@ -245,12 +245,12 @@ eps $B%U%!%$%k(B \texttt{samplePs1.eps}$B$K(B
 \end{showEx}
 
 
-$B$d$8$j$NItJ,$K7&$_$r$D$1$k$K$O!$(B\verb+<$B?tCM(B>+$B%*%W%7%g%s$r$D$1$^$9!#(B
-$B?tCM$NItJ,$O!$$d$8$j$NFsEyJU;03Q7A$N9b$5$r(B1$B$H$7$?$H$-$N!$7&$_$N?<$5$rI=$7$^$9!#(B
+やじりの部分に窪みをつけるには，\verb+<数値>+オプションをつけます。
+数値の部分は，やじりの二等辺三角形の高さを1としたときの，窪みの深さを表します。
 
-\cmd{setarrowsize}$B$N=q<0$G$9!#(B
+\cmd{setarrowsize}の書式です。
 
-\begin{showEx}(.64,.3){$Bo7$N7&$_(B}
+\begin{showEx}(.64,.3){鏃の窪み}
 \begin{pszahyou*}[ul=10mm](-.5,1.5)(-.5,1.5)
   \def\A{(1,1)}
   \setarrowsize<.25>{}{50}{}
@@ -261,25 +261,25 @@ eps $B%U%!%$%k(B \texttt{samplePs1.eps}$B$K(B
 \begin{boxnote}
 \begin{verbatim}
 \setarrowsize<#1>#2#3#4
-  #1 : $B7&$_$NHfN((B
-  #2 : $BD>@~ItJ,$NB@$5(B
-  #3 : $Bo7$NB@$5(B
-  #4 : $Bo7$ND9$5(B
-$B%G%U%)%k%H$O(B\setarrowsize{3}{25}{50}$B$G$9!#(B
-$B$^$?!$0z?t$r6u$K$7$?>l9g$O%G%U%)%k%HCM$,:NMQ$5$l$^$9!#(B
+  #1 : 窪みの比率
+  #2 : 直線部分の太さ
+  #3 : 鏃の太さ
+  #4 : 鏃の長さ
+デフォルトは\setarrowsize{3}{25}{50}です。
+また，引数を空にした場合はデフォルト値が採用されます。
 \end{verbatim}
 \end{boxnote}
 
 
-\subsection{$B%/%j%C%T%s%0(B}
-\subsubsection{$B%/%j%C%T%s%0(B}
-\textsf{emathPs.sty}$B$G:n$i$l$?(BEPS$B%U%!%$%k$O(B
+\subsection{クリッピング}
+\subsubsection{クリッピング}
+\textsf{emathPs.sty}で作られたEPSファイルは
 \begin{jquote}
 \begin{verbatim}
 \includegraphics[clip=true]{....}
 \end{verbatim}
 \end{jquote}
-$B$GFI$_9~$^$l$^$9!#Nc$($P(B
+で読み込まれます。例えば
 
 \begin{showEx}(.64,.3){clip}
 \begin{pszahyou*}[ul=20pt](0,4)(0,4)
@@ -288,27 +288,27 @@ eps $B%U%!%$%k(B \texttt{samplePs1.eps}$B$K(B
 \end{pszahyou*}
 \end{showEx}
 
-$BJ|J*@~(B$y=x^2$$B$r(B$0\leqq x\leqq 3$$B$HHO0O;XDj$r$7$F$"$j$^$9$,!$(B
-$BIA2hNN0h(B$0\leqq x\leqq 4$, $0\leqq y\leqq 4$$B$N30B&$O%/%j%C%W5!G=$G(B
-$B@Z$j<h$i$l!$6h4V(B$0\leqq x\leqq 2$$B$@$1$,IA2h$5$l$F$$$^$9!#(B
+放物線$y=x^2$を$0\leqq x\leqq 3$と範囲指定をしてありますが，
+描画領域$0\leqq x\leqq 4$, $0\leqq y\leqq 4$の外側はクリップ機能で
+切り取られ，区間$0\leqq x\leqq 2$だけが描画されています。
 
-$B$5$i$K!$$h$/8+$k$H!$1_$N>e2<:81&$b:o$i$l$F$$$^$9!#(B
-$B$3$l$O!$@~I}(B1pt$B$,1_<~$N<~0O$K$O$_$@$9$3$H$K$J$j$^$9$,!$(B
-$BIA2hNN0h30$OMF<O$J$/!J!)!K@Z$j<h$i$l$F$$$k$H$$$&$3$H$J$N$G$9!#(B
+さらに，よく見ると，円の上下左右も削られています。
+これは，線幅1ptが円周の周囲にはみだすことになりますが，
+描画領域外は容赦なく（？）切り取られているということなのです。
 
-$BBP1~:v$O!$IA2hNN0h$r>/$79-$a$K<h$k$3$H$K$J$j$^$9!#(B
+対応策は，描画領域を少し広めに取ることになります。
 
-\begin{showEx}(.64,.3){$BIA2hNN0h$r9-$a$K(B}
+\begin{showEx}(.64,.3){描画領域を広めに}
 \begin{pszahyou*}[ul=20pt](0,4.1)(0,4.1)
 \En{(2.05,2.05)}{2}
 \YGurafu{(X-0.05)*(X-0.05)+0.05}{0.05}{3}
 \end{pszahyou*}
 \end{showEx}
 
-$B$G$b!$LLE]$G$9$M!#(B
+でも，面倒ですね。
 \bigskip
 
-$B$H$$$&$3$H$G!$:#2s$N2~Dj$G$O%/%j%C%W$rL58z$K$9$kJ}K!$rMQ0U$7$^$7$?!#(B
+ということで，今回の改定ではクリップを無効にする方法を用意しました。
 
 \begin{showEx}(.64,.3){\texttt{EPSclip=false}}
 \begin{pszahyou*}[ul=20pt,EPSclip=false](0,4)(0,4)
@@ -318,11 +318,11 @@ eps $B%U%!%$%k(B \texttt{samplePs1.eps}$B$K(B
 \end{showEx}
 
 \bigskip
-\begin{enumerate}[$BCm(B1.~]
-  \item Windows $B$G(B dviout.exe $B$r$4MxMQ$NJ}$X!#(B
+\begin{enumerate}[注1.~]
+  \item Windows で dviout.exe をご利用の方へ。
   
-    dviout $B$K$O!$(Bgraphics $B$NI=<($K$D$$$FB?MM$JJ}K!$,MQ0U$5$l$F$$$^$9!#(B
-    $B:G8e$N?^$,%/%j%C%W$5$l$F$7$^$&!$$H$$$&J}$O(B
+    dviout には，graphics の表示について多様な方法が用意されています。
+    最後の図がクリップされてしまう，という方は
     \begin{jquote}
     \begin{verbatim}
 Option(O)
@@ -332,39 +332,39 @@ Option(O)
                 gclip: clip
     \end{verbatim}
     \end{jquote}
-    $B$,%A%'%C%/$5$l$F$$$k$b$N$H;W$$$^$9!#(B
-    $B$3$3$,%A%'%C%/$5$l$F$$$k$H!$(Bdviout $B$K$h$j%/%j%C%W$,<B9T$5$l$F$7$^$$$^$9!#(B
-    $B$3$NJ8=q$r(B dviout $B$G8+$k$K$O!$$3$N%A%'%C%/$r30$7$F$/$@$5$$!#(B
+    がチェックされているものと思います。
+    ここがチェックされていると，dviout によりクリップが実行されてしまいます。
+    この文書を dviout で見るには，このチェックを外してください。
     
-    $B$=$N$[$+$K$b(B dviout $B$N@_Dj$K$h$C$F!$$3$A$i$N0U?^$7$?$3$H$H0[$J$k>u67$,(B
-    $B@8$8$k$3$H$,$$$/$D$+$"$j$^$9!#(B\textsf{emathPs.sty}$B$rMQ$$$?J8=q$K$D$$$F$O!$(B
+    そのほかにも dviout の設定によって，こちらの意図したことと異なる状況が
+    生じることがいくつかあります。\textsf{emathPs.sty}を用いた文書については，
 \begin{jquote}
 \begin{verbatim}
-1a. dvips(k) $B$GJQ49$7$?(B PS $B%U%!%$%k(B
-1b. $B$5$i$K(B Distiller $B$G:n@.$7$?(B PDF $B%U%!%$%k(B
+1a. dvips(k) で変換した PS ファイル
+1b. さらに Distiller で作成した PDF ファイル
 
-$B$^$?$O(B
+または
 
-2.  dvipdfm $B$G:n@.$7$?(B PDF $B%U%!%$%k(B
+2.  dvipdfm で作成した PDF ファイル
 \end{verbatim}
 \end{jquote}
-    $B$G$43NG'$/$@$5$$!#(B
+    でご確認ください。
 
-$B:Y$+$$$3$H$r8@$$$^$9$H!$>e5-(B2.$B$N(BPDF$B$K$OLdBj$,$"$j$^$9!#(B
-dvipdfm $B$O(B$x<0$$B$NItJ,$OL5;k$9$k$h$&$G!$1_$N:8C<$@$1$O@Z$j<h$i$l$F$$$^$9!#(B
-$B$3$l$O(B dvipdfm $B$NLdBj$H9M$($F$$$^$9!#(B
+細かいことを言いますと，上記2.のPDFには問題があります。
+dvipdfm は$x<0$の部分は無視するようで，円の左端だけは切り取られています。
+これは dvipdfm の問題と考えています。
 
-  \item $B:G8e$N?^$G$O!$EvA3$N$3$H$J$,$iJ|J*@~$bIA2hNN0h$r0oC&$7$F$$$^$9!#(B
-    $B%/%j%C%WL58z$H$$$C$F$b!$$[$I$[$I$K$7$F$[$7$$!$$H$*9M$($NJ}$b$"$k$G$7$g$&!#(B
-    $B$=$NJ}8~$G$N=hM}$O!$>/!9;~4V$,I,MW$G$9$+$i!$(B
-    $B:#8e$N2]Bj$H$5$;$F$$$?$@$-$^$9!#(B
+  \item 最後の図では，当然のことながら放物線も描画領域を逸脱しています。
+    クリップ無効といっても，ほどほどにしてほしい，とお考えの方もあるでしょう。
+    その方向での処理は，少々時間が必要ですから，
+    今後の課題とさせていただきます。
 \end{enumerate}
 
-\subsubsection{\texttt{[borderwidth=..]}$B%*%W%7%g%s(B}
-\textsf{emathPs.sty}$B$rMQ$$$F?^$rIA$$$?>l9g!$(BPDF $B$KJQ49$9$k$H(B
-$B?^$N:8C<$J$I$,7g$1$k8=>]$,H/@8$9$k$3$H$,$"$j$^$9!#(B
+\subsubsection{\texttt{[borderwidth=..]}オプション}
+\textsf{emathPs.sty}を用いて図を描いた場合，PDF に変換すると
+図の左端などが欠ける現象が発生することがあります。
 
-\begin{showEx}(.6,.34){$B1_$N:8C<$,7g$1$k(B}
+\begin{showEx}(.6,.34){円の左端が欠ける}
 \smallskip
 \fbox{%
 \begin{pszahyou}[ul=20mm](-1,1)(-1,1)
@@ -374,25 +374,25 @@ dvipdfm $B$O(B$x<0$$B$NItJ,$OL5;k$9$k$h$&$G!$1_$N:8C<$@$1$O@Z$j<h$i$l$F$$$^$9
 \smallskip
 \end{showEx}
 
-$B3'$5$s$N4D6-$G$O$$$+$,$G$7$g$&$+!#;d$N4D6-$G$O!$1_$N>e2<:81&(B4$B2U=j$N(B
-$B1_$H@5J}7A$N@\$9$k$H$3$m$K1_<~$N7gMn$,8+$i$l$^$9!#(B
-$B1_<~$O>/$7B@$a$K$7$F$"$j$^$9$+$i!$K\Mh$J$i@5J}7A$N30$K$O$_=P$9$O$:$J$N$G$9$,!$(B
-$B$O$_=P$7$F$$$^$;$s$M!#(B
+皆さんの環境ではいかがでしょうか。私の環境では，円の上下左右4箇所の
+円と正方形の接するところに円周の欠落が見られます。
+円周は少し太めにしてありますから，本来なら正方形の外にはみ出すはずなのですが，
+はみ出していませんね。
 
-$B$3$l$O!$IA2hNN0h30$O%/%j%C%W$5$l$k$H$$$&(B EPS $B$N;EMM$G$9!#(B
+これは，描画領域外はクリップされるという EPS の仕様です。
 
-$B!J$3$NJ8=q$G$O!$(B\textsf{pszahyou}$B4D6-$NNN0h$r(B
-\cmd{fbox}$B$G0O$s$GI=<($7$F$$$^$9!#M>Gr$r$J$/$9$?$a(B
+（この文書では，\textsf{pszahyou}環境の領域を
+\cmd{fbox}で囲んで表示しています。余白をなくすため
 \begin{jquote}
 \begin{verbatim}
-\fboxsep=0pt$B$K@_Dj$7$F$$$^$9!#!K(B
+\fboxsep=0ptに設定しています。）
 \end{verbatim}
 \end{jquote}
 
-EPS $B$K$O!$$3$N%/%j%C%T%s%0$r;_$a$5$;$kJ}K!$,MQ0U$5$l$F$$$^$9!#(B
-$BEv$F$O$a$F$_$^$7$g$&!#(B
+EPS には，このクリッピングを止めさせる方法が用意されています。
+当てはめてみましょう。
 
-\begin{showEx}(.6,.34){\texttt{EPSclip=false}$B%*%W%7%g%s(B}
+\begin{showEx}(.6,.34){\texttt{EPSclip=false}オプション}
 \smallskip
 \fbox{%
 \begin{pszahyou}[ul=20mm,EPSclip=false]%
@@ -403,27 +403,27 @@ EPS $B$K$O!$$3$N%/%j%C%T%s%0$r;_$a$5$;$kJ}K!$,MQ0U$5$l$F$$$^$9!#(B
 \smallskip
 \end{showEx}
 
-\textsf{pszahyou}$B4D6-$N(B\verb+[EPSclip=false]+$B$,$=$l$G$9!#(B
-$B;d$N4D6-$G$O!$>e2<:81&(B4$B2U=j$H$b%/%j%C%W$5$l$:!$(B
-$B1_<~$O@5J}7A$N30$K$O$_=P$7$F$$$^$9!#(B
-$B3'$5$s$N4D6-$G$O$$$+$,$G$7$g$&$+!#(B
+\textsf{pszahyou}環境の\verb+[EPSclip=false]+がそれです。
+私の環境では，上下左右4箇所ともクリップされず，
+円周は正方形の外にはみ出しています。
+皆さんの環境ではいかがでしょうか。
 
-$B:8$H2<$O%/%j%C%W$5$l$F$7$^$&!$$H$$$&>u67$NJ}$,$*$i$l$k$H;W$$$^$9!#(B
-$B$3$l$O(B pdf $B$X$NJQ49K!$K:81&$5$l$k8=>]$G$9!#(B
-$B8=:_!$3NG'$5$l$F$$$k$N$O(B
+左と下はクリップされてしまう，という状況の方がおられると思います。
+これは pdf への変換法に左右される現象です。
+現在，確認されているのは
 \begin{enumerate}[(1)]
-  \item \verb/dvipsk+Distiller/ $B$G$O!$(B4$B2U=j$H$b%/%j%C%W$5$l$J$$!#(B
-  \item \verb/dvipdfm(x)/$B$G$O!$:8!&2<$N(B2$B2U=j$,%/%j%C%W$5$l$k!#(B
+  \item \verb/dvipsk+Distiller/ では，4箇所ともクリップされない。
+  \item \verb/dvipdfm(x)/では，左・下の2箇所がクリップされる。
 \end{enumerate}
-$B%0%i%U%#%C%/$O(B dvi-ware $B0MB8$G$9$+$i!$0[$J$k>u67$,H/@8$9$k$3$H$O(B
-$B$"$j$&$k$o$1$G$O$"$j$^$9$,!%!%!%!%!%(B
+グラフィックは dvi-ware 依存ですから，異なる状況が発生することは
+ありうるわけではありますが．．．．．
 
-$B!t(B $B;d$K8@$o$;$l$P!$$3$l$O(B dvipdfm $B$N%P%0$G$7$g$&!#(B
+＃ 私に言わせれば，これは dvipdfm のバグでしょう。
 
-$B$3$NLdBjE@$KBP1~$9$k$?$a!$(B\textsf{emathPs.sty} $B$G$O!$(B
-\texttt{borderwidth=..}$B%*%W%7%g%s$r>/$7=$@5$7$F$_$^$7$?!#(B
+この問題点に対応するため，\textsf{emathPs.sty} では，
+\texttt{borderwidth=..}オプションを少し修正してみました。
 
-\begin{showEx}(.6,.34){\texttt{borderwidth=5pt}$B%*%W%7%g%s(B}
+\begin{showEx}(.6,.34){\texttt{borderwidth=5pt}オプション}
 \smallskip
 \fbox{%
 \begin{pszahyou}[ul=20mm,borderwidth=5pt]%
@@ -436,24 +436,24 @@ EPS $B$K$O!$$3$N%/%j%C%T%s%0$r;_$a$5$;$kJ}K!$,MQ0U$5$l$F$$$^$9!#(B
 \smallskip
 \end{showEx}
 
-$B$5$F$$$+$,$G$7$g$&$+!#(B
-$B:#EY$N?^$K$O!$@5J}7A$,(B2$B$D$"$j$^$9!#>.$5$$J}$N@5J}7A$,:#$^$G$N?^$K$*$1$k(B
-$B@5J}7A$G!$30B&$O(B \texttt{bordewidth=5pt}$B%*%W%7%g%s$G<~0O$K(B\texttt{5pt}$B$:$D$N(B
-$B30OH$r$D$1$?$b$N$G$9!#(B
-$B!J$3$A$i$,(B\textsf{psazhyhou}$B4D6-$,G'<1$9$kIA2hNN0h$G$9!#!K(B
+さていかがでしょうか。
+今度の図には，正方形が2つあります。小さい方の正方形が今までの図における
+正方形で，外側は \texttt{bordewidth=5pt}オプションで周囲に\texttt{5pt}ずつの
+外枠をつけたものです。
+（こちらが\textsf{psazhyhou}環境が認識する描画領域です。）
 
-$BIA2hNN0h$r3H$2$?$o$1$G$9$+$i!$%/%j%C%W$9$k!?$7$J$$$O!$(B
-$B4X78$J$/!$1_<~$OA4$F7gB;$J$/IA2h$5$l$F$$$k$O$:$G$9!#(B
+描画領域を拡げたわけですから，クリップする／しないは，
+関係なく，円周は全て欠損なく描画されているはずです。
 \pagebreak
 
-\subsubsection{\texorpdfstring{\cmd{truexmax}}{truexmax}$B$J$I(B}
-\texttt{borderwidth=..}$B%*%W%7%g%s$O:#$^$G$b$"$C$?$N$G$9$,!$(B
-$B:BI8<4$,3H$,$C$?NN0hA4BN$KIA2h$5$l$F$$$?$b$N$r!$(B
-$B:#2s$N2~Dj$G(B\verb+(-1,1)(-1,1)+$B$H;XDj$7$?NN0hFb!J@h$N?^$N>.$5$$@5J}7AFb!K$K(B
-$B$H$I$a$k$3$H$K$$$?$7$^$7$?!#$=$N$?$a$K(B
-\verb+\truexmax+$B$J$I$NJQ?t$r?7@_$7$^$7$?!#(B
+\subsubsection{\texorpdfstring{\cmd{truexmax}}{truexmax}など}
+\texttt{borderwidth=..}オプションは今までもあったのですが，
+座標軸が拡がった領域全体に描画されていたものを，
+今回の改定で\verb+(-1,1)(-1,1)+と指定した領域内（先の図の小さい正方形内）に
+とどめることにいたしました。そのために
+\verb+\truexmax+などの変数を新設しました。
 
-\begin{showEx}(.6,.34){\cmd{xmax}$B$J$I(B}
+\begin{showEx}(.6,.34){\cmd{xmax}など}
 \smallskip
 \begin{pszahyou*}[ul=5mm,borderwidth=5pt]%
       (-1,4)(-2,3)
@@ -467,11 +467,11 @@ EPS $B$K$O!$$3$N%/%j%C%T%s%0$r;_$a$5$;$kJ}K!$,MQ0U$5$l$F$$$^$9!#(B
 \end{pszahyou*}
 \end{showEx}
 
-\cmd{xmax}$B$J$I$O!$(B\textsf{pszahyou}$B4D6-$G;XDj$7$?CM$K(B\texttt{borderwidth}
-$B$rA}8:$7$?CM$H$J$C$F$$$^$9!#(B
-$B$b$H$b$H$NCM$O(B\cmd{truexmax}$B$J$I$KJ]B8$9$k$3$H$K$7$^$7$?!#(B
+\cmd{xmax}などは，\textsf{pszahyou}環境で指定した値に\texttt{borderwidth}
+を増減した値となっています。
+もともとの値は\cmd{truexmax}などに保存することにしました。
 
-\begin{showEx}(.6,.34){\cmd{xmax}$B$J$I(B}
+\begin{showEx}(.6,.34){\cmd{xmax}など}
 \smallskip
 \begin{pszahyou*}[ul=5mm,borderwidth=5pt]%
       (-1,4)(-2,3)
@@ -486,10 +486,10 @@ EPS $B$K$O!$$3$N%/%j%C%T%s%0$r;_$a$5$;$kJ}K!$,MQ0U$5$l$F$$$^$9!#(B
 \end{showEx}
 \pagebreak
 
-\subsubsection{$B7G<(HD$+$i(B}
-$B:#2s$N2~Dj$NH/C<$H$J$C$?!$7G<(HD$NEj9F$r8+$F$*$-$^$9!#(B
+\subsubsection{掲示板から}
+今回の改定の発端となった，掲示板の投稿を見ておきます。
 
-\begin{showEx}(.6,.34){$B7G<(HD(B No.235}
+\begin{showEx}(.6,.34){掲示板 No.235}
   \bigskip
   \begin{pszahyou}
   [ul=4mm,
@@ -511,11 +511,11 @@ EPS $B$K$O!$$3$N%/%j%C%T%s%0$r;_$a$5$;$kJ}K!$,MQ0U$5$l$F$$$^$9!#(B
   \bigskip
 \end{showEx}
 
-$BE@(BP(2, 0)$B$KBG$C$?9u4]$N2<$,7g$1$k!$$H$$$&Ej9F$G$7$?!#(B
+点P(2, 0)に打った黒丸の下が欠ける，という投稿でした。
 
-$B$3$l$K(B\verb+[borderwidth=2pt]+$B$rIm2C$7$F$_$^$9!#(B
+これに\verb+[borderwidth=2pt]+を附加してみます。
 
-\begin{showEx}(.6,.34){$B7G<(HD(B No.235 $B=$@5(B}
+\begin{showEx}(.6,.34){掲示板 No.235 修正}
   \bigskip
   \begin{pszahyou}
   [ul=4mm,borderwidth=2pt,
@@ -537,23 +537,23 @@ EPS $B$K$O!$$3$N%/%j%C%T%s%0$r;_$a$5$;$kJ}K!$,MQ0U$5$l$F$$$^$9!#(B
   \bigskip
 \end{showEx}
 
-\subsection{$B?^$HJ8;z$N$:$l(B}
-\textsf{emathPs.sty}$B$K$*$1$k(B \textsf{pszahyou}$B4D6-$G$O!$(B
+\subsection{図と文字のずれ}
+\textsf{emathPs.sty}における \textsf{pszahyou}環境では，
 \begin{jquote}
-$B!!!!?^7A(B\\
-$B$H(B\\
-$B!!!!J8;z(B
+　　図形\\
+と\\
+　　文字
 \end{jquote}
-$B$NG[CV$K$D$$$F!$(B
+の配置について，
 \begin{jquote}
-$B!!!!?^7A$K$D$$$F$O!$(B\textsf{PostScript} $B$G(B\\
-$B!!!!J8;z$K$D$$$F$O!$(B\TeX $B$K$*$1$k(B\textsf{zahyou(picture)}$B4D6-(B
+　　図形については，\textsf{PostScript} で\\
+　　文字については，\TeX における\textsf{zahyou(picture)}環境
 \end{jquote}
-$B$H$$$&!$J,Ns9T?J$H$J$C$F$$$^$9!#(B
+という，分列行進となっています。
 
-$B?^$,>.$5$$$H$-$OL\N)$?$J$$$N$G$9$,!$Bg$-$J?^$G$9$H(B
+図が小さいときは目立たないのですが，大きな図ですと
 
-\begin{showEx}(.9,1){$B?^$HJ8;z$N%:%l(B}
+\begin{showEx}(.9,1){図と文字のズレ}
 \begin{pszahyou*}[ul=19mm](0,7)(-.1,.25)
   \Drawline{\XMIN\XMAX}%
   \Ifor\x{0}{8}\Do{%
@@ -564,22 +564,22 @@ EPS $B$K$O!$$3$N%/%j%C%T%s%0$r;_$a$5$;$kJ}K!$,MQ0U$5$l$F$$$^$9!#(B
 \end{showEx}
 
 \noindent
-$B1&$NJ}$G!$L\@9$j@~$HL\@9$j$NJ8;z$N0LCV$:$l$,L\N)$D$h$&$K$J$j$^$9!#(B
+右の方で，目盛り線と目盛りの文字の位置ずれが目立つようになります。
 
-$B$3$l$O!$(B\textsf{Postscript}$B$H(B\TeX $B$G!$(B\texttt{1pt}$B$ND9$5$,0[$J$k$?$a$G$9!#(B
-$B$9$J$o$A(B
+これは，\textsf{Postscript}と\TeX で，\texttt{1pt}の長さが異なるためです。
+すなわち
 \begin{jquote}
-  \textsf{Postscript}$B$G$O!$(B$\mathtt{1pt}=1/72\,\mathtt{inch}$\\
-  \TeX $B$G$O!$(B$\mathtt{1pt}=1/72.27\,\mathtt{inch}$
+  \textsf{Postscript}では，$\mathtt{1pt}=1/72\,\mathtt{inch}$\\
+  \TeX では，$\mathtt{1pt}=1/72.27\,\mathtt{inch}$
 \end{jquote}
-$B$H$$$&$3$H$G!$(B\TeX $B$N$[$&$,>/$7C;$/$J$C$F$$$^$9$+$i!$(B
-$B1&$K9T$/$[$I!$J8;z$,L\@9$j@~$h$j$b:8$K4s$C$F$$$/>uBV$,$7$e$C$?$$$7$^$9!#(B
+ということで，\TeX のほうが少し短くなっていますから，
+右に行くほど，文字が目盛り線よりも左に寄っていく状態がしゅったいします。
 
-$B$=$3$G!$J8;zG[CV$K$D$$$F!$$3$N%:%l$r=$@5$9$k$?$a(B
+そこで，文字配置について，このズレを修正するため
 \begin{jquote}
-  \verb+cPut+ $B!J(Bc$B$O(Bchar$B$NF,J8;z$N$D$b$j!K(B
+  \verb+cPut+ （cはcharの頭文字のつもり）
 \end{jquote}
-$B$r?7@_$7$^$7$?!#(B
+を新設しました。
 
 \begin{showpEx}(.9,1){\cmd{cPut}}
 !\begin{pszahyou*}[ul=19mm](0,7)(-.1,.25)
@@ -591,48 +591,48 @@ EPS $B$K$O!$$3$N%/%j%C%T%s%0$r;_$a$5$;$kJ}K!$,MQ0U$5$l$F$$$^$9!#(B
 !\end{pszahyou*}
 \end{showpEx}
 
-$BL\@9$j@~$HJ8;z$N%:%l$O2r>C$7$F$$$^$9!#(B
+目盛り線と文字のズレは解消しています。
 
-$B$?$@$7!$(B
+ただし，
 \begin{jquote}
-  $BJ8;z$NG[CV$O(B \verb+cPut+ $B$G!$(B\\
-  $B?^7A$NG[CV$O(B \verb+Put+ $B$G(B
+  文字の配置は \verb+cPut+ で，\\
+  図形の配置は \verb+Put+ で
 \end{jquote}
-$B$H$$$&Fs=E9=B$$H$J$j$^$9!#(B
+という二重構造となります。
 
-$BK>$^$7$$$N$O!$?^7A!&J8;zAPJ}$r(B \textsf{PostScript} $B$N4IM}2<$KCV$/$3$H$G$9$,!$(B
-\textsf{PostScript}$B$NJ8;z=PNO$OLLE]$J$N$G!$<B8=$O1s$$>-Mh$H$J$j$=$&$G$9!#(B
+望ましいのは，図形・文字双方を \textsf{PostScript} の管理下に置くことですが，
+\textsf{PostScript}の文字出力は面倒なので，実現は遠い将来となりそうです。
 
-\subsection{$B?^7A$N2sE>(B}
-$B$3$N@a$NOC$O!$?75!G=$G$O$"$j$^$;$s$,!$(B\texttt{BBS}$B$GOCBj$H$J$C$?$N$G!$(B
-$B$H$j$"$2$F$*$-$^$9!#(B
+\subsection{図形の回転}
+この節の話は，新機能ではありませんが，\texttt{BBS}で話題となったので，
+とりあげておきます。
 
-$BNc$($P!$BJ1_$r2sE>$5$;$k$K$O!$(B\cmd{rotatebox}$B$rMxMQ$9$k$N$,4JC1$G$9!#(B
+例えば，楕円を回転させるには，\cmd{rotatebox}を利用するのが簡単です。
 
-\begin{showEx}(.64,.3){\textsf{zahyou}$B4D6-$K$*$1$k(B\cmd{rotatebox}}
+\begin{showEx}(.64,.3){\textsf{zahyou}環境における\cmd{rotatebox}}
 \begin{zahyou}[ul=6mm](-1,4)(-3,1)
   \tenretu*{A(1,-1)}
   \Put\A{\rotatebox{45}{\Daen\O{2}{1}}}
 \end{zahyou}
 \end{showEx}
 
-\textsf{pszahyou}$B4D6-$G$O$I$&$J$k$G$7$g$&$+!#(B
+\textsf{pszahyou}環境ではどうなるでしょうか。
 
-\begin{showEx}(.64,.3){\textsf{pszahyou}$B4D6-$K$*$1$k(B\cmd{rotatebox}}
+\begin{showEx}(.64,.3){\textsf{pszahyou}環境における\cmd{rotatebox}}
 \begin{pszahyou}[ul=6mm](-1,4)(-3,1)
   \tenretu*{A(1,-1)}
   \Put\A{\rotatebox{45}{\Daen\O{2}{1}}}
 \end{pszahyou}
 \end{showEx}
 
-$B2sE>$7$^$;$s!#$9$J$o$A(B\cmd{rotatebox}$B$OL5;k$5$l$F$$$^$9!#(B
-\textsf{emathPs.sty}$B$G$O!$(B\cmd{rotatebox}$B$O%5%]!<%H$5$l$F$$$^$;$s$7!$(B
-$B:#8e%5%]!<%H$5$l$kM=Dj$O$"$j$^$;$s!#$3$l$K$O!$M}M3$,$"$k$N$G$9$,!$(B
-$B$3$3$G$O=R$Y$^$;$s!#(B
+回転しません。すなわち\cmd{rotatebox}は無視されています。
+\textsf{emathPs.sty}では，\cmd{rotatebox}はサポートされていませんし，
+今後サポートされる予定はありません。これには，理由があるのですが，
+ここでは述べません。
 
-$B$=$l$K49$($F(B\cmd{EPSkaiten}$B%3%^%s%I$rMQ0U$7$F$$$^$9!#(B
+それに換えて\cmd{EPSkaiten}コマンドを用意しています。
 
-$BBJ1_$r2sE>$5$;$F$_$^$9!#(B
+楕円を回転させてみます。
 
 \begin{showEx}(.6,.34){\cmd{EPSkaiten}}
 \begin{pszahyou}[ul=5mm](-4,4)(-4,4)
@@ -645,19 +645,19 @@ EPS $B$K$O!$$3$N%/%j%C%T%s%0$r;_$a$5$;$kJ}K!$,MQ0U$5$l$F$$$^$9!#(B
 \end{pszahyou}
 \end{showEx}
 
-$B2sE>$5$;$k%3%^%s%IL>$,(B\cmd{EPSkaiten}$B$G!$$=$N=q<0$O!'(B
+回転させるコマンド名が\cmd{EPSkaiten}で，その書式は：
 
 \begin{boxnote}
 \begin{verbatim}
 \EPSkaiten#1#2#3
-   #1 : $B2sE>$NCf?4(B
-   #2 : $B2sE>3Q!JO;==J,K!!K(B
-   #3 : $B2sE>$9$kBP>](B
+   #1 : 回転の中心
+   #2 : 回転角（六十分法）
+   #3 : 回転する対象
 \end{verbatim}
 \end{boxnote}
 
-$B2sE>$NCf?4$HBJ1_$NCf?4$rJL$K$H$C$F$_$^$7$g$&!#(B
-$BE@(B(3, 0)$B$rCf?4$H$9$kBJ1_$r86E@$N$^$o$j$K2sE>$7$^$9!#(B
+回転の中心と楕円の中心を別にとってみましょう。
+点(3, 0)を中心とする楕円を原点のまわりに回転します。
 
 \begin{showEx}(.6,.34){\cmd{EPSkaiten}}
 \begin{pszahyou}[ul=5mm](-1,7)(-3,6)
@@ -671,7 +671,7 @@ EPS $B$K$O!$$3$N%/%j%C%T%s%0$r;_$a$5$;$kJ}K!$,MQ0U$5$l$F$$$^$9!#(B
 \end{pszahyou}
 \end{showEx}
 
-$B<!$O!$2sE>$NCf?4$rBJ1_$N1&C<(B(6, 0)$B$K$H$j$^$9!#(B
+次は，回転の中心を楕円の右端(6, 0)にとります。
 
 \begin{showEx}(.6,.34){\cmd{EPSkaiten}}
 \begin{pszahyou}[ul=5mm](-1,7)(-6,3)
@@ -685,12 +685,12 @@ EPS $B$K$O!$$3$N%/%j%C%T%s%0$r;_$a$5$;$kJ}K!$,MQ0U$5$l$F$$$^$9!#(B
 \end{pszahyou}
 \end{showEx}
 
-\subsection{$B%+%i!<2=(B}
-\subsubsection{\textsf{EMpscolor}$B4D6-(B}
-\LaTeX $B$N(B\cmd{color}$B%3%^%s%I$O!$(B\textsf{pszahyou}$B4D6-$N?^7AIA2hItJ,$K$O(B
-$BL58z$G$9!#?^7A$r%+%i!<IA2h$9$k$?$a$K(B\textsf{EMpscolor}$B4D6-$rMQ0U$7$^$7$?!#(B
+\subsection{カラー化}
+\subsubsection{\textsf{EMpscolor}環境}
+\LaTeX の\cmd{color}コマンドは，\textsf{pszahyou}環境の図形描画部分には
+無効です。図形をカラー描画するために\textsf{EMpscolor}環境を用意しました。
 
-\begin{showEx}(.64,.3){\textsf{EMpscolor}$B4D6-(B}
+\begin{showEx}(.64,.3){\textsf{EMpscolor}環境}
   \begin{pszahyou}[ul=10mm](-1.2,2.5)(-1.2,1.5)
     \begin{EMpscolor}{green}
       \En\O{1}
@@ -699,18 +699,18 @@ EPS $B$K$O!$$3$N%/%j%C%T%s%0$r;_$a$5$;$kJ}K!$,MQ0U$5$l$F$$$^$9!#(B
   \end{pszahyou}
 \end{showEx}
 
-$B!JCm!K(Bdviout $B$G$4Mw$NJ}$O!$(BGraphic $B$N@_Dj$$$+$s$G$O!$%+%i!<$K$J$j$^$;$s!#(B
+（注）dviout でご覧の方は，Graphic の設定いかんでは，カラーになりません。
 
-\subsubsection{\texorpdfstring{\cmd{defineEMpscolor}}{defineEMpscolor}$B%3%^%s%I(B}
-$B8=;~E@$G!$(B\textsf{emathPs}$B$GDj5A$5$l$F$$$k%+%i!<$O(B
+\subsubsection{\texorpdfstring{\cmd{defineEMpscolor}}{defineEMpscolor}コマンド}
+現時点で，\textsf{emathPs}で定義されているカラーは
 \begin{jquote}
 \begin{verbatim}
 red, green, blue
 white, black
 \end{verbatim}
 \end{jquote}
-$B$N(B5$B<oN`$G$9!#$=$NB>$N%+%i!<$r;HMQ$7$?$$$H$-$O(B\cmd{defineEMpscolor}$B%3%^%s%I$G(B
-$BDj5A$7$F$/$@$5$$!#(B
+の5種類です。その他のカラーを使用したいときは\cmd{defineEMpscolor}コマンドで
+定義してください。
 
 \begin{showEx}(.64,.3){\cmd{defineEMpscolor}}
   \begin{pszahyou}[ul=10mm](-1.2,1.5)(-1.2,1.5)
@@ -721,21 +721,21 @@ white, black
   \end{pszahyou}
 \end{showEx}
 
-\cmd{defineEMpscolor}$B%3%^%s%I$O(B
+\cmd{defineEMpscolor}コマンドは
 \begin{jquote}
 \begin{verbatim}
-$B?'$NL>A0$KB3$-!$(BR, G, B $B$N?tCM(B(0$B!A(B1)
+色の名前に続き，R, G, B の数値(0〜1)
 \end{verbatim}
 \end{jquote}
-$B$r0z?t$KM?$($^$9!#(B
+を引数に与えます。
 
-\subsubsection{\texorpdfstring{\cmd{color}}{color}$B$H$NJ;MQ(B}
-$BJ8;z$K?'$r$D$1$?$$$H$-$O!$(B\LaTeX $B$N(B\cmd{color}$B%3%^%s%I$rMQ$$$^$9$,!$(B
-$B8=;~E@$G$O!$6uGr$N:.F~$,$*$-$d$9$/$J$C$F$$$^$9!#(B
-$B<!$NNc$G$O!$(B\LaTeX $B$NG'<1$7$F$$$k(B\textsf{picture}$B4D6-$r(B\cmd{fbox}$B$G(B
-$B0O$s$G$$$^$9$,!$?^$,$O$_=P$7$F$$$k$3$H$,$*J,$+$j$G$7$g$&(B
+\subsubsection{\texorpdfstring{\cmd{color}}{color}との併用}
+文字に色をつけたいときは，\LaTeX の\cmd{color}コマンドを用いますが，
+現時点では，空白の混入がおきやすくなっています。
+次の例では，\LaTeX の認識している\textsf{picture}環境を\cmd{fbox}で
+囲んでいますが，図がはみ出していることがお分かりでしょう
 
-\begin{showEx}(.64,.3){\cmd{color}$B$H$NJ;MQ(B}
+\begin{showEx}(.64,.3){\cmd{color}との併用}
   \fboxsep=0pt\relax\fbox{%
   \begin{pszahyou}[ul=8mm](-1.5,2)(-1.5,2)%
     \def\A{(1,1)}%
@@ -746,12 +746,12 @@ white, black
   \end{pszahyou}}%
 \end{showEx}
 
-$B$?$@$7!$(B2$B2s%?%$%W%;%C%H$r$9$l$P!$6uGr$N:.F~$O$J$/$J$j$^$9!#(B
+ただし，2回タイプセットをすれば，空白の混入はなくなります。
 
-$B$^$?!$(B1$B2sL\$N%?%$%W%;%C%H$G$b$3$N:.F~$r2sHr$9$k$K$O!$(B
-\cmd{color}$BJ8$r(B\cmd{Put}$B$N0z?t$KF~$l$F$7$^$&$N$,M-8z$G$9!#(B
+また，1回目のタイプセットでもこの混入を回避するには，
+\cmd{color}文を\cmd{Put}の引数に入れてしまうのが有効です。
 
-\begin{showEx}(.64,.3){$B6uGr$N:.F~2sHr(B}
+\begin{showEx}(.64,.3){空白の混入回避}
   \fboxsep=0pt\relax\fbox{%
   \begin{pszahyou}[ul=8mm](-1.5,2)(-1.5,2)%
     \def\A{(1,1)}%
@@ -762,9 +762,9 @@ white, black
   \end{pszahyou}}%
 \end{showEx}
 
-$B$5$F!$:G8e$K>/$7Bg$-$JNc$G$9!#(B
+さて，最後に少し大きな例です。
 
-\begin{showEx}(.64,.3){$BNc(B}
+\begin{showEx}(.64,.3){例}
 \begin{pszahyou*}[ul=5mm](-3,3)(-1,6)%
   \def\Fx{X*X}%
   \def\Gx{2-X}%
@@ -782,353 +782,353 @@ white, black
 \end{pszahyou*}%
 \end{showEx}
 
-\subsection{\textsf{EMpsrectbox}$B4D6-(B}
-\subsubsection{\textsf{EMpsrectbox}$B$H$O(B}
-\textsf{emathPh.sty}$B$GDj5A$5$l$F$$$k(B\textsf{rectbox}$B4D6-$N(B
-\textsf{emathPs}$BHG$H$$$&0LCVIU$1$G$9!#(B
-$B%Z!<%8$r$^$?$0$3$H$,$G$-$J$$!$K5Cm$b$D$1$i$l$J$$$H$$$&$N$O!$(B
-\textsf{rectbox}$B$HF1MM$G$9!#(B
+\subsection{\textsf{EMpsrectbox}環境}
+\subsubsection{\textsf{EMpsrectbox}とは}
+\textsf{emathPh.sty}で定義されている\textsf{rectbox}環境の
+\textsf{emathPs}版という位置付けです。
+ページをまたぐことができない，傍注もつけられないというのは，
+\textsf{rectbox}と同様です。
 
-\begin{showEx}(.9,1){\textsf{EMpsrectbox}$B4D6-(B}
+\begin{showEx}(.9,1){\textsf{EMpsrectbox}環境}
 \begin{EMpsrectbox}
-$B$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"(B
-$B$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"(B
+あああああああああああああああああああああああああ
+あああああああああああああああああああああああああ
 
-$B$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$(B
-$B$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$(B
+いいいいいいいいいいいいいいいいいいいいいいいいい
+いいいいいいいいいいいいいいいいいいいいいいいいい
 \end{EMpsrectbox}
 \end{showEx}
 
-\textsf{rectbox}$B4D6-$KHf$7$F!$7S@~$,B@$$$3$H$G$7$g$&$+!#(B
-$B%3!<%J!<$,$-$A$s$H$D$J$,$C$F$$$k$3$H$,FCD'$G$9!#(B
+\textsf{rectbox}環境に比して，罫線が太いことでしょうか。
+コーナーがきちんとつながっていることが特徴です。
 \pagebreak
 
-\subsubsection{$B7S@~$HK\J8$H$N4V3V(B}
+\subsubsection{罫線と本文との間隔}
 \paragraph{\texttt{fboxsep}}
-$B7S@~$HCf$N%F%-%9%H$H$N4V3V$O!$(B\cmd{fboxsep}$B$G7h$^$j$^$9!#(B
-$B$3$l$rJQ99$7$?$$$H$-$O!$(B\verb+[fbox=..]+$B%*%W%7%g%s$rM?$($^$9!#(B
+罫線と中のテキストとの間隔は，\cmd{fboxsep}で決まります。
+これを変更したいときは，\verb+[fbox=..]+オプションを与えます。
 
-\begin{showEx}(.9,1){\texttt{fboxsep}$B%*%W%7%g%s(B}
+\begin{showEx}(.9,1){\texttt{fboxsep}オプション}
 \begin{EMpsrectbox}[fboxsep=1zw]
-$B$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"(B
-$B$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"(B
-$B$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"(B
+あああああああああああああああああああ
+あああああああああああああああああああ
+あああああああああああああああああああ
 \end{EMpsrectbox}
 \end{showEx}
 
 \paragraph{\texttt{hsep vsep}}
-\verb+[fboxsep=..]+$B%*%W%7%g%s$O!$:81&!&>e2<$9$Y$F$r0lN'$KJQ99$7$^$9$7!$(B
-$BEv3:4D6-Fb$N$_$G$O$"$j$^$9$,!$(B\cmd{fboxsep}$B$NCM$,JQ99$5$l$F$$$^$9!#(B
+\verb+[fboxsep=..]+オプションは，左右・上下すべてを一律に変更しますし，
+当該環境内のみではありますが，\cmd{fboxsep}の値が変更されています。
 
-\begin{showEx}(.9,1){\texttt{fboxsep}$B%*%W%7%g%s$NI{:nMQ(B}
+\begin{showEx}(.9,1){\texttt{fboxsep}オプションの副作用}
 \begin{EMpsrectbox}[fboxsep=1zw]
-$B$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"(B
+あああああああああああああああああああ
 
-\fbox{$B$$$$$$(B}
+\fbox{いいい}
 \end{EMpsrectbox}
-\fbox{$B$&$&$&(B}
+\fbox{ううう}
 \end{showEx}
 
-$B$=$3$G!$:81&$N6u$-$r;XDj$9$k%*%W%7%g%s(B\verb+hsep=..+$B$H!$(B
-$B>e2<$N6u$-$r;XDj$9$k%*%W%7%g%s(B\verb+vsep=..+$B$r?7@_$7$^$7$?!#(B
+そこで，左右の空きを指定するオプション\verb+hsep=..+と，
+上下の空きを指定するオプション\verb+vsep=..+を新設しました。
 
-\begin{showEx}(.9,1){\texttt{hsep, vsep}$B%*%W%7%g%s(B}
+\begin{showEx}(.9,1){\texttt{hsep, vsep}オプション}
 \begin{EMpsrectbox}[hsep=3zw,vsep=1zw]
-$B$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"(B
-$B$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"(B
+あああああああああああああああああああ
+あああああああああああああああああああ
 
-\fbox{$B$$$$$$(B}
+\fbox{いいい}
 \end{EMpsrectbox}
-\fbox{$B$&$&$&(B}
+\fbox{ううう}
 \end{showEx}
 
-\subsubsection{$B2#I}(B}
+\subsubsection{横幅}
 \paragraph{\texttt{rectboxwidth}}
-\textsf{EMpsrectbox}$B4D6-$N2#I}$O(B\cmd{linewidth}$B$G!$2#$$$C$Q$$$K9-$,$j$^$9!#(B
-$B$3$l$r@)8B$9$k%*%W%7%g%s$,(B\verb+rectboxwidth=..+$B$G$9!#(B
+\textsf{EMpsrectbox}環境の横幅は\cmd{linewidth}で，横いっぱいに広がります。
+これを制限するオプションが\verb+rectboxwidth=..+です。
 
-\begin{showEx}(.9,1){\texttt{rectboxwidth}$B%*%W%7%g%s(B}
-$B$"$"$"(B
+\begin{showEx}(.9,1){\texttt{rectboxwidth}オプション}
+あああ
 \begin{EMpsrectbox}[rectboxwidth=8zw]
-$B$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$(B
-$B$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$(B
+いいいいいいいいいいいいいいいい
+いいいいいいいいいいいいいいいい
 \end{EMpsrectbox}
-$B$&$&$&(B
+ううう
 \end{showEx}
 
-$B2#I}$r(B8zw$B$H;XDj$7$F$$$^$9$,!$<B:]$N%\%C%/%9I}$O!$(B
-$B$3$l$K!$:81&$N6u$-$,2C$o$j$^$9!#(B
+横幅を8zwと指定していますが，実際のボックス幅は，
+これに，左右の空きが加わります。
 
-\subsubsection{$B8+=P$7$r$D$1$k(B}
-$B>eItOH@~$K8+=P$7$r$D$1$k$3$H$,$G$-$^$9!#(B
+\subsubsection{見出しをつける}
+上部枠線に見出しをつけることができます。
 
-\begin{showEx}(.9,1){\texttt{item}$B%*%W%7%g%s(B}
-\begin{EMpsrectbox}[item={~$B8+=P$7(B~}]
-$B$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"(B
-$B$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"(B
-$B$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"(B
-\end{EMpsrectbox}
-\end{showEx}
-
-$B$=$N0LCV$O%G%U%)%k%H$G$O:8$G$9$,!$Cf1{!J1&!K$K$9$k$K$O!$(B
-\verb+itempos=..+$B%*%W%7%g%s$rMQ$$$^$9!#(B
-
-\begin{showEx}(.9,1){\texttt{itempos=c}$B%*%W%7%g%s(B}
-\begin{EMpsrectbox}[item={~$BCf1{8+=P$7(B~},itempos=c]
-$B$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"(B
-$B$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"(B
-$B$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"(B
+\begin{showEx}(.9,1){\texttt{item}オプション}
+\begin{EMpsrectbox}[item={~見出し~}]
+あああああああああああああああああああ
+あああああああああああああああああああ
+あああああああああああああああああああ
 \end{EMpsrectbox}
 \end{showEx}
 
-\begin{showEx}(.9,1){\texttt{itempos=r}$B%*%W%7%g%s(B}
-\begin{EMpsrectbox}[item={~$B1&8+=P$7(B~},itempos=r]
-$B$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"(B
-$B$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"(B
-$B$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"(B
+その位置はデフォルトでは左ですが，中央（右）にするには，
+\verb+itempos=..+オプションを用います。
+
+\begin{showEx}(.9,1){\texttt{itempos=c}オプション}
+\begin{EMpsrectbox}[item={~中央見出し~},itempos=c]
+あああああああああああああああああああ
+あああああああああああああああああああ
+あああああああああああああああああああ
 \end{EMpsrectbox}
 \end{showEx}
 
-\subsubsection{$B7S@~$N<oN`JQ99(B}
-$B7S@~$N<oN`$rJQ99$9$kJ}K!$O!$(B\textsf{rectbox}$B4D6-$H$O0[$J$j$^$9!#(B
-\textsf{rectbox}$B$K(B\verb+<...>+$B%*%W%7%g%s$r$D$1$^$9!#(B
+\begin{showEx}(.9,1){\texttt{itempos=r}オプション}
+\begin{EMpsrectbox}[item={~右見出し~},itempos=r]
+あああああああああああああああああああ
+あああああああああああああああああああ
+あああああああああああああああああああ
+\end{EMpsrectbox}
+\end{showEx}
 
-\begin{showEx}(.9,1){$B@~<oJQ99(B}
+\subsubsection{罫線の種類変更}
+罫線の種類を変更する方法は，\textsf{rectbox}環境とは異なります。
+\textsf{rectbox}に\verb+<...>+オプションをつけます。
+
+\begin{showEx}(.9,1){線種変更}
 \begin{EMpsrectbox}<\setdash{3,2}>
-$B$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"(B
-$B$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"(B
-$B$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"(B
+あああああああああああああああああああ
+あああああああああああああああああああ
+あああああああああああああああああああ
 \end{EMpsrectbox}
 \end{showEx}
 
-\verb+[..]+$B%*%W%7%g%s$H$NJ;MQ$O(B
+\verb+[..]+オプションとの併用は
 \begin{jquote}
 \begin{verbatim}
 \begin{EMpsrectbox}[...]<...>
 \end{verbatim}
 \end{jquote}
-$B$N=g$H$J$j$^$9!#(B
+の順となります。
 
-\subsubsection{$B7S@~$NB@$5JQ99(B}
+\subsubsection{罫線の太さ変更}
 
-$B$3$A$i$b(B\textsf{rectbox}$B4D6-$H$O0[$J$j$^$9!#(B
+こちらも\textsf{rectbox}環境とは異なります。
 
-\begin{showEx}(.9,1){$B7S@~$NB@$5JQ99(B}
+\begin{showEx}(.9,1){罫線の太さ変更}
 \begin{EMpsrectbox}<\setlinewidth{4}>%
-$B$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"(B
-$B$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"(B
-$B$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"(B
+あああああああああああああああああああ
+あああああああああああああああああああ
+あああああああああああああああああああ
 \end{EMpsrectbox}
 \end{showEx}
 
-\subsubsection{\texttt{rectboxoval}$B%*%W%7%g%s(B}
-\textsf{EMpsrectbox}$B4D6-$O!$%3!<%J!<$,D>3Q$G$9!#(B
-$B$3$l$r4]$/(B---$B;MJ,1_$K$9$k;n$_$G$9!#(B
+\subsubsection{\texttt{rectboxoval}オプション}
+\textsf{EMpsrectbox}環境は，コーナーが直角です。
+これを丸く---四分円にする試みです。
 
-\begin{showEx}(.8,.8){\texttt{rectboxoval}$B%*%W%7%g%s(B}
+\begin{showEx}(.8,.8){\texttt{rectboxoval}オプション}
 \begin{EMpsrectbox}[rectboxoval]
-\texttt{[rectboxoval]}$B%*%W%7%g%s$r$D$1$k$H!$(B
-$B3Q$N4]$$OH$G0O$`$3$H$,$G$-$^$9!#(B
+\texttt{[rectboxoval]}オプションをつけると，
+角の丸い枠で囲むことができます。
 \end{EMpsrectbox}
 \end{showEx}
 
-$B;M6y$N;MJ,1_$O!$%G%U%)%k%H$G$O(B10pt$B$NH>7B$GIA2h$5$l$^$9!#(B\\
-$B$3$l$rJQ99$9$k$K$O!$(B\verb+[rectboxoval=..]+$B%*%W%7%g%s$N1&JUCM$r;XDj$7$^$9!#(B
+四隅の四分円は，デフォルトでは10ptの半径で描画されます。\\
+これを変更するには，\verb+[rectboxoval=..]+オプションの右辺値を指定します。
 
-\begin{showEx}(.8,.8){\texttt{rectboxoval=5pt}$B%*%W%7%g%s(B}
+\begin{showEx}(.8,.8){\texttt{rectboxoval=5pt}オプション}
 \begin{EMpsrectbox}[rectboxoval=5pt]
-\texttt{[rectboxoval=5pt]}$B%*%W%7%g%s$r$D$1$k$H!$(B
-$B3Q$N4]$OH>7B(B5pt$B$N1_$H$J$j$^$9!#(B
+\texttt{[rectboxoval=5pt]}オプションをつけると，
+角の丸は半径5ptの円となります。
 \end{EMpsrectbox}
 \end{showEx}
 
-\textsf{EMpsrectbox}$B4D6-$G$O!$OH@~$HCf$N%F%-%9%H$H$N4V3V$O!$(B
-\cmd{fboxsep}$B$G$7$?$,!$(B\verb+[rectboxoval]+$B%*%W%7%g%s$r;XDj$7$?$H$-$O(B
-$B;MJ,1_$NH>7B$r%G%U%)%k%H$H$7$^$9!#JQ99$9$k$H$-$O(B
+\textsf{EMpsrectbox}環境では，枠線と中のテキストとの間隔は，
+\cmd{fboxsep}でしたが，\verb+[rectboxoval]+オプションを指定したときは
+四分円の半径をデフォルトとします。変更するときは
 \begin{jquote}
 \begin{verbatim}
 hsep=..,vsep=..
 \end{verbatim}
 \end{jquote}
-$B%*%W%7%g%s$rMQ$$$^$9!#(B
+オプションを用います。
 
-\begin{showEx}(.8,.8){\texttt{hsep,vsep}$B%*%W%7%g%s(B}
+\begin{showEx}(.8,.8){\texttt{hsep,vsep}オプション}
 \begin{EMpsrectbox}[rectboxoval,hsep=2zw,vsep=.5zh]
-\verb+[hsep=..,vsep=..]+$B%*%W%7%g%s$rIU2C$7$?>l9g$O!$(B
-$B$=$A$i$,M%@h$5$l$^$9!#(B
+\verb+[hsep=..,vsep=..]+オプションを付加した場合は，
+そちらが優先されます。
 \end{EMpsrectbox}
 \end{showEx}
 
 \begin{description}
-\item[$BCm!!(B]$B%0%i%U%#%C%/%9$O5!<o0MB8!$(Bdvi-ware$B0MB8$G$9!#(B
+\item[注　]グラフィックスは機種依存，dvi-ware依存です。
 
-  \textsf{EMpsrectbox}$B4D6-$O!$(Bdvipdfm(x)$B$K$OBP1~$7$F$$$^$;$s!#(B
-  $B:F;0=R$Y$F$$$^$9$,!$(B$x<0$, $y<0$$B$rL5;k$9$k;EMM$N$h$&$G!$(B
-  $BOH$N2<JU$H:8JU$,:o$i$l$^$9!#(B
+  \textsf{EMpsrectbox}環境は，dvipdfm(x)には対応していません。
+  再三述べていますが，$x<0$, $y<0$を無視する仕様のようで，
+  枠の下辺と左辺が削られます。
   
-  $B3NG'$N0UL#$G!$(Bdvipsk+Distiller $B$G:n@.$7$?(B PDF $B$rF1:-$7$^$9!#(B
+  確認の意味で，dvipsk+Distiller で作成した PDF を同梱します。
 \end{description}
 
 
-\subsubsection{\textsf{mawarikomi}$B4D6-Fb$N0O$_(B}
-\textsf{mawarikomi}$B4D6-Fb$G!$(B\textsf{ascmac.sty}$B$GDj5A$5$l$F$$$k(B
-\textsf{itembox}$B4D6-$J$I$rMQ$$$k$H(B
+\subsubsection{\textsf{mawarikomi}環境内の囲み}
+\textsf{mawarikomi}環境内で，\textsf{ascmac.sty}で定義されている
+\textsf{itembox}環境などを用いると
 
 \begin{showEx}(.84,.9){mawarikomi \& itembox}
 \begin{mawarikomi}{}{%
   \unitlength=1pt\relax
   \begin{picture}(200,100)
-    \framebox(200,100){\Huge $B?^(B}
+    \framebox(200,100){\Huge 図}
   \end{picture}
 }
-$B$"$"$"(B
+あああ
 
-\begin{itembox}{$B$_$@$7(B}
-$B%"%"%"%"%"%"%"%"%"%"%"%"%"%"%"%"%"%"%"%"%"%"%"%"%"%"%"%"%"%"%"%"%"%"(B
+\begin{itembox}{みだし}
+アアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアア
 \end{itembox}
-$B$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$(B
-$B$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$(B
-$B$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$(B
-$B$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$(B
-$B$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$(B
+いいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいい
+いいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいい
+いいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいい
+いいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいい
+いいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいい
 \end{mawarikomi}
 \end{showEx}
-$B$3$N$1$s$+$r<}$a$k$N$OLLE]$G$9$+$i!$(B
-\textsf{rectbox}$B4D6-$GBP1~$9$k$3$H$K$7$^$9!#(B
+このけんかを収めるのは面倒ですから，
+\textsf{rectbox}環境で対応することにします。
 
-\begin{showEx}(.84,.9){itembox$B$KBe$($F(BEMpsrectbox}
+\begin{showEx}(.84,.9){itemboxに代えてEMpsrectbox}
 \begin{mawarikomi}{}{%
   \unitlength=1pt\relax
   \begin{picture}(200,100)
-    \framebox(200,100){\Huge $B?^(B}
+    \framebox(200,100){\Huge 図}
   \end{picture}
 }
-$B$"$"$"(B
+あああ
 
-\begin{EMpsrectbox}[item=$B$_$@$7(B,rectboxoval]
-$B%"%"%"%"%"%"%"%"%"%"%"%"%"%"%"%"%"%"%"%"%"%"%"%"%"%"%"%"%"%"%"%"%"%"(B
+\begin{EMpsrectbox}[item=みだし,rectboxoval]
+アアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアア
 \end{EMpsrectbox}
-$B$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$(B
-$B$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$(B
-$B$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$(B
-$B$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$(B
-$B$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$(B
+いいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいい
+いいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいい
+いいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいい
+いいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいい
+いいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいい
 \end{mawarikomi}
 \end{showEx}
 
-$B0O$_$,?^$r?/?)$9$k$3$H$O$J$/$J$j$^$7$?$,!$(B
-\textsf{mawarikomi}$B=*N;$N%?%$%_%s%0$,$:$l$F$$$^$9!#(B
-$B$3$l$O(B\textsf{mawarikomi}$B4D6-$N(B\verb+[..]+$B%*%W%7%g%s$GD4@0$7$^$9!#(B
+囲みが図を侵食することはなくなりましたが，
+\textsf{mawarikomi}終了のタイミングがずれています。
+これは\textsf{mawarikomi}環境の\verb+[..]+オプションで調整します。
 
-\begin{showEx}(.84,.9){mawarikomi $B9T?t$ND4@0(B}
+\begin{showEx}(.84,.9){mawarikomi 行数の調整}
 \begin{mawarikomi}[-3]{}{%
   \unitlength=1pt\relax
   \begin{picture}(200,100)
-    \framebox(200,100){\Huge $B?^(B}
+    \framebox(200,100){\Huge 図}
   \end{picture}
 }
-$B$"$"$"(B
+あああ
 
-\begin{EMpsrectbox}[item=$B$_$@$7(B,rectboxoval]
-$B%"%"%"%"%"%"%"%"%"%"%"%"%"%"%"%"%"%"%"%"%"%"%"%"%"%"%"%"%"%"%"%"%"%"(B
+\begin{EMpsrectbox}[item=みだし,rectboxoval]
+アアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアア
 \end{EMpsrectbox}
-$B$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$(B
-$B$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$(B
-$B$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$(B
-$B$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$(B
-$B$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$(B
+いいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいい
+いいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいい
+いいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいい
+いいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいい
+いいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいい
 \end{mawarikomi}
 \end{showEx}
 
-$B$3$NNc$G$O>e<j$/$$$-$^$7$?$,!$=jA'4V$K9g$o$;$G$7$F!$(B
-\textsf{mawarikomi}$B4D6-2<$G0O$_$r;H$&!$(B
-$B$J$I$H$$$&%;%3%$$3$H$O$$$+$,$J$b$N$G$7$g$&$+!#(B
+この例では上手くいきましたが，所詮間に合わせでして，
+\textsf{mawarikomi}環境下で囲みを使う，
+などというセコイことはいかがなものでしょうか。
 \bigskip
 
-$B:G8e$KJLK!$G$9!#(B
+最後に別法です。
 
-\textsf{mawarikomi}$B4D6-$r=*N;$5$;!$(B
-\textsf{minipage}$B4D6-$G2#I}$r@)8B$7$F$+$i!$(B
-\textsf{itembox}$B$rMQ$$$kJ}K!$b$"$j$^$9!#(B
+\textsf{mawarikomi}環境を終了させ，
+\textsf{minipage}環境で横幅を制限してから，
+\textsf{itembox}を用いる方法もあります。
 
-\textsf{mawarikomi}$B4D6-$G$O!$%F%-%9%HIt$N2#I}$,(B\cmd{EMWRlinewidth}$B$K(B
-$BJ]B8$5$l$F$$$^$9!#$3$NJQ?t$OBg0hJQ?t$G!$(B\textsf{mawarikomi}$B4D6-$,=*N;$7$?8e$G$b(B
-$BCM$,J]B8$5$l$F$$$^$9!#(B
+\textsf{mawarikomi}環境では，テキスト部の横幅が\cmd{EMWRlinewidth}に
+保存されています。この変数は大域変数で，\textsf{mawarikomi}環境が終了した後でも
+値が保存されています。
 
-\begin{showEx}(.84,.9){$BJLK!(B}
+\begin{showEx}(.84,.9){別法}
 \begin{mawarikomi}[-5]{}{%
   \unitlength=1pt\relax
   \begin{picture}(200,100)
-    \framebox(200,100){\Huge $B?^(B}
+    \framebox(200,100){\Huge 図}
   \end{picture}
 }
-$B$"$"$"(B
+あああ
 \end{mawarikomi}
 
 \begin{minipage}{\EMWRlinewidth}
-\begin{itembox}{$B$_$@$7(B}
-$B%"%"%"%"%"%"%"%"%"%"%"%"%"%"%"%"%"%"%"%"%"%"%"%"%"%"%"%"%"%"%"%"%"%"(B
+\begin{itembox}{みだし}
+アアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアアア
 \end{itembox}
 \end{minipage}
 \begin{mawarikomi*}
-$B$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$(B
-$B$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$(B
-$B$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$(B
-$B$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$(B
-$B$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$(B
+いいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいい
+いいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいい
+いいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいい
+いいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいい
+いいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいい
 \end{mawarikomi*}
 \end{showEx}
 
-\subsubsection{\textsf{rectbox}$B4D6-$NJ;MQ(B}
-\textsf{emathPs.sty}$B$r%m!<%I$7$F$$$F$b!$(B
-\textsf{rectbox}$B$rMQ$$$k$3$H$O2DG=$G$9!#(B
+\subsubsection{\textsf{rectbox}環境の併用}
+\textsf{emathPs.sty}をロードしていても，
+\textsf{rectbox}を用いることは可能です。
 
-$B$?$@$7!$(B\textsf{rectbox}$B4D6-$N7S@~$O!$(B
-\cmd{drawline}$B$rMQ$$$k(B --- $B$9$J$o$A(B \texttt{tpic-specials}$B$K(B
-$B0MB8$7$^$9!#$7$?$,$C$F(B
+ただし，\textsf{rectbox}環境の罫線は，
+\cmd{drawline}を用いる --- すなわち \texttt{tpic-specials}に
+依存します。したがって
 \begin{jquote}
 \begin{verbatim}
 \usepackage{epic,eepic}
 \end{verbatim}
 \end{jquote}
-$B$r%W%j%"%s%V%k$K@k8@$7$F$*$/I,MW$,$"$j$^$9!#(B
+をプリアンブルに宣言しておく必要があります。
 
-\begin{showEx}(.9,1){\textsf{rectbox}$B4D6-(B}
+\begin{showEx}(.9,1){\textsf{rectbox}環境}
 \begin{rectbox}
-$B$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"(B
-$B$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"(B
-$B$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"(B
+あああああああああああああああああああ
+あああああああああああああああああああ
+あああああああああああああああああああ
 
-$B$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$(B
-$B$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$(B
-$B$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$(B
-$B$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$(B
+いいいいいいいいいいいいいいいいいいい
+いいいいいいいいいいいいいいいいいいい
+いいいいいいいいいいいいいいいいいいい
+いいいいいいいいいいいいいいいいいいい
 \end{rectbox}
 \end{showEx}
 
-\subsection{\texttt{EPSfilename=..}$B%*%W%7%g%s(B}
-\textsf{pszahyou}$B4D6-$G(BEPS$B%U%!%$%k$,:n@.$5$l$^$9$,!$(B
-$B:n@.$9$k(BEPS$B%U%!%$%k$NL>A0$r;XDj$G$-$k$h$&$K$7$^$7$?!#(B
+\subsection{\texttt{EPSfilename=..}オプション}
+\textsf{pszahyou}環境でEPSファイルが作成されますが，
+作成するEPSファイルの名前を指定できるようにしました。
 
-$B$5$i$K!$:n@.$7$?(BEPS$B%U%!%$%k$O(B\textsf{pszahyou}$B4D6-$G(B
-$BFI$_9~$^$l$k$N$,86B'$G$9$,!$$3$3$G$OFI$_9~$^$:!$(B
-$BJL$N$H$3$m$GFI$_9~$`$3$H$b2DG=$H$7$^$7$?!#(B
+さらに，作成したEPSファイルは\textsf{pszahyou}環境で
+読み込まれるのが原則ですが，ここでは読み込まず，
+別のところで読み込むことも可能としました。
 
-$B2<$NNc$G$O!$?t;z$r;03Q7A$G0O$s$@$b$N$GHV9fIU$1$r$7$F$$$^$9$,!$(B
-$BOH$N;03Q7A$r(B\textsf{pszahyou}$B4D6-$rMQ$$$F(BEPS$B%U%!%$%k2=$7$?$b$N$r(B
-$BMQ$$$F$$$^$9!#(B
+下の例では，数字を三角形で囲んだもので番号付けをしていますが，
+枠の三角形を\textsf{pszahyou}環境を用いてEPSファイル化したものを
+用いています。
 
-2$B7e$N?t;z$OOH$K$+$+$C$F$$$^$9!#(B2$B7e$b;HMQ$7$?$$$N$J$i!$(B
-$B%W%j%"%s%V%k$N(B
+2桁の数字は枠にかかっています。2桁も使用したいのなら，
+プリアンブルの
 \begin{jquote}
 \begin{verbatim}
-\def\ippen{1.6em}% 1$B7e?t;z(B
+\def\ippen{1.6em}% 1桁数字
 \end{verbatim}
 \end{jquote}
-$B1&JUCM$rBg$-$/$9$k$J$j!$J8;z%5%$%:$r>.$5$/$9$k$J$j$N=$@5$,I,MW$G$9!#(B
+右辺値を大きくするなり，文字サイズを小さくするなりの修正が必要です。
 
-% --- EPS $B%U%!%$%k$N:n@.(B -------------
-\def\ippen{1.6em}% 1$B7e?t;z(B
+% --- EPS ファイルの作成 -------------
+\def\ippen{1.6em}% 1桁数字
 \def\Sankaku#1{{%
   \unitlength\ippen\relax
   \begin{picture}(1,.766)%
@@ -1143,289 +1143,289 @@ hsep=..,vsep=..
 \end{pszahyou*}}}%
 % ------------------------------------
 \begin{enumerate}[\protect\expandafter\Sankaku 1]
-\item $B$"$"$"$"$"(B
-\item $B$$$$$$$$$$(B
-\item $B$&$&$&$&$&(B
-\item $B$&$&$&$&$&(B
-\item $B$&$&$&$&$&(B
-\item $B$&$&$&$&$&(B
-\item $B$&$&$&$&$&(B
-\item $B$&$&$&$&$&(B
-\item $B$&$&$&$&$&(B
-\item $B$&$&$&$&$&(B
+\item あああああ
+\item いいいいい
+\item ううううう
+\item ううううう
+\item ううううう
+\item ううううう
+\item ううううう
+\item ううううう
+\item ううううう
+\item ううううう
 \end{enumerate}
 
-\subsection{$B2<@~(B}
+\subsection{下線}
 \subsubsection{\texorpdfstring{\cmd{pskasen}}{pskasen}}
-$B2<@~$r(B eps$B2hA|$K$7$F=hM}$7$h$&$H$$$&;n$_$G$9!#(B
+下線を eps画像にして処理しようという試みです。
 
-$B$?$@$7!$9T$r$^$?$0$3$H$O$7$^$;$s!#(B
-$B$^$?!$$3$NJ8=q$G=R$Y$F$$$k$3$H$O;CDjE*$J$b$N$G!$(B
-$B;EMM$,JQ2=$9$k$3$H$,$"$j$^$9$+$i!$$4>5CN$*$-4j$$$^$9!#(B
+ただし，行をまたぐことはしません。
+また，この文書で述べていることは暫定的なもので，
+仕様が変化することがありますから，ご承知おき願います。
 
-\subsubsection{\texorpdfstring{\cmd{underline}}{underline}$B$H$NHf3S(B}
-\LaTeX $BI8=`$N(B\cmd{underline}$B$HF1$8$3$H$r$9$k(B\cmd{pskasen}$B$+$i8+$F9T$-$^$9!#(B
+\subsubsection{\texorpdfstring{\cmd{underline}}{underline}との比較}
+\LaTeX 標準の\cmd{underline}と同じことをする\cmd{pskasen}から見て行きます。
 
-\begin{showEx}(.6,.34){$BHf3S(B}
-\underline{$B$"$$$&$($*(B}\quad
-\pskasen{$B$"$$$&$($*(B}
+\begin{showEx}(.6,.34){比較}
+\underline{あいうえお}\quad
+\pskasen{あいうえお}
 \end{showEx}
 
-\subsubsection{$B?t<0%b!<%I$G$O(B}
-$B?t<0%b!<%I$G$N;HMQ$r8+$F$*$-$^$7$g$&!#(B
+\subsubsection{数式モードでは}
+数式モードでの使用を見ておきましょう。
 
-\begin{showEx}(.6,.34){$B?t<0%b!<%I(B}
+\begin{showEx}(.6,.34){数式モード}
 \pskasen{$\bunsuu12$}
 $\pskasen{\bunsuu12}$
 \end{showEx}
 
-\begin{showEx}(.6,.34){$BJL9TN)$F?t<0%b!<%I(B}
+\begin{showEx}(.6,.34){別行立て数式モード}
 \[ x=\pskasen{\bunsuu12} \]
 \end{showEx}
 
-\subsubsection{$B2<@~$NB@$5(B}
-\cmd{pskasen}$B$O!$2hA|$G$9$+$i!$$$$m$$$m$J:Y9)$,2DG=$G$9!#(B
+\subsubsection{下線の太さ}
+\cmd{pskasen}は，画像ですから，いろいろな細工が可能です。
 
-$B2<@~$NB@$5$rJQ99$9$k$K$O(B\verb+<linewidth=..>+$B%*%W%7%g%s$G$9!#(B
-$B%G%U%)%k%H$N1&JUCM$O(B\texttt{4}$B$H$7$F$"$j$^$9!#(B
+下線の太さを変更するには\verb+<linewidth=..>+オプションです。
+デフォルトの右辺値は\texttt{4}としてあります。
 
-\begin{showEx}(.6,.34){$B2<@~$NB@$5(B}
-\pskasen<linewidth=20>{$B$"$$$&$($*(B}
+\begin{showEx}(.6,.34){下線の太さ}
+\pskasen<linewidth=20>{あいうえお}
 \end{showEx}
 
-\subsubsection{$B2<@~$rGK@~$G(B}
-$B2<@~$rGK@~$H$9$k$K$O!$(B\verb+<dash=..>+$B%*%W%7%g%s$rMQ$$$^$9!#(B
+\subsubsection{下線を破線で}
+下線を破線とするには，\verb+<dash=..>+オプションを用います。
 
 
-\begin{showEx}(.6,.34){$B2<@~$rGK@~$G(B}
-\pskasen<dash={2,2}>{$B$"$$$&$($*(B}
+\begin{showEx}(.6,.34){下線を破線で}
+\pskasen<dash={2,2}>{あいうえお}
 \end{showEx}
 
-\subsubsection{$BFs=E2<@~(B}
-$B2<@~$rFs=E$H$9$k$K$O!$(B\cmd{pskasen}$B$K(B\verb+[..]+$B%*%W%7%g%s$rM?$($^$9!#(B
-\verb+[ ]+$BFb$N?tCM$OFsK\@~$N4V3V$G!$C10L$O(B\verb+pt+$B$G$9!#(B
+\subsubsection{二重下線}
+下線を二重とするには，\cmd{pskasen}に\verb+[..]+オプションを与えます。
+\verb+[ ]+内の数値は二本線の間隔で，単位は\verb+pt+です。
 
-\begin{showEx}(.6,.34){$BFs=E2<@~(B}
-\pskasen[1.5]{$B$"$$$&$($*(B}
+\begin{showEx}(.6,.34){二重下線}
+\pskasen[1.5]{あいうえお}
 \end{showEx}
 
-\subsubsection{$B2<@~$K?'(B}
-$B2<@~$K?'$r$D$1$k$K$O!$(B\cmd{pskasen}$B$K(B\verb+<iro=..>+$B%*%W%7%g%s$rM?$($^$9!#(B
+\subsubsection{下線に色}
+下線に色をつけるには，\cmd{pskasen}に\verb+<iro=..>+オプションを与えます。
 
-\begin{showEx}(.6,.34){$B?'IU$-2<@~(B}
-\pskasen<iro=red>{$B$"$$$&$($*(B}
+\begin{showEx}(.6,.34){色付き下線}
+\pskasen<iro=red>{あいうえお}
 \end{showEx}
 
-\subsubsection{$B2<@~>e2<$N4V3V(B}
-$B2<@~$H2<@~$r$D$1$?J8;zNs$H$N4V3V$rD4@0$9$k$K$O!$(B
-$B%3%^%s%I(B\cmd{kasenUehosei}$B$N0z?t$KA}8:$9$k?tCM!JC10LIU!K$rM?$($^$9!#(B
-$B2<@~$O!$@5$NCM$G2<J}$K!$Ii$NCM$G>eJ}$K0\F0$7$^$9!#(B
+\subsubsection{下線上下の間隔}
+下線と下線をつけた文字列との間隔を調整するには，
+コマンド\cmd{kasenUehosei}の引数に増減する数値（単位付）を与えます。
+下線は，正の値で下方に，負の値で上方に移動します。
 
 \begin{showEx}(.6,.34){\cmd{kasenUehosei}}
 \kasenUehosei{-6pt}%
-\pskasen<iro=red>[2]{$B$"$$$&$($*(B}
+\pskasen<iro=red>[2]{あいうえお}
 \end{showEx}
 
-$B2<@~$H$=$N2<$N9T$H$N4V3V$rD4@0$9$k%3%^%s%I$,(B\cmd{kasenSitahosei}$B$G$9!#(B
+下線とその下の行との間隔を調整するコマンドが\cmd{kasenSitahosei}です。
 
 \begin{showEx}(.6,.34){\cmd{kasenSiahosei}}
-\pskasen{$B$"$$$&$($*(B}
-$B$*$*$*$*$*$*$*$*$*$*$*$*$*$*$*$*$*(B
-$B$*$*$*$*$*$*$*$*$*$*$*$*$*$*$*$*$*(B
-$B$*$*$*$*$*$*$*$*$*$*$*$*$*$*$*$*$*(B
+\pskasen{あいうえお}
+おおおおおおおおおおおおおおおおお
+おおおおおおおおおおおおおおおおお
+おおおおおおおおおおおおおおおおお
 
 \kasenSitahosei{10pt}%
-\pskasen{$B$"$$$&$($*(B}
-$B$*$*$*$*$*$*$*$*$*$*$*$*$*$*$*$*$*(B
-$B$*$*$*$*$*$*$*$*$*$*$*$*$*$*$*$*$*(B
-$B$*$*$*$*$*$*$*$*$*$*$*$*$*$*$*$*$*(B
+\pskasen{あいうえお}
+おおおおおおおおおおおおおおおおお
+おおおおおおおおおおおおおおおおお
+おおおおおおおおおおおおおおおおお
 \end{showEx}
 
-$BBh(B1$BCJMn$,I8=`$N4V3V$G$9!#(B
-$BBh(B2$BCJMn$O2<@~$N2<$r(B\texttt{10pt}$BA}$d$9$h$&$K;X<($5$l$F$$$^$9!#(B
+第1段落が標準の間隔です。
+第2段落は下線の下を\texttt{10pt}増やすように指示されています。
 
-\subsubsection{$B:81&$N%"%-(B}\label{zengo}
-$B2<@~$r$D$1$?ItJ,$H!$$=$NA08e$NJ8>O$H$N%"%-$K$D$$$F$O!$(B
-\cmd{underline}$B$N$=$l$HF1MM$K>/$7$"$1$k$3$H$H$7$^$7$?!#(B
+\subsubsection{左右のアキ}\label{zengo}
+下線をつけた部分と，その前後の文章とのアキについては，
+\cmd{underline}のそれと同様に少しあけることとしました。
 
-\begin{showEx}(.6,.34){$BA08e$N%"%-(B}
-\cmd{unerline}$B$N>l9g$+$i8+$^$7$g$&!#(B
+\begin{showEx}(.6,.34){前後のアキ}
+\cmd{unerline}の場合から見ましょう。
 
-$B$"$$$&$($*(B\underline{$B$+$-$/$1$3(B}$B$5$7$9$;$=(B
+あいうえお\underline{かきくけこ}さしすせそ
 
-$B<!$K(B\cmd{pskasen}$B$N>l9g$G$9!#(B
+次に\cmd{pskasen}の場合です。
 
-$B$"$$$&$($*(B\pskasen{$B$+$-$/$1$3(B}$B$5$7$9$;$=(B
+あいうえお\pskasen{かきくけこ}さしすせそ
 \end{showEx}
 
 
 
-\subsubsection{$B2<@~6aJU$KJ8;zG[CV(B}\label{sayuu}
-$B2<@~$N:8C<$J$I!$2<@~$N6aJU$KJ8;zNs$rG[CV$7$?$$$3$H$,$"$j$^$9!#(B
-$B$=$N$?$a$K!$(B\cmd{pskasen}$B!J$"$k$$$O(B\cmd{psnamikasen}$B!K$K(B
-\verb+'....'+$B%*%W%7%g%s$rMQ0U$7$^$7$?!#(B
-\verb+'.....'+$BFb$K!$2<@~$r0z$/(B\textsf{pszahyou*}$B4D6-Fb$K5-=R$9$k(B
-$B%3%^%s%I$r=q$/$3$H$,$G$-$^$9!#(B
+\subsubsection{下線近辺に文字配置}\label{sayuu}
+下線の左端など，下線の近辺に文字列を配置したいことがあります。
+そのために，\cmd{pskasen}（あるいは\cmd{psnamikasen}）に
+\verb+'....'+オプションを用意しました。
+\verb+'.....'+内に，下線を引く\textsf{pszahyou*}環境内に記述する
+コマンドを書くことができます。
 
-\begin{showEx}(.6,.34){\texttt{'.....'$B%*%W%7%g%s(B}}
-\verb+'.....'+$BFb$K5-=R$7$?$b$N$O!$(B
-$B2<@~$rIA2h$9$k(B\textsf{pszahyou}$B4D6-$K(B
-$BCV$+$l$^$9!#$3$N4D6-$N86E@$O!$2<@~$N:8C<$G$9!#(B
+\begin{showEx}(.6,.34){\texttt{'.....'オプション}}
+\verb+'.....'+内に記述したものは，
+下線を描画する\textsf{pszahyou}環境に
+置かれます。この環境の原点は，下線の左端です。
 \pskasen%
   '\Put\O(0,0)[c]{$\bullet$}'%
-  {$B$"$$$&$($*(B}
+  {あいうえお}
 
-$B2<@~$N1&C<$O(B\cmd{XMAX}$B$G!$(B
-$B$=$N:BI8$O(B\verb+(\xmax,0)+$B$H$J$C$F$$$^$9!#(B
+下線の右端は\cmd{XMAX}で，
+その座標は\verb+(\xmax,0)+となっています。
 \pskasen%
   '\Put\XMAX(0,0)[c]{$\bullet$}'%
-  {$B$"$$$&$($*(B}
+  {あいうえお}
 \end{showEx}
 
-$B2<@~$KHV9f$r?6$C$F6hJL$9$kNc$G$9!#(B
+下線に番号を振って区別する例です。
 
-\begin{showEx}(.6,.34){$B2<@~$KHV9f(B}
-$B$"$$$&(B
+\begin{showEx}(.6,.34){下線に番号}
+あいう
 \pskasen<kasenSitahosei=5pt>%
   '\Put\O(0,-2pt)[r]{\scriptsize (1)}'%
-  {$B$+$-$/$1$3(B}
-$B$5$7$9$;$=(B
+  {かきくけこ}
+さしすせそ
 \pskasen%
   '\Put\O(0,-2pt)[r]{\scriptsize (2)}'%
-  {$B$J$K$L$M$N(B}
+  {なにぬねの}
 \begin{enumerate}[(1)]
-  \item $B2<@~It(B(1)$B$K$D$$$F(B...
-  \item $B2<@~It(B(2)$B$K$D$$$F(B...
+  \item 下線部(1)について...
+  \item 下線部(2)について...
 \end{enumerate}
 \end{showEx}
 \newpage
 
-\subsubsection{\texorpdfstring{\cmd{pskasen}}{pskasen}$B$N=q<0(B}
-\cmd{pskasen}$B$N=q<0$G$9!#(B\cmd{psnamikasen}$B$bF1MM$G$9!#(B
+\subsubsection{\texorpdfstring{\cmd{pskasen}}{pskasen}の書式}
+\cmd{pskasen}の書式です。\cmd{psnamikasen}も同様です。
 
 \begin{boxnote}
 \begin{verbatim}
 \pskasen<#1>[#2]'#3'#4
-  #1 : key=val $B$N7A<0(B
-       $BM-8z$J(Bkey$B$O(B
+  #1 : key=val の形式
+       有効なkeyは
           linewidth
           dash
           iro
-          kasenUehosei$B!J(B\kasenUehosei $B%3%^%s%I$OM-8zHO0OFb$9$Y$F$K8z$-$^$9!K(B
+          kasenUehosei（\kasenUehosei コマンドは有効範囲内すべてに効きます）
           kasenSitahosei
-          kasenFunc (\psnamikasen $B$KBP$7$F$N$_(B)
-       $B$G!$$$$:$l$b8z2L$O6I=jE*$G$9!#(B
-  #2 : $B2<@~$rFs=E$K$9$k$H$-!$Fs=E@~$N4V3V!JL5L>?t$GC10L$O(Bpt$B$,$D$-$^$9!#!K(B
-  #3 : $B2<@~$r0z$/(Bpszahyou$B4D6-Fb$K$=$N$^$^G[CV$5$l$^$9!#(B
-       $B$=$N(Bpszahyou$B4D6-$K$D$$$F(B
-           \unitlength $B$O(B 1pt
-           $B86E@!J(B\O$B!K$O!$2<@~$N:8C<(B
-           $B1&C<$,(B \XMAX, $B:BI8$O(B (\xmax,0)
-  #4 : $B2<@~$r0z$/BP>](B
+          kasenFunc (\psnamikasen に対してのみ)
+       で，いずれも効果は局所的です。
+  #2 : 下線を二重にするとき，二重線の間隔（無名数で単位はptがつきます。）
+  #3 : 下線を引くpszahyou環境内にそのまま配置されます。
+       そのpszahyou環境について
+           \unitlength は 1pt
+           原点（\O）は，下線の左端
+           右端が \XMAX, 座標は (\xmax,0)
+  #4 : 下線を引く対象
 \end{verbatim}
 \end{boxnote}
 
-\subsection{$BGH2<@~(B}
-$BGH2<@~$r0z$/%3%^%s%I$,(B\cmd{psnamikasen}$B$G$9!#(B
+\subsection{波下線}
+波下線を引くコマンドが\cmd{psnamikasen}です。
 
-\subsubsection{$BHf3S(B}
-$B?7@_$7$?(B\cmd{psnamikasen}$B$H(B\cmd{uwave}, \cmd{namikasen}$B$H$rHf3S$7$F$_$^$9!#(B
+\subsubsection{比較}
+新設した\cmd{psnamikasen}と\cmd{uwave}, \cmd{namikasen}とを比較してみます。
 
-\begin{showEx}(.6,.34){$BHf3S(B}
-\uwave{$B$"$$$&$($*(B}
+\begin{showEx}(.6,.34){比較}
+\uwave{あいうえお}
 
-\namikasen{$B$"$$$&$($*(B}
+\namikasen{あいうえお}
 
-\psnamikasen{$B$"$$$&$($*(B}
+\psnamikasen{あいうえお}
 \end{showEx}
 
-\subsubsection{$B3F<o(B option}
-\cmd{pskasen}$B$KBP$9$k3F<o%*%W%7%g%s$J$I$O!$(B
-\cmd{psnamikasen}$B$KBP$7$F$bM-8z$G$9!#(B
+\subsubsection{各種 option}
+\cmd{pskasen}に対する各種オプションなどは，
+\cmd{psnamikasen}に対しても有効です。
 
-\begin{showEx}(.6,.34){$B%*%W%7%g%s(B}
-\psnamikasen{$B$"$$$&$($*(B}
+\begin{showEx}(.6,.34){オプション}
+\psnamikasen{あいうえお}
 
-\psnamikasen[3]{$B$"$$$&$($*(B}
+\psnamikasen[3]{あいうえお}
 
-\psnamikasen<iro=red>{$B$"$$$&$($*(B}
+\psnamikasen<iro=red>{あいうえお}
 
-\psnamikasen<linewidth=10>{$B$"$$$&$($*(B}
+\psnamikasen<linewidth=10>{あいうえお}
 \end{showEx}
 
-$B$^$?!$(B\cmd{kasenUehosei}, \cmd{kasenSitahosei}$B$b;HMQ$G$-$^$9!#(B
+また，\cmd{kasenUehosei}, \cmd{kasenSitahosei}も使用できます。
 
-$B$J$*!$$3$l$i$O$=$l$>$l(B \cmd{namikasenUehosei}, \cmd{namikasenSitahosei}
-$B$HF1CM$J%3%^%s%I$G$9!#(B
+なお，これらはそれぞれ \cmd{namikasenUehosei}, \cmd{namikasenSitahosei}
+と同値なコマンドです。
 
-\subsubsection{$BGH@~$N7A>u(B}
-$BGH@~$O(B\textsf{pszahyou}$B4D6-$G(B
+\subsubsection{波線の形状}
+波線は\textsf{pszahyou}環境で
 \begin{jquote}
 \begin{verbatim}
 \YGurafu*{sin(X)}
 \end{verbatim}
 \end{jquote}
-$B$GIA2h$5$l$F$$$^$9!#$3$NItJ,$rJQ99$9$k%*%W%7%g%s$,(B
+で描画されています。この部分を変更するオプションが
 \begin{jquote}
 \begin{verbatim}
 <kasenFunc=...>
 \end{verbatim}
 \end{jquote}
-$B%*%W%7%g%s$G$9!#;HMQNc$r$$$/$D$+$4Mw$/$@$5$$!#(B
+オプションです。使用例をいくつかご覧ください。
 
-\begin{showEx}(.6,.34){$BGH$N9b$5(B}
-\psnamikasen{$B$"$$$&$($*(B}
+\begin{showEx}(.6,.34){波の高さ}
+\psnamikasen{あいうえお}
 
 \psnamikasen<%
   kasenFunc={\YGurafu*{.5*sin(X)}}%
->{$B$"$$$&$($*(B}
+>{あいうえお}
 \end{showEx}
 
-\begin{showEx}(.6,.34){$BGH$N<~4|(B}
-\psnamikasen{$B$"$$$&$($*(B}
+\begin{showEx}(.6,.34){波の周期}
+\psnamikasen{あいうえお}
 
 \psnamikasen<%
   kasenFunc={\YGurafu*{sin(X/2)}}%
->{$B$"$$$&$($*(B}
+>{あいうえお}
 \end{showEx}
 
-\begin{showEx}(.6,.34){$B%.%6%.%6GH(B}
+\begin{showEx}(.6,.34){ギザギザ波}
 \psnamikasen<%
 kasenFunc={\YGurafu*{%
   4*min(.2*X-int(.2*X),1-.2*X+int(.2*X))}}
->{$B$"$$$&$($*(B}
+>{あいうえお}
 \end{showEx}
 
-\begin{showEx}(.9,.9){$B;((B}
+\begin{showEx}(.9,.9){雑}
 \namikasenUehosei{2pt}%
 \psnamikasen<%
   kasenFunc={\YGurafu*{abs(2*sin(X/2))}}
->{$B$"$$$&$($*(B}
+>{あいうえお}
 
 \psnamikasen<kasenFunc={%
   \YNurii[1]{abs(2*sin(X/2))}{0}\xmin\xmax}
->{$B$"$$$&$($*(B}
+>{あいうえお}
 
 \psnamikasen<kasenFunc={%
   \YNurii[nuriiro=red]{4*min(.2*X-int(.2*X),1-.2*X+int(.2*X))}{0}\xmin\xmax}
->{$B$"$$$&$($*(B}
+>{あいうえお}
 \end{showEx}
 
 \subsection{\texorpdfstring{\cmd{ovalbox}}{ovalbox}}
-\texttt{ovalbox}$B$NOH@~$r(B eps$B2hA|$K$7$F=hM}$7$h$&$H$$$&;n$_$G$9!#(B
+\texttt{ovalbox}の枠線を eps画像にして処理しようという試みです。
 
 \subsubsection{\textsf{fancybox.sty} \& \textsf{eepic.sty}}
-\textsf{fancybox.sty}$B$GDj5A$5$l$F$$$k(B\cmd{ovalbox}$B$r(B\textsf{eepic.sty}$B$r(B
-$BFI$_9~$s$G$$$k%=!<%9%U%!%$%k$G%?%$%W%;%C%H$9$k$HOH@~$,Mp$l$^$9!#(B
+\textsf{fancybox.sty}で定義されている\cmd{ovalbox}を\textsf{eepic.sty}を
+読み込んでいるソースファイルでタイプセットすると枠線が乱れます。
 
 \begin{showEx}{\cmd{ovalbox} \& \textsf{eepic.sty}}
 \ovalbox{$t=1$}
 \end{showEx}
 
-$B1&>e$N;MJ,1_$H>e7S@~$,$D$J$,$i$J$/$J$j$^$9!J1&2<$bF1MM!K!#(B
+右上の四分円と上罫線がつながらなくなります（右下も同様）。
 
 \subsubsection{\texorpdfstring{\cmd{emovalbox}}{emovalbox}}
-\textsf{emath.sty}$B$G$O!$(B\cmd{emovalbox}$B$rDj5A$7$FBP1~$9$k$3$H$K$7$F$$$^$9!#(B
+\textsf{emath.sty}では，\cmd{emovalbox}を定義して対応することにしています。
 
 \begin{showEx}{\cmd{emovalbox}}
 \ovalbox{$t=1$}
@@ -1435,9 +1435,9 @@ kasenFunc={\YGurafu*{%
 
 
 \subsubsection{\texorpdfstring{\cmd{psovalbox}}{psovalbox}}
-$B$$$:$l!$7S@~$NB@$5$rJQ$($?$$$H$+!$;MJ,1_$NH>7B$rJQ$($?$$!$(B
-$B$H$$$C$?MW5a$,=P$F$/$kM=46$,$7$^$9$N$G!$OH@~$r(B eps $B2hA|$K$7$F!$(B
-$B:Y$+$$JQ99$,2DG=$J$h$&$K$7$?$N$,(B \cmd{psovalbox} $B$G$9!#(B
+いずれ，罫線の太さを変えたいとか，四分円の半径を変えたい，
+といった要求が出てくる予感がしますので，枠線を eps 画像にして，
+細かい変更が可能なようにしたのが \cmd{psovalbox} です。
 
 \begin{showEx}{\cmd{psovalbox}}
 \ovalbox{$t=1$}
@@ -1445,122 +1445,122 @@ kasenFunc={\YGurafu*{%
 \psovalbox{$t=1$}
 \end{showEx}
 
-$B$J$*!$$3$N%3%^%s%I(B\cmd{psovalbox}$B$O!V(Bperl $B$H$NO"7H5!G=!W$rI,MW$H$7$^$;$s!#(B
+なお，このコマンド\cmd{psovalbox}は「perl との連携機能」を必要としません。
 
-\paragraph{$B7S@~$NB@$5(B}
-$BOH$O(B eps $B2hA|$G$9$+$i!$0u:~4D6-$K$h$C$FB@$5$O0[$J$k2DG=@-$,$"$j$^$9!#(B
-$BB@$/$7$F$_$^$7$g$&!#(B\textsf{emathPs.sty} $B$K$*$$$F$O!$@~$NB@$5$NJQ99$O(B
-\verb+linewidth=..+$B$K$h$C$F9T$o$l$k$N$,86B'$G$9!#(B
+\paragraph{罫線の太さ}
+枠は eps 画像ですから，印刷環境によって太さは異なる可能性があります。
+太くしてみましょう。\textsf{emathPs.sty} においては，線の太さの変更は
+\verb+linewidth=..+によって行われるのが原則です。
 
-\begin{showEx}{\texttt{linewidth=..}$B%*%W%7%g%s(B}
+\begin{showEx}{\texttt{linewidth=..}オプション}
 \psovalbox{$t=1$}~
 \psovalbox<linewidth=10>{$t=1$}
 \end{showEx}
 
-\verb+dash=..+$B%*%W%7%g%s$bM-8z$G$O$"$j$^$9!#(B
+\verb+dash=..+オプションも有効ではあります。
 
-\begin{showEx}{\texttt{dash=..}$B%*%W%7%g%s(B}
+\begin{showEx}{\texttt{dash=..}オプション}
 \psovalbox{$t=1$}~
 \psovalbox<dash={1,2}>{$t=1$}
 \end{showEx}
 
-$BOH@~$rIA2h$9$k(B\textsf{pszahyou*}$B4D6-$N(B\cmd{unitlength}$B$O(B\texttt{1pt}$B$H(B
-$B$J$C$F$$$^$9!#$=$l$rA0Ds$K(B\verb+dash=...+$B$N1&JUCM$rM?$($J$1$l$P$J$j$^$;$s!#(B
+枠線を描画する\textsf{pszahyou*}環境の\cmd{unitlength}は\texttt{1pt}と
+なっています。それを前提に\verb+dash=...+の右辺値を与えなければなりません。
 
-\paragraph{\texttt{ovalsep=..}$B%*%W%7%g%s(B}
-$BCf$N%F%-%9%H$HOH@~$H$N4V$O(B \cmd{fboxsep} $B$@$16u$/$3$H$K$J$C$F$$$^$9$,!$(B
-$B$3$l$rJQ99$9$k%*%W%7%g%s$G$9!#(B
+\paragraph{\texttt{ovalsep=..}オプション}
+中のテキストと枠線との間は \cmd{fboxsep} だけ空くことになっていますが，
+これを変更するオプションです。
 
-\begin{showEx}{\texttt{ovalsep=..}$B%*%W%7%g%s(B}
+\begin{showEx}{\texttt{ovalsep=..}オプション}
 \psovalbox{$t=1$}~
 \psovalbox<ovalsep=6pt>{$t=1$}
 \end{showEx}
 
-\paragraph{\texttt{ovalradius=..}$B%*%W%7%g%s(B}
-$B%3!<%J!<$N;MJ,1_$NH>7B$O!$%G%U%)%k%H$G$O(B\verb+2pt+$B$H$J$C$F$$$^$9$,!$(B
-$B$3$l$rJQ99$9$k%*%W%7%g%s$G$9!#(B
+\paragraph{\texttt{ovalradius=..}オプション}
+コーナーの四分円の半径は，デフォルトでは\verb+2pt+となっていますが，
+これを変更するオプションです。
 
-\begin{showEx}{\texttt{ovalradius=..}$B%*%W%7%g%s(B}
+\begin{showEx}{\texttt{ovalradius=..}オプション}
 \psovalbox{$t=1$}~
 \psovalbox<ovalradius=5pt>{$t=1$}
 \end{showEx}
 
-\paragraph{$BOH@~$r%+%i!<$G(B}
-$BOH7S@~$K?'$r$D$1$k%*%W%7%g%s$,(B\verb+<iro=..>+$B$G$9!#(B
+\paragraph{枠線をカラーで}
+枠罫線に色をつけるオプションが\verb+<iro=..>+です。
 
-\begin{showEx}{\texttt{iro=..}$B%*%W%7%g%s(B}
+\begin{showEx}{\texttt{iro=..}オプション}
 \psovalbox<iro=red>{$t=1$}
 \end{showEx}
 
-\paragraph{$BEI$j$D$V$7(B}
-\cmd{psovalbox}$BFb$NGX7J$rEI$j$D$V$9%3%^%s%I$,(B\cmd{psovalbox*}$B$G$9!#(B
+\paragraph{塗りつぶし}
+\cmd{psovalbox}内の背景を塗りつぶすコマンドが\cmd{psovalbox*}です。
 
 \begin{showEx}{\cmd{psovalbox*}}
 \psovalbox*{$t=1$}
 \end{showEx}
 
-$BEI$j$D$V$7$NG;EY$O(B\verb+[..]+$B%*%W%7%g%s$G;XDj$9$k$N$O(B\cmd{Nuritubusi}$B$H(B
-$BF1MM$G$9!#(B
+塗りつぶしの濃度は\verb+[..]+オプションで指定するのは\cmd{Nuritubusi}と
+同様です。
 
-\begin{showEx}{$BG;EYD4@0(B}
+\begin{showEx}{濃度調整}
 \psovalbox*[0.2]{$t=1$}
 \end{showEx}
 
-$BGX7J$r%0%l!<$G$O$J$/!$?'$r;XDj$9$k%*%W%7%g%s$,(B\verb+[nuriiro=..]+$B$G$9!#(B
+背景をグレーではなく，色を指定するオプションが\verb+[nuriiro=..]+です。
 
-\begin{showEx}(.7,.24){$BGX7J?'(B}
+\begin{showEx}(.7,.24){背景色}
 \psovalbox*[nuriiro=yellow]{$t=1$}
 \end{showEx}
 
-$BOH@~$K$b?'$r;XDj$7$?$j$9$k$K$O(B\verb+<...>+$B%*%W%7%g%s$rJ;MQ$7$^$9!#(B
+枠線にも色を指定したりするには\verb+<...>+オプションを併用します。
 
-\begin{showEx}(.7,.24){$BOH@~$K$b?'(B}
+\begin{showEx}(.7,.24){枠線にも色}
 \psovalbox*[nuriiro=yellow]%
   <iro=red,ovalsep=6pt,ovalradius=5pt>%
   {$t=1$}
 \end{showEx}
 
-$BCf$N%F%-%9%H$K$b?'$r$D$1$k$N$O!$(B\cmd{color}$B$^$?$O(B\cmd{textcolor}$B$rMQ$$$^$9!#(B
+中のテキストにも色をつけるのは，\cmd{color}または\cmd{textcolor}を用います。
 
-\begin{showEx}(.7,.24){$B%F%-%9%H$K$b?'(B}
+\begin{showEx}(.7,.24){テキストにも色}
 \psovalbox*[nuriiro=yellow]%
   <iro=red,ovalsep=6pt,ovalradius=5pt>%
   {\textcolor{green}{$t=1$}}%
 \end{showEx}
 
-\subsubsection{\texorpdfstring{\cmd{psovalbox}}{psovalbox}$B$N=q<0(B}
-\cmd{psovalbox}$B$N=q<0$G$9!#(B
+\subsubsection{\texorpdfstring{\cmd{psovalbox}}{psovalbox}の書式}
+\cmd{psovalbox}の書式です。
 
-$B<B$O!$(B\cmd{psovalbox}$B$N@5<0%3%^%s%IL>$O(B\cmd{EMpsovalbox}$B$G$9!#(B
-\textsf{pstrick.sty}$B$K(B\cmd{psovalbox}$B$,4{$KDj5A$5$l$F$$$^$9$+$i!$(B
-$B$3$N%9%?%$%k$r;HMQ$9$k:]$O!$%3%^%s%IL>$N>WFM$,5/$-$^$9!#(B
-$B$=$N>l9g$O!$(B\cmd{psovalbox}$B$O(B\textsf{pstrick.sty}$B$N$b$N$H$7!$(B
-\textsf{emathPs.sty}$B$N%3%^%s%I$O(B\cmd{EMpsovalbox}$B$H$7$F$/$@$5$$!#(B
+実は，\cmd{psovalbox}の正式コマンド名は\cmd{EMpsovalbox}です。
+\textsf{pstrick.sty}に\cmd{psovalbox}が既に定義されていますから，
+このスタイルを使用する際は，コマンド名の衝突が起きます。
+その場合は，\cmd{psovalbox}は\textsf{pstrick.sty}のものとし，
+\textsf{emathPs.sty}のコマンドは\cmd{EMpsovalbox}としてください。
 
 \begin{boxnote}
 \begin{verbatim}
 \EMpsovalbox<#1>#2
-    #1 : key=val $B$N7A<0(B
-         $BM-8z$J%-!<(B
+    #1 : key=val の形式
+         有効なキー
              linewidth
              dash
              ovalsep
              ovalradius
              iro
-    #2 : $BOH$G0O$`J8;zNs(B
+    #2 : 枠で囲む文字列
 
 \EMpsovalbox*[#1]<#2>#3
-    #1 : 0$B!A(B1 $B$N4V$N?tCM$G%0%l!<$NG;EY$r;XDj!J(B0 $B$GGr!$(B1$B$G9u!K(B
-            $B$^$?$O(B
-         nuriiro=.. $B$GGX7J?'$r;XDj(B
-    #2 : \psovalbox $B$N(B<#1>$B$HF1$8(B
-    #3 : $BOH$G0O$`J8;zNs(B
+    #1 : 0〜1 の間の数値でグレーの濃度を指定（0 で白，1で黒）
+            または
+         nuriiro=.. で背景色を指定
+    #2 : \psovalbox の<#1>と同じ
+    #3 : 枠で囲む文字列
 \end{verbatim}
 \end{boxnote}
 
-\section{$BBP1~%3%^%s%I(B}
-$B=>Mh$N%3%^%s%I$N$&$A!$(B\textsf{pszahyou}$B4D6-$G$b;HMQ2DG=$J$b$N$G$9!#(B
-$B$?$@$7!$%*%W%7%g%s0z?t$K$D$$$F$O>/$70[$J$k$b$N$b$"$j$^$9!#(B
+\section{対応コマンド}
+従来のコマンドのうち，\textsf{pszahyou}環境でも使用可能なものです。
+ただし，オプション引数については少し異なるものもあります。
 
 \subsection{\texorpdfstring{\cmd{Drawline}}{Drawline}}
 \begin{showEx}(.64,.3){\cmd{Drawline}}
@@ -1572,21 +1572,21 @@ kasenFunc={\YGurafu*{%
 \end{pszahyou}
 \end{showEx}
 
-$B%G%U%)%k%H$N@~I}$O(B \texttt{tpic specials}$B$N$=$l$HHf$Y$k$HB@$/$J$C$F$$$^$9(B
-$B!J>e?^$N@~J,(BAC$B!K!#$3$l$rJQ99$9$k%3%^%s%I$,?7@_$N(B
+デフォルトの線幅は \texttt{tpic specials}のそれと比べると太くなっています
+（上図の線分AC）。これを変更するコマンドが新設の
 \begin{jquote}
 \begin{verbatim}
 \setlinewidth
 \end{verbatim}
 \end{jquote}
-$B$G!$(B\texttt{tpic}$B$N%G%U%)%k%H$O(B\verb+\setlinewidth{3}+$B$H$7$?$b$N$H(B
-$BBgBNF1$8$G$9!#!J@~J,(BBD$B!K(B
+で，\texttt{tpic}のデフォルトは\verb+\setlinewidth{3}+としたものと
+大体同じです。（線分BD）
 
-\subsubsection{\texttt{<linewidth=..>}$B%*%W%7%g%s(B}
-\cmd{setlinewidth}$B%3%^%s%I$K$h$C$F!$@~$NB@$5$rJQ$($i$l$^$9$,!$(B
-$B$3$NJQ99$O0J9_$9$Y$F$K8z$$$F$-$^$9!#%0%k!<%T%s%0$OL58z$G$9!#(B
+\subsubsection{\texttt{<linewidth=..>}オプション}
+\cmd{setlinewidth}コマンドによって，線の太さを変えられますが，
+この変更は以降すべてに効いてきます。グルーピングは無効です。
 
-\begin{showEx}(.64,.3){\cmd{setlinewidth}$B$K$h$kJQ99(B}
+\begin{showEx}(.64,.3){\cmd{setlinewidth}による変更}
 \begin{pszahyou}[ul=10mm](-1.2,1.5)(-1.2,1.5)
   \tenretu{A(-1,-1)w;B(1,-1)e;C(1,1)e;D(-1,1)w}
   \Drawline{\A\B}
@@ -1598,14 +1598,14 @@ kasenFunc={\YGurafu*{%
 \end{pszahyou}
 \end{showEx}
 
-$B$3$N?^$G!$@~J,(BAB$B$O%G%U%)%k%H$NB@$5$G0z$+$l$^$9!#@~J,(BBC$B$O(B\verb+setlinewidth{3}+
-$B$K$h$j!$:Y$a$K$J$j$^$9$,!$$=$N%0%k!<%T%s%0$,=*$o$C$F$b@~J,$NB@$5$O%G%U%)%k%H$K(B
-$B$OLa$j$^$;$s!#(B
+この図で，線分ABはデフォルトの太さで引かれます。線分BCは\verb+setlinewidth{3}+
+により，細めになりますが，そのグルーピングが終わっても線分の太さはデフォルトに
+は戻りません。
 
-$B$=$3$G!$(B\cmd{Drawline}$B$N%*%W%7%g%s0z?t$G!$6I=jE*$J@~J,$NB@$5$rJQ99$9$k5!G=$r(B
-$BIm2C$7$^$7$?!#(B
+そこで，\cmd{Drawline}のオプション引数で，局所的な線分の太さを変更する機能を
+附加しました。
 
-\begin{showEx}(.64,.3){\texttt{linewidth=..}$B%*%W%7%g%s$K$h$kJQ99(B}
+\begin{showEx}(.64,.3){\texttt{linewidth=..}オプションによる変更}
 \begin{pszahyou}[ul=10mm](-1.2,1.5)(-1.2,1.5)
   \tenretu{A(-1,-1)w;B(1,-1)e;C(1,1)e;D(-1,1)w}
   \Drawline{\A\B}
@@ -1614,14 +1614,14 @@ kasenFunc={\YGurafu*{%
 \end{pszahyou}
 \end{showEx}
 
-$B:#EY$O!$@~J,(BBC$B$N$_$,@~I}$rJQ99$5$l!$<!$N(B\verb+\Drawline{\C\D}+$B$K$h$C$F(B
-$B0z$+$l$k@~J,(BCD$B$N@~I}$O%G%U%)%k%H$KLa$C$F$$$^$9!#(B
+今度は，線分BCのみが線幅を変更され，次の\verb+\Drawline{\C\D}+によって
+引かれる線分CDの線幅はデフォルトに戻っています。
 
-\subsubsection{\texttt{<dash=..>}$B%*%W%7%g%s(B}
-$BGK@~$K$9$k%3%^%s%I(B\cmd{setdash}$B$b!$0J9_$9$Y$F$K8z$$$F$-$^$9!#(B
-$B6I=jE*$JJQ99$O(B\cmd{Drawline}$B$K(B\texttt{dash=}$B%*%W%7%g%s$r$D$1$F$/$@$5$$!#(B
+\subsubsection{\texttt{<dash=..>}オプション}
+破線にするコマンド\cmd{setdash}も，以降すべてに効いてきます。
+局所的な変更は\cmd{Drawline}に\texttt{dash=}オプションをつけてください。
 
-\begin{showEx}(.64,.3){\texttt{dash=..}$B%*%W%7%g%s$K$h$kJQ99(B}
+\begin{showEx}(.64,.3){\texttt{dash=..}オプションによる変更}
 \begin{pszahyou}[ul=10mm](-1.2,1.5)(-1.2,1.5)
   \tenretu{A(-1,-1)w;B(1,-1)e;C(1,1)e;D(-1,1)w}
   \Drawline{\A\B}
@@ -1630,9 +1630,9 @@ kasenFunc={\YGurafu*{%
 \end{pszahyou}
 \end{showEx}
 
-$B%*%U%;%C%H$rIm2C$7$?$$$H$-$O(B
+オフセットを附加したいときは
 
-\begin{showEx}(.64,.3){\texttt{dash=..}$B%*%W%7%g%s!J%*%U%;%C%HIU!K(B}
+\begin{showEx}(.64,.3){\texttt{dash=..}オプション（オフセット付）}
 \begin{pszahyou}[ul=10mm](-1.2,1.5)(-1.2,1.5)
   \tenretu{A(-1,-1)w;B(1,-1)e;C(1,1)e;D(-1,1)w}
   \Drawline{\A\B}
@@ -1641,9 +1641,9 @@ kasenFunc={\YGurafu*{%
 \end{pszahyou}
 \end{showEx}
 
-$B@~I};XDj%*%W%7%g%s$H$NJ;MQ$b2DG=$G$9!#(B
+線幅指定オプションとの併用も可能です。
 
-\begin{showEx}(.64,.3){\texttt{dash, linewidth}$B%*%W%7%g%sJ;MQ(B}
+\begin{showEx}(.64,.3){\texttt{dash, linewidth}オプション併用}
 \begin{pszahyou}[ul=10mm](-1.2,1.5)(-1.2,1.5)
   \tenretu{A(-1,-1)w;B(1,-1)e;C(1,1)e;D(-1,1)w}
   \Drawline{\A\B}
@@ -1652,7 +1652,7 @@ kasenFunc={\YGurafu*{%
 \end{pszahyou}
 \end{showEx}
 
-\subsubsection{\texttt{<iro=..>}$B%*%W%7%g%s(B}
+\subsubsection{\texttt{<iro=..>}オプション}
 \bgroup
 \def\byouga{%
   \def\Fx{X*X/2}
@@ -1667,10 +1667,10 @@ kasenFunc={\YGurafu*{%
   \Drawline<iro=blue>{\B\C}
   \Drawline<iro=green>{\C\A}
 }
-\cmd{color}$B%3%^%s%I$rH/9T$9$k$H!$$$$o$f$k!V6uGr$N:.F~!W$,5/$-$d$9$/$J$j$^$9!#(B
-$B0lNc$G$9!#(B
+\cmd{color}コマンドを発行すると，いわゆる「空白の混入」が起きやすくなります。
+一例です。
 
-\begin{showEx}{$B6uGr$N:.F~(B}
+\begin{showEx}{空白の混入}
 \begin{zahyou}[ul=8mm]%
     (-3,3)(-3,3)
 \tenretu{%
@@ -1682,17 +1682,17 @@ kasenFunc={\YGurafu*{%
 \end{zahyou}
 \end{showEx}
 
-3$BE@(BA, B, C, $B1_$*$h$S@~J,(BAB$B!J@V!K$O@5$7$$0LCV$KIA2h$5$l$F$$$^$9$,!$(B
-$B@~J,(BBC$B!JNP!K$O!$H>3Q6uGrJ,1&$K$:$l$F$$$^$9!#(B
-$B!J:BI8<4!$$^$?A3$j!#!K(B
+3点A, B, C, 円および線分AB（赤）は正しい位置に描画されていますが，
+線分BC（緑）は，半角空白分右にずれています。
+（座標軸，また然り。）
 
-$B$3$l$O!$(B\verb+\color+$B$N@UG$$H$$$&$h$j$O!$(B
-\verb+\color+$B$K$h$k?'JQ99$r6I=jE*$K$9$k$?$a$N%0%k!<%T%s%0=*N;5-9f(B`\}'$B$N(B
-$B8e$m$K(B`\%'$B$rJd$&$3$H$rBU$C$F$$$k$?$a$KH/@8$7$F$$$k$N$G$9!#(B
+これは，\verb+\color+の責任というよりは，
+\verb+\color+による色変更を局所的にするためのグルーピング終了記号`\}'の
+後ろに`\%'を補うことを怠っているために発生しているのです。
 
-$B9TKv$K(B`\%'$B$rJd$C$F$_$^$7$g$&!#(B
+行末に`\%'を補ってみましょう。
 
-\begin{showEx}{$B9TKv$K(B`\%'}
+\begin{showEx}{行末に`\%'}
 \begin{zahyou}[ul=8mm]%
     (-3,3)(-3,3)
 \tenretu{%
@@ -1704,9 +1704,9 @@ kasenFunc={\YGurafu*{%
 \end{zahyou}
 \end{showEx}
 
-$B$:$l$O2r>C$7$^$7$?$,!$$&$C$+$jK:$l$=$&$G$9$+$i!$JL$N2sHrK!$r>R2p$7$F$*$-$^$9!#(B
+ずれは解消しましたが，うっかり忘れそうですから，別の回避法を紹介しておきます。
 
-\begin{showEx}{\texttt{iro=red}$B%*%W%7%g%s(B}
+\begin{showEx}{\texttt{iro=red}オプション}
 \begin{zahyou}[ul=8mm]
     (-3,3)(-3,3)
 \tenretu{
@@ -1718,8 +1718,8 @@ kasenFunc={\YGurafu*{%
 \end{zahyou}
 \end{showEx}
 
-\verb+<iro=red>+$B%*%W%7%g%s$K$h$k?'JQ99$O!$(B
-$BEv3:%3%^%s%I$N$_$KF/$-$^$9!#$=$N;HMQNc$rDI2C$7$F$*$-$^$9!#(B
+\verb+<iro=red>+オプションによる色変更は，
+当該コマンドのみに働きます。その使用例を追加しておきます。
 
 \begin{jquote}
 \begin{verbatim}
@@ -1739,7 +1739,7 @@ kasenFunc={\YGurafu*{%
 \end{verbatim}
 \end{jquote}
 
-$B$r(B\textsf{zahyou}$B4D6-Fb$G<B9T$9$k$H!$(B
+を\textsf{zahyou}環境内で実行すると，
 
 \begin{center}
 \begin{zahyou}[ul=10mm](-3,3)(-3,3)%
@@ -1747,7 +1747,7 @@ kasenFunc={\YGurafu*{%
 \end{zahyou}
 \end{center}
 
-$B<!$$$G!$(B\textsf{pszahyou}$B4D6-Fb$G$O(B
+次いで，\textsf{pszahyou}環境内では
 
 \begin{center}
 \begin{pszahyou}[ul=10mm](-3,3)(-3,3)
@@ -1767,20 +1767,20 @@ kasenFunc={\YGurafu*{%
 \egroup
 
 \subsection{\texorpdfstring{\cmd{Takakkei}}{Takakkei}}
-$B$3$l$O?7@_$N%3%^%s%I$G$9!#$$$^$^$GB?3Q7A$rIA2h$9$k$K$O(B\cmd{Drawline}$B$r(B
-$BMQ$$$F$-$^$7$?!#(B
-$B$3$l$O!$(B\textsf{pszahyou}$B4D6-$G$b$b$A$m$s;HMQ2DG=$G$9!#(B
+これは新設のコマンドです。いままで多角形を描画するには\cmd{Drawline}を
+用いてきました。
+これは，\textsf{pszahyou}環境でももちろん使用可能です。
 
-$B0J2<$N?^$G$O!$LdBjE@$r6/D4$9$k$?$a!$@~I}$rB@$/$7$F$$$^$9!#(B
+以下の図では，問題点を強調するため，線幅を太くしています。
 
-\begin{showEx}(.64,.3){$B=>Mh$NB?3Q7AIA2h(B}
+\begin{showEx}(.64,.3){従来の多角形描画}
 \begin{zahyou}[ul=10mm](-1.2,1.5)(-1.2,1.5)
   \tenretu{A(-1,-1)w;B(1,-1)e;C(1,1)e;D(-1,1)w}
   {\allinethickness{4pt}\Drawline{\A\B\C\D\A}}%
 \end{zahyou}
 \end{showEx}
 
-\begin{showEx}(.64,.3){\textsf{pszahyou}$B4D6-$G$NB?3Q7AIA2h(B}
+\begin{showEx}(.64,.3){\textsf{pszahyou}環境での多角形描画}
 \begin{pszahyou}[ul=10mm](-1.2,1.5)(-1.2,1.5)
   \tenretu{A(-1,-1)w;B(1,-1)e;C(1,1)e;D(-1,1)w}
   \setlinewidth{40}%
@@ -1788,12 +1788,12 @@ kasenFunc={\YGurafu*{%
 \end{pszahyou}
 \end{showEx}
 
-$B>e$N(B2$B$D$N?^$rHf3S$7$F$/$@$5$$!#FC$KD:E@(BB, C, D$B$N$H$3$m$G$9!#(B
+上の2つの図を比較してください。特に頂点B, C, Dのところです。
 
-\textsf{pszahyou}$B4D6-$r;HMQ$7$?$[$&$,!$(B
-$B=D2#$N@~$N$D$J$,$j6q9g$,NI$/$J$C$F$$$k$3$H$K$*5$IU$-$G$7$g$&$+!#(B
-$B$?$@$7!$(BA$B$N$H$3$m$O$$$1$^$;$s$M!#$3$l$r2~NI$7$?$N$,!$(B
-$B:#2s?7@_$7$?B?3Q7A%3%^%s%I$G$9!#(B
+\textsf{pszahyou}環境を使用したほうが，
+縦横の線のつながり具合が良くなっていることにお気付きでしょうか。
+ただし，Aのところはいけませんね。これを改良したのが，
+今回新設した多角形コマンドです。
 
 
 \begin{showEx}(.64,.3){\cmd{Takakkei}}
@@ -1804,17 +1804,17 @@ kasenFunc={\YGurafu*{%
 \end{pszahyou}
 \end{showEx}
 
-$B$5$i$K!$;M3Q7A(BABCD$B$rIA2h$9$k$N$K!$(B
+さらに，四角形ABCDを描画するのに，
 \begin{jquote}
-\cmd{Drawline}$B$G$O(B \verb+\Drawline{\A\B\C\D\A}+\\
-$B$H$7$J$1$l$P$J$i$J$+$C$?$N$G$9$,!$(B\\
-\cmd{Takakkei}$B$G$O(B \verb+\Takakkei{\A\B\C\D}+\\
-$B$G:Q$`$N$b4r$7$$$3$H$G$9!#(B
+\cmd{Drawline}では \verb+\Drawline{\A\B\C\D\A}+\\
+としなければならなかったのですが，\\
+\cmd{Takakkei}では \verb+\Takakkei{\A\B\C\D}+\\
+で済むのも嬉しいことです。
 \end{jquote}
 
-$B;03Q7A$G$O$I$&$G$7$g$&!#(B
+三角形ではどうでしょう。
 
-\begin{showEx}(.64,.3){\cmd{$B;03Q7A(B}}
+\begin{showEx}(.64,.3){\cmd{三角形}}
 \begin{pszahyou*}[ul=10mm](-1.2,1.5)(-1.2,1.5)
   \tenretu{A(-1,-1)w;B(1,-1)e;C(0,1)n}
   \setlinewidth{40}%
@@ -1822,7 +1822,7 @@ kasenFunc={\YGurafu*{%
 \end{pszahyou*}
 \end{showEx}
 
-$B:G8e$K@5O;3Q7A$G$N%3!<%J%j%s%0$r8+$F$_$^$7$g$&!#(B
+最後に正六角形でのコーナリングを見てみましょう。
 
 \begin{showEx}(.64,.3){\cmd{Takakkei}}
 \begin{pszahyou*}[ul=10mm](-1.2,1.5)(-1.5,1.5)
@@ -1834,9 +1834,9 @@ kasenFunc={\YGurafu*{%
 \end{showEx}
 
 \subsection{\texorpdfstring{\cmd{zahyouMemori}}{zahyouMemori}}
-\cmd{zahyouMemori}$B$N@~<o!&@~I}$NJQ99$O$$$^$^$G$H0[$J$kJ}K!$r$H$j$^$9!#(B
+\cmd{zahyouMemori}の線種・線幅の変更はいままでと異なる方法をとります。
 
-$B$^$:!$%G%U%)%k%H$N3NG'$G$9!#(B
+まず，デフォルトの確認です。
 
 \begin{showEx}(.5,.44){\cmd{zahyouMemori}}
 \begin{pszahyou}[ul=8mm]%
@@ -1845,35 +1845,35 @@ kasenFunc={\YGurafu*{%
 \end{pszahyou}
 \end{showEx}
 
-$B=>Mh!$@~<o$rJQ99$9$k$K$O(B\verb+<sensyu=..>+, 
-$B@~I}$rJQ99$9$k$K$O(B\verb+<allinethickness=..>+$B%*%W%7%g%s$rMQ$$$F$-$^$7$?$,!$(B
-\textsf{pszahyou}$B4D6-$G$O!$(B\cmd{Drawline}$B$HF17A<0$N%*%W%7%g%s$rMQ$$$^$9!#(B
+従来，線種を変更するには\verb+<sensyu=..>+, 
+線幅を変更するには\verb+<allinethickness=..>+オプションを用いてきましたが，
+\textsf{pszahyou}環境では，\cmd{Drawline}と同形式のオプションを用います。
 
-$B@~<o$r<B@~$K$7$F$_$^$7$g$&!#(B
+線種を実線にしてみましょう。
 
-\begin{showEx}(.5,.44){$B@~<oJQ99(B}
+\begin{showEx}(.5,.44){線種変更}
 \begin{pszahyou}[ul=8mm]%
     (-2.5,2.5)(-2.5,2.5)
   \zahyouMemori[g]<dash={}>
 \end{pszahyou}
 \end{showEx}
 
-$B@~I}$r:BI8<4$HF1$8$K$7$^$9!#(B
+線幅を座標軸と同じにします。
 
-\begin{showEx}(.5,.44){$B@~I}JQ99(B}
+\begin{showEx}(.5,.44){線幅変更}
 \begin{pszahyou}[ul=8mm]%
     (-2.5,2.5)(-2.5,2.5)
   \zahyouMemori[g]<linewidth=3>
 \end{pszahyou}
 \end{showEx}
 
-\subsection{\texorpdfstring{\cmd{Put}}{Put}$B$N(B\texttt{syaei=..}$B%*%W%7%g%s(B}
-\cmd{Put}$B$K(B\verb+[syaei=..]+$B%*%W%7%g%s$r$D$1$k>l9g$N!$(B
-$B@~<o!$@~I}$NJQ99$bA0@a$HF1MM$G$9!#(B
+\subsection{\texorpdfstring{\cmd{Put}}{Put}の\texttt{syaei=..}オプション}
+\cmd{Put}に\verb+[syaei=..]+オプションをつける場合の，
+線種，線幅の変更も前節と同様です。
 
-$B$^$:!$%G%U%)%k%H$G$9!'(B
+まず，デフォルトです：
 
-\begin{showEx}(.5,.44){\texttt{syaei=..}$B%*%W%7%g%s(B}
+\begin{showEx}(.5,.44){\texttt{syaei=..}オプション}
 \begin{pszahyou}[ul=8mm]%
     (-2.5,2.5)(-.5,2.5)
   \tenretu{A(2,1)ne}
@@ -1881,9 +1881,9 @@ kasenFunc={\YGurafu*{%
 \end{pszahyou}
 \end{showEx}
 
-$B<B@~$K$7$^$7$g$&!#(B
+実線にしましょう。
 
-\begin{showEx}(.5,.44){\texttt{syaei=..}$B%*%W%7%g%s(B}
+\begin{showEx}(.5,.44){\texttt{syaei=..}オプション}
 \begin{pszahyou}[ul=8mm]%
     (-2.5,2.5)(-.5,2.5)
   \tenretu{A(2,1)ne}
@@ -1891,9 +1891,9 @@ kasenFunc={\YGurafu*{%
 \end{pszahyou}
 \end{showEx}
 
-$B@~I}JQ99$G$9!#(B
+線幅変更です。
 
-\begin{showEx}(.5,.44){\texttt{syaei=..}$B%*%W%7%g%s(B}
+\begin{showEx}(.5,.44){\texttt{syaei=..}オプション}
 \begin{pszahyou}[ul=8mm]%
     (-2.5,2.5)(-.5,2.5)
   \tenretu{A(2,1)ne}
@@ -1909,14 +1909,14 @@ kasenFunc={\YGurafu*{%
 \end{pszahyou}
 \end{showEx}
 
-\cmd{ArrowLine}$B$K$*$$$F!$o7$N7A>u$rJQ99$9$k%3%^%s%I$O!$=>Mh$N(B
+\cmd{ArrowLine}において，鏃の形状を変更するコマンドは，従来の
 \begin{jquote}
 \begin{verbatim}
 \ArrowHeadSize
 \end{verbatim}
 \end{jquote}
-$B$H$OJL$N%3%^%s%I(B\cmd{setarrowsize}$B$r;HMQ$7$^$9!#(B
-$B$=$N:]!$(B\verb+<..>+$B%*%W%7%g%s$r$D$1$k$H!$7&$_$r$D$1$k$3$H$,$G$-$^$9!#(B
+とは別のコマンド\cmd{setarrowsize}を使用します。
+その際，\verb+<..>+オプションをつけると，窪みをつけることができます。
 
 \begin{showEx}(.64,.3){\cmd{setarrowsize}}
 \begin{pszahyou}[ul=10mm](-1.2,1.5)(-1.2,1.5)
@@ -1926,9 +1926,9 @@ kasenFunc={\YGurafu*{%
 \end{pszahyou}
 \end{showEx}
 
-$BLp@~$K?'$r$D$1$k$K$O!$(B\verb+<iro=..>+$B%*%W%7%g%s$rMQ$$$^$9!#(B
+矢線に色をつけるには，\verb+<iro=..>+オプションを用います。
 
-\begin{showEx}(.64,.3){\cmd{ArrowLine}$B$K?'IU$1(B}
+\begin{showEx}(.64,.3){\cmd{ArrowLine}に色付け}
 \begin{pszahyou}[ul=10mm](-1.2,1.5)(-1.2,1.5)
   \tenretu{A(-1,-1)w;B(1,-1)e;C(1,1)e;D(-1,1)w}
   \ArrowLine<iro=red>\B\D
@@ -1943,9 +1943,9 @@ kasenFunc={\YGurafu*{%
 \end{pszahyou}
 \end{showEx}
 
-$B>e$G$O!$(B\cmd{kuromaru}$B$r;H$C$F$$$^$9$,!$(B\cmd{Kuromaru}$B$b;HMQ2DG=$G$9!#(B
-$B<!$O(B\cmd{Siromaru}$B$N;HMQNc$G$9!#:BI8<4>e$KGr4]$rBG$D$K$O!$(B
-$B:BI8<4$NIA2h%?%$%_%s%0$bLdBj$G$"$k$3$H$O(B\texttt{sampleP.tex}$B$G$b?($l$^$7$?!#(B
+上では，\cmd{kuromaru}を使っていますが，\cmd{Kuromaru}も使用可能です。
+次は\cmd{Siromaru}の使用例です。座標軸上に白丸を打つには，
+座標軸の描画タイミングも問題であることは\texttt{sampleP.tex}でも触れました。
 
 \begin{showEx}(.64,.3){\cmd{Siromaru}}
 \begin{pszahyou*}[ul=10mm](-1,2)(-1,1)
@@ -1966,7 +1966,7 @@ kasenFunc={\YGurafu*{%
 \end{pszahyou}
 \end{showEx}
 
-$B<P@~EI$j$b2DG=$G$9!#(B
+斜線塗りも可能です。
 
 \begin{showEx}(.64,.3){\cmd{Nuritubusi*}}
 \begin{pszahyou}[ul=10mm](-1.2,1.5)(-1.2,1.5)
@@ -1987,7 +1987,7 @@ kasenFunc={\YGurafu*{%
 \end{pszahyou}
 \end{showEx}
 
-$BEI$j$D$V$7$b2DG=$G$9!#(B
+塗りつぶしも可能です。
 
 \begin{showEx}(.64,.3){\cmd{En*}}
 \begin{pszahyou}[ul=10mm](-.5,2.5)(-.5,2.5)
@@ -1999,7 +1999,7 @@ kasenFunc={\YGurafu*{%
 \end{pszahyou}
 \end{showEx}
 
-$B<P@~EI$j$G$9!#(B
+斜線塗りです。
 
 \begin{showEx}(.64,.3){\cmd{En**}}
 \begin{pszahyou}[ul=10mm](-.5,2.5)(-.5,2.5)
@@ -2022,9 +2022,9 @@ kasenFunc={\YGurafu*{%
 \end{pszahyou}
 \end{showEx}
 
-$BC<E@$KLp0u$r$D$1$F$_$^$7$g$&!#(B
+端点に矢印をつけてみましょう。
 
-\begin{showEx}(.64,.3){\cmd{Enko}$B$N(B\texttt{yazirusi=.}$B%*%W%7%g%s(B}
+\begin{showEx}(.64,.3){\cmd{Enko}の\texttt{yazirusi=.}オプション}
 \begin{pszahyou}[ul=10mm](-.5,2.5)(-.5,2.5)
   \tenretu{A(0,1)nw;C(1,1)n;B(2,1)ne}
   \Kuromaru\C
@@ -2042,7 +2042,7 @@ kasenFunc={\YGurafu*{%
 \end{pszahyou}
 \end{showEx}
 
-$BEI$j$D$V$7!$<P@~EI$j$b2DG=$G$9!#(B
+塗りつぶし，斜線塗りも可能です。
 
 \begin{showEx}(.64,.3){\cmd{ougigata*}}
 \begin{pszahyou}[ul=10mm](-.5,2.5)(-.5,1.5)
@@ -2068,7 +2068,7 @@ kasenFunc={\YGurafu*{%
 \end{pszahyou}
 \end{showEx}
 
-$BEI$j$D$V$7!$<P@~EI$j$b2DG=$G$9!#(B
+塗りつぶし，斜線塗りも可能です。
 
 \begin{showEx}(.64,.3){\cmd{yumigata*}}
 \begin{pszahyou}[ul=10mm](-.5,2.5)(-.5,1.5)
@@ -2095,7 +2095,7 @@ kasenFunc={\YGurafu*{%
 \end{pszahyou}
 \end{showEx}
 
-$BEI$j$G$9!#(B
+塗りです。
 
 \begin{showEx}(.64,.3){\cmd{Daen*}}
 \begin{pszahyou}[ul=5mm](-1.5,3.5)(-1.5,1.5)
@@ -2113,9 +2113,9 @@ kasenFunc={\YGurafu*{%
 \end{pszahyou}
 \end{showEx}
 
-$BE@@~IA2h$O!$(B\cmd{setdash}$B$rMxMQ$7$^$9!#(B
+点線描画は，\cmd{setdash}を利用します。
 
-\begin{showEx}(.64,.3){$BE@@~IA2h(B}
+\begin{showEx}(.64,.3){点線描画}
 \begin{pszahyou}[ul=5mm](-1.5,3.5)(-1.5,1.5)
   \def\A{(1,0)}
   \setdash{0.2,0.2}
@@ -2137,9 +2137,9 @@ kasenFunc={\YGurafu*{%
 \end{showEx}
 
 \subsection{\texorpdfstring{\cmd{YGurafu}}{YGurafu}}
-$y=f(x)$$B$N%0%i%U$rIA2h$9$k%3%^%s%I(B\cmd{YGurafu}$B$b(B
-\textsf{pszahyou}$B4D6-$G;HMQ$9$k$3$H$,=PMh$^$9!#(B
-$B0lNc$H$7$F!$(B$y=x^3-3x$$B$N%0%i%U$r$+$$$F$_$^$7$g$&!#(B
+$y=f(x)$のグラフを描画するコマンド\cmd{YGurafu}も
+\textsf{pszahyou}環境で使用することが出来ます。
+一例として，$y=x^3-3x$のグラフをかいてみましょう。
 
 \begin{showEx}(.6,.34){\cmd{YGurafu}}
 \begin{pszahyou}[ul=8mm](-2.5,2.5)(-2.5,2.5)
@@ -2152,9 +2152,9 @@ $y=f(x)$$B$N%0%i%U$rIA2h$9$k%3%^%s%I(B\cmd{YGurafu}$B$b(B
 \end{pszahyou}
 \end{showEx}
 
-$B%0%i%U$NGK@~IA2h%*%W%7%g%s$b;HMQ2DG=$G$9!#(B
+グラフの破線描画オプションも使用可能です。
 
-\begin{showEx}(.6,.34){\cmd{YGurafu}$B$NGK@~IA2h(B}
+\begin{showEx}(.6,.34){\cmd{YGurafu}の破線描画}
 \begin{pszahyou}[ul=8mm](-2.5,2.5)(-2.5,2.5)
   \tenretu*{A(-1,2);B(1,-2)}
   \def\Fx{X*(X*X-3)}
@@ -2165,9 +2165,9 @@ $y=f(x)$$B$N%0%i%U$rIA2h$9$k%3%^%s%I(B\cmd{YGurafu}$B$b(B
 \end{pszahyou}
 \end{showEx}
 
-$B$7$+$7!$(B\textsf{pszahyou}$B4D6-$G$O!$(B\cmd{setdash}$B$rMxMQ$7$?J}$,NI$$$G$7$g$&!#(B
+しかし，\textsf{pszahyou}環境では，\cmd{setdash}を利用した方が良いでしょう。
 
-\begin{showEx}(.6,.34){\cmd{setdash}$B$K$h$kGK@~IA2h(B}
+\begin{showEx}(.6,.34){\cmd{setdash}による破線描画}
 \begin{pszahyou}[ul=8mm](-2.5,2.5)(-2.5,2.5)
   \tenretu*{A(-1,2);B(1,-2)}
   \def\Fx{X*(X*X-3)}
@@ -2179,7 +2179,7 @@ $y=f(x)$$B$N%0%i%U$rIA2h$9$k%3%^%s%I(B\cmd{YGurafu}$B$b(B
 \end{pszahyou}
 \end{showEx}
 
-\begin{showEx}(.6,.34){\cmd{setdash}$B$K$h$k:?@~IA2h(B}
+\begin{showEx}(.6,.34){\cmd{setdash}による鎖線描画}
 \begin{pszahyou}[ul=8mm](-2.5,2.5)(-2.5,2.5)
   \tenretu*{A(-1,2);B(1,-2)}
   \def\Fx{X*(X*X-3)}
@@ -2201,7 +2201,7 @@ $y=f(x)$$B$N%0%i%U$rIA2h$9$k%3%^%s%I(B\cmd{YGurafu}$B$b(B
 \end{pszahyou}
 \end{showEx}
 
-$B<P@~EI$j$G$9!#(B
+斜線塗りです。
 
 \begin{showEx}(.6,.34){\cmd{YNuri*}}
 \begin{pszahyou}[ul=8mm](-2,2)(-1.5,3)
@@ -2226,11 +2226,11 @@ $y=f(x)$$B$N%0%i%U$rIA2h$9$k%3%^%s%I(B\cmd{YGurafu}$B$b(B
 \end{pszahyou}
 \end{showEx}
 
-\textsf{pszahyou}$B4D6-$N$b$H$K$J$C$F$$$k(B\textsf{zahyou}$B4D6-$O!$(B
-\texttt{emathPxy.sty}$B$N$=$l$G$9$+$i!$(B\texttt{xscale, yscale}$B$,M-8z(B
-$B!J$N$O$:!K$G$9!#(B
+\textsf{pszahyou}環境のもとになっている\textsf{zahyou}環境は，
+\texttt{emathPxy.sty}のそれですから，\texttt{xscale, yscale}が有効
+（のはず）です。
 
-$B<P@~EI$j$G$9!#(B
+斜線塗りです。
 
 \begin{showEx}(.6,.34){\cmd{YNurii*}}
 \begin{pszahyou}[ul=8mm,xscale=1.5](-1,2)(-.5,4)
@@ -2337,9 +2337,9 @@ $y=f(x)$$B$N%0%i%U$rIA2h$9$k%3%^%s%I(B\cmd{YGurafu}$B$b(B
 \end{pszahyou}
 \end{showEx}
 
-$B8L$NC<$KLp0u$r$D$1$k%*%W%7%g%s$b;HMQ2DG=$G$9!#(B
+弧の端に矢印をつけるオプションも使用可能です。
 
-\begin{showEx}(.6,.34){$BLp0uIU$-$N(B\cmd{HenKo}}
+\begin{showEx}(.6,.34){矢印付きの\cmd{HenKo}}
 \begin{pszahyou}[ul=6mm](-1.5,3)(-2,3.5)%
   \tenretu{A(-1,-1)sw;B(2,0)se;
     C(2,3)ne;D(-1,2)nw}
@@ -2373,11 +2373,11 @@ $y=f(x)$$B$N%0%i%U$rIA2h$9$k%3%^%s%I(B\cmd{YGurafu}$B$b(B
 \end{pszahyou*}
 \end{showEx}
 
-\subsection{\textsf{emathPs}$B$K$*$1$k@~I}!$@~<o$NJQ99(B}
-\textsf{emathPs.sty}$B$K$*$1$k@~I}$NJQ99$r$9$k(B \cmd{setlinewidth}, 
-$B$"$k$$$OIA2h@~$rGK@~$K$9$k(B\cmd{setdash}$B$O%0%m!<%P%k$K1F6A$7!$(B
-$B%0%k!<%T%s%0$OL58z$G$9!#(B
-$B$=$N$"$?$j$r3NG'$7$F$*$-$^$9!#(B
+\subsection{\textsf{emathPs}における線幅，線種の変更}
+\textsf{emathPs.sty}における線幅の変更をする \cmd{setlinewidth}, 
+あるいは描画線を破線にする\cmd{setdash}はグローバルに影響し，
+グルーピングは無効です。
+そのあたりを確認しておきます。
 
 \begin{showEx}(.64,.3){\cmd{setlinewidth}}
 \begin{pszahyou*}[ul=4mm](-3.2,3.2)(-3.2,3.2)
@@ -2387,19 +2387,19 @@ $y=f(x)$$B$N%0%i%U$rIA2h$9$k%3%^%s%I(B\cmd{YGurafu}$B$b(B
 \end{pszahyou*}
 \end{showEx}
 
-$BF1?41_$,(B3$B8DIA$+$l$F$$$^$9!#0lHV30B&$N1_!JH>7B(B3$B!K$,%G%U%)%k%H$N@~I}$G$9!#(B
-$B??Cf$N1_!JH>7B(B2$B!K$r(B\verb+\setlinewidth{1}+$B$H$7$F!$:Y@~$GIA2h$7!$(B
-$B$=$NItJ,$r%0%k!<%T%s%0$7$F!$0lHVCf$N1_!JH>7B(B1$B!K$O%G%U%)%k%H$N@~I}$KLa$k$+!$(B
-$B$H;W$$$-$d!$:Y@~$N$^$^$G%0%k!<%T%s%0$N8z$O$"$j$^$;$s$G$7$?!#(B
+同心円が3個描かれています。一番外側の円（半径3）がデフォルトの線幅です。
+真中の円（半径2）を\verb+\setlinewidth{1}+として，細線で描画し，
+その部分をグルーピングして，一番中の円（半径1）はデフォルトの線幅に戻るか，
+と思いきや，細線のままでグルーピングの効はありませんでした。
 
-$B$3$l$O!$(B\textsf{emathPs.sty}$B$K$*$$$F$O!$IA2h%3%^%s%I$O(B\TeX $B$G$O$J$/!$(B
-\texttt{PostScript}$B$KK]Lu$5$l$k4X78$G!$(B\TeX $B$N4IM}30$H$J$j!$(B
-$B%0%k!<%T%s%0$OL58z$H$J$C$F$7$^$&!$$H$4M}2r4j$$$^$9!#(B
+これは，\textsf{emathPs.sty}においては，描画コマンドは\TeX ではなく，
+\texttt{PostScript}に翻訳される関係で，\TeX の管理外となり，
+グルーピングは無効となってしまう，とご理解願います。
 
-$B$G$O!$$I$&$9$k$+$H$$$&$H!$(B\cmd{gsave}$B%3%^%s%I$GIA2h>r7o$r%;!<%V$7!$(B
-\cmd{grestore}$B$G$=$l$rI|85$9$k!$$H$$$&<j=g$rF'$`$3$H$K$J$j$^$9!#(B
+では，どうするかというと，\cmd{gsave}コマンドで描画条件をセーブし，
+\cmd{grestore}でそれを復元する，という手順を踏むことになります。
 
-\begin{showEx}(.64,.3){\cmd{gsave}$B$H(B\cmd{grestore}}
+\begin{showEx}(.64,.3){\cmd{gsave}と\cmd{grestore}}
 \begin{pszahyou*}[ul=4mm](-3.2,3.2)(-3.2,3.2)
   \En\O{3}
   \gsave
@@ -2409,18 +2409,18 @@ $y=f(x)$$B$N%0%i%U$rIA2h$9$k%3%^%s%I(B\cmd{YGurafu}$B$b(B
 \end{pszahyou*}
 \end{showEx}
 
-$B:#EY$O!$??Cf$N1_$@$1$,:Y@~$GIA2h$5$l$^$7$?!#(B
+今度は，真中の円だけが細線で描画されました。
 
-$B$7$+$7!$6I=jE*$JJQ99$N>l9g$K$O!$(B
-$BIA2h%3%^%s%I!J$3$3$G$O!$(B\cmd{En}$B!K$KBP$9$k%*%W%7%g%s0z?t$rM?$($k$3$H$G(B
-$B=hM}$G$-$J$$$@$m$&$+!$$H$$$&$N$,:#2s$N%P!<%8%g%s%"%C%W$NL\O@8+$G$9!#(B
+しかし，局所的な変更の場合には，
+描画コマンド（ここでは，\cmd{En}）に対するオプション引数を与えることで
+処理できないだろうか，というのが今回のバージョンアップの目論見です。
 
-\subsubsection{\texorpdfstring{\cmd{En}}{En}$B$J$I$N>l9g(B}
-\paragraph{\texttt{<linewidth=..>}$B%*%W%7%g%s(B}
-\cmd{En}$B$KBP$7$F!$%*%W%7%g%s0z?t(B\verb+<linewidth=1>+$B$rM?$($k$3$H$G!$(B
-$B6I=jE*$JJQ99$r<B8=$7$^$7$?!#(B
+\subsubsection{\texorpdfstring{\cmd{En}}{En}などの場合}
+\paragraph{\texttt{<linewidth=..>}オプション}
+\cmd{En}に対して，オプション引数\verb+<linewidth=1>+を与えることで，
+局所的な変更を実現しました。
 
-\begin{showEx}(.64,.3){\cmd{En}$B$X$N(B\texttt{<linewidth=..>}$B%*%W%7%g%s(B}
+\begin{showEx}(.64,.3){\cmd{En}への\texttt{<linewidth=..>}オプション}
 \begin{pszahyou*}[ul=4mm](-3.2,3.2)(-3.2,3.2)
   \En\O{3}
   \En<linewidth=1>\O{2}
@@ -2428,10 +2428,10 @@ $y=f(x)$$B$N%0%i%U$rIA2h$9$k%3%^%s%I(B\cmd{YGurafu}$B$b(B
 \end{pszahyou*}
 \end{showEx}
 
-\paragraph{\texttt{<dash=..>}$B%*%W%7%g%s(B}
-$B@~<o$rJQ99$9$k%*%W%7%g%s(B\verb+<dash={.1,.1}>+$B$b6I=jE*$K8z$-$^$9!#(B
+\paragraph{\texttt{<dash=..>}オプション}
+線種を変更するオプション\verb+<dash={.1,.1}>+も局所的に効きます。
 
-\begin{showEx}(.64,.3){\cmd{En}$B$X$N(B\texttt{<dash=..>}$B%*%W%7%g%s(B}
+\begin{showEx}(.64,.3){\cmd{En}への\texttt{<dash=..>}オプション}
 \begin{pszahyou*}[ul=4mm](-3.2,3.2)(-3.2,3.2)
   \En\O{3}
   \En<dash={.1,.1}>\O{2}
@@ -2439,9 +2439,9 @@ $y=f(x)$$B$N%0%i%U$rIA2h$9$k%3%^%s%I(B\cmd{YGurafu}$B$b(B
 \end{pszahyou*}
 \end{showEx}
 
-$BN><T$NJ;MQ$b2DG=$G$9!#(B
+両者の併用も可能です。
 
-\begin{showEx}(.64,.3){$BJ;MQ(B}
+\begin{showEx}(.64,.3){併用}
 \begin{pszahyou*}[ul=4mm](-3.2,3.2)(-3.2,3.2)
   \En\O{3}
   \En<linewidth=1,dash={.1,.1}>\O{2}
@@ -2449,8 +2449,8 @@ $y=f(x)$$B$N%0%i%U$rIA2h$9$k%3%^%s%I(B\cmd{YGurafu}$B$b(B
 \end{pszahyou*}
 \end{showEx}
 
-$B$3$N%*%W%7%g%s$O!$(B\cmd{En}$B$@$1$G$O$J$/!$(B\cmd{Enko}, \cmd{Daen}, \cmd{Daenko}
-$B$KBP$7$F$bM-8z$G$9!#(B\cmd{Daenko}$B$KE,MQ$7$?Nc$G$9!#(B
+このオプションは，\cmd{En}だけではなく，\cmd{Enko}, \cmd{Daen}, \cmd{Daenko}
+に対しても有効です。\cmd{Daenko}に適用した例です。
 
 \begin{showEx}(.64,.3){\cmd{Daneko}}
 \begin{pszahyou*}[ul=4mm](-3.2,3.2)(-3.2,3.2)
@@ -2461,11 +2461,11 @@ $y=f(x)$$B$N%0%i%U$rIA2h$9$k%3%^%s%I(B\cmd{YGurafu}$B$b(B
 \end{pszahyou*}
 \end{showEx}
 
-\subsubsection{\texorpdfstring{\cmd{YGurafu}}{YGurafu}$B$J$I$N>l9g(B}
-$B%0%i%UIA2h%3%^%s%I(B\cmd{YGurafu}$B$J$I$N6I=jE*$JJQ99$r$9$k(B
-\texttt{[linewidth=..]}$B%*%W%7%g%s$bM-8z$H$7$^$7$?!#(B
+\subsubsection{\texorpdfstring{\cmd{YGurafu}}{YGurafu}などの場合}
+グラフ描画コマンド\cmd{YGurafu}などの局所的な変更をする
+\texttt{[linewidth=..]}オプションも有効としました。
 
-\begin{showEx}(.64,.3){\cmd{YGurafu}$B$N@~I}JQ99(B}
+\begin{showEx}(.64,.3){\cmd{YGurafu}の線幅変更}
 \begin{pszahyou}[ul=4mm](-3.2,3.5)(-.5,6)
   \def\Fx{X*X}
   \def\Gx{3-X}
@@ -2474,9 +2474,9 @@ $y=f(x)$$B$N%0%i%U$rIA2h$9$k%3%^%s%I(B\cmd{YGurafu}$B$b(B
 \end{pszahyou}
 \end{showEx}
 
-\texttt{[dash=..]}$B%*%W%7%g%s$bM-8z$G$9!#(B
+\texttt{[dash=..]}オプションも有効です。
 
-\begin{showEx}(.64,.3){\cmd{YGurafu}$B$N@~<oJQ99(B}
+\begin{showEx}(.64,.3){\cmd{YGurafu}の線種変更}
 \begin{pszahyou}[ul=4mm](-3.2,3.5)(-.5,6)
   \def\Fx{X*X}
   \YGurafu[dash={.1,.1}]\Fx\xmin{-2}
@@ -2485,9 +2485,9 @@ $y=f(x)$$B$N%0%i%U$rIA2h$9$k%3%^%s%I(B\cmd{YGurafu}$B$b(B
 \end{pszahyou}
 \end{showEx}
 
-$BJ;MQ$b2DG=$G$9!#(B
+併用も可能です。
 
-\begin{showEx}(.64,.3){$BJ;MQ(B}
+\begin{showEx}(.64,.3){併用}
 \begin{pszahyou}[ul=4mm](-3.2,3.5)(-.5,6)
   \def\Fx{X*X}
   \def\Gx{3-X}
@@ -2496,9 +2496,9 @@ $y=f(x)$$B$N%0%i%U$rIA2h$9$k%3%^%s%I(B\cmd{YGurafu}$B$b(B
 \end{pszahyou}
 \end{showEx}
 
-\cmd{XGurafu}, \cmd{BGurafu}, \cmd{RGurafu}$B$K$bE,MQ$5$l$^$9!#(B
+\cmd{XGurafu}, \cmd{BGurafu}, \cmd{RGurafu}にも適用されます。
 
-\begin{showEx}(.64,.3){\cmd{BGurafu}$B$N@~<oJQ99(B}
+\begin{showEx}(.64,.3){\cmd{BGurafu}の線種変更}
 \begin{pszahyou}[ul=4mm](-3.2,3.5)(-3.2,4)
   \def\Ft{3*cos(T)}
   \def\Gt{2*sin(T)}
@@ -2508,11 +2508,11 @@ $y=f(x)$$B$N%0%i%U$rIA2h$9$k%3%^%s%I(B\cmd{YGurafu}$B$b(B
 \end{pszahyou}
 \end{showEx}
 
-\subsubsection{$B<P@~EI$j$N>l9g(B}
-\cmd{YNurii*}$B$J$I!$<P@~EI$j$K$*$1$k<P@~$NB@$5!$@~<o$N6I=jE*$JJQ99$r(B
-\verb+<linewidth=..,dash=..>+$B%*%W%7%g%s$G2DG=$H$7$^$7$?!#(B
+\subsubsection{斜線塗りの場合}
+\cmd{YNurii*}など，斜線塗りにおける斜線の太さ，線種の局所的な変更を
+\verb+<linewidth=..,dash=..>+オプションで可能としました。
 
-\begin{showEx}(.64,.3){$B<P@~EI$j$N@~<oJQ99(B}
+\begin{showEx}(.64,.3){斜線塗りの線種変更}
 \begin{pszahyou}[ul=4mm](-3.2,3.5)(-.5,9)
   \def\Fx{X*X}
   \def\Gx{8-X*X}
@@ -2522,11 +2522,11 @@ $y=f(x)$$B$N%0%i%U$rIA2h$9$k%3%^%s%I(B\cmd{YGurafu}$B$b(B
 \end{pszahyou}
 \end{showEx}
 
-$B<P@~EI$j$KBP$9$k(B\verb+<..>+$B%*%W%7%g%s$O!$K\Mh!$<P@~$N4V3V$rD4@0$9$k$?$a$N$b$N(B
-$B$G$7$?!#$=$N5!G=$rJ;MQ$9$k$H$-$O!$(B\verb+<syanurikankaku=..>+$B%*%W%7%g%s$r(B
-$BMQ$$$^$9!#%G%U%)%k%HCM$O(B\verb+0.125+$B$G!$(B\cmd{unitlength}$B$K0MB8$7$^$9!#(B
+斜線塗りに対する\verb+<..>+オプションは，本来，斜線の間隔を調整するためのもの
+でした。その機能を併用するときは，\verb+<syanurikankaku=..>+オプションを
+用います。デフォルト値は\verb+0.125+で，\cmd{unitlength}に依存します。
 
-\begin{showEx}(.64,.3){$B<P@~4V3V$NJQ99(B}
+\begin{showEx}(.64,.3){斜線間隔の変更}
 \begin{pszahyou}[ul=4mm](-3.2,3.5)(-.5,9)
   \def\Fx{X*X}
   \def\Gx{8-X*X}
@@ -2537,10 +2537,10 @@ $y=f(x)$$B$N%0%i%U$rIA2h$9$k%3%^%s%I(B\cmd{YGurafu}$B$b(B
 \end{pszahyou}
 \end{showEx}
 
-\subsubsection{\texorpdfstring{\cmd{HenKo}}{HenKo}$B$N>l9g(B}
-\verb+\HenKo+$B$N@~I}!&@~<o$rJQ99$9$k%*%W%7%g%s$bMQ0U$7$^$7$?!#(B
+\subsubsection{\texorpdfstring{\cmd{HenKo}}{HenKo}の場合}
+\verb+\HenKo+の線幅・線種を変更するオプションも用意しました。
 
-\begin{showEx}(.64,.3){\cmd{Hen\textunderscore ko}$B$N@~<oJQ99(B}
+\begin{showEx}(.64,.3){\cmd{Hen\textunderscore ko}の線種変更}
 \begin{pszahyou*}[ul=10mm](0,4)(0,4)
   \tenretu{A(1,1)s;B(3,3)n}
   \HenKo<linewidth=1,dash={.05,.05}>\A\B{$a$}
@@ -2548,13 +2548,13 @@ $y=f(x)$$B$N%0%i%U$rIA2h$9$k%3%^%s%I(B\cmd{YGurafu}$B$b(B
 \end{pszahyou*}
 \end{showEx}
 
-$B85Mh!$$3$N%*%W%7%g%s(B\verb+<#2>+$B$O!$@~J,$H8L$NN%$l6q9g$r;XDj$9$k$b$N$G$7$?!#(B
-$B$=$l$b;HMQ$7$?$1$l$P(B \verb+<henkohi=..>+$B%*%W%7%g%s$rMQ$$$^$9!#(B
-$B1&JUCM$,(B1$B$h$jBg$-$1$l$P!$8L$O@~J,$h$j1s$6$+$j$^$9!#(B
+元来，このオプション\verb+<#2>+は，線分と弧の離れ具合を指定するものでした。
+それも使用したければ \verb+<henkohi=..>+オプションを用います。
+右辺値が1より大きければ，弧は線分より遠ざかります。
 
-$B$"$k$$$O(B\verb+<henkoH=..>+$B%*%W%7%g%s$rMQ$$$k$N$b$"$j$^$9!#(B
+あるいは\verb+<henkoH=..>+オプションを用いるのもあります。
 
-\begin{showEx}(.64,.3){\cmd{HenKo}$B$N@~<oJQ99(B}
+\begin{showEx}(.64,.3){\cmd{HenKo}の線種変更}
 \begin{pszahyou*}[ul=10mm](0,4)(0,4)
   \tenretu{A(1,1)s;B(3,3)n}
   \HenKo<linewidth=1,dash={.05,.05},henkohi=2>%

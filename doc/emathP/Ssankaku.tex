@@ -1,36 +1,36 @@
-\section{$B;03Q7A$N7hDj(B}
-\subsection{$B;0JU(B}
-$B;0JU$ND9$5$,$o$+$C$F$$$k$H$-$K!$$=$N;03Q7A$r$I$N$h$&$KIA2h$9$k$+!$(B
-$B$H$$$&OC$G$9!%(B
+\section{三角形の決定}
+\subsection{三辺}
+三辺の長さがわかっているときに，その三角形をどのように描画するか，
+という話です．
 
-$B6qBNNc$H$7$F(B $\mathrm{AB=7,~BC=5,~CA=3}$ $B$H$7$^$7$g$&!%(B
-$B$^$:(B A(0,0), B(7,0) $B$H$7$^$9!%(B
-$BE@(BC$B$O!$(BA$B$rCf?4$H$9$kH>7B(B3$B$N1_$H!$(BB$B$rCf?4$H$9$kH>7B(B5$B$N1_$H$N8rE@(B
-$B$H$7$F5a$a$^$9!%(B
+具体例として $\mathrm{AB=7,~BC=5,~CA=3}$ としましょう．
+まず A(0,0), B(7,0) とします．
+点Cは，Aを中心とする半径3の円と，Bを中心とする半径5の円との交点
+として求めます．
 
-\showexample[$B;03Q7A$N7hDj(B(1)$B;0JU(B](0.55)(0.8){example/sankaku1}
+\showexample[三角形の決定(1)三辺](0.55)(0.8){example/sankaku1}
 
-\subsection{$BFs3QTsJU(B}
+\subsection{二角夾辺}
 $\mathrm{BC=5,~\kaku{B}=60\Deg,~\kaku{C}=45\Deg}$
-$B$H$7$^$7$g$&!%(B
-$B$3$l$O!$(BB(0,0), C(5,0) $B$H$7$?>e$G(B
+としましょう．
+これは，B(0,0), C(5,0) とした上で
 \begin{jquote}
-    $BE@(BB$B$rDL$j!$J}8~3Q(B $60\Deg$ $B$ND>@~$H(B\\
-    $BE@(BC$B$rDL$j!$J}8~3Q(B $135\Deg$ $B$ND>@~(B
+    点Bを通り，方向角 $60\Deg$ の直線と\\
+    点Cを通り，方向角 $135\Deg$ の直線
 \end{jquote}
-$B$N8rE@$H$7$F(BA$B$r5a$a$^$9!%(B
+の交点としてAを求めます．
 
-\showexample[$B;03Q7A$N7hDj(B(2) $BFs3QTsJU(B](0.8)(0.8){example/sankaku2}
+\showexample[三角形の決定(2) 二角夾辺](0.8)(0.8){example/sankaku2}
 
-\subsection{$BFsJUTs3Q(B}
+\subsection{二辺夾角}
 $\mathrm{AB=3,~BC=5,~\kaku{B}=60\Deg}$
-$B$H$7$^$7$g$&!%(B
-$B$3$l$O(B B(0,0), C(5,0) $B$H$7$?>e$G(B A $B$N:BI8$r6K:BI8"*D>8r:BI8JQ49$G(B
-$B5a$a$^$9!%$9$J$o$A(B
+としましょう．
+これは B(0,0), C(5,0) とした上で A の座標を極座標→直交座標変換で
+求めます．すなわち
 \begin{jquote}
 \begin{verbatim}
     \kyokuTyoku(3,60)\A
 \end{verbatim}
 \end{jquote}
 
-\showexample[$B;03Q7A$N7hDj(B(3) $BFsJUTs3Q(B](0.8)(0.8){example/sankaku3}
+\showexample[三角形の決定(3) 二辺夾角](0.8)(0.8){example/sankaku3}

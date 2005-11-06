@@ -13,7 +13,7 @@
 \@ifundefined{templa}{\newdimen\templa}{}%
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%          Ifor(#1=#2;#1<#3;#1+=#4){#5} $B@0?t7?(B
+%          Ifor(#1=#2;#1<#3;#1+=#4){#5} 整数型
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \def\Ifor#1#2#3{\@ifnextchar[{\@Ifor{#1}{#2}{#3}}{%
   \@Ifor{#1}{#2}{#3}[1]}}
@@ -25,9 +25,9 @@
   \fr@@cnd{#5\IAdd{#1}{#4}{#1}}\ignorespaces}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %          for(#1=#2;#1<#3;#1+=#4){#5}
-%             <#1>$B%*%W%7%g%s$r;XDj$7$?$H$-$O!$%k!<%WJQ?t$r4]$a$k!#(B
-%             ex. <2> $B$H$7$?$H$-$O!$>.?tBh(B2$B0L$^$G!JBh(B3$B0L$r;M<N8^F~!K(B
-%                                   fp-snap.sty $B$,I,MW(B
+%             <#1>オプションを指定したときは，ループ変数を丸める。
+%             ex. <2> としたときは，小数第2位まで（第3位を四捨五入）
+%                                   fp-snap.sty が必要
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \@ifundefined{revised@For}{%
 \def\revised@For{}%
@@ -44,10 +44,10 @@
 
 % ----------------------------------------------------------
 % \Cfor#1#2#3\do#4
-%   #1 : $B=i4|@_Dj(B
-%   #2 : $B7QB3>r7o(B \ifthenelse $B$N=q<0(B
-%   #3 : $B:F@_Dj(B
-%   #4 : $B%k!<%WK\BN(B
+%   #1 : 初期設定
+%   #2 : 継続条件 \ifthenelse の書式
+%   #3 : 再設定
+%   #4 : ループ本体
 
 \long\def\Cfor#1#2#3\do#4{%
   #1\ifthenelse{#2}{\Cfor@sub{#2}{#3}{#4}}{\relax}}%
@@ -55,13 +55,13 @@
 \long\def\Cfor@sub#1#2#3{%  2002/09/28
   #3\relax#2\relax\ifthenelse{#1}{\Cfor@sub{#1}{#2}{#3}}{\relax}}%
 % ----------------------------------------------------------
-% $BJ8;zNsA`:n(B
+% 文字列操作
 %
 \newtoks\emath@toks@
 %
-\def\repeatchar#1#2{\Ifor\i{0}{#2}\Do{#1}}% $BJ8;zNs$N7+$jJV$7(B
+\def\repeatchar#1#2{\Ifor\i{0}{#2}\Do{#1}}% 文字列の繰り返し
 %
-% \getAlphnum : \Alph $B$N5U4X?t(B
+% \getAlphnum : \Alph の逆関数
 %
 \def\getAlphnum#1#2{%
   \setcounter{tempcnta}{\z@}\relax
@@ -88,7 +88,7 @@
    \xdef#1{\the\emath@toks@ #2}%
 }%
 %
-% $B0z?t$J$I$,6u$G$"$k$+H]$+(B
+% 引数などが空であるか否か
 \def\@emptymarkA{\@emptymarkB}
 \def\ifempty#1{\@@ifempty #1\@emptymarkA\@emptymarkB}%
 \def\@@ifempty#1#2\@emptymarkB{\ifx #1\@emptymarkA}%
@@ -97,12 +97,12 @@
 
 \def\Strcat#1#2#3{\edef#3{#1#2}}
 
-% $BJ8;zNs$NHf3S(B
+% 文字列の比較
 % \strcmp[#1]#2#3#4
-%   $BJ8;zNs(B #2, #3 $B$rHf3S$7$F7k2L$r(B #4 $B$N@)8fDV$KJV$9!#(B
-%     $BLa$jCM(B $B0lCW$7$?$H$-(B   0
-%            $B0lCW$7$J$$$H$-(B 1
-%   [#1] $B$rM?$($?$H$-$O!$@hF,$+$i(B #1$B8D$N$_$rHf3S$9$k!#(B
+%   文字列 #2, #3 を比較して結果を #4 の制御綴に返す。
+%     戻り値 一致したとき   0
+%            一致しないとき 1
+%   [#1] を与えたときは，先頭から #1個のみを比較する。
 
 \def\strcmp{\@ifnextchar[{\@strcmp}{\@strcmp[1000]}}
 \def\@strcmp[#1]#2#3#4{\edef#4{1}\edef\strcmp@e{0}\edef\strcmp@n{#1}%
@@ -118,8 +118,8 @@
     \fi\fi\fi}%
   \ifnum\strcmp@n=\z@\edef#4{0}\fi}
 
-%%% $BJ8;zNs$ND9$5(B
-%%% \strlen{$BJ8;zNs(B} $B$G(B tempcnta $B$K$=$ND9$5$rF@$k!%(B
+%%% 文字列の長さ
+%%% \strlen{文字列} で tempcnta にその長さを得る．
 %%%
 \def\strlen#1{%
 \setcounter{tempcnta}{0}%
@@ -140,9 +140,9 @@
       \IAdd{#2}{2}#2\else\IAdd{#2}{1}#2\fi\relax}}%
 
 %% \headchar#1#2#3
-%%               #1 : $BJ8;zNs(B
-%%               #2 : $B@hF,$N0lJ8;z(B
-%%               #3 : $B@hF,$N0lJ8;z$r=|$$$?$b$N(B
+%%               #1 : 文字列
+%%               #2 : 先頭の一文字
+%%               #3 : 先頭の一文字を除いたもの
 \def\headchar#1#2#3{%
  \def\@headchar##1##2\@nil##3\@@nil##4\@@@nil{\edef##3{##1}\edef##4{##2}}%
  \edef\headchar@s{#1}%
@@ -176,9 +176,9 @@
 %  \ifthenelse{\equal{#2}{\empty}}{\edef#2{\@@c}}{}}}%
 %
 % \tailchar#1#2#3
-%   #1 : $B85J8;zNs(B
-%   #2 : $B:G8e$NJ8;z$r=|$$$?J8;zNs(B
-%   #3 : $B:G8e$NJ8;z(B
+%   #1 : 元文字列
+%   #2 : 最後の文字を除いた文字列
+%   #3 : 最後の文字
 
 \def\tailchar#1#2#3{%
   \edef\@str{}\edef\tlc@a{}\edef\tlc@b{}%
@@ -190,7 +190,7 @@
 %  \expandafter\@tfor\expandafter\@@c\expandafter:\expandafter=#1\do{%
 %    \edef#2{\@str}\edef\@str{\@str\@@c}\edef#3{\@@c}}}
 
-% $BJ8;zNs%5!<%A(B
+% 文字列サーチ
 %
 %\def\strchr#1#2#3{%
 % \def\@strchr##1#2##2#2##3\@nil{%
@@ -198,9 +198,9 @@
 % \expandafter\@strchr#1#2#2\@nil}%
 
 % \Strchr#1#2#3
-%   #1 : $BC5:w$NBP>]$H$J$kJ8;zNs(B
-%   #2 : $BC5:w$7$?$$J8;z(B
-%   #3 : $B8+$D$+$C$?0LCV!J8+$D$+$i$J$+$C$?>l9g$O(B 0$B!K(B
+%   #1 : 探索の対象となる文字列
+%   #2 : 探索したい文字
+%   #3 : 見つかった位置（見つからなかった場合は 0）
 \def\Strchr#1#2#3{%
   \IFempty{#1}{\edef#3{0}}{%
   \edef\Strchr@i{0}%
@@ -215,9 +215,9 @@
 }}
 
 % \Strstr
-%   #1 : $BJ8;zNs(B
-%   #2 : $BC5:w$7$?$$J8;zNs(B
-%   #3 : $B8+$D$+$C$?0LCV!J8+$D$+$i$J$$$H$-$O(B 0$B!K(B
+%   #1 : 文字列
+%   #2 : 探索したい文字列
+%   #3 : 見つかった位置（見つからないときは 0）
 %
 \def\Strstr#1#2#3{%
   \headchar{#2}\Strstr@head\Strstr@other
@@ -238,12 +238,12 @@
   \edef#3{\Strstr@found}%
 }
 
-% $BJ8;zNs$rFCDj$NJ8;z$GJ,3d$9$k!%(B
+% 文字列を特定の文字で分割する．
 % \strsep#1#2#3#4
-%   #1 : $B85J8;zNs(B
-%   #2 : $B<1JLJ8;z(B
-%   #3 : $B<1JLJ8;z$h$jA0It(B
-%   #4 : $B<1JLJ8;z$h$j8eIt(B
+%   #1 : 元文字列
+%   #2 : 識別文字
+%   #3 : 識別文字より前部
+%   #4 : 識別文字より後部
 %
 \def\strsep#1#2#3#4{%
   \edef\strsep@str{#1}%
@@ -258,8 +258,8 @@
   }%
   \edef#3{\strsep@pre}\edef#4{\strsep@post}}
 
-% $B%Q%?!<%s%^%C%A%s%0$K$h$k(B
-\let\EMdef\def%   $BI,MW$K1~$8$F(B \let\EMdef\gdef $B$H$9$k!#(B
+% パターンマッチングによる
+\let\EMdef\def%   必要に応じて \let\EMdef\gdef とする。
 \long\def\Strsep#1#2#3#4{%
   \long\def\@@Strsep##1#2\@@nil{\EMdef#4{##1}}%
   \long\def\@Strsep##1#2##2\@nil{\EMdef#3{##1}%
@@ -270,19 +270,19 @@
   \expandafter\@Strsep#1#2\@nil}
 
 % \argsep#1#2#3#4
-% $BJ8;zNs(B #1 $B$r(B #2 $B$r6h@Z;R$H$7$F@Z$j=P$9!#(B
-%   #3 : $B@Z$j=P$7$?ItJ,J8;zNs$r3JG<$9$kG[NsL>(B
-%   #4 : $BF@$i$l$?G[Ns$N%5%$%:$r<u$1<h$k@)8fDV(B
+% 文字列 #1 を #2 を区切子として切り出す。
+%   #3 : 切り出した部分文字列を格納する配列名
+%   #4 : 得られた配列のサイズを受け取る制御綴
 %
-%   $B!JNc!K(B\edef\moziretu{abc;d;ef}
-%         $B$KBP$7$F(B
+%   （例）\edef\moziretu{abc;d;ef}
+%         に対して
 %           \argsep\moziretu{;}{foo}\kosuu
-%         $B$r<B9T$9$k$H(B
+%         を実行すると
 %           \kosuu  : 3
 %           \fooi   : abc
 %           \fooii  : d
 %           \fooiii : ef
-%         $B$H$$$&7k2L$,F@$i$l$k!#(B
+%         という結果が得られる。
 %
 \def\argsep#1#2#3#4{%
   \Cfor{\edef#4{0}\edef\argsep@b{#1}}{\not\equal{\argsep@b}{\empty}}{}\do{%
@@ -295,9 +295,9 @@
     \expandafter\protected@edef\csname #3\romannumeral #4\endcsname{\Argsep@a}}}
 %
 % \mkstrbuf[#1]#2#3
-%   #1 : $BJ8;zNs$rJ,2r$7$?G[NsL>!J%G%U%)%k%H$O(B strbuf$B!K(B
-%   #2 : $BJ8;zNs(B
-%   #3 : $BJ8;zNs$ND9$5$r<u$1<h$k@)8fDV$j(B
+%   #1 : 文字列を分解した配列名（デフォルトは strbuf）
+%   #2 : 文字列
+%   #3 : 文字列の長さを受け取る制御綴り
 
 \def\mkstrbuf{\@ifnextchar[{\@mkstrbuf}{\@mkstrbuf[strbuf]}}
 \def\@mkstrbuf[#1]#2#3{%
@@ -334,7 +334,7 @@
     \ifnum\Midstr@n<#1\edef\Midstr@str{\Midstr@str\@@c}\Incr\Midstr@n\fi\fi}%
   \edef#4{\Midstr@str}%
 }
-% $BJ8;z!J%\%C%/%9!K$N9b$5!&?<$5!&I}(B
+% 文字（ボックス）の高さ・深さ・幅
 \def\EM@settodim#1#2{\setbox\@tempboxa\hbox{{#2}}\the#1\@tempboxa
        \setbox\@tempboxa\box\voidb@x}
 \def\EMheight{\EM@settodim\ht}
@@ -347,9 +347,9 @@
 \def\@EMsettowidth#1#2{\setbox0=\hbox{#2}\edef#1{\the\wd0}}
 \def\EMsettowidth@#1#2{\setbox0=\hbox{#2}\edef#1{\strip@pt\wd0}}
 %
-% \\ \par $B$r4^$`CJMn(B #2 $B$N2#I}$r(B #1 $B$N@)8fDV$KJV$9(B
+% \\ \par を含む段落 #2 の横幅を #1 の制御綴に返す
 %
-%   from Q&A #11667 Re: $B0O$_@~Fb$K?t<0$O$$$l$i$l$^$9$+!)(Bby $BKL8+(B $B$1$s(B $B$5$s(B
+%   from Q&A #11667 Re: 囲み線内に数式はいれられますか？by 北見 けん さん
 %
 %\long\def\Settowidth#1#2{%
 %  \Cfor{\templa=0pt\Strsep{#2}{\par}\Settowidth@tmpa\Settowidth@tmpb}{%
@@ -401,7 +401,7 @@
     \IMul\@@c\IMUL@ans\IMUL@ans}%
     \edef#2{\IMUL@ans}}
 
-% $B6uGr=|5n(B
+% 空白除去
 % from jytex.tex
 
 \catcode`\^^?=13 \def^^?{\relax}
@@ -420,7 +420,7 @@
 
 \catcode`\^^?=15
 %
-% $B?tCMHf3S(B
+% 数値比較
 %
 \def\GE{EM@GE}
 \def\LE{EM@LE}
@@ -442,7 +442,7 @@
 %
 \def\EMhikaku#1#2#3{\lengthtest{#1\p@#2#3\p@}}
 %
-% $BC10LIU?tCM$r(B \unitlength $B$rC10L$H$9$kL5L>?t$KJQ49(B
+% 単位付数値を \unitlength を単位とする無名数に変換
 %
 \def\dtoul#1#2{\@tempdima#1\relax
   \setlength{\@tempdimb}{\@tempdima*\ratio{\p@}{\unitlength}}%
@@ -458,7 +458,7 @@
     \edef#2{\strip@pt\@tempdimb}}%
   }
 %
-% $B:BI8$rJQ49(B
+% 座標を変換
 %
 \def\dtouP#1#2{%
   \vecXY{#1}\dtouP@x\dtouP@y
@@ -466,7 +466,7 @@
   \dtouy\dtouP@y\dtouP@y
   \edef#2{(\dtouP@x,\dtouP@y)}}
 %
-% $B@0?t7W;;(B
+% 整数計算
 \def\Incr{\@ifnextchar[{\@Incr}{\@Incr[1]}}
 \def\@Incr[#1]#2{\IAdd{#2}{#1}#2}
 \def\Decr#1{\ISub{#1}{1}#1}
@@ -525,9 +525,9 @@
 \def\edefhairetu#1#2{\expandafter\edef\csname #1\romannumeral#2\endcsname}
 \def\hairetu#1#2{\csname #1\romannumeral#2\endcsname}
 %
-% $B<B?t$N@0?tItJ,$r<h$j=P$9!#(B
-%   #1 $B$N@0?tItJ,$r(B #3 $B$X!$(B
-%     $BI,MW$J$i$P!$>.?tItJ,$r(B #2 $B$X<h$j=P$9!#(B
+% 実数の整数部分を取り出す。
+%   #1 の整数部分を #3 へ，
+%     必要ならば，小数部分を #2 へ取り出す。
 \def\Seisuububun#1{\@ifnextchar[{\@Seisuububun{#1}}{\@Seisuububun{#1}[\@dmy]}}
 \def\@Seisuububun#1[#2]#3{\strsep{#1}{.}#3\Seisuububun@tmp
   \ifthenelse{\equal{#3}{-}}{\edef#3{0}}{%
@@ -539,14 +539,14 @@
     \edef#2{.\Seisuububun@tmp}%
   \fi}
 %
-% #1 $B$rD6$($J$$:GBg$N@0?t(B $B$r(B #2 $B$X(B
+% #1 を超えない最大の整数 を #2 へ
 %
 \def\Int#1#2{\Seisuububun{#1}[\Int@a]#2\relax
     \ifdim #1\p@<\z@
       \ifx\empty\Int@a\else\Decr#2\relax\fi
     \fi}
 %
-% $BC10L(B(pt)$BIU$-$N>l9g(B
+% 単位(pt)付きの場合
 \begingroup
   \catcode`P=12
   \catcode`T=12
@@ -556,13 +556,13 @@
 \def\seisuu#1{\expandafter\int@rem@pt\the#1}
 \def\@seisuu{\expandafter\int@rem@pt\the}
 %
-% $BAG0x;RJ,2r(B
+% 素因子分解
 % \soinsi#1#2
-%     $B@5$N@0?t(B #1 $B$rAG0x;RJ,2r$7!$(B
-%       #2i, #2ii, #2iii, ....  $B$KAG0x?t(B
-%       #2bi, #2bii, #2biii, ...$B$K$=$NQQ(B
-%       n#2 $B$K0[$J$kAG0x;R$N8D?t(B
-%     $B$rJV$9!%(B
+%     正の整数 #1 を素因子分解し，
+%       #2i, #2ii, #2iii, ....  に素因数
+%       #2bi, #2bii, #2biii, ...にその冪
+%       n#2 に異なる素因子の個数
+%     を返す．
 %
 \def\soinsi#1#2{{\EMc@hizyosuu#1\relax%
   \ifnum#1=\@ne
@@ -668,9 +668,9 @@
 }
 \fi
 
-% $BAG0x?tJ,2r<0(B
-%   #1 $B$rAG0x?tJ,2r$7$?<0$r(B #2 $B$N@)8fDV$j$KJV$9!#(B
-%   ex. \Soinsuubunkai{108}\siki : \siki $B$K(B 2^2\times 3^3 $B$,JV$k!#(B
+% 素因数分解式
+%   #1 を素因数分解した式を #2 の制御綴りに返す。
+%   ex. \Soinsuubunkai{108}\siki : \siki に 2^2\times 3^3 が返る。
 
 \def\Soinsuubunkai#1#2{%
 \soinsi{#1}{soinsu@buf}
@@ -697,7 +697,7 @@
     \@next}%
   \xdef#1{#2}\@gIForNext@sub}%
 
-% $B<B?t7W;;(B
+% 実数計算
 %\@ifundefined{Div}{%
 \newdimen\EMcalc@A
 \def\Add#1#2#3{% #3=#1+#2
@@ -724,13 +724,13 @@
 \def\Divself#1#2{\Div{#1}{#2}#1}
 %
 % -------------------------------------------
-% $BC10L49;;(B
+% 単位換算
 %   \kansan#1#2#3
-%        #1 : $BC10LIU?tCM(B
-%        #2 : $B49;;$9$kC10LD9(B
-%        #3 : $B7k2L!JL5L>?t!K(B
+%        #1 : 単位付数値
+%        #2 : 換算する単位長
+%        #3 : 結果（無名数）
 %
-%       ex: \kansan{1in}{1cm}\tmp \tmp$B$O(B2.53963$B$H$J$k!#$9$J$o$A(B
+%       ex: \kansan{1in}{1cm}\tmp \tmpは2.53963となる。すなわち
 %                  1in=2.53963cm
 %
 \def\kansan#1#2#3{%
@@ -740,7 +740,7 @@
     \setlength{\@tempdimc}{#1*\ratio{\p@}{#2}}%
     \edef#3{\strip@pt\@tempdimc}}}
 %
-% $BFC$K(B \unitlength $B$X$N49;;(B
+% 特に \unitlength への換算
 %
 \def\ukansan#1#2{%
   \ifthenelse{\equal{#1}{0}}{%
@@ -773,9 +773,9 @@
 % -------------------------------------------
 %
 % \appendU#1#2
-%     #1 : $B?tCM(B
-%     #2 : #1$B$,C10L$rH<$C$F$$$l$P(B #1 $B$=$N$b$N(B
-%        :         $B$=$&$G$J$1$l$P(B #1\unitlength $B$r(B pt $BC10L$K$7$?J8;zNs(B
+%     #1 : 数値
+%     #2 : #1が単位を伴っていれば #1 そのもの
+%        :         そうでなければ #1\unitlength を pt 単位にした文字列
 %
 \def\appendU#1#2{%
   \tailchar{#1}\apU@tmp\apU@e
@@ -788,10 +788,10 @@
 }
 %
 %%% -----------------------------------------------
-%     $B4X?t(B
+%     関数
 %%% -----------------------------------------------
 
-% $B:GBg:G>.(B
+% 最大最小
 \def\Max#1#2{\edef#2{\empty}%
   \expandafter\@for\expandafter\Max@c\expandafter:\expandafter=#1\do{%
     \ifx\empty#2\relax\edef#2{\Max@c}\else\ifdim\Max@c pt>#2pt\relax
@@ -801,7 +801,7 @@
     \ifx\empty#2\relax\edef#2{\Min@c}\else\ifdim\Min@c pt<#2pt\relax
     \edef#2{\Min@c}\fi\fi}}
 
-% $BJ?J}:,(B
+% 平方根
 %\def\Heihoukon#1#2{%
 %%  \FProot#2{#1}{2}%
 %  \ifdim#1pt>0.0001pt\Sqroot{#1}\Heihoukon@y\edef#2{\Heihoukon@y}\else
@@ -818,7 +818,7 @@
       \edef\Heihoukon@x{\Heihoukon@y}}%
   \edef#2{\Heihoukon@y}}}
 
-% $B;X?t4X?t(B
+% 指数関数
 %
 \def\Exp#1#2{\setlength{\@tempdimd}{#1pt}%
 \ifdim\@tempdimd>\z@%
@@ -830,14 +830,14 @@
 \else\ifdim\@tempdimd=\z@\edef#2{1}\else%
 \Exp{-#1}\exp@y\Div{1}{\exp@y}\exp@y\edef#2{\exp@y}\fi\fi}%
 
-% $BBP?t4X?t(B
+% 対数関数
 %
-\def\Napier{2.718281828}% $B<+A3BP?t$NDl(B e
+\def\Napier{2.718281828}% 自然対数の底 e
 \def\Napierh{1.64872127}% \sqrt{e}
 \def\Napierii{7.389056}%  e^2
 \def\Napiermi{0.367879441}% 1/e
 \def\Log#1#2{\setlength{\@tempdimd}{#1pt}%
-\ifdim\@tempdimd>\z@\else\errmessage{Log $B$N???t>r7o$,K~$?$5$l$F$$$^$;$s(B:#1}\fi
+\ifdim\@tempdimd>\z@\else\errmessage{Log の真数条件が満たされていません:#1}\fi
 \ifdim\@tempdimd=1pt\relax\edef#2{0}\else%
 \ifdim\@tempdimd>1pt\relax%
   \ifdim\@tempdimd>\Napierii pt\relax\Div{#1}\Napierii\log@x\def\@seisuubu{2}\else
@@ -850,23 +850,23 @@
 \Add\log@x\log@x\log@x\Add\log@x\@seisuubu\log@x\edef#2{\log@x}%
 \else\Div{1}{#1}\l@x\Log\l@x\l@y\edef#2{-\l@y}\fi\fi}%
 
-% $B;03Q4X?t(B
-\def\Pis{0.52359878}%     $B&P(B/6
-%\def\Piq{0.78539816}%    $B&P(B/4
-\def\Pit{1.04719755}%     $B&P(B/3
-%\def\Pih{1.57079633}%    $B&P(B/2
-\def\Pie{3.14159265}%    $B&P(B
-%\def\Pii{6.28318531}%    2$B&P(B
-\def\Pihiii{4.71238898}%  3$B&P(B/2
-\def\Pitii{2.094395}%     2$B&P(B/3
-\def\Pitiv{4.188790}%     4$B&P(B/3
-\def\Pitv{5.235988}%      5$B&P(B/3
-\def\Piqiii{2.356194}%    3$B&P(B/4
-\def\Piqv{3.926991}%      5$B&P(B/4
-\def\Piqvii{5.497787}%    7$B&P(B/4
-\def\Pisv{2.617994}%      5$B&P(B/6
-\def\Pisvii{3.665191}%    7$B&P(B/6
-\def\Pisxi{5.759587}%    11$B&P(B/6
+% 三角関数
+\def\Pis{0.52359878}%     π/6
+%\def\Piq{0.78539816}%    π/4
+\def\Pit{1.04719755}%     π/3
+%\def\Pih{1.57079633}%    π/2
+\def\Pie{3.14159265}%    π
+%\def\Pii{6.28318531}%    2π
+\def\Pihiii{4.71238898}%  3π/2
+\def\Pitii{2.094395}%     2π/3
+\def\Pitiv{4.188790}%     4π/3
+\def\Pitv{5.235988}%      5π/3
+\def\Piqiii{2.356194}%    3π/4
+\def\Piqv{3.926991}%      5π/4
+\def\Piqvii{5.497787}%    7π/4
+\def\Pisv{2.617994}%      5π/6
+\def\Pisvii{3.665191}%    7π/6
+\def\Pisxi{5.759587}%    11π/6
 
 %\def\DegSin#1#2{\DegRad{#1}\@t\Sin\@t\@y\edef#2{\@y}}%
 %\def\DegCos#1#2{\DegRad{#1}\@t\Cos\@t\@y\edef#2{\@y}}%
@@ -885,7 +885,7 @@
 \def\Tan#1#2{\Mul{180}{#1}\TRIG@t\Div\TRIG@t\Pie\TRIG@t
   \CalculateTan{\TRIG@t}\edef#2{\UseTan{\TRIG@t}}}
 
-% $B5U;03Q4X?t(B
+% 逆三角関数
 %
 \def\atan#1#2{%
   \def\atan@subsub{\Cos\atan@x\atan@c\Mul\atan@a\atan@c\atan@y
@@ -920,22 +920,22 @@
     \edef#2{\acos@kaku}\fi}%
 \def\asin#1#2{\acos{#1}\asin@x\Sub{90}\asin@x\asin@x\edef#2{\asin@x}}%
 
-% $B@dBPCM(B
+% 絶対値
 % \Abs#1#2
-%   #1 $B$N@dBPCM$r(B #2 $B$KM?$($k!%(B
+%   #1 の絶対値を #2 に与える．
 
 \def\Abs#1#2{\ifdim #1pt<\z@\Mul{-1}{#1}\@val\edef#2{\@val}\else
   \edef#2{#1}\fi}%
 
-% $B9TNs<0(B
-%   $B#2<!9TNs<0(B
+% 行列式
+%   ２次行列式
 \def\Detii#1#2#3#4{%
   \Mul{#1}{#4}\Det@ans
   \Mul{#2}{#3}\Det@tmp
   \Sub\Det@ans\Det@tmp\Det@ans
 }
 
-%   $B#3<!9TNs<0(B
+%   ３次行列式
 \def\Detiii#1#2#3#4#5#6#7#8#9{%
   \Mul{#1}{#5}\Det@tmp
   \Mul\Det@tmp{#9}\Det@ans
@@ -957,36 +957,36 @@
 }
 \endinput
 %
-v 0.01 2002/06/27 \Incr $B$J$I$r(B emath.sty $B$+$i0\$9!#(B
-v 0.02 2002/07/24 $B<B?t;MB'7W;;$r(B eclarith $B$K0MB8$7$J$$7A$K$9$k!#(B
-v 0.03 2002/09/29 \Strsep : $B%Q%?!<%s%^%C%A%s%0$K$h$k7A<0(B
-v 0.04 2002/10/09 \Strsep : \long\def $B$H$9$k!#(B
-                  \Settowidth : \\, \par $B$r4^$`CJMn$N2#I}$rF@$k!#(B
+v 0.01 2002/06/27 \Incr などを emath.sty から移す。
+v 0.02 2002/07/24 実数四則計算を eclarith に依存しない形にする。
+v 0.03 2002/09/29 \Strsep : パターンマッチングによる形式
+v 0.04 2002/10/09 \Strsep : \long\def とする。
+                  \Settowidth : \\, \par を含む段落の横幅を得る。
 v 0.05 2002/12/26 \Strchr : \if ---> \ifthenelse
-v 0.06 2003/01/10 \Strchr : $B6uGr$N:.F~$rGS=|(B
+v 0.06 2003/01/10 \Strchr : 空白の混入を排除
 v 0.07 2003/03/17 \EMheight, \EMdepth, \EMwidth, \EMtotalheight
-v 0.08 2003/03/30 \Settowidth : $B2~D{(B
-v 0.09 2003/04/06 \Settowidth : $B2~D{(B
-                  \kansan $BD9$5$NC10L49;;(B,
-                  \ukansan \unitlength $B$X$N49;;(B
-                  \uxkansan \xunitlength $B$X$N49;;(B
-                  \uykansan \yunitlength $B$X$N49;;(B
-v 0.10 2003/07/12 \Setlinewidth : \\$B$K(B[..]$B%*%W%7%g%s$,$D$/>l9g$K$bBP1~(B
-v 0.11 2003/09/11 $B?tCM$rHf3S$9$k(B \EMhikaku
-                  \Ifor, \Cfor emath.sty $B$+$i0\@R(B
-v 0.12 2003/10/29 \Addself $B$J$I(B
-v 0.13 2003/11/01 \ifEMGL : $BL5L>?t$NBg>.Hf3S(B
-v 0.14 2003/11/07 \dtoul : $BC10L$D$-?tCM$r(B \unitlength $B$rC10L$H$9$kL5L>?t$K(B
-v 0.15 2003/11/14 \For : <#1> $B%*%W%7%g%s$G!$%k!<%WJQ?t$r4]$a$k(B
-v 0.16 2003/11/16 $B%m!<%I=g$K$h$C$F(B \For $B$N:FDj5A$,L58z$K$J$k$3$H$X$NBP:v(B
+v 0.08 2003/03/30 \Settowidth : 改訂
+v 0.09 2003/04/06 \Settowidth : 改訂
+                  \kansan 長さの単位換算,
+                  \ukansan \unitlength への換算
+                  \uxkansan \xunitlength への換算
+                  \uykansan \yunitlength への換算
+v 0.10 2003/07/12 \Setlinewidth : \\に[..]オプションがつく場合にも対応
+v 0.11 2003/09/11 数値を比較する \EMhikaku
+                  \Ifor, \Cfor emath.sty から移籍
+v 0.12 2003/10/29 \Addself など
+v 0.13 2003/11/01 \ifEMGL : 無名数の大小比較
+v 0.14 2003/11/07 \dtoul : 単位つき数値を \unitlength を単位とする無名数に
+v 0.15 2003/11/14 \For : <#1> オプションで，ループ変数を丸める
+v 0.16 2003/11/16 ロード順によって \For の再定義が無効になることへの対策
 v 0.17 2004/03/26 \appendU
-v 0.18 2004/07/08 \getAlphnum : \Alph $B$N5U4X?t(B
+v 0.18 2004/07/08 \getAlphnum : \Alph の逆関数
 v 0.19 2004/09/27 \EMsettowidth
-v 0.20 2004/11/09 \Add $B@0?tCM$N$H$-$O!$>.?tE@=|5n(B
-v 0.21 2005/01/15 \repeatchar $B!'(B $BJ8;zNs$N7+$jJV$7(B
-v 0.22 2005/02/20 \Headchar : $B@hF,J8;z$N$_$rJV$9(B
-v 0.23 2005/05/20-28 \Log : $B???t>r7o$N%A%'%C%/(B
-                  \atanperl : perl $B$rMxMQ$7$?(B arctan
-v 0.24 2005/06/19 \Argsep : \Strsep, \protected@edef $B;HMQ(B
-                  \EMedef, \EMedefappend : \protected@edef $B;HMQ(B
-v 0.25 2005/09/03 $BFHN);HMQ$KG[N8(B
+v 0.20 2004/11/09 \Add 整数値のときは，小数点除去
+v 0.21 2005/01/15 \repeatchar ： 文字列の繰り返し
+v 0.22 2005/02/20 \Headchar : 先頭文字のみを返す
+v 0.23 2005/05/20-28 \Log : 真数条件のチェック
+                  \atanperl : perl を利用した arctan
+v 0.24 2005/06/19 \Argsep : \Strsep, \protected@edef 使用
+                  \EMedef, \EMedefappend : \protected@edef 使用
+v 0.25 2005/09/03 独立使用に配慮

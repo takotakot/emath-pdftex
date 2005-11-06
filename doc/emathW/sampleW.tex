@@ -6,33 +6,33 @@
 \begin{document}
 \openKaiFile
 %\kaikaigyousuizyun{0}
-$B$3$N%Q%C%1!<%8$K$O(B
+このパッケージには
 \begin{jquote}
-  $B@5@0?t$N>h=|;;(B\\
-  $B@0?t78?t@0<0$N>h=|;;(B
+  正整数の乗除算\\
+  整数係数整式の乗除算
 \end{jquote}
-$B$rI.;;7A<0$GI=$9$?$a$N%3%^%s%I$,(B4$B<oN`Dj5A$5$l$F$$$^$9!%(B
+を筆算形式で表すためのコマンドが4種類定義されています．
 \begin{verbatim}
-    \kakezan    $B@5@0?t$N$+$1$6$s(B
-    \warizan    $B@5@0?t$N$o$j$6$s(B
-    \izyouhou   $B@0?t78?t@0<0$N>hK!(B
-    \izyohou    $B@0?t78?t@0<0$N=|K!(B
+    \kakezan    正整数のかけざん
+    \warizan    正整数のわりざん
+    \izyouhou   整数係数整式の乗法
+    \izyohou    整数係数整式の除法
 \end{verbatim}
 
-$B$3$NB>(B
+この他
 \begin{verbatim}
-    \soinsuubunkai  $BAG0x?tJ,2r(B
-    \gozyohou       $B8_=|K!(B
+    \soinsuubunkai  素因数分解
+    \gozyohou       互除法
 \end{verbatim}
-$B$,$"$j$^$9!#(B
+があります。
 
-\section{$B4pK\E*;HMQK!(B}
-$B$^$:!$4pK\E*$J;HMQK!$r>R2p$7$^$9!%(B
-\begin{Enumerate}[\bfseries $BNc(B 1.]
-\item $$B@5@0?t(B \times $B@5@0?t(B$
+\section{基本的使用法}
+まず，基本的な使用法を紹介します．
+\begin{Enumerate}[\bfseries 例 1.]
+\item $正整数 \times 正整数$
 \begin{jquote}(1zw)
 \begin{minipage}{12zw}
-\begin{itembox}{$B@0?t$N>hK!(B}
+\begin{itembox}{整数の乗法}
 \verb/\kakezan{17}{12}/
 \end{itembox}
 \end{minipage}
@@ -45,10 +45,10 @@ $\kakezan{17}{12}$
 \end{jquote}
 %\[\verb/\kakezan{17}{12}/\quad\longrightarrow\quad\kakezan{17}{12} \]
 
-\item $$B@5@0?t(B \div $B@5@0?t(B$
+\item $正整数 \div 正整数$
 \begin{jquote}(1zw)
 \begin{minipage}{12zw}
-\begin{itembox}{$B@0?t$N=|K!(B}
+\begin{itembox}{整数の除法}
 \verb/\warizan{1234}{98}/
 \end{itembox}
 \end{minipage}
@@ -62,15 +62,15 @@ $\kakezan{17}{12}$
 %\[\verb/\warizan{1234}{98}/\quad\longrightarrow\quad\warizan{1234}{98}\]
 \clearpage
 
-\item $B@0?t78?t@0<0$N>hK!(B
+\item 整数係数整式の乗法
 
-$B@0<0$NI=$7$+$?$O!$78?t$r9_$Y$-=g$K%3%s%^$G6h@Z$C$FJB$Y$^$9!%(B
-$B78?t$,(B0$B$GHt$s$G$$$k$H$3$m$O!$(B0$B$rL@5-$9$kI,MW$,$"$j$^$9!%(B
-$B!J2<$NNc$G$O!$(B0$B$r>JN,$7$F$$$^$9$,!$(B
-$B$3$N>l9g$O%3%s%^$,J#?tB3$/$3$H$K$J$j$^$9!%!K(B
+整式の表しかたは，係数を降べき順にコンマで区切って並べます．
+係数が0で飛んでいるところは，0を明記する必要があります．
+（下の例では，0を省略していますが，
+この場合はコンマが複数続くことになります．）
 \begin{jquote}
 \begin{minipage}{16zw}
-\begin{itembox}{$B@0<0$N>hK!(B}
+\begin{itembox}{整式の乗法}
 \verb|\izyouhou{1,,-3,4}{9,8}|
 \end{itembox}
 \end{minipage}\vspace{1ex}\par
@@ -81,13 +81,13 @@ $\izyouhou{1,,-3,4}{9,8}$
 \end{shadebox}
 \end{minipage}
 \end{jquote}
-$B@0<0$NJ8;z$O!$%G%U%)%k%H$G$O(B $x$ $B$G$9$,!$$3$l$rJQ99$9$k$3$H$,$G$-$^$9!%(B
-$B$=$NJ}K!$O<!@a$G>R2p$7$^$9!%(B
+整式の文字は，デフォルトでは $x$ ですが，これを変更することができます．
+その方法は次節で紹介します．
 
-\item $B@0?t78?t@0<0$N=|K!(B
+\item 整数係数整式の除法
 \begin{jquote}
 \begin{minipage}{16zw}
-\begin{itembox}{$B@0<0$N=|K!(B}
+\begin{itembox}{整式の除法}
 \verb|\izyohou{9,-8,,6}{1,-2}|
 \end{itembox}
 \end{minipage}\vspace{1ex}\par
@@ -100,21 +100,21 @@ $\izyohou{9,-8,,6}{1,-2}$
 \end{jquote}
 \clearpage
 
-\item $BAG0x?tJ,2r(B
+\item 素因数分解
 
 \begin{showEx}{\cmd{soinsuubunkai}}
 \soinsuubunkai{108}
 \end{showEx}
 
-$B!JCm!K$^$.$i$o$7$$$G$9$,!$(B\textsf{emath.sty} $B$K$O(B
-\cmd{Soinsuubunkai}$B$,$"$j$^$9!#(B
+（注）まぎらわしいですが，\textsf{emath.sty} には
+\cmd{Soinsuubunkai}があります。
 
 \begin{showEx}(.5,.44){\cmd{Soinsuubunkai}}
 \Soinsuubunkai{108}\kotae
 $108=\kotae$
 \end{showEx}
 
-\item $BFs$D$N<+A3?t$N:GBg8xLs?t$r5a$a$k8_=|K!(B
+\item 二つの自然数の最大公約数を求める互除法
 
 \begin{showEx}{\cmd{gozyohou}}
 \gozyohou{108}{60}
@@ -122,15 +122,15 @@ $108=\kotae$
 \end{Enumerate}
 \clearpage
 
-\section{$B@0<0$NJ8;zJQ99(B}
-$B@0<0$NJ8;z$O%G%U%)%k%H$G$O(B $x$ $B$H$J$C$F$$$^$9!%(B
-$B$3$l$rJQ99$9$k$K$O!$(B\texttt{[.]} $B%*%W%7%g%s$rMQ$$$^$9!%(B
+\section{整式の文字変更}
+整式の文字はデフォルトでは $x$ となっています．
+これを変更するには，\texttt{[.]} オプションを用います．
 
 \begin{Enumerate*}
-\item $BJ8;z$r(B $y$ $B$KJQ99(B
+\item 文字を $y$ に変更
 \begin{jquote}
 \begin{minipage}{17zw}
-\begin{itembox}{$BJ8;z$NJQ99(B}
+\begin{itembox}{文字の変更}
 \verb|\izyouhou[y]{1,,-3,4}{9,8}|
 \end{itembox}
 \end{minipage}\vspace{1ex}\par
@@ -142,10 +142,10 @@ $\izyouhou[y]{1,,-3,4}{9,8}$
 \end{minipage}
 \end{jquote}
 
-\item $B=|K!$G$bF1MM(B
+\item 除法でも同様
 \begin{jquote}
 \begin{minipage}{17zw}
-\begin{itembox}{\texttt{[a]} $B%*%W%7%g%s(B}
+\begin{itembox}{\texttt{[a]} オプション}
 \verb|\izyohou[a]{1,,,,-1}{1,-1}|
 \end{itembox}
 \end{minipage}\vspace{1ex}\par
@@ -159,37 +159,37 @@ $\izyohou[a]{1,,,,-1}{1,-1}$
 \end{Enumerate*}
 \clearpage
 
-\section{$BLdBjItJ,$N$_I=<((B}
-$BLdBjItJ,$N$_$rI=<($5$;$k$K$O!$(B\verb+<M>+$B%*%W%7%g%s$rIU2C$7$^$9!#(B
+\section{問題部分のみ表示}
+問題部分のみを表示させるには，\verb+<M>+オプションを付加します。
 
-\begin{Enumerate}[\bfseries $BNc(B 1.]
-\item $$B@5@0?t(B \times $B@5@0?t(B$
+\begin{Enumerate}[\bfseries 例 1.]
+\item $正整数 \times 正整数$
 
 \begin{showEx}{\cmd{kakezan}}
 $\kakezan<M>{17}{12}$
 \end{showEx}
 
-\item $$B@5@0?t(B \div $B@5@0?t(B$
+\item $正整数 \div 正整数$
 
 \begin{showEx}{\cmd{warizan}}
 $\warizan<M>{17}{12}$
 \end{showEx}
 \end{Enumerate}
 
-\section{\texttt{emathA.sty} $B$H$NJ;MQ(B}
-$B2rEz$r4,Kv$K$^$H$a$k$?$a$N%9%?%$%k%U%!%$%k(B \texttt{emathA.sty}
-$B$r;HMQ$9$k$H$-!$(B
+\section{\texttt{emathA.sty} との併用}
+解答を巻末にまとめるためのスタイルファイル \texttt{emathA.sty}
+を使用するとき，
 \begin{verbatim}
   \item $123 \times 45$
     \kaitou{$\kakezan{123}{45}}
 \end{verbatim}
-$B$H=q$/$N$OFsEY<j4V$G$9$M!%(B\verb/\kakezan/ $BEy$K(B \texttt{<A>} $B%*%W%7%g%s$r(B
-$B$D$1$F$3$NL5BL$rGS$9$k$3$H$,$G$-$^$9!%(B
+と書くのは二度手間ですね．\verb/\kakezan/ 等に \texttt{<A>} オプションを
+つけてこの無駄を排することができます．
 
-\begin{itembox}{\texttt{<A>} $B%*%W%7%g%s(B}
+\begin{itembox}{\texttt{<A>} オプション}
 \begin{verbatim}
 \openKaiFile
-$B<!$N7W;;$r$;$h!%(B
+次の計算をせよ．
 \begin{enumerate}[(1)]
   \item $\kakezan<A>{12}{13}$
   \item $\warizan<A>{987}{12}$
@@ -198,19 +198,19 @@ $\warizan<M>{17}{12}$
 \end{enumerate}
 \closeKaiFile
 \clearpage
-\centerline{$B!Z2rEz![(B}
+\centerline{【解答】}
 \inputKaiFile
 \end{verbatim}
 \end{itembox}
-$B$H5-=R$9$k$3$H$G!$(B
+と記述することで，
 \begin{jquote}
-  $BLdBjItJ,$O<!%Z!<%8$N$h$&$KDL>o$NI=8=$GLdBj$,5-=R$5$l!$(B\\
-  $B2rEzItJ,$O<!!9%Z!<%8$N$h$&$KI.;;7A<0$G2rEz$,5-=R$5$l$^$9!%(B
+  問題部分は次ページのように通常の表現で問題が記述され，\\
+  解答部分は次々ページのように筆算形式で解答が記述されます．
 \end{jquote}
 \clearpage
 
-\begin{itemshadebox}{$BLdBjItJ,(B}
-$B<!$N7W;;$r$;$h!%(B
+\begin{itemshadebox}{問題部分}
+次の計算をせよ．
 \begin{enumerate}[(1)]
   \item $\kakezan<A>{12}{13}$
   \item $\warizan<A>{987}{12}$
@@ -220,8 +220,8 @@ $\warizan<M>{17}{12}$
 \end{itemshadebox}
 \closeKaiFile
 \clearpage
-\begin{itemshadebox}{$B2rEzItJ,(B}
-\centerline{$B!Z2rEz![(B}
+\begin{itemshadebox}{解答部分}
+\centerline{【解答】}
 \inputKaiFile
 \end{itemshadebox}
 \end{document}

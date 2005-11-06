@@ -164,7 +164,7 @@
   \xunitlength\@xscale\unitlength
   \yunitlength\@yscale\unitlength
 %
-%   emathPs.sty $B$N(B \borderwidth $B$X$NBP1~(B
+%   emathPs.sty の \borderwidth への対応
 \edef\truexmin{\xmin}%
 \edef\trueymin{\ymin}%
 \edef\truexmax{\xmax}%
@@ -178,7 +178,7 @@
 \fi
  }%
 %
-% picture $B4D6-$N@_Dj(B
+% picture 環境の設定
   \xdef\zM@xo{0}%
   \xdef\zM@yo{0}%
   \xdef\zM@dx{1}%
@@ -252,7 +252,7 @@
   \@ignoretrue
 }
 %
-% dashbox $B$N=$@5(B
+% dashbox の修正
 %
 \gdef\dashbox#1(#2,#3){\leavevmode\hb@xt@\z@{\baselineskip \z@skip
 \lineskip \z@skip
@@ -301,19 +301,19 @@
 \do{\vskip #1\unitlength\copy\@dashbox\advance\@tempcnta \@ne }%
 \vskip\@dashdim}}}\@makepicbox(#2,#3)}
 %
-% $B:BI8<4$KL\@9$rBG$D!%(B
+% 座標軸に目盛を打つ．
 % \zahyouMemori[#1][#2]<#3>
-%   #1 : g : $B%0%j%C%I(B
-%        + : $B3J;RE@$K(B +$B%^!<%/(B
-%        o : $B3J;RE@$K9u4](B
-%        z : $B:BI8<4>e$N3J;RE@$K(B +$B%^!<%/!J%G%U%)%k%H!K(B
-%        n : $B$J$7(B
-%   #2 : n : $BL\@9$j?tCM$J$7(B
-%   #3 : $B9o$_(B
-%         dx= x$B$N9o$_CM(B
-%         dy= y$B$N9o$_CM(B
-%         xo= x$B$N4p=`CM(B
-%         yo= y$B$N4p=`CM(B
+%   #1 : g : グリッド
+%        + : 格子点に +マーク
+%        o : 格子点に黒丸
+%        z : 座標軸上の格子点に +マーク（デフォルト）
+%        n : なし
+%   #2 : n : 目盛り数値なし
+%   #3 : 刻み
+%         dx= xの刻み値
+%         dy= yの刻み値
+%         xo= xの基準値
+%         yo= yの基準値
 %         sensyu=...
 %         allinethickness=...
 %
@@ -466,15 +466,15 @@
   \ifnum\EMps@mode=\@ne\grestore\fi
 }}
 
-% $B:BI8<4>eG$0U0LCV$KL\@9(B
+% 座標軸上任意位置に目盛
 % \xMemori[#1]<#2>(#3)#4
 % \yMemori[#1]<#2>(#3)#4
-%   #1 : t = $B:BI8<4$N2<$KL\@9!J%G%U%)%k%H!K(B
-%        b =         $B>e(B
-%   #2 : $BL\@9$NJ8;z(B
-%        $B!J>JN,$9$l$P!$(B#4 $B$K;XDj$7$?$b$N$,BeMQ$5$l$^$9!%!K(B
-%   #3 : $BC10L$ND9$5!J%G%U%)%k%HCM(B=\zahyouMemori$B$G;XDj$7$?(Bdx$B!K(B
-%   #4 : $BC10L$ND9$5$N(B#4$BG\$N0LCV$KL\@9$rBG$D(B
+%   #1 : t = 座標軸の下に目盛（デフォルト）
+%        b =         上
+%   #2 : 目盛の文字
+%        （省略すれば，#4 に指定したものが代用されます．）
+%   #3 : 単位の長さ（デフォルト値=\zahyouMemoriで指定したdx）
+%   #4 : 単位の長さの#4倍の位置に目盛を打つ
 
 \def\xMemori{\@ifnextchar[{\x@Memori}{\x@Memori[t]}}%
 \def\x@Memori[#1]{\@ifnextchar<{\x@@Memori[#1]}{\x@@Memori[#1]<\empty>}}%
@@ -604,7 +604,7 @@
   \end{picture}}%
 }}
 %
-% hen_ko $B$N%5%V%k!<%F%#%s(B
+% hen_ko のサブルーティン
 %
 \def\@@@@hen_ko[#1]<#2>(#3,#4)(#5,#6)[#7]<#8>#9{%
   \ifnum\EMps@mode=\@ne\gsave\fi
@@ -626,7 +626,7 @@
       \Mul\u@pt\henko@@x\henko@@x\Mul\u@pt\henko@@y\henko@@y%
     \Mul\@syukusyo\henko@@x\henko@@x\Add\henko@x\henko@@x\henko@xx%
     \Mul\@syukusyo\henko@@y\henko@@y\Add\henko@y\henko@@y\henko@yy%
-% ---- $B=$@5It(B ---------------- $B"-(B
+% ---- 修正部 ---------------- ↓
     \Sub{#5}{#3}\henko@endx\Mul\@xscale\henko@endx\henko@endx
       \Add{#3}\henko@endx\henko@endx
     \Sub{#6}{#4}\henko@endy\Mul\@yscale\henko@endy\henko@endy
@@ -635,7 +635,7 @@
       \Add{#3}\henko@midx\henko@midx
     \Sub{\henko@yy}{#4}\henko@midy\Mul\@yscale\henko@midy\henko@midy
       \Add{#4}\henko@midy\henko@midy
-% ----------------------------- $B",(B
+% ----------------------------- ↑
     \ifx\empty #1%
         \qbezier(#3,#4)(\henko@midx,\henko@midy)(\henko@endx,\henko@endy)%
     \else\ifx 0#1\else
@@ -749,69 +749,69 @@
 \endinput
 % v 0.00 2001/11/03
 % v 0.01 2001/11/08-22
-%     picture $B4D6-$K$b(B yscale=.. $B$rM-8z$H$9$k!#(B
-%     emathPh $B$K$*$1$k(B zahyou $B4D6-$N=$@5(B(v 0.93)$B$KBP1~(B
+%     picture 環境にも yscale=.. を有効とする。
+%     emathPh における zahyou 環境の修正(v 0.93)に対応
 % v 0.02 2001/12/29
-%     \put $B$N:FDj5A$K(B \edef\local@origin{(#1,#2)} $B$rDI2C(B
+%     \put の再定義に \edef\local@origin{(#1,#2)} を追加
 % v 0.03 2002/02/24
-%     $BM>GrIU$N(Bzahyou$B4D6-$K$*$1$k(B
+%     余白付のzahyou環境における
 %         \xmaxY, \xminY, \ymaxY, \yminY
 % v 0.04 2002/09/06
-%         \xMemori $B%i%Y%kDj5A$r(B \edef ---> \def
+%         \xMemori ラベル定義を \edef ---> \def
 % v 0.05 2002/09/27
-%     $B:BI8L\@9$j@~$NB@$5$rJQ99$9$k(B allinethickness=...
-%     \@yaziri : $B=$@5(B
+%     座標目盛り線の太さを変更する allinethickness=...
+%     \@yaziri : 修正
 % v 0.06 2002/11/03
-%     emathAe.sty $B$N(B maskAns... $B%*%W%7%g%s$H$ND4@0(B
+%     emathAe.sty の maskAns... オプションとの調整
 % v 0.07 2002/12/15
-%     zahyou$B4D6-$K$*$1$k:BI8<4IA2h$r(B\end{zahyou}$B$G9T$&!#(B
+%     zahyou環境における座標軸描画を\end{zahyou}で行う。
 % v 0.08 2002/12/19
-%     $BLp0u$rD4@0(B
+%     矢印を調整
 % v 0.09 2003/01/14
-%     picture$B4D6-$G$b86E@(B\O$B$rDj5A(B
+%     picture環境でも原点\Oを定義
 % v 0.10 2003/01/30
-%     \put \local@origin $B$ND4@0(B
+%     \put \local@origin の調整
 % v 0.11 2003/02/09
-%     emathPs.sty $B$N(B \borderwidth $B$KBP1~(B
+%     emathPs.sty の \borderwidth に対応
 % v 0.12 2003/02/12
-%     \borderwidth>0pt $B$N>l9g$N$_=$@5$H$9$k!#(B
+%     \borderwidth>0pt の場合のみ修正とする。
 % v 0.13 2003/03/09
-%     zahyou$B4D6-(B haiti=t12pt $B$J$I$HJd@5NL$r;XDj2DG=$H$9$k!#(B
-%     \zahyouMemori : $BL\@9$j$,@0?tCM$G$J$$$H$-$N4]$a=hM}(B
-%                     $B!J(B fp-snap.sty $B$rMQ$$$k!K(B
+%     zahyou環境 haiti=t12pt などと補正量を指定可能とする。
+%     \zahyouMemori : 目盛りが整数値でないときの丸め処理
+%                     （ fp-snap.sty を用いる）
 % v 0.14 2003/03/16
-%     zahyou$B4D6-$N=D0LCVJd@5$r(B b/c $B%*%W%7%g%s$G$bM-8z$H$9$k!#(B
+%     zahyou環境の縦位置補正を b/c オプションでも有効とする。
 % v 0.15 2003/03/25
-%     Ueyohaku $BEy$K%P%0(B
+%     Ueyohaku 等にバグ
 % v 0.16 2003/05/28
-%     \zahyouMemori $BL\@9$j0LCV$r;XDj$9$k%*%W%7%g%s(B
-%           <xmemoriiti=..,ymemoriiti=..> $B$r?7@_(B
+%     \zahyouMemori 目盛り位置を指定するオプション
+%           <xmemoriiti=..,ymemoriiti=..> を新設
 % v 0.17 2003/06/18
-%     \O@@ : $B86E@(B
+%     \O@@ : 原点
 % v 0.18 2003/06/29
-%     \Absvec : $BJ]N1!J(BemathPh $B$N$^$^$H$9$k!K(B
-%     \@@wPut : \@xscale, \@yscale $B$r(B 1$B$KLa$9(B
-%     \zituKyori, \zituAbsvec : xscale, yscale $B$r9MN8$7$?5wN%(B
-%     \Hen_ko $B$N%5%V%k!<%F%#%s(B \@@@@hen_ko $B$r(B emathPxy $BBP1~$H$9$k!#(B
+%     \Absvec : 保留（emathPh のままとする）
+%     \@@wPut : \@xscale, \@yscale を 1に戻す
+%     \zituKyori, \zituAbsvec : xscale, yscale を考慮した距離
+%     \Hen_ko のサブルーティン \@@@@hen_ko を emathPxy 対応とする。
 % v 0.19 2003/07/11
-%     \dashbox $B$N=$@5(B
+%     \dashbox の修正
 % v 0.20 2003/07/27
-%     \Hen_ko<#2> $B$K(B <linewidth=,dash=,henkohi=> $B%*%W%7%g%s(B
+%     \Hen_ko<#2> に <linewidth=,dash=,henkohi=> オプション
 % v 0.21 2003/07/31
-%     \multiput $B=$@5(B
+%     \multiput 修正
 % v 0.22 2003/08/08
-%     Zahyou$B4D6-$G!$(BMigiyohaku=..$B$J$I$,M-8z$H$J$k$?$a$N=$@5(B
+%     Zahyou環境で，Migiyohaku=..などが有効となるための修正
 % v 0.23 2003/11/04
-%     zahyou$B4D6-(B : tatezikukigou= $B$N1&JUCM$K!$(B
-%         $B%U%)%s%HJQ99%3%^%s%I$J$I$r5-=R2DG=(B
+%     zahyou環境 : tatezikukigou= の右辺値に，
+%         フォント変更コマンドなどを記述可能
 % v 0.24 2003/11/17
-%     pszahyou $B4D6-$G?7@_$7$?(B \truexmax $B$J$I$KBP1~(B
+%     pszahyou 環境で新設した \truexmax などに対応
 % v 0.25 2003/11/29
-%     \xMemori : [#1] $B%*%W%7%g%s$N07$$$KIT==J,$JE@$,$"$C$?$N$r=$@5(B
+%     \xMemori : [#1] オプションの扱いに不十分な点があったのを修正
 % v 0.26 2004/01/07
-%     \Absvec ---> \PhAbsvec $B$H$7$F(B
-%     \Absvec $B$r(B xscale, yscale $B$r9MN8$7$?$b$N$H$9$k!#(B
-% v 0.28  \def@memori@nagasa $BF3F~(B
-% v 0.29  zahyou$B4D6-$K4X$9$k(B [haiti=..] $B%*%W%7%g%s$N=$@5(B
-% v 0.30 \trueLT $B$J$I(B
-% v 0.31 2005/06/27 \endzahyou : $B6uGr$N:.F~2sHr(B
+%     \Absvec ---> \PhAbsvec として
+%     \Absvec を xscale, yscale を考慮したものとする。
+% v 0.28  \def@memori@nagasa 導入
+% v 0.29  zahyou環境に関する [haiti=..] オプションの修正
+% v 0.30 \trueLT など
+% v 0.31 2005/06/27 \endzahyou : 空白の混入回避

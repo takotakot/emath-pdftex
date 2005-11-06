@@ -1,169 +1,169 @@
-\section{$B1_!&BJ1_(B}
-\subsection{$B1_(B}
-\subsubsection{$B1_(B}
-\paragraph{$BCf?4$HH>7B$r;XDj(B}
-$B1_$rIA2h$9$k$K$O!$(B\LaTeX $B$G(B \cmd{circle} $B$,$"$j$^$9$,!$(B
-$BD>7B$r;XDj$9$k$3$H$K$J$C$F$$$^$9!%H>7B$NJ}$,;H$$$d$9$$$N$G!$(B
-\cmd{En} $B$rMQ0U$7$^$7$?!%<!$N$h$&$K;H$$$^$9!%(B\cindex{En}
+\section{円・楕円}
+\subsection{円}
+\subsubsection{円}
+\paragraph{中心と半径を指定}
+円を描画するには，\LaTeX で \cmd{circle} がありますが，
+直径を指定することになっています．半径の方が使いやすいので，
+\cmd{En} を用意しました．次のように使います．\cindex{En}
 
 \showexample[\cmd{En}](0.55)(0.35){example/en01}
 \bigskip
 
-$B$9$J$o$A!$(B\cmd{En} $B$O!$Cf?4$HH>7B$N(B2$B$D$N0z?t$r$H$j$^$9!%(B
+すなわち，\cmd{En} は，中心と半径の2つの引数をとります．
 
-\paragraph{$BH>7B$N4V@\;XDj(B}
-$BH>7B$r;XDj$9$kBe$o$j$K!$1_<~>e$N(B1$BE@$r;XDj$7$FIA2h$9$kJ}K!$b$"$j$^$9!#(B
+\paragraph{半径の間接指定}
+半径を指定する代わりに，円周上の1点を指定して描画する方法もあります。
 
-\showexample[$B1_<~>e$N(B1$BE@$r;XDj(B](0.55)(0.35){example/en22}
+\showexample[円周上の1点を指定](0.55)(0.35){example/en22}
 \bigskip
 
-\paragraph{$BD>7B$r;XDj(B}
-2$BE@$r;XDj$7$F!$$=$l$r7k$V@~J,$rD>7B$H$9$k1_$rIA2h$9$k%3%^%s%I(B\cmd{EnT}
-$B$b$"$j$^$9!#(B
+\paragraph{直径を指定}
+2点を指定して，それを結ぶ線分を直径とする円を描画するコマンド\cmd{EnT}
+もあります。
 
-\showexample[$BD>7B$r;XDj(B](0.55)(0.35){example/en23}
+\showexample[直径を指定](0.55)(0.35){example/en23}
 \bigskip
 
-\subsubsection{$B1_$NGK@~IA2h(B}
-$B1_$rGK@~$GIA2h$9$k$K$O!$(B
+\subsubsection{円の破線描画}
+円を破線で描画するには，
 
-\showexample[$B1_<~$rGK@~$G(B](0.55)(0.35){example/en15}
+\showexample[円周を破線で](0.55)(0.35){example/en15}
 
-$B$H(B\verb/<hasen=[$BGK@~$ND9$5(B][$BGK@~$N4V3V(B]>/$B%*%W%7%g%s$rM?$($^$9!#(B
+と\verb/<hasen=[破線の長さ][破線の間隔]>/オプションを与えます。
 
 \begin{boxnote}
 \begin{verbatim}
 \En<#1>#2#3
-  <#1>: hasen=xx $B$G1_8L$rGK@~$GIA2h$9$k$H$-$N(B
-                  [$BGK@~$ND9$5(B][$BGK@~$N4V3V(B]
-   #2 : $BCf?4$N:BI8(B
-   #3 : $BH>7B(B
+  <#1>: hasen=xx で円弧を破線で描画するときの
+                  [破線の長さ][破線の間隔]
+   #2 : 中心の座標
+   #3 : 半径
 \end{verbatim}
 \end{boxnote}
 
 
-\subsubsection{$B1_8L(B}
-$B1_8L$rIA2h$9$k$?$a$K!$(B\cmd{Enko} $B$rMQ0U$7$^$7$?!%(B\cindex{Enko}
+\subsubsection{円弧}
+円弧を描画するために，\cmd{Enko} を用意しました．\cindex{Enko}
 
 \showexample[\cmd{Enko}](0.55)(0.4){example/en04}
 
-$B$9$J$o$A!$(B\cmd{Enko} $B$O!$(B
+すなわち，\cmd{Enko} は，
 \begin{jquote}
 \begin{verbatim}
-\Enko{$BCf?4(B}{$BH>7B(B}{$B3+;O3Q(B}{$B=*N;3Q(B}
+\Enko{中心}{半径}{開始角}{終了角}
 \end{verbatim}
 \end{jquote}
-$BCf?4!$H>7B!$3+;O3Q!$=*N;3Q$H(B4$B$D$N0z?t$r<h$j$^$9!%(B
+中心，半径，開始角，終了角と4つの引数を取ります．
 \bigskip
 
-$B1_8L$rGK@~$GIA2h$9$k$K$O!$(B\verb/<#1>/ $B$K(B
+円弧を破線で描画するには，\verb/<#1>/ に
 \begin{verbatim}
-   <hasen=[$BGK@~$ND9$5(B][$BGK@~$N4V3V(B]>
+   <hasen=[破線の長さ][破線の間隔]>
 \end{verbatim}
-$B%*%W%7%g%s$rM?$($^$9!#(B
+オプションを与えます。
 
-\showexample[$B1_8L$rGK@~$G(B](0.55)(0.4){example/en16}
+\showexample[円弧を破線で](0.55)(0.4){example/en16}
 
-$BE@@~$GIA2h$9$k$K$O!$(B\verb/<#1>/$B$K(B
+点線で描画するには，\verb/<#1>/に
 \begin{verbatim}
-   <ten=$B<~>e$KCV$/E@$N8D?t(B>
+   <ten=周上に置く点の個数>
 \end{verbatim}
-$B%*%W%7%g%s$rM?$($^$9!#(B
+オプションを与えます。
 
-\showexample[$B1_8L$rE@@~$G(B](0.55)(0.4){example/en21}
+\showexample[円弧を点線で](0.55)(0.4){example/en21}
 
-\cmd{Enko}$B$N=q<0$G$9!#(B
+\cmd{Enko}の書式です。
 
 \begin{boxnote}
 \begin{verbatim}
-% $B1_8L(B
+% 円弧
 \Enko<#1>#2#3#4#5
-  #1 : $B%*%W%7%g%s(B
-         hasen=xx $B$G1_8L$rGK@~$GIA2h$9$k$H$-$N(B
-                  [$BGK@~$ND9$5(B][$BGK@~$N4V3V(B]
-                $B%*%W%7%g%s$rM?$($k!#(B
-         ten=xx $B1_<~$rE@@~$GIA2h$9$k$H$-$N<~>e$NE@$N8D?t(B
-         yazirusi=a : $B@5J}8~$KLp0u$r$D$1$k(B
-                 =r : $BIiJ}8~$KLp0u$r$D$1$k(B
-                 =b : $BN>J}8~$KLp0u$r$D$1$k(B
-                 =n : $BLp0u$r$D$1$J$$(B
-  #2 : $BCf?4(B
-  #3 : $BH>7B$rD>@\M?$($k$+(B
-         tuukaten=xx $B$H$7$F!$1_8L$N<~>e$N0lE@$rM?$($k(B
-  #4 : $B;O$a3Q$rD>@\M?$($k$+(B
-        hazimeten=xx $B$H$7$F!$Cf?4$r;OE@!$(Bxx $B$r=*E@$H$9$k%Y%/%H%k$N(B
-         $BJ}8~3Q$r(B $B;O$a3Q$H$9$k$h$&$K;XDj$9$k!#(B
-  #5 : $B=*$j3Q$rD>@\M?$($k$+(B
-         owariten=xx $B$H$7$F!$Cf?4$r;OE@!$(Bxx $B$r=*E@$H$9$k%Y%/%H%k$N(B
-         $BJ}8~3Q$r(B $B=*$j3Q$H$9$k$h$&$K;XDj$9$k!#(B
+  #1 : オプション
+         hasen=xx で円弧を破線で描画するときの
+                  [破線の長さ][破線の間隔]
+                オプションを与える。
+         ten=xx 円周を点線で描画するときの周上の点の個数
+         yazirusi=a : 正方向に矢印をつける
+                 =r : 負方向に矢印をつける
+                 =b : 両方向に矢印をつける
+                 =n : 矢印をつけない
+  #2 : 中心
+  #3 : 半径を直接与えるか
+         tuukaten=xx として，円弧の周上の一点を与える
+  #4 : 始め角を直接与えるか
+        hazimeten=xx として，中心を始点，xx を終点とするベクトルの
+         方向角を 始め角とするように指定する。
+  #5 : 終り角を直接与えるか
+         owariten=xx として，中心を始点，xx を終点とするベクトルの
+         方向角を 終り角とするように指定する。
 \end{verbatim}
 \end{boxnote}
 
-$B;O$a3Q!$=*$j3Q$rO;==J,K!$N3QEY$GM?$($kBe$o$j$K!$(B
-$BE@$r;XDj$7$F!$Cf?4$+$i;XDj$7$?E@$K8~$+$&%Y%/%H%k$N(B
-$BJ}8~3Q$GM?$($k%*%W%7%g%s$NMxMQNc$G$9!#(B
+始め角，終り角を六十分法の角度で与える代わりに，
+点を指定して，中心から指定した点に向かうベクトルの
+方向角で与えるオプションの利用例です。
 
-\showexample[$BN>C<$N4V@\E*;XDj(B](0.55)(0.4){example/en17}
+\showexample[両端の間接的指定](0.55)(0.4){example/en17}
 
-$BH>7B$b1_<~>e$N0lE@$r;XDj$9$k$3$H$K$h$j!$4V@\E*$KM?$($k$3$H$b$G$-$^$9!#(B
+半径も円周上の一点を指定することにより，間接的に与えることもできます。
 
-\showexample[$BH>7B$N4V@\E*;XDj(B](0.55)(0.4){example/en18}
+\showexample[半径の間接的指定](0.55)(0.4){example/en18}
 
-\subsubsection{$BLp0uIU$-$N1_8L(B(1) $BJP3Q;XDj(B}
-$B1_8L$KLp0u$r$D$1$k$K$O!$(B\cmd{Enko}$B$K(B\verb+<yazirusi=a>+$B%*%W%7%g%s$r(B
-$B$D$1$^$9!#(B
+\subsubsection{矢印付きの円弧(1) 偏角指定}
+円弧に矢印をつけるには，\cmd{Enko}に\verb+<yazirusi=a>+オプションを
+つけます。
 
 \showexample[\texttt{<yazirusi=a>}](0.55)(0.4){example/en10}
 
-$BLp0u$r5U8~$-$K$7$?$$$H$-$O!$%*%W%7%g%s$N1&JUCM$r(B`r'$B$H$7$^$9!#(B
+矢印を逆向きにしたいときは，オプションの右辺値を`r'とします。
 
 \showexample[\texttt{<yazirusi=r>}](0.55)(0.4){example/en11}
 
-$B$^$?!$%*%W%7%g%s$N1&JUCM$r(B`b'$B$H$9$l$P!$N>8~$-$NLp0u$,$D$-$^$9!#(B
+また，オプションの右辺値を`b'とすれば，両向きの矢印がつきます。
 
 \showexample[\texttt{<yazirusi=b>}](0.55)(0.4){example/en19}
 
-$B$5$i$K$O!$(B\verb+<hasen=..>+$B%*%W%7%g%s$HJ;MQ$b2DG=$G$9!#(B
+さらには，\verb+<hasen=..>+オプションと併用も可能です。
 
 \showexample[\texttt{<yazirusi=b>}](0.55)(0.4){example/en20}
 
-\subsubsection{$BLp0uIU$-$N1_8L(B(2) $BC<E@;XDj(B}
-$BLp0uIU$-$N1_8L$r!$H>7B$HC<E@$r;XDj$7$FIA2h$9$k$N$,(B
-\cmd{ArrowArc} $B%3%^%s%I$G$9!%(B\cindex{ArrowArc}
+\subsubsection{矢印付きの円弧(2) 端点指定}
+矢印付きの円弧を，半径と端点を指定して描画するのが
+\cmd{ArrowArc} コマンドです．\cindex{ArrowArc}
 
 \showexample[\cmd{ArrowArc}](0.55)(0.4){example/en12}
 
-%\verb+[r]+ $B%*%W%7%g%s$r$D$1$k$H!$(B
-%$B2sE>$,Ii$NJ}8~$H$J$k$h$&$KIA2h$5$l$^$9!%(B
+%\verb+[r]+ オプションをつけると，
+%回転が負の方向となるように描画されます．
 
-$BH>7B$KIi$NCM$rM?$($k$H!$(B
-$B2sE>$,Ii$NJ}8~$H$J$k$h$&$KIA2h$5$l$^$9!%(B
+半径に負の値を与えると，
+回転が負の方向となるように描画されます．
 
-\showexample[$B2sE>$N8~$-(B](0.55)(0.4){example/en13}
+\showexample[回転の向き](0.55)(0.4){example/en13}
 
 
 \begin{boxnote}
 \begin{verbatim}
 \ArrowArc[#1]#2#3#4
       #1 : 
-      #2 : $BH>7B!JIi$N$H$-$O2sE>$,Ii$H$J$k!K(B
-      #3 : $B;OE@(B
-      #4 : $B=*E@(B
+      #2 : 半径（負のときは回転が負となる）
+      #3 : 始点
+      #4 : 終点
 \end{verbatim}
 \end{boxnote}
 
-$B$3$N%3%^%s%I$rB$$C$?M}M3$N0l$D$O!$(B
-$B?^$,9~$_F~$C$FMh$?$j$7$F!$J8;zNs$r3:Ev8D=j$KCV$1$J$$$H$-!$(B
-$B$f$C$?$j$7$?$H$3$m$KJ8;zNs$rCV$-!$$=$3$+$iLp@~$r0z$3$&!$(B
-$B$H$$$&$M$i$$$,$"$j$^$9!%>/$76J$2$?J}$,8+$d$9$$$N$G$O$J$$$+!$(B
-$B$H;W$$$^$9!%(B
+このコマンドを造った理由の一つは，
+図が込み入って来たりして，文字列を該当個所に置けないとき，
+ゆったりしたところに文字列を置き，そこから矢線を引こう，
+というねらいがあります．少し曲げた方が見やすいのではないか，
+と思います．
 
-\showexample[\cmd{ArrowArc}$B$N0l1~MQ(B](0.55)(0.4){example/en14}
+\showexample[\cmd{ArrowArc}の一応用](0.55)(0.4){example/en14}
 
-\subsubsection{$BEy8L5-9f(B}
-$BFs$D$N1_8L$ND9$5$,Ey$7$$$3$H$rI=$9$N$K!$(B
-$B1_8L$NCf1{ItJ,$KC;$$=D@~$rF~$l$k%3%^%s%I$,(B
-\cmd{Toukokigou}$B$G$9!#(B
+\subsubsection{等弧記号}
+二つの円弧の長さが等しいことを表すのに，
+円弧の中央部分に短い縦線を入れるコマンドが
+\cmd{Toukokigou}です。
 
 \begin{showEx}(.6,.345){\cmd{Toukokigou}}
 \begin{zahyou}[ul=15mm](-0.2,2.5)(-1.2,1.5)
@@ -179,81 +179,81 @@ C(1,90)nw;D(1,150)nw}
 \end{zahyou}
 \end{showEx}
 
-$B=q<0$O(B
+書式は
 \begin{boxnote}
 \begin{verbatim}
 \Toukokigou<#1>#2#3#4
-  #1 : $BCf1{$KG[CV$9$kC;$$=DK@$N8D?t!J%G%U%)%k%HCM(B=1$B!K(B
-  #2 : $B1_8L$NCf?4(B
-  #3 : $B8L$NC<E@(B1
-  #4 : $B8L$NC<E@(B2
+  #1 : 中央に配置する短い縦棒の個数（デフォルト値=1）
+  #2 : 円弧の中心
+  #3 : 弧の端点1
+  #4 : 弧の端点2
 \end{verbatim}
 \end{boxnote}
 \cindex{Toukokigou}
 
-\subsubsection{$B@p7A(B}
-$B@p7A$rIA2h$9$k$?$a$K!$(B\cmd{ougigata} $B$rMQ0U$7$^$7$?!%(B\cindex{ougigata}
+\subsubsection{扇形}
+扇形を描画するために，\cmd{ougigata} を用意しました．\cindex{ougigata}
 
 \showexample[\cmd{ougigata}](0.55)(0.4){example/en02}
 
-$B$9$J$o$A!$(B\cmd{ougigata} $B$O!$H>7B!$3+;O3Q!$=*N;3Q$H#3$D$N0z?t$r<h$j$^$9!%(B
+すなわち，\cmd{ougigata} は，半径，開始角，終了角と３つの引数を取ります．
 
 \begin{boxnote}
 \begin{verbatim}
 \ougigata#1#2#3
-  #1 : $BH>7B$rD>@\M?$($k$+(B
-       tuukaten=xx $B$H$7$F!$1_8L$N<~>e$N0lE@$rM?$($k(B
-  #2 : $B;O$a3Q$rD>@\M?$($k$+(B
-       hazimeten=xx $B$H$7$F!$Cf?4$r;OE@!$(Bxx $B$r=*E@$H$9$k%Y%/%H%k$N(B
-       $BJ}8~3Q$r(B $B;O$a3Q$H$9$k$h$&$K;XDj$9$k!#(B
-  #3 : $B=*$j3Q$rD>@\M?$($k$+(B
-       owariten=xx $B$H$7$F!$Cf?4$r;OE@!$(Bxx $B$r=*E@$H$9$k%Y%/%H%k$N(B
-       $BJ}8~3Q$r(B $B=*$j3Q$H$9$k$h$&$K;XDj$9$k!#(B
- $B!JCf?4$O(B \put (\emathPut) $B$G;XDj$9$k!%!K(B
+  #1 : 半径を直接与えるか
+       tuukaten=xx として，円弧の周上の一点を与える
+  #2 : 始め角を直接与えるか
+       hazimeten=xx として，中心を始点，xx を終点とするベクトルの
+       方向角を 始め角とするように指定する。
+  #3 : 終り角を直接与えるか
+       owariten=xx として，中心を始点，xx を終点とするベクトルの
+       方向角を 終り角とするように指定する。
+ （中心は \put (\emathPut) で指定する．）
 \end{verbatim}
 \end{boxnote}
 
-\subsubsection{$B5]7A(B}
-$B5]7A$rIA2h$9$k$?$a$K!$(B\cmd{yumigata} $B$rMQ0U$7$^$7$?!%(B\cindex{yumigata}
+\subsubsection{弓形}
+弓形を描画するために，\cmd{yumigata} を用意しました．\cindex{yumigata}
 
 \showexample[\cmd{yumigata}](0.55)(0.4){example/en03}
 
-$B$9$J$o$A!$(B\cmd{yumigata} $B$O!$H>7B!$3+;O3Q!$=*N;3Q$H#3$D$N0z?t$r<h$j$^$9!%(B
+すなわち，\cmd{yumigata} は，半径，開始角，終了角と３つの引数を取ります．
 
 \begin{boxnote}
 \begin{verbatim}
 \yumigata#1#2#3
-  #1 : $BH>7B$rD>@\M?$($k$+(B
-       tuukaten=xx $B$H$7$F!$1_8L$N<~>e$N0lE@$rM?$($k(B
-  #2 : $B;O$a3Q$rD>@\M?$($k$+(B
-       hazimeten=xx $B$H$7$F!$Cf?4$r;OE@!$(Bxx $B$r=*E@$H$9$k%Y%/%H%k$N(B
-       $BJ}8~3Q$r(B $B;O$a3Q$H$9$k$h$&$K;XDj$9$k!#(B
-  #3 : $B=*$j3Q$rD>@\M?$($k$+(B
-       owariten=xx $B$H$7$F!$Cf?4$r;OE@!$(Bxx $B$r=*E@$H$9$k%Y%/%H%k$N(B
-       $BJ}8~3Q$r(B $B=*$j3Q$H$9$k$h$&$K;XDj$9$k!#(B
- $B!JCf?4$O(B \put (\emathPut) $B$G;XDj$9$k!%!K(B
+  #1 : 半径を直接与えるか
+       tuukaten=xx として，円弧の周上の一点を与える
+  #2 : 始め角を直接与えるか
+       hazimeten=xx として，中心を始点，xx を終点とするベクトルの
+       方向角を 始め角とするように指定する。
+  #3 : 終り角を直接与えるか
+       owariten=xx として，中心を始点，xx を終点とするベクトルの
+       方向角を 終り角とするように指定する。
+ （中心は \put (\emathPut) で指定する．）
 \end{verbatim}
 \end{boxnote}
 
-\subsection{$BBJ1_(B}
-\subsubsection{$BBJ1_(B}
-$B<4$,?eJ?!$?bD>$JBJ1_$rIA2h$9$k%3%^%s%I$O(B \cmd{Daen} $B$G$9!%(B\cindex{Daen}
+\subsection{楕円}
+\subsubsection{楕円}
+軸が水平，垂直な楕円を描画するコマンドは \cmd{Daen} です．\cindex{Daen}
 
 \showexample[\cmd{Daen}](0.45)(0.45){example/en05}
 
-$BCf?4!$2#J}8~H>7B!$=DJ}8~H>7B(B $B$H;0$D$N0z?t$r$H$j$^$9!%(B
+中心，横方向半径，縦方向半径 と三つの引数をとります．
 
 \begin{boxnote}
 \begin{verbatim}
 \Daen#2#3#4
-        #1 : $BCf?4$N:BI8(B
-        #2 : $B2#<4J}8~$NH>7B(B
-        #3 : $B=D<4J}8~$NH>7B(B
+        #1 : 中心の座標
+        #2 : 横軸方向の半径
+        #3 : 縦軸方向の半径
 \end{verbatim}
 \end{boxnote}
 
-\subsubsection{$BBJ1_8L(B}
-$BBJ1_$N0lIt$rIA2h$9$k(B \cmd{Daenko} $B$G$9!%(B\cindex{Daenko}
+\subsubsection{楕円弧}
+楕円の一部を描画する \cmd{Daenko} です．\cindex{Daenko}
 
 \showexample[\cmd{Daenko}](0.45)(0.45){example/en06}
 
@@ -261,43 +261,43 @@ C(1,90)nw;D(1,150)nw}
 \begin{verbatim}
 \Daenko<#1>#2#3#4#5
         #1 : key=val
-             hasen=[$BGK@~$ND9$5(B][$BGK@~$N4V3V(B]
-             yazirusi=a : $B@5J}8~$KLp0u$r$D$1$k(B
-                     =r : $BIiJ}8~$KLp0u$r$D$1$k(B
-                     =b : $BN>J}8~$KLp0u$r$D$1$k(B
-                     =n : $BLp0u$r$D$1$J$$(B
-        #2 : $B2#<4J}8~$NH>7B(B
-        #3 : $B=D<4J}8~$NH>7B(B
-        #4 : $B;O$a3Q(B
-        #5 : $B=*$j3Q(B
-             $B!JCf?4$O(B \put (\emathPut) $B$G;XDj$9$k!%!K(B
+             hasen=[破線の長さ][破線の間隔]
+             yazirusi=a : 正方向に矢印をつける
+                     =r : 負方向に矢印をつける
+                     =b : 両方向に矢印をつける
+                     =n : 矢印をつけない
+        #2 : 横軸方向の半径
+        #3 : 縦軸方向の半径
+        #4 : 始め角
+        #5 : 終り角
+             （中心は \put (\emathPut) で指定する．）
 \end{verbatim}
 \end{boxnote}
 
-\subsubsection{$BGK@~(B}
-$B!JBJ!K1_!J8L!K$rGK@~$GIA2h$9$k$K$O(B \cmd{Daenko} $B$K(B
-\verb+<hasen=..>+$B%*%W%7%g%s$rM?$($^$9!%(B
+\subsubsection{破線}
+（楕）円（弧）を破線で描画するには \cmd{Daenko} に
+\verb+<hasen=..>+オプションを与えます．
 
-\showexample[$BBJ1_8L$NGK@~(B](0.5)(0.45){example/en07}
+\showexample[楕円弧の破線](0.5)(0.45){example/en07}
 
-$BGK@~$ND9$5$rJQ99$9$k$K$O!$%*%W%7%g%s$NCM$rJQ99$7$^$9!%(B
-$B>e$N?^$rI8=`$H$7$FHfN($r;XDj$7$^$9!%(B
+破線の長さを変更するには，オプションの値を変更します．
+上の図を標準として比率を指定します．
 
-\showexample[$BGK@~$ND9$5(B](0.5)(0.45){example/en08}
+\showexample[破線の長さ](0.5)(0.45){example/en08}
 
-$BGK@~$N4V3V$rD4@0$9$k$K$O!$Bh(B2$B$N(B \texttt{[..]}$B%*%W%7%g%s$G$9!%(B
-$B$d$O$j!$I8=`$KBP$9$kHfN($G$9!%(B
+破線の間隔を調整するには，第2の \texttt{[..]}オプションです．
+やはり，標準に対する比率です．
 
-\showexample[$BGK@~$N4V3V(B](0.5)(0.45){example/en09}
+\showexample[破線の間隔](0.5)(0.45){example/en09}
 
-$B$J$*!$2#<4J}8~$NH>7B$H=D<4J}8~$NH>7B$rF1$8CM$K$9$l$P!$1_!J8L!K$r(B
-$BGK@~$GIA2h$9$k$3$H$b$G$-$^$9!%(B
+なお，横軸方向の半径と縦軸方向の半径を同じ値にすれば，円（弧）を
+破線で描画することもできます．
 
-\subsubsection{$BLp0u(B}
-$B!JBJ!K1_!J8L!K$KLp0u$r$D$1$k$K$O(B \cmd{Daenko} $B$K(B
-\verb+<yazirusi=..>+$B%*%W%7%g%s$rM?$($^$9!%(B
+\subsubsection{矢印}
+（楕）円（弧）に矢印をつけるには \cmd{Daenko} に
+\verb+<yazirusi=..>+オプションを与えます．
 
-\begin{showEx}{$BBJ1_8L$KLp0u(B}
+\begin{showEx}{楕円弧に矢印}
 \begin{picture}(4,2)%
 \Put{(2,1)}{%
 \Daenko<yazirusi=b>%
@@ -305,9 +305,9 @@ C(1,90)nw;D(1,150)nw}
 \end{picture}
 \end{showEx}
 
-\subsubsection{$B2sE>5-9f(B}
-$BBJ1_8L$KLp0u$rIU$1$k5!G=$rMxMQ$7$F!$(B
-$B2sE><4$N<~$j$K2sE>$rI=$95-9f$rIU$1$k$3$H$,$G$-$^$9!#(B
+\subsubsection{回転記号}
+楕円弧に矢印を付ける機能を利用して，
+回転軸の周りに回転を表す記号を付けることができます。
 
 \begin{showEx}(.5,.44){\cmd{kaitenkigou}}
 \begin{zahyou}[ul=10mm](-2,2)(-1,1)
@@ -315,85 +315,85 @@ C(1,90)nw;D(1,150)nw}
 \end{zahyou}
 \end{showEx}
 
-$y$$B<4$N<~$j$N2sE>$rI=$9$K$O!$(B\verb+[90]+$B%*%W%7%g%s$rIU$1$^$9!#(B
+$y$軸の周りの回転を表すには，\verb+[90]+オプションを付けます。
 
-\begin{showEx}(.5,.44){$y$$B<4$N<~$j$N2sE>(B}
+\begin{showEx}(.5,.44){$y$軸の周りの回転}
 \begin{zahyou}[ul=10mm](-2,2)(-2,2)
 \Put{(0,1.5)}{\kaitenkigou[90]}
 \end{zahyou}
 \end{showEx}
 
-$B$3$3$G!$Lp0u$O@5$N2sE>$rI=$9$h$&$K$D$-$^$9$,!$$3$l$rIi$N2sE>$rI=$9$h$&$K(B
-$B$D$1$k$?$a$K$O(B
+ここで，矢印は正の回転を表すようにつきますが，これを負の回転を表すように
+つけるためには
 \begin{jquote}
 \begin{verbatim}
 <muki=r>
 \end{verbatim}
 \end{jquote}
-$B%*%W%7%g%s$rMQ$$$^$9!#(B
+オプションを用います。
 
-\begin{showEx}(.54,.4){$BLp0u$r5U8~$-(B}
+\begin{showEx}(.54,.4){矢印を逆向き}
 \begin{zahyou}[ul=10mm](-1,3.5)(-.5,.5)
   \Put{(3,0)}{\kaitenkigou<muki=r>}
 \end{zahyou}
 \end{showEx}
 
-\verb+<..>+$B%*%W%7%g%s$O!$K\Mh$OG\N(;XDj%*%W%7%g%s$G$9!#(B
+\verb+<..>+オプションは，本来は倍率指定オプションです。
 
-\begin{showEx}(.54,.4){$BG\N(;XDj(B}
+\begin{showEx}(.54,.4){倍率指定}
 \begin{zahyou}[ul=10mm](-1,3.5)(-.5,.5)
   \Put{(3,0)}{\kaitenkigou<1.5>}
 \end{zahyou}
 \end{showEx}
 
-$BG\N(;XDj$HLp0u8~$-$J$IB>$N%*%W%7%g%s$HJ;MQ$7$?$$$H$-$O(B
-\verb+<bairitu=..>+$B%*%W%7%g%s$rMQ$$$^$9!#(B
+倍率指定と矢印向きなど他のオプションと併用したいときは
+\verb+<bairitu=..>+オプションを用います。
 
-\begin{showEx}(.54,.4){$BG\N(;XDj(B}
+\begin{showEx}(.54,.4){倍率指定}
 \begin{zahyou}[ul=10mm](-1,3.5)(-.5,.5)
   \Put{(3,0)}{%
     \kaitenkigou<bairitu=1.5,muki=r>}
 \end{zahyou}
 \end{showEx}
 
-$BBJ1_$N%5%$%:$O!$%G%U%)%k%H$G$O(B
+楕円のサイズは，デフォルトでは
 \begin{jquote}
 \begin{verbatim}
 tyouhankei=3mm
 tanhankei=1.5mm
 \end{verbatim}
 \end{jquote}
-$B$H$7$F$"$j$^$9!#$3$l$rJQ99$9$k%*%W%7%g%s$G$9!'(B
+としてあります。これを変更するオプションです：
 
-\begin{showEx}(.54,.4){$B%5%$%:JQ99(B}
+\begin{showEx}(.54,.4){サイズ変更}
 \begin{zahyou}[ul=10mm](-1,3.5)(-.5,.5)
   \Put{(3,0)}{%
     \kaitenkigou<tanhankei=3mm>}
 \end{zahyou}
 \end{showEx}
 
-$BBJ1_$N1&C<$r0lIt@Z$C$FLp0u$r$D$1$F$$$^$9$,!$(B
-$B@Z$k>l=j$rJQ$($k%*%W%7%g%s$r>R2p$7$^$9!#(B
+楕円の右端を一部切って矢印をつけていますが，
+切る場所を変えるオプションを紹介します。
 
-\begin{showEx}(.54,.4){$BLp0u$N0LCVJQ99(B}
+\begin{showEx}(.54,.4){矢印の位置変更}
 \begin{zahyou}[ul=10mm](-1,3.5)(-.5,.5)
   \Put{(3,0)}{\kaitenkigou%
     <hazimekaku=-165,owarikaku=165>}
 \end{zahyou}
 \end{showEx}
 
-$B%G%U%)%k%HCM$O(B
+デフォルト値は
 \begin{jquote}
 \begin{verbatim}
 hazimekaku=15, owarikaku=345
 \end{verbatim}
 \end{jquote}
-$B$H$J$C$F$$$^$9!#(B
+となっています。
 
-$B2sE>%*%W%7%g%s$HJ;MQ$9$k$H$-$O!$>e5-$N;XDj3Q$O2sE>$9$kA0$N>u67$G$NCM$G$9!#(B
-$B>e$N?^$r(B$90\Deg$$B2sE>$7$F$_$^$7$g$&!#(B
+回転オプションと併用するときは，上記の指定角は回転する前の状況での値です。
+上の図を$90\Deg$回転してみましょう。
 
-\begin{showEx}(.54,.4){$B2sE>$H$NJ;MQ(B}
+\begin{showEx}(.54,.4){回転との併用}
 \begin{zahyou}[ul=10mm]%
     (-1,3.5)(-.5,1.5)
   \Put{(0,1)}{\kaitenkigou%
@@ -402,30 +402,30 @@ hazimekaku=15, owarikaku=345
 \end{zahyou}
 \end{showEx}
 
-$B:G8e$K!$(B\cmd{kaitenkigou}$B$N=q<0$G$9!#(B
+最後に，\cmd{kaitenkigou}の書式です。
 
 \begin{boxnote}
 \begin{verbatim}
-$BD>@~$N$^$o$j$K2sE>$5$;$k$3$H$rI=$95-9f(B
+直線のまわりに回転させることを表す記号
 \kaitenkigou<#1>[#2]
-   #1 : $BG\N((B
-     $B$^$?$O(B key=val
-            bairitu= $B!JG\N(!K%G%U%)%k%HCM(B : 1
+   #1 : 倍率
+     または key=val
+            bairitu= （倍率）デフォルト値 : 1
             muki = r/n                      n
-                r $B$G!$Ii$N8~$-(B
-                n $B$G!$@5$N8~$-(B
+                r で，負の向き
+                n で，正の向き
             hazimekaku=                     15
             owarikaku=                     345
             tyouhankei=                      3mm
             tanhankei=                     1.5mm
-   #2 : $B2sE>3Q(B
-   $B0LCV$O(B \emathPut $B$G;XDj(B
+   #2 : 回転角
+   位置は \emathPut で指定
 \end{verbatim}
 \end{boxnote}
 
-$BD>@~(B$y=x$$B$N<~$j$K2sE>$5$;$k5-9f$r!$(B2$BG\$N%5%$%:$GIA$$$F$_$^$9!#(B
+直線$y=x$の周りに回転させる記号を，2倍のサイズで描いてみます。
 
-\begin{showEx}(.5,.44){$y$$B<4$N<~$j$N2sE>(B}
+\begin{showEx}(.5,.44){$y$軸の周りの回転}
 \begin{zahyou}[ul=10mm](-2,2)(-2,2)
 \Put{(1.8,1.8)}{\kaitenkigou<2>[45]}
 \kTyokusen\O{45}{}{}

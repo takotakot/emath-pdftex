@@ -1,23 +1,23 @@
 %%% emath.sty by tDB(emath@nifty.com)
 %%%
-%%% $B=iEy?t3X(B (elementary mathematics) $B$N%W%j%s%H$r:n$k:]!$(B
+%%% 初等数学 (elementary mathematics) のプリントを作る際，
 %%%           ^          ^^^^
-%%% $BI,MW$H$J$k5-9fN`$r=8$a$?%Q%C%1!<%8%U%!%$%k$G$9!%(B
+%%% 必要となる記号類を集めたパッケージファイルです．
 %%%
-%%% pLaTeX2e,LaTeX2.09 $B$I$A$i$G$b;H$($^$9$,!$(B
-%%%     pLaTeX2e $B$N>l9g$O!$;HMQ$9$k%Q%C%1!<%8%U%!%$%k$NCf$K!$(B
+%%% pLaTeX2e,LaTeX2.09 どちらでも使えますが，
+%%%     pLaTeX2e の場合は，使用するパッケージファイルの中に，
 %%%             emath
-%%%         $B$r4^$a$^$9!%(B
-%%%     LaTeX2.09 $B$N>l9g$O!$(B\documentstyle $B$N%*%W%7%g%s$K(B
+%%%         を含めます．
+%%%     LaTeX2.09 の場合は，\documentstyle のオプションに
 %%%             emath
-%%%         $B$r4^$a$^$9!%(B
+%%%         を含めます．
 %%%
-%%% $B;H$$J}$NNc$O!$(Bsample.tex $B$r$4Mw$/$@$5$$!%(B
+%%% 使い方の例は，sample.tex をご覧ください．
 %%%
-%%% $B$3$N%^%/%m=8$N%^%/%m$K$D$$$F$N!$(B
-%%%         $B<ALd!$%P%0Js9p!$=$@5!&DI2C$NDs0FEy$O(B
+%%% このマクロ集のマクロについての，
+%%%         質問，バグ報告，修正・追加の提案等は
 %%%                 FTEX MES(9)
-%%%                         $B$G$4H/8@$/$@$5$$!%(B
+%%%                         でご発言ください．
 %
 \newif\ifsuuzi@smac%
 \newif\iftemp@s%
@@ -28,7 +28,7 @@
     \def\tmpname{LaTeX2e}%
     \ifx\fmtname\tmpname%
       \NeedsTeXFormat{LaTeX2e}
-\ProvidesPackage{emath}[2005/10/31 v1.54p $B=iEy?t3X%^%/%m%Q%C%1!<%8(B]
+\ProvidesPackage{emath}[2005/10/31 v1.54p 初等数学マクロパッケージ]
 %
 %\let\ltxequation\equation
 %\let\endltxequation\endequation
@@ -70,7 +70,7 @@
 \define@key{emath}{pos}{\def\@pos{#1}}%
 
 %
-% amsmath $B$G(B \@ifnextchar $B$,:FDj5A$5$l$k$3$H$X$NBP:v(B
+% amsmath で \@ifnextchar が再定義されることへの対策
 %
 \let\ltx@ifnextchar\@ifnextchar
 \def\ProvidesFile#1{%
@@ -87,11 +87,11 @@
 
 
 %------------------------
-% $BBe?t(B
+% 代数
 %------------------------
 
-% $BEy$7$/$J$$(B
-% $B!b$N<P@~$r%P%C%/%9%i%C%7%e(B
+% 等しくない
+% ≠の斜線をバックスラッシュ
 \def\neqq{\mathrel{\mathpalette\neqqsub=}}%
 \def\neqqsub#1#2{\m@th\ooalign{\hfil{%
     \ifthenelse{\equal{#1}{\scriptstyle}\or\equal{#1}{\scriptscriptstyle}}{%
@@ -108,17 +108,17 @@
 
 \def\Not#1{\ooalign{\hfil$\backslash$\hfil\crcr$#1$}}
 
-% $B6a;wEy9f(B
+% 近似等号
 \ifx\fmtname\tmpname%
 \newcommand{\kinzi}{\fallingdotseq}%
 \fi%
 
-% align $B4D6-$J$I$K$*$$$F!$@hF,9T$N(B = $BJ,$N6uGr(B
+% align 環境などにおいて，先頭行の = 分の空白
 \def\dumyeq{\mathrel{\phantom=}}
 
-% $BJ,?t5-9f(B($BJ,?t7S$r>/$7D9$a$K(B)
+% 分数記号(分数罫を少し長めに)
 %\newcommand{\bunsuu}[2]{\dfrac{\,#1\,}{\,#2\,}}%
-% $B$5$i$K7S@~$N>e2<$r69$/!%(B
+% さらに罫線の上下を狭く．
 %\newcommand\Bunsuu[2]{\bunsuu{\lower.7ex\hbox{$#1$}}{\lower-.1ex\hbox{$#2$}}}%
 
 \def\bunsuu{\@ifstar{\bunsuu@}{\@bunsuu}}
@@ -140,8 +140,8 @@
           {\setbox0\hbox{$\frac{#1}{#2}$}}%
   }%
 }
-% $BK\J8Cf$KJ,?t$rF~$l$k:]!$>e2<(B3pt$B$:$D$NM>Gr$r:n$k!#(B
-% \Bunsuu[$B?<$5(B=3pt][$B9b$5(B=0pt]{$BJ,;R(B}{$BJ,Jl(B}
+% 本文中に分数を入れる際，上下3ptずつの余白を作る。
+% \Bunsuu[深さ=3pt][高さ=0pt]{分子}{分母}
 
 \def\Bunsuu{\@ifnextchar[{\@Bunsuu}{\@Bunsuu[3pt]}}
 \def\@Bunsuu[#1]{\@ifnextchar[{\@@Bunsuu[#1]}{\@@Bunsuu[#1][\z@]}}
@@ -167,7 +167,7 @@
 %  }%
 %}%
 %
-% $BJ,;R!&J,Jl$r1&B7$((B
+% 分子・分母を右揃え
 %
 \def\rbunsuu#1#2{%
   \setbox0=\hbox{$#1$}\edef\l@bunsi{\the\wd0}%
@@ -182,16 +182,16 @@
 \let\cbunsuu\bunsuu
 %
 \if0
-% $B2<@~(B
+% 下線
 %
 \def\kasenhutosa{0.4pt}
 \def\kasenkankaku{0.5pt}
 
 % \kasen(#1)[#2]<#3>#4
-%   #1 : $BIm2C$9$k2#I}(B
-%   #2 : $BJ8;z$H2<@~$H$N4V3V!J%G%U%)%k%HCM(B \kasenkankaku=0.5pt$B!K(B
-%   #3 : $B2<@~$NB@$5!J%G%U%)%k%HCM(B \kasenhutosa=0.4pt)
-%   #4 : $BJ8;z(B
+%   #1 : 附加する横幅
+%   #2 : 文字と下線との間隔（デフォルト値 \kasenkankaku=0.5pt）
+%   #3 : 下線の太さ（デフォルト値 \kasenhutosa=0.4pt)
+%   #4 : 文字
 
 \def\kasen{\@ifnextchar({\@kasen}{\@kasen(\z@)}}
 \def\@kasen(#1){\@ifnextchar[{\@@kasen(#1)}{\@@kasen(#1)[\kasenkankaku]}}
@@ -215,9 +215,9 @@
 }}
 \fi
 %
-%$BGH2<@~(B
+%波下線
 %
-%  \uuwave : ulem.sty $B$N(B \uwave $B$r!$Fs=E2<@~$H$7$?$b$N(B
+%  \uuwave : ulem.sty の \uwave を，二重下線としたもの
 %
 \def\uuwave{\bgroup \markoverwith{\vtop{\sixly
    \kern1.2\p@\hbox{\kern-.21\p@\char58\kern-.21\p@}\kern-1\baselineskip
@@ -225,14 +225,14 @@
 %
 % \namikasen[#1]#2
 %
-%   $BGH2<@~(B
+%   波下線
 %
-%   #1 : $B2<@~$rFs=E@~$H$9$k>l9g$NFs=E@~$N4V$N4V3V(B
-%   #2 : $B2<@~$r0z$/BP>](B
+%   #1 : 下線を二重線とする場合の二重線の間の間隔
+%   #2 : 下線を引く対象
 %
 % \hutonamikasen[#1]#2
 %
-%   $BB@$$GH2<@~(B
+%   太い波下線
 %
 \def\nami@leaders{\cleaders\hbox to \nami@ul{%
     $\widetilde{\null\kern.41zw}$}\hfil}%
@@ -272,16 +272,16 @@
   \vrule width \z@ depth \nami@soko \p@
 }}
 %
-% $BD{@5(B
+% 訂正
 %    \teisei[#1](#2)#3[#4]
-%            #1: $B@~$N0z$-J}$K$D$$$F$N%*%W%7%g%s0z?t$G!$(B
-%                s : $B<P@~!J!?!K(B [$B%G%U%)%k%H(B]
-%                r : $B<P@~!J!@!K(B
-%                h : $B2#@~(B
-%                d : $B2#FsK\@~(B
-%            #2: $B@~$N?'(B
-%            #3: $B@~$r0z$/BP>](B
-%            #4: $BD{@58e$NJ8;zNs(B
+%            #1: 線の引き方についてのオプション引数で，
+%                s : 斜線（／） [デフォルト]
+%                r : 斜線（＼）
+%                h : 横線
+%                d : 横二本線
+%            #2: 線の色
+%            #3: 線を引く対象
+%            #4: 訂正後の文字列
 %
 %{\catcode`\p=12\catcode`\t=12\gdef\@mumeisuu#1pt{#1}}%
 %\def\mumeisuu#1{\expandafter\@mumeisuu\the#1}%
@@ -352,32 +352,32 @@
    \fi%
     }}%
 %
-% $BD{@5!J3HD%HG!K?t<0%b!<%I$G;HMQ$9$k$3$H!%(B
-%\teisei $B$H$N0c$$$O!$(B
-%    $B#0!%?t<0%b!<%I$NCf!$$H$$$&A0Ds$rIU$1$?!%(B
-%    $B#1!%D{@58e$NJ8;zNs$O%*%W%7%g%s0z?t$G$O$J$/!$I,?\$N0z?t$H$7$?!%(B
-%    $B#2!%D{@58e$NJ8;zNs$O>.$5$a$K$J$C$?(B (scriptstyle)
-%    $B#3!%D{@58e$NJ8;zNs$N0LCV$r%*%W%7%g%s$G(B
-%                $B:8>e(B  $B>e(B  $B1&>e!J%G%U%)%k%H!K(B
-%                $B:82<(B  $B2<(B  $B1&2<(B
-%        $B$N(B6$B%v=j$r;XDj$9$k$3$H$,$G$-$k$h$&$K$7$?!%(B
+% 訂正（拡張版）数式モードで使用すること．
+%\teisei との違いは，
+%    ０．数式モードの中，という前提を付けた．
+%    １．訂正後の文字列はオプション引数ではなく，必須の引数とした．
+%    ２．訂正後の文字列は小さめになった (scriptstyle)
+%    ３．訂正後の文字列の位置をオプションで
+%                左上  上  右上（デフォルト）
+%                左下  下  右下
+%        の6ヶ所を指定することができるようにした．
 %
 %  \Teisei[#1](#2)#3[#4]#5
-%            #1: $B@~$N0z$-J}$K$D$$$F$N%*%W%7%g%s0z?t$G!$(B
-%                s : $B<P@~!J!?!K(B [$B%G%U%)%k%H(B]
-%                r : $B<P@~!J!@!K(B
-%                h : $B2#@~(B
-%                d : $B2#FsK\@~(B
-%            #2: $B@~$N?'(B
-%            #3: $B@~$r0z$/BP>](B
-%            #4: $BD{@58e$NJ8;z0LCV(B
-%                   r = $B1&>e(B (=tr=rt)$B!J%G%U%)%k%H!K(B
-%                   l = $B:8>e(B (=tl=lt)
-%                   t = $B>e(B
-%                   b = $B2<(B
-%                   rb=br=$B1&2<(B
-%                   lb=bl=$B:82<(B
-%            #5: $BD{@58e$NJ8;zNs(B (scriptstyle)
+%            #1: 線の引き方についてのオプション引数で，
+%                s : 斜線（／） [デフォルト]
+%                r : 斜線（＼）
+%                h : 横線
+%                d : 横二本線
+%            #2: 線の色
+%            #3: 線を引く対象
+%            #4: 訂正後の文字位置
+%                   r = 右上 (=tr=rt)（デフォルト）
+%                   l = 左上 (=tl=lt)
+%                   t = 上
+%                   b = 下
+%                   rb=br=右下
+%                   lb=bl=左下
+%            #5: 訂正後の文字列 (scriptstyle)
 %
 \def\Teisei{%
     \@ifnextchar[{\@Teisei}{\@Teisei[s]}}%
@@ -403,20 +403,20 @@
     \or{}_{#5}{\@teisei@[#1](#2){#3}{}}\fi
     \fi}}%
 
-% $BLsJ,(B
+% 約分
 %    \yakubun[#1](#2)<#3>#4#5#6#7
-%        #1: $B<P@~$N0z$-J}$r;XDj$9$k%*%W%7%g%s0z?t$G!$(B
-%                s : $B<P@~!J!?!K(B [$B%G%U%)%k%H(B]
-%                r : $B<P@~!J!@!K(B
-%        #2: $B@~$N?'(B
-%        #3: $BLsJ,$7$?7k2L$NI=<(0LCV$r;XDj$9$k%*%W%7%g%s0z?t$G!$(B
-%                c : $BCf1{>e2<(B   [$B%G%U%)%k%H(B]
-%                l : $B:88*(B
-%                r : $B1&8*(B
-%        #4: $BLsJ,$9$kA0$NJ,;R(B
-%        #5: $BLsJ,$9$kA0$NJ,Jl(B
-%        #6: $BLsJ,$7$?8e$NJ,;R(B
-%        #7: $BLsJ,$7$?8e$NJ,Jl(B
+%        #1: 斜線の引き方を指定するオプション引数で，
+%                s : 斜線（／） [デフォルト]
+%                r : 斜線（＼）
+%        #2: 線の色
+%        #3: 約分した結果の表示位置を指定するオプション引数で，
+%                c : 中央上下   [デフォルト]
+%                l : 左肩
+%                r : 右肩
+%        #4: 約分する前の分子
+%        #5: 約分する前の分母
+%        #6: 約分した後の分子
+%        #7: 約分した後の分母
 
 \def\yakubun{%
     \@ifnextchar[{\yakubun@}{\yakubun@[s]}}%
@@ -434,18 +434,18 @@
       \bunsuu{{}^{#6\,}\teisei[#1](#2){#4}}{{}^{#7\,}\teisei[#1](#2){#5}}%
     \fi\fi}%
 
-% $B%$%s%F%j%8%'%s%H$JLsJ,(B
+% インテリジェントな約分
 %    \Yakubun[#1](#2)<#3>#4#5
-%        #1: $B<P@~$N0z$-J}$r;XDj$9$k%*%W%7%g%s0z?t$G!$(B
-%                s : $B<P@~!J!?!K(B [$B%G%U%)%k%H(B]
-%                r : $B<P@~!J!@!K(B
-%        #2: $B@~$N?'(B
-%        #3: $BLsJ,$7$?7k2L$NI=<(0LCV$r;XDj$9$k%*%W%7%g%s0z?t$G!$(B
-%                c : $BCf1{>e2<(B   [$B%G%U%)%k%H(B]
-%                l : $B:88*(B
-%                r : $B1&8*(B
-%        #4: $BLsJ,$9$kA0$NJ,;R(B
-%        #5: $BLsJ,$9$kA0$NJ,Jl(B
+%        #1: 斜線の引き方を指定するオプション引数で，
+%                s : 斜線（／） [デフォルト]
+%                r : 斜線（＼）
+%        #2: 線の色
+%        #3: 約分した結果の表示位置を指定するオプション引数で，
+%                c : 中央上下   [デフォルト]
+%                l : 左肩
+%                r : 右肩
+%        #4: 約分する前の分子
+%        #5: 約分する前の分母
 
 \def\saidaikouyakusuu#1#2#3{%
   \edef\saidaikouyakusuu@a{#1}\edef\saidaikouyakusuu@b{#2}%
@@ -523,7 +523,7 @@
         {}^{\the\@tempcntb\,}\teisei[#1](#2){#5}}%
     \fi\fi}}%
 
-% $BN_>h$NN_>h(B
+% 累乗の累乗
 \def\dpower{\@ifnextchar[{\@dpower}{\@dpower[(]}}%
 \def\@dpower[#1]#2#3#4{%
     \ifx#1\{\def\@rightp{\}}\else\ifx#1[\def\@rightp{]}\else\def\@rightp{)}%
@@ -533,21 +533,21 @@
 
 \def\EXP#1{e^{#1}}
 
-% $B:,9f(B
+% 根号
 \def\tsqrt{\textstyle\sqrt}
 \def\kongou{\@ifnextchar[{\@kongou}{\@kongou[o]}}%
 \def\@kongou[#1]#2{%
 \ifx#1o\sqrt{\smash[b]{\mathstrut #2}}%
 \else\sqrt[#1]{\smash[b]{\mathstrut #2}}%
 \fi}%
-% $BN_>h:,(B
+% 累乗根
 \def\ruizyoukon{\@ifnextchar[{\@ruizyoukon}{\sqrt}}%
 \def\@ruizyoukon[#1]{\@ifnextchar[{\@@ruizyoukon[#1]}{\@@ruizyoukon[#1][2]}}%
 \def\@@ruizyoukon[#1][#2]#3{\sqrt[\leftroot{#2}#1]{#3}}%
 
-% $B%,%&%95-9f(B
+% ガウス記号
 \newcommand{\gauss}[1]{\ensuremath{\left[\mkern1mu #1\mkern1mu\right]}}%
-% $BJD6h4V5-9f(B
+% 閉区間記号
 \def\lheikukan{\lbrack}
 \def\rheikukan{\rbrack}
 \def\heikukankigou#1{%
@@ -560,7 +560,7 @@
 \def\kaikukan(#1,#2){\ensuremath{%
   \left(\mkern 2mu #1,\,#2\mkern 2mu\right)}}
 %
-% $B?t<0%b!<%IFb$N%3%s%^6h@Z$jNs(B
+% 数式モード内のコンマ区切り列
 %
 \define@key{emath}{retukugiri}{\def\retu@kugirisi{#1}}%
 \define@key{emath}{caprm}[1]{\caprm}%
@@ -609,9 +609,9 @@
   \right#2\relax}%
 }
 %
-% $B@0<0$N=D=q$-3d;;(B
-% \zyohou{$BHo=|?t(B}{$B=|?t(B}{$B>&(B}{$BHo=|?t$N2<$N7W;;<0(B}
-%   $B0z?t$O$9$Y$F9`Kh$K(B , $B$G6h@Z$k!%(B
+% 整式の縦書き割算
+% \zyohou{被除数}{除数}{商}{被除数の下の計算式}
+%   引数はすべて項毎に , で区切る．
 %
 \newcount\zyo@@c
 \newcount\hizyo@@c
@@ -665,18 +665,18 @@
     \wari@@hidari&\t@
 \end{array}}%
 %
-% $B2C8:K!(B
+% 加減法
 % \kagenhou<#1>(#2)[#3]#4#5#6
 %
-%   #1 : M $B$r;XDj$9$k$HLdBjIt$N$_(B
-%       $B$^$?$O(B
+%   #1 : M を指定すると問題部のみ
+%       または
 %         key=val
-%           kotae=no (M$B$r;XDj$7$?$N$HF1$8(B)
-%           pos=t/c/b (array$B4D6-$NG[CV%*%W%7%g%s$G%G%U%)%k%H$O(B b$B!K(B
-%   #2 : $BL$CN?t(B
-%   #3 : $BBh(B1$B<0$N78?t(B
+%           kotae=no (Mを指定したのと同じ)
+%           pos=t/c/b (array環境の配置オプションでデフォルトは b）
+%   #2 : 未知数
+%   #3 : 第1式の係数
 %   #4 : + or -
-%   #5 : $BBh(B2$B<0$N78?t(B
+%   #5 : 第2式の係数
 %
 \def\kagenhou{\@ifnextchar<{\@kagenhou}{\@kagenhou<\empty>}}
 \def\@kagenhou<#1>{\def\prans@kagen{1}\def\@pos{b}\def\@kotae{yes}%
@@ -746,8 +746,8 @@
 \egroup
 }
 %
-% $BAH$_N)$F=|K!(B(synthetic division)
-%   $BJ,?t78?t$O(B \Fsyndiv ---> emathB.sty
+% 組み立て除法(synthetic division)
+%   分数係数は \Fsyndiv ---> emathB.sty
 \def\syndiv#1#2{%
   \def\sd@sub##1{%
     \xdef\b@i{}\xdef\c@i{\a@i}%
@@ -792,17 +792,17 @@
       \\\cline{\i-\i}
   \end{array}}
 %
-% $BJ#AG?t(B
+% 複素数
 \def\Cnum#1#2#3{\ensuremath{#1#2%
   \ifthenelse{\equal{#3}{1}}{}{#3\,}i}}
 
-% $B6&LrJ#AG?t(B
+% 共役複素数
 %
 %   \kyouyaku<#1>#2
 %   \kyouyaku[#1]#2
-%       <#1> : $B9b$5$N=$@5CM!JA}8:$9$kCM!K(B
-%       [#1] : $B9b$5(B
-%       #2   : $BK\BN(B
+%       <#1> : 高さの修正値（増減する値）
+%       [#1] : 高さ
+%       #2   : 本体
 \def\kyouyaku@strut{\mathstrut}%
 \def\kyouyaku{\@ifnextchar<{\kyouyaku@}{\@kyouyaku}}
 \def\kyouyaku@<#1>#2{{\setbox0=\hbox{$#2$}\@tempdima=\ht0
@@ -816,19 +816,19 @@
 \def\conjugate{\kyouyaku}
 \def\conj{\kyouyaku}
 %
-% $B<BIt!$5uIt(B
+% 実部，虚部
 %\newcommand{\zitubu}[1]{\ensuremath{\text{Re}(#1)}}%
 %\newcommand{\kyobu}[1]{\ensuremath{\text{Im}(#1)}}%
 \DeclareMathOperator{\zitubu}{Re}
 \DeclareMathOperator{\kyobu}{Im}
 
-% $B6K7A<0(B
+% 極形式
 %   \polar<#1>[#2][#3]#4
-%       #1 : c $B$N$H$-$O!$6&Lr$rI=$9!#(B
-%       #2 : $B@dBPCM(B
-%       #3 : $B%+%C%3$N<oN`(B ( or \{ or [
-%       #4 : $BJP3Q(B
-%   \kyokukeisiki $B$bF15A8l(B
+%       #1 : c のときは，共役を表す。
+%       #2 : 絶対値
+%       #3 : カッコの種類 ( or \{ or [
+%       #4 : 偏角
+%   \kyokukeisiki も同義語
 
 \def\polar{\@ifnextchar<{\cpolar}{\npolar}}
 \def\npolar{\@ifnextchar[{\@polara}{\@polar}}
@@ -868,13 +868,13 @@
 \let\kyokukeisiki\polar
 
 
-% $B%Y%/%H%k(B($B%Y%/%H%k(B p)
+% ベクトル(ベクトル p)
 %\newcommand{\beku}[1]{\ensuremath{\vec{\vphantom b{#1}}}}%
 \def\beku@sityuu{\vphantom b}
 \def\bekusityuu#1{\def\beku@sityuu{#1}}
 \newcommand{\beku}[1]{\ensuremath{\vec{\beku@sityuu #1}}}%
 
-% $B%Y%/%H%k(B($B%Y%/%H%k(BAB$B!K(B
+% ベクトル(ベクトルAB）
 \@ifundefined{bekutoru@sityuu}{%
   \def\bekutoru@sityuu{\vrule height .9zh width \z@}}{}%
 \newcommand{\bekutorusityuu}[1]{\def\bekutoru@sityuu{#1}}%
@@ -893,18 +893,18 @@
 %
 
 
-% $B@~J,$ND9$5(B
+% 線分の長さ
 \def\senbun{\@ifstar{\senbun@m}{\senbun@t}}%
 \def\senbun@t#1{\ensuremath{\displaystyle
 \overline{\text{#1}\bekutoru@sityuu}}}%
 \def\senbun@m#1{\ensuremath{\displaystyle%
     \overline{#1\bekutoru@sityuu}}}%
 %
-% $B@dBPCM5-9f(B
+% 絶対値記号
 % \zettaiti[#1][#2]#3
-%   #1 : $BIm2C$9$Y$-9b$5!J%G%U%)%k%HCM(B:0pt$B!K(B
-%   #2 : $BIm2C$9$Y$-?<$5!J%G%U%)%k%HCM(B:#1$B!K(B
-%   #3 : $B@dBPCM5-9f$NCf$N<0(B
+%   #1 : 附加すべき高さ（デフォルト値:0pt）
+%   #2 : 附加すべき深さ（デフォルト値:#1）
+%   #3 : 絶対値記号の中の式
 %
 \def\zettaiti{\@ifnextchar[{\zett@iti}{\zett@iti[0pt]}}
 \def\zett@iti[#1]{\@ifnextchar[{\zett@@iti[#1]}{\zett@@iti[#1][#1]}}
@@ -934,7 +934,7 @@
 %\def\@emabs@[#1][#2]#3{\left\lvert\EMvphantom[#1][#2]{#3}#3\right\rvert}
 \def\@emabs#1{\left| #1 \right|}
 %
-% $B%Y%/%H%k$NFb@Q(B
+% ベクトルの内積
 \newcommand{\naiseki}[2]{\ensuremath{#1}\cdot{#2}}%
 \def\vnaiseki{\@ifstar{\vnaiseki@}{\@vnaiseki}}
 \def\@vnaiseki#1#2{\ensuremath{\bekutoru{#1}\cdot\bekutoru{#2}}}
@@ -942,11 +942,11 @@
 %
 \def\bnaiseki#1#2{\ensuremath{\beku{#1}\cdot\beku{#2}}}
 %
-% $B%Y%/%H%k$N@dBPCM(B
+% ベクトルの絶対値
 \def\EMvabs#1{\EMabs{\bekutoru{#1}}}
 %
-% pmatrix$B4D6-$X$N=$@5$J$I(B
-% $B?t<04D6-Fb$G$O!$2$J8MQ2~9T%T%C%A$rMQ$$$k(B
+% pmatrix環境への修正など
+% 数式環境内では，欧文用改行ピッチを用いる
 %
 %
 \@ifundefined{EM@normallineskip}{%
@@ -976,10 +976,10 @@
           \vrule\@height.7\baselineskip
                 \@depth.3\baselineskip
                 \@width\z@}%
-% --- 2005/02/19 $BJ]N1(B ---
+% --- 2005/02/19 保留 ---
   \set@fontsize\baselinestretch\f@size\baselineskip
 %%  \@currsize\selectfont
-%  \ifdim\f@size\p@=10\p@%%%% 2005/02/22 $BJ]N1(B
+%  \ifdim\f@size\p@=10\p@%%%% 2005/02/22 保留
    \selectfont%
 %  \else
 %    \@currsize\selectfont
@@ -1003,7 +1003,7 @@
     \fi
     \fontsize{#2}{#3}\selectfont}
 %
-% $BFs<!$N@5J}9TNs(B
+% 二次の正方行列
 \def\gyouretu@haiti{c}
 \def\gyouretu@haiti@{\gyouretu@haiti}
 \def\env@matrix{\hskip -\arraycolsep
@@ -1035,7 +1035,7 @@
 %\!\!\right)$}}%
 %\fi%
 
-% $BFs<!$NNs%Y%/%H%k(B
+% 二次の列ベクトル
 \ifx\fmtname\tmpname%
   \def\retube{\@ifnextchar[{\@retube}{\@retube[\gyouretu@haiti]}}
   \def\@retube[#1]#2#3{\def\gyouretu@haiti@{#1}{\ensuremath{%
@@ -1053,7 +1053,7 @@ $\left(\!\!\begin{array}{c}#1 \\ #2 \\ #3 \end{array}%
 \!\!\right)$}}%
 \fi
 
-% $B0lHL$N9TNs(B
+% 一般の行列
 %   ex. \pgyouretu{1,2,3;4,5,6}
 %
 \def\pgyouretu{\@ifnextchar[{\@pgyouretu}{\@pgyouretu[\gyouretu@haiti]}}
@@ -1083,7 +1083,7 @@ $\left(\!\!\begin{array}{c}#1 \\ #2 \\ #3 \end{array}%
   \end{pmatrix}
 }}}
 %
-% $B3g8L$N7A>u$r(B plain TeX $BIw$K(B
+% 括弧の形状を plain TeX 風に
 %
 \def\sgyouretu@lr{3mu}%
 \def\sgyouretu@kugiri{1em}%
@@ -1101,14 +1101,14 @@ $\left(\!\!\begin{array}{c}#1 \\ #2 \\ #3 \end{array}%
 \def\sretube#1#2{\ensuremath{\orgpmatrix{#1\cr#2\cr}}}
 \def\sRetube#1#2#3{\ensuremath{\orgpmatrix{#1\cr#2\cr#3\cr}}}
 %
-% $B9TNs$N(B trace
+% 行列の trace
 \newcommand{\tr}{\text{tr}}%
 
-% $BBg7?1i;;;R0J30$N$b$N$KBP$9$k!$:81&$N>eIU$-!&2<IU$-(B
+% 大型演算子以外のものに対する，左右の上付き・下付き
 %   \emsideset #1#2#3
-%       #1 : $B:8>eIU$-!&2<IU$-(B
-%       #2 : $B1&>eIU$-!&2<IU$-(B
-%       #3 : $BK\BN(B
+%       #1 : 左上付き・下付き
+%       #2 : 右上付き・下付き
+%       #3 : 本体
 \newcommand{\emsideset}[3]{%
   \@mathmeasure\z@\displaystyle{#3}%
   \global\setbox\@ne\vbox to\ht\z@{}\dp\@ne\dp\z@
@@ -1120,23 +1120,23 @@ $\left(\!\!\begin{array}{c}#1 \\ #2 \\ #3 \end{array}%
 }
 
 %------------------------
-% $B4v2?(B
+% 幾何
 %------------------------
 
-% $BEY$N5-9f(B($B>.$5$J4](B)
+% 度の記号(小さな丸)
 \newcommand{\EMdegree}{\mbox{\kern-.2em\char'27\kern-.3em}}%
 \def\Deg{\ensuremath{^{\circ}}}%
 \def\emDEG{\ensuremath{^{\text{o}}}}%
 \@ifundefined{DEG}{\let\DEG\emDEG}{}%
 
-% $BJ?9T(B
+% 平行
 \def\EMheikou{\mathrel{/\kern-.25em/}}%
 \def\Heikou{\mathrel{{\unitlength1em
   \begin{picture}(.5,1)\allinethickness{.04em}%
   \put(0,0){\drawline(0,0)(.3,.7)}\put(.2,0){\drawline(0,0)(.3,.7)}%
   \end{picture}}}}
 
-% $BJ?9T$NH]Dj(B
+% 平行の否定
 \def\nheikou{\mathrel{\mathpalette\nheikousub\heikou}}%
     \def\nheikousub#1#2{\m@th\ooalign{\hfil{\raise.09ex\hbox{%
     $#1\backslash$}}\hfil\crcr$#1#2$}}%
@@ -1146,14 +1146,14 @@ $\left(\!\!\begin{array}{c}#1 \\ #2 \\ #3 \end{array}%
   \put(0,0){\drawline(.05,.7)(.45,0)}%
   \end{picture}}}}
 
-% $B3Q!J-w!K(B
+% 角（∠）
   \def\EMkaku{\@ifstar{\EMkaku@m}{\EMkaku@t}}%
   \def\EMkaku@t#1{\ensuremath{\angle\mbox{#1}}}%
   \def\EMkaku@m{\@ifnextchar[{\EMkaku@@m}{\EMkaku@@m[\empty]}}
   \def\EMkaku@@m[#1]#2{{%
     \ifx\empty #1\relax\else\setkeys{emath}{#1}\fi
     \ensuremath{\angle #2}}}%
-% $B;03Q7A(BABC
+% 三角形ABC
 \def\EMsankaku{\@ifstar{\EMsankaku@m}{\EMsankaku@t}}%
 \def\EMsankaku@t#1{\ensuremath{\triangle\mbox{#1}}}%
 \def\EMsankaku@m{\@ifnextchar[{\EMsankaku@@m}{\EMsankaku@@m[\empty]}}
@@ -1162,7 +1162,7 @@ $\left(\!\!\begin{array}{c}#1 \\ #2 \\ #3 \end{array}%
   \ensuremath{\triangle #2}}}%
 
 
-% $B1_8L$rI=$95-9f(B
+% 円弧を表す記号
 \@ifundefined{tate}{%
   \def\ko{%
       \@ifnextchar[{\@ko}{\@ko[0pt]}}%
@@ -1209,11 +1209,11 @@ $\left(\!\!\begin{array}{c}#1 \\ #2 \\ #3 \end{array}%
   }}%
 }%
 %
-% $BJ?9T;MJU7A(B
+% 平行四辺形
 %---------------------------------------------------------------
-% created by $B%H%K%$(B
+% created by トニイ
 %
-\def\shikaku{\ % $BJ?9T;MJU7A(B
+\def\shikaku{\ % 平行四辺形
   \begin{picture}(15,9)%
     \put(0,-1){\line(1,2){5}}%
     \put(5,9){\line(1,0){10}}%
@@ -1222,13 +1222,13 @@ $\left(\!\!\begin{array}{c}#1 \\ #2 \\ #3 \end{array}%
   \end{picture}}%
 
 \ifx\fmtname\tmpname%
-\newcommand{\heikousihenkei}{% $BJ?9T;MJU7A(B epic $B$,I,MW(B
+\newcommand{\heikousihenkei}{% 平行四辺形 epic が必要
 \unitlength=.11ex%
   \begin{picture}(17,12)%
     \drawline(1,2)(6,11)(16,11)(11,2)(1,2)%
   \end{picture}}%
 \else%
-\newcommand{\heikousihenkei}{\ % $BJ?9T;MJU7A(B epic,eepic $B$,I,MW(B
+\newcommand{\heikousihenkei}{\ % 平行四辺形 epic,eepic が必要
   \unitlength=.5pt%
   \begin{picture}(17,11)%
     \put(0,1){\line(1,2){5}}%
@@ -1238,7 +1238,7 @@ $\left(\!\!\begin{array}{c}#1 \\ #2 \\ #3 \end{array}%
   \end{picture}}%
 \fi%
 
-% $B-y5-9f(B
+% ⊿記号
 \newcommand{\Deruta}{\unitlength=.11ex%
 \begin{picture}(17,17)%
 \@tempdima0.05em\relax
@@ -1250,10 +1250,10 @@ $\left(\!\!\begin{array}{c}#1 \\ #2 \\ #3 \end{array}%
 \end{picture}}%
 
 %------------------------
-% $B2r@O(B
+% 解析
 %------------------------
 
-% $B?tNs(B ($B?tNs(B {a_n})
+% 数列 (数列 {a_n})
 \newcommand{\suuretu}[1]{\ensuremath{\left\{#1\right\}}}%
 \newcommand{\tretuwa}[2]{{\textstyle\retuwa{#1}{#2}}}
 \newcommand{\retuwa}[2]{\sum\limits_{#1}^{#2}}%
@@ -1265,7 +1265,7 @@ $\left(\!\!\begin{array}{c}#1 \\ #2 \\ #3 \end{array}%
   \@ifundefined{hakobanpush}{}{\hakobanpop}%
   \sum\limits_{#3}^{#4}}
 
-% $B=89g5-9f(B
+% 集合記号
 % {x | condition(x) }
 % \syuugou[#1]#2
 %   #1 : x
@@ -1286,7 +1286,7 @@ $\left(\!\!\begin{array}{c}#1 \\ #2 \\ #3 \end{array}%
 \DeclareRobustCommand
   \notni{\mathrel{\m@th\mathpalette\c@ncel\ni}}
 %
-% $B6K8B(B
+% 極限
 %\newcommand{\dlim}[1]{{\displaystyle \lim_{#1}}}%
 \def\dlim{\@ifnextchar[{\dlim@}{\@dlim}}
 \def\@dlim#1{{\displaystyle\lim_{#1}}}
@@ -1305,16 +1305,16 @@ $\left(\!\!\begin{array}{c}#1 \\ #2 \\ #3 \end{array}%
   \end{picture}}}
 \def\To#1{\to@[#1]}
 
-% $B@QJ,(B
+% 積分
 \newcommand{\dint}[2]{{\displaystyle \int_{#1}^{#2}}}%
 
-% $BDj@QJ,(B
+% 定積分
 % \teisekibun#1#2#3
 %   [ #1 ]_{#2}^{#3}
 %
 \def\teisekibun#1#2#3{\gauss{\vphantom{\dfrac12}#1}_{#2}^{#3}}
 
-% $BA}8:!&1zFL(B
+% 増減・凹凸
 \ifx\fmtname\tmpname%
 \def\ltxoval(#1,#2){\@ifnextchar[{\ltx@oval(#1,#2)}{\ltx@oval(#1,#2)[]}}%
 \def\ltx@ovhorz{\hb@xt@\@ovxx{\kern \@ovro
@@ -1342,28 +1342,28 @@ $\left(\!\!\begin{array}{c}#1 \\ #2 \\ #3 \end{array}%
   \@put{-\@ovdx}{-\@ovdy}{\box\@tempboxa}%
   \endgroup}%
 
-\newcommand{\nevarrow}{{% $B2<$KFL$GA}2C(B
+\newcommand{\nevarrow}{{% 下に凸で増加
   \setlength{\unitlength}{0.075ex}%
     \begin{picture}(20,20)%
     \put(0,20){\ltxoval(40,40)[rb]}%
     \put(20,25){\vector(0,1){0}}%
     \end{picture}%
     }}%
-\newcommand{\necarrow}{{% $B>e$KFL$GA}2C(B
+\newcommand{\necarrow}{{% 上に凸で増加
   \setlength{\unitlength}{0.075ex}%
     \begin{picture}(20,20)%
     \put(20,0){\ltxoval(40,40)[lt]}%
     \put(25,20){\vector(1,0){0}}%
     \end{picture}%
     }}%
-\newcommand{\sevarrow}{{% $B2<$KFL$G8:>/(B
+\newcommand{\sevarrow}{{% 下に凸で減少
   \setlength{\unitlength}{0.075ex}%
     \begin{picture}(20,20)%
     \put(20,20){\ltxoval(40,40)[lb]}%
     \put(25,0){\vector(1,0){0}}%
     \end{picture}%
     }}%
-\newcommand{\secarrow}{{% $B>e$KFL$G8:>/(B
+\newcommand{\secarrow}{{% 上に凸で減少
   \setlength{\unitlength}{0.075ex}%
     \begin{picture}(20,20)%
     \put(0,0){\ltxoval(40,40)[rt]}%
@@ -1371,28 +1371,28 @@ $\left(\!\!\begin{array}{c}#1 \\ #2 \\ #3 \end{array}%
     \end{picture}%
     }}%
 \else
-\newcommand{\nevarrow}{{% $B2<$KFL$GA}2C(B
+\newcommand{\nevarrow}{{% 下に凸で増加
     \setlength{\unitlength}{.04zw}%
     \begin{picture}(20,20)%
     \put(0,20){\oval(40,40)[rb]}%
     \put(20,20){\vector(0,1){1}}%
     \end{picture}%
     }}%
-\newcommand{\necarrow}{{% $B>e$KFL$GA}2C(B
+\newcommand{\necarrow}{{% 上に凸で増加
     \setlength{\unitlength}{.04zw}%
     \begin{picture}(20,20)%
     \put(20,0){\oval(40,40)[lt]}%
     \put(20,20){\vector(1,0){1}}%
     \end{picture}%
     }}%
-\newcommand{\sevarrow}{{% $B2<$KFL$G8:>/(B
+\newcommand{\sevarrow}{{% 下に凸で減少
     \setlength{\unitlength}{.04zw}%
     \begin{picture}(20,20)%
     \put(20,20){\oval(40,40)[lb]}%
     \put(20,0){\vector(1,0){1}}%
     \end{picture}%
     }}%
-\newcommand{\secarrow}{{% $B>e$KFL$G8:>/(B
+\newcommand{\secarrow}{{% 上に凸で減少
     \setlength{\unitlength}{.04zw}%
     \begin{picture}(20,20)%
     \put(0,0){\oval(40,40)[rt]}%
@@ -1408,13 +1408,13 @@ $\left(\!\!\begin{array}{c}#1 \\ #2 \\ #3 \end{array}%
 \let\ougen\secarrow
 
 %------------------------
-% $B3NN((B
+% 確率
 %------------------------
 
-% $B3,>h(B
+% 階乗
 \def\kaizyou{\ensuremath{\mkern1mu!\mkern1mu}}
 
-%$BAH9g$;(B
+%組合せ
 %
 \def\kumiawase{\@ifstar{\kumiawase@}{\@kumiawase}}
 \def\@kumiawase#1#2{%
@@ -1426,7 +1426,7 @@ $\left(\!\!\begin{array}{c}#1 \\ #2 \\ #3 \end{array}%
         \else\suuzi@smacfalse\fi%
         }%
     \ensuremath{\mathord{{}_{#1}%
-% $B<!$N(B1$B9T$,!$:82<$NE:;z$H(B C $B$H$N6uGrNL(B
+% 次の1行が，左下の添字と C との空白量
         \ifsuuzi@smac\kern-.06em\else\kern-.12em\fi%
         \text{C}_{#2}}}%
 }
@@ -1441,39 +1441,39 @@ $\left(\!\!\begin{array}{c}#1 \\ #2 \\ #3 \end{array}%
 %        \else\suuzi@smacfalse\fi%
 %        }%
 %    \ensuremath{{}_{#1}%
-%% $B<!$N(B1$B9T$,!$:82<$NE:;z$H(B C $B$H$N6uGrNL(B
+%% 次の1行が，左下の添字と C との空白量
 %        \ifsuuzi@smac\kern-.06em\else\kern-.12em\fi%
 %        \text{C}_{#2}%
 %        }%
 %    }%
 %
-% $B=EJ#AH9g$;(B
+% 重複組合せ
 \newcommand{\Kumiawase}[2]{%
   \ensuremath{\mathord{{}_{#1}\text{H}_{#2}}}%
 }%
 
 %\newcommand{\kumiawase}[2]{%
 %  \@tfor\@c:=#1\do{\edef\@@c{\@c}}%
-%% $B<!$N(B1$B9T$,!$:82<$NE:;z$H(B C $B$H$N6uGrNL(B
+%% 次の1行が，左下の添字と C との空白量
 %  \ifcat1\@@c\def\ncr@sp{-.05em}\else\def\ncr@sp{-.12em}\fi%
 %  \ensuremath{\mathord{{}_{#1}\kern\ncr@sp\text{C}_{#2}}}%
 %}%
 
-% $B=gNs(B
+% 順列
 
 \newcommand{\zyunretu}[2]{%
   \ensuremath{\mathord{{}_{#1}\text{P}_{#2}}}%
 }%
-% $B=EJ#=gNs(B
+% 重複順列
 \newcommand{\Zyunretu}[2]{%
   \ensuremath{\mathord{{}_{#1}\Pi_{#2}}}%
 }%
 
 %---------------------------------------------------------------------
-%$B$=$NB>0lHL(B
+%その他一般
 %---------------------------------------------------------------------
 
-% $B=PE5$rIU$1$k(B
+% 出典を付ける
 \newcommand{\syutten}{\syutt@n}
 \def\syutt@n{%
   \ifvmode%\vskip-\baselineskip\vskip-\parsep
@@ -1486,12 +1486,12 @@ $\left(\!\!\begin{array}{c}#1 \\ #2 \\ #3 \end{array}%
 %      \rightskip=\the\@tempdima
 %    \fi
   \unskip\nobreak\hfil\penalty50
-  \hskip2zw\hbox{}\nobreak\hfil$B!L(B#1$B!M(B
+  \hskip2zw\hbox{}\nobreak\hfil〔#1〕
   \parfillskip=\z@\finalhyphendemerits=0\par}}
 \def\syutten@#1{{\unskip\nobreak\hfil\penalty50
   \hskip2zw\hbox{}\nobreak\hfil #1\parfillskip=\z@\finalhyphendemerits=0\par}}
 
-% $B9TKv$K%^!<%/(B
+% 行末にマーク
 \newcommand{\kotae}{\emathKotae}
 \def\emathKotae{\@ifnextchar[{\emath@kotae}{\emath@kotae[2]}}
 \def\emath@kotae[#1]{\@ifnextchar<{\emath@@kotae[#1]}{%
@@ -1499,14 +1499,14 @@ $\left(\!\!\begin{array}{c}#1 \\ #2 \\ #3 \end{array}%
 \def\emath@@kotae[#1]<#2>{%
   \edef\pre@kotae{}\Cfor{\edef\kotae@i{0}}{\kotae@i<#1}{%
   \Incr\kotae@i}\do{%
-  \edefappend\pre@kotae{$B!D(B}}%
+  \edefappend\pre@kotae{…}}%
   \ifdim #2=\z@
     \xdef\kotae@kigou{\pre@kotae\kotaekigou}%
   \else
     \xdef\kotae@kigou{\pre@kotae\kotaekigou\kern #2\relax}%
   \fi
   \emathOwari[\kotae@kigou]}
-\newcommand{\kotaekigou}{$B!JEz!K(B}
+\newcommand{\kotaekigou}{（答）}
 \newcommand{\owari}{\emathOwari}
 \def\emathOwari{\@ifnextchar[{\emath@owari}{\emath@owari[\owarikigou]}}%
 %\def\emath@owari[#1]{\ifmmode\tag*{#1}\else\syutten*{#1}\noindent\ignorespaces\fi}
@@ -1521,15 +1521,15 @@ $\left(\!\!\begin{array}{c}#1 \\ #2 \\ #3 \end{array}%
   \else
     \syutten*{#1}%
   \fi}
-\newcommand{\owarikigou}{$\blacksquare$}%   $B%^!<%/$N%G%U%)%k%H(B
+\newcommand{\owarikigou}{$\blacksquare$}%   マークのデフォルト
 
-% $B%j!<%@!<7S(B
-%\newcommand\Cdots{$B!D(B}
+% リーダー罫
+%\newcommand\Cdots{…}
 \DeclareRobustCommand
   \ltxcdots{\mathinner{\cdotp\cdotp\cdotp}}
-\def\Cdots{\@ifnextchar[{\@Cdots}{$B!D(B}}
+\def\Cdots{\@ifnextchar[{\@Cdots}{…}}
 \def\@Cdots[#1]{{\@tempcnta=#1\relax
-  \@whilenum\@tempcnta>\z@\do{$B!D(B\advance\@tempcnta\m@ne}\ignorespaces}}
+  \@whilenum\@tempcnta>\z@\do{…\advance\@tempcnta\m@ne}\ignorespaces}}
 \def\cdotskip{1.5mu}
 \def\cdotfill{\@ifnextchar[{\cdotfill@}{\@cdotfill}}
 \def\@cdotfill{\cleaders\hbox{%
@@ -1553,9 +1553,9 @@ $\left(\!\!\begin{array}{c}#1 \\ #2 \\ #3 \end{array}%
 \def\Cdotfill@[#1]{\leavevmode\hbox to #1{\cleaders\hbox{%
   $\m@th\mkern1.5mu \raisebox{.22ex}{$\cdot$} \mkern1.5mu$}\hfill}}
 
-%%$B<0$NHV9f(B($B%j!<%@!<7S$r$D$1$k!K(B
+%%式の番号(リーダー罫をつける）
 %
-% $B%j!<%@!<7S$rIU$1$?<0HV9f(B($B4]?t;z(B)
+% リーダー罫を付けた式番号(丸数字)
 \ifx\fmtname\tmpname%
     \def\EMleqno{\tagsleft@true}
     \def\EMreqno{\tagsleft@false}
@@ -1568,8 +1568,8 @@ $\left(\!\!\begin{array}{c}#1 \\ #2 \\ #3 \end{array}%
 %   \def\prel@bel{\makebox[0pt][r]{$\Cdots\Cdots\Cdots\Cdots\Cdots\Cdots~$}}%
 %    \def\prel@bel{$\cdots\cdots\cdots\cdots\cdots\cdots~$}%
     \def\prel@bel{\cdotpfill[8em]~}%
-%   \def\preHl@bel{$\Cdots\Cdots~$}% $B5lDj5A(B
-    \def\preHl@bel{$\cdotpfill[3em]~$}% v1.36 $B$GJQ99(B
+%   \def\preHl@bel{$\Cdots\Cdots~$}% 旧定義
+    \def\preHl@bel{$\cdotpfill[3em]~$}% v1.36 で変更
     \def\postl@bel{}%
     \def\tagform@#1{%
         \maketag@@@{\ignorespaces%
@@ -1591,7 +1591,7 @@ $\left(\!\!\begin{array}{c}#1 \\ #2 \\ #3 \end{array}%
       {\preEqlabel{}\postEqlabel{}\textup{\tagform@{\ref{#1}}}}%
     \fi}
 %
-% $B%j!<%@!<7S$ND9$5$ND4@0(B($B%j!<%@!<7S$J$7$b4^$a$F(B)
+% リーダー罫の長さの調整(リーダー罫なしも含めて)
 %   \newcommand{\preEqlabel}[1]{\def\prel@bel{\makebox[0pt][r]{#1}}}%
     \def\preEqlabel{\@ifstar{\preEqlabel@m}{\preEqlabel@n}}%
     \def\preEqlabel@m#1{\def\prel@bel{\makebox[0pt][r]{#1}}}%
@@ -1604,7 +1604,7 @@ $\left(\!\!\begin{array}{c}#1 \\ #2 \\ #3 \end{array}%
     \newcommand{\tagform}[1]{}%
 \fi%
 %
-% $B<0HV9f7A<0$N=i4|2=(B
+% 式番号形式の初期化
 %
 \newcommand{\resettagform}{%
     \renewcommand{\tagform}[1]{(##1)}%
@@ -1612,12 +1612,12 @@ $\left(\!\!\begin{array}{c}#1 \\ #2 \\ #3 \end{array}%
   }%
 %
 
-% $B<0HV9f$N6/@)Im2C(B
+% 式番号の強制附加
 \def\atag{\refstepcounter{equation}\tag{\number\c@equation}}
 
 \def\emKakko#1{(#1)}%
 \let\Kakko\emKakko
-% $B4]?t;z(B
+% 丸数字
 \ifx\fmtname\tmpname%
   \newcommand{\Maru}[1]{{%
 \@ifundefined{Add}{\makeatletter\input{eclarith.sty}\makeatother}{}%
@@ -1665,7 +1665,7 @@ $\left(\!\!\begin{array}{c}#1 \\ #2 \\ #3 \end{array}%
 \def\tmaru#1{\maru{\text{#1}}}
 \def\maruKata#1{\maru{\katakana{#1}}}
 %
-% $B1|B<@h@8$N(B okumacro.sty $B$h$j<ZMQ(B
+% 奥村先生の okumacro.sty より借用
 %
 \@ifundefined{MARU}{%
 \newcommand{\MARU}[1]{{%
@@ -1675,7 +1675,7 @@ $\left(\!\!\begin{array}{c}#1 \\ #2 \\ #3 \end{array}%
       \hbox{\fontencoding{OMS}\fontfamily{cmsy}\fontseries{m}\fontshape{n}\selectfont
         \char"0D}}}}}{}%
 %
-% 2$B7e0J>e$OA43Q(B1$BJ8;zI}$K=L>.(B
+% 2桁以上は全角1文字幅に縮小
 \def\zwmaru#1{{%\maru{\resizebox{1zw}{\height}{#1}}%
     \ifthenelse{\not\equal{#1}\empty\and\isodd{0#11}}{%yes
       \ifthenelse{#1<10}{%
@@ -1688,7 +1688,7 @@ $\left(\!\!\begin{array}{c}#1 \\ #2 \\ #3 \end{array}%
     }%
 }}
 %
-% $BBg$-L\$N!{$H$7$F!$(Bifsym $B%Q%C%1!<%8$N(B \BigCircle $B$rMQ$$$k(B
+% 大き目の○として，ifsym パッケージの \BigCircle を用いる
 %     \usepackage[geometry]{ifsym}
 %
 \newcommand{\ifsymMaru}[1]{{%
@@ -1696,7 +1696,7 @@ $\left(\!\!\begin{array}{c}#1 \\ #2 \\ #3 \end{array}%
   \ooalign{\hfil{\scalebox{.84}{#1}}\hfil\crcr\lower.5ex\hbox{\BigCircle}}%
 }}
 %
-% $BGr9uH?E>(B
+% 白黒反転
 \def\maru{\protect\pmaru}
 \def\pmaru{\@ifnextchar[{\kmaru}{\EMmaru}}
 \def\bmaru{\protect\p@bmaru}
@@ -1724,7 +1724,7 @@ $\left(\!\!\begin{array}{c}#1 \\ #2 \\ #3 \end{array}%
   }%
 \end{picture}}}%
 
-% $B=DD9$N4]?t;z(B
+% 縦長の丸数字
 \def\maru@yokokei{14ex}%
 \def\maru@tatekei{21ex}%
 \def\nagamaruyokohankei#1{\Mul{#1}{14}\maru@y
@@ -1758,7 +1758,7 @@ $\left(\!\!\begin{array}{c}#1 \\ #2 \\ #3 \end{array}%
 \let\nagamaru\EMnagamaru
 \def\knagamaru#1{\nagamaru[1]{\textcolor{white}{#1}}}
 
-% $B2#D9$N4]?t;z(B
+% 横長の丸数字
 \def\EMynagamaru{\@ifnextchar[{\@EMynagamaru}{\@EMynagamaru[0]}}
 \def\@EMynagamaru[#1]#2{{\def\maru@yokokei{21ex}\def\maru@tatekei{14ex}%
   \@EMnagamaru[#1]{#2}}}
@@ -1766,7 +1766,7 @@ $\left(\!\!\begin{array}{c}#1 \\ #2 \\ #3 \end{array}%
 \let\ynagamaru\EMynagamaru
 \def\kynagamaru#1{\ynagamaru[1]{\textcolor{white}{#1}}}
 
-% $B;2>H$9$k:]$K4]?t;z$K$9$k!%(B
+% 参照する際に丸数字にする．
 \newcommand{\maruref}[1]{\maru{\ref{#1}}}%
 \def\marusuuref#1{%
     \expandafter\ref@chk\csname r@#1\endcsname
@@ -1780,26 +1780,26 @@ $\left(\!\!\begin{array}{c}#1 \\ #2 \\ #3 \end{array}%
     \fi
 }
 
-%%%%%%%%%%%$B%@%C%7%eIU$-?t<0HV9f(B
+%%%%%%%%%%%ダッシュ付き数式番号
 \newcommand{\marudashref}[1]{\ensuremath{\text{\maru{\ref{#1}}}'}}%
-% \marudashtag($B%@%C%7%e$N8D?t(B){$B85HV9f$X$N%i%Y%k(B}
+% \marudashtag(ダッシュの個数){元番号へのラベル}
 \def\marudashtag{\@ifnextchar({\@marudashtag}{\@marudashtag(1)}}%
 \def\@marudashtag(#1)#2{\tag*{\prel@bel\maru{\ref{#2}}\ensuremath{\lefteqn{
 \ifcase#1\or'\or''\or'''\or''''\fi}}}\postl@bel}%
 
-% $B%+%&%s%?CM$N%j%;%C%H(B
+% カウンタ値のリセット
 %
-%   \resetcounter{foo} $B%+%&%s%?(B foo $B$NCM$r=i4|2=$7$^$9!%(B
+%   \resetcounter{foo} カウンタ foo の値を初期化します．
 %
-% $B%+%&%s%?$K?F;R4X78$r@_Dj$9$k!%(B
+% カウンタに親子関係を設定する．
 %
-%   \resetcounter{foo}[FOO] FOO $B$NCM$,99?7$5$l$k$H!$(Bfoo $B$O=i4|2=$5$l$^$9!%(B
+%   \resetcounter{foo}[FOO] FOO の値が更新されると，foo は初期化されます．
 %
 \def\resetcounter#1{\@ifnextchar[{\resetcounter@{#1}}{\@resetcounter{#1}}}%
 \def\resetcounter@#1[#2]{\@addtoreset{#1}{#2}}%
 \def\@resetcounter#1{\setcounter{#1}{0}}%
 
-% fleqn $B$N%*%s!&%*%U(B (cf. nccmath.sty)
+% fleqn のオン・オフ (cf. nccmath.sty)
 \def\fleqnoff{\@fleqnfalse\@mathmargin\@centering\ignorespaces}%
 \def\fleqnon{\@ifnextchar[{\fleqn@n}{\fleqn@n[\leftmargini]}}%
 \def\fleqn@n[#1]{\@fleqntrue\@mathmargin=#1\relax
@@ -1807,14 +1807,14 @@ $\left(\!\!\begin{array}{c}#1 \\ #2 \\ #3 \end{array}%
 \def\endfleqnon{\@ignoretrue}
 \def\endfleqnoff{\@ignoretrue}
 %
-% $BO"N)J}Dx<0$N?t<0HV9f$r8DJL$KIU$1$k%3%^%s%I(B \renritu[#1](#2)#3
-%         #1 $B$O!$O"N)$N:8$K=q$-$?$$$b$N$,$"$k$H$-$N%*%W%7%g%s(B
-%         #2 $B$O!$?t<0$N:8%^!<%8%s(B
-%         #3 $B$K!$(Balign $B4D6-Fb$K5-=R$9$k$b$N$rM?$($k!%(B
-% $B;HMQ>e$N@)Ls!'(B(1) amsmath $B%Q%C%1!<%8$r;HMQ$9$k$3$H!%(B
-%               (2) fleqn$B%*%W%7%g%s$rIU$1$F$$$J$$$H$-$b!$(B
-%                   $B?t<0$N0LCV$,:84s$;$H$J$k$+$i!$(B
-%                   (..) $B%*%W%7%g%s$G0LCV$rD4@0$9$k!%(B
+% 連立方程式の数式番号を個別に付けるコマンド \renritu[#1](#2)#3
+%         #1 は，連立の左に書きたいものがあるときのオプション
+%         #2 は，数式の左マージン
+%         #3 に，align 環境内に記述するものを与える．
+% 使用上の制約：(1) amsmath パッケージを使用すること．
+%               (2) fleqnオプションを付けていないときも，
+%                   数式の位置が左寄せとなるから，
+%                   (..) オプションで位置を調整する．
 %
 \newdimen\renritu@hidariyohaku
 %\newdimen\renritunakayohaku
@@ -1917,15 +1917,15 @@ $\left(\!\!\begin{array}{c}#1 \\ #2 \\ #3 \end{array}%
   \egroup
 }
 
-% $BO"N)J}Dx<0$N?t<0HV9f$r8DJL$KIU$1$k%3%^%s%I(B \renrituat[#1](#2)#3#4
-%         #1 $B$O!$O"N)$N:8$K=q$-$?$$$b$N$,$"$k$H$-$N%*%W%7%g%s(B
-%         #2 $B$O!$?t<0$N:8%^!<%8%s(B
-%         #3 $B$K!$(Balignat $B4D6-$K$*$1$k7eB7$($r$9$k0LCV$N8D?t(B
-%         #4 $B$K!$(Balignat $B4D6-Fb$K5-=R$9$k$b$N$rM?$($k!%(B
-% $B;HMQ>e$N@)Ls!'(B(1) amsmath $B%Q%C%1!<%8$r;HMQ$9$k$3$H!%(B
-%               (2) fleqn$B%*%W%7%g%s$rIU$1$F$$$J$$$H$-$b!$(B
-%                   $B?t<0$N0LCV$,:84s$;$H$J$k$+$i!$(B
-%                   (..) $B%*%W%7%g%s$G0LCV$rD4@0$9$k!%(B
+% 連立方程式の数式番号を個別に付けるコマンド \renrituat[#1](#2)#3#4
+%         #1 は，連立の左に書きたいものがあるときのオプション
+%         #2 は，数式の左マージン
+%         #3 に，alignat 環境における桁揃えをする位置の個数
+%         #4 に，alignat 環境内に記述するものを与える．
+% 使用上の制約：(1) amsmath パッケージを使用すること．
+%               (2) fleqnオプションを付けていないときも，
+%                   数式の位置が左寄せとなるから，
+%                   (..) オプションで位置を調整する．
 
 \def\renrituat{\@ifstar{\def\renritu@ban{0}\renrituat@}{%
     \def\renritu@ban{1}\renrituat@}}%
@@ -2004,10 +2004,10 @@ $\left(\!\!\begin{array}{c}#1 \\ #2 \\ #3 \end{array}%
 
 % EMvphantom
 % \EMvphantom[#1][#2]#3
-%   #3 $B$N9b$5$K(B #1 $B$rIm2C$7!$(B
-%   #3 $B$N?<$5$K(B #2 $B$rIm2C$7$?;YCl$rI=$9!#(B
-%   #1 $B$N%G%U%)%k%HCM$O(B 0pt
-%   #2 $B$N%G%U%)%k%HCM$O(B #1
+%   #3 の高さに #1 を附加し，
+%   #3 の深さに #2 を附加した支柱を表す。
+%   #1 のデフォルト値は 0pt
+%   #2 のデフォルト値は #1
 
 \def\apnd@ht{\z@}
 \def\apnd@dp{\z@}
@@ -2039,13 +2039,13 @@ $\left(\!\!\begin{array}{c}#1 \\ #2 \\ #3 \end{array}%
 \def\@@bsityuu[#1][#2]{\EMvphantom[#1][#2]{\ensuremath{\bunsuu12}}}
 
 %
-% $BK\J8Cf$NJ}Dx<0$K?t<0HV9f$rIUM?$9$k%3%^%s%I!%(B
+% 本文中の方程式に数式番号を付与するコマンド．
 %
-%   \houteisiki($BM>Gr(B)<$B>eM>Gr(B>[tag $B%i%Y%k(B]{$B?t<0(B \label{$B%i%Y%k(B}}
-%        $B$3$N%3%^%s%I$N0z?t$O(B equation $B4D6-$NCf$KF~$j$^$9$+$i!$(B
-%            $B<+F0E*$K?t<0%b!<%I$K$J$j$^$9!%(B
-%        <$B>eM>Gr(B>$B$K$*$$$F!$Id9f$r$D$1$?>l9g$O!$(B
-%             $B%G%U%)%k%HCM$KBP$9$kAjBPCM!J8=:_J]N1!K(B
+%   \houteisiki(余白)<上余白>[tag ラベル]{数式 \label{ラベル}}
+%        このコマンドの引数は equation 環境の中に入りますから，
+%            自動的に数式モードになります．
+%        <上余白>において，符号をつけた場合は，
+%             デフォルト値に対する相対値（現在保留）
 %
 \def\houteisiki{%
   \@ifnextchar({\@houteisiki}{\@houteisiki(0pt)}}%
@@ -2212,7 +2212,7 @@ $\left(\!\!\begin{array}{c}#1 \\ #2 \\ #3 \end{array}%
   \box0\hspace{\fboxsep}%
 }}
 %
-% $B?t<0%b!<%I$K$*$$$F!$1QBgJ8;z$r(B $BN)BN(B($B%m!<%^%sBN(B)$B$K$9$k4D6-(B caprm
+% 数式モードにおいて，英大文字を 立体(ローマン体)にする環境 caprm
 %
 \def\mitA{\ensuremath{{\mathnormal A}}}
 \def\mitB{\ensuremath{{\mathnormal B}}}
@@ -2289,19 +2289,19 @@ $\left(\!\!\begin{array}{c}#1 \\ #2 \\ #3 \end{array}%
 
 \newcommand{\mathRM}[1]{{\caprm\ensuremath{#1}}}%
 
-%%% $BB@;z!J?t<0%b!<%I!K(B
+%%% 太字（数式モード）
 %%%
 \@ifundefined{bm}{\let\bm\boldsymbol}{}
 
 
 % \fboxnil#1\nil
-%   enumerate $B4D6-$G(B \fbox $BIU$N%J%s%P%j%s%0(B
+%   enumerate 環境で \fbox 付のナンバリング
 \def\fboxnil#1\nil{\fbox{#1}}
 
-%%% GIF $B%U%!%$%k<h$j9~$_(B
+%%% GIF ファイル取り込み
 %%% \inputgif#1#2
-%%%     #1 : $B=D%5%$%:(B
-%%%     #2 : gif $B%U%!%$%kL>!J3HD%;R$J$7!K(B
+%%%     #1 : 縦サイズ
+%%%     #2 : gif ファイル名（拡張子なし）
 
 \def\getflnode#1#2{%
   \Cfor{\strsep{#1}{/}\fl@path\fl@node}{\not\equal\fl@node\empty}{%
@@ -2320,15 +2320,15 @@ $\left(\!\!\begin{array}{c}#1 \\ #2 \\ #3 \end{array}%
 
 }%
 %
-%%% $B;YCl(B
-%%% \sityuu{$B9b$5(B}
+%%% 支柱
+%%% \sityuu{高さ}
 %%%
 \def\sityuu{\@ifnextchar[{\@sityuu}{\@sityuu[0zh]}}
 \def\@sityuu[#1]#2{\vrule width\z@ height #2 depth #1}
 %\newcommand{\sityuu}[2][0zh]{\vrule width\z@ height #2 depth #1}
 %
 %
-% $B%?%9%-(B
+% タスキ
 \newcommand{\tasukikata}{0}%
 \newcommand{\tasukimozihaiti}{rrrcr}
 %\def\Tasukimozihaiti#1{\edef\tasukimozihaiti{{#1}}}
@@ -2366,7 +2366,7 @@ $\left(\!\!\begin{array}{c}#1 \\ #2 \\ #3 \end{array}%
 && \@tasukiwa
 \end{EMarray}}%
 
-% $BC;$$$?$9$-(B
+% 短いたすき
 \def\stasuki{\@ifnextchar[{\@stasuki}{\@stasuki[\empty]}}%
 \def\@stasuki[#1]#2#3#4#5{{%
 \unitlength\baselineskip
@@ -2423,7 +2423,7 @@ $\left(\!\!\begin{array}{c}#1 \\ #2 \\ #3 \end{array}%
 %\endarray
 \end{EMarray}}
 
-% $B%U%!%$%k=hM}(B
+% ファイル処理
 \newread\fileophndl
 
 \edef\EMATH@DIR{}
@@ -2455,7 +2455,7 @@ $\left(\!\!\begin{array}{c}#1 \\ #2 \\ #3 \end{array}%
   }%
   \edef#2{\pathnm@}}
 %
-% $B<+A3D9$N(B parbox
+% 自然長の parbox
 %
 \def\EMparbox{\@ifnextchar<{\@EMparbox}{\@EMparbox<\empty>}}
 \def\@EMparbox<#1>{\@ifnextchar[{\@@EMparbox<#1>}{\@@EMparbox<#1>[c]}}
@@ -2469,17 +2469,17 @@ $\left(\!\!\begin{array}{c}#1 \\ #2 \\ #3 \end{array}%
   }%
 }
 %
-% $B%U%!%$%k$N:o=|(B
+% ファイルの削除
 \def\@delfile#1{%
   \@ifundefined{emathpl}{\relax}{%
     \IfFileExists{#1}{\immediate\write18{xxxdel #1}}{\relax}}}
 \def\delfile#1{\relax}
 
-% $B%?%$%`%9%?%s%W(B
+% タイムスタンプ
 % \gettimestamp#1#2#3
-%   #1 $B$GM?$($i$l$?%U%!%$%k$N%?%$%`%9%?%s%W$N$&$A(B
-%   #2 $B$KF|IU(B
-%   #3 $B$K;~9o$rJV$9!%(B
+%   #1 で与えられたファイルのタイムスタンプのうち
+%   #2 に日付
+%   #3 に時刻を返す．
 %
 \def\gettimestamp#1#2#3{%
   \edef\@flnm{timestmp.@@@}

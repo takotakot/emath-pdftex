@@ -6,11 +6,11 @@
 \checkPerl
 
 \begin{document}
-\section{\textsf{picture}$B4D6-$H$N6&B8(B}
-\textsf{emathPxy}$B$rF3F~$9$k$H!$(B\textsf{picture}$B4D6-$KBP$7$F!$(B
-\cmd{unitlength}$B$,L58z$H$J$C$F$$$^$7$?$,!$$3$l$r=$@5$7$^$7$?!#(B
+\section{\textsf{picture}環境との共存}
+\textsf{emathPxy}を導入すると，\textsf{picture}環境に対して，
+\cmd{unitlength}が無効となっていましたが，これを修正しました。
 
-\begin{showEx}(0.54,0.4){\textsf{picture}$B4D6-$H$N6&B8(B}
+\begin{showEx}(0.54,0.4){\textsf{picture}環境との共存}
 \unitlength10mm
 \begin{picture}(2,2)
 \put(1,1){\circle{2}}
@@ -19,13 +19,13 @@
 \end{picture}
 \end{showEx}
 
-$B$?$@$7!$(B\textsf{picture}$B4D6-$KBP$7$F!$(B\texttt{yscale}$B%*%W%7%g%s$J$I$,(B
-$BM-8z$K$J$k!$$H$$$&$3$H$G$O$"$j$^$;$s!#(B\textsf{emathPxy}$B$rFI$_9~$s$@$@$1$G(B
-\cmd{unitlength}$B$,L58z$K$J$k;vBV$r=$@5$7$?$H$$$&$3$H$G$9!#(B
-\cmd{yscale}$B$J$I$,I,MW$J>l9g$O!$(B\textsf{picture}$B4D6-$G$O$J$/!$(B
-\textsf{zahyou*}$B4D6-$r$4MxMQ$/$@$5$$!#(B
+ただし，\textsf{picture}環境に対して，\texttt{yscale}オプションなどが
+有効になる，ということではありません。\textsf{emathPxy}を読み込んだだけで
+\cmd{unitlength}が無効になる事態を修正したということです。
+\cmd{yscale}などが必要な場合は，\textsf{picture}環境ではなく，
+\textsf{zahyou*}環境をご利用ください。
 
-\begin{showEx}(0.54,0.4){\textsf{zahyou*}$B4D6-$G(B\texttt{yscale}$B%*%W%7%g%s(B}
+\begin{showEx}(0.54,0.4){\textsf{zahyou*}環境で\texttt{yscale}オプション}
 \begin{zahyou*}%
 [ ul=10mm,
   yscale=.6667
@@ -34,15 +34,15 @@
 \end{zahyou*}
 \end{showEx}
 
-\section{$B<~0O$KM>Gr(B}
-\textsf{emathPh v 0.93}$B$G?7@_$7$?!V<~0O$KM>Gr$rIU$1$k!W5!G=$r(B
-\textsf{emathPxy}$B$G$bMxMQ$9$k$3$H$,$G$-$^$9!#(B
+\section{周囲に余白}
+\textsf{emathPh v 0.93}で新設した「周囲に余白を付ける」機能を
+\textsf{emathPxy}でも利用することができます。
 
-$B0J2<$NNc$G$O!$(B\TeX $B$,G'<1$7$F$$$k(B\textsf{zahyou}$B4D6-$N%5%$%:$r(B
-$B<($9$?$a$K(B\cmd{framebox}$B$G0O$s$G$$$^$9!#(B
+以下の例では，\TeX が認識している\textsf{zahyou}環境のサイズを
+示すために\cmd{framebox}で囲んでいます。
 
 
-\begin{showEx}(0.5,0.44){$BM>Gr$J$7(B}
+\begin{showEx}(0.5,0.44){余白なし}
 \fboxsep=0pt\fbox{%
 \begin{zahyou}[%
   ul=3mm,yscale=4,
@@ -60,10 +60,10 @@
 \end{zahyou}}
 \end{showEx}
 
-$B:BI8<4L>$J$I$NJ8;z$,OH30$KHt$S=P$7$F$$$^$9!#(B
-$BM>Gr$rIU2C$7$F$_$^$7$g$&!#(B
+座標軸名などの文字が枠外に飛び出しています。
+余白を付加してみましょう。
 
-\begin{showEx}(0.5,0.44){$BM>Gr$rIU2C(B}
+\begin{showEx}(0.5,0.44){余白を付加}
 \fboxsep=0pt\fbox{%
 \begin{zahyou}[%
   ul=3mm,yscale=4,
@@ -83,35 +83,35 @@
 \xMemori<\pi>{2}
 \end{zahyou}}
 \end{showEx}
-$BJ8;z$bOHFb$KG<$^$j$^$7$?!#(B
+文字も枠内に納まりました。
 
-\section{\textsf{zahyou}$B4D6-$N=q<0(B}
+\section{\textsf{zahyou}環境の書式}
 \begin{boxnote}
 \begin{verbatim}
     \begin{zahyou}[#1](#2,#3)(#4,#5)
-      #1 : key=val $B$N7A<0$G!$(Bkey $B$K$O<!$N$b$N$,;H$($^$9!#(B
-          yokozikukigou $B%G%U%)%k%H$O(B $x$
-          tatezikukigou $B%G%U%)%k%H$O(B $y$
-          gentenkigou   $B%G%U%)%k%H$O(B O
-          yokozikuhaiti $B%G%U%)%k%H$O(B (0,-3pt)[rt]
-          tatezikuhaiti $B%G%U%)%k%H$O(B (-3pt,0)[rt]
-          gentenhaiti   $B%G%U%)%k%H$O(B [sw]
-          ul            \unitlength $B$rJQ99$7$^$9!#%G%U%)%k%H$O(B 1pt
-          yscale        $B%G%U%)%k%H$O(B1
-          xscale        $B%G%U%)%k%H$O(B1
-          arrowheadsize $BLp0u$N%5%$%:!J$=$N;~E@$N$b$N$KBP$9$kHfN(!K(B
-          zikusensyu    $B:BI8<4$N@~<o(B
-                        $B%G%U%)%k%H$O(B \arrowdrawline
-          ueyohaku      $B1&JUCM$OL5L>?t!JC10L$O(B\unitlength)
+      #1 : key=val の形式で，key には次のものが使えます。
+          yokozikukigou デフォルトは $x$
+          tatezikukigou デフォルトは $y$
+          gentenkigou   デフォルトは O
+          yokozikuhaiti デフォルトは (0,-3pt)[rt]
+          tatezikuhaiti デフォルトは (-3pt,0)[rt]
+          gentenhaiti   デフォルトは [sw]
+          ul            \unitlength を変更します。デフォルトは 1pt
+          yscale        デフォルトは1
+          xscale        デフォルトは1
+          arrowheadsize 矢印のサイズ（その時点のものに対する比率）
+          zikusensyu    座標軸の線種
+                        デフォルトは \arrowdrawline
+          ueyohaku      右辺値は無名数（単位は\unitlength)
           sitayohaku
           migiyohaku
           hidariyohaku
-          Ueyohaku      $B1&JUCM$OC10L$rH<$&D9$5(B
+          Ueyohaku      右辺値は単位を伴う長さ
           Sitayohaku
           Migiyohaku
           Hidariyohaku
-      (#2,#3) : x$B$NHO0O(B
-      (#4,#5) : y$B$NHO0O(B
+      (#2,#3) : xの範囲
+      (#4,#5) : yの範囲
 \end{verbatim}
 \end{boxnote}
 \end{document}

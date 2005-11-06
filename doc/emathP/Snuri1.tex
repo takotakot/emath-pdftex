@@ -1,123 +1,123 @@
-\section{$BEI$j$D$V$7(B(1)}
-\subsection{$BB?3Q7AFbIt$NEI$j$D$V$7(B}
-$BB?3Q7A$NFbIt$rEI$j$D$V$9%3%^%s%I(B \cmd{Nuritubusi} $B$G$9!%(B
+\section{塗りつぶし(1)}
+\subsection{多角形内部の塗りつぶし}
+多角形の内部を塗りつぶすコマンド \cmd{Nuritubusi} です．
 \cindex{Nuritubusi}
 
-\showexample[$BB?3Q7A$NEI$j$D$V$7(B](0.51)(0.44){example/shade01}
+\showexample[多角形の塗りつぶし](0.51)(0.44){example/shade01}
 
-\cmd{Nuritubusi} $B$N=q<0$O(B
+\cmd{Nuritubusi} の書式は
 
 \begin{boxnote}
 \begin{verbatim}
 \Nuritubusi[#1]#2
-  #1 : $BEI$kG;$5(B 
-      ( 0 $B$H(B 1 $B$N4V$N?t!%(B 0 $B$O??$CGr!$(B1$B$O??$C9u!%(B
-        $B%G%U%)%k%H$O(B 0.5)
-  #2 : $BB?3Q7A$NE@Ns!JJD$8$F$$$J$1$l$P$J$j$^$;$s!%(B)
+  #1 : 塗る濃さ 
+      ( 0 と 1 の間の数． 0 は真っ白，1は真っ黒．
+        デフォルトは 0.5)
+  #2 : 多角形の点列（閉じていなければなりません．)
 \end{verbatim}
 \end{boxnote}
 
-\subsection{$B1_FbIt$NEI$j$D$V$7(B}
-$B1_$NFbIt$rEI$j$D$V$9$N$,(B \cmd{En*} $B%3%^%s%I$G$9!%(B\cindex{En*}
+\subsection{円内部の塗りつぶし}
+円の内部を塗りつぶすのが \cmd{En*} コマンドです．\cindex{En*}
 
-\showexample[$B1_$NEI$j$D$V$7(B](0.5)(0.45){example/shade03}
+\showexample[円の塗りつぶし](0.5)(0.45){example/shade03}
 
 \begin{boxnote}
 \begin{verbatim}
 \En*[#1]#2#3
-    #1 : $BEI$kG;$5(B 
-      ( 0 $B$H(B 1 $B$N4V$N?t!%(B 0 $B$O??$CGr!$(B1$B$O??$C9u!%(B
-        $B%G%U%)%k%H$O(B 0.5)
-        #2 : $BCf?4$N:BI8(B
-        #3 : $BH>7B(B
+    #1 : 塗る濃さ 
+      ( 0 と 1 の間の数． 0 は真っ白，1は真っ黒．
+        デフォルトは 0.5)
+        #2 : 中心の座標
+        #3 : 半径
 \end{verbatim}
 \end{boxnote}
 
-$B%*%W%7%g%s0z?t(B\texttt{[..]}$B$GG;$5$r;XDj$9$k$3$H$,$G$-$^$9!%(B
-$B%G%U%)%k%H$O(B0.5$B$G$9!%FC$K(B0$B$r;XDj$9$k$HGrH4$-$H$J$j$^$9!%(B
+オプション引数\texttt{[..]}で濃さを指定することができます．
+デフォルトは0.5です．特に0を指定すると白抜きとなります．
 
-\showexample[$BGrH4$-(B](0.5)(0.45){example/shade04}
+\showexample[白抜き](0.5)(0.45){example/shade04}
 
-\subsection{$B@p7A$NEI$j$D$V$7(B}
-\showexample[$B@p7A$NEI$j$D$V$7(B](0.5)(0.45){example/shade05}
+\subsection{扇形の塗りつぶし}
+\showexample[扇形の塗りつぶし](0.5)(0.45){example/shade05}
 \cindex{ougigata*}
 
 \begin{boxnote}
 \begin{verbatim}
 \ougigata*[#1]<#2>#3#4#5
-  #1 : $BEI$j$D$V$7$NG;$5(B
-  #2 : $B6-3&@~IA2h%*%W%7%g%s(B
-        <border=1> $B$G6-3&@~$rIA2h$9$k!#(B
-  #3 $B!A(B #5 : \ougigata $B$N(B #1$B!A(B#3 $B$HF1$8(B
-  $B!JCf?4$O(B \put (\Put) $B$G;XDj$9$k!%!K(B
+  #1 : 塗りつぶしの濃さ
+  #2 : 境界線描画オプション
+        <border=1> で境界線を描画する。
+  #3 〜 #5 : \ougigata の #1〜#3 と同じ
+  （中心は \put (\Put) で指定する．）
 \end{verbatim}
 \end{boxnote}
 
-\subsection{$B5]7A$NEI$j$D$V$7(B}
-\showexample[$B5]7A$NEI$j$D$V$7(B](0.5)(0.45){example/shade06}
+\subsection{弓形の塗りつぶし}
+\showexample[弓形の塗りつぶし](0.5)(0.45){example/shade06}
 \cindex{yumigata*}
 
 \begin{boxnote}
 \begin{verbatim}
 \yumigata*[#1]<#2>#3#4#5
-  #1 : $BEI$j$D$V$7$NG;$5(B
-  #2 : $B6-3&@~IA2h%*%W%7%g%s(B
-        <border=1> $B$G6-3&@~$rIA2h$9$k!#(B
-  #3 $B!A(B #5 : \yumigata $B$N(B #1$B!A(B#3 $B$HF1$8(B
-  $B!JCf?4$O(B \put (\Put) $B$G;XDj$9$k!%!K(B
+  #1 : 塗りつぶしの濃さ
+  #2 : 境界線描画オプション
+        <border=1> で境界線を描画する。
+  #3 〜 #5 : \yumigata の #1〜#3 と同じ
+  （中心は \put (\Put) で指定する．）
 \end{verbatim}
 \end{boxnote}
 
 
-\subsection{$BBJ1_$NEI$j$D$V$7(B}
-\showexample[$BBJ1_$NEI$j$D$V$7(B](0.5)(0.45){example/shade07}
+\subsection{楕円の塗りつぶし}
+\showexample[楕円の塗りつぶし](0.5)(0.45){example/shade07}
 \cindex{Daen*}
 
 \begin{boxnote}
 \begin{verbatim}
 \Daen*[#1]#2#3#4
-    #1 : $BEI$kG;$5(B 
-      ( 0 $B$H(B 1 $B$N4V$N?t!%(B 0 $B$O??$CGr!$(B1$B$O??$C9u!%(B
-        $B%G%U%)%k%H$O(B 0.5)
-        #2 : $BCf?4$N:BI8(B
-        #3 : $B2#<4J}8~$NH>7B(B
-        #4 : $B=D<4J}8~$NH>7B(B
+    #1 : 塗る濃さ 
+      ( 0 と 1 の間の数． 0 は真っ白，1は真っ黒．
+        デフォルトは 0.5)
+        #2 : 中心の座標
+        #3 : 横軸方向の半径
+        #4 : 縦軸方向の半径
 \end{verbatim}
 \end{boxnote}
 
 
-\subsection{$B5]7A!JBJ1_8L!K$NEI$j$D$V$7(B}
-\showexample[$B5]7A!JBJ1_8L!K$NEI$j$D$V$7(B](0.5)(0.45){example/shade08}
+\subsection{弓形（楕円弧）の塗りつぶし}
+\showexample[弓形（楕円弧）の塗りつぶし](0.5)(0.45){example/shade08}
 \cindex{Daenko*}
 
 \begin{boxnote}
 \begin{verbatim}
 \Daenko*[#1]#2#3#4#5
-    #1 : $BEI$kG;$5(B 
-         ( 0 $B$H(B 1 $B$N4V$N?t!%(B 0 $B$O??$CGr!$(B1$B$O??$C9u!%(B
-         $B%G%U%)%k%H$O(B 0.5)
-    #2 : $B2#<4J}8~$NH>7B(B
-    #3 : $B=D<4J}8~$NH>7B(B
-    #4 : $B;O$a3Q(B
-    #5 : $B=*$j3Q(B
-        $B!JCf?4$O(B \put (\Put) $B$G;XDj$9$k!%!K(B
+    #1 : 塗る濃さ 
+         ( 0 と 1 の間の数． 0 は真っ白，1は真っ黒．
+         デフォルトは 0.5)
+    #2 : 横軸方向の半径
+    #3 : 縦軸方向の半径
+    #4 : 始め角
+    #5 : 終り角
+        （中心は \put (\Put) で指定する．）
 \end{verbatim}
 \end{boxnote}
 
-\subsection{$B%+%i!<;XDj(B}
+\subsection{カラー指定}
 \edef\saveUL{\the\unitlength}%
 \unitlength=1pt\relax
-\verb+\En*+, \verb+\Nuritubusi+$B$K$*$$$F!$?'$r$D$1$k$H$-$O>/!9Lq2p$J$3$H$,$"$j$^$9!#(B
-\subsubsection{\cmd{color}$B$K$h$kEI$j?';XDj(B}
-$B<!$NNc$G$O!$(B
-\begin{showEx}(.64,.3){\cmd{color}$B$K$h$kEI$j?';XDj(B}
+\verb+\En*+, \verb+\Nuritubusi+において，色をつけるときは少々厄介なことがあります。
+\subsubsection{\cmd{color}による塗り色指定}
+次の例では，
+\begin{showEx}(.64,.3){\cmd{color}による塗り色指定}
 \begin{picture}(50,50)
   \color{red}\put(25,25){\circle*{40}}
 \end{picture}
 \end{showEx}
 
-$B$5$F!$$"$J$?$N4D6-$G$O1_$O2??'$GEI$j$D$V$5$l$F$$$^$9$+!#(B
-$B<B$O!$$=$l$O(B \verb+dvi-ware+$B$K0MB8$9$k$N$G$9!#(B\textsf{emath}$B$G$O(B
+さて，あなたの環境では円は何色で塗りつぶされていますか。
+実は，それは \verb+dvi-ware+に依存するのです。\textsf{emath}では
 \begin{jquote}
 \begin{verbatim}
  .tex ----> .dvi by platex
@@ -125,27 +125,27 @@
 (.ps  ----> .pdf by Distiller)
 \end{verbatim}
 \end{jquote}
-$B$rI8=`$H$7$F$$$^$9$,!$$3$NJ}<0$G:n@.$5$l$k(B .ps(, .pdf) $B$O??$C9u$KEI$j$D$V$5$l$F$$$^$9!#(B
-$B@V$O$+$1$i$b8+$($^$;$s!#(B
+を標準としていますが，この方式で作成される .ps(, .pdf) は真っ黒に塗りつぶされています。
+赤はかけらも見えません。
 
 \begin{description}
-  \item[$BCm(B] $B$3$N$"$?$j!$$5$i$KJ,@O$r$7$F$*$-$^$9!#(B
+  \item[注] このあたり，さらに分析をしておきます。
   
-    \verb+\color{red}\circle*{..}+$B$OJ,@O$9$k$H(B
+    \verb+\color{red}\circle*{..}+は分析すると
     \begin{jquote}
 \begin{verbatim}
 \color{red}\special{bk}\circle{..}
 \end{verbatim}
     \end{jquote}
-    $B$H$J$j$^$9!#$3$N=g=x$r0lItF~$lBX$($F(B
+    となります。この順序を一部入れ替えて
     \begin{jquote}
 \begin{verbatim}
 \special{bk}\color{red}\circle{..}
 \end{verbatim}
     \end{jquote}
-    $B$H$9$k$H!$(B\texttt{dvipsk}$B$G:n$i$l$k(B .ps $B%U%!%$%k$b1_$NFbIt$,@V$/$J$j$^$9!#(B
+    とすると，\texttt{dvipsk}で作られる .ps ファイルも円の内部が赤くなります。
 
-\begin{showEx}(.7,.24){\cmd{color}$B%3%^%s%IH/9T$N%?%$%_%s%0(B}
+\begin{showEx}(.7,.24){\cmd{color}コマンド発行のタイミング}
 \begin{picture}(50,50)
   \put(25,25){\color{red}\special{bk}\circle{40}}
 \end{picture}
@@ -154,73 +154,73 @@
 \end{picture}
 \end{showEx}
 
-2$B$D$N1_$,IA2h$5$l$^$9$,!$(B\texttt{dvipsk}$B$GJQ49$7$?(B .ps $B%U%!%$%k$G$O!$1_$NFbIt$O(B
+2つの円が描画されますが，\texttt{dvipsk}で変換した .ps ファイルでは，円の内部は
 \begin{jquote}
-$B>e$O9u(B\\
-$B2<$O@V(B
+上は黒\\
+下は赤
 \end{jquote}
-$B$GEI$j$D$V$5$l$^$9!#(B
+で塗りつぶされます。
 
 \end{description}
-\subsubsection{\cmd{En*}$B$N(B\texttt{[nuriiro=..]}$B%*%W%7%g%s(B}
-$B$=$3$G!$(B\textsf{emath}$B$G$O!$(B\verb+En*+$B$J$I$K(B\verb+[nuriiro=...]+$B%*%W%7%g%s$r$D$1$k$3$H$G(B
-$BFbIt$K?'$r$D$1$k$3$H$K$7$F$$$^$9!#(B
+\subsubsection{\cmd{En*}の\texttt{[nuriiro=..]}オプション}
+そこで，\textsf{emath}では，\verb+En*+などに\verb+[nuriiro=...]+オプションをつけることで
+内部に色をつけることにしています。
 
 
-\begin{showEx}(.64,.3){\cmd{En*}$B$N(B\texttt{[nuriiro=..]}$B%*%W%7%g%s(B}
+\begin{showEx}(.64,.3){\cmd{En*}の\texttt{[nuriiro=..]}オプション}
 \begin{picture}(50,50)
   \En*[nuriiro=red]{(25,25)}{20}
 \end{picture}
 \end{showEx}
 
 \begin{description}
-  \item[$BCm(B] $B8=;~E@$G$O!$(B\verb+[nuriiro=..]+$B%*%W%7%g%s$G$O$J$/!$(B\verb+\color+$B%3%^%s%I$rMQ$$$F$b!$(B
-    $BF1MM$N7k2L$rF@$k$3$H$,$G$-$^$9!#(B
+  \item[注] 現時点では，\verb+[nuriiro=..]+オプションではなく，\verb+\color+コマンドを用いても，
+    同様の結果を得ることができます。
 
-\begin{showEx}(.64,.3){$B;CDj;EMM(B}
+\begin{showEx}(.64,.3){暫定仕様}
 \begin{picture}(50,50)
   \color{red}\En*{(25,25)}{20}
 \end{picture}
 \end{showEx}
 
-$B$7$+$7!$>-MhE*$K$O$3$NJ}<0$OGK;:$9$kM=46$,$"$j$^$9$N$G!$(B\verb+[nuriiro=..]+$B%*%W%7%g%s$N;HMQ$r(B
-$B?d>)$7$^$9!#(B
+しかし，将来的にはこの方式は破産する予感がありますので，\verb+[nuriiro=..]+オプションの使用を
+推奨します。
 \end{description}
 
-\subsubsection{$B1_<~$N?'$O!)(B}
-$B1_$NFbIt$O?'IU$1$,$G$-$^$7$?$,!$1_<~$O9u$N$^$^$G$9$M$'!A!#(B
-$B$3$l$O(B\verb+tpic specials+$B$N;EMM$+$bCN$l$^$;$s!#$$$d!$$=$b$=$b(B\verb+tpic specials+$B$O(B
-$B%+%i!<BP1~$7$F$$$k$s$G$7$g$&$+!#@u3X$K$7$F$o$+$j$^$;$s!#(B\verb+(^^$B!6(B+
+\subsubsection{円周の色は？}
+円の内部は色付けができましたが，円周は黒のままですねぇ〜。
+これは\verb+tpic specials+の仕様かも知れません。いや，そもそも\verb+tpic specials+は
+カラー対応しているんでしょうか。浅学にしてわかりません。\verb+(^^ゞ+
 
-$B$=$3$G2?$H$+$N>eEI$j$r$9$k$3$H$H$7$^$9!#(B
+そこで何とかの上塗りをすることとします。
 
-\begin{showEx}(.64,.3){\cmd{En*}$B$N(B\texttt{[border=..]}$B%*%W%7%g%s(B}
+\begin{showEx}(.64,.3){\cmd{En*}の\texttt{[border=..]}オプション}
 \begin{picture}(50,50)
   \En*[nuriiro=red,border=red]{(25,25)}{20}
 \end{picture}
 \end{showEx}
 
-\verb+[border=red]+$B%*%W%7%g%s$G1_<~$r@V$G>eEI$j$7$^$7$?!#(B
-$B1_<~$b@V$K$J$C$?$+$K8+$($^$9$,!$$h$/8+$k$H85$N9u$,0lIt$O$_=P$7$F$$$^$9$M!#(B
-$B@V$N>eEI$j$r$b$&>/$7@~$rB@$/$9$l$PNI$$$+$b$7$l$^$;$s$,!%!%!%!%!%!%!%(B
+\verb+[border=red]+オプションで円周を赤で上塗りしました。
+円周も赤になったかに見えますが，よく見ると元の黒が一部はみ出していますね。
+赤の上塗りをもう少し線を太くすれば良いかもしれませんが．．．．．．．
 
-$B$7$+$7!$O+B?$/$7$F2?$H$d$i$H$$$&5$$b$7$^$9!#(B
-$B%+%i!<$O$d$O$j(B\verb+PostScript+$B$G07$&$Y$-$b$N$G$7$g$&$+!#(B
+しかし，労多くして何とやらという気もします。
+カラーはやはり\verb+PostScript+で扱うべきものでしょうか。
 
 \begin{description}
-  \item[$BCm(B] \verb+tpic specials+$B$G$b(B
+  \item[注] \verb+tpic specials+でも
     \begin{jquote}
 \begin{verbatim}
-$B1_!&BJ1_(B
-$B!!$H(B
-$BB?3Q7A(B
+円・楕円
+　と
+多角形
 \end{verbatim}
     \end{jquote}
-    $B$G$O!$7k2L$,0[$J$j!$A0<T$O6-3&$,9u$GIA2h$5$l$^$9$,!$(B
-    $B8e<T$O6-3&$OIA2h$5$l$^$;$s!#(B
-    $B$I$&$b!$(B\verb+tpic specials+$B$G%+%i!<$r07$&$N$O5$$,?J$_$^$;$s$M!#(B
+    では，結果が異なり，前者は境界が黒で描画されますが，
+    後者は境界は描画されません。
+    どうも，\verb+tpic specials+でカラーを扱うのは気が進みませんね。
 
-\begin{showEx}(.64,.3){\cmd{Nuritubusi}$B$N>l9g(B}
+\begin{showEx}(.64,.3){\cmd{Nuritubusi}の場合}
 \begin{picture}(50,50)
   \Nuritubusi[nuriiro=red]{%
     (0,0)(50,0)(50,50)(10,40)}
@@ -229,12 +229,12 @@
     
 \end{description}
 
-\subsubsection{\texttt{PostScript}$B$G$O(B}
-$B0J>e$N9M;!$+$i!$%+%i!<EI$j$D$V$7$O(B\texttt{PostScript --- pszahyou$B4D6-(B}$B$r(B
-$B;HMQ$9$k$N$,$h$5$=$&$G$9!#(B
+\subsubsection{\texttt{PostScript}では}
+以上の考察から，カラー塗りつぶしは\texttt{PostScript --- pszahyou環境}を
+使用するのがよさそうです。
 \unitlength=\saveUL\relax
 
-%\begin{showEx}(.64,.3){\textsf{pszahyou}$B4D6-(B}
+%\begin{showEx}(.64,.3){\textsf{pszahyou}環境}
 %\begin{pszahyou*}(0,50)(0,50)
 %  \En*[nuriiro=red]{(25,25)}{20}
 %\end{pszahyou*}

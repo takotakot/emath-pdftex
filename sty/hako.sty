@@ -6,7 +6,7 @@
 \def\tmpname{LaTeX2e}%
 \newif\ifNEWTeX%
 %
-%  $B=i4|CM%;%C%H(B
+%  初期値セット
 %
 \NEWTeXtrue%
 %
@@ -64,11 +64,11 @@
   }%
 
 %\maskHako(#1)[#2][#3]<#4>#5
-%  #1 : $B%O%3$N2#I}(B
-%  #2 : $B%O%3$N9b$5(B
-%  #3 : $B%O%3$N?<$5(B
-%  #4 : $BLdBj$NJ}$KI=<($9$k%O%3$NCf?H(B
-%  #5 : $BEz$(!J?t<0%b!<%IFb$H2>Dj$5$l$F$$$^$9!K(B
+%  #1 : ハコの横幅
+%  #2 : ハコの高さ
+%  #3 : ハコの深さ
+%  #4 : 問題の方に表示するハコの中身
+%  #5 : 答え（数式モード内と仮定されています）
 
 \newif\ifmaskhako\maskhakotrue
 \def\everymaskHako{\@ifnextchar[{\@everymaskHako}{\@everymaskHako[\relax]}}
@@ -129,7 +129,7 @@
 %  \fi
 %}
 
-%% $BGK@~$K$h$k%O%37S@~(B
+%% 破線によるハコ罫線
 %\def\hasenframebox#1{{\setbox0=\hbox{#1}\relax
 %  \@tempdima\ht0\advance\@tempdima\fboxsep\advance\@tempdima.5\fboxrule
 %    \edef\hfb@h{\strip@pt\@tempdima}%
@@ -144,7 +144,7 @@
 %  \fboxrule\z@\framebox{\box0}}}
 \def\hasenHako{\let\hakoframe\hasenframebox\Hako}
 %
-% $B:81&$N=D7S@~$rFs=E@~(B
+% 左右の縦罫線を二重線
 %
 \def\iihakoframe#1{{%
   \setbox0=\hbox{#1}%
@@ -165,17 +165,17 @@
   \end{zahyou*}\relax
 }}%
 %
-% $B@hF,J8;z$N$_4]0O$_(B
+% 先頭文字のみ丸囲み
 %
 \def\tmHako{\edef\top@maru{1}\Hako}
 %
-% \framebox $B$N3HD%(B
+% \framebox の拡張
 % \Framebox[#1][#2]#3
-%   \framebox[#1][#2]#3 $B$N(B #1 $B$r3HD%$7!$(B
-%     W=($BIm2C$9$k2#I}(B)
-%     H=($BIm2C$9$k9b$5(B)
-%     D=($BIm2C$9$k?<$5(B)
-%     HD=($BIm2C$9$k9b$5(B=$B?<$5(B)
+%   \framebox[#1][#2]#3 の #1 を拡張し，
+%     W=(附加する横幅)
+%     H=(附加する高さ)
+%     D=(附加する深さ)
+%     HD=(附加する高さ=深さ)
 %
 \def\Framebox{\@ifnextchar[{\@Framebox}{\framebox}}
 \def\@Framebox[#1]{\@ifnextchar[{\@@Framebox[#1]}{\@@Framebox[#1][c]}}
@@ -235,9 +235,9 @@
 \long\def\verbatimR@addtoline#1{%
   \verbatim@line\expandafter{\the\verbatim@line#1}}
 
-\@ifundefined{$B%+%?%+%J(B}{\input emathK.sty}{}%
+\@ifundefined{カタカナ}{\input emathK.sty}{}%
 
-%%% $B0J2<$NDj5A$O(B Waver $B$5$s$+$iD:$$$?$b$N$r>/$7=$@5$5$;$F$$$?$@$-$^$7$?!%(B
+%%% 以下の定義は Waver さんから頂いたものを少し修正させていただきました．
 %
 %\newcommand{\hakomozisyu}[1]{%
 \def\hakomozisyu#1{%
@@ -290,15 +290,15 @@
 \newskip\hako@skipa
 \newlength{\h@koraise}
 
-\def\@aiueo{$B%"(B}%
-\def\@AIUEO{$B$"(B}%
-\def\@iroha{$B%$(B}%
-\def\@IROHA{$B$$(B}%
-\def\@kan{$B0l(B}%
-\newif\ifh@ko$B>eIU(B%
-\newif\ifh@ko$B:84s(B%
-\newif\ifh@ko$B:830(B%
-\newif\ifh@ko$B=D;E@Z(B%
+\def\@aiueo{ア}%
+\def\@AIUEO{あ}%
+\def\@iroha{イ}%
+\def\@IROHA{い}%
+\def\@kan{一}%
+\newif\ifh@ko上付%
+\newif\ifh@ko左寄%
+\newif\ifh@ko左外%
+\newif\ifh@ko縦仕切%
 \newif\ifh@kosyokika\h@kosyokikafalse%
 \newif\if@push\@pushfalse%
 \newif\ifcentermode\centermodefalse%
@@ -309,16 +309,16 @@
 \newwrite \hako@kai@hndl%
 
 %
-% \Hako<$B%O%3$NCf$NJ8;z?t(B> ($BH"$NI}(B) ($B0LCV;XDj(B)
-%       [$BA4BN%i%Y%k(B] [$B8DJL%i%Y%k(B]
-%       "$B%O%3$NCf$NJ8;z(B" '$B%O%3$NEz(B' /$B%i%Y%k$NJ8;z<o(B/
+% \Hako<ハコの中の文字数> (箱の幅) (位置指定)
+%       [全体ラベル] [個別ラベル]
+%       "ハコの中の文字" 'ハコの答' /ラベルの文字種/
 %
-% \HAKO<$B%O%3$NCf$NJ8;z?t(B> ($BH"$NI}(B) [$BA4BN%i%Y%k(B]
+% \HAKO<ハコの中の文字数> (箱の幅) [全体ラベル]
 
 \def\Hako{\protect\sonoHako}
 \def\sonoHako{%
   \ifh@kosyokika\else%
-  \errmessage{$B%3%^%s%I!'(Bhakosyokika $B$,<B9T$5$l$F$$$^$;$s(B}%
+  \errmessage{コマンド：hakosyokika が実行されていません}%
   \fi%
   \ifmmode\ifchg@catcode\catcode` =12\fi\fi%
   \@ifnextchar<{\@Hako}{\@Hako<\empty>}%
@@ -388,26 +388,26 @@
     \do {%
   \ifx\@c\@aiueo\stepcounter{hakobanaiu}%
         \ifnum\c@hakobanaiu>48\relax
-          \errmessage{$B%"(B,$B%$(B,$B%&(B,... $B$O(B48$B8D$^$G$7$+$"$j$^$;$s!#(B}\fi
-%        \edefappend\m@ziretu{\$B%+%?%+%J(B{hakobanaiu}}%
+          \errmessage{ア,イ,ウ,... は48個までしかありません。}\fi
+%        \edefappend\m@ziretu{\カタカナ{hakobanaiu}}%
 \ifnum\top@maru>\z@
         \EMedefappend\m@ziretu{\protect\topmaru{\the\c@hakobanaiu}}%
         \xdef\top@maru{0}%
 \else
-        \edefappend\m@ziretu{\$B%+%?%+%J(B{hakobanaiu}}%
+        \edefappend\m@ziretu{\カタカナ{hakobanaiu}}%
 \fi
   \else\ifx\@c\@iroha\stepcounter{hakobaniro}%
         \ifnum\c@hakobaniro>48\relax
-          \errmessage{$B%$(B,$B%m(B,$B%O(B,... $B$O(B48$B8D$^$G$7$+$"$j$^$;$s!#(B}\fi
-        \edefappend\m@ziretu{\$B%$%m%O(B{hakobaniro}}%
+          \errmessage{イ,ロ,ハ,... は48個までしかありません。}\fi
+        \edefappend\m@ziretu{\イロハ{hakobaniro}}%
   \else\ifx\@c\@AIUEO\stepcounter{hakobanAIU}%
         \ifnum\c@hakobanAIU>48\relax
-          \errmessage{$B$"(B,$B$$(B,$B$&(B,... $B$O(B48$B8D$^$G$7$+$"$j$^$;$s!#(B}\fi
-        \edefappend\m@ziretu{\$B$R$i$,$J(B{hakobanAIU}}%
+          \errmessage{あ,い,う,... は48個までしかありません。}\fi
+        \edefappend\m@ziretu{\ひらがな{hakobanAIU}}%
   \else\ifx\@c\@IROHA\stepcounter{hakobanIRO}%
         \ifnum\c@hakobanIRO>48\relax
-          \errmessage{$B$$(B,$B$m(B,$B$O(B,... $B$O(B48$B8D$^$G$7$+$"$j$^$;$s!#(B}\fi
-        \edefappend\m@ziretu{\$B$$$m$O(B{hakobanIRO}}%
+          \errmessage{い,ろ,は,... は48個までしかありません。}\fi
+        \edefappend\m@ziretu{\いろは{hakobanIRO}}%
   \else\ifx\@c\@kan\stepcounter{hakobankan}\edef\m@ziretu{\m@ziretu \Kanji{hakobankan}}%
   \else\if\@c a\stepcounter{hakobanalp}\edef\m@ziretu{\m@ziretu \alph{hakobanalp}}%
   \else\if\@c A\stepcounter{hakobanALP}\edef\m@ziretu{\m@ziretu \Alph{hakobanALP}}%
@@ -426,7 +426,7 @@
   \EMedefappend\hako@moziretu{\m@ziretu}%
 %\if@push\else%  1999/06/20
     {\ifx\empty #4\else\writeLabel{#4}{\hako@moziretu}\fi}%
-  \ifx\empty #5\else%            $B8DJL%i%Y%k$N=PNO(B
+  \ifx\empty #5\else%            個別ラベルの出力
       \@for\@dummy:=#5\do{%
           \stepcounter{xh@koban}%
           \def\m@ziretu{}%
@@ -435,19 +435,19 @@
         \do {%
             \ifx\@c\@aiueo%
             \stepcounter{xh@kobanaiu}%
-            \edef\m@ziretu{\m@ziretu \$B%+%?%+%J(B{xh@kobanaiu}}%
+            \edef\m@ziretu{\m@ziretu \カタカナ{xh@kobanaiu}}%
             \else\ifx\@c\@iroha%
             \stepcounter{xh@kobaniro}%
-            \edef\m@ziretu{\m@ziretu \$B%$%m%O(B{xh@kobaniro}}%
+            \edef\m@ziretu{\m@ziretu \イロハ{xh@kobaniro}}%
             \else\ifx\@c\@AIUEO%
             \stepcounter{xh@kobanAIU}%
-            \edef\m@ziretu{\m@ziretu \$B$R$i$,$J(B{xh@kobanAIU}}%
+            \edef\m@ziretu{\m@ziretu \ひらがな{xh@kobanAIU}}%
             \else\ifx\@c\@IROHA%
             \stepcounter{xh@kobanIRO}%
-            \edef\m@ziretu{\m@ziretu \$B$$$m$O(B{xh@kobanIRO}}%
+            \edef\m@ziretu{\m@ziretu \いろは{xh@kobanIRO}}%
             \else\ifx\@c\@kan%
             \stepcounter{xh@koban}%
-            \edef\m@ziretu{\m@ziretu \$B$$$m$O(B{xh@kobankan}}%
+            \edef\m@ziretu{\m@ziretu \いろは{xh@kobankan}}%
             \else\if\@c a%
             \stepcounter{xh@kobanalp}%
             \edef\m@ziretu{\m@ziretu \alph{xh@kobanalp}}%
@@ -484,7 +484,7 @@
 %    \immediate\write\hako@kai@hndl{%
 %    \hbox{\string\textbf{\hako@moziretu}${}={}#7$}\HakoKaiSikiri}%
   \else
-   \iftdir% $B=D=q$-BP1~(B 2000/07/09-2
+   \iftdir% 縦書き対応 2000/07/09-2
     \expandafter\verbatimR@addtoline\expandafter{\hako@moziretu,#7}%
     \immediate\write\hako@kai@hndl{\the\verbatim@line}%
     \verbatim@startline
@@ -551,7 +551,7 @@
 }%
 \def\@@refHako@b/#1/#2{%
 %    \ifx\empty #1%
-%%%%%       {\mbox{\h@kosityuu\h@kosyotai{\ref{#2}}}}%    1998/02/14 \mbox $BIU2C(B
+%%%%%       {\mbox{\h@kosityuu\h@kosyotai{\ref{#2}}}}%    1998/02/14 \mbox 付加
         \expandafter\ref@chk\csname r@#2\endcsname
         \ifthenelse{\equal{\@miteigi}{1}}{%
             \protect\G@refundefinedtrue
@@ -568,7 +568,7 @@
 %    \fi%
 }%
 %
-% $BOH@~$N:Y$$(B\refHako*
+% 枠線の細い\refHako*
 %
 \def\RefHako{\@ifnextchar({\@RefHako}{\@RefHako(\h@koxyohaku)}}
 \def\@RefHako(#1)#2{{%
@@ -581,21 +581,21 @@
     \setlength{\fboxrule}{\h@kosenhaba}\setlength{\fboxsep}{\h@koyohaku}%
     \setlength{\h@koraise}{0pt}%
     \hako@skipa=#1\relax\divide\hako@skipa 2\relax
-    \h@ko$B>eIU(Bfalse\h@ko$B:84s(Bfalse\h@ko$B:830(Bfalse\h@ko$B=D;E@Z(Bfalse%
+    \h@ko上付false\h@ko左寄false\h@ko左外false\h@ko縦仕切false%
     \headchar{#2}\@top\@remain
     \if r\@top\setlength{\h@koraise}{\@remain}\else%
       \@tfor\@c:=#2\do{%
-        \if\@c L\h@ko$B:830(Btrue%
-        \else\if\@c ^\h@ko$B>eIU(Btrue%
-        \else\if\@c l\h@ko$B:84s(Btrue%
-        \else\if\@c |\h@ko$B=D;E@Z(Btrue%
+        \if\@c L\h@ko左外true%
+        \else\if\@c ^\h@ko上付true%
+        \else\if\@c l\h@ko左寄true%
+        \else\if\@c |\h@ko縦仕切true%
         \else\if\@c b\setlength{\h@koraise}{\fboxsep}\addtolength{\h@koraise}{\fboxrule}%
         \else\if\@c t\setlength{\h@koraise}{-\fboxsep}\addtolength{\h@koraise}{-\fboxrule}%
       \fi\fi\fi\fi\fi\fi}%
     \fi%
     \kern0.1em%
-    \ifh@ko$B:830(B%
-     \iftdir% $B=D=q$-BP1~(B 2000/07/09-2
+    \ifh@ko左外%
+     \iftdir% 縦書き対応 2000/07/09-2
       \ensuremath{{\vrule width 0pt height .5\baselineskip}%
         ^{\text{\h@kosityuu\h@kosyotai{\rensuji{#3}}}}}%
         \hakoframe{\h@kosityuu\kern\hako@skipa\kern\hako@skipa}%
@@ -604,12 +604,12 @@
         ^{\text{\h@kosityuu\h@kosyotai{#3}}}}%
         \hakoframe{\h@kosityuu\kern\hako@skipa\kern\hako@skipa}%
      \fi
-    \else\ifh@ko$B>eIU(B%
+    \else\ifh@ko上付%
 %        \hakoframe{\h@kosityuu${}^{\text{\h@kosyotai{#3}}}$%
         \hakoframe{${\h@kosityuu}^{\text{\h@kosyotai{#3}}}$%
           \kern\hako@skipa\kern\hako@skipa}%
-    \else\ifh@ko$B:84s(B%
-        \ifh@ko$B=D;E@Z(B%
+    \else\ifh@ko左寄%
+        \ifh@ko縦仕切%
           \ensuremath{\text{\hakoframe{%
             \h@kosityuu\h@kosyotai{#3}}}}%
             \kern-1pt%
@@ -622,7 +622,7 @@
               \h@kosityuu\h@kosyotai{#3}\kern\hako@skipa\kern\hako@skipa}}}%
        \fi%
     \else\ifdim\h@koraise=\z@
-     \iftdir% $B=D=q$-BP1~(B 2000/07/09
+     \iftdir% 縦書き対応 2000/07/09
         \setlength{\fboxsep}{\h@koyohaku}%
         \hako@skipa=#1\relax\divide\hako@skipa 2\relax\hakoframe{%
         \h@kosityuu\kern\hako@skipa\h@kosyotai{\rensuji{#3}}\kern\hako@skipa}%
@@ -641,7 +641,7 @@
 
 \def\HAKO{%
   \ifh@kosyokika\else%
-  \errmessage{$B%3%^%s%I!'(Bhakosyokika $B$,<B9T$5$l$F$$$^$;$s(B}%
+  \errmessage{コマンド：hakosyokika が実行されていません}%
   \fi%
   \ifmmode\ifchg@catcode\catcode` =12\fi\fi%
   \@ifnextchar<{\@HAKO}{\@HAKO<1>}%
@@ -669,10 +669,10 @@
  \@whilenum\@kosuuban<\value{hako@mozisuu}\do{%
     \stepcounter{hakoban}\let\@c=\empty%
     \expandafter\@tfor\expandafter\@c\expandafter:\expandafter=\m@zisyu%
-\do {\ifx\@c\@aiueo\stepcounter{hakobanaiu}\edef\m@ziretu{\m@ziretu \$B%+%?%+%J(B{hakobanaiu}}%
-  \else\ifx\@c\@iroha\stepcounter{hakobaniro}\edef\m@ziretu{\m@ziretu \$B%$%m%O(B{hakobaniro}}%
-  \else\ifx\@c\@AIUEO\stepcounter{hakobanAIU}\edef\m@ziretu{\m@ziretu \$B$R$i$,$J(B{hakobanAIU}}%
-  \else\ifx\@c\@IROHA\stepcounter{hakobanIRO}\edef\m@ziretu{\m@ziretu \$B$$$m$O(B{hakobanIRO}}%
+\do {\ifx\@c\@aiueo\stepcounter{hakobanaiu}\edef\m@ziretu{\m@ziretu \カタカナ{hakobanaiu}}%
+  \else\ifx\@c\@iroha\stepcounter{hakobaniro}\edef\m@ziretu{\m@ziretu \イロハ{hakobaniro}}%
+  \else\ifx\@c\@AIUEO\stepcounter{hakobanAIU}\edef\m@ziretu{\m@ziretu \ひらがな{hakobanAIU}}%
+  \else\ifx\@c\@IROHA\stepcounter{hakobanIRO}\edef\m@ziretu{\m@ziretu \いろは{hakobanIRO}}%
   \else\ifx\@c\@kan\stepcounter{hakobankan}\edef\m@ziretu{\m@ziretu \Kanji{hakobankan}}%
   \else\if\@c a\stepcounter{hakobanalp}\edef\m@ziretu{\m@ziretu \alph{hakobanalp}}%
   \else\if\@c A\stepcounter{hakobanALP}\edef\m@ziretu{\m@ziretu \Alph{hakobanALP}}%
@@ -732,11 +732,11 @@
 }%
 
 % \vcHako
-% $B=DCf1{B7$((B
+% 縦中央揃え
 
 \def\vcHako{%
   \ifh@kosyokika\else%
-  \errmessage{$B%3%^%s%I!'(Bhakosyokika $B$,<B9T$5$l$F$$$^$;$s(B}%
+  \errmessage{コマンド：hakosyokika が実行されていません}%
   \fi%
   \ifmmode\ifchg@catcode\catcode` =12\fi\fi%
   \@ifnextchar<{\@vcHako}{\@vcHako<\empty>}%
@@ -757,32 +757,32 @@
 \def\@@@@@@@@vcHako<#1>(#2)(#3)[#4][#5]"#6"'#7'/#8/{%
   \vcenter{\hbox{\@@@@@@@@Hako<#1>(#2)(#3)[#4][#5]"#6"'#7'/#8/}}}
 %
-% $B=i4|2=(B
+% 初期化
 %
 \newcommand{\hakosyokika}{%
   \h@kosyokikatrue
     %%%
-    %%%  ASCII$BF|K\8l(BpLaTeX2e $B$+(B ASCII$BF|K\8l(BLaTeX 2.09 $B$+H=JL$9$k(B
+    %%%  ASCII日本語pLaTeX2e か ASCII日本語LaTeX 2.09 か判別する
     %%%
 %   \def\tmpname{LaTeX2e}%
     \ifx\fmtname\tmpname%
       %%%
-      %%%  ASCII$BF|K\8l(BpTeX pLaTeX2e
+      %%%  ASCII日本語pTeX pLaTeX2e
       %%%
       \NEWTeXtrue%
     \else%
       %%%
-      %%%  ASCII$BF|K\8l(BpTeX LaTeX 2.09
+      %%%  ASCII日本語pTeX LaTeX 2.09
       %%%
       \NEWTeXfalse%
     \fi%
     \let\hakoframe\framebox
     \let\hakomaru\maru
     \def\topmaru##1{\EMmaru{\gt\katakana{##1}}}%
-    \def\h@komozisyu{$B%"(B}%
+    \def\h@komozisyu{ア}%
     \def\h@komoziiti{c}%
   \def\h@kosyotai{\ifNEWTeX\bfseries\else\gt\fi}%
-  \def\h@kosityuu{\vphantom{$B$"(B}}%
+  \def\h@kosityuu{\vphantom{あ}}%
   \def\h@koyohaku{.25zw}%
   \def\h@koxyohaku{1zw plus .5zw minus .05zw}%
   \def\h@kosenhaba{1pt}%
@@ -802,7 +802,7 @@
     \setcounter{hakobankan}{0}%
   \centermodefalse
   \@ifundefined{sikirisen}{}{%
-    \sikirisen{\empty}{.2pt}{$B$"(B}
+    \sikirisen{\empty}{.2pt}{あ}
   }%
 }%
 
@@ -810,24 +810,24 @@
   \ifh@kosyokika\else%
   \h@kosyokikatrue
     %%%
-    %%%  ASCII$BF|K\8l(BpLaTeX2e $B$+(B ASCII$BF|K\8l(BLaTeX 2.09 $B$+H=JL$9$k(B
+    %%%  ASCII日本語pLaTeX2e か ASCII日本語LaTeX 2.09 か判別する
     %%%
     \def\tmpname{LaTeX2e}%
     \ifx\fmtname\tmpname%
       %%%
-      %%%  ASCII$BF|K\8l(BpTeX pLaTeX2e
+      %%%  ASCII日本語pTeX pLaTeX2e
       %%%
       \NEWTeXtrue%
     \else%
       %%%
-      %%%  ASCII$BF|K\8l(BpTeX LaTeX 2.09
+      %%%  ASCII日本語pTeX LaTeX 2.09
       %%%
       \NEWTeXfalse%
     \fi%
-    \def\h@komozisyu{$B%"(B}%
+    \def\h@komozisyu{ア}%
     \def\h@komoziiti{c}%
   \def\h@kosyotai{\ifNEWTeX\bfseries\else\gt\fi}%
-  \def\h@kosityuu{\vphantom{$B$"(B}}%
+  \def\h@kosityuu{\vphantom{あ}}%
   \def\h@koyohaku{3pt}%
   \def\h@koxyohaku{1zw plus .5zw minus .05zw}%
   \def\h@kosenhaba{1pt}%
@@ -968,7 +968,7 @@
 %  \input{hk@.\HakoKaiFile@ext}%
   \edef\HK@flnm{hk@.\HakoKaiFile@ext}%
   \IfFileExists{\HK@flnm}{\openin\hako@kai@rhndl=\HK@flnm}{%
-    \errmessage{\HK@flnm $B$,B8:_$7$^$;$s!#(B}}%
+    \errmessage{\HK@flnm が存在しません。}}%
   \setlength{\HakoKai@length}{\z@}%
 \bgroup
 \centermodefalse
@@ -991,225 +991,225 @@
 \newcommand{\HakoKaiSikiri}{\hskip 2zw plus 3zw minus 1zw}%
 \long\def\Hakokaidukuri`#1`#2>{{#1}}%
 
-%%%%%%%%%%%%%%%%% $BM-$jFq$&$4$6$$$^$9!%(B> Waver $B$5$s(B
+%%%%%%%%%%%%%%%%% 有り難うございます．> Waver さん
 \hakosyokika
 \endinput
 %%% ------------------------------------------------------------------
-% $B2~HGMzNr(B
+% 改版履歴
 % ver0.60  19970811
 %
 %   ver0.601 19980119
-%   LaTeX 2.09/LaTeX2e $B<+F0A*Br(B
-%           $B=$@5(B by Waver
+%   LaTeX 2.09/LaTeX2e 自動選択
+%           修正 by Waver
 %
 % ver0.602  19980120
-%         \ifx\@c\@aiueo%           /$B%"(B/    $B%"(B,$B%$(B,$B%&(B,$B%((B,$B%*(B,$B!&!&!&(B
-%     \if\@c $B%"(B
-%   $B$rA0<T$KE}0l$9$k!%(B
+%         \ifx\@c\@aiueo%           /ア/    ア,イ,ウ,エ,オ,・・・
+%     \if\@c ア
+%   を前者に統一する．
 %
-% ver0.61 $B<!$N(B3$B5!G=$rDI2C$9$k!%(B19980124
-%     \hakosyotai $B$K$h$C$F!$H"$NCf$N%U%)%s%H!$%5%$%:$rJQ99$9$k!%(B
-%     \hakoyohaku $B$K$h$C$F!$(B\fboxsep $B$rJQ99$9$k!%(B
-%     \hakosenhaba $B$K$h$C$F!$(B\fboxrule $B$rJQ99$9$k!%(B
-%   $B%m!<%+%k$J%3%^%s%IL>$K(B @ $B$r4^$^$;$k!%(B
-%   $BH"$,E:;z!$QQ0LCV$K$"$k;~(B
-%     $BJ8;z%5%$%:$r>.$5$/$9$k!%(B(\mathchoice $B$NMxMQ(B)
-%   $BH"$N(B baseline $B$rH"$NOH@~(B($B>e2<(B)$B$K$9$k$?$a$K(B
-%     ($B0LCV;XDj(B) $B$K(B b, t $B$rDI2C$9$k!%(B
+% ver0.61 次の3機能を追加する．19980124
+%     \hakosyotai によって，箱の中のフォント，サイズを変更する．
+%     \hakoyohaku によって，\fboxsep を変更する．
+%     \hakosenhaba によって，\fboxrule を変更する．
+%   ローカルなコマンド名に @ を含ませる．
+%   箱が添字，冪位置にある時
+%     文字サイズを小さくする．(\mathchoice の利用)
+%   箱の baseline を箱の枠線(上下)にするために
+%     (位置指定) に b, t を追加する．
 %
 % ver0.62 19980201
-%   \hakoxyohaku $B$K$h$C$F!$H"$N(B( )$B%*%W%7%g%s$N%G%U%)%k%HCM$rJQ99$9$k!%(B
-%   \hakobansyokika $B$,(B2$B2sL\0J9_$K8F$P$l$?$H$-$O!$%+%&%s%?$N$_=i4|2=$9$k!%(B
+%   \hakoxyohaku によって，箱の( )オプションのデフォルト値を変更する．
+%   \hakobansyokika が2回目以降に呼ばれたときは，カウンタのみ初期化する．
 %
 % ver0.621 19980208
-%   \refHako $B$K$h$k=PNO$G$O!$(B\hakosyotai $B$N;XDj$,L58z$H$J$C$F$$$?(B
-%   $B%P%0$r=$@5$9$k!%(B
+%   \refHako による出力では，\hakosyotai の指定が無効となっていた
+%   バグを修正する．
 % ver0.622 19980214
-%   0.621 $B$N=$@5$G%P%0$,H/@8$7$?!%(B
-%     $B?t<0%b!<%I$G!$(B\refHako $B$r;HMQ$9$k$H!$(B
+%   0.621 の修正でバグが発生した．
+%     数式モードで，\refHako を使用すると，
 %   ! LaTeX Error: Command \bfseries invalid in math mode.
-%     $B$,H/@8$7$?!%(B
+%     が発生した．
 % ver.0.623 19980301
-%   $B4]IU$-J8;z$N>l9g!$(B\mathstrut $B$G;YCl$rN)$F$k!%(B
-%   \$B%+%?%+%J(B $B$J$I$r:o=|!J(Bs4mac.sty $B$K0\$9!%!K(B
+%   丸付き文字の場合，\mathstrut で支柱を立てる．
+%   \カタカナ などを削除（s4mac.sty に移す．）
 % ver.0.624 19980407
-%   \hakosyokika $B$r?7@_(B
+%   \hakosyokika を新設
 % ver.0.625 19980419
-%   \refHako* $B$N(B()$B%*%W%7%g%s$N%G%U%)%k%HCM$r(B \h@koxyohaku $B$K$9$k!%(B
+%   \refHako* の()オプションのデフォルト値を \h@koxyohaku にする．
 % ver.0.626 19980425
-%   $BJ8;z<o$K4A?t;z$rDI2C$9$k!%(B
+%   文字種に漢数字を追加する．
 % ver.0.627 19980429
-%   $B0LCV;XDj$K(B `L' $B!J:8Ms30!K$rDI2C$9$k!%(B
+%   位置指定に `L' （左欄外）を追加する．
 % ver.0.628 19980504
-%   $B%O%3$NCf$rLV3]$1$K$9$kJd=u%Q%C%1!<%8(B amihako.sty $B$r?7@_(B
+%   ハコの中を網掛けにする補助パッケージ amihako.sty を新設
 % ver.0.63  19980506
-%   $B8x3+(B
+%   公開
 % ver.0.63a 19980814
-%   $B%O%3$N9b$5$r;XDj$9$k%3%^%s%I(B \hakosityuu $B$r?7@_(B
-%   amihako.sty, renhako.sty $B$rE}0l$7!$(Barhako.sty $B$H$9$k!%(B
+%   ハコの高さを指定するコマンド \hakosityuu を新設
+%   amihako.sty, renhako.sty を統一し，arhako.sty とする．
 % ver.0.64  19980814
-%   $B8x3+(B
+%   公開
 % ver.0.64a 19980818
-%   \hakobansyokika $B$K(B
-%            \def\h@kosityuu{\vphantom{$B$"(B}}%
-%   $B$rDI2C$9$k$N$rK:$l$F$$$?!%(B
+%   \hakobansyokika に
+%            \def\h@kosityuu{\vphantom{あ}}%
+%   を追加するのを忘れていた．
 % ver.0.64b 19980819
-%   \hakobanpush, \hakobanpop $B$r?7@_$7!$(B
-%   emath.sty $B$N(B \bunsuu $B$r(B \mathchoice $BBP1~$H$7!$(B
-%                \houteisiki $B%3%^%s%I$N0z?t$G$N(B \Hako $B;HMQ$r5vMF$9$k!%(B
+%   \hakobanpush, \hakobanpop を新設し，
+%   emath.sty の \bunsuu を \mathchoice 対応とし，
+%                \houteisiki コマンドの引数での \Hako 使用を許容する．
 % ver.0.64c 19980824
-%   $BEz$r(B'...' $B$K$+$$$F!$$3$l$rLdBj$N8e$K$^$H$a$k!%(B
-%     $BJd=u%U%!%$%k(B .hka $B$r;HMQ$9$k!%(B
-%   $B$=$N:]!$Ez$N7e?t$G%O%3$NCf$NJ8;z?t$r%+%&%s%H$9$k%b!<%I$r(B
+%   答を'...' にかいて，これを問題の後にまとめる．
+%     補助ファイル .hka を使用する．
+%   その際，答の桁数でハコの中の文字数をカウントするモードを
 %       \ifcentermode
-%   $B$K$h$j:n@.!%(B
+%   により作成．
 %
 %       \ifx#1\empty ----> \ifx\empty #1
 % ver.0.64d 19980906
-%   $BJd=u%U%!%$%k$X$N%Z!<%8?t$N=q$-=P$7$r(B
-%       \thepage $B$G$O$J$/(B \arabic{page}
-%   $B$KJQ99$9$k!%(B
+%   補助ファイルへのページ数の書き出しを
+%       \thepage ではなく \arabic{page}
+%   に変更する．
 % ver.0.64e 19981021
-%   #6 $B$KFC<lJ8;z(B ! $B$rF~$l$k$3$H$rJ]N1(B
+%   #6 に特殊文字 ! を入れることを保留
 % ver.0.64f 19981113
-%   \HAKO<#1>(#2)[#3] $B$N$_$H$7!$4pK\5!G=$K$D$$$F$O%9%T!<%I%"%C%W$r7W$k(B
+%   \HAKO<#1>(#2)[#3] のみとし，基本機能についてはスピードアップを計る
 % ver.0.64g 19981127
-%   $BEz$NKd$a9~$_$K$*$$$F!$(B\string $B$r5-=R$7$J$/$F$h$$$3$H$H$9$k!%(B
+%   答の埋め込みにおいて，\string を記述しなくてよいこととする．
 % ver.0.64h 19981205
-%   \hakotakasa[depth]{height} $B$r?7@_(B
+%   \hakotakasa[depth]{height} を新設
 % ver.0.67 19990504
-%   \karaHako($B2#I}(B=2zw)[$B9b$5(B=1zh][$B?<$5(B=0zh]
+%   \karaHako(横幅=2zw)[高さ=1zh][深さ=0zh]
 % ver.0.68 19990620
-%   \sqrt[3]{\Hako} $B$GHV9f$,Mp$l$k$3$H$KBP1~!%(B
-%     \root, \mathpalette $B:FDj5A(B
+%   \sqrt[3]{\Hako} で番号が乱れることに対応．
+%     \root, \mathpalette 再定義
 % ver.0.69 19990620-22
-%   $BAj8_;2>H$N(B warning $B$rGS=|(B
-%   align $B4D6-BP:v(B
+%   相互参照の warning を排除
+%   align 環境対策
 % ver.0.70 19991021
-%   \ruizyoukon $B$N?7@_$KH<$C$F(B
-%     \root $B$X$N%Q%C%A$r(B amsmath $BBP1~$H$9$k!%(B
+%   \ruizyoukon の新設に伴って
+%     \root へのパッチを amsmath 対応とする．
 % ver.0.71  19991213-16
-%   $BAj8_;2>H7A<0$r@0Hw$9$k!%(B
-%       \Hako $B$,QQ0LCV$K$/$k$H$-$J$I$K!$J8;zNs$N%5%$%:7W;;$r=$@5(B
+%   相互参照形式を整備する．
+%       \Hako が冪位置にくるときなどに，文字列のサイズ計算を修正
 % ver.0.72  19991217-19
-%       \Hako $B$,QQ0LCV$K$/$k$H$-$J$I$K!$6uGr$NJ,NL$b=$@5(B
+%       \Hako が冪位置にくるときなどに，空白の分量も修正
 % ver.0.73  2000/02/13
-%   \karaHako \hakotakasa $B$K$h$k9b$5;XDj$rM-8z$H$9$k!%(B
+%   \karaHako \hakotakasa による高さ指定を有効とする．
 % ver.0.74  2000/02/28
-%   \karaHako $B2#I}$O(B \hakoxyohaku $B$G;XDj$9$k!%(B
+%   \karaHako 横幅は \hakoxyohaku で指定する．
 % v0.75   2000/04/01
-%   \refrenHako* $B=$@5(B
+%   \refrenHako* 修正
 % v0.76   2000/04/15
-%   arhako.sty $B$G(B \framebox-->\hakoframe $B$N=$@5$,=PMh$F$$$J$+$C$?!#(B
+%   arhako.sty で \framebox-->\hakoframe の修正が出来ていなかった。
 % v0.77   2000/05/23
-%   \hako $B$K(B \h@kosityuu $B$r4^$a$k!#(B
+%   \hako に \h@kosityuu を含める。
 % v0.78   2000/07/09
-%   $B=D=q$-BP1~$X$N;n$_(B
+%   縦書き対応への試み
 % v0.79   2000/07/09
-%   $B=D=q$-BP1~$X$N;n$_!JB3!K(B
+%   縦書き対応への試み（続）
 % v0.80   2000/10/04
-%   \renHako $B$K(B '...' $B%*%W%7%g%s$r$D$1$?$H$-$N%P%0=$@5(B
+%   \renHako に '...' オプションをつけたときのバグ修正
 % v 0.81  2000/10/24
-%   $BKd$a9~$_%*%W%7%g%s$H(B emathAe $B$H$NO"7H(B
+%   埋め込みオプションと emathAe との連携
 % v 0.82  2000/10/25
-%   $BKd$a9~$_%*%W%7%g%s$r4]IU$-?t;z$NHV9fIU$1$HJ;MQ$9$k>l9g$NBP:v(B
+%   埋め込みオプションを丸付き数字の番号付けと併用する場合の対策
 % v 0.83  2000/11/05-12/02
-%   $BKd$a9~$_%*%W%7%g%s;HMQ;~!$Ez$($N7A<0$KI=7A<0$rIU2C(B
-%   $B%m!<%I%*%W%7%g%s(B times
+%   埋め込みオプション使用時，答えの形式に表形式を付加
+%   ロードオプション times
 % v 0.85  2001/02/15
-%   $BKd$a9~$_%*%W%7%g%s$r;HMQ$7$?$H$-$N!$LdBjHV9f$b(B \h@kosyotai $B$G@)8f(B
+%   埋め込みオプションを使用したときの，問題番号も \h@kosyotai で制御
 % v 0.86  2001/04/15
-%   \Framebox : \framebox $B$N3HD%(B
+%   \Framebox : \framebox の拡張
 % v 0.87  2001/07/18
 %   \openHakoKaiFile
-%     mawarikomi$B4D6-$H$ND4@0$G!$KvHx(B \leavevmode ---> \relax
+%     mawarikomi環境との調整で，末尾 \leavevmode ---> \relax
 % v 0.88  2001/07/27
-%   \inputHakoKaiFile $B2~9T$N%?%$%_%s%0$r=$@5(B
+%   \inputHakoKaiFile 改行のタイミングを修正
 % v 0.89  2001/08/15
-%   (W=..,H=..,D=..) $B$GH"$N%5%$%:$r;XDj$9$k%*%W%7%g%s(B
-%   \vcHako $B=DCf1{B7$((B
+%   (W=..,H=..,D=..) で箱のサイズを指定するオプション
+%   \vcHako 縦中央揃え
 % v 0.90 2001/08/30
-%   \HakoKaivphantom $BEz$($rI=7A<0$GI=<($9$k:]$N;YCl$r<0$G;XDj$9$k!#(B
+%   \HakoKaivphantom 答えを表形式で表示する際の支柱を式で指定する。
 % v 0.91 2001/12/09
-%   \maskHako \ifhakomask $B$GEz$($NI=<(!&HsI=<($r@Z$jBX$($k!#(B
+%   \maskHako \ifhakomask で答えの表示・非表示を切り替える。
 % v 0.92 2001/12/21
-%   \maskHako \color{white}$BJ}<0(B
+%   \maskHako \color{white}方式
 % v 0.93 2002/03/19
-%   $B%O%37S@~$rGK@~$GIA2h$9$k(B \hasenHako $B$?$@$7!$(BemathPh.sty $B$,I,MW(B
+%   ハコ罫線を破線で描画する \hasenHako ただし，emathPh.sty が必要
 % v 0.94 2002/05/20
-%   \maskHako <..>$B%*%W%7%g%s$GLdBj$KI=<($9$kJ8;zNs$r;XDj2DG=(B
+%   \maskHako <..>オプションで問題に表示する文字列を指定可能
 % v 0.95 2002/08/02-09/13
-%   \hasenframebox emathPh.sty $B$K0\4I(B
-%   $B:G8e$K(B \hakosyokika $B$rH/9T(B
+%   \hasenframebox emathPh.sty に移管
+%   最後に \hakosyokika を発行
 % v 0.96 2002/10/22
-%   \inputHakoKaiFile $B$N$"$H!$=qBN$,(B \hakosyotai $B$N1F6A$r<u$1$k$N$G(B
-%         \inputHakoKaiFile $B$N=hM}$r%0%k!<%T%s%0Fb$K<}$a$k!#(B
+%   \inputHakoKaiFile のあと，書体が \hakosyotai の影響を受けるので
+%         \inputHakoKaiFile の処理をグルーピング内に収める。
 % v 0.97 2002/11/10
-%   \everymaskHako $B$r(B\maskHako $B$N@hF,$KF~$l$k(B
+%   \everymaskHako を\maskHako の先頭に入れる
 % v 0.98 2002/12/18
-%   \maskHako $B$G!$(B(...)$B%*%W%7%g%s$GD9$5$r;XDj$7$J$$>l9g$K%P%0$"$j(B
+%   \maskHako で，(...)オプションで長さを指定しない場合にバグあり
 % v 0.99 2003/02/03
-%   \refHako $B$G4]IU$-?t;z$N>l9g!$(B/m/ $B$rITMW$H$9$k!#(B
+%   \refHako で丸付き数字の場合，/m/ を不要とする。
 % v 1.00 2003/02/06
-%   v 0.99 $B$NI{:nMQ!J(B'...' $B%*%W%7%g%s$G(B\maru$B$,Fs=E$K$J$k!K$r=$@5(B
+%   v 0.99 の副作用（'...' オプションで\maruが二重になる）を修正
 % v 1.01 2003/03/13
-%   $BG[CV%*%W%7%g%s(B`^'$B$r$D$1$?>l9g!$(B\hakosityuu $B$b9MN8$9$k!#(B
+%   配置オプション`^'をつけた場合，\hakosityuu も考慮する。
 % v 1.02 2003/03/28]
-%   \karaHako : '...' $B%*%W%7%g%s$G!$%O%3$NCf$KJ8;zNs$rG[CV(B
+%   \karaHako : '...' オプションで，ハコの中に文字列を配置
 % v 1.03 2003/07/15
-%   $B%O%3Cf$NJ8;zNs$K@\F,;l$r$D$1$k$3$H$r%*%W%7%g%s(B (leftstr=..)
+%   ハコ中の文字列に接頭詞をつけることをオプション (leftstr=..)
 % v 1.04 2003/09/16
-%   hyperref.sty $B$G$N(B \ref* $B$KBP1~$9$k$b$N$H$7$F(B \refHako**
+%   hyperref.sty での \ref* に対応するものとして \refHako**
 % v 1.05 2003/10/12
-%   \Hako : \protect $B$r$+$V$;$k!#(B
+%   \Hako : \protect をかぶせる。
 % v 1.06 2003/11/18
-%   \Hako : ` ' $B$N(B \catcode $B$rLa$9<jB3$-$,!$%0%k!<%T%s%0$NCf$KF~$C$F$$$?$N$G!$(B
-%           \Hako $B$N:G8e$G$b<jB3$-$r7+$jJV$9$3$H$H$9$k!#(B
+%   \Hako : ` ' の \catcode を戻す手続きが，グルーピングの中に入っていたので，
+%           \Hako の最後でも手続きを繰り返すこととする。
 % v 1.07 2003/11/28
-%   \writeLabel $B$r(B emathLb.sty $B$K0\4I$7$?$3$H$KBP1~!#(B
+%   \writeLabel を emathLb.sty に移管したことに対応。
 % v 1.08 2003/12/16
-%   \hakokaisyotai $B$G!$2rEz$NJ8;zNs$N=$>~$r2DG=$H$9$k!#(B
+%   \hakokaisyotai で，解答の文字列の修飾を可能とする。
 % v 1.09 2003/12/17
-%   $B%P%0=$@5(B
+%   バグ修正
 % v 1.10 2003/12/23
-%   notMy $B%*%W%7%g%s2D(B
+%   notMy オプション可
 % v 1.11 2004/05/02
-%   hakobanaiu $B$J$I$N>e8B%A%'%C%/$r$9$k!#(B
+%   hakobanaiu などの上限チェックをする。
 % v 1.12 2004/10/10
-%   \inputHakoKaiFile : $B6I=jE*$K(B \centermodefalse $B$H$9$k!#(B
+%   \inputHakoKaiFile : 局所的に \centermodefalse とする。
 % v 1.14 2005/01/09
-%   $B%m!<%I%*%W%7%g%s(B papersize
+%   ロードオプション papersize
 % v 1.15 2005/01/18
-%   \RefHako : $BOH@~$N:Y$$(B \refHako*
+%   \RefHako : 枠線の細い \refHako*
 % v 1.16 2005/02/07
-%   $B4]0O$_?t;z$r%;%s%?!<%b!<%I$G;HMQ$9$k;n$_(B
+%   丸囲み数字をセンターモードで使用する試み
 % v 1.17 2005/02/08
-%   $B4]0O$_$r(B2$B7e$G$b(B
+%   丸囲みを2桁でも
 % v 1.18 2005/02/12
-%   $BJ8;z<o$r2rEz%U%!%$%k$K=q$-=P$9!#(B
+%   文字種を解答ファイルに書き出す。
 % v 1.19 2005/02/20
-%   $B>e5-=$@5(B
+%   上記修正
 % v 1.20 2005/02/25
-%   $B99$J$k=$@5(B
+%   更なる修正
 % v 1.21 2005/03/28
-%   \refHako hakosyotai $B$rH?1G$5$;$k(B
+%   \refHako hakosyotai を反映させる
 % v 1.22 2005/04/04
-%   \renHako $B$N;E@Z$j@~$N7A>uJQ99$KBP1~(B
+%   \renHako の仕切り線の形状変更に対応
 % v 1.23 2005/04/07
-%   \renHako $B$N;E@Z$j@~$N7A>uJQ99$KBP1~!J=$@5!K(B
-%   \hako@out : $B=$@5(B (BBS No.2873)
+%   \renHako の仕切り線の形状変更に対応（修正）
+%   \hako@out : 修正 (BBS No.2873)
 % v 1.24 2005/06/25
-%   \hakomozisyu{m}$B$KBP$9$k=$@5(B
+%   \hakomozisyu{m}に対する修正
 % v 1.25 2005/07/31
-%   \inputHakoKaiFile : $B%U%!%$%k$NB8:_$r%A%'%C%/$9$k!#(B
-%   \openHakoKaiFile, \inputHakoKaiFile : [..]$B%*%W%7%g%s$GHV9f;XDj(B
+%   \inputHakoKaiFile : ファイルの存在をチェックする。
+%   \openHakoKaiFile, \inputHakoKaiFile : [..]オプションで番号指定
 % v 1.26 2005/08/11
-%   \refHako@b : \ref $B$N=hM}(B
+%   \refHako@b : \ref の処理
 % v 1.27 2005/09/03
-%   $B4]IU$-?t;z$N=hM}=$@5(B
+%   丸付き数字の処理修正
 % v 1.28 2005/10/03
-%   \iihakoframe : $B:81&$N=D7S@~$rFs=E@~(B
+%   \iihakoframe : 左右の縦罫線を二重線
 % v 1.29 2005/10/13
-%   ceo.sty $BBP1~(B (\ceoMaru)
+%   ceo.sty 対応 (\ceoMaru)
 % v 1.30 2005/10/24
-%   \tmHako : \centermodetrue $B$N:]!$@hF,J8;z$N$_4]0O$_!J(B---> $BElMNBg3X!K(B
+%   \tmHako : \centermodetrue の際，先頭文字のみ丸囲み（---> 東洋大学）

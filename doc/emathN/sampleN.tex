@@ -10,23 +10,23 @@
 
 \begin{document}
 \changeArrowHeadSize{1.5}
-\title{$BN.$l?^IA2h%^%/%m(B\\
-emathN.sty {\normalsize ver.0.15}\\$B;HMQNc(B}
+\title{流れ図描画マクロ\\
+emathN.sty {\normalsize ver.0.15}\\使用例}
 \author{tDB}
 \date{2004/12/19}
 
 \maketitle\thispagestyle{empty}
 \begin{abstract}%
 \parindent1zw%
-$BCf3X!&9b9;$G?t3X$N%W%j%s%H$K$D$1$kN.$l?^$N:n@.$KI,MW$J5-9f!$%3%^%s%I!$(B
-$B4D6-$r=8$a$?%^%/%m=8$G$9!%(B
-\LaTeX2e $B$,A0Ds$G$9!%(B
+中学・高校で数学のプリントにつける流れ図の作成に必要な記号，コマンド，
+環境を集めたマクロ集です．
+\LaTeX2e が前提です．
 
-$B$3$N%^%/%m=8$N%^%/%m$K$D$$$F$N$4<ALd!$%P%0Js9p!$=$@5!&DI2C$NDs0FEy$O(B
+このマクロ集のマクロについてのご質問，バグ報告，修正・追加の提案等は
 \begin{center}
 http://emath.s40.xrea.com/
 \end{center}
-$B$N7G<(HD$X$I$&$>!#(B
+の掲示板へどうぞ。
 \end{abstract}
 \pagebreak
 \pagenumbering{roman}%
@@ -37,170 +37,170 @@ http://emath.s40.xrea.com/
 
 \pagenumbering{arabic}
 
-\section{$B$3$N%Q%C%1!<%8$G<h$j07$&?^7A(B}
-$B$^$:$O1&2<$NNc$r$4Mw$/$@$5$$!%(B
-$B$3$N%Q%C%1!<%8$G<h$j07$&?^7A$O:82<$NDL$j$G$9!%(B\bigskip
+\section{このパッケージで取り扱う図形}
+まずは右下の例をご覧ください．
+このパッケージで取り扱う図形は左下の通りです．\bigskip
 
 \begin{nidan}{12em}{\vspace{-.75\baselineskip}\par\input{example/ex00}}%
 \begin{tabular}[t]{|p{4zw}|p{3zw}|p{8zw}|}\hline
-\begin{nagarezu}(4zw,2\baselineskip)\tansi{$B!!!!(B}\end{nagarezu} 
-& $BC<;R(B & $B<j=g$N3+;O!&=*N;$rI=$9!%(B\\\hline
-\begin{nagarezu}(4zw,2\baselineskip)\nyuusyuturyoku{$B!!(B }\end{nagarezu} 
-& $BF~=PNO(B & $B?tCM$J$I$N%G!<%?$NF~NO!$7W;;7k2L$N=PNO$rI=$9!%(B\\\hline
-\begin{nagarezu}(4zw,2\baselineskip)\syori{$B!!(B }\end{nagarezu} 
-& $B=hM}(B & $B7W;;!&BeF~$J$I$N=hM}$rI=$9!%(B\\\hline
-\begin{nagarezu}(4zw,2\baselineskip)\handan{$B!!!!(B}\end{nagarezu} 
-& $BH=CG(B & $B>r7o$NH=CG$rI=$9!%5-9f$NCf$K$OHf3S>r7o$r=q$-!$(B
-$B5-9f$+$i=P$kN.$l@~$K!$$=$NN.$l@~$N=g=x$K=>$&>r7o$rIU5-$9$k!%(B\\\hline
-\begin{nagarezu}(4zw,4.5\baselineskip)\begin{kurikaesi}{$B!!!!(B}{}\end{kurikaesi}
+\begin{nagarezu}(4zw,2\baselineskip)\tansi{　　}\end{nagarezu} 
+& 端子 & 手順の開始・終了を表す．\\\hline
+\begin{nagarezu}(4zw,2\baselineskip)\nyuusyuturyoku{　 }\end{nagarezu} 
+& 入出力 & 数値などのデータの入力，計算結果の出力を表す．\\\hline
+\begin{nagarezu}(4zw,2\baselineskip)\syori{　 }\end{nagarezu} 
+& 処理 & 計算・代入などの処理を表す．\\\hline
+\begin{nagarezu}(4zw,2\baselineskip)\handan{　　}\end{nagarezu} 
+& 判断 & 条件の判断を表す．記号の中には比較条件を書き，
+記号から出る流れ線に，その流れ線の順序に従う条件を付記する．\\\hline
+\begin{nagarezu}(4zw,4.5\baselineskip)\begin{kurikaesi}{　　}{}\end{kurikaesi}
 \end{nagarezu} 
-& $B7+JV$7(B & $B7+$jJV$7=hM}$rI=$9!#(B\\\hline
+& 繰返し & 繰り返し処理を表す。\\\hline
 \begin{nagarezu}(4zw,2\baselineskip)\sitahe\end{nagarezu} 
-& $BN.$l@~(B & $B>e5-$N5-9f$r7k$S!$=hM}$NN.$l$rI=$9!%(B\\\hline
+& 流れ線 & 上記の記号を結び，処理の流れを表す．\\\hline
 \end{tabular}
 \end{nidan}
 
-$B$3$l$i$N?^7A$rAH$_9g$o$;$FN.$l?^$r:n$j$^$9$,!$(B
-$B$3$N%Q%C%1!<%8$G$O!$(B\textsf{nagarezu}$B4D6-$NCf$KN.$l?^$r5-=R$7$^$9!%(B
+これらの図形を組み合わせて流れ図を作りますが，
+このパッケージでは，\textsf{nagarezu}環境の中に流れ図を記述します．
 
-\section{$BC<;R5-9f(B}
-$BC<;R5-9f$rIA2h$9$k%3%^%s%I$O(B \cmd{tansi} $B$G$9!%!JJLL>(B \cmd{termbox}$B!K(B
+\section{端子記号}
+端子記号を描画するコマンドは \cmd{tansi} です．（別名 \cmd{termbox}）
 \cindex{tansi}\cindex{termbox}
 
 \showexample[\cmd{tansi}](0.55)(0.35){example/tansi01}
 
-\textsf{nagarezu}$B4D6-$NCf$K!$!x(B1$B$G>R2p$7$?5-9f$rG[CV$7$F$$$-$^$9!%(B
-$B>e$NNc$G$OC<;R5-9f$r(B1$B8D$@$1G[CV$7$^$7$?!%(B
-\textsf{nagarezu}$B4D6-$O<B<AE*$K$O(B\textsf{picture}$B4D6-$G!$(B
-$B:BI886E@$O>eJUCf1{$K$"$j$^$9!%!J%*%W%7%g%s$GJQ992DG=!K(B
-$B$=$N=q<0$O(B\index{nagarezu@nagarezu $B4D6-(B}
+\textsf{nagarezu}環境の中に，§1で紹介した記号を配置していきます．
+上の例では端子記号を1個だけ配置しました．
+\textsf{nagarezu}環境は実質的には\textsf{picture}環境で，
+座標原点は上辺中央にあります．（オプションで変更可能）
+その書式は\index{nagarezu@nagarezu 環境}
 
 \begin{boxnote}
 \begin{verbatim}
 \begin{nagarezu}[#1](#2,#3)(#4,#5)
-  #1 : $B86E@$N0LCVHfN((B $B!J%G%U%)%k%HCM(B 0.5$B!K(B
-  #2 : $BN.$l?^$N2#I}(B
-  #3 : $B!!!!!!!!=DI}(B
-  #4 : $B86E@$N0LCV$r=$@5$9$k(B x$B@.J,(B
-  #5 : $B86E@$N0LCV$r=$@5$9$k(B y$B@.J,(B
+  #1 : 原点の位置比率 （デフォルト値 0.5）
+  #2 : 流れ図の横幅
+  #3 : 　　　　縦幅
+  #4 : 原点の位置を修正する x成分
+  #5 : 原点の位置を修正する y成分
 \end{verbatim}
 \end{boxnote}
 
-$B$H$J$C$F$$$^$9!%(B
+となっています．
 
-\verb/(#2,#3)/$B$OI,?\$N0z?t$GN.$l?^$N%5%$%:$r;XDj$7$^$9!%(B
-$B?tCM$OC10L$rH<$$$^$9!%(B
+\verb/(#2,#3)/は必須の引数で流れ図のサイズを指定します．
+数値は単位を伴います．
 
-$B%G%U%)%k%H$G$O!$86E@$O(B\verb/(#2,#3)/$B$G;XDj$5$l$?D9J}7A$N>eJUCf1{$K$"$j$^$9!%(B
-$B$3$l$r=$@5$9$k%*%W%7%g%s0z?t$,(B \verb/(#4,#5)/ $B$G$9!%(B
+デフォルトでは，原点は\verb/(#2,#3)/で指定された長方形の上辺中央にあります．
+これを修正するオプション引数が \verb/(#4,#5)/ です．
 
-$BD9J}7A$N:8>e$r;OE@$H$7$F(B \verb/(#4,#5)/ $B$r@.J,$H$9$k(B
-$B%Y%/%H%k$N=*E@$r86E@$H$7$^$9!%$3$N@.J,$bC10L$rH<$&?tCM$G$9!%(B
+長方形の左上を始点として \verb/(#4,#5)/ を成分とする
+ベクトルの終点を原点とします．この成分も単位を伴う数値です．
 
-$BNc$($P!$(B\verb/\begin{nagarezu}(2cm,3cm)(0.5cm,-1cm)%/ $B$H$7$?$H$-$N(B
-$B3NJ]$5$l$kNN0h$H86E@$N0LCV$O2<$N$h$&$K$J$j$^$9!%(B
+例えば，\verb/\begin{nagarezu}(2cm,3cm)(0.5cm,-1cm)%/ としたときの
+確保される領域と原点の位置は下のようになります．
 
 \showexample[\cmd{tansi}](0.55)(0.35){example/tansi03}
 
-\verb/[#1]/$B$O5lHG$H$N8_49@-$rJ]$D$?$a$K;D$7$F$"$j$^$9!%(B
+\verb/[#1]/は旧版との互換性を保つために残してあります．
 
-$B<!$K!$C<;R$N=q<0$O(B
+次に，端子の書式は
 
 \begin{boxnote}
 \begin{verbatim}
 \tansi[#1]#2
-  #1 : $BEI$j$D$V$7$r$9$k$?$a$N%*%W%7%g%s0z?t$G!$(B
-       $BEI$j$D$V$7$NG;$5$r(B 0.1$B!A(B1 $B$N?tCM$G;XDj$7$^$9!%(B
-  #2 : $BCf$K5-=R$9$kJ8;zNs(B
+  #1 : 塗りつぶしをするためのオプション引数で，
+       塗りつぶしの濃さを 0.1〜1 の数値で指定します．
+  #2 : 中に記述する文字列
 \end{verbatim}
 \end{boxnote}
 
-$B$H$J$C$F$$$^$9!%(B
+となっています．
 
-$BIA2h8e$N%+%l%s%H%]%$%s%H$O!$2<JU$NCfE@$G$9!%$^$?!$<!$NE@$,Dj5A$5$l$F$$$^$9!%(B
+描画後のカレントポイントは，下辺の中点です．また，次の点が定義されています．
 \begin{jquote}
 \begin{verbatim}
-\migityuuten   : $B1&B&$NH>1_$N1&C<(B
-\hidarityuuten : $B:8B&$NH>1_$N:8C<(B
-\uetyuuten     : $B>eJU$NCfE@(B
-\sitatyuuten   : $B2<JU$NCfE@!J%+%l%s%H%]%$%s%H(B)
+\migityuuten   : 右側の半円の右端
+\hidarityuuten : 左側の半円の左端
+\uetyuuten     : 上辺の中点
+\sitatyuuten   : 下辺の中点（カレントポイント)
 \end{verbatim}
 \end{jquote}
-$B8e$G!$I,MW$H$J$kE@$,$"$l$P!$(B\cmd{nahuda}$B%3%^%s%I$GJ]B8$7$F$*$-$^$9!%(B
-$B$=$N0lNc$G$9!%(B
+後で，必要となる点があれば，\cmd{nahuda}コマンドで保存しておきます．
+その一例です．
 
 \showexample[\cmd{nahuda}](0.55)(0.35){example/tansi02}
 
-\cmd{nahuda} $B$N=q<0$G$9!%(B\cindex{nahuda}
+\cmd{nahuda} の書式です．\cindex{nahuda}
 
 \begin{boxnote}
 \begin{verbatim}
 \nahuda#1#2
-    #1 : $BL>;%!J%i%Y%k!K$rIU$1$kE@(B
-    #2 : $B%i%Y%kL>(B
+    #1 : 名札（ラベル）を付ける点
+    #2 : ラベル名
 \end{verbatim}
 \end{boxnote}
 
-$B%i%Y%k$rIU$1$?E@$X$NLa$jJ}$O!VN.$l@~!W$N$H$3$m$G2r@b$7$^$9!%(B
+ラベルを付けた点への戻り方は「流れ線」のところで解説します．
 
-\section{$BF~=PNO5-9f(B}
-$B%-!<%\!<%I$+$i$NF~NO!$2hLL$X$N=PNO$J$I$rI=$9?^7A$rIA2h$9$k%3%^%s%I$,(B
-\cmd{nyuusyuturyoku}$B$G$9!%D9$?$i$7$$%3%^%s%IL>$G$9$+$i!$JLL>(B \cmd{iobox}
-$B$b;HMQ$G$-$^$9!%(B\cindex{nyuusyuturyoku}\cindex{iobox}
+\section{入出力記号}
+キーボードからの入力，画面への出力などを表す図形を描画するコマンドが
+\cmd{nyuusyuturyoku}です．長たらしいコマンド名ですから，別名 \cmd{iobox}
+も使用できます．\cindex{nyuusyuturyoku}\cindex{iobox}
 
 \showexample[\cmd{nyuusyuturyoku}](0.55)(0.35){example/iobox01}
 
-$BF~=PNO5-9fCf$KJ#?t9T$r5-=R$9$kJ}K!$K$D$$$F$O!$(B
-$B<!@a!V=hM}5-9f!W$G2r@b$7$^$9!%(B
+入出力記号中に複数行を記述する方法については，
+次節「処理記号」で解説します．
 
-$BIA2h8e$N%+%l%s%H%]%$%s%H$O!$2<JU$NCfE@$G$9!%$^$?!$<!$NE@$,Dj5A$5$l$F$$$^$9!%(B
+描画後のカレントポイントは，下辺の中点です．また，次の点が定義されています．
 \begin{jquote}
 \begin{verbatim}
-\migityuuten   : $B1&JU$NCfE@(B
-\hidarityuuten : $B:8JU$NCfE@(B
-\uetyuuten     : $B>eJU$NCfE@(B
-\sitatyuuten   : $B2<JU$NCfE@!J%+%l%s%H%]%$%s%H(B)
+\migityuuten   : 右辺の中点
+\hidarityuuten : 左辺の中点
+\uetyuuten     : 上辺の中点
+\sitatyuuten   : 下辺の中点（カレントポイント)
 \end{verbatim}
 \end{jquote}
 
-\section{$B=hM}5-9f(B}
-$B=hM}5-9f$rIA2h$9$k%3%^%s%I$O(B \cmd{syori} $B$G$9!%!JJLL>(B \cmd{opbox}$B!K(B
+\section{処理記号}
+処理記号を描画するコマンドは \cmd{syori} です．（別名 \cmd{opbox}）
 \cindex{syori}\cindex{opbox}
 
 \showexample[\cmd{syori}](0.6)(0.3){example/syori01}
 
-$B=hM}5-9f$NCf$KJ#?t9T$rF~$l$?$$$H$-$O!$(B\textsf{minipage}$B4D6-(B
-$B$"$k$$$O(B \verb/\parbox/$B%3%^%s%I$J$I$rMQ$$$^$9!%(B
+処理記号の中に複数行を入れたいときは，\textsf{minipage}環境
+あるいは \verb/\parbox/コマンドなどを用います．
 
-\showexample[$BJ#?t9T(B](0.6)(0.3){example/syori02}
+\showexample[複数行](0.6)(0.3){example/syori02}
 
-$BJ#?t9T$,?t<0$N>l9g$O!$(B\textsf{align*}$B4D6-$J$I$rMQ$$$k$N$b$"$j$^$9!%(B
+複数行が数式の場合は，\textsf{align*}環境などを用いるのもあります．
 
-\showexample[\textsf{align}$B4D6-(B](0.6)(0.3){example/syori03}
+\showexample[\textsf{align}環境](0.6)(0.3){example/syori03}
 
-$B$?$@$7!$(B\textsf{align*}$B4D6-$rMQ$$$k$H!$(B
-$B>e$K6uGr$,$D$-$^$9$N$G(B \verb/\vspace/ $B$G5M$a$kJ}$,$h$5$=$&$G$9!%(B
+ただし，\textsf{align*}環境を用いると，
+上に空白がつきますので \verb/\vspace/ で詰める方がよさそうです．
 
-\showexample[\textsf{align}$B4D6-$NF,It6uGr(B](0.6)(0.3){example/syori04}
+\showexample[\textsf{align}環境の頭部空白](0.6)(0.3){example/syori04}
 
-$BIA2h8e$N%+%l%s%H%]%$%s%H$O!$2<JU$NCfE@$G$9!%$^$?!$<!$NE@$,Dj5A$5$l$F$$$^$9!%(B
+描画後のカレントポイントは，下辺の中点です．また，次の点が定義されています．
 \begin{jquote}
 \begin{verbatim}
-\migityuuten   : $B1&JU$NCfE@(B
-\hidarityuuten : $B:8JU$NCfE@(B
-\uetyuuten     : $B>eJU$NCfE@(B
-\sitatyuuten   : $B2<JU$NCfE@!J%+%l%s%H%]%$%s%H(B)
+\migityuuten   : 右辺の中点
+\hidarityuuten : 左辺の中点
+\uetyuuten     : 上辺の中点
+\sitatyuuten   : 下辺の中点（カレントポイント)
 \end{verbatim}
 \end{jquote}
 \cindex{migityuuten}\cindex{hidarityuuten}
 \cindex{uetyuuten}\cindex{sitatyuuten}
 
-\section{$BN.$l@~(B}
-$B=hM}$NN.$l$r<($9$N$K!VN.$l@~!W$rMQ$$$^$9!%N.$l@~$NJ}8~$O(B4$B<oN`$"$j$^$9!%(B
-$B%*%W%7%g%s$K$h$C$F!$Lp0u$r$D$1$J$$$b$N!$Fs=E@~$r0z$/$3$H$b2DG=$G$9!%(B
+\section{流れ線}
+処理の流れを示すのに「流れ線」を用います．流れ線の方向は4種類あります．
+オプションによって，矢印をつけないもの，二重線を引くことも可能です．
 \begin{center}
 \begin{tabular}[t]{|p{5zw}|p{8zw}|}\hline
-$B%3%^%s%I(B & $BN.$l@~(B \\\hline
+コマンド & 流れ線 \\\hline
 \verb/\sitahe/\par\verb/\downto/
 &\vspace{1zh}\par\begin{nagarezu}(8zw,4zh)\sitahe\end{nagarezu}\\\hline
 \verb/\migihe/\par\verb/\rightto/
@@ -211,122 +211,122 @@ http://emath.s40.xrea.com/
 &\vspace{1zh}\par\begin{nagarezu}(8zw,4zh)\uehe\end{nagarezu}\\\hline
 \end{tabular}
 \end{center}
-$B=q<0$O(B4$B$D$N%3%^%s%I$9$Y$F6&DL$G$9$+$i!$(B\cmd{sitahe} $B$K$D$$$F2r@b$7$^$9!%(B
+書式は4つのコマンドすべて共通ですから，\cmd{sitahe} について解説します．
 \cindex{sitahe}\cindex{uehe}\cindex{migihe}\cindex{hidarihe}
 \cindex{downto}\cindex{upto}\cindex{rightto}\cindex{leftto}
 
 \begin{boxnote}
 \begin{verbatim}
 \sitahe<#1>(#2)[#3]"#4""#5"`#6'
-  #1$B!'@~$N7A>u;XDj%*%W%7%g%s(B
-      a = $BLp0u$r$D$1$k!J%G%U%)%k%H!K(B
-      n = $BLp0u$J$7(B
-      r = $B5UJ}8~$KLp0u(B
-      w = $BFs=E@~(B
-      $B!J=EJ#;XDj2DG=!K(B 
-  #2$B!'@~$ND9$5!J%G%U%)%k%HCM(B 20pt$B!K(B
-  #3$B!'%i%Y%k(B
-  #4$B!'Lp@~$N>e$KCV$/J8;zNs(B
-  #5$B!'Lp@~$N2<$KCV$/J8;zNs(B
-  #6$B!'N.$l@~$N9T$-@h%i%Y%k(B
+  #1：線の形状指定オプション
+      a = 矢印をつける（デフォルト）
+      n = 矢印なし
+      r = 逆方向に矢印
+      w = 二重線
+      （重複指定可能） 
+  #2：線の長さ（デフォルト値 20pt）
+  #3：ラベル
+  #4：矢線の上に置く文字列
+  #5：矢線の下に置く文字列
+  #6：流れ線の行き先ラベル
 \end{verbatim}
 \end{boxnote}
 
-\subsection{$BN.$l@~$N7A>u(B}
-$BC1$K(B \cmd{sitahe} $B$H$9$k$H!$D9$5(B20pt $B$N2<8~$-Lp0u$rIA2h$7$^$9!%(B
-\texttt{<n>} $B%*%W%7%g%s$r$D$1$k$HLp0u$J$7$N@~J,$H$J$j$^$9!%(B
+\subsection{流れ線の形状}
+単に \cmd{sitahe} とすると，長さ20pt の下向き矢印を描画します．
+\texttt{<n>} オプションをつけると矢印なしの線分となります．
 
 \showexample[\cmd{sitahe<n>}](0.55)(0.4){example/sen01}
 
-\texttt{<w>} $B%*%W%7%g%s$GFs=E@~$H$J$j$^$9!%(B\texttt{<n>} $B$HJ;MQ$9$kNc$G$9!%(B
+\texttt{<w>} オプションで二重線となります．\texttt{<n>} と併用する例です．
 
 \showexample[\cmd{migihe<wn>}](0.5)(0.44){example/sen02}
 
-\subsection{$BN.$l@~$ND9$5(B}
-$BN.$l@~$ND9$5$O%G%U%)%k%H$G$O(B 20pt $B$H$J$C$F$$$^$9!%(B
-$B$3$l$rJQ99$9$k$K$O(B \texttt{(...)} $B%*%W%7%g%s$rMQ$$$^$9!%(B
-$BD9$5$OC10L$rH<$C$??tCM$G;XDj$7$^$9!%(B
+\subsection{流れ線の長さ}
+流れ線の長さはデフォルトでは 20pt となっています．
+これを変更するには \texttt{(...)} オプションを用います．
+長さは単位を伴った数値で指定します．
 
 \showexample[\cmd{sitahe(4zh)}](0.55)(0.4){example/sen03}
 
-\subsection{$BN.$l@~$KJ8;zNs$NE:IU(B}
-$BN.$l@~$NK5$KJ8;zNs$rE:IU$9$k%*%W%7%g%s$,(B \texttt{"..."} $B$G$9!%(B
+\subsection{流れ線に文字列の添付}
+流れ線の傍に文字列を添付するオプションが \texttt{"..."} です．
 \begin{jquotation}
-\cmd{sitahe}, \cmd{uehe} $B$G$O!$Bh(B1$B$N(B\texttt{"..."} $B$GN.$l@~$N:8Cf1{It$K!$(B
-$BBh(B2$B$N(B\texttt{"..."}$B$GN.$l@~$N1&Cf1{It$KJ8;zNs$r=PNO$7$^$9!%(B
+\cmd{sitahe}, \cmd{uehe} では，第1の\texttt{"..."} で流れ線の左中央部に，
+第2の\texttt{"..."}で流れ線の右中央部に文字列を出力します．
 
-\cmd{hidarihe}, \cmd{migihe} $B$G$O!$Bh(B1$B$N(B\texttt{"..."} $B$GN.$l@~$N>eCf1{It$K!$(B
-$BBh(B2$B$N(B\texttt{"..."}$B$GN.$l@~$N2<Cf1{It$KJ8;zNs$r=PNO$7$^$9!%(B
+\cmd{hidarihe}, \cmd{migihe} では，第1の\texttt{"..."} で流れ線の上中央部に，
+第2の\texttt{"..."}で流れ線の下中央部に文字列を出力します．
 \end{jquotation}
 
-\showexample[$BN.$l@~$KJ8;zNs$rE:IU(B](0.55)(0.39){example/sen05}
+\showexample[流れ線に文字列を添付](0.55)(0.39){example/sen05}
 
-\subsection{$BN.$l@~$N%i%Y%k(B}
-\texttt{[...]} $B%*%W%7%g%s$G;XDj$7$?%i%Y%kL>$K!$(B
-$BN.$l@~$NCfE@$N:BI8$,J]B8$5$l$^$9!%(B
+\subsection{流れ線のラベル}
+\texttt{[...]} オプションで指定したラベル名に，
+流れ線の中点の座標が保存されます．
 
-\subsection{$BN.$l@~$N9T$-@h;XDj(B}
-$BN.$l@~$N9T$-@h$r%i%Y%k$K$h$C$F;XDj$9$k$3$H$,$G$-$^$9!%(B
-\texttt{`...'} $B%*%W%7%g%s$G$9!%(B
-$B$?$@$7!$$3$N%9%?%$%k%U%!%$%k$G$O<P@~$O0z$-$^$;$s$+$i!$(B
+\subsection{流れ線の行き先指定}
+流れ線の行き先をラベルによって指定することができます．
+\texttt{`...'} オプションです．
+ただし，このスタイルファイルでは斜線は引きませんから，
 \begin{jquotation}
-\cmd{sitahe}, \cmd{uehe} $B$G$O!$N.$l@~$N=*E@$N(B$y$$B:BI8$,%i%Y%k$NE@$N(B
-$y$$B:BI8$HEy$7$/$J$j$^$9!%(B
+\cmd{sitahe}, \cmd{uehe} では，流れ線の終点の$y$座標がラベルの点の
+$y$座標と等しくなります．
 
-\cmd{migihe}, \cmd{hidarihe} $B$G$O!$N.$l@~$N=*E@$N(B$x$$B:BI8$,%i%Y%k$NE@$N(B
-$x$$B:BI8$HEy$7$/$J$j$^$9!%(B
+\cmd{migihe}, \cmd{hidarihe} では，流れ線の終点の$x$座標がラベルの点の
+$x$座標と等しくなります．
 
-\showexample[$BN.$l@~$N9T$-@h;XDj(B](0.55)(0.39){example/sen04}
+\showexample[流れ線の行き先指定](0.55)(0.39){example/sen04}
 
 \end{jquotation}
 
-\section{$BH=CG5-9f(B}
-$B>r7o$rM?$($FJ,4t$5$;$k4D6-$,(B \textsf{handan} $B$G$9!JJLL>(B \textsf{ifbox}$B!K!%(B
-$B%3%^%s%I$G$O$J$/!$4D6-;EN)$F$K$J$C$F$$$^$9!%(B
-\index{handan@handan $B4D6-(B}\index{ifbox@ifbox $B4D6-(B}
+\section{判断記号}
+条件を与えて分岐させる環境が \textsf{handan} です（別名 \textsf{ifbox}）．
+コマンドではなく，環境仕立てになっています．
+\index{handan@handan 環境}\index{ifbox@ifbox 環境}
 
-$B$^$?!$1&!&:8!&2<J}8~$NJ,4t$b$=$l$>$l(B
+また，右・左・下方向の分岐もそれぞれ
 \begin{jquote}
 \textsf{migibunki}, \textsf{hidaribunki}, \textsf{sitabunki}
 \end{jquote}
-$B4D6-Fb$K5-=R$7$^$9!%(B
-\index{migibunki@migibunki $B4D6-(B}
-\index{hidaribunki@hidaribunki $B4D6-(B}
-\index{sitabunki@sitabunki $B4D6-(B}
+環境内に記述します．
+\index{migibunki@migibunki 環境}
+\index{hidaribunki@hidaribunki 環境}
+\index{sitabunki@sitabunki 環境}
 
-\showexample[\textsf{handan}$B4D6-(B](0.53)(0.41){example/handan01}
+\showexample[\textsf{handan}環境](0.53)(0.41){example/handan01}
 
-$B=q<0$O(B
+書式は
 \begin{boxnote}
 \begin{verbatim}
 \begin{handan}[#1]<#2><#3>#4{%
-  #1 : $BEI$j$D$V$7$NG;$5(B
-  #2 : $B2#J}8~?-=LN(!J%G%U%)%k%HCM(B 1$B!K(B
-  #3 : $B=DJ}8~?-=LN(!J%G%U%)%k%HCM(B 1$B!K(B
-  #4 : $BH=CG5-9fFb$NJ8;zNs(B
+  #1 : 塗りつぶしの濃さ
+  #2 : 横方向伸縮率（デフォルト値 1）
+  #3 : 縦方向伸縮率（デフォルト値 1）
+  #4 : 判断記号内の文字列
 \end{verbatim}
 \end{boxnote}
 
-$BIA2h8e$N%+%l%s%H%]%$%s%H$O!$2<JU$NCfE@$G$9!%$^$?!$<!$NE@$,Dj5A$5$l$F$$$^$9!%(B
+描画後のカレントポイントは，下辺の中点です．また，次の点が定義されています．
 \begin{jquote}
 \begin{verbatim}
-\migityuuten   : $B1&C<(B
-\hidarityuuten : $B:8C<(B
-\uetyuuten     : $B>eC<(B
-\sitatyuuten   : $B2<C<(B
+\migityuuten   : 右端
+\hidarityuuten : 左端
+\uetyuuten     : 上端
+\sitatyuuten   : 下端
 \end{verbatim}
 \end{jquote}
 
-\section{$B7+$jJV$75-9f(B}
-\verb+FOR .... NEXT+ $B$J$I$N7+$jJV$7$rI=8=$9$k$K$O!$(B
-\textsf{kurikaesi}$B4D6-$rMQ$$$^$9!#(B
+\section{繰り返し記号}
+\verb+FOR .... NEXT+ などの繰り返しを表現するには，
+\textsf{kurikaesi}環境を用います。
 
-$B;HMQNc$r$4Mw$/$@$5$$!#(B1$B$+$i(B10$B$^$G$NOB$r5a$a$kN.$l?^$G$9!#(B
+使用例をご覧ください。1から10までの和を求める流れ図です。
 
-\begin{showEx}(.6,.34){\textsf{kurikaesi}$B4D6-(B}
+\begin{showEx}(.6,.34){\textsf{kurikaesi}環境}
 \begin{nagarezu}%
   (7em,18\baselineskip)
-\tansi{$B;O$a(B}
+\tansi{始め}
 \sitahe
 \syori{S=0}
 \sitahe
@@ -336,32 +336,32 @@ $x$$B:BI8$HEy$7$/$J$j$^$9!%(B
 \sitahe
 \end{kurikaesi}
 \sitahe
-\iobox{S$B$r=PNO(B}
+\iobox{Sを出力}
 \sitahe
-\tansi{$B=*$j(B}
+\tansi{終り}
 \end{nagarezu}%
 \end{showEx}
 
-$B$9$J$o$A7+$jJV$7ItJ,$r(B \textsf{kurikaesi}$B4D6-Fb$K5-=R$7$^$9!#(B
-\textsf{kurikaesi}$B4D6-$N=q<0$G$9!#(B
+すなわち繰り返し部分を \textsf{kurikaesi}環境内に記述します。
+\textsf{kurikaesi}環境の書式です。
 
 \begin{boxnote}
 \begin{verbatim}
 \begin{kurikaesi}[#1](#2)#3#4{%
-  #1 : $BEI$j$D$V$7$NG;$5(B
-  #2 : $B2#I}(B
-  #3 : $B;O$a$N%\%C%/%9Fb$K5-=R$9$kFbMF(B
-  #4 : $B=*$j$N%\%C%/%9Fb$K5-=R$9$kFbMF(B
+  #1 : 塗りつぶしの濃さ
+  #2 : 横幅
+  #3 : 始めのボックス内に記述する内容
+  #4 : 終りのボックス内に記述する内容
 \end{verbatim}
 \end{boxnote}
-\index{kurikaesi@kurikaesi $B4D6-(B}
+\index{kurikaesi@kurikaesi 環境}
 
-$B7+$jJV$7%\%C%/%9$rEI$j$D$V$9%*%W%7%g%s$r;HMQ$7$F$_$^$7$g$&!#(B
+繰り返しボックスを塗りつぶすオプションを使用してみましょう。
 
-\begin{showEx}(.6,.34){$BEI$j$D$V$7%*%W%7%g%s(B}
+\begin{showEx}(.6,.34){塗りつぶしオプション}
 \begin{caprm}
 \begin{nagarezu}(7em,18\baselineskip)
-\tansi{$B;O$a(B}
+\tansi{始め}
 \sitahe
 \syori{$S=0$}
 \sitahe
@@ -371,22 +371,22 @@ $x$$B:BI8$HEy$7$/$J$j$^$9!%(B
 \sitahe
 \end{kurikaesi}
 \sitahe
-\iobox{S$B$r=PNO(B}
+\iobox{Sを出力}
 \sitahe
-\tansi{$B=*$j(B}
+\tansi{終り}
 \end{nagarezu}%
 \end{caprm}
 \end{showEx}
 
 \bigskip
 
-$B7+$jJV$7ItJ,A4It$rEI$j$D$V$7$?$$$H$-$O(B \textsf{kurikaesi*}$B4D6-$rMQ$$$^$9!#(B
-\index{kurikaesi*@kurikaesi* $B4D6-(B}
+繰り返し部分全部を塗りつぶしたいときは \textsf{kurikaesi*}環境を用います。
+\index{kurikaesi*@kurikaesi* 環境}
 
-\begin{showEx}(.6,.34){$B7+$jJV$7ItJ,A4It$rEI$j$D$V$9(B}
+\begin{showEx}(.6,.34){繰り返し部分全部を塗りつぶす}
 \begin{caprm}
 \begin{nagarezu}(7em,18\baselineskip)
-\tansi{$B;O$a(B}
+\tansi{始め}
 \sitahe
 \syori{$S=0$}
 \sitahe
@@ -396,21 +396,21 @@ $x$$B:BI8$HEy$7$/$J$j$^$9!%(B
 \sitahe
 \end{kurikaesi*}
 \sitahe
-\iobox{S$B$r=PNO(B}
+\iobox{Sを出力}
 \sitahe
-\tansi{$B=*$j(B}
+\tansi{終り}
 \end{nagarezu}%
 \end{caprm}
 \end{showEx}
 
-$B$b$&>/$7J#;($JNc$G$9!#(B
+もう少し複雑な例です。
 
-A(1), A(2), ..... , A(6)$B$N$&$A!$:GBgCM(B MAX $B$r=PNO$9$kNc$G$9!#(B
+A(1), A(2), ..... , A(6)のうち，最大値 MAX を出力する例です。
 
 \begin{showEx}(.54,.4){\cmd{pushcurrentP}}
 \begin{caprm}
 \begin{nagarezu}(15zw,22.5\baselineskip)
-  \termbox{$B;O$a(B}
+  \termbox{始め}
   \downto
   \opbox{$MAX=A(1)$}
   \downto
@@ -435,21 +435,21 @@ A(1), A(2), ..... , A(6)$B$N$&$A!$:GBgCM(B MAX $B$r=PNO$9$kNc$G$9!#(B
   \downto
   \iobox{MAX}
   \downto
-  \termbox{$B=*$j(B}
+  \termbox{終り}
 \end{nagarezu}%
 \end{caprm}
 \end{showEx}
 
-$B$3$N%j%9%H$K$O(B \cmd{pushcurrentP} $B$H$$$&?7$7$$%3%^%s%I$,EP>l$7$F$$$^$9!#(B
-$B$3$l$O(B \texttt{handan}$B4D6-!JJLL>(B \texttt{ifbox}$B4D6-!K$,=*N;$7$?8e!$(B
-$BN.$l?^$r$I$3$KB3$1$k$+$r;XDj$9$k%3%^%s%I$G!$(B\cmd{pushcurrentP}$BD>A0$N(B
-$BN.$l@~$KB3$1$k$h$&$K;XDj$7$?$3$H$K$J$j$^$9!#(B
+このリストには \cmd{pushcurrentP} という新しいコマンドが登場しています。
+これは \texttt{handan}環境（別名 \texttt{ifbox}環境）が終了した後，
+流れ図をどこに続けるかを指定するコマンドで，\cmd{pushcurrentP}直前の
+流れ線に続けるように指定したことになります。
 
-$B$J$*!$(B\textsf{repbox}$B$O(B\textsf{kurikaesi}$B$NJLL>$G$9!#(B
-\index{repbox@repbox $B4D6-(B}
+なお，\textsf{repbox}は\textsf{kurikaesi}の別名です。
+\index{repbox@repbox 環境}
 
-$B$D$$$G$G$9$+$i!$:G>.CM$bM_D%$C$F$_$^$7$g$&$+!#(B
-$B%=!<%9%j%9%H$O(B \texttt{example}$B%G%#%l%/%H%j$N(B\texttt{rep1.tex}$B$r8+$F$/$@$5$$!#(B
+ついでですから，最小値も欲張ってみましょうか。
+ソースリストは \texttt{example}ディレクトリの\texttt{rep1.tex}を見てください。
 
 \begin{center}
 \input{example/rep1.tex}

@@ -6,33 +6,33 @@
 \usepackage[eu,tx,xy,abx]{emathFx}
 
 \begin{document}
-\textsf{emathFx.sty}$B$O!$(B\textsf{txfonts, pxfonts}$B$J$I$N%U%)%s%H$N0lIt$r(B
-$B$D$^$_?)$$$9$k$?$a$N%U%!%$%k$G$9!#(B
+\textsf{emathFx.sty}は，\textsf{txfonts, pxfonts}などのフォントの一部を
+つまみ食いするためのファイルです。
 
-$B$^$:!$%m!<%I$9$k$H$-!$$D$^$_?)$$$r$7$?$$%U%)%s%H$rI=$95-9f$r(B
-$B%*%W%7%g%s$K;XDj$7$^$9!#Nc$($P!$(B\textsf{txfonts}$B$r$D$^$_?)$$$7$?$$$H$-$O(B
+まず，ロードするとき，つまみ食いをしたいフォントを表す記号を
+オプションに指定します。例えば，\textsf{txfonts}をつまみ食いしたいときは
 \begin{jquote}
 \begin{verbatim}
   \usepackage[tx]{emathFx}
 \end{verbatim}
 \end{jquote}
-$B$H$7$^$9!#8=;~E@$GMQ0U$5$l$F$$$k%*%W%7%g%s$O(B
+とします。現時点で用意されているオプションは
 \begin{jquote}
 \begin{verbatim}
 tx : txfonts
 px : pxfonts
 eu : euler
-xy : Xy-pic $B%Q%C%1!<%8(B
+xy : Xy-pic パッケージ
 abx: mathabx fonts
 \end{verbatim}
 \end{jquote}
-$B$N(B5$B<oN`$G$9!#(B
+の5種類です。
 \clearpage
 
-$B$^$?!$8=;~E@$G$D$^$_?)$$$,Dj5A$5$l$F$$$k$N$O!$(B
+また，現時点でつまみ食いが定義されているのは，
 \begin{enumerate}[(1)]
   \item 
-\verb+\bekutoru+ $B$NLp0u$No7$N7A(B
+\verb+\bekutoru+ の矢印の鏃の形
 
 \begin{showpEx}(.7,.24){\cmd{bekutorukata}}
 \begin{tabular}{ll}
@@ -51,36 +51,36 @@ abx &
 xy & 
 ! \IfFileExists{xy.sty}{%
   \bekutorukata{xy}\bekutoru{AB}
-!}{xy $B%*%W%7%g%s$OL58z$G$9(B}\\
+!}{xy オプションは無効です}\\
 \end{tabular}
 \end{showpEx}
 
 \item 
-$B$=$NB>(B
+その他
 
 \begin{jquote}
   \begin{tabular}{|l|l|l|c|c|}\hline
-    $B%U%)%s%H(B         & $BJ8;z!&5-9f(B & $B%3%^%s%I(B  & $B7k2L(B & cm $B%U%)%s%H(B\\\hline
-    \textsf{txfonts}&$B%.%j%7%cJ8;z&X(B&\verb+\txomega+&$\txomega$&$\omega$\\\hline
-    $B!7(B&$B%Q%$(B&\verb+\txpi+&$\txpi$&$\pi$\\\hline
-    $B!7(B&$B%,%s%^(B&\verb+\txgamma+&$\txgamma$&$\gamma$\\\hline
-    $B!7(B& g & \verb+\txg+ & $\txg$ & $g$ \\\hline
-    $B!7(B&$B@QJ,5-9f(B\EMvphantom[5pt][3pt]{$\displaystyle\int$}
+    フォント         & 文字・記号 & コマンド  & 結果 & cm フォント\\\hline
+    \textsf{txfonts}&ギリシャ文字ω&\verb+\txomega+&$\txomega$&$\omega$\\\hline
+    〃&パイ&\verb+\txpi+&$\txpi$&$\pi$\\\hline
+    〃&ガンマ&\verb+\txgamma+&$\txgamma$&$\gamma$\\\hline
+    〃& g & \verb+\txg+ & $\txg$ & $g$ \\\hline
+    〃&積分記号\EMvphantom[5pt][3pt]{$\displaystyle\int$}
       &\verb+\txint+& $\displaystyle\txint_a^b$&$\displaystyle\int_a^b$
       \\\hline
-    \textsf{euler} &$B@QJ,5-9f(B\EMvphantom[6pt]{$\displaystyle\int$}&
+    \textsf{euler} &積分記号\EMvphantom[6pt]{$\displaystyle\int$}&
       \verb+\euint+
       & $\displaystyle\euint_a^b$&$\displaystyle\int_a^b$
       \\\hline
-    \textsf{mathabx} &$B@QJ,5-9f(B\EMvphantom[6pt]{$\displaystyle\int$}&
+    \textsf{mathabx} &積分記号\EMvphantom[6pt]{$\displaystyle\int$}&
       \verb+\abxint+
       & $\displaystyle\abxint_a^b$&$\displaystyle\int_a^b$
       \\\hline
-    $B!7(B&$BEy9fIUITEy9f(B\EMvphantom[6pt]{$\displaystyle\geqq$}&
+    〃&等号付不等号\EMvphantom[6pt]{$\displaystyle\geqq$}&
       \verb+\abxgeqq+
       & $\displaystyle y\abxgeqq x$&$\displaystyle y \geqq x$
       \\\hline
-    $B!7(B&$BOB$N5-9f(B\EMvphantom[6pt]{$\displaystyle\abxsum_k^n$}&
+    〃&和の記号\EMvphantom[6pt]{$\displaystyle\abxsum_k^n$}&
       \verb+\abxsum+
       & $\displaystyle \abxsum_{k=1}^n$&$\displaystyle \sum_{k=1}^n$
       \\\hline
@@ -88,6 +88,6 @@ xy &
 \end{jquote}
 \end{enumerate}
 
-$B$3$NB>$K$D$^$_?)$$$r$44uK>$K$J$k5-9f$J$I$,$"$l$P!$(B
-BBS $B$K=q$-9~$s$G$/$@$5$$!#(B
+この他につまみ食いをご希望になる記号などがあれば，
+BBS に書き込んでください。
 \end{document}

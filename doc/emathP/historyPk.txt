@@ -1,73 +1,73 @@
 % v 0.58 2001/05/19
-%     $B:BI8<4$rIA2h$7$J$$(B Zahyou* $B4D6-(B
+%     座標軸を描画しない Zahyou* 環境
 % v 0.59 2001/07/11
 %     \iiiHasen
-%     \Tensen, \iiiTensen $B$r(B Hasen $B$KJQ99(B
+%     \Tensen, \iiiTensen を Hasen に変更
 %     \iiikuromaru
-%     Zahyou $B4D6-$K(B [Ex=...,Ey=...,Ez=...]
-%         $BC10L%Y%/%H%k$rJQ99$9$k%*%W%7%g%s$rIm2C(B
+%     Zahyou 環境に [Ex=...,Ey=...,Ez=...]
+%         単位ベクトルを変更するオプションを附加
 % v 0.60 2001/07/11
-%     \iiiArrowLine [#1]$B%*%W%7%g%sIm2C(B
+%     \iiiArrowLine [#1]オプション附加
 % v 0.63 2001/10/03
-%     \syanuri@kankaku $B$N=i4|CM@_Dj(B
+%     \syanuri@kankaku の初期値設定
 % v 0.64 2002/02/15
 %     \iiiBKinziOresen
   v 0.65 2002/04/23
-      \def\O{(0,0,0)}$B$rIm2C(B
+      \def\O{(0,0,0)}を附加
   v 0.66 2002/07/24
-      $B%m!<%I%*%W%7%g%s$rM-8z$K(B
-  v 0.67 emathPs.sty $B$H$ND4@0(B
+      ロードオプションを有効に
+  v 0.67 emathPs.sty との調整
   v 0.68 \iiiTakakkei
-  v 0.69 Zahyou$B4D6-$N%*%W%7%g%s%-!<(B Ex, Ey, Ez$B$K$D$$$F!$(B
-         $B1&JUCM$NF,$K(Br$B$rIU$1$?$H$-$O!$6K7A<0$H$_$J$9!#(B
-  v 0.70 $BIA2hNN0h$r$-$A$s$H5a$a$k!#(B
+  v 0.69 Zahyou環境のオプションキー Ex, Ey, Ezについて，
+         右辺値の頭にrを付けたときは，極形式とみなす。
+  v 0.70 描画領域をきちんと求める。
   v 0.71 2003/02/18
       \xRotvec, \yRotvec, \zRotvec
-        $B:BI8<4$r2sE><4$H$9$k2sE>(B
+        座標軸を回転軸とする回転
   v 0.72 2003/02/27
-      \iiiHatchPolygon $B<P@~4V3V$N;XDjK!$N%P%0=$@5(B
+      \iiiHatchPolygon 斜線間隔の指定法のバグ修正
   v 0.73 2003/03/16
       \iiiyasen
-      arrowheadsize=... $B$rM-8z$K(B
+      arrowheadsize=... を有効に
   v 0.74 2003/04/03-19
-    \iiiHasens    : $B?7@_(B
-    \iiiZyuusin   : $B?7@_(B
-    \iiiArrowLine : <..>$B%*%W%7%g%s$rM-8z$K(B
+    \iiiHasens    : 新設
+    \iiiZyuusin   : 新設
+    \iiiArrowLine : <..>オプションを有効に
   v 0.75 2003/05/23
     \iiiTouhenkigou, \iiitouhenkigou
   v 0.76 2003/06/03
-    \iiiBGurafu(#1)(#2)$B$KBP$7$F$O(B
-      \iiiclipDrawline $B$KBe$($F(B \iiiclipdrawline $B$r;HMQ$9$k!#(B
+    \iiiBGurafu(#1)(#2)に対しては
+      \iiiclipDrawline に代えて \iiiclipdrawline を使用する。
   v 0.77 2003/06/19
-    \O@@@ : $B86E@(B
-    \iiictenretu : $B1_Cl:BI8$GE@Ns$rDj5A(B
+    \O@@@ : 原点
+    \iiictenretu : 円柱座標で点列を定義
   v 0.78 2003/08/08
-    Zahyou$B4D6-$G!$(BMigiyohaku=..$B%*%W%7%g%s$J$I$rM-8z$H$9$k!#(B
+    Zahyou環境で，Migiyohaku=..オプションなどを有効とする。
   v 0.80 2004/03/05
     \iiiHenKo
   v 0.81 2004/03/20
-    \iiiNuritubusi : <#2>$B%*%W%7%g%s$rM-8z$H$9$k!#(B
+    \iiiNuritubusi : <#2>オプションを有効とする。
 	v 0.82 2004/06/15
-		\iiiDrawline, \iiiDrawlines : <...> $B%*%W%7%g%s$rM-8z$H$9$k!#(B
+		\iiiDrawline, \iiiDrawlines : <...> オプションを有効とする。
 	v 0.83 2004/08/07
-	  \iiiBKinziOresen : $B9o$_CM$,Ii$N>l9g$K$bBP1~(B
+	  \iiiBKinziOresen : 刻み値が負の場合にも対応
   v 0.85 2005/01/09
-		$B%m!<%I%*%W%7%g%s(B papersize
+		ロードオプション papersize
   v 0.86 2005/02/16
-		$B:BI8<4$NC<E@(B \iiiXMAX, \iiiYMAX, \iiiZMAX
+		座標軸の端点 \iiiXMAX, \iiiYMAX, \iiiZMAX
 	v 0.87 2005/02/17
-		\iiiBGurafu [iro=..]$B%*%W%7%g%s$rM-8z(B
+		\iiiBGurafu [iro=..]オプションを有効
 	v 0.88 2005/05/21
 		\iiiXMIN, \iiiYMIN, \iiiZMIN
 	v 0.89 2005/06/03
-		\iiiTyuuten : $BCfE@(B
+		\iiiTyuuten : 中点
 	v 0.90 2005/06/20
-		\iiiPutStri : \PutStr $B$r8F$S=P$9(B
+		\iiiPutStri : \PutStr を呼び出す
   v 0.91 2005/06/27
-		\endZahyou(*) : $B6uGr$N:.F~GS=|(B
+		\endZahyou(*) : 空白の混入排除
 	v 0.92 2005/09/19
-		$B%m!<%I%*%W%7%g%s(B dvipdfmx
+		ロードオプション dvipdfmx
 	v 0.93 2005/09/28
-		Zahyou $B$K(B [ExO=..] $B%*%W%7%g%s(B
+		Zahyou に [ExO=..] オプション
   v 0.94 2005/10/10
-		Zahyou $B$K(B [ExR=..] $B%*%W%7%g%s(B ---> isikawa.tex
+		Zahyou に [ExR=..] オプション ---> isikawa.tex

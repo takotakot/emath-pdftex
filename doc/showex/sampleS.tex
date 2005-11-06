@@ -4,61 +4,61 @@
     \usepackage{showexample}
 
 \begin{document}
-\textsf{showexample.sty} $B$O(B \LaTeX $B$N%=!<%9$H%?%$%W%;%C%H$7$?7k2L$r(B
-$BBPHf$7$F<($9$?$a$N%9%?%$%k%U%!%$%k$G$9!%(B
-\section{\texttt{showEx}$B4D6-(B}
-\texttt{showEx}$B4D6-$N;HMQNc$G$9!#(B
-\subsection{$B4pK\Nc(B}
-$BNc$($P!$(B
+\textsf{showexample.sty} は \LaTeX のソースとタイプセットした結果を
+対比して示すためのスタイルファイルです．
+\section{\texttt{showEx}環境}
+\texttt{showEx}環境の使用例です。
+\subsection{基本例}
+例えば，
 \begin{dblbox}
 \begin{verbatim}
-\begin{showEx}{$B4JC1$JNc(B}
+\begin{showEx}{簡単な例}
     $\frac12$\vspace{1ex}
     
     $\dfrac12$
 \end{showEx}
 \end{verbatim}
 \end{dblbox}
-$B$H5-=R$9$k$H(B
-\begin{showEx}{$B4JC1$JNc(B}
+と記述すると
+\begin{showEx}{簡単な例}
     $\frac12$\vspace{1ex}
 
     $\dfrac12$
 \end{showEx}
-\texttt{showEx}$B4D6-Fb$K5-=R$5$l$?$b$N$,(B
+\texttt{showEx}環境内に記述されたものが
 \begin{jquote}
-$B:8B&$K$O!$%=!<%9%j%9%H$,3Q$N4]$$0O$_$NCf$KI=<($5$l!$(B\\
-$B1&B&$K$O!$%?%$%W%;%C%H$7$?7k2L$,1FIU$-$N0O$_$NCf$KI=<($5$l$^$9!%(B
+左側には，ソースリストが角の丸い囲みの中に表示され，\\
+右側には，タイプセットした結果が影付きの囲みの中に表示されます．
 \end{jquote}
-$B:#$^$G$O!$BPHf$9$Y$-ItJ,$rJL%U%!%$%k$K$7$F(B \cmd{showexample} $B%3%^%s%I$G(B
-$BFI$_<h$C$F$$$^$7$?$,!$:#2s?7@_$7$?(B \texttt{showEx}$B4D6-$G$O!$(B
-$B4D6-Fb$K5-=R$7$?ItJ,$,BPHf$NBP>]$H$J$j$^$9!%(B
+今までは，対比すべき部分を別ファイルにして \cmd{showexample} コマンドで
+読み取っていましたが，今回新設した \texttt{showEx}環境では，
+環境内に記述した部分が対比の対象となります．
 \clearpage
 
-\subsection{\texttt{showEx}$B$N=q<0(B}
-\texttt{showEx}$B4D6-$N=q<0$G$9!%(B
+\subsection{\texttt{showEx}の書式}
+\texttt{showEx}環境の書式です．
 \begin{boxnote}
 \begin{verbatim}
 \begin{showEx}(#1,#2)#3
-    (#1,#2) $B$O%*%W%7%g%s0z?t(B
-        #1 : $B:8B&%=!<%9ItJ,2#I}(B
-             \linewidth $B$N(B #1$BG\(B (0<#1<=1)$B%G%U%)%k%H(B0.45
-        #2 : $B1&B&7k2LI=<(It2#I}(B 
-             \linewidth $B$N(B #2$BG\(B (0<#2<=1)$B%G%U%)%k%H(B0.45
-    #3 : $B:8B&%=!<%9ItJ,I=Bj$OI,?\$N0z?t(B
-        $B!JI=Bj$J$7$N$H$-$O(B
+    (#1,#2) はオプション引数
+        #1 : 左側ソース部分横幅
+             \linewidth の #1倍 (0<#1<=1)デフォルト0.45
+        #2 : 右側結果表示部横幅 
+             \linewidth の #2倍 (0<#2<=1)デフォルト0.45
+    #3 : 左側ソース部分表題は必須の引数
+        （表題なしのときは
                 \begin{showExample}{}
-          $B$H!$6uJ8;zNs$rM?$($k!%!K(B
+          と，空文字列を与える．）
 \end{verbatim}
 \end{boxnote}
 
 \begin{description}
-\item[$B!JCm!K(B] \texttt{showEx}$B4D6-$O!$(B
-$B0l;~%U%!%$%k(B \textsf{showex.tmp} $B$r:n$j$^$9!%(B
-$B=*N;8e$b$3$N%U%!%$%k$O:o=|$5$l$^$;$s!%(B
+\item[（注）] \texttt{showEx}環境は，
+一時ファイル \textsf{showex.tmp} を作ります．
+終了後もこのファイルは削除されません．
 \end{description}
-\subsection{$BI=Bj$,ITMW$N>l9g(B}
-$BI=Bj$,ITMW$N>l9g$NNc$G$9!%(B
+\subsection{表題が不要の場合}
+表題が不要の場合の例です．
 \begin{dblbox}
 \begin{verbatim}
 \begin{showEx}{}
@@ -66,102 +66,102 @@
 \end{showEx}
 \end{verbatim}
 \end{dblbox}
-$B$H5-=R$9$k$H(B
+と記述すると
 \begin{showEx}{}
     $\dfrac12$
 \end{showEx}
 \clearpage
 
-\subsection{$B:81&$N0O$_I}$NJQ99(B}
-$B:81&$N0O$_$N2#I}$rJQ99$7$?$$$H$-$O!$(B($B:8I}(B,$B1&I}(B) $B%*%W%7%g%s0z?t$rM?$($^$9!%(B
+\subsection{左右の囲み幅の変更}
+左右の囲みの横幅を変更したいときは，(左幅,右幅) オプション引数を与えます．
 \begin{dblbox}
 \begin{verbatim}
-\begin{showEx}(.6,.3){\texttt{(.,.)}$B%*%W%7%g%s(B}
+\begin{showEx}(.6,.3){\texttt{(.,.)}オプション}
     $\bunsuu12$
 \end{showEx}
 \end{verbatim}
 \end{dblbox}
-$B$H5-=R$9$k$H(B
-\begin{showEx}(.6,.3){\texttt{(.,.)}$B%*%W%7%g%s(B}
+と記述すると
+\begin{showEx}(.6,.3){\texttt{(.,.)}オプション}
     $\bunsuu12$
 \end{showEx}
 \medskip
 
-$BOH$,Bg$-$/$J$j!$(B$$B!J:8I}!K(B+$B!J1&I}!K(B> 0.95$ $B$K$J$k$H!$(B
-1$B9T$K$O=PMh$^$;$s$+$i!$>e2<(B2$BCJ$K$J$j$^$9!%(B
+枠が大きくなり，$（左幅）+（右幅）> 0.95$ になると，
+1行には出来ませんから，上下2段になります．
 \begin{dblbox}
 \begin{verbatim}
-\begin{showEx}(.75,.75){$$B!J:8I}!K(B+$B!J1&I}!K(B> 0.95$}}
+\begin{showEx}(.75,.75){$（左幅）+（右幅）> 0.95$}}
     \begin{equation}x+y=1\end{equation}
 \end{showEx}
 \end{verbatim}
 \end{dblbox}
-$B$H5-=R$9$k$H(B
-\begin{showEx}(.75,.75){$$B!J:8I}!K(B+$B!J1&I}!K(B> 0.95$}
+と記述すると
+\begin{showEx}(.75,.75){$（左幅）+（右幅）> 0.95$}
     \begin{equation}x+y=1\end{equation}
 \end{showEx}
 \clearpage
 
-$B!J1&I}!K$,(B 0.95 $B$rD6$($k$HLp0u$N0LCV!&8~$-$,JQ$o$j$^$9!%(B
+（右幅）が 0.95 を超えると矢印の位置・向きが変わります．
 \begin{dblbox}
 \begin{verbatim}
-\begin{showEx}(.75,1){$$B!J1&I}!K(B> 0.95$}
+\begin{showEx}(.75,1){$（右幅）> 0.95$}
     \begin{equation}x+y=1\end{equation}
 \end{showEx}
 \end{verbatim}
 \end{dblbox}
-$B$H5-=R$9$k$H(B
-\begin{showEx}(.75,1){$$B!J1&I}!K(B> 0.95$}
+と記述すると
+\begin{showEx}(.75,1){$（右幅）> 0.95$}
     \begin{equation}x+y=1\end{equation}
 \end{showEx}
 
-\subsection{$B%=!<%9It$K9THV9f(B}
-$B:8B&$N%j%9%H$K9THV9f$rIUM?$9$k$K$O!$(B
-\textsf{showEx}$B$K(B\verb+[listing]+$B%*%W%7%g%s$rIUM?$7$^$9!#(B
-$B$?$@$7!$$3$N5!G=$O(B \textsf{moreverb.sty}$B$rA0Ds$H$7$^$9$N$G!$(B
+\subsection{ソース部に行番号}
+左側のリストに行番号を付与するには，
+\textsf{showEx}に\verb+[listing]+オプションを付与します。
+ただし，この機能は \textsf{moreverb.sty}を前提としますので，
 \begin{jquote}
 \begin{verbatim}
 \usepackage{showexample}
 \end{verbatim}
 \end{jquote}
-$B$K@hN)$C$F(B
+に先立って
 \begin{jquote}
 \begin{verbatim}
 \usepackage{moreverb}
 \end{verbatim}
 \end{jquote}
-$B$H$7$F$*$+$M$P$J$j$^$;$s!#(B
+としておかねばなりません。
 
 \begin{dblbox}
 \begin{verbatim}
-\begin{showEx}[listing](.5,.44){$B9THV9fIm2C%*%W%7%g%s(B}
-$B$"$"$"(B
+\begin{showEx}[listing](.5,.44){行番号附加オプション}
+あああ
 \abovedisplayskip=0pt
 \belowdisplayskip=0pt
 \[ y=f(x) \]
-$B$$$$$$(B
+いいい
 \end{showEx}
 \end{verbatim}
 \end{dblbox}
-$B$H5-=R$9$k$H(B
+と記述すると
 
-\begin{showEx}[listing](.5,.44){$B9THV9fIm2C%*%W%7%g%s(B}
-$B$"$"$"(B
+\begin{showEx}[listing](.5,.44){行番号附加オプション}
+あああ
 \abovedisplayskip=0pt
 \belowdisplayskip=0pt
 \[ y=f(x) \]
-$B$$$$$$(B
+いいい
 \end{showEx}
 
 \clearpage
 
-\section{\cmd{showex}$B%3%^%s%I(B}
-$B%U%!%$%k$+$iFI$_<h$C$?ItJ,$rBPLu7A<0$K$9$k%3%^%s%I(B \cmd{showexample} $B$b(B
-$B0JA0$NDL$j;H$($^$9$,!$(B\textsf{showEx} $B4D6-$H=q<0$,$:$l$F$7$^$$$^$7$?$N$G!$(B
-\cmd{showex} $B%3%^%s%I$r?7@_$7$^$7$?!%(B
+\section{\cmd{showex}コマンド}
+ファイルから読み取った部分を対訳形式にするコマンド \cmd{showexample} も
+以前の通り使えますが，\textsf{showEx} 環境と書式がずれてしまいましたので，
+\cmd{showex} コマンドを新設しました．
 
-\subsection{\cmd{showex}$B%3%^%s%I$N;HMQNc(B}
-$B%U%!%$%k(B \texttt{ex1.tex} $B$NFbMF$,(B
+\subsection{\cmd{showex}コマンドの使用例}
+ファイル \texttt{ex1.tex} の内容が
 \begin{jquote}
 \begin{verbatim}
 \begin{enumerate}[(1)]
@@ -171,29 +171,29 @@
 \end{enumerate}
 \end{verbatim}
 \end{jquote}
-$B$N$H$-!$(B
+のとき，
 \begin{dblbox}
 \begin{verbatim}
-    \showex(.6,.3){\cmd{showex}$B%3%^%s%I(B}{ex1}
+    \showex(.6,.3){\cmd{showex}コマンド}{ex1}
 \end{verbatim}
 \end{dblbox}
-$B$H5-=R$9$k$H(B
+と記述すると
 
-    \showex(.6,.3){\cmd{showex}$B%3%^%s%I(B}{ex1}
+    \showex(.6,.3){\cmd{showex}コマンド}{ex1}
 
-\subsection{\cmd{showex}$B%3%^%s%I$N=q<0(B}
+\subsection{\cmd{showex}コマンドの書式}
 \begin{boxnote}
 \begin{verbatim}
 \showex(#1,#2)#3#4
-    (#1,#2) $B$O%*%W%7%g%s0z?t(B
-        #1 : $B:8B&%=!<%9ItJ,2#I}(B
-             \linewidth $B$N(B #1$BG\(B (0<#1<=1)$B%G%U%)%k%H(B0.45
-        #2 : $B1&B&7k2LI=<(It2#I}(B 
-             \linewidth $B$N(B #2$BG\(B (0<#2<=1)$B%G%U%)%k%H(B0.45
-    #3 : $B:8B&%=!<%9ItJ,I=Bj$OI,?\$N0z?t(B
-    #4 : $BFI$_9~$`%U%!%$%kL>(B
-        $B!J$?$@$7!$3HD%;R$O(B .tex $B$G$J$1$l$P$J$i$:!$(B
-          $B0z?t$K$O3HD%;R$r$D$1$:$K5-=R$7$^$9!%!K(B
+    (#1,#2) はオプション引数
+        #1 : 左側ソース部分横幅
+             \linewidth の #1倍 (0<#1<=1)デフォルト0.45
+        #2 : 右側結果表示部横幅 
+             \linewidth の #2倍 (0<#2<=1)デフォルト0.45
+    #3 : 左側ソース部分表題は必須の引数
+    #4 : 読み込むファイル名
+        （ただし，拡張子は .tex でなければならず，
+          引数には拡張子をつけずに記述します．）
 \end{verbatim}
 \end{boxnote}
 \end{document}

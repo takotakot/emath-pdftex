@@ -23,7 +23,7 @@
 \RequirePackage{emathPh}%
 
 %%% -----------------------------------------------
-%     $B6u4V?^7A(B
+%     空間図形
 %%% -----------------------------------------------
 
 \newif\ifDrawaxis\Drawaxistrue%
@@ -45,11 +45,11 @@
   \headchar{##1}\Ez@@@h\Ez@@@o
   \ifthenelse{\equal\Ez@@@h{r}}{\expandafter\Rdef\Ez@@@o\@@@Ez}{\def\@@@Ez{##1}}}%
 %
-  \def\@@@Ey{(1,0)}%             y$B<4@5J}8~$NC10L%Y%/%H%k(B
-  \def\@@@Ez{(0,1)}%             z$B<4@5J}8~$NC10L%Y%/%H%k(B
+  \def\@@@Ey{(1,0)}%             y軸正方向の単位ベクトル
+  \def\@@@Ez{(0,1)}%             z軸正方向の単位ベクトル
   \edef\Ex@Org{\empty}%
   \edef\Ex@R{.9}%
-  \Rdef(.667,-138)\@@@Ex%  x$B<4@5J}8~$NC10L%Y%/%H%k(B
+  \Rdef(.667,-138)\@@@Ex%  x軸正方向の単位ベクトル
   \def\zahyou@haiti{b}%
   \def\zahyou@haiti@hosei{}%
   \def\ue@yohaku{0}%
@@ -118,13 +118,13 @@
   \@ignoretrue
 }
 
-% $B:BI8<4$rIA2h$7$J$$(B Zahyou* $B4D6-(B
+% 座標軸を描画しない Zahyou* 環境
 \expandafter\def\csname Zahyou*\endcsname{\Drawaxisfalse\Zahyou}
 \expandafter\def\csname endZahyou*\endcsname{\endZahyou\@ignoretrue}
 
-% 2$BE@4V$N5wN%!J6u4V!K(B
+% 2点間の距離（空間）
 % \Kyori#1#2#3
-%   2$BE@(B #1, #2 $B$N5wN%$r(B #3 $B$KBeF~(B
+%   2点 #1, #2 の距離を #3 に代入
 %
 %\def\iiiKyori#1#2#3{\ifx#1#2\edef#3{0.}\else\edef\iiiKyori@AB{#1#2}%
 %  \expandafter\Distance\iiiKyori@AB\iiiKyori@AB\edef#3{\iiiKyori@AB}\fi}%
@@ -132,13 +132,13 @@
   \Mul\@xi\@xi\@xi\Mul\@yi\@yi\@yi\Add\@xi\@yi\@xi
   \Mul\@zi\@zi\@zi\Add\@xi\@zi\@xi\Heihoukon\@xi#3}%
 
-% $B5wN%$NJ?J}!J6u4V!K(B
+% 距離の平方（空間）
 \def\iiiKyorii#1#2#3{\SubVec{#2}{#1}\@v\vecXYZ\@v\@xi\@yi\@zi
   \Mul\@xi\@xi\@xi\Mul\@yi\@yi\@yi\Add\@xi\@yi\@yi
   \Mul\@zi\@zi\@zi\Add\@yi\@zi#3}%
 
 %
-\def\iiiNormvec#1#2#3{% 2$B$D$N%Y%/%H%k(B#1,#2$B$K?bD>$JC10L%Y%/%H%k$r(B#3$B$K5a$a$k!#(B
+\def\iiiNormvec#1#2#3{% 2つのベクトル#1,#2に垂直な単位ベクトルを#3に求める。
   \vecXYZ{#1}\NV@a\NV@b\NV@c\vecXYZ{#2}\NV@aa\NV@bb\NV@cc
   \Detii\NV@b\NV@bb\NV@c\NV@cc\edef\NV@x{\Det@ans}%
   \Detii\NV@c\NV@cc\NV@a\NV@aa\edef\NV@y{\Det@ans}
@@ -149,7 +149,7 @@
   \Div\NV@z\NV@l\NV@z
   \edef#3{(\NV@x,\NV@y,\NV@z)}}
 
-% $BJ?LL$HD>@~(B
+% 平面と直線
 \def\Naiseki#1#2#3{%
   \vecXYZ{#1}\Naiseki@xi\Naiseki@yi\Naiseki@zi
   \vecXYZ{#2}\Naiseki@xii\Naiseki@yii\Naiseki@zii
@@ -178,9 +178,9 @@
   \SubVec{#4}{#5}\PandL@v\Pandl{#1}{#2}{#3}{#4}\PandL@v#6}
 \def\LandP#1#2#3#4#5#6{\PandL{#3}{#4}{#5}{#1}{#2}#6}
 %
-% $BE@(B#1$B$rDL$j!$K!@~%Y%/%H%k$,(B#2$B$NJ?LL$H(B
-% $BE@(B#3$B$rDL$j!$J}8~%Y%/%H%k$,(B#4$B$ND>@~(B
-% $B$H$N8rE@$r(B#5$B$KM?$($k!#(B
+% 点#1を通り，法線ベクトルが#2の平面と
+% 点#3を通り，方向ベクトルが#4の直線
+% との交点を#5に与える。
 
 \def\pandl#1#2#3#4#5{%
   \Naiseki{#2}{#1}\pandl@b
@@ -193,7 +193,7 @@
 \def\pandL#1#2#3#4#5{%
   \SubVec{#4}{#3}\pandL@v\pandl{#1}{#2}#3\pandL@v#5}
 
-\def\LSuisen#1#2#3#4{% $BE@(B #1 $B$+$iD>@~(B #2#3 $B$X2<$m$7$??b@~$NB-$r(B #4 $B$K%;%C%H(B
+\def\LSuisen#1#2#3#4{% 点 #1 から直線 #2#3 へ下ろした垂線の足を #4 にセット
   \ifx #1#2\edef#4{#1}\else\ifx #1#3\edef#4{#1}\else
   \iiiKyorii{#2}{#3}\lla\Heihoukon\lla\la
   \iiiKyorii{#3}{#1}\llb\Heihoukon\llb\lb
@@ -203,13 +203,13 @@
   \Add\llb\lla\LS@a\Sub\LS@a\llc\cosC
     \Mul\lb\la\LS@b\Mul2\LS@b\LS@b\Div\cosC\LS@b\cosC
   \Mul\lc\cosB\LS@m\Mul\lb\cosC\LS@n\iiiBunten{#2}{#3}\LS@m\LS@n#4\fi\fi}
-\def\lSuisen#1#2#3#4{% $BE@(B#1$B$+$i!$E@(B#2$B$rDL$j!$J}8~%Y%/%H%k$,(B#3$B$ND>@~$X$N?b@~(B
+\def\lSuisen#1#2#3#4{% 点#1から，点#2を通り，方向ベクトルが#3の直線への垂線
   \AddVec{#2}{#3}\lS@B\LSuisen{#1}{#2}\lS@B#4}
-\def\pSuisen#1#2#3#4{% $BE@(B#1$B$+$i!$(B#2$B$rDL$jK!@~%Y%/%H%k$,(B#3$B$G$"$kJ?LL(B
-%                      $B$K2<$m$7$??b@~$NB-$r(B#4$B$KM?$($k!#(B
+\def\pSuisen#1#2#3#4{% 点#1から，#2を通り法線ベクトルが#3である平面
+%                      に下ろした垂線の足を#4に与える。
   \pandl{#2}{#3}{#1}{#3}#4}
-\def\PSuisen#1#2#3#4#5{% $BE@(B#1$B$+$i!$;0E@(B#2,#3,#4$B$rDL$kJ?LL(B
-%                      $B$K2<$m$7$??b@~$NB-$r(B#5$B$KM?$($k!#(B
+\def\PSuisen#1#2#3#4#5{% 点#1から，三点#2,#3,#4を通る平面
+%                      に下ろした垂線の足を#5に与える。
   \SubVec{#3}{#2}\PSuisen@a\vecXYZ\PSuisen@a\PS@a\PS@b\PS@c
   \SubVec{#4}{#2}\PSuisen@a\vecXYZ\PSuisen@a\PS@aa\PS@bb\PS@cc
   \Detii\PS@b\PS@bb\PS@c\PS@cc\edef\PS@x{\Det@ans}%
@@ -233,7 +233,7 @@
   \Piiitoii{#5}\iiiTyo@C
   \Tyokkakukigou[#1](#2)\iiiTyo@A\iiiTyo@B\iiiTyo@C}
 
-% $BJ#?t$N3Q$KD>3Q5-9f(B
+% 複数の角に直角記号
 \def\iiityokkakukigou{\@ifnextchar[{\@iiityokkakukigou}{\@iiityokkakukigou[0]}}
 \def\@iiityokkakukigou[#1]{\@ifnextchar({\@@iiityokkakukigou[#1]}{%
   \@@iiityokkakukigou[#1](5)}}
@@ -245,14 +245,14 @@
     \expandafter\@@iiityokkakukigou@sub\iiityokkaku@a
     \edef\iiityokkaku@a{\iiityokkaku@b}}}
 
-% $BJ?LL$HJ?LL(B
+% 平面と平面
 \def\pandp#1#2#3#4#5#6{%
-% #1 : $BJ?LL(B1 $BE@(B (xi,yi,zi)
-% #2 :       $BK!@~%Y%/%H%k(B (ai,bi,ci)
-% #3 : $BJ?LL(B2 $BE@(B (xii,yii,zii)
-% #4 :       $BK!@~%Y%/%H%k(B (aii,bii,cii)
-% #5 : $B8r@~(B  $BE@(B
-% #6 :       $BJ}8~%Y%/%H%k(B
+% #1 : 平面1 点 (xi,yi,zi)
+% #2 :       法線ベクトル (ai,bi,ci)
+% #3 : 平面2 点 (xii,yii,zii)
+% #4 :       法線ベクトル (aii,bii,cii)
+% #5 : 交線  点
+% #6 :       方向ベクトル
 %
   \iiiNormvec{#2}{#4}#6\relax
   \Naiseki{#1}{#2}\pandp@di
@@ -356,9 +356,9 @@
 
 \def\kakusui{\@ifnextchar<{\@kakusui}{\@kakusui<1>}}
 \def\@kakusui<#1>#2#3#4{%
-%   #2 : $B8+$($kD:E@Ns(B
-%   #3 : $B8+$($J$$D:E@Ns(B
-%   #4 : $B?m$ND:E@(B
+%   #2 : 見える頂点列
+%   #3 : 見えない頂点列
+%   #4 : 錐の頂点
   \Sub{1}{#1}\@rr
   \edef\@ldP{}%
   \edef\@V{\csname #4\endcsname}%
@@ -383,9 +383,9 @@
 }
 
 \def\kakutyuu#1#2#3{%
-%   #1 : $B8+$($kD:E@Ns(B
-%   #2 : $B8+$($J$$D:E@Ns(B
-%   #3 : $B9b$5%Y%/%H%k(B
+%   #1 : 見える頂点列
+%   #2 : 見えない頂点列
+%   #3 : 高さベクトル
   \edef\@ldP{}%
   \edef\@V{\csname #3\endcsname}%
   \expandafter\@tfor\expandafter\@c\expandafter:\expandafter=#1\do{%
@@ -412,9 +412,9 @@
 
 \def\Kakusui{\@ifnextchar<{\@Kakusui}{\@Kakusui<1>}}
 \def\@Kakusui<#1>#2#3#4{%
-%   #2 : $B8+$($kD:E@Ns(B
-%   #3 : $B8+$($J$$D:E@Ns(B
-%   #4 : $B?m$ND:E@(B
+%   #2 : 見える頂点列
+%   #3 : 見えない頂点列
+%   #4 : 錐の頂点
   \Sub{1}{#1}\@rr
   \edef\@ldP{}%
   \edef\@V{\csname #4\endcsname}%
@@ -438,9 +438,9 @@
   \iiiDrawline{\@ldQ\t@pQ}%
 }
 \def\Kakutyuu#1#2#3{%
-%   #1 : $B8+$($kD:E@Ns(B
-%   #2 : $B8+$($J$$D:E@Ns(B
-%   #3 : $B9b$5%Y%/%H%k(B
+%   #1 : 見える頂点列
+%   #2 : 見えない頂点列
+%   #3 : 高さベクトル
   \edef\@ldP{}%
   \edef\@V{\csname #3\endcsname}%
   \expandafter\@tfor\expandafter\@c\expandafter:\expandafter=#1\do{%
@@ -465,7 +465,7 @@
   \iiiDrawline{\@ldQ\t@pQ}%
 }
 
-% 3$B<!85:BI8(B -----> zahyou $B$N:BI8(B
+% 3次元座標 -----> zahyou の座標
 \def\Piiitoii#1#2{\edef\Piiitoii@s{#1}%
   \expandafter\@Piiitoii\Piiitoii@s{#2}}
 \def\@Piiitoii(#1,#2,#3)#4{%
@@ -486,7 +486,7 @@
     \fi
     \Mulvec{\Piiitoii@x}\@@@Ex#4\Mulvec{\Piiitoii@y}\@@@Ey\Piiitoii@v\Addvec\Piiitoii@v#4#4\relax
     \Mulvec{\Piiitoii@z}\@@@Ez\Piiitoii@v\Addvec\Piiitoii@v#4#4\relax}
-% 3$B<!85(B \Put
+% 3次元 \Put
 \def\iiiPut#1{\Piiitoii{#1}\iiiPut@Pii\emathPut\iiiPut@Pii}
 
 \def\iiiPutStr#1{\Piiitoii{#1}\iiiPS@op%
@@ -511,7 +511,7 @@
 %  \Put{#1}(#2,#3)[#4]{#5}%
 %  \if 0#6\relax\ArrowLine{#1}{\iiiPS@ep}\else\ArrowArc{#6}{#1}{\iiiPS@ep}\fi}
 
-% $BN)J}BNCGLL?^(B
+% 立方体断面図
 \def\NuriNoudo{.5}%
 \def\DanmenP{\@ifnextchar[{\@DanmenP}{\@DanmenP[.5]}}
 \def\@DanmenP[#1]#2{\def\NuriNoudo{#1}\edef\Danmen@seq{#2}%
@@ -618,8 +618,8 @@
 \def\Eqplane(#1,#2,#3)(#4,#5,#6)(#7,#8,#9){%
   \Detiii{#1}{#2}{#3}{#4}{#5}{#6}{#7}{#8}{#9}\edef\plane@bunbo{\Det@ans}%
   \Abs{\Det@ans}\Det@tmp
-  \ifdim\Det@tmp pt<0.005pt\relax%  1$B<!FHN)(B check
-    \edef\uhenti{0}%              1$B<!=>B0$N>l9g(B
+  \ifdim\Det@tmp pt<0.005pt\relax%  1次独立 check
+    \edef\uhenti{0}%              1次従属の場合
     \Detii{#5}{#6}{#8}{#9}\edef\plane@bunbo{\Det@ans}%
     \Abs{\Det@ans}\Det@tmp
     \ifdim\Det@tmp pt<0.005pt\relax%  y,z check
@@ -658,7 +658,7 @@
         \Div\plane@bunbo\Det@ans\zSeppen\fi
       \edef\xSeppen{-1}%
     \fi
-  \else%                                  1$B<!FHN)(B
+  \else%                                  1次独立
     \edef\uhenti{1}%
     \Detiii{1}{#2}{#3}{1}{#5}{#6}{1}{#8}{#9}%
     \Abs{\Det@ans}\Det@tmp
@@ -679,19 +679,19 @@
   \Eqplane(#1,#2,#3)(#4,#5,#6)(#7,#8,#9)%
   \danmen(\uhenti)\xSeppen\ySeppen\zSeppen}
 
-% $B6u4V%Y%/%H%k$N@.J,J,2r(B
-\def\vecXYZ#1#2#3#4{%  $BE@(B #1 $B$N6u4V:BI8$+$i(B x,y,z$B:BI8$r(B #2,#3,#4 $B$XCj=P(B
+% 空間ベクトルの成分分解
+\def\vecXYZ#1#2#3#4{%  点 #1 の空間座標から x,y,z座標を #2,#3,#4 へ抽出
     \edef\vecXYZ@tmp{#1}%
     \expandafter\@vecXYZ\vecXYZ@tmp#2#3#4}%
 \def\@vecXYZ(#1,#2,#3)#4#5#6{\edef#4{#1}\edef#5{#2}\edef#6{#3}}%
-% $B6u4V%Y%/%H%k$N2C8:!$%9%+%i!<G\(B
+% 空間ベクトルの加減，スカラー倍
 \def\AddVec#1#2#3{\vecXYZ{#1}\a@x\a@y\a@z\vecXYZ{#2}\b@x\b@y\b@z
   \Add\a@x\b@x\a@x\Add\a@y\b@y\a@y\Add\a@z\b@z\a@z\edef#3{(\a@x,\a@y,\a@z)}}%
 \def\SubVec#1#2#3{\vecXYZ{#1}\a@x\a@y\a@z\vecXYZ{#2}\b@x\b@y\b@z
   \Sub\a@x\b@x\a@x\Sub\a@y\b@y\a@y\Sub\a@z\b@z\a@z\edef#3{(\a@x,\a@y,\a@z)}}%
 \def\MulVec#1#2#3{\vecXYZ{#2}\a@x\a@y\a@z%
   \Mul{#1}\a@x\a@x\Mul{#1}\a@y\a@y\Mul{#1}\a@z\a@z\edef#3{(\a@x,\a@y,\a@z)}}%
-% $BJ,E@(B
+% 分点
 \def\iiiBunten#1#2#3#4#5{%
   \Add{#3}{#4}\Bunten@c
   \Div{1}\Bunten@c\Bunten@c
@@ -699,14 +699,14 @@
   \MulVec{#3}{#2}\Bunten@v
   \AddVec\Bunten@u\Bunten@v\Bunten@v
   \MulVec\Bunten@c\Bunten@v#5}
-% $BCfE@(B
+% 中点
 \def\iiiTyuuten#1#2#3{\iiiBunten{#1}{#2}{1}{1}#3}
-% $B=E?4(B
+% 重心
 \def\iiiZyuusin#1#2#3#4{%
   \iiiAddvec{#1}{#2}\iiiZyuusin@v\iiiAddvec{#3}\iiiZyuusin@v\iiiZyuusin@v
   \iiiMulvec{0.33333}\iiiZyuusin@v\iiiZyuusin@v\edef#4{\iiiZyuusin@v}}%
 
-% $B@^$l@~(B
+% 折れ線
 \def\iiiDrawline{\@ifnextchar<{\@iiiDrawline}{\@iiiDrawline<\empty>}}
 \def\@iiiDrawline<#1>#2{\Tenretuiiitoii{#2}\iiiDrawline@a
   \Drawline<#1>\iiiDrawline@a}
@@ -753,9 +753,9 @@
 %
 % \iiiyasen[#1]<#2>(#3,#4,#5)
 % \iiiYasen[#1]<#2>#3
-%   #1 : $B%i%Y%k$rCV$/0LCV!J%G%U%)%k%H(B=0.5, $BCfE@!K(B
-%   #2 : $B%i%Y%k!J0LCV;XDj$r4^$a$F!K(B
-%   (#3,#4,#5) : $B=*E@!J;OE@$O(B \put $B$G;XDj!K(B
+%   #1 : ラベルを置く位置（デフォルト=0.5, 中点）
+%   #2 : ラベル（位置指定を含めて）
+%   (#3,#4,#5) : 終点（始点は \put で指定）
 \def\iiiyasen{\@ifnextchar[{\@iiiyasen}{\@iiiyasen[.5]}}
 \def\@iiiyasen[#1]{\@ifnextchar<{\@@iiiyasen[#1]}{\@@iiiyasen[#1]<\empty>}}
 \def\@@iiiyasen[#1]<#2>(#3,#4,#5){%
@@ -807,7 +807,7 @@
   \Piiitoii{#3}\iiiKaku@a\Piiitoii{#4}\iiiKaku@b\Piiitoii{#5}\iiiKaku@c
   \Kakukigou[#1]<#2>\iiiKaku@a\iiiKaku@b\iiiKaku@c}
 %
-% $BEyJU5-9f(B
+% 等辺記号
 %
 \def\iiiTouhenkigou{\@ifnextchar[{\@iiiTouhenkigou}{%
   \@iiiTouhenkigou[$\scriptscriptstyle |$]}}
@@ -840,7 +840,7 @@
     \expandafter\iiitouhenkigou@sub\touhenkigou@a
     \iiiTouhenkigou[#1]<#2><#3>(#4)\iiitouhenkigou@a\iiitouhenkigou@b}}
 %
-% $B9u4](B
+% 黒丸
 %
 \def\iiiKuromaru{\@ifnextchar[{\@iiiKuromaru}{%
   \@iiiKuromaru[\Kuromaru@Hankei]}}%
@@ -856,8 +856,8 @@
     \iiiKuromaru[#1]\iiikuromaru@a
     \edef\iiikuromaru@a{\iiikuromaru@b}}}
 
-% $B6u4V(B
-\edef\syanuri@kankaku{.125}%        k $B$N9o$_CM(B
+% 空間
+\edef\syanuri@kankaku{.125}%        k の刻み値
 \def\iiinuritubusi{\@ifnextchar[{\@iiinuritubusi}{\@iiinuritubusi[.5]}}%
 \def\@iiinuritubusi[#1]{\special{sh #1}\@@iiinuritubusi}%
 \def\@@iiinuritubusi{\@ifnextchar({\@@@iiinuritubusi}{\special{ip}}}%
@@ -880,7 +880,7 @@
 \def\@@iiiNuritubusi[#1]<#2>#3{\Tenretuiiitoii{#3}\iiiNuritubusi@a
   \expandafter\Nuritubusi[#1]<#2>\iiiNuritubusi@a}
 
-% $B6u4V(B
+% 空間
 \def\iiihatchpolygon{\edef\n@vertex{0}%
   \edef\k@max{-1000}%
   \edef\k@min{1000}%
@@ -900,23 +900,23 @@
 \def\@iiiHatchpolygon[#1]{\@ifnextchar<{\@@iiiHatchpolygon[#1]}{%
   \@@iiiHatchpolygon[#1]<.125>}}%
 \def\@@iiiHatchpolygon[#1]<#2>#3{{%
-\edef\h@angle{#1}%    hatch $B$NJ}8~3Q(B
-\edef\syanuri@kankaku{#2}%        k $B$N9o$_CM(B
+\edef\h@angle{#1}%    hatch の方向角
+\edef\syanuri@kankaku{#2}%        k の刻み値
 \DegRad\h@angle\h@angle
 \Cos\h@angle\h@v@x%
-\Sin\h@angle\h@v@y%   (\h@v@x,\h@v@y):hatch $B$NJ}8~%Y%/%H%k(B
+\Sin\h@angle\h@v@y%   (\h@v@x,\h@v@y):hatch の方向ベクトル
 \edef\@tmp{#3}%
 %\typeout{now!iiiHatchpolygon : \@tmp}%
 \expandafter\iiihatchpolygon\@tmp}}%
 
 % \iiibGurafu(#1)(#2)#3#4#5#6
-%   #1 : t $B$N9o$_CM!J%G%U%)%k%HCM$O(B 0.05 $B!K(B
-%   #2 : $BE@@~$GIA2h$9$k$H$-$NIA2h$9$kItJ,$N(B t $B$N%l%s%8(B
+%   #1 : t の刻み値（デフォルト値は 0.05 ）
+%   #2 : 点線で描画するときの描画する部分の t のレンジ
 %   #3 : x=f(t)
 %   #4 : y=g(t)
 %   #5 : z=h(t)
-%   #6 : t $B$N;O$aCM(B
-%   #7 :     $B=*$jCM(B
+%   #6 : t の始め値
+%   #7 :     終り値
 \def\iiibGurafu{\@ifnextchar({\iiib@Gurafu}{\iiib@Gurafu(.05)}}%
 \def\iiib@Gurafu(#1){\@ifnextchar({\@iiib@Gurafu(#1)}{\@iiib@Gurafu(#1)(\empty)}}%
 \def\@iiib@Gurafu(#1)(#2)#3#4#5#6#7{{%
@@ -955,13 +955,13 @@
   \clipDrawline\iiiDrawline@a}
 
 % \iiiBGurafu(#1)(#2)#3#4#5#6#7
-%   #1 : t $B$N9o$_CM!J%G%U%)%k%HCM$O(B 0.05 $B!K(B
-%   #2 : $BE@@~$GIA2h$9$k$H$-$NIA2h$9$kItJ,$N(B t $B$N%l%s%8(B
+%   #1 : t の刻み値（デフォルト値は 0.05 ）
+%   #2 : 点線で描画するときの描画する部分の t のレンジ
 %   #3 : x=f(t)
 %   #4 : y=g(t)
 %   #5 : z=h(t)
-%   #6 : t $B$N;O$aCM(B
-%   #7 :     $B=*$jCM(B
+%   #6 : t の始め値
+%   #7 :     終り値
 
 %\def\iiiBGurafu{\@ifnextchar({\iiiB@Gurafu}{\iiiB@Gurafu(.05)}}%
 \def\iiiBGurafu{\bgroup
@@ -1064,12 +1064,12 @@
 \ifnum\EMps@mode=\@ne\grestore\fi
 \egroup}
 
-% $B6J@~>e$NE@$r5a$a$k!#(B
+% 曲線上の点を求める。
 %   #1 : x=f(t)
 %   #2 : y=g(t)
 %   #3 : z=h(t)
-%   #4 : t $B$NCM(B
-%   #5 : $B6J@~>e$NE@(B
+%   #4 : t の値
+%   #5 : 曲線上の点
 
 \def\iiibTen#1#2#3#4#5{%
   #1{#4}\iiibTen@x#2{#4}\iiibTen@y#3{#4}\iiibTen@z
@@ -1082,21 +1082,21 @@
   \edef#5{(\iiiBTen@x,\iiiBTen@y,\iiiBTen@z)}}
 
 % \iiitenretu#1
-%   #1 $B$OE@Ns$r(B `;' $B$G6h@Z$C$?Ns(B
-%     #1$B$O(B
+%   #1 は点列を `;' で区切った列
+%     #1は
 %       [##1]##2(##3,##4,##5)##6
-%     $B$N7A<0$GE@Ns$r(B `;' $B$G6h@Z$k!#(B
-%       ##1 : $B%*%W%7%g%s$G!$E@$N0LCV$KCV$/J8;zNs(B
-%             $B!J>JN,;~$O!$(B##2 $B$HF1$8!K(B
-%       ##2 : \##2 $B$H$$$&JQ?t$ND:E@L>(B
-%       [s] : $B$r$D$1$k$HAjBP0\F0$H$_$J$9(B
-%       (##3,##4,##5) : $BD:E@$N:BI8(B
-%       ##6 : $BD:E@$N6aK5$KCV$/J8;zNs$NG[CV%*%W%7%g%s(B
-%             [$BJ}3Q(B] $B%*%W%7%g%s$K8B$j6h@Z;R(B `[', `]' $B$r>JN,2DG=(B
-%  \edef\##2{(##3,##4,##5)}$B$H$7$F!$E@(B\##2 $B$,Dj5A$5$l!$(B
-%  \Put $B$K(B
+%     の形式で点列を `;' で区切る。
+%       ##1 : オプションで，点の位置に置く文字列
+%             （省略時は，##2 と同じ）
+%       ##2 : \##2 という変数の頂点名
+%       [s] : をつけると相対移動とみなす
+%       (##3,##4,##5) : 頂点の座標
+%       ##6 : 頂点の近傍に置く文字列の配置オプション
+%             [方角] オプションに限り区切子 `[', `]' を省略可能
+%  \edef\##2{(##3,##4,##5)}として，点\##2 が定義され，
+%  \Put に
 %       \Put\##2##6{##1}
-%  $B$H$7$F0z$-EO$5$l$k!#!K(B
+%  として引き渡される。）
 
 \def\iiitenretu{\@ifstar{\iiintenretu}{\iiiltenretu}}
 
@@ -1165,24 +1165,24 @@
     \expandafter\@iiitenretu@sub\@OresenV\@nil
     \edef\@OresenV@old{\@OresenV}}}
 %
-% $B1_Cl:BI8(B
+% 円柱座標
 %
 % \iiictenretu#1
-%   #1 $B$OE@Ns$r(B `;' $B$G6h@Z$C$?Ns(B
-%     #1$B$O(B
+%   #1 は点列を `;' で区切った列
+%     #1は
 %       [##1]##2(##3,##4,##5)##6
-%     $B$N7A<0$GE@Ns$r(B `;' $B$G6h@Z$k!#(B
-%       ##1 : $B%*%W%7%g%s$G!$E@$N0LCV$KCV$/J8;zNs(B
-%             $B!J>JN,;~$O!$(B##2 $B$HF1$8!K(B
-%       ##2 : \##2 $B$H$$$&JQ?t$ND:E@L>(B
-%       [s] : $B$r$D$1$k$HAjBP0\F0$H$_$J$9(B
-%       (##3,##4,##5) : $BD:E@$N1_Cl:BI8!J(B##4 $B$OO;==J,K!!K(B
-%       ##6 : $BD:E@$N6aK5$KCV$/J8;zNs$NG[CV%*%W%7%g%s(B
-%             [$BJ}3Q(B] $B%*%W%7%g%s$K8B$j6h@Z;R(B `[', `]' $B$r>JN,2DG=(B
-%  \edef\##2{(##3,##4,##5)}$B$H$7$F!$E@(B\##2 $B$,Dj5A$5$l!$(B
-%  \Put $B$K(B
+%     の形式で点列を `;' で区切る。
+%       ##1 : オプションで，点の位置に置く文字列
+%             （省略時は，##2 と同じ）
+%       ##2 : \##2 という変数の頂点名
+%       [s] : をつけると相対移動とみなす
+%       (##3,##4,##5) : 頂点の円柱座標（##4 は六十分法）
+%       ##6 : 頂点の近傍に置く文字列の配置オプション
+%             [方角] オプションに限り区切子 `[', `]' を省略可能
+%  \edef\##2{(##3,##4,##5)}として，点\##2 が定義され，
+%  \Put に
 %       \Put\##2##6{##1}
-%  $B$H$7$F0z$-EO$5$l$k!#!K(B
+%  として引き渡される。）
 
 \def\iiictenretu{\@ifstar{\iiinctenretu}{\iiilctenretu}}
 
@@ -1257,7 +1257,7 @@
     \expandafter\@iiictenretu@sub\@OresenV\@nil
     \edef\@OresenV@old{\@OresenV}}}
 %
-% (3') $B6u4V(B
+% (3') 空間
 \def\iiibKinziOresen#1#2#3#4#5#6#7{%
   \def#7{}%
   \For\iiibKinziOresen@t{#4}{#5}{#6}\Do{%
@@ -1285,7 +1285,7 @@
       \edef#7{#7(\iiibKinziOresen@x,\iiibKinziOresen@y,\iiibKinziOresen@z)}\fi
       \fi\fi\fi\fi\fi}%
 
-% (4') $B6u4V(B
+% (4') 空間
 \def\iiibNuri{\@ifnextchar[{\iiib@Nuri}{\iiib@Nuri[.5]}}%
 \def\iiib@Nuri[#1]{\@ifnextchar<{\iiib@@Nuri[#1]}{\iiib@@Nuri[#1]<0.05>}}%
 \def\iiib@@Nuri[#1]<#2>#3#4#5#6#7{%
@@ -1297,10 +1297,10 @@
 %   #1 : x=f(t)
 %   #2 : y=g(t)
 %   #3 : z=h(t)
-%   #4 : t $B$N;O$aCM(B
-%   #5 :     $B=*$jCM(B
-%   #6 : t $B$N9o$_CM!J%G%U%)%k%HCM$O(B 0.05 $B!K(B
-%   #7 : $BLa$jCM!J@^$l@~!K(B
+%   #4 : t の始め値
+%   #5 :     終り値
+%   #6 : t の刻み値（デフォルト値は 0.05 ）
+%   #7 : 戻り値（折れ線）
 
 \def\iiiBKinziOresen#1#2#3#4#5#6#7{%
   \t@perl{#1}\x@perl@siki
@@ -1351,10 +1351,10 @@
     \fi
 }
 %
-% $B:BI8<4$N<~$j$N2sE>(B
+% 座標軸の周りの回転
 %
-%   #1$B!J%G%U%)%k%H!'86E@!K$rDL$j!$:BI8<4$KJ?9T$JD>@~$r2sE><4$H$7$F(B
-%     #2 $B$r(B #3$BEY2sE>$7$?E@$r(B#4$B$KJV$9!#(B
+%   #1（デフォルト：原点）を通り，座標軸に平行な直線を回転軸として
+%     #2 を #3度回転した点を#4に返す。
 %
 \def\zRotvec{\@ifnextchar[{\zRotvec@}{\@zRotvec}}
 \def\zRotvec@[#1]#2#3#4{%
@@ -1386,7 +1386,7 @@
   \Rotvec{(\v@y,\v@z)}{#2}\v@yz
   \vecXY\v@yz\v@@y\v@@z
   \edef#3{(\v@x,\v@@y,\v@@z)}}
-% $BJLL>(B
+% 別名
 \let\iiiAddvec\AddVec
 \let\iiiSubvec\SubVec
 \let\iiiMulvec\MulVec

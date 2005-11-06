@@ -4,35 +4,35 @@
 
 
 \begin{document}
-\section{$B9u$$%@%$%d(B}
-\cmd{diamondsuit}$B$O(B
+\section{黒いダイヤ}
+\cmd{diamondsuit}は
 
 \begin{showEx}{\cmd{diamondsuit}}
 $\diamondsuit$
 \end{showEx}
-$B$N$h$&$K!$Cf$,GrH4$-$H$J$j$^$9$,!$$3$l$r9u$/EI$j$D$V$7$?$b$N$O(B
-$BI8=`$N(B\LaTeX $B$K$OMQ0U$5$l$F$$$J$$$h$&$G$9!#(B
-\textsf{txfonts}$B$K$O!$(B\cmd{vardiamondsuit}$B$NL>A0$G9uEI$j$N$b$N$,$"$j$^$9!#(B
+のように，中が白抜きとなりますが，これを黒く塗りつぶしたものは
+標準の\LaTeX には用意されていないようです。
+\textsf{txfonts}には，\cmd{vardiamondsuit}の名前で黒塗りのものがあります。
 
 \begin{showEx}{\cmd{vardiamondsuit}}
 $\vardiamondsuit$
 \end{showEx}
 
-\textsf{txfonts}$B$r;HMQ$9$k>l9g$O!$(B\cmd{vardiamondsuit}$B$rMQ$$$l$P$h$$$N$G$9$,!$(B
-\textsf{cmfont}$B$r<g$H$7$F$3$N5-9f$rMQ$$$?$$$H$J$k$H!$%U%)%s%H$N$D$^$_?)$$$r(B
-$B$9$k$3$H$K$J$j$^$9!#(B\textsf{emathFx.sty v 0.17}$B$K(B
-$B$=$N5!G=$r;}$?$;$k$3$H$K$7$^$7$?!#(B
-$B$?$@$7!$$3$N5-9f$N%5%$%:$O(B\LaTeX $B$N(B\cmd{diamondsuit}$B$N%5%$%:$H$O0lCW$7$^$;$s!#(B
+\textsf{txfonts}を使用する場合は，\cmd{vardiamondsuit}を用いればよいのですが，
+\textsf{cmfont}を主としてこの記号を用いたいとなると，フォントのつまみ食いを
+することになります。\textsf{emathFx.sty v 0.17}に
+その機能を持たせることにしました。
+ただし，この記号のサイズは\LaTeX の\cmd{diamondsuit}のサイズとは一致しません。
 
-\begin{showEx}{\cmd{diamondsuit}$B$H(B\cmd{vardiamondsuit}}
+\begin{showEx}{\cmd{diamondsuit}と\cmd{vardiamondsuit}}
 \begin{gather*}
 \diamondsuit\\
 \vardiamondsuit
 \end{gather*}
 \end{showEx}
 
-$B$=$3$G!$(B\cmd{diamondsuit}$B$b(B\textsf{txfonts}$B$N$b$N$rMQ$$$k$?$a(B
-\cmd{txdiamondsuit}$B$rMQ0U$7$^$7$?!#(B
+そこで，\cmd{diamondsuit}も\textsf{txfonts}のものを用いるため
+\cmd{txdiamondsuit}を用意しました。
 
 \begin{showEx}{\cmd{txdiamondsuit}}
 \begin{gather*}
@@ -41,9 +41,9 @@ $\vardiamondsuit$
 \end{gather*}
 \end{showEx}
 
-$B4XO"$7$F(B
+関連して
 
-\begin{showEx}{\cmd{varheartsuit}$B$J$I(B}
+\begin{showEx}{\cmd{varheartsuit}など}
 \begin{gather*}
 \varheartsuit \\
 \txheartsuit \\

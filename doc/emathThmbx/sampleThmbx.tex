@@ -6,172 +6,172 @@
 
 
 \begin{document}
-\section{\cmd{boxedtheorem}$B%3%^%s%I(B}
-$BNcBj$J$I$rOH$G0O$s$G!$$=$l$r%J%s%P%j%s%0$9$k$?$a$N%9%?%$%k%U%!%$%k$G$9!#(B
+\section{\cmd{boxedtheorem}コマンド}
+例題などを枠で囲んで，それをナンバリングするためのスタイルファイルです。
 
 \begin{jquote}
 \begin{verbatim}
-$B%3%^%s%I(B \boxedtheorem#1#2 $B$G!$(B
-  $B4D6-(B #1 $B$,Dj5A$5$l!$(B
-  $B8+=P$7$NL>>N(B #2 $B$N<!$K%J%s%P%j%s%0$5$l$??tCM$,$D$-$^$9!#(B
+コマンド \boxedtheorem#1#2 で，
+  環境 #1 が定義され，
+  見出しの名称 #2 の次にナンバリングされた数値がつきます。
 \end{verbatim}
 \end{jquote}
 
-$B$?$H$($P(B
+たとえば
 
 \begin{jquote}
 \begin{verbatim}
-\boxedtheorem{rei}{$BNc(B}
+\boxedtheorem{rei}{例}
 \end{verbatim}
 \end{jquote}
-$B$H$9$l$P!$0J2<$N$h$&$K$J$j$^$9!#(B
-\boxedtheorem{rei}{$BNc(B}
+とすれば，以下のようになります。
+\boxedtheorem{rei}{例}
 
 \begin{showEx}{\cmd{boxedtheorem}}
 \begin{rei}
-$B$"$"$"$"$"$"$"$"$"$"$"$"(B
-$B$"$"$"$"$"$"$"$"$"$"$"$"(B
+ああああああああああああ
+ああああああああああああ
 \end{rei}
 
 \begin{rei}
-$B$$$$$$$$$$$$$$$$$$$$$$$$(B
-$B$$$$$$$$$$$$$$$$$$$$$$$$(B
+いいいいいいいいいいいい
+いいいいいいいいいいいい
 \end{rei}
 \end{showEx}
 
-\section{$BOH$N<oN`JQ99(B}
-$BOH$O!$%G%U%)%k%H$G$O(B \textsf{itembox}$B4D6-$,;H$o$l$^$9$,!$(B
-$B$3$l$rJQ99$9$k%*%W%7%g%s$,(B\texttt{<frame=..>}$B$G$9!#(B
-$B2<$NNc$G$O!$(B
+\section{枠の種類変更}
+枠は，デフォルトでは \textsf{itembox}環境が使われますが，
+これを変更するオプションが\texttt{<frame=..>}です。
+下の例では，
 \begin{jquote}
 \begin{verbatim}
-\boxedtheorem<frame=itemshadebox>{teiri}{$BDjM}(B}
+\boxedtheorem<frame=itemshadebox>{teiri}{定理}
 \end{verbatim}
 \end{jquote}
-$B$H$7$F!$(B\textsf{teiri}$B4D6-$NOH$r(B\textsf{itemshadebox}$B$K;XDj$7$F$$$^$9!#(B
-\boxedtheorem<frame=itemshadebox>{teiri}{$BDjM}(B}
+として，\textsf{teiri}環境の枠を\textsf{itemshadebox}に指定しています。
+\boxedtheorem<frame=itemshadebox>{teiri}{定理}
 
-\begin{showEx}{\texttt{<frame=..>}$B%*%W%7%g%s(B}
+\begin{showEx}{\texttt{<frame=..>}オプション}
 \begin{teiri}
-$B$"$"$"$"$"$"$"$"$"$"$"$"(B
-$B$"$"$"$"$"$"$"$"$"$"$"$"(B
+ああああああああああああ
+ああああああああああああ
 \end{teiri}
 
 \begin{teiri}
-$B$$$$$$$$$$$$$$$$$$$$$$$$(B
-$B$$$$$$$$$$$$$$$$$$$$$$$$(B
+いいいいいいいいいいいい
+いいいいいいいいいいいい
 \end{teiri}
 \end{showEx}
 
-\section{$B8+=P$7$NG[CVJQ99(B}
-$B8+=P$7$N0LCV$O!$%G%U%)%k%H$G$OCf1{$H$J$C$F$$$^$9$,!$(B
-$B$3$l$rJQ99$9$k$K$O!$(B\texttt{<frameoption=..>}$B%*%W%7%g%s$rMQ$$$^$9!#(B
-$B1&JUCM$O!$(B\textsf{itembox}$B4D6-$J$I$K$=$N$^$^EO$5$l$^$9!#(B
+\section{見出しの配置変更}
+見出しの位置は，デフォルトでは中央となっていますが，
+これを変更するには，\texttt{<frameoption=..>}オプションを用います。
+右辺値は，\textsf{itembox}環境などにそのまま渡されます。
 
-$B2<$NNc$O(B
+下の例は
 \begin{jquote}
 \begin{verbatim}
-\boxedtheorem<frameoption={[l]}>{reidai}{$BNcBj(B}
+\boxedtheorem<frameoption={[l]}>{reidai}{例題}
 \end{verbatim}
 \end{jquote}
-$B$H$7$F8+=P$7$N0LCV$r:8$K;XDj$7$F$$$^$9!#(B
-\boxedtheorem<frameoption={[l]}>{reidai}{$BNcBj(B}
+として見出しの位置を左に指定しています。
+\boxedtheorem<frameoption={[l]}>{reidai}{例題}
 
-\begin{showEx}{\texttt{<frameoption=..>}$B%*%W%7%g%s(B}
+\begin{showEx}{\texttt{<frameoption=..>}オプション}
 \begin{reidai}
-$B$"$"$"$"$"$"$"$"$"$"$"$"(B
-$B$"$"$"$"$"$"$"$"$"$"$"$"(B
+ああああああああああああ
+ああああああああああああ
 \end{reidai}
 
 \begin{reidai}
-$B$$$$$$$$$$$$$$$$$$$$$$$$(B
-$B$$$$$$$$$$$$$$$$$$$$$$$$(B
+いいいいいいいいいいいい
+いいいいいいいいいいいい
 \end{reidai}
 \end{showEx}
 
-\section{$B2<JU8+=P$7$b$D$1$k>l9g(B}
-$BOH$r(B\textsf{itemtbbox}$B$J$I!$>eJU!&2<JUAPJ}$K8+=P$7$r$D$1$k4D6-$r;XDj$7$?>l9g!$(B
-$B%J%s%P%j%s%08+=P$7$O>eJU$K$D$-$^$9!#2<JU8+=P$7$O!$Dj5A$7$?4D6-$N0z?t$G;XDj$7$^$9!#(B
+\section{下辺見出しもつける場合}
+枠を\textsf{itemtbbox}など，上辺・下辺双方に見出しをつける環境を指定した場合，
+ナンバリング見出しは上辺につきます。下辺見出しは，定義した環境の引数で指定します。
 
-$B2<$NNc$O!$(B
+下の例は，
 \begin{jquote}
 \begin{verbatim}
-\boxedtheorem<frame=itemtbsquarebox,frameoption={<l>[r]}>{ruidai}{$BN`Bj(B}
+\boxedtheorem<frame=itemtbsquarebox,frameoption={<l>[r]}>{ruidai}{類題}
 \end{verbatim}
 \end{jquote}
-$B$H$7$F!$OH$K(B\textsf{itemtbsquarebox}$B$r;XDj$7$F$$$^$9!#(B
-$BDj5A$7$?4D6-(B\textsf{ruidai}$B$NBh(B1$B0z?t$,!$2<JU8+=P$7$H$J$j$^$9!#(B
-\boxedtheorem<frame=itemtbsquarebox,frameoption={<l>[r]}>{ruidai}{$BN`Bj(B}
+として，枠に\textsf{itemtbsquarebox}を指定しています。
+定義した環境\textsf{ruidai}の第1引数が，下辺見出しとなります。
+\boxedtheorem<frame=itemtbsquarebox,frameoption={<l>[r]}>{ruidai}{類題}
 
-\begin{showEx}{$B2<JU8+=P$7(B}
-\begin{ruidai}{2000 $BK?Bg3X(B}
-$B$"$"$"$"$"$"$"$"$"$"$"$"(B
-$B$"$"$"$"$"$"$"$"$"$"$"$"(B
+\begin{showEx}{下辺見出し}
+\begin{ruidai}{2000 某大学}
+ああああああああああああ
+ああああああああああああ
 \end{ruidai}
 
-\begin{ruidai}{2005 $B!)Bg3X(B}
-$B$$$$$$$$$$$$$$$$$$$$$$$$(B
-$B$$$$$$$$$$$$$$$$$$$$$$$$(B
+\begin{ruidai}{2005 ？大学}
+いいいいいいいいいいいい
+いいいいいいいいいいいい
 \end{ruidai}
 \end{showEx}
 
-\section{$B%+%&%s%?$NL>>N(B}
-\cmd{boxedtheorem}$B$GDj5A$5$l$?4D6-$N%+%&%s%?$O4D6-$HF1L>$G$9!#(B
-$B<!$NNc$ON`Bj$N%+%&%s%?(B\texttt{ruidai}$B$rNcBj$N%+%&%s%?(B\texttt{reidai}$B$K=>B0$5$;$F$$$^$9!#(B
+\section{カウンタの名称}
+\cmd{boxedtheorem}で定義された環境のカウンタは環境と同名です。
+次の例は類題のカウンタ\texttt{ruidai}を例題のカウンタ\texttt{reidai}に従属させています。
 
-\begin{showEx}{$B%+%&%s%?$N=>B0(B}
+\begin{showEx}{カウンタの従属}
 \resetcounter{ruidai}[reidai]
 \def\theruidai{%
   \arabic{reidai}.\arabic{ruidai}}
 \begin{reidai}
-$B$&$&$&$&$&$&$&$&$&$&$&$&(B
-$B$&$&$&$&$&$&$&$&$&$&$&$&(B
+うううううううううううう
+うううううううううううう
 \end{reidai}
 
-\begin{ruidai}{2000 $BK?Bg3X(B}
-$B$"$"$"$"$"$"$"$"$"$"$"$"(B
-$B$"$"$"$"$"$"$"$"$"$"$"$"(B
+\begin{ruidai}{2000 某大学}
+ああああああああああああ
+ああああああああああああ
 \end{ruidai}
 
-\begin{ruidai}{2005 $B!)Bg3X(B}
-$B$$$$$$$$$$$$$$$$$$$$$$$$(B
-$B$$$$$$$$$$$$$$$$$$$$$$$$(B
+\begin{ruidai}{2005 ？大学}
+いいいいいいいいいいいい
+いいいいいいいいいいいい
 \end{ruidai}
 \end{showEx}
 
-\section{$B%Z!<%8$r$^$?$0(B}
-$B%Z!<%8$r$^$?$04D6-(B\textsf{breakitembox}$B$KBP$7$F$bE,MQ$G$-$^$9!#(B
-$B<!$NNc$O!$(B
+\section{ページをまたぐ}
+ページをまたぐ環境\textsf{breakitembox}に対しても適用できます。
+次の例は，
 
 \begin{jquote}
 \begin{verbatim}
-\boxedtheorem<frame=breakitembox>{rensyuumondai}{$BN}=,LdBj(B}
+\boxedtheorem<frame=breakitembox>{rensyuumondai}{練習問題}
 \end{verbatim}
 \end{jquote}
-$B$H$7$F!$OH0O$_$r(B\textsf{breakitembox}$B$K;XDj$7$F!$(B
-$B%Z!<%8$r$^$?$,$;$F$$$^$9!#(B
+として，枠囲みを\textsf{breakitembox}に指定して，
+ページをまたがせています。
 
-\boxedtheorem<frame=breakitembox>{rensyuumondai}{$BN}=,LdBj(B}
+\boxedtheorem<frame=breakitembox>{rensyuumondai}{練習問題}
 
 \ignorefirstline{1}%
 \begin{rensyuumondai}
 \begin{enumerate}[1.~]
-\item $B$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"(B
- $B$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"(B
- $B$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"(B
- $B$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"(B
-\item $B$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$(B
- $B$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$(B
- $B$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$(B
- $B$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$(B
-\item $B$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&(B
- $B$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&(B
- $B$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&(B
- $B$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&(B
- $B$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&(B
-\item $B$($($((B
-\item $B$*$*$*(B
-\item $B$+$+$+(B
+\item ああああああああああああああああああああああああああああああああ
+ ああああああああああああああああああああああああああああああああ
+ ああああああああああああああああああああああああああああああああ
+ ああああああああああああああああああああああああああああああああ
+\item いいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいい
+ いいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいい
+ いいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいい
+ いいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいい
+\item うううううううううううううううううううううううううううううううう
+ ううううううううううううううううううううううううううううううううう
+ ううううううううううううううううううううううううううううううううう
+ ううううううううううううううううううううううううううううううううう
+ ううううううううううううううううううううううううううううううううう
+\item えええ
+\item おおお
+\item かかか
 \end{enumerate}
 \end{rensyuumondai}
 \end{document}

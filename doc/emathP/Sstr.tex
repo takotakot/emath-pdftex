@@ -1,11 +1,11 @@
-\section{$BJ8;zNs(B}
-\subsection{$BJ8;zNs(B}
+\section{文字列}
+\subsection{文字列}
 \subsubsection{\texorpdfstring{\cmd{Put}}{Put}}
-\LaTeX $B$N(B \textsf{picture} $B4D6-$K$*$$$F!$J8;zNs$rG[CV$9$k%3%^%s%I$O(B
-\cmd{put}$B$G$9!#(B
+\LaTeX の \textsf{picture} 環境において，文字列を配置するコマンドは
+\cmd{put}です。
 
-\textsf{emath} $B$G$O!$E@$N0LCV$r(B \cmd{A} $B$J$I$NJQ?tL>$G;XDj$7$^$9!#(B
-$B$=$3$G(B \cmd{Put} $B$NEP>l$H$J$j$^$9!#(B
+\textsf{emath} では，点の位置を \cmd{A} などの変数名で指定します。
+そこで \cmd{Put} の登場となります。
 
 \begin{showEx}{\cmd{Put}}
 \begin{picture}(3,2)
@@ -17,91 +17,91 @@
 \end{picture}
 \end{showEx}
 
-$B$&$^$/$J$$$G$9$M!#(B
-$BC1$K(B \verb+\Put\A{A}+ $B$G$O!$J8;z(B`A'$B$N:82<$,;XDj$7$?E@(B\verb+A(0,0)+$B$K(B
-$B$/$k$h$&$KG[CV$5$l$^$9!#$3$l$r=$@5$9$k$N$K(B
+うまくないですね。
+単に \verb+\Put\A{A}+ では，文字`A'の左下が指定した点\verb+A(0,0)+に
+くるように配置されます。これを修正するのに
 \begin{jquote}
 \begin{verbatim}
 (dx,dy)[pos]
 \end{verbatim}
 \end{jquote}
-$B%*%W%7%g%s$rMQ0U$7$^$7$?!#<!@a0J9_$3$N2r@b$r$7$^$9$,!$$H$j$"$($:(B
-\cmd{Put}$B$N=q<0$r$4Mw$/$@$5$$!#(B
+オプションを用意しました。次節以降この解説をしますが，とりあえず
+\cmd{Put}の書式をご覧ください。
 
 \begin{boxnote}
 \begin{verbatim}
 \Put#1(#2,#3)[#4]#5
-    #1 : $BJ8;zNs$rCV$/0LCV!J:BI8!K(B
-    (#2,#3) : $B0LCV$N=$@5%Y%/%H%k!JD9$5$NC10L$,I,MW$G$9!#!K(B
-    #4 : $BG[CV(B (l,r,t,b)
-    #5 : $BJ8;zNs(B
+    #1 : 文字列を置く位置（座標）
+    (#2,#3) : 位置の修正ベクトル（長さの単位が必要です。）
+    #4 : 配置 (l,r,t,b)
+    #5 : 文字列
 \end{verbatim}
 \end{boxnote}\cindex{Put}
 
-\subsubsection{$BJ8;z0LCV$ND4@0(B}
-$BJ8;zNs0LCV$NHyD4@0$r9T$&Nc$G$9!#(B
+\subsubsection{文字位置の調整}
+文字列位置の微調整を行う例です。
 
-\showexample[$B0LCV$ND4@0A0(B](0.55)(0.4){example/string02}
+\showexample[位置の調整前](0.55)(0.4){example/string02}
 
-\showexample[$B0LCV$ND4@08e(B](0.55)(0.4){example/string03}
+\showexample[位置の調整後](0.55)(0.4){example/string03}
 
-A$B$ND4@0$O(B \texttt{(0,2pt)} $B$N;XDj$K$h$j!$D:E@(BA$B$N>e(B \texttt{2pt} $B$N(B
-$B$H$3$m$,4p=`$K$J$j$^$9!#(B\texttt{[b]}$B;XDj$K$h$j!$4p=`E@$,J8;z$N(B
-\texttt{bottom}$B$H$J$k$h$&$KG[CV$5$l$^$9!#(B
-\texttt{(x,y)} $B$N(B \texttt{x, y} $B$OC10L$r$D$1$??tCM$G$9!#(B
-0$B$@$1$OC10L$r$D$1$J$/$F$b$h$$!$$H$7$F$"$j$^$9!#(B
+Aの調整は \texttt{(0,2pt)} の指定により，頂点Aの上 \texttt{2pt} の
+ところが基準になります。\texttt{[b]}指定により，基準点が文字の
+\texttt{bottom}となるように配置されます。
+\texttt{(x,y)} の \texttt{x, y} は単位をつけた数値です。
+0だけは単位をつけなくてもよい，としてあります。
 
-$BJ8;z0LCV$ND4@0NL(B\verb/(#2,#3)/$B$OD>8r:BI8@.J,$G$9$,!$(B
-\verb/[r](#2,#3)/$B$H$9$l$P!$6K:BI8;XDj$H$_$J$5$l$^$9!#(B
-A$B$N0LCV$rJQ$($F$_$^$9!#(B
+文字位置の調整量\verb/(#2,#3)/は直交座標成分ですが，
+\verb/[r](#2,#3)/とすれば，極座標指定とみなされます。
+Aの位置を変えてみます。
 
-\showexample[$BD4@0NL$r6K:BI8;XDj(B](0.55)(0.4){example/string07}
+\showexample[調整量を極座標指定](0.55)(0.4){example/string07}
 
-\subsubsection{$BJ8;zNs0LCV$N4J0W;XDj(B}
-$B0LCV$ND4@0$r5-=R$9$k$N$OLLE]$J$N$G!$4J0W;XDj%*%W%7%g%s$rMQ0U$7$^$7$?!#(B
-$B$=$N=q<0$G$9!#(B
+\subsubsection{文字列位置の簡易指定}
+位置の調整を記述するのは面倒なので，簡易指定オプションを用意しました。
+その書式です。
 
 \begin{boxnote}
 \begin{verbatim}
 \Put#1[#2]#3
-    #1 : $BJ8;zNs$rCV$/0LCV!J:BI8!K(B
-    #2 : $B0LCV;XDj%*%W%7%g%s(B
-      n = $BKL(B  $B!J>e!K(B
-      nw= $BKL@>!J:8>e!K(B
-      w = $B@>(B  $B!J:8!K(B
-      sw= $BFn@>!J:82<!K(B
-      s = $BFn(B  $B!J2<!K(B
-      se= $BFnEl!J1&2<!K(B
-      e = $BEl(B  $B!J1&!K(B
-      ne= $BKLEl!J1&>e!K(B
-    #3 : $BJ8;zNs(B
+    #1 : 文字列を置く位置（座標）
+    #2 : 位置指定オプション
+      n = 北  （上）
+      nw= 北西（左上）
+      w = 西  （左）
+      sw= 南西（左下）
+      s = 南  （下）
+      se= 南東（右下）
+      e = 東  （右）
+      ne= 北東（右上）
+    #3 : 文字列
 \end{verbatim}
 \end{boxnote}
 
-$B$3$l$rMQ$$$k$H!$@h$NNc$O<!$N$h$&$K5-=R$G$-$^$9!#(B
+これを用いると，先の例は次のように記述できます。
 
-\showexample[$B0LCV$N4J0W;XDj%*%W%7%g%s(B](0.55)(0.4){example/string04}
+\showexample[位置の簡易指定オプション](0.55)(0.4){example/string04}
 
-$B$9$J$o$A!$E@$+$i$_$FJ8;zNs$r$*$/$Y$-J}0L$r;XDj$7$^$9!#(B
+すなわち，点からみて文字列をおくべき方位を指定します。
 
-$B!JCm!K(B\cmd{Put} $B$N@5$7$$%3%^%s%IL>$O(B \cmd{emathPut} $B$G$9!#(B
-\cindex{emathPut}$B%3%^%s%IL>(B \cmd{Put}$B$,B>$N%9%?%$%k%U%!%$%k$H(B
-$B6%9g$7$?>l9g$O!$(B\cmd{emathPut} $B$r$*;H$$$/$@$5$$!#(B
+（注）\cmd{Put} の正しいコマンド名は \cmd{emathPut} です。
+\cindex{emathPut}コマンド名 \cmd{Put}が他のスタイルファイルと
+競合した場合は，\cmd{emathPut} をお使いください。
 
-\subsubsection{$BJ8;zNs$N2sE>(B}
-\verb/\Put[#1]/ $B$K$OA0@a$N$[$+<!$N%*%W%7%g%s$,$"$j$^$9!#(B
+\subsubsection{文字列の回転}
+\verb/\Put[#1]/ には前節のほか次のオプションがあります。
 \begin{boxnote}
 \begin{verbatim}
-background=white $BGX7J$rGr$/EI$k(B
-kaiten    =ddd   $BJ8;z$r2sE>$9$k(B
-houkou    =vvv   $B2sE>3Q$r4V@\E*$K;XDj(B
-from      =PPP   $B<!$N(B to=QQQ $B$HJ;$;$F2sE>3Q$r4V@\E*$K;XDj(B
+background=white 背景を白く塗る
+kaiten    =ddd   文字を回転する
+houkou    =vvv   回転角を間接的に指定
+from      =PPP   次の to=QQQ と併せて回転角を間接的に指定
 to        =QQQ
 \end{verbatim}
 \end{boxnote}
 
-$B<!$O(B \texttt{kaiten=ddd} $B$GJ8;z$r2sE>$5$;$^$9!#(B
-$B2sE>3Q(B \texttt{ddd} $B$OId9fIU$-$NO;==J,K!$G$G$9!#(B
+次は \texttt{kaiten=ddd} で文字を回転させます。
+回転角 \texttt{ddd} は符号付きの六十分法でです。
 
 \begin{showEx}(.62,.32){\texttt{kaiten=}}
 \unitlength6mm\footnotesize
@@ -115,8 +115,8 @@ $y=x-1$}
 \end{zahyou}
 \end{showEx}
 
-$B2sE>3Q$rJ}8~%Y%/%H%k$K$h$C$FM?$($k%*%W%7%g%s(B
-\texttt{houkou=vvv} $B$G$9!#(B
+回転角を方向ベクトルによって与えるオプション
+\texttt{houkou=vvv} です。
 
 \begin{showEx}(.64,.3){\texttt{houkou=}}
 \unitlength6mm\footnotesize
@@ -131,7 +131,7 @@ $y=2-2x$}
 \end{zahyou}
 \end{showEx}
 
-2$BE@$rM?$($F2sE>3Q$r;X<($9$kNc$G$9!#(B
+2点を与えて回転角を指示する例です。
 \begin{showEx}(.64,.3){\texttt{from= , to= }}
 \unitlength6mm\footnotesize
 \begin{zahyou}(-2.5,2.5)(-2.5,2.5)
@@ -144,9 +144,9 @@ $y=2-2x$}
 \end{zahyou}
 \end{showEx}
 
-\texttt{background=white}$B$HJ;MQ$7$F$_$^$9!#(B
+\texttt{background=white}と併用してみます。
 
-\begin{showEx}(.64,.3){\texttt{background=white}$B$HJ;MQ(B}
+\begin{showEx}(.64,.3){\texttt{background=white}と併用}
 \unitlength6mm\footnotesize
 \begin{zahyou}(-2.5,2.5)(-2.5,2.5)
 \tenretu*{O(0,0);A(0,2);B(1,0)}
@@ -159,9 +159,9 @@ $y=2-2x$}
 \end{zahyou}
 \end{showEx}
 
-$BJ8;z$N30B&$NM>Gr$O(B \verb/\fboxsep/ $B$K$h$jD4@0$G$-$^$9!#(B
+文字の外側の余白は \verb/\fboxsep/ により調整できます。
 
-\begin{showEx}(.64,.3){\cmd{fboxsep}$B$K$h$kM>GrD4@0(B}
+\begin{showEx}(.64,.3){\cmd{fboxsep}による余白調整}
 \unitlength6mm\footnotesize
 \begin{zahyou}(-2.5,2.5)(-2.5,2.5)
 \tenretu*{O(0,0);A(0,2);B(1,0)}
@@ -175,27 +175,27 @@ $y=2-2x$}
 \end{zahyou}
 \end{showEx}
 
-\subsubsection{$BJ8;zNs$+$i4p=`E@$X$NLp@~(B}
-$BJ8;zNs$rCV$-$?$$IU6a$G?^$,9~$_F~$C$F$$$k>l9g!$(B
-$BJ8;zNs$r>/$7N%$l$?0LCV$K$*$$$F!$$=$3$+$i3:Ev8D=j$K(B
-$BLp@~$r0z$/$?$a$N%3%^%s%I$,(B \cmd{PutStr} $B$G$9!#(B
+\subsubsection{文字列から基準点への矢線}
+文字列を置きたい付近で図が込み入っている場合，
+文字列を少し離れた位置において，そこから該当個所に
+矢線を引くためのコマンドが \cmd{PutStr} です。
 
 \showexample[\cmd{PutStr}](0.58)(0.36){example/string11}
 
-$BLp@~$r1_8L$K$7$?$$$H$-$O(B \verb+to+ $B$N8e$m$K(B \verb+[$BH>7B(B]+ $B%*%W%7%g%s$r(B
-$B$D$1$^$9!#H>7B$OL5L>?t$GC10L$O(B \verb+\unitlength+ $B$G$9!#(B
+矢線を円弧にしたいときは \verb+to+ の後ろに \verb+[半径]+ オプションを
+つけます。半径は無名数で単位は \verb+\unitlength+ です。
 
 \showexample[\cmd{PutStr}](0.58)(0.36){example/string06}
 
-$BH>7B$KIi$NCM$r;XDj$9$k$H!$Lp0u$,Ii$N2sE>$rI=$9J}8~$K$D$-$^$9!#(B
+半径に負の値を指定すると，矢印が負の回転を表す方向につきます。
 
 \showexample[\cmd{PutStr}](0.58)(0.36){example/string12}
 
 
-\paragraph{\texttt{addvec=}$B%*%W%7%g%s(B}
-$BLp0u$N@hC<$,6J@~$KKdKW$7$F$$$k$N$,5$$K$J$k>l9g$NBP:v$G$9!#(B
-$BLp0u$N@hC<$N0LCV$rHyD4@0$9$k$?$a$K$N%*%W%7%g%s$,(B\texttt{[addvec=..]}$B$G$9!#(B
-$B>e$NNc$G!$Lp0u$N@hC<$r>eJ}$K(B\texttt{1.1pt}$B;}$A>e$2$F$_$^$9!#(B
+\paragraph{\texttt{addvec=}オプション}
+矢印の先端が曲線に埋没しているのが気になる場合の対策です。
+矢印の先端の位置を微調整するためにのオプションが\texttt{[addvec=..]}です。
+上の例で，矢印の先端を上方に\texttt{1.1pt}持ち上げてみます。
 
 \begin{showEx}(.6,.34){\cmd{PutStr}}
   \begin{zahyou}[ul=7.5mm](-2,3)(-2,3)
@@ -208,13 +208,13 @@ $y=2-2x$}
   \end{zahyou}
 \end{showEx}
 
-$B$9$J$o$A!$(B\texttt{addvec}$B$N1&JUCM$KLp0u$N0LCV$r=$@5$9$k%Y%/%H%k$rM?$($^$9$,!$(B
-$B$=$N@.J,$O!$C10L$rH<$C$??tCM$G$9!#(Bx$B@.J,!$(By$B@.J,$N4V$K(B`,'$B$,F~$j$^$9$+$i!$(B
-\verb+addvec={(0,1.1pt)}+$B$H!$1&JUA4BN$r(B\verb+{ }+$B$G$/$/$C$F$*$/I,MW$,$"$j$^$9!#(B
+すなわち，\texttt{addvec}の右辺値に矢印の位置を修正するベクトルを与えますが，
+その成分は，単位を伴った数値です。x成分，y成分の間に`,'が入りますから，
+\verb+addvec={(0,1.1pt)}+と，右辺全体を\verb+{ }+でくくっておく必要があります。
 %\clearpage
 
-\paragraph{$B6K:BI87A<0$N;XDjK!(B}
-$B$^$?!$@~I}$,:Y$/$F$bBP>]E@$K9u4]$r$D$1$?$j$7$?>l9g$bLp0u$,KdKW$7$^$9!#(B
+\paragraph{極座標形式の指定法}
+また，線幅が細くても対象点に黒丸をつけたりした場合も矢印が埋没します。
 
 \begin{showEx}(.6,.34){\cmd{PutStr}}
   \begin{zahyou}[ul=7.5mm](-2.5,3)(-2.5,3)
@@ -228,7 +228,7 @@ $y=2-2x$}
   \end{zahyou}
 \end{showEx}
 
-$B$3$N>l9g$O!$HyD4@0%Y%/%H%k$r6K:BI87A<0$GM?$($kJ}K!$bMQ0U$7$^$7$?!#(B
+この場合は，微調整ベクトルを極座標形式で与える方法も用意しました。
 
 \begin{showEx}(.6,.34){\cmd{PutStr}}
   \begin{zahyou}[ul=7.5mm](-2.5,3)(-2.5,3)
@@ -242,11 +242,11 @@ $y=2-2x$}
   \end{zahyou}
 \end{showEx}
 
-$B$9$J$o$A!$(B\verb+r(.,.)+$B$H!$@hF,$K(B`r'$B$rIm2C$7$^$9!#(B
+すなわち，\verb+r(.,.)+と，先頭に`r'を附加します。
 
-\paragraph{$B1_8L$K$9$k>l9g$NH>7B;XDj(B}
-$BLp@~$r1_8L$K$9$k$K$O!$(B\verb+[...]+$B%*%W%7%g%s$K!$(B
-\verb+[hankei=..]+$B$rIm2C$7$^$9!#(B
+\paragraph{円弧にする場合の半径指定}
+矢線を円弧にするには，\verb+[...]+オプションに，
+\verb+[hankei=..]+を附加します。
 
 \begin{showEx}(.6,.34){\cmd{PutStr}}
   \begin{zahyou}[ul=7.5mm](-2.5,3)(-2.5,3)
@@ -260,14 +260,14 @@ $y=2-2x$}
   \end{zahyou}
 \end{showEx}
 
-$B1&JUCM$O!$(B\cmd{unitlength}$B$rC10L$H$9$kL5L>?t$G$"$k$N$O!$(B
-$B:#$^$G$N;EMM$r0z$-$:$C$F$$$^$9!#(B
+右辺値は，\cmd{unitlength}を単位とする無名数であるのは，
+今までの仕様を引きずっています。
 
-\paragraph{\cmd{PutStr} $B$N(B \texttt{arrowheadsize=}$B%*%W%7%g%s(B}
-\cmd{PutStr}$B$O!$%G%U%)%k%H$G$OLp0u$,$D$-$^$9!#(B
+\paragraph{\cmd{PutStr} の \texttt{arrowheadsize=}オプション}
+\cmd{PutStr}は，デフォルトでは矢印がつきます。
 
-$BLp0u$N%5%$%:$rJQ99$9$k$?$a$K$N%*%W%7%g%s$,(B\verb+arrowheadsize=..+$B$G$9!#(B
-$BFC$K1&JUCM$r(B0$B$H$9$l$P!$Lp0u$,$D$+$J$$$3$H$H$J$j$^$9!#(B
+矢印のサイズを変更するためにのオプションが\verb+arrowheadsize=..+です。
+特に右辺値を0とすれば，矢印がつかないこととなります。
 
 \begin{showEx}(.64,.3){\cmd{PutStr}}
 \begin{zahyou}[ul=10mm](-1.2,2.5)(-1.2,1.5)
@@ -278,45 +278,45 @@ $y=2-2x$}
 \end{zahyou}
 \end{showEx}
 
-\paragraph{\cmd{PutStr}$B$N=q<0(B}
-\cmd{PutStr}$B$N=q<0$G$9!#(B\cindex{PutStr}
+\paragraph{\cmd{PutStr}の書式}
+\cmd{PutStr}の書式です。\cindex{PutStr}
 
 \begin{boxnote}
 \begin{verbatim}
 \PutStr#1[#2]#3to[#4]#5
-   #1 : $BJ8;zNs$rCV$/0LCV(B
-   #2 : #1 $B$+$i8+$F$NJ}0L!J%G%U%)%k%H(B = e $B!K(B
-   #3 : $BJ8;zNs(B
-   #4 : $BJ8;zNs$+$i=P$kLp0u$r1_8L$K$7$?$$$H$-$O(B
-        $B$=$NH>7B$r;XDj$9$k!#(B
-        key=val $B$N7A<0$b2DG=(B
+   #1 : 文字列を置く位置
+   #2 : #1 から見ての方位（デフォルト = e ）
+   #3 : 文字列
+   #4 : 文字列から出る矢印を円弧にしたいときは
+        その半径を指定する。
+        key=val の形式も可能
           hankei=..
           addvec=..
           arrowheadsize=..
-   #5 : $BJ8;zNs$+$i=P$kLp0u$N=*E@(B
+   #5 : 文字列から出る矢印の終点
 \PutStr#1(#2,#3)[#4]#5to[#6]#7
-   #1$B!A(B#5 : \Put $BJ8$HF1$8(B
-   #6 : $BJ8;zNs$+$i=P$kLp0u$r1_8L$K$7$?$$$H$-$O(B
-        $B$=$NH>7B$r;XDj$9$k!#(B
-   #7 : $BJ8;zNs$+$i=P$kLp0u$N=*E@(B
+   #1〜#5 : \Put 文と同じ
+   #6 : 文字列から出る矢印を円弧にしたいときは
+        その半径を指定する。
+   #7 : 文字列から出る矢印の終点
 \end{verbatim}
 \end{boxnote}
 
 \if0
-\subsubsection{$BJ8;zNs$NGrH4$-(B}
-\cmd{Put}$B$N0z?t$NKAF,$K(B\verb/[background=white]/$B%*%W%7%g%s$rIU2C$9$k$3$H$K$h$j(B
-$BJ8;zNs$rGrH4$-$GG[CV$9$k$3$H$,$G$-$^$9!#(B
+\subsubsection{文字列の白抜き}
+\cmd{Put}の引数の冒頭に\verb/[background=white]/オプションを付加することにより
+文字列を白抜きで配置することができます。
 
-$BGX7J$rGr$/EI$k$K$O!$(B
+背景を白く塗るには，
 \begin{verbatim}
    \colorbox{white}{....}
 \end{verbatim}
-$B$,$"$j$^$9$,!$J8;z$r2sE>$5$;$k$N$K(B
+がありますが，文字を回転させるのに
 \begin{verbatim}
    \rotate{..}{\colorbox{white}{...}}
 \end{verbatim}
-$B$H$7$?$H$-!$3Q$NBg$-$5$K$h$C$F$OGX7J$K:/@W$,;D$C$F$7$^$&$3$H$,$"$j$^$9!#(B
-$B$=$3$G!$(B\texttt{Tpic specials} $B$rMQ$$$FGX7J$rGrEI$j$9$k$3$H$K$7$^$7$?!#(B
+としたとき，角の大きさによっては背景に痕跡が残ってしまうことがあります。
+そこで，\texttt{Tpic specials} を用いて背景を白塗りすることにしました。
 
 \begin{showEx}(.64,.3){\texttt{background=white}}
 \unitlength6mm\footnotesize
@@ -331,95 +331,95 @@ $y=2-2x$}
 
 
 
-\subsection{$BJ#?t$NE@$NDj5A$H%i%Y%kIU$1(B}
+\subsection{複数の点の定義とラベル付け}
 \subsubsection{\texorpdfstring{\cmd{tenretu}}{tenretu}}
-$BJ#?t$NE@$NDj5A$H%i%Y%kIU$1$rF1;~$KJRIU$1$h$&$H$$$&$N$,(B
-\cmd{tenretu}$B%3%^%s%I$G$9!#(B\cindex{tenretu}
+複数の点の定義とラベル付けを同時に片付けようというのが
+\cmd{tenretu}コマンドです。\cindex{tenretu}
 
 \showexample[\cmd{tenretu}](0.55)(0.4){example/string05}
 
 \begin{boxnote}
 \begin{verbatim}
- $BJ#?t$NE@$NDj5A$H%i%Y%k$D$1(B
+ 複数の点の定義とラベルつけ
  \tenretu#1
- \tenretu*#1$B!JDj5A$N$_(B  $B%i%Y%kIU$1$O%*%W%7%g%s!K(B
-   #1 $B$OE@Ns$r(B `;' $B$G6h@Z$C$?Ns(B
-     #1$B$O(B
+ \tenretu*#1（定義のみ  ラベル付けはオプション）
+   #1 は点列を `;' で区切った列
+     #1は
        [##1]##2(##3,##4)##5
-     $B$N7A<0$GE@Ns$r(B `;' $B$G6h@Z$k!#(B
-       ##1 : $B%*%W%7%g%s$G!$E@$N0LCV$KCV$/J8;zNs(B
-             $B!J>JN,;~$O!$(B##2 $B$HF1$8!K(B
-       ##2 : \##2 $B$H$$$&JQ?t$ND:E@L>(B
-       [r] : $B$r$D$1$k$H6K:BI87A<0$H$_$J$9(B
-       [s] : $B$r$D$1$k$HAjBP0\F0$H$_$J$9(B
-       (##3,##4) : $BD:E@$N:BI8(B
-       ##5 : $BD:E@$N6aK5$KCV$/J8;zNs$NG[CV%*%W%7%g%s(B
-             [$BJ}3Q(B] $B%*%W%7%g%s$K8B$j(B
-             $B6h@Z;R(B `[', `]' $B$r>JN,2DG=(B
-  \edef\##2{(##3,##4)}$B$H$7$F!$E@(B\##2 $B$,Dj5A$5$l!$(B
-  \Put $B$K(B
+     の形式で点列を `;' で区切る。
+       ##1 : オプションで，点の位置に置く文字列
+             （省略時は，##2 と同じ）
+       ##2 : \##2 という変数の頂点名
+       [r] : をつけると極座標形式とみなす
+       [s] : をつけると相対移動とみなす
+       (##3,##4) : 頂点の座標
+       ##5 : 頂点の近傍に置く文字列の配置オプション
+             [方角] オプションに限り
+             区切子 `[', `]' を省略可能
+  \edef\##2{(##3,##4)}として，点\##2 が定義され，
+  \Put に
        \Put\##2##5{##1}
-  $B$H$7$F0z$-EO$5$l$k!#!K(B
+  として引き渡される。）
 \end{verbatim}
 \end{boxnote}
 \cindex{tenretu}
 
 \subsubsection{\texorpdfstring{\cmd{tenretu*}}{tenretu*}}
-\texttt{*}$B$rIm2C$7$?(B \cmd{tenretu*} $B$O!$E@$rDj5A$9$k$@$1$G!$(B
-$B%i%Y%kIU$1$O$7$^$;$s!#(B
+\texttt{*}を附加した \cmd{tenretu*} は，点を定義するだけで，
+ラベル付けはしません。
 
 \showexample[\cmd{tenretu}](0.55)(0.4){example/string13}
 \cindex{tenretu*}
 
 \subsubsection{\texorpdfstring{\cmd{oresen}}{oresen}}
-$B99$K$=$l$i$r@^$l@~$G7k$s$G$7$^$*$&!$(B
-$B$H$$$&$N$,(B\cmd{oresen}$B$G$9!#(B\cindex{oresen}
+更にそれらを折れ線で結んでしまおう，
+というのが\cmd{oresen}です。\cindex{oresen}
 
 \showexample[\cmd{oresen}](0.55)(0.4){example/string08}
 
-\verb/<sensyu=...>/$B%*%W%7%g%s$rMxMQ$7$F!$@^$l@~$rE@@~!&GK@~!&:?@~$K(B
-$B$9$k$3$H$b2DG=$G$9!#(B
+\verb/<sensyu=...>/オプションを利用して，折れ線を点線・破線・鎖線に
+することも可能です。
 
-\showexample[$B@~<o$NJQ99!J:?@~!K(B](0.55)(0.4){example/string09}
+\showexample[線種の変更（鎖線）](0.55)(0.4){example/string09}
 
-\showexample[$B@~<o$NJQ99!JGK@~!K(B](0.55)(0.4){example/string10}
+\showexample[線種の変更（破線）](0.55)(0.4){example/string10}
 
-\cmd{oresen}$B$N=q<0$G$9!#(B
+\cmd{oresen}の書式です。
 
 \begin{boxnote}
 \begin{verbatim}
 \oresen<#1>#2
-  <#1> : $B@~<o$rJQ99$9$k$H$-$N%*%W%7%g%s(B
+  <#1> : 線種を変更するときのオプション
      sensyu=\dashline[40]{.1}
      sensyu=\chainline[.4][.2]
-     $B$J$I(B
-  #2 $B$O@^$l@~$ND:E@Ns$r(B `;' $B$G6h@Z$C$?Ns(B
-    #2$B$O(B
+     など
+  #2 は折れ線の頂点列を `;' で区切った列
+    #2は
       [##1]##2(##3,##4)##5
-    $B$N7A<0$GE@Ns$r(B `;' $B$G6h@Z$k!#(B
-      ##1 : $B%*%W%7%g%s$G!$E@$N0LCV$KCV$/J8;zNs(B
-            $B!J>JN,;~$O!$(B##2 $B$HF1$8!K(B
-      ##2 : \##2 $B$H$$$&JQ?t$ND:E@L>(B
-      [r] : $B$r$D$1$k$H6K:BI87A<0$H$_$J$9(B
-      [s] : $B$r$D$1$k$HAjBP0\F0$H$_$J$9(B
-      (##3,##4) : $BD:E@$N:BI8(B
-      ##5 : $BD:E@$N6aK5$KCV$/J8;zNs$NG[CV%*%W%7%g%s(B
-            [$BJ}3Q(B] $B%*%W%7%g%s$K8B$j(B
-            $B6h@Z;R(B `[', `]' $B$r>JN,2DG=(B
- \edef\##2{(##3,##4)}$B$H$7$F!$E@(B\##2 $B$,Dj5A$5$l!$(B
- \Put $B$K(B
+    の形式で点列を `;' で区切る。
+      ##1 : オプションで，点の位置に置く文字列
+            （省略時は，##2 と同じ）
+      ##2 : \##2 という変数の頂点名
+      [r] : をつけると極座標形式とみなす
+      [s] : をつけると相対移動とみなす
+      (##3,##4) : 頂点の座標
+      ##5 : 頂点の近傍に置く文字列の配置オプション
+            [方角] オプションに限り
+            区切子 `[', `]' を省略可能
+ \edef\##2{(##3,##4)}として，点\##2 が定義され，
+ \Put に
       \Put\##2##5{##1}
- $B$H$7$F0z$-EO$5$l$k!#!K(B
+ として引き渡される。）
 \end{verbatim}
 \end{boxnote}
 
 \subsubsection{\texorpdfstring{\cmd{rtenretu}}{rtenretu}}
-\cmd{tenretu(*)}$B$K$h$kE@$NDj5A$OD>8r:BI8$rA0Ds$H$7$F$$$^$9!#(B
-\verb+[r]+$B%*%W%7%g%s$G6K:BI87A<0$K$9$k$3$H$,$G$-$^$9$,!$(B
-$BB?$/$NE@$r6K:BI87A<0$GDj5A$9$k$K$O!$HQ;($G$9!#(B
+\cmd{tenretu(*)}による点の定義は直交座標を前提としています。
+\verb+[r]+オプションで極座標形式にすることができますが，
+多くの点を極座標形式で定義するには，煩雑です。
 
-$B$=$3$G!$$9$Y$F$NE@$,6K:BI87A<0$G$"$k$H$-$K;HMQ$9$k$?$a$K(B
-\cmd{rtenretu(*)}$B$r:n$j$^$7$?!#(B
+そこで，すべての点が極座標形式であるときに使用するために
+\cmd{rtenretu(*)}を作りました。
 \begin{showEx}(.6,.345){\cmd{rtenretu}}
 \begin{zahyou}[ul=10mm](-1.2,1.5)(-1.2,1.5)
 \small
@@ -431,8 +431,8 @@ D(1,180)nw;E(1,240)sw;F(1,300)se}
 \end{showEx}
 \cindex{rtenretu}
 
-$BCf?4$,86E@0J30$N$H$-$O(B\verb+[...]+$B%*%W%7%g%s$G;XDj$7$^$9!#(B
-\begin{showEx}(.6,.345){\cmd{rtenretu[$B6K(B]}}
+中心が原点以外のときは\verb+[...]+オプションで指定します。
+\begin{showEx}(.6,.345){\cmd{rtenretu[極]}}
 \begin{zahyou}[ul=10mm](-0.2,2.5)(-1.2,1.5)
 \small
 \def\Tyuusin{(1,0)}
@@ -443,104 +443,104 @@ C(1,120)nw;D(1,180)nw;E(1,240)sw;F(1,300)se}
 \end{zahyou}
 \end{showEx}
 
-\verb+*+$BIU$N(B\cmd{rtenretu*}$B$H(B\cmd{rtenretu}$B$N4X78$O!$(B
-\cmd{tenretu*}$B$H(B\cmd{tenretu}$B$N4X78$HF1$8$G$9!#(B
+\verb+*+付の\cmd{rtenretu*}と\cmd{rtenretu}の関係は，
+\cmd{tenretu*}と\cmd{tenretu}の関係と同じです。
 \cindex{rtenretu*}
 
-\subsubsection{$B:BI8$K7W;;<0$r5-=R(B}
-\cmd{tenretu}$B$K(B\verb+<perl>+$B%*%W%7%g%s$rIU2C$9$k$H!$(B
-$B:BI8$K7W;;<0$r5-=R$9$k$3$H$,$G$-$^$9!#(B
-$B$?$@$7!$(Bperl$B$H$NO"7H5!G=$rA0Ds$H$7$^$9$+$i!$(B
-\textsf{samplePp.tex}$B$r$4Mw$/$@$5$$!#(B
+\subsubsection{座標に計算式を記述}
+\cmd{tenretu}に\verb+<perl>+オプションを付加すると，
+座標に計算式を記述することができます。
+ただし，perlとの連携機能を前提としますから，
+\textsf{samplePp.tex}をご覧ください。
 
-\subsection{$B@~J,$KJ8;zNs(B}
-\subsubsection{$B@~J,$ND9$5I=5-(B}
-$B@~J,$NN>C<$r1_8L$G7k$S!$$=$NCf1{It$KD9$5$J$I$r5-F~$9$k$?$a$N(B
-$B%3%^%s%I(B \cmd{HenKo} $B$G$9!#(B
+\subsection{線分に文字列}
+\subsubsection{線分の長さ表記}
+線分の両端を円弧で結び，その中央部に長さなどを記入するための
+コマンド \cmd{HenKo} です。
 \cindex{HenKo}
 
 \showexample[\cmd{HenKo}](0.55)(0.35){example/HenKo01}
 
-\cmd{HenKo}$B$O4pK\E*$K$O!$(B
+\cmd{HenKo}は基本的には，
 \begin{jquote}
-    $B@~J,$NN>C<$HCf1{It$KCV$/J8;zNs(B
+    線分の両端と中央部に置く文字列
 \end{jquote}
-$B$N(B3$B8D$N0z?t$rM?$($^$9!#$J$*!$M?$($kN>C<$NE@$N=g=x$r5UE>$5$;$k$H!$(B
-$B1_8L$HJ8;zNs$,@~J,$NH?BPB&$KI=<($5$l$^$9!#(B
+の3個の引数を与えます。なお，与える両端の点の順序を逆転させると，
+円弧と文字列が線分の反対側に表示されます。
 
-\showexample[$BC<E@$N=g=x(B](0.55)(0.35){example/HenKo04}
+\showexample[端点の順序](0.55)(0.35){example/HenKo04}
 
-$B=q<0$O(B
+書式は
 
 \begin{boxnote}
 \begin{verbatim}
 \HenKo[#1]<#2>#3#4#5
 
-   #1: $B8L$rE@@~$K$9$k>l9g!$E@$N8D?t(B(*$B$r;XDj$7$?>l9g$O!$0lG$(B)
+   #1: 弧を点線にする場合，点の個数(*を指定した場合は，一任)
    #2: key=val
-         henkoH=.. $BJU$H8L$N5wN%(B($BC10LIU?tCM(B) $B%G%U%)%k%HCM(B=1.6ex
-         henkohi=..$B1&JUCM$OL5L>?t$G!$(B
-                   $BJU$H8L$N5wN%$r%G%U%)%k%H$N2?G\$K$9$k$+$r;XDj(B
+         henkoH=.. 辺と弧の距離(単位付数値) デフォルト値=1.6ex
+         henkohi=..右辺値は無名数で，
+                   辺と弧の距離をデフォルトの何倍にするかを指定
          putoption=.. 
-         henkosep=.. ($BGrH4$-%\%C%/%9$N(B \fboxsep)
+         henkosep=.. (白抜きボックスの \fboxsep)
          yazirusi=a/r/b
          henkomozikaiten=1/-1
          linewidth=..
          dash=..
-         henkotype=0/1 (0:$B1_8L!J%G%U%)%k%H!K(B, 1:$BBJ1_(B, 2:$B@^$l@~(B)
-   #3,#4 : $BN>C<$NE@(B
-   #5 : $BG[CV$9$kJ8;zNs(B
+         henkotype=0/1 (0:円弧（デフォルト）, 1:楕円, 2:折れ線)
+   #3,#4 : 両端の点
+   #5 : 配置する文字列
 \end{verbatim}
 \end{boxnote}
-$B0z?t$,B?$$$G$9$,!$I,?\$N$b$N$O!$(B
-$B>e$NNc$N$h$&$K(B \verb+#3, #4, #5+ $B$@$1$G$9!#(B
+引数が多いですが，必須のものは，
+上の例のように \verb+#3, #4, #5+ だけです。
 
-$B@~J,$H8L$N4V3V$rD4@0$9$k$K$O!$(B\verb+henkoH=..+$B%*%W%7%g%s$rMQ$$$^$9!#(B
-$B%G%U%)%k%HCM$N(B\verb+1.6ex+$B$+$iBg$-$/$7$F$_$^$7$g$&!#(B
+線分と弧の間隔を調整するには，\verb+henkoH=..+オプションを用います。
+デフォルト値の\verb+1.6ex+から大きくしてみましょう。
 
-\showexample[$BJ8;z$H@~J,$H$N4V3V(B](0.55)(0.35){example/HenKo02}
+\showexample[文字と線分との間隔](0.55)(0.35){example/HenKo02}
 
-$B8L$NItJ,$rE@@~$K$9$k$K$O(B \verb+[#1]+ $B$G!$8L>e$KCV$/E@$N8D?t$r;XDj$7$^$9!#(B
+弧の部分を点線にするには \verb+[#1]+ で，弧上に置く点の個数を指定します。
 
-\showexample[$B8L$rE@@~$G(B](0.55)(0.35){example/HenKo03}
+\showexample[弧を点線で](0.55)(0.35){example/HenKo03}
 
-$B6KC<$JOC$7!$$3$l$r(B \verb+[0]+ $B$H;XDj$9$l$P!$1_8L$OIA$+$l$^$;$s!#(B
+極端な話し，これを \verb+[0]+ と指定すれば，円弧は描かれません。
 
-\showexample[$BJ8;z$N$_(B](0.55)(0.35){example/HenKo05}
+\showexample[文字のみ](0.55)(0.35){example/HenKo05}
 
-$B$J$*!$J8;zNs$O@~J,$NCf1{$KCV$+$l$^$9$,!$$3$l$r$I$A$i$+$K4s$;$k%3%^%s%I$,(B
-\cmd{sPut} $B$G$9!#(B
+なお，文字列は線分の中央に置かれますが，これをどちらかに寄せるコマンドが
+\cmd{sPut} です。
 
 \showexample[\cmd{sPut}](0.55)(0.35){example/sPut01}
 
-$B=q<0$O(B\cindex{sPut}
+書式は\cindex{sPut}
 \begin{boxnote}
 \begin{verbatim}
 \sPut[#1]#2#3(#4,#5)[#6]#7
-    #1 : $BHfN((B (0~1)
-    #2 : $B;OE@(B
-    #3 : $B=*E@(B
-   (#4,#5) : $B0LCV$N=$@5%Y%/%H%k(B $BC10LI,?\(B
-    #6 : \makebox $B$N(B [..] $B%*%W%7%g%s(B
-    #7 : $BJ8;zNs(B
-#2 $B$+$i(B #3 $B$X8~$+$&@~J,$N(B #1 $BG\$N0LCV(B(\X)$B$K!$(B
-    \Put\X(#4,#5)[#6]#7 $B$H$7$FJ8;zNs(B(#7)$B$rCV$/!#(B
+    #1 : 比率 (0~1)
+    #2 : 始点
+    #3 : 終点
+   (#4,#5) : 位置の修正ベクトル 単位必須
+    #6 : \makebox の [..] オプション
+    #7 : 文字列
+#2 から #3 へ向かう線分の #1 倍の位置(\X)に，
+    \Put\X(#4,#5)[#6]#7 として文字列(#7)を置く。
 \end{verbatim}
 \end{boxnote}
 
-$B!JCm!K(Bdviout.exe $B$K$h$k0u:~$G!$JU$NK5$K5-$7$?D9$5$NJ8;z$J$I$,(B
-$B9u$$%\%C%/%9$K$J$C$F$7$^$&>l9g$O!$(Bdviout $B$N(B 
+（注）dviout.exe による印刷で，辺の傍に記した長さの文字などが
+黒いボックスになってしまう場合は，dviout の 
         graphic --- color specials
-$B@_Dj$r(B
-        replace(def) $B$^$?$O(B replace(bak)
-$B$K$7$F$_$F$/$@$5$$!#(B
+設定を
+        replace(def) または replace(bak)
+にしてみてください。
 
-\subsubsection{\texorpdfstring{\cmd{HenKo}}{HenKo} : $BJ8;zNs$NG[CVD4@0(B}
-\cmd{HenKo}$B$G@~J,$NK5$KCV$/J8;zNs$,D9$/$J$C$?$H$-$J$I(B
-$BJ8;z0LCV$rD4@0$7$?$$$H$-$,$"$j$^$9!#(B
-$B$=$N0lNc$G$9!#(B
+\subsubsection{\texorpdfstring{\cmd{HenKo}}{HenKo} : 文字列の配置調整}
+\cmd{HenKo}で線分の傍に置く文字列が長くなったときなど
+文字位置を調整したいときがあります。
+その一例です。
 
-\begin{showEx}(.65,.29){$B=$@5A0(B}
+\begin{showEx}(.65,.29){修正前}
 \unitlength10mm\footnotesize
 \drawaxisfalse
 \begin{zahyou}(-.5,2.5)(-.5,2.5)
@@ -551,13 +551,13 @@ C(1,120)nw;D(1,180)nw;E(1,240)sw;F(1,300)se}
 \end{zahyou}
 \end{showEx}
 
-$BJ8;zNs(B$2+\sqrt{3}$$B$,@~J,$K$+$+$C$F$$$^$9$N$G!$:8$KF0$+$7$^$9!#(B
-$BD4@0$KF~$kA0$K!$%G%U%)%k%H$NJ8;zNsG[CV$K$D$$$F=R$Y$^$9!#(B
+文字列$2+\sqrt{3}$が線分にかかっていますので，左に動かします。
+調整に入る前に，デフォルトの文字列配置について述べます。
 
-$B4p=`E@$O1_8L$NCfE@$G!$J8;zNs%\%C%/%9$NCf?4$,$3$N4p=`E@$K$/$k$h$&$K(B
-$BG[CV$5$l$^$9!#(B
-$B$G$O!$4p=`E@$r:8$K(B4mm$BF0$+$7$F$_$^$7$g$&!#(B
-\begin{showEx}(.65,.29){$BJ?9T0\F0(B}
+基準点は円弧の中点で，文字列ボックスの中心がこの基準点にくるように
+配置されます。
+では，基準点を左に4mm動かしてみましょう。
+\begin{showEx}(.65,.29){平行移動}
 \unitlength10mm\footnotesize
 \drawaxisfalse
 \begin{zahyou}(-.5,2.5)(-.5,2.5)
@@ -568,21 +568,21 @@ C(1,120)nw;D(1,180)nw;E(1,240)sw;F(1,300)se}
 {$2+\sqrt3$}
 \end{zahyou}
 \end{showEx}
-\verb/<putoption={(-4mm,0)}>/$B$NItJ,$,J?9T0\F0$r$9$k$?$a$N%*%W%7%g%s$G!$(B
-\cmd{Put}$B$K%*%W%7%g%s$H$7$F0z$-EO$5$l$^$9!#(B
-$B$9$J$o$A!$1_8L$NCfE@$r(B\verb/\Q/$B$H$7$F(B
+\verb/<putoption={(-4mm,0)}>/の部分が平行移動をするためのオプションで，
+\cmd{Put}にオプションとして引き渡されます。
+すなわち，円弧の中点を\verb/\Q/として
 \begin{verbatim}
     \Put\Q(-4mm,0){$2+\sqrt3$}
 \end{verbatim}
-$B$,<B9T$5$l$^$9!#(B
+が実行されます。
 
-$BJ8;zNs$,D9$$$H$-$O!$J8;zNs$r2sE>$7$F@~J,$HJ?9T$K$9$kJ}$,$h$$$G$7$g$&$+!#(B
+文字列が長いときは，文字列を回転して線分と平行にする方がよいでしょうか。
 \begin{verbatim}
-  <henkomozikaiten=1> $B%*%W%7%g%s(B
+  <henkomozikaiten=1> オプション
 \end{verbatim}
-$B$G$9!#(B
+です。
 
-\begin{showEx}(.65,.29){$B2sE>(B}
+\begin{showEx}(.65,.29){回転}
 \unitlength10mm\footnotesize
 \drawaxisfalse
 \begin{zahyou}(-.5,2.5)(-.5,2.5)
@@ -593,9 +593,9 @@ C(1,120)nw;D(1,180)nw;E(1,240)sw;F(1,300)se}
 \end{zahyou}
 \end{showEx}
 
-$B%*%W%7%g%s$N1&JUCM$r(B$-1$$B$H$9$l$P!$J8;z$O(B180$BEY2sE>$7$^$9!#(B
+オプションの右辺値を$-1$とすれば，文字は180度回転します。
 
-\begin{showEx}(.65,.29){$B5U2sE>(B}
+\begin{showEx}(.65,.29){逆回転}
 \unitlength10mm\footnotesize
 \drawaxisfalse
 \begin{zahyou}(-.5,2.5)(-.5,2.5)
@@ -606,10 +606,10 @@ C(1,120)nw;D(1,180)nw;E(1,240)sw;F(1,300)se}
 \end{zahyou}
 \end{showEx}
 
-\subsubsection{$B8L$KLp0u(B}
-$B8L$NC<Kv$KLp0u$r$D$1$k%*%W%7%g%s$,(B\verb+<yazirusi=a>+$B%*%W%7%g%s$G$9!#(B
+\subsubsection{弧に矢印}
+弧の端末に矢印をつけるオプションが\verb+<yazirusi=a>+オプションです。
 
-\begin{showEx}{\texttt{<yazirusi=a>}$B%*%W%7%g%s(B}
+\begin{showEx}{\texttt{<yazirusi=a>}オプション}
 \begin{zahyou*}(0,3)(0,3)
 \def\A{(1,1)}%
 \def\B{(2,2)}%
@@ -620,9 +620,9 @@ C(1,120)nw;D(1,180)nw;E(1,240)sw;F(1,300)se}
 \end{zahyou*}
 \end{showEx}
 
-$B5U8~$-$K$D$1$k$K$O(B
+逆向きにつけるには
 
-\begin{showEx}{\texttt{<yazirusi=r>}$B%*%W%7%g%s(B}
+\begin{showEx}{\texttt{<yazirusi=r>}オプション}
 \begin{zahyou*}(0,3)(0,3)
 \def\A{(1,1)}%
 \def\B{(2,2)}%
@@ -633,9 +633,9 @@ C(1,120)nw;D(1,180)nw;E(1,240)sw;F(1,300)se}
 \end{zahyou*}
 \end{showEx}
 
-$BN>8~$-$K$D$1$k$K$O(B
+両向きにつけるには
 
-\begin{showEx}{\texttt{<yazirusi=b>}$B%*%W%7%g%s(B}
+\begin{showEx}{\texttt{<yazirusi=b>}オプション}
 \begin{zahyou*}(0,3)(0,3)
 \def\A{(1,1)}%
 \def\B{(2,2)}%
@@ -646,11 +646,11 @@ C(1,120)nw;D(1,180)nw;E(1,240)sw;F(1,300)se}
 \end{zahyou*}
 \end{showEx}
 
-\subsubsection{\texorpdfstring{\cmd{HenKo}}{HenKo}$B$NCfE@!$Cf?4(B}
-\cmd{HenKo}$B%3%^%s%IH/9T8e!$1_8L$NCfE@!$1_8L$NCf?40LCV$rCN$j$?$$$3$H$,$"$j$^$9!#(B
+\subsubsection{\texorpdfstring{\cmd{HenKo}}{HenKo}の中点，中心}
+\cmd{HenKo}コマンド発行後，円弧の中点，円弧の中心位置を知りたいことがあります。
 
 \paragraph{\cmd{HenKoTyuuten}}
-\cmd{HenKo}$B$GIA2h$5$l$k1_8L$NCfE@$O(B\cmd{HenKoTyuuten}$B$KJ]B8$5$l$F$$$^$9!#(B
+\cmd{HenKo}で描画される円弧の中点は\cmd{HenKoTyuuten}に保存されています。
 
 \begin{showEx}(.6,.34){\cmd{HenKoTyuuten}}
   \begin{zahyou*}[ul=8mm](-.5,3)(-.5,2.5)
@@ -662,7 +662,7 @@ C(1,120)nw;D(1,180)nw;E(1,240)sw;F(1,300)se}
 \end{showEx}
 
 \paragraph{\cmd{HenKoTyuusin}}
-\cmd{HenKo}$B$GIA2h$5$l$k1_8L$NCf?4$r(B\cmd{HenKoTyuusin}$B$KJ]B8$7$^$9!#(B
+\cmd{HenKo}で描画される円弧の中心を\cmd{HenKoTyuusin}に保存します。
 
 \begin{showEx}(.6,.34){\cmd{HenKoTyuuten}}
   \begin{zahyou*}[ul=8mm](-1,4)(-1,4)
@@ -679,10 +679,10 @@ C(1,120)nw;D(1,180)nw;E(1,240)sw;F(1,300)se}
 
 %\clearpage
 
-\paragraph{$B1~MQNc(B}
-\cmd{HenKoTyuuten}, \cmd{HenKoTyuusin}$B$rMxMQ$7$?Nc$G$9!#(B
+\paragraph{応用例}
+\cmd{HenKoTyuuten}, \cmd{HenKoTyuusin}を利用した例です。
 
-\begin{showEx}(.7,.24){$B1~MQNc(B}
+\begin{showEx}(.7,.24){応用例}
   \begin{zahyou*}[ul=8mm](-.5,2.5)(-.5,4.5)
     \tenretu{A(2,4)n;B(1,2)se;C(0,0)s}
     \Drawline{\A\C}
@@ -697,17 +697,17 @@ C(1,120)nw;D(1,180)nw;E(1,240)sw;F(1,300)se}
   \end{zahyou*}
 \end{showEx}
 
-\subsubsection{\cmd{HenKo}$B$N7A>u$$$m$$$m(B}
-\cmd{HenKo}$B$N(B\verb+<henkotype=..>+$B%*%W%7%g%s$K$h$j!$(B
-$B1_8LItJ,$N%P%j%(!<%7%g%s$K$D$$$F@bL@$7$^$9(B.
+\subsubsection{\cmd{HenKo}の形状いろいろ}
+\cmd{HenKo}の\verb+<henkotype=..>+オプションにより，
+円弧部分のバリエーションについて説明します.
 
-$B$3$N@a$G$O!$(B\verb+\HenKo+$B$NJ}$,>GE@$G$9$+$i!$(B
-$BJU$N$[$&$OGK@~IA2h$H$7$F$*$-$^$9!#(B
+この節では，\verb+\HenKo+の方が焦点ですから，
+辺のほうは破線描画としておきます。
 
-\paragraph{$B?'$D$1(B}
-$B1_8L$NItJ,$K?'$r$D$1$k$K$O(B \verb+<henkocolor=...>+ $B%*%W%7%g%s$rMQ$$$^$9!#(B
+\paragraph{色つけ}
+円弧の部分に色をつけるには \verb+<henkocolor=...>+ オプションを用います。
 
-\begin{showEx}(.7,.24){\texttt{<henkocolor=..>}$B%*%W%7%g%s(B}
+\begin{showEx}(.7,.24){\texttt{<henkocolor=..>}オプション}
 \begin{zahyou*}[ul=6mm](0,5)(0,4)
   \tenretu{A(0,1)w;B(4,2)e}
   \Hasen{\A\B}
@@ -715,20 +715,20 @@ C(1,120)nw;D(1,180)nw;E(1,240)sw;F(1,300)se}
 \end{zahyou*}
 \end{showEx}
 
-\paragraph{\texttt{<henkotype=..>}$B%*%W%7%g%s(B}
-$B%G%U%)%k%H$G$O!$JU$NN>C<$r1_8L$G7k$S$^$9$,!$(B
-$B$3$N7A>u$rJQ$($k%*%W%7%g%s$,(B \verb+<henkotype=..>+$B%*%W%7%g%s$G$9!#(B
+\paragraph{\texttt{<henkotype=..>}オプション}
+デフォルトでは，辺の両端を円弧で結びますが，
+この形状を変えるオプションが \verb+<henkotype=..>+オプションです。
 
 \subparagraph{\texttt{<henkotype=ellipse>}}
-$B1_8L$G$O$J$/!$BJ1_8L$K$9$k%*%W%7%g%s$,(B
+円弧ではなく，楕円弧にするオプションが
 \begin{jquote}
 \begin{verbatim}
-<henkotype=1> $B$^$?$O(B <henkotype=ellipse>
+<henkotype=1> または <henkotype=ellipse>
 \end{verbatim}
 \end{jquote}
-$B$G$9!#(B
+です。
 
-\begin{showEx}(.7,.24){\texttt{<henkotype=ellipse>}$B%*%W%7%g%s(B}
+\begin{showEx}(.7,.24){\texttt{<henkotype=ellipse>}オプション}
 \begin{zahyou*}[ul=6mm](0,5)(0,4)
   \tenretu{A(0,1)w;B(4,2)e}
   \Hasen{\A\B}
@@ -737,16 +737,16 @@ C(1,120)nw;D(1,180)nw;E(1,240)sw;F(1,300)se}
 \end{showEx}
 
 \subparagraph{\texttt{<henkotype=triangle>}}
-$B1_8L$G$O$J$/!$JU$NN>C<E@!&J8;zNs$rG[CV$9$kE@$r7k$V;03Q7A$rIA2h$9$k(B
-$B%*%W%7%g%s$,(B
+円弧ではなく，辺の両端点・文字列を配置する点を結ぶ三角形を描画する
+オプションが
 \begin{jquote}
 \begin{verbatim}
-<henkotype=2> $B$^$?$O(B <henkotype=triangle>
+<henkotype=2> または <henkotype=triangle>
 \end{verbatim}
 \end{jquote}
-$B$G$9!#(B
+です。
 
-\begin{showEx}(.7,.24){\texttt{<henkotype=triangle>}$B%*%W%7%g%s(B}
+\begin{showEx}(.7,.24){\texttt{<henkotype=triangle>}オプション}
 \begin{zahyou*}[ul=6mm](0,5)(0,4)
   \tenretu{A(0,1)w;B(4,2)e}
   \Hasen{\A\B}
@@ -755,15 +755,15 @@ C(1,120)nw;D(1,180)nw;E(1,240)sw;F(1,300)se}
 \end{showEx}
 
 \subparagraph{\texttt{<henkotype=parallel>}}
-$B1_8L$G$O$J$/!$JU$HJ?9T$J@~J,$rIA2h$9$k%*%W%7%g%s$,(B
+円弧ではなく，辺と平行な線分を描画するオプションが
 \begin{jquote}
 \begin{verbatim}
-<henkotype=3> $B$^$?$O(B <henkotype=parallel>
+<henkotype=3> または <henkotype=parallel>
 \end{verbatim}
 \end{jquote}
-$B$G$9!#(B
+です。
 
-\begin{showEx}(.7,.24){\texttt{<henkotype=parallel>}$B%*%W%7%g%s(B}
+\begin{showEx}(.7,.24){\texttt{<henkotype=parallel>}オプション}
 \begin{zahyou*}[ul=6mm](0,5)(0,4)
   \tenretu{A(0,1)w;B(4,2)e}
   \Hasen{\A\B}
@@ -771,12 +771,12 @@ C(1,120)nw;D(1,180)nw;E(1,240)sw;F(1,300)se}
 \end{zahyou*}
 \end{showEx}
 
-\paragraph{\texttt{yazirusi=a/r/b}$B%*%W%7%g%s(B}
+\paragraph{\texttt{yazirusi=a/r/b}オプション}
 
-$B$3$N7A>u$O!$@~J,(BAB$B$ND9$5$rI=$9$H$-$J$I$KMxMQ$G$-$=$&$G$9!#(B
-$B$=$7$F!$(B\cmd{HenKo}$B$GIA2h$5$l$kJ}$N@~J,$K$OLp0u$r$D$1$k$3$H$,B?$$$h$&$G$9!#(B
+この形状は，線分ABの長さを表すときなどに利用できそうです。
+そして，\cmd{HenKo}で描画される方の線分には矢印をつけることが多いようです。
 
-\begin{showEx}(.7,.24){\texttt{<yazirusi=b>}$B%*%W%7%g%s(B}
+\begin{showEx}(.7,.24){\texttt{<yazirusi=b>}オプション}
 \begin{zahyou*}[ul=6mm](0,5)(0,4)
   \tenretu{A(0,1)w;B(4,2)e}
   \Hasen{\A\B}
@@ -784,21 +784,21 @@ C(1,120)nw;D(1,180)nw;E(1,240)sw;F(1,300)se}
 \end{zahyou*}
 \end{showEx}
 
-\verb+\HenKo<yazirusi=..>\A\B{...}+$B$K$*$1$k(B\verb+yazirusi=..+$B$N1&JUCM$O(B
+\verb+\HenKo<yazirusi=..>\A\B{...}+における\verb+yazirusi=..+の右辺値は
 \begin{jquote}
 \begin{verbatim}
-a: $BE@(B\A$B$+$iE@(B\B$B$K8~$+$&8~$-(B
-r: $BE@(B\B$B$+$iE@(B\A$B$K8~$+$&8~$-(B
-b: $BN>8~$-(B
+a: 点\Aから点\Bに向かう向き
+r: 点\Bから点\Aに向かう向き
+b: 両向き
 \end{verbatim}
 \end{jquote}
-$B$N$$$:$l$+$G$9!#(B
+のいずれかです。
 
-\paragraph{\texttt{<henkosideb=..,henkosidet=..>} $B%*%W%7%g%s(B}
-$B$3$N>l9g!$$5$i$KJd=u@~(B --- $B@~J,$NN>C<$H(B\cmd{HenKo}$B$K$h$C$F(B
-$B0z$+$l$kJB9T@~J,$NN>C<$r7k$V@~J,!J<c431dD9$7$F(B)$B$,M_$7$/$J$k$+$b$7$l$^$;$s!#(B
+\paragraph{\texttt{<henkosideb=..,henkosidet=..>} オプション}
+この場合，さらに補助線 --- 線分の両端と\cmd{HenKo}によって
+引かれる並行線分の両端を結ぶ線分（若干延長して)が欲しくなるかもしれません。
 
-\begin{showEx}(.7,.24){\texttt{<henkosideb=..,henkosidet=..>}$B%*%W%7%g%s(B}
+\begin{showEx}(.7,.24){\texttt{<henkosideb=..,henkosidet=..>}オプション}
 \begin{zahyou*}[ul=6mm](0,5)(0,4)
   \tenretu{A(0,1)w;B(4,2)e}
   \Hasen{\A\B}
@@ -807,22 +807,22 @@ b: $BN>8~$-(B
 \end{zahyou*}
 \end{showEx}
 
-$B$3$N>l9g!$Jd=u@~$O!$JU$NC<E@$H(B\cmd{HenKo}$B$K$h$C$F0z$+$l$k@~J,!JLp@~!K$N(B
-$BC<E@$r7k$V@~J,$r(B
+この場合，補助線は，辺の端点と\cmd{HenKo}によって引かれる線分（矢線）の
+端点を結ぶ線分を
 \begin{jquote}
 \begin{verbatim}
   \henkosideb : 1-\henkosideb
-$B$H(B
+と
   \henkosidet : 1-\henkosidet
-$B$KJ,$1$k(B2$BE@$r7k$V@~J,(B
+に分ける2点を結ぶ線分
 \end{verbatim}
 \end{jquote}
-$B$H$J$j$^$9!#(B
+となります。
 
-$B$J$*!$(B\verb+<henkocolor=..>+$B%*%W%7%g%s$K$h$k?'$E$1$O(B\verb+\HenKo+$B$K$h$k(B
-$B@~J,!JN>8~$-Lp@~!K$KBP$7$F$N$_F/$-$^$9!#(B
+なお，\verb+<henkocolor=..>+オプションによる色づけは\verb+\HenKo+による
+線分（両向き矢線）に対してのみ働きます。
 
-\begin{showEx}(.7,.24){\texttt{<henkocolor=..>}$B%*%W%7%g%s(B}
+\begin{showEx}(.7,.24){\texttt{<henkocolor=..>}オプション}
 \begin{zahyou*}[ul=6mm](0,5)(0,4)
   \tenretu{A(0,1)w;B(4,2)e}
   \Hasen{\A\B}
@@ -832,9 +832,9 @@ b: $BN>8~$-(B
 \end{zahyou*}
 \end{showEx}
 
-$BJd=u@~$KBP$9$k?'$E$1$O(B\verb+<henkosidecolor=..>+$B%*%W%7%g%s$G9T$$$^$9!#(B
+補助線に対する色づけは\verb+<henkosidecolor=..>+オプションで行います。
 
-\begin{showEx}(.7,.24){\texttt{<henkosidecolor=..>}$B%*%W%7%g%s(B}
+\begin{showEx}(.7,.24){\texttt{<henkosidecolor=..>}オプション}
 \begin{zahyou*}[ul=6mm](0,5)(0,4)
   \tenretu{A(0,1)w;B(4,2)e}
   \Hasen{\A\B}
@@ -844,18 +844,18 @@ b: $BN>8~$-(B
 \end{zahyou*}
 \end{showEx}
 
-$B$^$5$+$M$'!A(B\verb+(^^$B!6(B+
+まさかねぇ〜\verb+(^^ゞ+
 
 \subparagraph{\texttt{<henkotype=bracket>}}
-$B1_8L$G$O$J$/!$Bg3g8L$K$9$k%*%W%7%g%s$,(B
+円弧ではなく，大括弧にするオプションが
 \begin{jquote}
 \begin{verbatim}
-<henkotype=1> $B$^$?$O(B <henkotype=bracket>
+<henkotype=1> または <henkotype=bracket>
 \end{verbatim}
 \end{jquote}
-$B$G$9!#(B
+です。
 
-\begin{showEx}(.7,.24){\texttt{<henkotype=bracket>}$B%*%W%7%g%s(B}
+\begin{showEx}(.7,.24){\texttt{<henkotype=bracket>}オプション}
 \begin{zahyou*}[ul=6mm](0,5)(0,4)
   \tenretu{A(0,1)w;B(4,2)e}
   \Hasen{\A\B}
@@ -863,11 +863,11 @@ b: $BN>8~$-(B
 \end{zahyou*}
 \end{showEx}
 
-\paragraph{$B3Q$r4]$/(B}
-$B%3!<%J!<$r4]$/$9$k%*%W%7%g%s$,(B\verb+<Oval=..>+$B%*%W%7%g%s$G$9!#(B
-$B1&JUCM$O!$C10L$rH<$C$?D9$5$G%3!<%J!<$N;MJ,1_$NH>7B$r;XDj$7$^$9!#(B
+\paragraph{角を丸く}
+コーナーを丸くするオプションが\verb+<Oval=..>+オプションです。
+右辺値は，単位を伴った長さでコーナーの四分円の半径を指定します。
 
-\begin{showEx}(.7,.24){\texttt{<Oval=...>}$B%*%W%7%g%s(B}
+\begin{showEx}(.7,.24){\texttt{<Oval=...>}オプション}
 \begin{zahyou*}[ul=6mm](0,5)(0,4)
   \tenretu{A(0,1)w;B(4,2)e}
   \Hasen{\A\B}
@@ -876,16 +876,16 @@ b: $BN>8~$-(B
 \end{zahyou*}
 \end{showEx}
 
-$BCm!'(B\verb+<henkotype=brace>+$B$O$"$j$^$;$s!#(B
-$B8e=R$N(B\cmd{rotUbrace}$B%3%^%s%I$r$4Mw$/$@$5$$(B.
+注：\verb+<henkotype=brace>+はありません。
+後述の\cmd{rotUbrace}コマンドをご覧ください.
 
-\paragraph{\texttt{<agezoko=..>}$B%*%W%7%g%s(B}
-\cmd{HenKo}$B$NC<E@$rJU$+$iIb$+$;$?$$$H$-$,$"$j$^$9!#(B
-$B$=$N$?$a$N%*%W%7%g%s$G$9!#(B
-$B1&JUCM$OL5L>?t$GC10L$O(B\cmd{unitlength}$B$G$9!#(B
-$BC10L$r$D$1$??tCM$G;XDj$7$?$$$H$-$O(B\verb+<Agezoko=..>+$B%*%W%7%g%s$rMQ$$$^$9!#(B
+\paragraph{\texttt{<agezoko=..>}オプション}
+\cmd{HenKo}の端点を辺から浮かせたいときがあります。
+そのためのオプションです。
+右辺値は無名数で単位は\cmd{unitlength}です。
+単位をつけた数値で指定したいときは\verb+<Agezoko=..>+オプションを用います。
 
-\begin{showEx}(.7,.24){\texttt{<agezoko=>}$B%*%W%7%g%s(B}
+\begin{showEx}(.7,.24){\texttt{<agezoko=>}オプション}
 \begin{zahyou*}[ul=6mm](0,5)(0,4)
   \tenretu{A(0,1)w;B(4,2)e}
   \Hasen{\A\B}
@@ -893,13 +893,13 @@ b: $BN>8~$-(B
 \end{zahyou*}
 \end{showEx}
 
-\paragraph{\texttt{<agezokovi=..,agezokovii=..>}$B%*%W%7%g%s(B}
-\cmd{HenKo}$B$NC<E@$r%*%W%7%g%s$N1&JUCM$@$1$:$i$9%*%W%7%g%s$G$9!#(B
-$B1&JUCM$O%Y%/%H%k$G!$@.J,$OL5L>?t(B---$BC10L$O(B\cmd{unitlength}$B$G$9!#(B
-$BC10L$r$D$1$??tCM$G;XDj$7$?$$$H$-$O(B\verb+<Agezokovi=..,\Agezokovii=..>+$B%*%W%7%g%s$rMQ$$$^$9!#(B
-$BKvHx(B\verb+`i'+$B$,;OE@$K!$(B\verb+`ii'+$B$,=*E@$KBP$9$kJd@5%Y%/%H%k$G$9!#(B
+\paragraph{\texttt{<agezokovi=..,agezokovii=..>}オプション}
+\cmd{HenKo}の端点をオプションの右辺値だけずらすオプションです。
+右辺値はベクトルで，成分は無名数---単位は\cmd{unitlength}です。
+単位をつけた数値で指定したいときは\verb+<Agezokovi=..,\Agezokovii=..>+オプションを用います。
+末尾\verb+`i'+が始点に，\verb+`ii'+が終点に対する補正ベクトルです。
 
-\begin{showEx}(.7,.24){\texttt{<agezokovi=>}$B%*%W%7%g%s(B}
+\begin{showEx}(.7,.24){\texttt{<agezokovi=>}オプション}
 \begin{zahyou*}[ul=6mm](0,5)(0,2)
   \tenretu{A(0,1)nw;B(4,1)ne}
   \Hasen{\A\B}
@@ -911,30 +911,30 @@ b: $BN>8~$-(B
 \end{showEx}
 
 
-\subsubsection{$BJU$K(B\texorpdfstring{\cmd{brace}}{brace}}
-\cmd{underbrace}, \cmd{overbrace}$B$r(B
-$B79$$$?@~J,$KBP$7$F;HMQ$9$k%3%^%s%I$,(B
+\subsubsection{辺に\texorpdfstring{\cmd{brace}}{brace}}
+\cmd{underbrace}, \cmd{overbrace}を
+傾いた線分に対して使用するコマンドが
 \begin{jquote}
   \cmd{rotUbrace}, \cmd{rotObrace}
 \end{jquote}
-$B$G$9!#(B
+です。
 
-$B$^$:$O!$(B\cmd{rotUbrace}$B$N=q<0$+$i(B
+まずは，\cmd{rotUbrace}の書式から
 \begin{boxnote}
 \begin{verbatim}
 \rotUbrace[#1]#2#3#4
-     $BE@(B#2$B$+$iE@(B#3$B$X8~$+$&M-8~@~J,$N!$(B
-       $B?J9TJ}8~1&B&$K(B \underbrace $B$r$D$1!$(B
-       $BCf1{2<It$KJ8;zNs(B#4$B$rG[CV$9$k!#(B
-       $B!J(B#4 $B$O?t<0%b!<%IFb$H2r<a$5$l$k!#(B--- \scriptstyle $B!K(B
-     \underbrace $B5-9f$HM-8~@~J,$N4V3V$r6u$1$?$$$H$-$O(B#1$B$K(B
+     点#2から点#3へ向かう有向線分の，
+       進行方向右側に \underbrace をつけ，
+       中央下部に文字列#4を配置する。
+       （#4 は数式モード内と解釈される。--- \scriptstyle ）
+     \underbrace 記号と有向線分の間隔を空けたいときは#1に
         depth=3pt
-     $B$J$I$H!$4V3V$rC10LIU$-?tCM$G;XDj$9$k!#(B
+     などと，間隔を単位付き数値で指定する。
 \end{verbatim}
 \end{boxnote}
 \cindex{rotUbrace}
 
-$B$G$O!$4JC1$J;HMQNc$G$9!#(B
+では，簡単な使用例です。
 \begin{showEx}(.55,.39){\cmd{rotUbrace}}
 \footnotesize
 \begin{zahyou}[ul=4mm](-1,11)(-1,6)%
@@ -943,22 +943,22 @@ b: $BN>8~$-(B
 \kuromaru[2pt]{\A;(2,4);(4,3);
   (6,2);(8,1);\B}%
 \Tyokusen\A\B{}{}%
-\rotUbrace\A\B{\textstyle 6$B8D(B}%
+\rotUbrace\A\B{\textstyle 6個}%
 \end{zahyou}
 \end{showEx}
-$B$9$J$o$AE@(BA(0, 5)$B$+$iE@(BB(10, 0)$B$X8~$+$&@~J,$N2<$K(B
-\cmd{underbrace}$B$r$D$1!$$=$NCf1{It$K3J;RE@$N8D?t$r<($7$F$$$^$9!#(B
-$B$3$NJ8;zNs$O%G%U%)%k%H$G$O(B\cmd{scriptstyle}$B$G>.$5$9$.$^$9$N$G!$(B
-\cmd{textstyle}$B$rIU2C$7$F$$$^$9!#(B
+すなわち点A(0, 5)から点B(10, 0)へ向かう線分の下に
+\cmd{underbrace}をつけ，その中央部に格子点の個数を示しています。
+この文字列はデフォルトでは\cmd{scriptstyle}で小さすぎますので，
+\cmd{textstyle}を付加しています。
 
-\cmd{underbrace}$B$r@~J,$+$i>/$7N%$7$?$$!$$H$$$&>lLL$b$"$k$G$7$g$&!#(B
-$B$=$N$?$a$N%*%W%7%g%s$,(B
+\cmd{underbrace}を線分から少し離したい，という場面もあるでしょう。
+そのためのオプションが
 \begin{jquote}
   \verb+[depth=...]+
 \end{jquote}
-$B$G$9!#1&JUCM$OC10L$rH<$C$??tCM$G$9!#(B
+です。右辺値は単位を伴った数値です。
 
-\begin{showEx}(.55,.39){\texttt{[depth=...}$B%*%W%7%g%s(B}
+\begin{showEx}(.55,.39){\texttt{[depth=...}オプション}
 \footnotesize
 \begin{zahyou}[ul=4mm](-1,11)(-1,6)%
 \tenretu*{A(0,5);B(10,0)}%
@@ -967,14 +967,14 @@ b: $BN>8~$-(B
 (6,2);(8,1);\B}%
 \Tyokusen\A\B{}{}%
 \rotUbrace[depth=3pt]\A\B%
-  {\textstyle 6$B8D(B}%
+  {\textstyle 6個}%
 \end{zahyou}
 \end{showEx}
 
-$B4p=`$H$J$k@~J,$OM-8~@~J,$H$7$F07$o$l$^$9!#(B
-$B>e$NNc$G!$8~$-$rF~$lJQ$($k$H(B
+基準となる線分は有向線分として扱われます。
+上の例で，向きを入れ変えると
 
-\begin{showEx}(.55,.39){$BM-8~@~J,$N8~$-$r5U(B}
+\begin{showEx}(.55,.39){有向線分の向きを逆}
 \footnotesize
 \begin{zahyou}[ul=4mm](-1,11)(-1,6)%
 \tenretu*{A(0,5);B(10,0)}%
@@ -982,15 +982,15 @@ b: $BN>8~$-(B
 \kuromaru[2pt]{\A;(2,4);(4,3);
 (6,2);(8,1);\B}%
 \Tyokusen\A\B{}{}%
-\rotUbrace\B\A{\textstyle 6$B8D(B}%
+\rotUbrace\B\A{\textstyle 6個}%
 \end{zahyou}
 \end{showEx}
 
-\cmd{brace}$B5-9f$,@~J,(BAB$B$K4X$7$FBP>N$J0LCV$KIU$-$^$9!#(B
-$BJ8;z$N8~$-$,$*$+$7$$$G$9$+!#(B
-$B$3$l$O(B\cmd{underbrace}$B$r2sE>$5$;$F$$$k$+$i$G!$(B
-$BJ8;z$N8~$-$r5U$K$9$k$K$O!$(B\cmd{overbrace}$B$rMQ$$$l$P$h$$$G$7$g$&!#(B
-$B$H$$$&$3$H$G!$$D$.$O(B\cmd{rotObrace}$B$NOC$7$K0\$j$^$9!#(B
+\cmd{brace}記号が線分ABに関して対称な位置に付きます。
+文字の向きがおかしいですか。
+これは\cmd{underbrace}を回転させているからで，
+文字の向きを逆にするには，\cmd{overbrace}を用いればよいでしょう。
+ということで，つぎは\cmd{rotObrace}の話しに移ります。
 
 \begin{showEx}(.55,.39){\cmd{rotObrace}}
 \footnotesize
@@ -1000,14 +1000,14 @@ b: $BN>8~$-(B
 \kuromaru[2pt]{\A;(2,4);(4,3);
 (6,2);(8,1);\B}%
 \Tyokusen\A\B{}{}%
-\rotObrace\A\B{\textstyle 6$B8D(B}%
+\rotObrace\A\B{\textstyle 6個}%
 \end{zahyou}
 \end{showEx}
 
-$B@~J,$H(B\cmd{overbrace}$B5-9f$rN%$9$?$a$N%*%W%7%g%s$O(B
-\verb![height=...]!$B$G$9!#(B
+線分と\cmd{overbrace}記号を離すためのオプションは
+\verb![height=...]!です。
 
-\begin{showEx}(.55,.39){\texttt{[height=...]$B%*%W%7%g%s(B}}
+\begin{showEx}(.55,.39){\texttt{[height=...]オプション}}
 \footnotesize
 \begin{zahyou}[ul=4mm](-1,11)(-1,6)%
 \tenretu*{A(0,5);B(10,0)}%
@@ -1015,63 +1015,63 @@ b: $BN>8~$-(B
 \kuromaru[2pt]{\A;(2,4);(4,3);
 (6,2);(8,1);\B}%
 \Tyokusen\A\B{}{}%
-\rotObrace[height=3pt]\A\B{\textstyle 6$B8D(B}%
+\rotObrace[height=3pt]\A\B{\textstyle 6個}%
 \end{zahyou}
 \end{showEx}
 
-\cmd{rotObrace}$B$N=q<0$G$9!#(B
+\cmd{rotObrace}の書式です。
 \begin{boxnote}
 \begin{verbatim}
 \rotObrace[#1]#2#3#4
-     $BE@(B#2$B$+$iE@(B#3$B$X8~$+$&M-8~@~J,$N!$(B
-       $B?J9TJ}8~:8B&$K(B \overbrace $B$r$D$1!$(B
-       $BCf1{>eIt$KJ8;zNs(B#4$B$rG[CV$9$k!#(B
-       $B!J(B#4 $B$O?t<0%b!<%IFb$H2r<a$5$l$k!#(B--- \scriptstyle $B!K(B
-     \overbrace $B5-9f$HM-8~@~J,$N4V3V$r6u$1$?$$$H$-$O(B#1$B$K(B
+     点#2から点#3へ向かう有向線分の，
+       進行方向左側に \overbrace をつけ，
+       中央上部に文字列#4を配置する。
+       （#4 は数式モード内と解釈される。--- \scriptstyle ）
+     \overbrace 記号と有向線分の間隔を空けたいときは#1に
         height=3pt
-     $B$J$I$H!$4V3V$rC10LIU$-?tCM$G;XDj$9$k!#(B
+     などと，間隔を単位付き数値で指定する。
 \end{verbatim}
 \end{boxnote}
 \cindex{rotObrace}
 
-\subsubsection{$BEyJU5-9f(B}
-2$B$D$N@~J,$ND9$5$,Ey$7$$$H$-$K!$=DK@$r0z$$$?$j$7$FI=8=$9$k$?$a$N(B
-$B%3%^%s%I(B \cmd{Touhenkigou} $B$G$9!#(B\cindex{Touhenkigou}
+\subsubsection{等辺記号}
+2つの線分の長さが等しいときに，縦棒を引いたりして表現するための
+コマンド \cmd{Touhenkigou} です。\cindex{Touhenkigou}
 
 \showexample[\cmd{Touhenkigou}](0.55)(0.4){example/Touhen01}
 
-$B=q<0$G$9!#(B
+書式です。
 \begin{boxnote}
 \begin{verbatim}
 \Touhenkigou[#1]<#2><#3>(#4)#5#6
-     #1 : $B5-9f!J%G%U%)%k%H$O(B | $B!K(B
-     #2 : $B8D?t(B
-     #3 : #2$B$GJ#?t$r;XDj$7$?>l9g$N5-9f4V4V3V!J%G%U%)%k%H(B0.5pt$B!K(B
-     #4 : $B0LCV!J%G%U%)%k%H$O(B0.5$B!$$9$J$o$ACfE@!K(B
-     #5, #6 : $B@~J,$NN>C<(B
+     #1 : 記号（デフォルトは | ）
+     #2 : 個数
+     #3 : #2で複数を指定した場合の記号間間隔（デフォルト0.5pt）
+     #4 : 位置（デフォルトは0.5，すなわち中点）
+     #5, #6 : 線分の両端
 \end{verbatim}
 \end{boxnote}
 
-$BJU>e$KCV$/=DK@$r(B2$BK\!J(B3$BK\!K$K$7$?$$$H$-$O(B \verb+<#2>+ $B%*%W%7%g%s$rMQ$$$^$9!#(B
+辺上に置く縦棒を2本（3本）にしたいときは \verb+<#2>+ オプションを用います。
 
 \showexample[\cmd{Touhenkigou}](0.55)(0.4){example/Touhen02}
 
-$BJ#?t$N@~J,$KEyJU5-9f$r$D$1$k%3%^%s%I$,(B \cmd{touhenkigou} $B$G$9!#(B
-$B@~J,$r(B`;'$B$G6h@Z$C$FJB$Y$^$9!#(B
+複数の線分に等辺記号をつけるコマンドが \cmd{touhenkigou} です。
+線分を`;'で区切って並べます。
 
 \showexample[\cmd{touhenkigou}](0.55)(0.4){example/Touhen03}
 
-$B=q<0$G$9!#(B\cindex{touhenkigou}
+書式です。\cindex{touhenkigou}
 \begin{boxnote}
 \begin{verbatim}
 \touhenkigou[#1]<#2>#3
-        #1 : $BJU>e$KCV$/5-9f!J%G%U%)%k%H$O(B | $B!K(B
-        #2 : $B8D?t(B
-        #3 : $B@~J,Ns!J6h@Z;R$O(B`;'$B!K(B
+        #1 : 辺上に置く記号（デフォルトは | ）
+        #2 : 個数
+        #3 : 線分列（区切子は`;'）
 \end{verbatim}
 \end{boxnote}
 
-\subsubsection{$BJ?9T5-9f(B}
+\subsubsection{平行記号}
 \begin{showEx}(.59,.35){\cmd{heikoukigou}}
 \unitlength5mm\small
 \begin{picture}(6,6)
@@ -1083,236 +1083,236 @@ b: $BN>8~$-(B
 \end{showEx}
 
 \begin{enumerate}[(1)]
-  \item $B$9$J$o$A0lHV4JC1$J;HMQK!$O(B
+  \item すなわち一番簡単な使用法は
 \begin{jquote}
 \begin{verbatim}
 \heikoukigou{\P\Q;\R\S}
 \end{verbatim}
 \end{jquote}
-$B$J$I$H!$?7%3%^%s%I(B\cmd{heikoukigou}$B$N0z?t$K(B
-$BJ?9T5-9f$r$D$1$?$$@~J,$r(B`;'$B$G6h@Z$C$FJB$Y$^$9!%(B
-  \item (1)$B$N>l9g!$5-9f(B`$>$'$B$O(B1$B8D$@$1$D$-$^$9$,!$$3$l$r(B2$B8D$K$7$?$1$l$P(B
+などと，新コマンド\cmd{heikoukigou}の引数に
+平行記号をつけたい線分を`;'で区切って並べます．
+  \item (1)の場合，記号`$>$'は1個だけつきますが，これを2個にしたければ
 \begin{jquote}
 \begin{verbatim}
 \heikoukigou[2]{\P\Q;\R\S}
 \end{verbatim}
 \end{jquote}
-$B$H!$(B\cmd{heikoukigou}$B$K(B\verb+[2]+$B%*%W%7%g%s$r$D$1$^$9!%(B
-  \item $B$5$i$K5-9f$N%5%$%:!$4V3V!$0LCV$J$I$rD4@0$7$?$$$H$-$O(B
-    \verb+[...]+ $B%*%W%7%g%s$K(B
+と，\cmd{heikoukigou}に\verb+[2]+オプションをつけます．
+  \item さらに記号のサイズ，間隔，位置などを調整したいときは
+    \verb+[...]+ オプションに
 \begin{jquote}
 \begin{verbatim}
 key=val,key=val,....
 \end{verbatim}
 \end{jquote}
-$B$N7A$N%*%W%7%g%s$rNs5-$7$^$9!%$I$NMM$J%*%W%7%g%s$,$"$k$+$O!$(B
-$B<!$N=q<0$r$4Mw$/$@$5$$!%(B
+の形のオプションを列記します．どの様なオプションがあるかは，
+次の書式をご覧ください．
 \end{enumerate}
 
 \begin{boxnote}
 \begin{verbatim}
-$BJ?9T5-9f(B
-$B@~J,$NCf1{$K!$5-9f(B `>' $B$rG[CV$9$k!#(B
+平行記号
+線分の中央に，記号 `>' を配置する。
  \heikoukigou[#1]#2
-   #1 : $B5-9f$N8D?t(B
-     $B$^$?$O(B key=val
-        heikoukigoukosuu=$B5-9f$N8D?t!J%G%U%)%k%HCM$O(B1$B!K(B
-        heikoukigouiti  =$B5-9f$N0LCV!J%G%U%)%k%HCM$O(B0.5, 
-                                    $B$9$J$o$A@~J,$NCfE@!K(B
-        heikoukigoukankaku=$B5-9f$rJ#?tG[CV$9$k$H$-$N4V3V(B
-                          $B!J%G%U%)%k%HCM$O(B1mm$B!K(B
-        heikoukigousize =$B5-9f$NBg$-$5!J%G%U%)%k%HCM$O(B2$B!K(B
-   #2 : $B@~J,$NNs$r(B`;'$B6h@Z$j$GNs5-$9$k!%(B
+   #1 : 記号の個数
+     または key=val
+        heikoukigoukosuu=記号の個数（デフォルト値は1）
+        heikoukigouiti  =記号の位置（デフォルト値は0.5, 
+                                    すなわち線分の中点）
+        heikoukigoukankaku=記号を複数配置するときの間隔
+                          （デフォルト値は1mm）
+        heikoukigousize =記号の大きさ（デフォルト値は2）
+   #2 : 線分の列を`;'区切りで列記する．
 \end{verbatim}
 \end{boxnote}
 
-\subsection{$B3Q$NFbIt$K5-9f(B}
+\subsection{角の内部に記号}
 \subsubsection{\texorpdfstring{\cmd{Kakukigou}}{Kakukigou}}
-$B3Q$NFbIt$K1_8L$J$I$rIA$-!$3Q$NBg$-$5$J$I$rI=<($5$;$k%3%^%s%I(B\\
-\cmd{Kakukigou} $B$G$9!#(B\cindex{Kakukigou}
+角の内部に円弧などを描き，角の大きさなどを表示させるコマンド\\
+\cmd{Kakukigou} です。\cindex{Kakukigou}
 
 \showexample[\cmd{Kakukigou}](0.6)(0.35){example/KAKUki01}
 
-\cmd{Kakukigou} $B$N4pK\E*$J;HMQK!$O(B
+\cmd{Kakukigou} の基本的な使用法は
 \begin{jquote}
-$B3Q$r9=@.$9$k(B3$BE@!J??$sCf$,3Q$ND:E@!K$H3QFb$KCV$/5-9f!JJ8;zNs!K(B
+角を構成する3点（真ん中が角の頂点）と角内に置く記号（文字列）
 \end{jquote}
-$B$N(B4$B$D$N0z?t$rM?$($^$9!#=q<0$O(B
+の4つの引数を与えます。書式は
 
 \begin{boxnote}
 \begin{verbatim}
-$B3Q$NFbIt$K1_8L$rIA$-!$$=$NK5$K5-9f$J$I$rCV$/!#(B
+角の内部に円弧を描き，その傍に記号などを置く。
   \Kakukigou[#1]<#2>#3#4#5<#6><#7>
-    #1 : $B1_8L$N>e$KCV$/5-9f(B
-     #1=a $B$N$H$-$O3Q5-9f$KLp0u$r$D$1$k!#(B
-     #1=r $B$N$H$-$O3Q5-9f$K5U8~$-$NLp0u$r$D$1$k!#(B
-     #1=b $B$N$H$-$O3Q5-9f$KN>8~$-$NLp0u$r$D$1$k!#(B
-     #1=| $B$N$H$-$O!$1_8LCf1{$K1_8L$H?bD>$JC;$$@~J,(B
-    #2 : $B1_8L$N8D?t(B
-    #3#4#5 : $B3Q(BBAC 
-       #4 $B$,3Q$ND:E@(B
-       $BH>D>@~(B #4#3 $B$r(B $B2sE>$7$F(B #4#5 $B$K=E$M$k2sE>$rI=<($9$k!#(B
-    #6 : $B1_8L$HD:E@$N5wN%78?t!J%G%U%)%k%HCM(B 1 $B!K(B
-       hankei=$B!JL5L>?t!K(B $BH>7B$N;XDj(B
-       Hankie=$B!JC10LIU!K(B     $B!7(B
-       siteiten=         $B1_8L$,;XDjE@$rDL2a(B
-       hasen=[$BGK@~$ND9$5(B][$BGK@~$N4V3V(B] $B1_8L$rGK@~$G(B
-    #7 : $B1_8L$NCf?4$H3Q$ND:E@0LCV!J%G%U%)%k%HCM(B 0 $B!K(B
-    $B0J2<!$(B\emathPut $B$KB3$/!#(B
-  \Kakukigou* : $B1_8L$NFbIt$rEI$j$D$V$7$^$9!#(B
+    #1 : 円弧の上に置く記号
+     #1=a のときは角記号に矢印をつける。
+     #1=r のときは角記号に逆向きの矢印をつける。
+     #1=b のときは角記号に両向きの矢印をつける。
+     #1=| のときは，円弧中央に円弧と垂直な短い線分
+    #2 : 円弧の個数
+    #3#4#5 : 角BAC 
+       #4 が角の頂点
+       半直線 #4#3 を 回転して #4#5 に重ねる回転を表示する。
+    #6 : 円弧と頂点の距離係数（デフォルト値 1 ）
+       hankei=（無名数） 半径の指定
+       Hankie=（単位付）     〃
+       siteiten=         円弧が指定点を通過
+       hasen=[破線の長さ][破線の間隔] 円弧を破線で
+    #7 : 円弧の中心と角の頂点位置（デフォルト値 0 ）
+    以下，\emathPut に続く。
+  \Kakukigou* : 円弧の内部を塗りつぶします。
 \end{verbatim}
 \end{boxnote}
 
-\verb+#3+ $B$H(B \verb+#5+ $B$rF~$lBX$($k$H!$(B
+\verb+#3+ と \verb+#5+ を入れ替えると，
 
-\showexample[$B3Q$N8~$-(B](0.6)(0.35){example/KAKUki09}
+\showexample[角の向き](0.6)(0.35){example/KAKUki09}
 
-$B$9$J$o$A!$H>D>@~(B \verb+#4#3+ $B$r@5$N8~$-$K2sE>$7$F(B \verb+#4#5+ $B$K(B
-$B=E$M$k2sE>$rI=<($7$^$9!#(B
+すなわち，半直線 \verb+#4#3+ を正の向きに回転して \verb+#4#5+ に
+重ねる回転を表示します。
 
-$B1_8L$N0LCV$rD4@0$9$k$K$O(B \verb+<#6>+ $B%*%W%7%g%s$rMQ$$$^$9!#(B
-$B%G%U%)%k%H$r(B1$B$H$7$F!$(B1$B$h$jBg$-$/$9$l$PD:E@$+$iN%$l!$(B
-1$B$h$j>.$5$/$9$k$HD:E@$K6a$E$-$^$9!#(B
+円弧の位置を調整するには \verb+<#6>+ オプションを用います。
+デフォルトを1として，1より大きくすれば頂点から離れ，
+1より小さくすると頂点に近づきます。
 
-\showexample[$B1_8L$N0LCV(B](0.64)(0.3){example/KAKUki06}
+\showexample[円弧の位置](0.64)(0.3){example/KAKUki06}
 
-$B1_8L$NH>7B$rD>@\;XDj$9$k$3$H$b2DG=$G$9!#(B
+円弧の半径を直接指定することも可能です。
 
-\showexample[$B1_8L$NH>7B;XDj(B](0.64)(0.3){example/KAKUki13}
+\showexample[円弧の半径指定](0.64)(0.3){example/KAKUki13}
 
-\verb/hankei=/$B$N1&JUCM$NC10L$O(B\verb/\unitlength/$B$G$9!#(B
-$B$3$l$r(B\verb/\unitlength/$B$K0MB8$7$J$$CM$G;XDj$9$k$K$O!$(B
-\verb/Hankei=/$B$H$7$^$9!#(B
+\verb/hankei=/の右辺値の単位は\verb/\unitlength/です。
+これを\verb/\unitlength/に依存しない値で指定するには，
+\verb/Hankei=/とします。
 
-\showexample[$B1_8L$NH>7B;XDj!JC10LIU!K(B](0.64)(0.3){example/KAKUki14}
+\showexample[円弧の半径指定（単位付）](0.64)(0.3){example/KAKUki14}
 
-$B1_8L$,DL2a$9$Y$-0lE@$r;XDj$9$kJ}K!$b$"$j$^$9!#(B
+円弧が通過すべき一点を指定する方法もあります。
 
-\showexample[$B1_8L$NDL2aE@;XDj(B](0.64)(0.3){example/KAKUki15}
+\showexample[円弧の通過点指定](0.64)(0.3){example/KAKUki15}
 
-$B1_8L$N6J$,$j6q9g$O!$(B\verb+<#7>+ $B%*%W%7%g%s$GD4@0$7$^$9!#(B
-$B%G%U%)%k%H$O(B 0 $B$G$9$,!$(B1$B$K6a$E$1$k$HH>7B$,>.$5$/$J$C$F$$$-$^$9!#(B
+円弧の曲がり具合は，\verb+<#7>+ オプションで調整します。
+デフォルトは 0 ですが，1に近づけると半径が小さくなっていきます。
 
 \showexample[\cmd{Kakukigou}](0.64)(0.3){example/KAKUki07}
 
-$B1_8L$NCf1{It$K1_8L$K?bD>$J=D@~$r(B1$BK\F~$l$kI=<(K!$b$"$j$^$9!#(B
-\texttt{[|]} $B%*%W%7%g%s$G$9!#(B
+円弧の中央部に円弧に垂直な縦線を1本入れる表示法もあります。
+\texttt{[|]} オプションです。
 
-\showexample[$B1_8L$NCf?4$K=DK@(B](0.64)(0.3){example/KAKUki11}
+\showexample[円弧の中心に縦棒](0.64)(0.3){example/KAKUki11}
 
-$B1_8L$KLp0u$r$D$1$k$K$O(B \cmd{Kakukigou} $B$K(B \verb+[a]+ $B%*%W%7%g%s$r$D$1$^$9!#(B
+円弧に矢印をつけるには \cmd{Kakukigou} に \verb+[a]+ オプションをつけます。
 
-\showexample[$B1_8L$KLp0u(B](0.64)(0.3){example/KAKUki08}
+\showexample[円弧に矢印](0.64)(0.3){example/KAKUki08}
 
-\verb+[a]+ $B%*%W%7%g%s$G$O!$Lp0u$O@5$N2sE>J}8~$K$D$-$^$9!#(B
-$B$3$l$r5U8~$-$K$D$1$?$$$H$-$O!$(B\verb+[a]+ $B%*%W%7%g%s$KBe$($F(B
-\verb+[r]+ $B%*%W%7%g%s$r$D$1$^$9!#(B
+\verb+[a]+ オプションでは，矢印は正の回転方向につきます。
+これを逆向きにつけたいときは，\verb+[a]+ オプションに代えて
+\verb+[r]+ オプションをつけます。
 
-\showexample[$B5U8~$-$KLp0u(B](0.64)(0.3){example/KAKUki10}
+\showexample[逆向きに矢印](0.64)(0.3){example/KAKUki10}
 
-\verb+[b]+ $B%*%W%7%g%s$r$D$1$k$H!$N>8~$-$KLp0u$,$D$-$^$9!#(B
+\verb+[b]+ オプションをつけると，両向きに矢印がつきます。
 
-\showexample[$BN>8~$-$KLp0u(B](0.64)(0.3){example/KAKUki21}
+\showexample[両向きに矢印](0.64)(0.3){example/KAKUki21}
 
-$B1_8L$NFbIt$rEI$j$D$V$9$K$O!$(B\verb+\Kakukigou*+$B%3%^%s%I$rMQ$$$^$9!#(B
+円弧の内部を塗りつぶすには，\verb+\Kakukigou*+コマンドを用います。
 
-\showexample[$B1_8L$NFbIt$rEI$j$D$V$9(B](0.64)(0.3){example/KAKUki23}
+\showexample[円弧の内部を塗りつぶす](0.64)(0.3){example/KAKUki23}
 
-$BEI$j$D$V$7$NG;EY$r;XDj$9$k$K$O(B\verb+[...]+$B%*%W%7%g%s$rMQ$$$^$9!#(B
-0$B!JGr!K$H(B1$B!J??9u!K$N4V$N?t$r;XDj$7$^$9!#(B
+塗りつぶしの濃度を指定するには\verb+[...]+オプションを用います。
+0（白）と1（真黒）の間の数を指定します。
 
-\showexample[$B1_8L$NFbIt$r9u$GEI$j$D$V$9(B](0.64)(0.3){example/KAKUki24}
+\showexample[円弧の内部を黒で塗りつぶす](0.64)(0.3){example/KAKUki24}
 
-$BJ#?t$N3Q$r6hJL$9$k$?$a!$(B
-$B3QFb$N1_8L$r(B2$B=E!$(B3$B=E$K$9$k$3$H$,$G$-$^$9!#(B\texttt{<..>}$B%*%W%7%g%s$G$9!#(B
+複数の角を区別するため，
+角内の円弧を2重，3重にすることができます。\texttt{<..>}オプションです。
 
-\showexample[$B1_8L$rFs=E$K(B](0.9)(0.5){example/KAKUki02}
+\showexample[円弧を二重に](0.9)(0.5){example/KAKUki02}
 
-$B5U$K(B \texttt{<..>} $B%*%W%7%g%s$K(B \texttt{<0>} $B$H;XDj$9$l$P!$(B
-$B3QFb$K1_8L$OIA$+$:!$5-9fN`$@$1$rCV$/$3$H$b$G$-$^$9!#(B
+逆に \texttt{<..>} オプションに \texttt{<0>} と指定すれば，
+角内に円弧は描かず，記号類だけを置くこともできます。
 
-\showexample[$B1_8L$J$7(B](0.9)(0.5){example/KAKUki03}
+\showexample[円弧なし](0.9)(0.5){example/KAKUki03}
 
-$B1_8L$rGK@~$GIA2h$9$k$3$H$b2DG=$G$9!#(B
+円弧を破線で描画することも可能です。
 
-\showexample[$BGK@~$N1_8L(B](0.9)(0.5){example/KAKUki18}
+\showexample[破線の円弧](0.9)(0.5){example/KAKUki18}
 
-$B$5$i$KLp0u$rIU$1$k$3$H$b2DG=$G$9!#(B
+さらに矢印を付けることも可能です。
 
-\showexample[$BGK@~$N1_8L$KLp0u(B](0.9)(0.5){example/KAKUki22}
+\showexample[破線の円弧に矢印](0.9)(0.5){example/KAKUki22}
 
-$B:G8e$K!$3QFb$KCV$/J8;zNs$N0LCVD4@0$G$9!#(B
-$B$3$l$O!$(B\cmd{Put}$B$NJ8;zNs0LCVD4@0%*%W%7%g%s$HF1$8$G$9!#(B
+最後に，角内に置く文字列の位置調整です。
+これは，\cmd{Put}の文字列位置調整オプションと同じです。
 
 \showexample[\cmd{Kakukigou}](0.64)(0.3){example/KAKUki16}
 
 \noindent
-$B$H4J0W;XDj%*%W%7%g%s(B\verb/[e]/$B$b;H$($^$9$,!$(B
-$B3QFb$O69$$$G$9$+$i(B
+と簡易指定オプション\verb/[e]/も使えますが，
+角内は狭いですから
 
 \showexample[\cmd{Kakukigou}](0.64)(0.3){example/KAKUki17}
 
 \noindent
-$B$J$I$H:Y$+$/;XDj$7$?J}$,NI$$$G$7$g$&!#(B
-$B<XB-$J$,$iJ8;zNs$rG[CV$9$k4p=`E@$O!$1_8L$NCfE@$G$9!#(B
+などと細かく指定した方が良いでしょう。
+蛇足ながら文字列を配置する基準点は，円弧の中点です。
 
-$BEy$7$$3Q$KF1$85-9f$r$D$1$k$?$a$N%3%^%s%I$,(B \cmd{toukakukigou} $B$G$9!#(B
-$B3Q$r(B `;' $B$G6h@Z$C$FJB$Y$k$H$$$&$N$O!$(B\cmd{touhenkigou} $B$HF1MM$G$9!#(B
+等しい角に同じ記号をつけるためのコマンドが \cmd{toukakukigou} です。
+角を `;' で区切って並べるというのは，\cmd{touhenkigou} と同様です。
 
 \showexample[\cmd{toukakukigou}](0.55)(0.39){example/KAKUki19}
 
-\cmd{toukakukigou*}$B$H(B`$*$'$B$r$D$1$k$H3QFb$rEI$j$D$V$7$^$9!#(B
+\cmd{toukakukigou*}と`$*$'をつけると角内を塗りつぶします。
 
 \showexample[\cmd{toukakukigou*}](0.55)(0.39){example/KAKUki20}
 
-$B=q<0$G$9!#(B\cindex{toukakukigou}\cindex{toukakukigou*}
+書式です。\cindex{toukakukigou}\cindex{toukakukigou*}
 
 \begin{boxnote}
 \begin{verbatim}
-$BJ#?t$N3Q$K3Q5-9f$r$D$1$k!#(B
+複数の角に角記号をつける。
   \toukakukigou[#1]<#2>#3
   \toukakukigou*[#1]<#2>#3
-    #1 : $B1_8L$N>e$KCV$/5-9f(B
-     #1=| $B$N$H$-$O!$1_8LCf1{$K1_8L$H?bD>$JC;$$@~J,(B
-     *$BIU$N$H$-$O!$EI$j$D$V$7$NG;EY(B(0$B!A(B1)
-    #2 : $B1_8L$N8D?t(B
-    #3 : $B3Q$NNs(B $B6h@Z$j;R$O(B`;'
+    #1 : 円弧の上に置く記号
+     #1=| のときは，円弧中央に円弧と垂直な短い線分
+     *付のときは，塗りつぶしの濃度(0〜1)
+    #2 : 円弧の個数
+    #3 : 角の列 区切り子は`;'
 \end{verbatim}
 \end{boxnote}
 
-\subsubsection{$BD>3Q5-9f(B}
-$BFC$KD>3Q$rI=$95-9f$G$9!#(B
+\subsubsection{直角記号}
+特に直角を表す記号です。
 
-\showexample[\texttt{<..>}$B%*%W%7%g%s(B](0.55)(0.4){example/KAKUki04}
+\showexample[\texttt{<..>}オプション](0.55)(0.4){example/KAKUki04}
 
-$B=q<0$O(B\cindex{Tyokkakukigou}
+書式は\cindex{Tyokkakukigou}
 
 \begin{boxnote}
 \begin{verbatim}
 \Tyokkakukigou[#1](#2)#3#4#5
-        #1      : $BD>3Q5-9fFb$rEI$j$D$V$9$H$-$NG;$5(B
-        #2      : $BD>3Q5-9f$N%5%$%:(B
-        #3#4#5  : $BD>3Q(B(#4$B$,D:E@(B)
+        #1      : 直角記号内を塗りつぶすときの濃さ
+        #2      : 直角記号のサイズ
+        #3#4#5  : 直角(#4が頂点)
 \end{verbatim}
 \end{boxnote}
 
-$BD>3Q5-9f$N%5%$%:$O(B \verb+(#2)+ $B$G;XDj$G$-$^$9!#(B
-$B%G%U%)%k%H$O(B \texttt{5(pt)} $B$G$9!#(B\texttt{10pt} $B$K$7$?$$$H$-$O!$(B
-\texttt{(10)} $B$H;XDj$7$^$9!#(B
+直角記号のサイズは \verb+(#2)+ で指定できます。
+デフォルトは \texttt{5(pt)} です。\texttt{10pt} にしたいときは，
+\texttt{(10)} と指定します。
 
-\showexample[\texttt{<..>}$B%*%W%7%g%s(B](0.55)(0.4){example/KAKUki05}
+\showexample[\texttt{<..>}オプション](0.55)(0.4){example/KAKUki05}
 
-$B6u4V?^7A$J$IJ#;($J?^7A$G!$D>3Q5-9f$rEI$j$D$V$7$?$$$H$-$O!$(B
-\verb/[#1]/ $B%*%W%7%g%s$KEI$j$D$V$7$NG;EY(B(0$B!A(B1)$B$r;XDj$7$^$9!#(B
+空間図形など複雑な図形で，直角記号を塗りつぶしたいときは，
+\verb/[#1]/ オプションに塗りつぶしの濃度(0〜1)を指定します。
 
-\showexample[\texttt{<..>}$B%*%W%7%g%s(B](0.95)(0.6){example/KAKUki12}
+\showexample[\texttt{<..>}オプション](0.95)(0.6){example/KAKUki12}
 
-$BJ#?t$N3Q$KD>3Q5-9f$r$D$1$k%3%^%s%I(B\cmd{tyokkakukigou}$B$b$"$j$^$9!#(B
+複数の角に直角記号をつけるコマンド\cmd{tyokkakukigou}もあります。
 \cindex{tyokkakukigou}
 
-\subsubsection{$B0lHL3Q(B}
-360\Deg $B$r1[$($k3Q$K3Q5-9f$r$D$1$k%3%^%s%I(B \cmd{ippankaku} $B$N(B
-$B4pK\E*$J;HMQK!$O!$0z?t$K3QEY$rM?$($k$@$1$G$9!#(B
+\subsubsection{一般角}
+360\Deg を越える角に角記号をつけるコマンド \cmd{ippankaku} の
+基本的な使用法は，引数に角度を与えるだけです。
 
 \begin{showEx}{\cmd{ippankaku}}
 \unitlength8mm\small
@@ -1324,9 +1324,9 @@ key=val,key=val,....
 \bigskip
 
 \paragraph{\cmd{rasenP}}
-$B$3$N5-9f$NE,Ev$J$H$3$m$KJ8;zNs$rG[CV$9$k$?$a$K!$(B
-$B3QEY$r;XDj$7$FMf@{>e$NE@$r5a$a$k%3%^%s%I(B \cmd{rasenP} $B$r(B
-$BMQ0U$7$^$7$?!#(B\cmd{emathPut}$B$HJ;MQ$7$FJ8;zNs$rG[CV$7$^$9!#(B
+この記号の適当なところに文字列を配置するために，
+角度を指定して螺旋上の点を求めるコマンド \cmd{rasenP} を
+用意しました。\cmd{emathPut}と併用して文字列を配置します。
 
 \begin{showEx}{\cmd{rasenP}}
 \unitlength8mm\small
@@ -1339,20 +1339,20 @@ key=val,key=val,....
 \end{showEx}
 %\clearpage
 
-\paragraph{$BMf@{$N7A>uJQ99(B}
-$BMf@{(B $r=a\theta+b$ $B$N78?t(B $a$, $b$ $B$N%G%U%)%k%HCM$O(B
-$a=0.02$, $b=0.2$ $B$H$7$F$"$j$^$9!#$3$l$rJQ99$9$k$?$a$N%*%W%7%g%s$,(B
+\paragraph{螺旋の形状変更}
+螺旋 $r=a\theta+b$ の係数 $a$, $b$ のデフォルト値は
+$a=0.02$, $b=0.2$ としてあります。これを変更するためのオプションが
 \begin{jquote}
 \begin{verbatim}
   \ippankaku<#1><#2>
-  #1 : a $B$r(B #1 $BG\$9$k!#(B
-  #2 : b $B$r(B #2 $BG\$9$k!#(B
+  #1 : a を #1 倍する。
+  #2 : b を #2 倍する。
 \end{verbatim}
 \end{jquote}
 
-$B$=$N8z2L$O(B
+その効果は
 
-\begin{showEx}{\texttt{<...>}$B%*%W%7%g%s(B}
+\begin{showEx}{\texttt{<...>}オプション}
 \unitlength8mm\small
 \begin{zahyou}(-3,3)(-3,3)%
 \ippankaku<1.5><2.5>{1230}%
@@ -1360,10 +1360,10 @@ $a=0.02$, $b=0.2$ $B$H$7$F$"$j$^$9!#$3$l$rJQ99$9$k$?$a$N%*%W%7%g%s$,(B
 \end{zahyou}
 \end{showEx}
 
-\paragraph{$B;O@~JQ99%*%W%7%g%s(B}
-$B;O@~$N0LCV$rJQ99$9$k$K$O(B \texttt{[...]} $B%*%W%7%g%s$rMQ$$$^$9!#(B
+\paragraph{始線変更オプション}
+始線の位置を変更するには \texttt{[...]} オプションを用います。
 
-\begin{showEx}{\texttt{[...]}$B%*%W%7%g%s(B}
+\begin{showEx}{\texttt{[...]}オプション}
 \unitlength8mm\small
 \begin{zahyou}(-3,3)(-3,3)%
 \ippankaku[60]{1230}%
@@ -1374,10 +1374,10 @@ $a=0.02$, $b=0.2$ $B$H$7$F$"$j$^$9!#$3$l$rJQ99$9$k$?$a$N%*%W%7%g%s$,(B
 \end{showEx}
 \bigskip
 
-\paragraph{$B3Q$,Ii$N>l9g$N=hM}(B}
-$B3Q$,Ii$N>l9g$O!$FbIt=hM}$G(B $r=a\theta+b$ $B$N(B $a$ $B$NId9f$r5UE>$5$;$F$$$^$9!#(B
+\paragraph{角が負の場合の処理}
+角が負の場合は，内部処理で $r=a\theta+b$ の $a$ の符号を逆転させています。
 
-\begin{showEx}{$BIi$N3Q(B}
+\begin{showEx}{負の角}
 \unitlength8mm\small
 \begin{zahyou}(-3,3)(-3,3)%
 \ippankaku{-1230}%
@@ -1386,11 +1386,11 @@ $a=0.02$, $b=0.2$ $B$H$7$F$"$j$^$9!#$3$l$rJQ99$9$k$?$a$N%*%W%7%g%s$,(B
 \end{showEx}
 \bigskip
 
-\paragraph{$BLp0u$N@)8f(B}
-$BLp0u$N@)8f$O(B \verb/(#4)/ $B%*%W%7%g%s$G9T$$$^$9!#(B
-$B%G%U%)%k%H$O=*C<$KLp0u$r$D$1$^$9!#(B
-$B$3$l$r5U$K;OC<$K$D$1$?$$$H$-$O(B \verb/(s)/ $B%*%W%7%g%s$r$D$1$^$9!#(B
-\begin{showEx}{\texttt{(s)}$B%*%W%7%g%s(B}
+\paragraph{矢印の制御}
+矢印の制御は \verb/(#4)/ オプションで行います。
+デフォルトは終端に矢印をつけます。
+これを逆に始端につけたいときは \verb/(s)/ オプションをつけます。
+\begin{showEx}{\texttt{(s)}オプション}
 \unitlength8mm\small
 \begin{zahyou}(-3,3)(-3,3)%
 \ippankaku(s){1230}%
@@ -1399,8 +1399,8 @@ $a=0.02$, $b=0.2$ $B$H$7$F$"$j$^$9!#$3$l$rJQ99$9$k$?$a$N%*%W%7%g%s$,(B
 \end{showEx}
 \bigskip
 
-$BN>C<$K$D$1$k$K$O(B \verb/(b)/ $B%*%W%7%g%s$rMQ$$$^$9!#(B
-\begin{showEx}{\texttt{(b)}$B%*%W%7%g%s(B}
+両端につけるには \verb/(b)/ オプションを用います。
+\begin{showEx}{\texttt{(b)}オプション}
 \unitlength8mm\small
 \begin{zahyou}(-3,3)(-3,3)%
 \ippankaku(b){1230}%
@@ -1409,8 +1409,8 @@ $a=0.02$, $b=0.2$ $B$H$7$F$"$j$^$9!#$3$l$rJQ99$9$k$?$a$N%*%W%7%g%s$,(B
 \end{showEx}
 \bigskip
 
-$BLp0u$r$D$1$?$/$J$$$H$-$O(B \verb/(n)/ $B%*%W%7%g%s$G$9!#(B
-\begin{showEx}{\texttt{(n)}$B%*%W%7%g%s(B}
+矢印をつけたくないときは \verb/(n)/ オプションです。
+\begin{showEx}{\texttt{(n)}オプション}
 \unitlength8mm\small
 \begin{zahyou}(-3,3)(-3,3)%
 \ippankaku(n){1230}%
@@ -1419,9 +1419,9 @@ $a=0.02$, $b=0.2$ $B$H$7$F$"$j$^$9!#$3$l$rJQ99$9$k$?$a$N%*%W%7%g%s$,(B
 \end{showEx}
 \bigskip
 
-\paragraph{$BN>C<$K(B\cmd{Kuromaru}, \cmd{Siromaru}}
-$BN>C<$K9u4](B,$BGr4]$rG[CV$7$?$$$H$-$O!$(B
-$B$i$;$s>e$N(B1$BE@$r5a$a$k(B \cmd{rasenP} $B%3%^%s%I$rMQ$$$^$9!#(B
+\paragraph{両端に\cmd{Kuromaru}, \cmd{Siromaru}}
+両端に黒丸,白丸を配置したいときは，
+らせん上の1点を求める \cmd{rasenP} コマンドを用います。
 \begin{showEx}(.54,.4){$-690\Deg\leqq \theta<0\Deg$}
 \small
 \begin{zahyou*}[ul=8mm](-3,3)(-3,3)%
@@ -1436,32 +1436,32 @@ $a=0.02$, $b=0.2$ $B$H$7$F$"$j$^$9!#$3$l$rJQ99$9$k$?$a$N%*%W%7%g%s$,(B
 \end{showEx}
 %\clearpage
 
-\paragraph{\cmd{ippankaku} $B$N=q<0(B}
-\cmd{ippankaku} $B$N=q<0$G$9!#(B
+\paragraph{\cmd{ippankaku} の書式}
+\cmd{ippankaku} の書式です。
 
 \begin{boxnote}
 \begin{verbatim}
 \ippankaku<#1><#2>[#3](#4)#5
-        #1 : a $B$NG\N((B
-        #2 : b $B$NG\N((B
-        #3 : $B;O$a3Q!JO;==J,K!!K(B
-        #4 : $BLp0u$NG[CV(B
-          e = $B=*C<!J%G%U%)%k%H!K(B
-          s = $B;OC<(B
-          b = $BN>C<(B
-          n = $B$J$7(B
-        #5 : $B=*$j3Q!JO;==J,K!!K(B
+        #1 : a の倍率
+        #2 : b の倍率
+        #3 : 始め角（六十分法）
+        #4 : 矢印の配置
+          e = 終端（デフォルト）
+          s = 始端
+          b = 両端
+          n = なし
+        #5 : 終り角（六十分法）
 \end{verbatim}
 \end{boxnote}
 
-\subsection{$B?t<0$K(B\textsf{picture}$B4D6-$rJ;CV(B}
-\subsubsection{\textsf{sikipicture}$B4D6-(B}
-$B?t<0$K(B\textsf{picture}$B4D6-$rJ;@_$7(B,$B?t<0$r>~$jN)$F$h$&$H$$$&$N$,(B
-\textsf{sikipicture}$B4D6-$G$9!#$3$l$O!$<B<A(B\textsf{zahyou*}$B4D6-$G$9!#(B
-$B$7$?$,$C$F!$$=$N4D6-Fb$K$O!$(B\textsf{zahyou*}$B4D6-Fb$K5-=R$G$-$k(B
-$B$b$N$O$9$Y$F5-=R2DG=$G$9!#(B
+\subsection{数式に\textsf{picture}環境を併置}
+\subsubsection{\textsf{sikipicture}環境}
+数式に\textsf{picture}環境を併設し,数式を飾り立てようというのが
+\textsf{sikipicture}環境です。これは，実質\textsf{zahyou*}環境です。
+したがって，その環境内には，\textsf{zahyou*}環境内に記述できる
+ものはすべて記述可能です。
 
-\begin{showEx}{\textsf{sikipicture}$B4D6-(B}
+\begin{showEx}{\textsf{sikipicture}環境}
 a\begin{sikipicture}{%
   x^2,
   +,
@@ -1474,29 +1474,29 @@ a\begin{sikipicture}{%
 \end{sikipicture}z
 \end{showEx}
 
-$B:BI8NN0h$r3NG'$9$k$?$a!$;M6y$r7k$V;M3Q7A$H(B
-$B:BI886E@$K@V4]0u$rIA2h$7$F$*$-$^$7$?!#(B
+座標領域を確認するため，四隅を結ぶ四角形と
+座標原点に赤丸印を描画しておきました。
 
-\begin{enumerate}[$BCm(B1.~]
-  \item \verb+\begin{sikipicture}{...}+$B$N0z?tFb$K(B\cmd{bunsuu}$B$J$I$N%3%^%s%I$r(B
-    $BF~$l$k$H$-$O(B\verb+\protect+$B$r$+$V$;$F$*$/I,MW$,$"$j$^$9!#(B
-  \item \TeX $B$,G'CN$9$k%5%$%:$O>e?^$N;M3Q7A$G$9!#(B
-    \cmd{put}$B$rMQ$$$F$3$N;M3Q7A$N30It$KJ8;zNs$rG[CV$9$k$3$H$O2DG=$G$9$,!$(B
-    \TeX $B$O$=$NB8:_$rG'CN$7$^$;$s$+$i!$A08e$NJ8>O$H$+$V$j$^$9!#(B
-    \verb+\vspace{...}+$B$J$I$GD4@0$9$kI,MW$,$"$j$^$9!#(B
-  \item \textsf{sikipicture}$B4D6-$N(B\cmd{unitlength}$B$O!$(B1pt$B!J8GDj!K$G$9!#(B
-  \item \textsf{sikixypos}$B$bF15A8l$H$7$F;H$($^$9!#(B
+\begin{enumerate}[注1.~]
+  \item \verb+\begin{sikipicture}{...}+の引数内に\cmd{bunsuu}などのコマンドを
+    入れるときは\verb+\protect+をかぶせておく必要があります。
+  \item \TeX が認知するサイズは上図の四角形です。
+    \cmd{put}を用いてこの四角形の外部に文字列を配置することは可能ですが，
+    \TeX はその存在を認知しませんから，前後の文章とかぶります。
+    \verb+\vspace{...}+などで調整する必要があります。
+  \item \textsf{sikipicture}環境の\cmd{unitlength}は，1pt（固定）です。
+  \item \textsf{sikixypos}も同義語として使えます。
 \end{enumerate}
 
 \subsubsection{\cmd{sikiBi}, \cmd{sikiTi}}
-\verb+\begin{sikipicture}{...}+$B$N0z?tFb$G!$J,3d5-=R$5$l$?3F9`$NCf1{2<It(B
-$B$NE@$N:BI8$,(B
+\verb+\begin{sikipicture}{...}+の引数内で，分割記述された各項の中央下部
+の点の座標が
 \begin{jquote}
 \begin{verbatim}
 \sikiBi, \sikiBii, \sikiBiii, .....
 \end{verbatim}
 \end{jquote}
-$B$KDj5A$5$l$F$$$^$9!#$=$3$K@V4]$rBG$C$F$_$^$7$g$&!#(B
+に定義されています。そこに赤丸を打ってみましょう。
 
 \begin{showEx}{\cmd{sikiBi},...}
 a\begin{sikipicture}{%
@@ -1512,12 +1512,12 @@ a\begin{sikipicture}{%
 \end{sikipicture}z
 \end{showEx}
 
-$+$$B$N2<$N@V4]$,$:$l$F$$$^$9$M!#(B
-$B$3$l$O!$Fs9`1i;;;R!$4X781i;;;R$K$ON>B&$K%"%-$,F~$k$3$H$K$h$k$:$l$G$9!#(B
-$B@5$7$$0LCV$,M_$7$1$l$P!$(B\verb+\begin{sikipicture}{...}+$B$N0z?tFb$N1i;;;RN>B&$K(B
-\verb+{}+$B$rJd$C$F$d$j$^$9!#(B
+$+$の下の赤丸がずれていますね。
+これは，二項演算子，関係演算子には両側にアキが入ることによるずれです。
+正しい位置が欲しければ，\verb+\begin{sikipicture}{...}+の引数内の演算子両側に
+\verb+{}+を補ってやります。
 
-\begin{showEx}{$BFs9`1i;;;R$KBP$9$kJd@5(B}
+\begin{showEx}{二項演算子に対する補正}
 a\begin{sikipicture}{%
   x^2,
   {}+{},
@@ -1531,14 +1531,14 @@ a\begin{sikipicture}{%
 \end{sikipicture}z
 \end{showEx}
 
-$x^2$$B$N2<$b$:$l$F$k$C$F(B $B!)(B
-$B$3$l$O$:$l$F$$$^$;$s!#(B$x^2$$B$NCf1{2<$G$9!#Dl$N(B$x$$B$NCf1{2<$,M_$7$$$J$i!$(B
-$x$$B$H$=$N$Y$->h$rJ,N%$7$FM?$($^$9!#(B
+$x^2$の下もずれてるって ？
+これはずれていません。$x^2$の中央下です。底の$x$の中央下が欲しいなら，
+$x$とそのべき乗を分離して与えます。
 
-$B$D$$$G$K!$3F9`$NCf1{>e$K$bNP4]$r$D$1$F$_$^$9!#(B
-$B!J(B\verb+\sikiTi, \sikiTii, .....+$B!K(B
+ついでに，各項の中央上にも緑丸をつけてみます。
+（\verb+\sikiTi, \sikiTii, .....+）
 
-\begin{showEx}{$BFs9`1i;;;R$KBP$9$kJd@5(B}
+\begin{showEx}{二項演算子に対する補正}
 a\begin{sikipicture}{%
   x,
   {}^2,
@@ -1559,25 +1559,25 @@ a\begin{sikipicture}{%
 \end{showEx}
 
 \subsubsection{\cmd{sikixposi}, \cmd{sikiyhposi}, \cmd{sikiydposi}}
-$B$J$*!$4]0u$r$D$1$?E@$N(B$x$$B:BI8$O(B
+なお，丸印をつけた点の$x$座標は
 \begin{jquote}
 \begin{verbatim}
 \sikixposi, \sikixposii, .....
 \end{verbatim}
 \end{jquote}
-$B$G$9!#$^$?(B$y$$B:BI8$O!$@V4]$N$[$&$,(B
+です。また$y$座標は，赤丸のほうが
 \begin{jquote}
 \begin{verbatim}
 \sikiydposi, \sikiydposii, .....
 \end{verbatim}
 \end{jquote}
-$BNP4]$N$[$&$,(B
+緑丸のほうが
 \begin{jquote}
 \begin{verbatim}
 \sikiyhposi, \sikiyhposii, .....
 \end{verbatim}
 \end{jquote}
-$B$H$J$C$F$$$^$9!#(B
+となっています。
 
 \begin{showEx}{\cmd{sikixpos..}}
 a\begin{sikipicture}{%
@@ -1601,8 +1601,8 @@ a\begin{sikipicture}{%
 \end{showEx}
 
 \subsubsection{\cmd{sikixlposi}, \cmd{sikixrposi}}
-\cmd{sikixposi}$B$J$I$O3F9`$NCf1{(B$x$$B:BI8$rI=$7$^$9$,!$(B
-$B3F9`!&:81&C<$N(B$x$$B:BI8$O$=$l$>$l(B
+\cmd{sikixposi}などは各項の中央$x$座標を表しますが，
+各項・左右端の$x$座標はそれぞれ
 
 \begin{jquote}
 \begin{verbatim}
@@ -1610,7 +1610,7 @@ a\begin{sikipicture}{%
 \sikixrposi, \sikirposii, .....
 \end{verbatim}
 \end{jquote}
-$B$J$I$G$9!#(B
+などです。
 
 \begin{showEx}{\cmd{sikixlpos..}, \cmd{sikixrpos..}}
 a\begin{sikipicture}{%
@@ -1630,11 +1630,11 @@ a\begin{sikipicture}{%
 \end{sikipicture}z
 \end{showEx}
 
-\subsubsection{$B;HMQNc(B}
-\paragraph{$B<0E83+$N@bL@?^(B}
-$B<0$rE83+$9$k$H$-$NN.$l$r@bL@$9$k?^$G$9(B.
+\subsubsection{使用例}
+\paragraph{式展開の説明図}
+式を展開するときの流れを説明する図です.
 
-\begin{showEx}(1,.9){$B<0E83+$N@bL@?^(B}
+\begin{showEx}(1,.9){式展開の説明図}
 \vskip 24pt
 
 \begin{sikipicture}{(,a,+,b,),\kern1em(,x,+,y,)=,ax,+,ay,+,bx,+,by}
@@ -1652,45 +1652,45 @@ a\begin{sikipicture}{%
 \mbox{}
 \end{showEx}
 
-\paragraph{$BItJ,@QJ,$NN.$l(B}
-$BItJ,@QJ,$NN.$l$r<($9$N$K$b;H$($^$9(B.
+\paragraph{部分積分の流れ}
+部分積分の流れを示すのにも使えます.
 
-\begin{showEx}(1,.9){$BITDj@QJ,$NN.$l(B}
+\begin{showEx}(1,.9){不定積分の流れ}
 \vskip15pt
 
 \begin{sikipicture}{%
   \dint{}{},f'(x),g(x),dx=,f(x),g(x),-,\dint{}{},f(x),g'(x),dx
 }
-  \HenKo<henkoH=15pt,yazirusi=r>\sikiTv\sikiTii{\footnotesize $B@QJ,$9$k(B}
-  \HenKo<henkoH=15pt,yazirusi=r>\sikiTix\sikiTv{\footnotesize $B$=$N$^$^(B}
-  \HenKo<henkoH=15pt,yazirusi=a>\sikiBiii\sikiBvi{\footnotesize $B$=$N$^$^(B}
-  \HenKo<henkoH=15pt,yazirusi=a>\sikiBvi\sikiBx{\footnotesize $BHyJ,$9$k(B}
+  \HenKo<henkoH=15pt,yazirusi=r>\sikiTv\sikiTii{\footnotesize 積分する}
+  \HenKo<henkoH=15pt,yazirusi=r>\sikiTix\sikiTv{\footnotesize そのまま}
+  \HenKo<henkoH=15pt,yazirusi=a>\sikiBiii\sikiBvi{\footnotesize そのまま}
+  \HenKo<henkoH=15pt,yazirusi=a>\sikiBvi\sikiBx{\footnotesize 微分する}
 \end{sikipicture}
 \vskip10pt
 \mbox{}
 \end{showEx}
 
-\cmd{HenKo}$B$K$h$k1_8L$r<0$+$i>/$7N%$7$?$$$H$-$O!$(B\cmd{HenKo}$B$KBP$7(B
-\verb+<agezoko=..>+$B%*%W%7%g%s$r$D$1$^$9!#(B
+\cmd{HenKo}による円弧を式から少し離したいときは，\cmd{HenKo}に対し
+\verb+<agezoko=..>+オプションをつけます。
 
-\begin{showEx}(1,.9){$BITDj@QJ,$NN.$l(B}
+\begin{showEx}(1,.9){不定積分の流れ}
 \vskip18pt
 
 \begin{sikipicture}{%
   \dint{}{},f'(x),g(x),dx=,f(x),g(x),-,\dint{}{},f(x),g'(x),dx
 }
-  \HenKo<henkoH=15pt,yazirusi=r,agezoko=3>\sikiTv\sikiTii{\footnotesize $B@QJ,$9$k(B}
-  \HenKo<henkoH=15pt,yazirusi=r,agezoko=3>\sikiTix\sikiTv{\footnotesize $B$=$N$^$^(B}
-  \HenKo<henkoH=15pt,yazirusi=a,agezoko=3>\sikiBiii\sikiBvi{\footnotesize $B$=$N$^$^(B}
-  \HenKo<henkoH=15pt,yazirusi=a,agezoko=3>\sikiBvi\sikiBx{\footnotesize $BHyJ,$9$k(B}
+  \HenKo<henkoH=15pt,yazirusi=r,agezoko=3>\sikiTv\sikiTii{\footnotesize 積分する}
+  \HenKo<henkoH=15pt,yazirusi=r,agezoko=3>\sikiTix\sikiTv{\footnotesize そのまま}
+  \HenKo<henkoH=15pt,yazirusi=a,agezoko=3>\sikiBiii\sikiBvi{\footnotesize そのまま}
+  \HenKo<henkoH=15pt,yazirusi=a,agezoko=3>\sikiBvi\sikiBx{\footnotesize 微分する}
 \end{sikipicture}
 \vskip10pt
 \mbox{}
 \end{showEx}
 
-\paragraph{$BCLOC<<(B No.107 $B$U$?$?$S(B}
-\texttt{newPh232.tex}$B$G$b<h$j>e$2$?;HMQNc$r:FEY<h$j>e$2$F$_$^$9!#(B\\
-$B%=!<%9%j%9%H$O(B\texttt{re107a.tex}$B$G$9!#(B
+\paragraph{談話室 No.107 ふたたび}
+\texttt{newPh232.tex}でも取り上げた使用例を再度取り上げてみます。\\
+ソースリストは\texttt{re107a.tex}です。
 
 \begin{shadebox}
 \ReadTeXFile{re107a.tex}
@@ -1699,28 +1699,28 @@ a\begin{sikipicture}{%
 \end{shadebox}
 \bigskip
 
-$B1&B&$NItJ,!$A02s$O(B\cmd{phkasen}$B$G%"%s%@!<%i%$%s$r0z$-$^$7$?$,!$(B
-$B:#2s$O(B\cmd{HenKo}$B$G(B
+右側の部分，前回は\cmd{phkasen}でアンダーラインを引きましたが，
+今回は\cmd{HenKo}で
 \begin{jquote}
 \begin{verbatim}
 <henkotype=bracket>
 \end{verbatim}
 \end{jquote}
-$B%*%W%7%g%s$rMQ$$$F$_$^$7$?!#(B
+オプションを用いてみました。
 \pagebreak
 
-\subsubsection{\textsf{bunpicture}$B4D6-(B}
-\textsf{sikipicture}$B4D6-$O!$?t<0$KBP$9$k$b$N$G(B
+\subsubsection{\textsf{bunpicture}環境}
+\textsf{sikipicture}環境は，数式に対するもので
 \begin{jquote}
 \begin{verbatim}
 \begin{sikipicture}{.....}
 \end{verbatim}
 \end{jquote}
-$B$N0z?t(B\verb+{.....}+$B$O?t<0%b!<%I$KF~$k$H2>Dj$5$l$F$$$^$9!#(B
+の引数\verb+{.....}+は数式モードに入ると仮定されています。
 
-$B$3$l$KBP$7$F!$%F%-%9%H%b!<%I$KF~$k$b$N$r(B\textsf{bunpicture}$B4D6-$H>N$9$k$3$H$H$7$^$9!#(B
+これに対して，テキストモードに入るものを\textsf{bunpicture}環境と称することとします。
 
-\begin{showEx}(1,.9){\textsf{bunpicture}$B4D6-(B}
+\begin{showEx}(1,.9){\textsf{bunpicture}環境}
 \begin{bunpicture}{%
     \underline{It}, is natural  ,\underline{that she should think}, so.}
   \HenKo<yazirusi=r,henkotype=bracket,Oval=4pt,Agezoko=2pt>\bunBi\bunBiii{}
@@ -1730,13 +1730,13 @@ a\begin{sikipicture}{%
 \mbox{}
 \end{showEx}
 
-$B$5$i$K<j$,9~$s$G(B
+さらに手が込んで
 
-\begin{showEx}(1,.9){$B1~MQNc(B}
+\begin{showEx}(1,.9){応用例}
 \mbox{}\vskip1\baselineskip
 \begin{bunpicture}{It ,is natural, that ,she should think so,.}
   \HenKo<henkotype=bracket,yazirusi=r,Agezoko=2pt,putoption={(0,1pt)[b]}>%
-    \bunTiii\bunTi{\footnotesize It$B$O(Bthat$B0J2<$rI=$7$^$9(B}
+    \bunTiii\bunTi{\footnotesize Itはthat以下を表します}
   \HenKo<henkotype=bracket,yazirusi=a,Agezoko=2pt>%
     {(\bunxposiii,\ymin)}{(\bunxlposiv,\ymin)}{}
   \Add\ymin{-2}\yy
@@ -1745,7 +1745,7 @@ a\begin{sikipicture}{%
   \HenKo<henkotype=bracket,yazirusi=r,henkoH=10pt,Oval=5pt,%
         putoption={(0,-2pt)[t]},Agezoko=2pt>%
     {(\bunxlposii,\ymin)}{(\bunxrposiv,\ymin)}%
-    {\color{black}\footnotesize that$B0J2<$,(BIt$B$N8e$KB3$-$^$9(B}
+    {\color{black}\footnotesize that以下がItの後に続きます}
   \ArrowLine{(\bunxlposii,\yy)}{(\bunxrposii,\yy)}%
 }%
 \end{bunpicture}

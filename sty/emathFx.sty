@@ -27,8 +27,8 @@
   \IfFileExists{mathabx.sty}{%
     \RequirePackage{emFxabx}%
   }{%
-    \errmessage{mathabx $B%Q%C%1!<%8$,8+Ev$?$j$^$;$s!#(B%
-      emathFx $B$KBP$9$k(B abx $B%*%W%7%g%s$OL58z$G$9!#(B}}%
+    \errmessage{mathabx パッケージが見当たりません。%
+      emathFx に対する abx オプションは無効です。}}%
 }%
 
 \@ifundefined{emFx@eu}{}{%
@@ -95,8 +95,8 @@
 }
 \@ifundefined{emFx@tx}{}{%
   \IfFileExists{txfonts.sty}{}{%
-    \errmessage{txfonts $B%Q%C%1!<%8$,8+Ev$?$j$^$;$s!#(B%
-      emathFx $B$KBP$9$k(B tx$B%*%W%7%g%s$OL58z$G$9!#(B}}%
+    \errmessage{txfonts パッケージが見当たりません。%
+      emathFx に対する txオプションは無効です。}}%
   \DeclareSymbolFont{txoperators}{OT1}{txr}{m}{n}%
   \SetSymbolFont{txoperators}{bold}{OT1}{txr}{bx}{n}%
   \DeclareSymbolFont{txsymbols}{OMS}{txsy}{m}{n}%
@@ -201,8 +201,8 @@
 }
 \@ifundefined{emFx@px}{}{%
   \IfFileExists{pxfonts.sty}{}{%
-    \errmessage{pxfonts $B%Q%C%1!<%8$,8+Ev$?$j$^$;$s!#(B%
-      emathFx $B$KBP$9$k(B px$B%*%W%7%g%s$OL58z$G$9!#(B}}%
+    \errmessage{pxfonts パッケージが見当たりません。%
+      emathFx に対する pxオプションは無効です。}}%
   \DeclareSymbolFont{pxsymbols}{OMS}{pxsy}{m}{n}
   \DeclareSymbolFont{pxoperators}{U}{pxr}{m}{n}
   \SetSymbolFont{pxoperators}{bold}{U}{pxr}{bx}{n}
@@ -223,10 +223,10 @@
 \def\preparexy{%
   \DeclareSymbolFont{Xyatip}{OMS}{atip}{m}{n}
   \DeclareSymbolFont{Xybtip}{OMS}{btip}{m}{n}
-  \DeclareMathSymbol\Xyrightarrowi\mathrel{Xyatip}{"2F}% $B>e(B
-  \DeclareMathSymbol\Xyrightarrow\mathrel{Xybtip}{"2F}% $B2<(B
-%  \DeclareMathSymbol\Xyrightarrowi\mathrel{Xyatip}{"2E}% $B>e(B
-%  \DeclareMathSymbol\Xyrightarrow\mathrel{Xybtip}{"30}%  $B2<(B
+  \DeclareMathSymbol\Xyrightarrowi\mathrel{Xyatip}{"2F}% 上
+  \DeclareMathSymbol\Xyrightarrow\mathrel{Xybtip}{"2F}% 下
+%  \DeclareMathSymbol\Xyrightarrowi\mathrel{Xyatip}{"2E}% 上
+%  \DeclareMathSymbol\Xyrightarrow\mathrel{Xybtip}{"30}%  下
   \DeclareFontFamily{OMS}{atip}{}
   \DeclareFontShape{OMS}{atip}{m}{n}{
      <-> [.8409] xyatip10%
@@ -286,8 +286,8 @@
 
 \@ifundefined{emFx@pzd}{}{%
   \IfFileExists{pifont.sty}{}{%
-    \errmessage{pifont.sty $B$,8+Ev$?$j$^$;$s!#(B%
-      emathFx $B$KBP$9$k(B pzd $B%*%W%7%g%s$OL58z$G$9!#(B}}%
+    \errmessage{pifont.sty が見当たりません。%
+      emathFx に対する pzd オプションは無効です。}}%
   \RequirePackage{pifont}%
   \def\pzdmaru{\@ifnextchar[{\@pzdmaru}{\@pzdmaru[191]}}
   \def\@pzdmaru[#1]#2{%
@@ -358,7 +358,7 @@
 %
 %
 \@ifundefined{emFx@Relbar}{}{%
-% -- \Relbar $B$O(B cmr17 $B$rMQ$$$:!$(Bcmr10 $B$H$9$k!#(B--------- begin
+% -- \Relbar は cmr17 を用いず，cmr10 とする。--------- begin
 \let\Relbar\undefined
 \DeclareFontFamily{OT1}{cmrx}{\hyphenchar\font45 }
 \DeclareSymbolFont{operatorsx}{OT1}{cmrx} {m}{n}
@@ -380,8 +380,8 @@
 \IfFileExists{xy.sty}{%
   \preparexy
 }{%
-  \@warning{Xy-pic $B%Q%C%1!<%8$,8+Ev$?$j$^$;$s!#(B%
-    emathFx $B$KBP$9$k(B xy $B%*%W%7%g%s$OL58z$G$9!#(B}}%
+  \@warning{Xy-pic パッケージが見当たりません。%
+    emathFx に対する xy オプションは無効です。}}%
 }
 \newcommand{\bekutoru@overrightarrow}{%
   \mathpalette{\overarrow@\bekutoru@rightarrowfill@}}
@@ -507,84 +507,84 @@
 \endinput
 
 v 0.01 2002/01/27
-  001 xy $B%*%W%7%g%s$r$D$1$?:]!$(Bxy.sty $B$NB8:_$r3NG'$9$k!#(B
+  001 xy オプションをつけた際，xy.sty の存在を確認する。
 v 0.02 2002/02/17
-  002 ams $B%*%W%7%g%s$G(B TX$B%U%)%s%H;HMQ;~$K!$(Bamsfont $B$r;HMQ$9$k$3$H$r2DG=$H$9$k!#(B
-    $B$H$j$"$($:!$(B\AMSangle
-  003 px $B%*%W%7%g%s$rC1FH$GMQ$$$k$H%(%i!<$H$J$k%P%0$r=$@5(B
+  002 ams オプションで TXフォント使用時に，amsfont を使用することを可能とする。
+    とりあえず，\AMSangle
+  003 px オプションを単独で用いるとエラーとなるバグを修正
 v 0.03 2002/03/02
-  004 \bekutoru $B$N:FDj5A$r(B emath.sty $B$+$i$3$A$i$K0\$9!#(B
+  004 \bekutoru の再定義を emath.sty からこちらに移す。
 v 0.04 2002/03/21
-  005 \txfonts $B$N(B g $B$r(B \txg $B$H$9$k!#(B
+  005 \txfonts の g を \txg とする。
 v 0.05 2002/04/18
-  006  xy $B%*%W%7%g%s$KBP$9$k(B\bekutoru $B$NHyD4@0(B
+  006  xy オプションに対する\bekutoru の微調整
 v 0.06 2002/04/24-29
-  007 $BD>N)$7$?@QJ,5-9f!'(B\euint $B$G@QJ,5-9f$r(B euler.sty $B$N$b$N$H$9$k!#(B
-      $B!J(B\usepackage[eu]{emathFx}$B$,A0Ds!K(B
-  008 \bekutorukata $B0z?t$K(B`px'$B$rDI2C(B
+  007 直立した積分記号：\euint で積分記号を euler.sty のものとする。
+      （\usepackage[eu]{emathFx}が前提）
+  008 \bekutorukata 引数に`px'を追加
 v 0.07 2002/05/02
-  009 abx $B%*%W%7%g%s$G(B mathabx $B%U%)%s%H$+$i(B \bekutoru $B$NLp0u$r$D$^$_?)$$(B
+  009 abx オプションで mathabx フォントから \bekutoru の矢印をつまみ食い
 v 0.08 2002/05/03-04
-  010 mathabx $B%U%)%s%H$N(B $B@QJ,5-9f(B : \abxint
-  011 $BEy9fIU$-ITEy9f(B $B!'(B\abxgeqq, \abxleqq
+  010 mathabx フォントの 積分記号 : \abxint
+  011 等号付き不等号 ：\abxgeqq, \abxleqq
 v 0.09 2002/06/02
-  012 cmsy $B$+$i(B \cmtriangle
+  012 cmsy から \cmtriangle
 v 0.10 2002/06/06
-  013 $B4]IU$-?t;z$K(B ZapfDingbats $B%U%)%s%H$r;HMQ$9$k$?$a$N%m!<%I%*%W%7%g%s(B pzd
+  013 丸付き数字に ZapfDingbats フォントを使用するためのロードオプション pzd
 v 0.11 2002/06/10
-  014 $B4]IU$-?t;z$K(B go $B%U%)%s%H$r;HMQ$9$k$?$a$N%m!<%I%*%W%7%g%s(B go
+  014 丸付き数字に go フォントを使用するためのロードオプション go
 v 0.12 2002/09/22-10/14
-  015 \cmint cm$B%U%)%s%H$N@QJ,5-9f(B
+  015 \cmint cmフォントの積分記号
   016 \txLongrightarrow
-  017 Relbar $B%*%W%7%g%s!'(B\Relbar $B$N(B cmr$B%U%)%s%H%5%$%:$r(B cmsy $B$K9g$o$;$k!#(B
+  017 Relbar オプション：\Relbar の cmrフォントサイズを cmsy に合わせる。
 v 0.13 2002/11/05
-  018 $B4]IU$-J8;z$NGr9uH?E>$r(B
-            pifont, gofont $B$+$i(B
-      $BN.MQ$9$k!#(B
+  018 丸付き文字の白黒反転を
+            pifont, gofont から
+      流用する。
 v 0.14 2002/12/09
-  019 \cmsum cm$B%U%)%s%H$N%7%0%^5-9f(B
+  019 \cmsum cmフォントのシグマ記号
 v 0.15 2003/01/16
   020 \txlbrac, \txrbrace; \txgauss
 v 0.16 2003/04/05
   021 \abxlesseqqgtr, \abxgtreqqless
 v 0.17 2003/08/26
-  022 txfonts $B$+$i(B \vardiamondsuite, \varheartsuit
+  022 txfonts から \vardiamondsuite, \varheartsuit
 v 0.18 2003/08/31
-  023 txfonts $B$+$i(B (, ) $B$rN.MQ$7$?(B \txGyouretu $B$J$I(B
+  023 txfonts から (, ) を流用した \txGyouretu など
 v 0.19 2003/10/15
-  024 txfonts $B$+$i(B \txvarDelta
+  024 txfonts から \txvarDelta
 v 0.20 2003/12/13
-  025 mathabx $B$N2~D{$KBP1~(B
+  025 mathabx の改訂に対応
 v 0.21 2004/01/07
-  026 \bekutorukata $B$K(B fill $B$r?7@_!JLp0u$r(B \ArrowLine $B$GIA2h!K(B
+  026 \bekutorukata に fill を新設（矢印を \ArrowLine で描画）
 v 0.22 2004/01/13
-  027 mathabx $B$N(B \lesssim $B$r(B \abxlesssim
+  027 mathabx の \lesssim を \abxlesssim
 v 0.23 2004/01/21
-  028 wasysym.sty $B$r;HMQ$9$k$?$a$N%*%W%7%g%s(B wasy
+  028 wasysym.sty を使用するためのオプション wasy
 v 0.24 2004/01/29
-  029 \bekutorukata{fill}$B$N>l9g$K$*$$$F!$(B\bekutoru* $B$K%P%0(B
+  029 \bekutorukata{fill}の場合において，\bekutoru* にバグ
 v 0.25 2004/05/15
   030 \txmuup
 v 0.26 2004/07/23
-  031 $BJlBN$NB8:_3NG'(B
+  031 母体の存在確認
 v 0.27 2004/08/13
   032 \llbracket (txfonts, mathabx)
 v 0.28 2004/11/02
-  033 txfonts $B$N(B symbolsC $B$r$D$^$_?)$$$9$k$H$-$O!$(B[txC]$B%*%W%7%g%s$H$9$k!#(B
+  033 txfonts の symbolsC をつまみ食いするときは，[txC]オプションとする。
 v 0.29 2004/11/22
-  034 \cmto : cm-fonts $B$N(B \to $B$r$D$^$_?)$$(B
+  034 \cmto : cm-fonts の \to をつまみ食い
 v 0.30 2005/03/14
-  035 txfonts $B$+$i(B \pm, \mp ---> \txpm, \txmp
-  036 mathabx $B$+$i(B \pm, \mp ---> \abxpm, \abxmp
+  035 txfonts から \pm, \mp ---> \txpm, \txmp
+  036 mathabx から \pm, \mp ---> \abxpm, \abxmp
 v 0.31 2005/04/02
-  037 mathabx $B$+$i(B \abxnotin, \abxnotni
+  037 mathabx から \abxnotin, \abxnotni
 v 0.32 2005/08/05
-  038 \bekutorukata $B$K(B <...> $B%*%W%7%g%s(B
+  038 \bekutorukata に <...> オプション
 v 0.33 2005/08/30
-  039 [mbb] $B%m!<%I%*%W%7%g%s!'(B\mathmbb $B$G(B mbboard $B%Q%C%1!<%8$rMQ$$$k(B
+  039 [mbb] ロードオプション：\mathmbb で mbboard パッケージを用いる
 v 0.34 2005/10/06
   040 [ceo]
 v 0.35 2005/10/09
-  041 \bekutorukata : emathPh.sty $B$H$N@09g(B
+  041 \bekutorukata : emathPh.sty との整合
 v 0.36 2005/10/19
-  042 \bekutorukata : ceo $B$rDI2C(B
+  042 \bekutorukata : ceo を追加

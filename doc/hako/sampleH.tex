@@ -12,28 +12,28 @@
 \def\@showexample#1{%
   \noindent
   \begin{screen}\input{#1}\end{screen}%
-  $B$r%?%$%W%;%C%H$9$k$H(B\medskip\par\noindent
+  をタイプセットすると\medskip\par\noindent
   {\renewenvironment{verbatim}{}{}%
   \begin{shadebox}\input{#1}\end{shadebox}}%
   \medskip
   
-  \noindent $B$H$J$j$^$9!%(B}%
+  \noindent となります．}%
 \def\showexample@[#1]#2{%
   \noindent
   \begin{itembox}{\textbf{#1}}\input{#2}\end{itembox}%
-  $B$r%?%$%W%;%C%H$9$k$H(B\medskip\par\noindent
+  をタイプセットすると\medskip\par\noindent
   {\renewenvironment{verbatim}{}{}%
   \begin{shadebox}\input{#2}\end{shadebox}}%
   \medskip
   
-  \noindent $B$H$J$j$^$9!%(B}%
+  \noindent となります．}%
 \makeatother
 
 \title{{\Huge hako.sty} {\normalsize ver. 1.13}\\
 {\large
 arhako.sty {\normalsize ver.0.88}\\
 }
-$B;HMQNc(B}
+使用例}
 \author{tDB}
 \date{2004/12/25}
 
@@ -41,31 +41,31 @@ arhako.sty {\normalsize ver.0.88}\\
 \maketitle\thispagestyle{empty}
 \begin{abstract}%
 \parindent1zw%
- $B%;%s%?!<;n83$NLdBj$G;H$o$l$F$$$k2rEz$r5-F~$9$Y$-%O%3$r:n$k$?$a$N(B
- $B%Q%C%1!<%8$G$9!%(B
+ センター試験の問題で使われている解答を記入すべきハコを作るための
+ パッケージです．
 
-$B$3$N%^%/%m=8$N%^%/%m$K$D$$$F$N$4<ALd!$%P%0Js9p!$=$@5!&DI2C$NDs0FEy$O(B
+このマクロ集のマクロについてのご質問，バグ報告，修正・追加の提案等は
 \begin{center}
 http://emath.s40.xrea.com/
 \end{center}
-$B$N7G<(HD$X$I$&$>!#(B
+の掲示板へどうぞ。
 \end{abstract}
 \clearpage
 \pagenumbering{roman}%
 
-\section*{$B$O$8$a$K(B}
+\section*{はじめに}
 \hakosyokika
-$B%;%s%?!<;n83$G$O(B $1024=2^{\protect\Hako<2>(0zw)}$ $B$N$h$&$K!$(B
-$B2rEz$r=q$/$Y$-=j$KI,MW$J7e?tJ,$NJ8;z$r4^$s$@%O%3$rMQ0U$9$k!$(B
-$B$H$$$&J}K!$,:N$i$l$F$$$^$9!%$3$N%O%3$r(B \TeX $B$G5-=R$9$k$N$K(B
-$B;d$O(B \verb/\hako{$B%"%$(B}/ $B$J$I$H0z?t$NCf$K%O%3$KF~$l$kJ8;z$r(B
-$B5-=R$7$F$$$^$7$?!%(BWaver $B$5$s$,$3$l$r8+$+$M$F!$(B
-$B%O%3$NCf$NJ8;z$r<+F0E*$K%$%s%/%j%a%s%H$7!$$=$l$rAj8_;2>H$9$k(B
-$B%^%/%m$r:n$C$F$/$@$5$$$^$7$?!%$=$N%^%/%m$r$b$H$K$$$m$$$m$J5!G=$r(B
-$BIU$12C$($F!$8=:_$N(B \verb/hako.sty/ $B$,$G$->e$,$C$F$-$^$7$?!%(B
-Waver $B$5$s$N$*1"$G!$BgJQ3Z$,$G$-$k$h$&$K$J$j$^$7$?!%(B
+センター試験では $1024=2^{\protect\Hako<2>(0zw)}$ のように，
+解答を書くべき所に必要な桁数分の文字を含んだハコを用意する，
+という方法が採られています．このハコを \TeX で記述するのに
+私は \verb/\hako{アイ}/ などと引数の中にハコに入れる文字を
+記述していました．Waver さんがこれを見かねて，
+ハコの中の文字を自動的にインクリメントし，それを相互参照する
+マクロを作ってくださいました．そのマクロをもとにいろいろな機能を
+付け加えて，現在の \verb/hako.sty/ ができ上がってきました．
+Waver さんのお陰で，大変楽ができるようになりました．
 
-$BM-$jFq$&$4$6$$$^$9!%!d(B Waver $B$5$s!%(B
+有り難うございます．＞ Waver さん．
 \clearpage
 
 \tableofcontents
@@ -73,207 +73,207 @@ Waver $B$5$s$N$*1"$G!$BgJQ3Z$,$G$-$k$h$&$K$J$j$^$7$?!%(B
 \clearpage
 \pagenumbering{arabic}
 \hakosyokika
-\section{$B4pK\E*MQK!(B}
-$B$^$:$O!$4pK\E*$J;H$$J}$G$9!%(B
-$B$3$N%9%?%$%k%U%!%$%k$O=i4|2=$,I,MW$G$9!%(B\verb/\begin{document}/ $B$ND>8e$K(B
+\section{基本的用法}
+まずは，基本的な使い方です．
+このスタイルファイルは初期化が必要です．\verb/\begin{document}/ の直後に
 \begin{verbatim}
     \hakosyokika
 \end{verbatim}
-$B$H$$$&0l9T$r=q$-$^$9!%$3$l$GFbItJQ?t$J$I$,=i4|2=$5$l!$(B
-\texttt{hako.sty}$B$,;HMQ2DG=$K$J$j$^$9!%$"$H$O!$(B
-$B%O%3$r:n$j$?$$=j$G!$(B\verb/\Hako/ $B$H=q$/$@$1$G$9!%Nc$($P!$(B
+という一行を書きます．これで内部変数などが初期化され，
+\texttt{hako.sty}が使用可能になります．あとは，
+ハコを作りたい所で，\verb/\Hako/ と書くだけです．例えば，
 
 \ifx\fmtname\tmpname%
-\begin{itembox}{$B4pK\E*MQK!(B}\begin{verbatim}
+\begin{itembox}{基本的用法}\begin{verbatim}
 \documentclass{jarticle}
 \usepackage{emath,hako}
 
 \begin{document}
 \hakosyokika
-$BFs<!ITEy<0(B$(x-1)(x-2)<0$$B$N2r$O(B$\Hako{}<x<\Hako$$B$G$"$k!%(B
+二次不等式$(x-1)(x-2)<0$の解は$\Hako{}<x<\Hako$である．
 \end{document}
 \end{verbatim}
 \end{itembox}
 \else
-\begin{itembox}{$B4pK\E*MQK!(B}\begin{verbatim}
+\begin{itembox}{基本的用法}\begin{verbatim}
 \documentstyle[emath,hako]{jarticle}
 
 \begin{document}
 \hakosyokika
-$BFs<!ITEy<0(B$(x-1)(x-2)<0$$B$N2r$O(B$\Hako{}<x<\Hako$$B$G$"$k!%(B
+二次不等式$(x-1)(x-2)<0$の解は$\Hako{}<x<\Hako$である．
 \end{document}
 \end{verbatim}
 \end{itembox}
 \fi
 
-$B$r%?%$%W%;%C%H$9$k$H(B
+をタイプセットすると
 
 \begin{shadebox}
 \hakosyokika
-$BFs<!ITEy<0(B$(x-1)(x-2)<0$$B$N2r$O(B $\Hako{}<x<\Hako$$B$G$"$k!%(B
+二次不等式$(x-1)(x-2)<0$の解は $\Hako{}<x<\Hako$である．
 \end{shadebox}
 
-$B$H$J$j$^$9!%(B
+となります．
 
-$B$9$J$o$A!$%3%^%s%I(B \verb/\Hako/ $B$,EP>l$9$k$?$S$K%O%3$,:n$i$l!$(B
-$B$=$NCf$NJ8;z$,(B
+すなわち，コマンド \verb/\Hako/ が登場するたびにハコが作られ，
+その中の文字が
 \begin{quote}
-  $B%"(B,$B%$(B,$B%&(B,$B%((B,$B%*(B,$B%+(B,$B%-(B,$B!&!&!&!&(B
+  ア,イ,ウ,エ,オ,カ,キ,・・・・
 \end{quote}
-$B$H8^==2;=g$K%$%s%/%j%a%s%H$5$l$F$$$-$^$9!%(B
+と五十音順にインクリメントされていきます．
 \begin{itemize}
-\item[\bfseries $BCm(B1 ] $B>e$NNc$G!$%3%^%s%I(B \verb/\Hako/ $B$H(B
-$BITEy9f(B \texttt{<} $B$N4V$K(B
-\texttt{\{\}} $B$,$"$j$^$9$,!$$3$N0UL#$K$D$$$F@bL@$7$^$9!%(B
+\item[\bfseries 注1 ] 上の例で，コマンド \verb/\Hako/ と
+不等号 \texttt{<} の間に
+\texttt{\{\}} がありますが，この意味について説明します．
 
-$B%3%^%s%I(B\verb/\Hako/$B$O%*%W%7%g%s0z?t$r<h$j$^$9$,!$$=$N%*%W%7%g%sJ8;z$H$7$F(B
+コマンド\verb/\Hako/はオプション引数を取りますが，そのオプション文字として
 \begin{verbatim}
   [, <, (, /, ",'
 \end{verbatim}
-$B$,;H$o$l$F$$$^$9!%$7$?$,$C$F!$(B\verb/\Hako<x/ $B$H=q$-$^$9$H!$(B
-$BITEy9f(B\texttt{<}$B$,!$%3%^%s%I(B\verb/\Hako/$B$N%*%W%7%g%s0z?t$N5-9f$H(B
-$B2r<a$5$l$F$7$^$$$^$9!%(B
-$B$=$l$rKI$0$?$a$K(B \verb/\Hako/ $B$HITEy9f(B\texttt{<}$B$N4V$K(B
-\texttt{\{\}}$B$rF~$l$F$$$^$9!%(B
-$B$5$\$C$F!$(B\verb/\Hako/ $B$HITEy9f$N4V$KH>3Q$N%9%Z!<%9$rF~$l$F$b(B
-$B$?$$$F$$$OBg>fIW$J$h$&$K$7$F$"$j$^$9$,!$FC<l$J>lLL$G(B
-$BITET9g$,@8$:$k$3$H$,$"$j$^$9$N$G!$(B\texttt{\{\}}$B$r$*4+$a$7$^$9!%(B
+が使われています．したがって，\verb/\Hako<x/ と書きますと，
+不等号\texttt{<}が，コマンド\verb/\Hako/のオプション引数の記号と
+解釈されてしまいます．
+それを防ぐために \verb/\Hako/ と不等号\texttt{<}の間に
+\texttt{\{\}}を入れています．
+さぼって，\verb/\Hako/ と不等号の間に半角のスペースを入れても
+たいていは大丈夫なようにしてありますが，特殊な場面で
+不都合が生ずることがありますので，\texttt{\{\}}をお勧めします．
 
-\item[\bfseries $BCm(B2 ] \verb/\hakosyokika/ $B$OI,$:<B9T$7$F$/$@$5$$!%(B
-$B$3$l$r<B9T$7$F$$$J$$>l9g$O!$%(%i!<(B
+\item[\bfseries 注2 ] \verb/\hakosyokika/ は必ず実行してください．
+これを実行していない場合は，エラー
 \begin{quote}
 \begin{verbatim}
-! $B%3%^%s%I!'(Bhakosyokika $B$,<B9T$5$l$F$$$^$;$s(B.
+! コマンド：hakosyokika が実行されていません.
 \end{verbatim}
 \end{quote}
-$B$,H/@8$7$^$9!%(B
+が発生します．
 
-\item[\bfseries $BCm(B3 ] $B8E$$%P!<%8%g%s(B(\texttt{ver.0.63}$B$h$jA0(B)$B$G$O!$(B
+\item[\bfseries 注3 ] 古いバージョン(\texttt{ver.0.63}より前)では，
 \begin{quote}
-\verb/\hakosyokika/ $B$G$O$J$/!$(B\verb/\hakobansyokika/ 
+\verb/\hakosyokika/ ではなく，\verb/\hakobansyokika/ 
 \end{quote}
-$B$G$7$?!%(B
-\texttt{ver.0.63}$B0J9_$G$O!$(B\verb/\hakobansyokika/ $B$G$O!$%O%3$N(B
-$B%+%&%s%?$N$_$r=i4|2=$9$k$3$H$H$7!$(B\verb/\hakosyokika/ $B$G$9$Y$F$N(B
-$BFbItJQ?t$r=i4|2=$9$k$H!$;H$$J,$1$k$3$H$K$J$j$^$7$?!%$?$@$7!$(B
-\verb/\hakobansyokika/ $B$,J8=q$N:G=i$K(B
-$B8F$P$l$?$H$-$O(B \verb/\hakosyokika/ $B$HF1$8F/$-$r$9$k(B
-$B$h$&$K$7$F$"$j$^$9$+$i!$:#$^$G:n@.$5$l$?J8=q$r=q$-49$($kI,MW$O(B
-$B>/$J$$$G$7$g$&!%(B
+でした．
+\texttt{ver.0.63}以降では，\verb/\hakobansyokika/ では，ハコの
+カウンタのみを初期化することとし，\verb/\hakosyokika/ ですべての
+内部変数を初期化すると，使い分けることになりました．ただし，
+\verb/\hakobansyokika/ が文書の最初に
+呼ばれたときは \verb/\hakosyokika/ と同じ働きをする
+ようにしてありますから，今まで作成された文書を書き換える必要は
+少ないでしょう．
 
-\item[\bfseries $BCm(B4 ] $B0J2<!$6qBNNc$r5s$2$F$$$kItJ,$O!$(B
+\item[\bfseries 注4 ] 以下，具体例を挙げている部分は，
 \begin{jquote}
-  $B3Q$N4]$$0O$_$NCf$K(B
+  角の丸い囲みの中に
 
   \begin{screen}
-  $B%=!<%9%j%9%H(B
+  ソースリスト
   \end{screen}
   
-  $B1F$D$-$N0O$_$NCf$K(B 
+  影つきの囲みの中に 
 
   \leavevmode\begin{shadebox}
-  $B$=$l$r%?%$%W%;%C%H$7$?7k2L(B
+  それをタイプセットした結果
   \end{shadebox}
 \end{jquote}
-$B$r5-=R$7$^$9!%(B
+を記述します．
 \end{itemize}
 \pagebreak
 
-\section{$BAj8_;2>H(B}
+\section{相互参照}
 \hakobansyokika
-$BFs<!J}Dx<0(B$x^2-3x+2=0$$B$N2r$O(B$x=\Hako[L020a],\ \Hako[L020i]$$B$G$"$k!%(B\par
-\noindent $B$H$$$&LdBj$G$O!$2r$,0l0U$KDj$^$j$^$;$s!%$=$3$G!$(B
+二次方程式$x^2-3x+2=0$の解は$x=\Hako[L020a],\ \Hako[L020i]$である．\par
+\noindent という問題では，解が一意に定まりません．そこで，
 \begin{quote}
-  $B$?$@$7(B$\refHako*{L020a}<\refHako*{L020i}$$B$H$9$k!%(B
+  ただし$\refHako*{L020a}<\refHako*{L020i}$とする．
 \end{quote}
-$B$H$$$&$?$@$7=q$-$r$D$1$?$/$J$j$^$9!%(B
-$B$3$l$r<B8=$9$k$?$a$K!$%O%3$K%i%Y%k$rIU$1!$$=$l$r;2>H$9$k5!G=$,$"$j$^$9!%(B
+というただし書きをつけたくなります．
+これを実現するために，ハコにラベルを付け，それを参照する機能があります．
 
-$B$^$:!$%i%Y%k$rIU$1$k$K$O(B \verb/\Hako/ $B$K%*%W%7%g%s0z?t$G(B
-$B%i%Y%kL>$r;XDj$7$^$9!'(B
+まず，ラベルを付けるには \verb/\Hako/ にオプション引数で
+ラベル名を指定します：
 \begin{verbatim}
-        \Hako[$B%i%Y%kL>(B]
+        \Hako[ラベル名]
 \end{verbatim}
 
-$B<!$K$=$l$r;2>H$9$k$K$O!$%3%^%s%I(B
+次にそれを参照するには，コマンド
 \begin{verbatim}
-        \refHako{$B%i%Y%kL>(B}
-     $B$^$?$O(B
-        \refHako*{$B%i%Y%kL>(B}
+        \refHako{ラベル名}
+     または
+        \refHako*{ラベル名}
 \end{verbatim}
-$B$rMQ$$$^$9!%N><T$N0c$$$O!$A0<T$,%O%3$NCf$NJ8;z$@$1$r!$(B
-$B8e<T$OOH$rIU$1$F;2>H$7$^$9!%@h$NNc$r40@.$5$;$^$9!%(B
+を用います．両者の違いは，前者がハコの中の文字だけを，
+後者は枠を付けて参照します．先の例を完成させます．
 \hakobansyokika
-\showexample[\texttt{[..]}$B%*%W%7%g%s$H(B\cmd{refHako*}]{example/ex02.tex}
+\showexample[\texttt{[..]}オプションと\cmd{refHako*}]{example/ex02.tex}
 \clearpage
 
-\section{$B%O%3$NCf$KJ#?t$NJ8;z(B}
-$B%;%s%?!<;n83$G$O!$(B2$B7e0J>e$NEz$rMW5a$9$k%O%3$G$O!$(B
-$B%O%3$NCf$K7e?tJ,$NJ8;z$rMQ0U$9$kJ}K!$,:N$i$l$F$$$^$9!%(B
-$BNc$($P!$(B
+\section{ハコの中に複数の文字}
+センター試験では，2桁以上の答を要求するハコでは，
+ハコの中に桁数分の文字を用意する方法が採られています．
+例えば，
 \hakobansyokika
-\[ 2^{50} $B$O(B \Hako<2>$B7e$N@0?t$G$"$k!%$?$@$7!$(B\log_{10}2=0.3010 $B$H$9$k!%(B\]
-$B$3$l$r<B8=$9$k$?$a$K!$(B\verb/\Hako/ $B$K%*%W%7%g%s0z?t$G%O%3$NCf$KF~$l$k(B
-$BJ8;z?t$r;XDj$9$k5!G=$,$"$j$^$9!%(B
-$B:#EY$N%*%W%7%g%s$O%*%W%7%g%sJ8;z$,A0@a$N$b$N$H$O0[$J$j$^$9!%(B
+\[ 2^{50} は \Hako<2>桁の整数である．ただし，\log_{10}2=0.3010 とする．\]
+これを実現するために，\verb/\Hako/ にオプション引数でハコの中に入れる
+文字数を指定する機能があります．
+今度のオプションはオプション文字が前節のものとは異なります．
 \begin{verbatim}
-       \Hako<$BJ8;z?t(B>
+       \Hako<文字数>
 \end{verbatim}
-$B<!$N$h$&$K;H$$$^$9!%(B
+次のように使います．
 \hakobansyokika
-\showexample[\texttt{<..>}$B%*%W%7%g%s(B]{example/ex03.tex}
+\showexample[\texttt{<..>}オプション]{example/ex03.tex}
 
-\section{$BJ#?t$NJ8;z%O%3$X$NAj8_;2>H(B}
-$BJ#?t$NJ8;z$r$b$D%O%3$KIU$1$?%i%Y%k$K$h$k;2>H$O!$(B
-$B%O%3$NCf$NJ8;zA4BN$X$N;2>H$H$J$j$^$9!%(B
-$B$7$+$7!$$H$-$K$O%O%3$N8DJL$NJ8;z$X$N;2>H$r$7$?$$$3$H$b$"$j$^$9!%(B
-$B$=$N5!G=$OBh(B2$B$N(B \verb/[..]/ $B%*%W%7%g%s$G<B8=$5$l$^$9!%$9$J$o$A!$(B
+\section{複数の文字ハコへの相互参照}
+複数の文字をもつハコに付けたラベルによる参照は，
+ハコの中の文字全体への参照となります．
+しかし，ときにはハコの個別の文字への参照をしたいこともあります．
+その機能は第2の \verb/[..]/ オプションで実現されます．すなわち，
 \begin{verbatim}
-        \Hako<$BJ8;z?t(B>[$BA4BN%i%Y%k(B][$B8DJL%i%Y%k(B]
+        \Hako<文字数>[全体ラベル][個別ラベル]
 \end{verbatim}
-$B$H$$$&=q<0$G$9!%(B
-$B8DJL%i%Y%k$O!$J8;z?tJ,$N%i%Y%k$r%3%s%^$G6h@Z$C$F5-=R$7$^$9!%(B
-$BNc$($P(B
+という書式です．
+個別ラベルは，文字数分のラベルをコンマで区切って記述します．
+例えば
 \begin{verbatim}
         \Hako<3>[Lbl][L1,L2,L3]
-$B$H5-=R$9$k$H(B
-        \refHako{Lbl} $B"*(B $B%"%$%&(B
-        \refHako{L1}  $B"*(B $B%"(B
-        \refHako{L2}  $B"*(B $B%$(B
-        \refHako{L3}  $B"*(B $B%&(B
-$B$H!$;2>H$5$l$^$9!%(B
+と記述すると
+        \refHako{Lbl} → アイウ
+        \refHako{L1}  → ア
+        \refHako{L2}  → イ
+        \refHako{L3}  → ウ
+と，参照されます．
 \end{verbatim}
-$B6qBNNc$r5s$2$^$9!%(B
-$B$3$l$O(B1997$BG/EY$NBg3XF~;n%;%s%?!<;n83$NLdBj$G$9!%(B
+具体例を挙げます．
+これは1997年度の大学入試センター試験の問題です．
 \hakobansyokika
 {\hakoxyohaku{0pt}%
-\showexample[$BJ#?tJ8;z$NH"$X$N;2>H(B]{example/ex04.tex}}
+\showexample[複数文字の箱への参照]{example/ex04.tex}}
 
 \begin{itemize}
-\item[$BCm(B] $B8DJL%i%Y%k$r$D$1$k$H$-$O!$I,$:A4BN%i%Y%k$r$D$1$J$1$l$P$J$j$^$;$s!%(B
+\item[注] 個別ラベルをつけるときは，必ず全体ラベルをつけなければなりません．
 \end{itemize}
 \clearpage
 
-\section{$B%O%3$NJ8;z<o(B(1)}\label{sec:mozisyu}
-$B%O%3$NCf$NJ8;z$O!$%G%U%)%k%H$G$O(B
+\section{ハコの文字種(1)}\label{sec:mozisyu}
+ハコの中の文字は，デフォルトでは
 \begin{quote}
-  $B%"(B,$B%$(B,$B%&(B,$B%((B,$B%*(B,$B%+(B,$B%-(B,....
+  ア,イ,ウ,エ,オ,カ,キ,....
 \end{quote}
-$B$H!$%+%?%+%J$,8^==2;=g$K8=$l$^$9!%(B
-$B$3$l$r(B 
+と，カタカナが五十音順に現れます．
+これを 
 \begin{quote}
   a,b,c,d,e,...
 \end{quote}
-$B$J$I$H1Q;z$r%"%k%U%!%Y%C%H=g$KJB$Y$?$$$H$$$C$?!$(B
-$B%O%3$NCf$NJ8;z<o$rJQ99$9$k$?$a$K%3%^%s%I(B \verb/\hakomozisyu{..}/ $B$,(B
-$BMQ0U$7$F$"$j$^$9!%$3$N%3%^%s%I$N0z?t$H$7$F;H$($kJ8;z$O<!$NDL$j$G$9!%(B
+などと英字をアルファベット順に並べたいといった，
+ハコの中の文字種を変更するためにコマンド \verb/\hakomozisyu{..}/ が
+用意してあります．このコマンドの引数として使える文字は次の通りです．
 \bigskip
 
-\begin{tabular}{*2{r@{\ $B!'(B\ }l}}
-     $B%"(B  &  $B%"(B,$B%$(B,$B%&(B,$B%((B,$B%*(B,.....
-&$B!!!!$"(B  &  $B$"(B,$B$$(B,$B$&(B,$B$((B,$B$*(B,.....\\
-$B!!!!(B $B%$(B  &  $B%$(B,$B%m(B,$B%O(B,$B%K(B,$B%[(B,.....
-&    $B$$(B &   $B$$(B,$B$m(B,$B$O(B,$B$K(B,$B$[(B,.....\\
+\begin{tabular}{*2{r@{\ ：\ }l}}
+     ア  &  ア,イ,ウ,エ,オ,.....
+&　　あ  &  あ,い,う,え,お,.....\\
+　　 イ  &  イ,ロ,ハ,ニ,ホ,.....
+&    い &   い,ろ,は,に,ほ,.....\\
       1  &   1, 2, 3, 4, 5,.....
 &     m  &   \maru1,\maru2,\maru3,\maru4,\maru5...\\ 
       i  &   i, ii, iii, iv, v,.....
@@ -283,81 +283,81 @@ Waver $B$5$s$N$*1"$G!$BgJQ3Z$,$G$-$k$h$&$K$J$j$^$7$?!%(B
 \end{tabular}
 
 \begin{itemize}
-\item[\bfseries $BCm(B ] $B$=$NB>$NJ8;z$O$=$N$^$^=PNO$5$l$^$9$+$i!$(B
-$B0z?t$K(B `(1)' $B$H;XDj$9$l$P!$(B
+\item[\bfseries 注 ] その他の文字はそのまま出力されますから，
+引数に `(1)' と指定すれば，
 \begin{quote}
   (1),(2),(3),(4),(5),.....
 \end{quote}
-$B$H!$%J%s%P%j%s%0$5$l$^$9!%0lNc$r5s$2$^$9!%(B
+と，ナンバリングされます．一例を挙げます．
 \end{itemize} 
 \ifx\fmtname\tmpname\enlargethispage{2\baselineskip}\fi%
 \showexample[\cmd{hakomozisyu}]{example/ex05.tex}
 
 \begin{itemize}
-\item[$BCm(B] $B%"%$%&!%!%!%(B $B$O!$(B49$BJ8;z$7$+$"$j$^$;$s!%$3$l$r1[$($F(B
-\verb/\Hako/$B$r(B
-$B;HMQ$9$k$H(B
+\item[注] アイウ．．． は，49文字しかありません．これを越えて
+\verb/\Hako/を
+使用すると
 \begin{quote}\begin{verbatim}
 ! Undefined control sequence.
 \GenericError  ...                                
                                  #4  \errhelp \@err@     ...
-$B$"$k$$$O(B
+あるいは
 ! LaTeX Error: Counter too large.
 \end{verbatim}
 \end{quote}
-$BEy$N%(%i!<$,H/@8$7$^$9!%(B
+等のエラーが発生します．
 \end{itemize}
 \clearpage
 
-\section{$B%O%3$NJ8;z<o(B(2)}
-$B0lJ8=qCf$G$9$Y$F$N%O%3$NJ8;z<o$,0l<oN`$N$H$-$O!$(B
-$BA0@a$NJ}K!$G=hM}$G$-$^$9$,!$(B
-$B0l$D$NLdBj$G(B2$B<oN`0J>e$NJ8;z<o$rMQ$$$k>l9g$NBP:v$G$9!%(B
+\section{ハコの文字種(2)}
+一文書中ですべてのハコの文字種が一種類のときは，
+前節の方法で処理できますが，
+一つの問題で2種類以上の文字種を用いる場合の対策です．
 
-$B$3$N$H$-$O!$%a%$%s$NJ}$NJ8;z<o$rA0@a$NJ}K!$G;XDj$7$^$9!%(B
-$BB>$N7ONs$NJ8;z<o$,EP>l$9$k%O%3$KBP$7$F$O!$(B\verb/\Hako/ $B$N(B
-$B%*%W%7%g%s$G=hM}$7$^$9!%(B
+このときは，メインの方の文字種を前節の方法で指定します．
+他の系列の文字種が登場するハコに対しては，\verb/\Hako/ の
+オプションで処理します．
 \begin{verbatim}
-        \Hako/$BJ8;z<o(B/
+        \Hako/文字種/
 \end{verbatim}
-\texttt{/../} $B$N0z?t$OA0@a$N(B \verb/\hakomozisyu/ $B$N0z?t$HF1$8$G$9!%(B
-$B>/$7D9$$Nc$G$9!%(B
+\texttt{/../} の引数は前節の \verb/\hakomozisyu/ の引数と同じです．
+少し長い例です．
 \clearpage
 
-\showexample[\texttt{/../}$B%*%W%7%g%s(B]{example/ex052.tex}
+\showexample[\texttt{/../}オプション]{example/ex052.tex}
 
-\section{$B%O%3$NJ8;z$N=i4|CMJQ99(B}
-$B%G%U%)%k%H$G$O!$%O%3$NCf$NJ8;z$O8^==2;=g$K@hF,$N(B `$B%"(B' $B$+$i=P8=$7$^$9!%(B
-$B$3$l$rESCf$N(B `$B%1(B' $B$+$i;O$a$F(B
+\section{ハコの文字の初期値変更}
+デフォルトでは，ハコの中の文字は五十音順に先頭の `ア' から出現します．
+これを途中の `ケ' から始めて
 \begin{quote}
-$B%1(B,$B%3(B,$B%5(B,$B%7(B,$B%9(B,$B%;(B,$B%=(B,$B%?(B,.....
+ケ,コ,サ,シ,ス,セ,ソ,タ,.....
 \end{quote}
-$B$H$7$?$$$H$-$NOC$G$9!%%O%3$NCf$NJ8;z$r%$%s%/%j%a%s%H$9$k$N$K(B \LaTeX $B$N(B
-$B%+%&%s%?$rMQ$$$F$$$^$9!%%G%U%)%k%H$N%+%&%s%?L>$O(B \texttt{hakobanaiu}
-$B$G$9!%(B
-$B$3$NCM$rJQ99$9$k$3$H$G%O%3$NCf$NJ8;z$r<+M3$KJQ99$9$k$3$H$,$G$-$^$9!%(B
-$B@h$NNc$G$O!$(B`$B%1(B' $B$O8^==2;$N(B9$BHVL\$NJ8;z$G$9$+$i!$(B
+としたいときの話です．ハコの中の文字をインクリメントするのに \LaTeX の
+カウンタを用いています．デフォルトのカウンタ名は \texttt{hakobanaiu}
+です．
+この値を変更することでハコの中の文字を自由に変更することができます．
+先の例では，`ケ' は五十音の9番目の文字ですから，
 \begin{verbatim}
         \setcounter{hakobanaiu}{8}%
 \end{verbatim}
-$B$H!$#1$D>.$5$$CM$r;XDj$7$^$9!%!J(B \verb/\Hako/ $B$,8F$S=P$5$l$k$H$-$K!$(B
-$B%+%&%s%?$O(B1$B$DA}$d$5$l$F$+$i$=$l$rJ8;z$KK]Lu$7$^$9!%(B
-$B%+%&%s%?$K$D$$$F$N>\$7$$$3$H$O!$(B
-\LaTeX $B$K$D$$$F$N;29MJ88%$r$4Mw$/$@$5$$!%(B)
+と，１つ小さい値を指定します．（ \verb/\Hako/ が呼び出されるときに，
+カウンタは1つ増やされてからそれを文字に翻訳します．
+カウンタについての詳しいことは，
+\LaTeX についての参考文献をご覧ください．)
 
-$B%O%3$N%+%&%s%?$OA0@a$NJ8;z<o$4$H$KJL$N$b$N$,MQ0U$5$l$F$$$^$9!%(B
+ハコのカウンタは前節の文字種ごとに別のものが用意されています．
 \bigskip
 
 \ifx\fmtname\tmpname%
-\begin{tabular}{r@{\ $B!'(B\ }>{\ttfamily }l}
+\begin{tabular}{r@{\ ：\ }>{\ttfamily }l}
 \else%
-\begin{tabular}{r@{\ $B!'(B\ }l}
+\begin{tabular}{r@{\ ：\ }l}
 \fi%
-     $BJ8;z<o(B & $B%+%&%s%?L>(B \\
-        $B%"(B  &  hakobanaiu \\
-        $B%$(B  &  hakobaniro \\
-        $B$"(B  &  hakobanAIU \\
-        $B$$(B &   hakobanIRO \\
+     文字種 & カウンタ名 \\
+        ア  &  hakobanaiu \\
+        イ  &  hakobaniro \\
+        あ  &  hakobanAIU \\
+        い &   hakobanIRO \\
         1  &   hakobanara \\
         i  &   hakobanrma \\
         I  &   hakobanRMA \\
@@ -366,180 +366,180 @@ Waver $B$5$s$N$*1"$G!$BgJQ3Z$,$G$-$k$h$&$K$J$j$^$7$?!%(B
         m  &   hakobanmar \\
 \end{tabular}\bigskip
 
-$B0lNc$r5s$2$^$9!%(B
-\showexample[$B%O%3J8;z$N%+%&%s%?(B]{example/ex06.tex}
+一例を挙げます．
+\showexample[ハコ文字のカウンタ]{example/ex06.tex}
 
-\section{$B%O%3$NJ8;z$N=qBNJQ99(B}
-$B%O%3$NCf$NJ8;z$O!$%G%U%)%k%H$G$O%4%7%C%/$H$$$&=qBN$rMQ$$$F$$$^$9!%(B
-$B$3$l$rJL$N=qBN$KJQ99$9$k$K$O!$%3%^%s%I(B \verb/\hakosyotai{..}/ $B$r(B
-$BMQ$$$^$9!%Nc$($P!$L@D+BN$K$7$F$_$^$7$g$&!%(B
+\section{ハコの文字の書体変更}
+ハコの中の文字は，デフォルトではゴシックという書体を用いています．
+これを別の書体に変更するには，コマンド \verb/\hakosyotai{..}/ を
+用います．例えば，明朝体にしてみましょう．
 \showexample[\cmd{hakosyotai}]{example/ex07.tex}
 \clearpage
 
-\section{$B%O%3$NOH@~B@$5$NJQ99(B}
-$B%O%3$NOH@~$NB@$5$O!$%G%U%)%k%H$G$O(B \texttt{1pt} $B$H$7$F$"$j$^$9!%(B
-$B$3$l$rJQ99$9$k$K$O%3%^%s%I(B \verb/\hakosenhaba/ $B$rMQ$$$^$9!%(B
-\LaTeX $B$N(B \verb/\framebox/ $B$N%G%U%)%k%HCM$O(B \texttt{0.4pt} $B$G$9!%(B
+\section{ハコの枠線太さの変更}
+ハコの枠線の太さは，デフォルトでは \texttt{1pt} としてあります．
+これを変更するにはコマンド \verb/\hakosenhaba/ を用います．
+\LaTeX の \verb/\framebox/ のデフォルト値は \texttt{0.4pt} です．
 
 \showexample[\cmd{hakosenhaba}]{example/ex08.tex}
 \clearpage
 
-\section{$B%O%3$N2#6RJQ99(B(1)}
-$B%O%3$NCf$NJ8;z$HOH@~$H$N4V$O%G%U%)%k%H$G(B \texttt{3pt} $B$NM>Gr$,<h$i$l$kB>$K!$(B
-$B:81&$"$o$;$FLs(B \verb/1zw/$B!JA43Q(B1$BJ8;zJ,!K!$(B
-$B@5$7$/$O2DJQD9$G(B 
+\section{ハコの横巾変更(1)}
+ハコの中の文字と枠線との間はデフォルトで \texttt{3pt} の余白が取られる他に，
+左右あわせて約 \verb/1zw/（全角1文字分），
+正しくは可変長で 
 \begin{quote}
 \verb/1zw plus .5zw minus .05zw/
 \end{quote}
-$B$NM>Gr$rIU$1$F$$$^$9!%(B
-$B$3$l$rJQ99$9$k$K$O!$%3%^%s%I(B \verb/\hakoxyohaku{..}/ $B$rMQ$$$^$9!%(B
-$B%G%U%)%k%H$N>uBV$H!$$3$NM>Gr$r<h$j5n$C$?>uBV$rHf3S$7$F$_$^$9!%(B
+の余白を付けています．
+これを変更するには，コマンド \verb/\hakoxyohaku{..}/ を用います．
+デフォルトの状態と，この余白を取り去った状態を比較してみます．
 
 \hakosyokika
 \showexample[\cmd{hakoxyohaku}]{example/ex10.tex}
 
 \begin{itemize}
-\item[$BCm(B] $B%O%3$N2#6R$N;XDj$K$O!$%0%k!<$,4^$^$l$F$$$^$9!%(B
-$B%0%k!<$K$D$$$F>\$7$$$3$H$O!$;29MJ88%(B---$BNc$($P!$!V(BLaTeX$B<+M3<+:_!W(B
-$BEy$r;2>H$7$F$/$@$5$$!%(B
+\item[注] ハコの横巾の指定には，グルーが含まれています．
+グルーについて詳しいことは，参考文献---例えば，「LaTeX自由自在」
+等を参照してください．
 \end{itemize}
 \clearpage
 
-\section{$B%O%3$N2#6RJQ99(B(2)}
-$BJ8=qCf$N$9$Y$F$N%O%3$N2#6R$rJQ99$9$k$K$O!$A0@a$NJ}K!$r:N$j$^$9$,!$(B
-$B0lIt$N%O%3$N2#6R$rJQ99$7$?$$$H$-$O(B \texttt{(..)} $B%*%W%7%g%s$rMQ$$$^$9!%(B
+\section{ハコの横巾変更(2)}
+文書中のすべてのハコの横巾を変更するには，前節の方法を採りますが，
+一部のハコの横巾を変更したいときは \texttt{(..)} オプションを用います．
 \begin{verbatim}
-       \Hako($B2#M>Gr%5%$%:(B)
+       \Hako(横余白サイズ)
 \end{verbatim}
-$BJ,?t$G!$J,Jl$HJ,;R$N7e?t$,0c$&$H$-$O!$%O%3$N2#6R$,0c$C$F$7$^$$$^$9!%(B
-$B$3$N$h$&$J$H$-!$(B
-$B$3$N%*%W%7%g%s$rMQ$$$FJ,Jl;R$N%O%3$N2#6R$rB7$($k$3$H$,$G$-$^$9!%(B
+分数で，分母と分子の桁数が違うときは，ハコの横巾が違ってしまいます．
+このようなとき，
+このオプションを用いて分母子のハコの横巾を揃えることができます．
 \hakosyokika
-\showexample[\texttt{(..)}$B%*%W%7%g%s(B]{example/ex11.tex}
+\showexample[\texttt{(..)}オプション]{example/ex11.tex}
 \clearpage
 
-\section{$B%O%3$NJ8;z0LCV(B}
-$B%O%3$NCf$NJ8;z0LCV$O%G%U%)%k%H$G$O!VCf1{!W$H$J$C$F$$$^$9!%(B
-$B$3$l$rJQ99$9$k%3%^%s%I$O(B \verb/\hakomoziiti{..}/ $B$G$9!%(B
-$B0z?t$O<!$N$b$N$,M-8z$G$9!%(B
+\section{ハコの文字位置}
+ハコの中の文字位置はデフォルトでは「中央」となっています．
+これを変更するコマンドは \verb/\hakomoziiti{..}/ です．
+引数は次のものが有効です．
 \begin{quote}\begin{verbatim}
-  l : $B:84s$;(B
-  c : $BCf1{!J%G%U%)%k%H!K(B
-% r : $B1&4s$;(B
-  ^ : $B:84s$;!$$+$D>eIU$-(B
-  L : $B:830!$$+$D>eIU$-(B
+  l : 左寄せ
+  c : 中央（デフォルト）
+% r : 右寄せ
+  ^ : 左寄せ，かつ上付き
+  L : 左外，かつ上付き
 \end{verbatim}
 \end{quote}
-$B0lNc$r<($7$^$9!%(B
+一例を示します．
 \showexample[\cmd{hakomoziiti}]{example/ex07l.tex}
 
-$B$J$*!$FCDj$N%O%3$@$1J8;z0LCV$r;XDj$7$?$$$H$-$O!$Bh(B2$B$N(B(..)$B%*%W%7%g%s$rMQ$$$^$9!%(B
-$B$3$N$H$-$OBh(B1$B$N(B(..)$B%*%W%7%g%s$OI,$:$D$1$J$1$l$P$J$j$^$;$s!%Nc$($P(B
-\showexample[$BBh(B2$B$N(B\texttt{(..)}$B%*%W%7%g%s(B]{example/ex072.tex}
+なお，特定のハコだけ文字位置を指定したいときは，第2の(..)オプションを用います．
+このときは第1の(..)オプションは必ずつけなければなりません．例えば
+\showexample[第2の\texttt{(..)}オプション]{example/ex072.tex}
 %\clearpage
 
-\section{$B%O%3$N9b$5JQ99(B}
-$B%O%3$N9b$5$O%G%U%)%k%H$G$O(B
+\section{ハコの高さ変更}
+ハコの高さはデフォルトでは
 \begin{jquote}
-\verb+\vphantom{$B$"(B}+
+\verb+\vphantom{あ}+
 \end{jquote}
-$B$9$J$o$AA43QJ8;z$N9b$5!$$H$J$C$F$$$^$9!%$5$i$K!$$=$N>e2<$K3F(B\texttt{3pt}
-$B$NM>Gr$,$D$-$^$9!%(B
-$B$3$l$rJQ99$9$k$K$O!$(B\verb/\hakosityuu/$B%3%^%s%I$r;HMQ$7$^$9!%(B
-$BNc$($P(B
+すなわち全角文字の高さ，となっています．さらに，その上下に各\texttt{3pt}
+の余白がつきます．
+これを変更するには，\verb/\hakosityuu/コマンドを使用します．
+例えば
 \showexample[\cmd{hakosityuu}]{example/ex09.tex}
 
-$BD>@\9b$5$r;XDj$9$k$K$O!$(B
+直接高さを指定するには，
 \showexample[\cmd{hakotakasa}]{example/ex09a.tex}
 
 \clearpage
-\section{$BCf$,6uGr$N%O%3!J%O%3$NJ8;z$rD>@\;XDj!K(B}
+\section{中が空白のハコ（ハコの文字を直接指定）}
 \begin{jquote}
-$B<!$N(B \Hako(2zw minus 0pt)"" $B$rJd$(!%(B
+次の \Hako(2zw minus 0pt)"" を補え．
 \end{jquote}
-$B$J$I$H!$Cf$,6uGr$N%O%3$r:n$j$?$$$H$-$b$"$j$^$9!%(B
-$B>e$N%O%3$O(B
+などと，中が空白のハコを作りたいときもあります．
+上のハコは
 \begin{verbatim}
        \Hako(2zw minus 0pt)""
 \end{verbatim}
-$B$H$7$F(B "" $B%*%W%7%g%s$r(B
-$BMQ$$$F$$$^$9!%(B
-$B%O%3$N2#6R$rD4@0$9$k$K$O!$(B(..)$B%*%W%7%g%s$r;HMQ$7$^$9!%(B
+として "" オプションを
+用いています．
+ハコの横巾を調整するには，(..)オプションを使用します．
 
-"..." $B%*%W%7%g%s$O(B Ver.0.64 $B$+$iDI2C$5$l$?%*%W%7%g%s$G!$(B
-$B%O%3$NJ8;z$rD>@\;XDj$7$?$$$H$-$KMQ$$$^$9!%(B
-$BNc$($P(B
-\showexample[\texttt{".."}$B%*%W%7%g%s(B]{example/ex13.tex}
+"..." オプションは Ver.0.64 から追加されたオプションで，
+ハコの文字を直接指定したいときに用います．
+例えば
+\showexample[\texttt{".."}オプション]{example/ex13.tex}
 
-$BCf$,6uGr$N%O%3$r:n$kJLK!$H$7$F!$(B\cmd{karaHako} $B%3%^%s%I$rMQ$$$k$3$H$b$G$-$^$9!%(B
-$B!J8e=R!K(B
+中が空白のハコを作る別法として，\cmd{karaHako} コマンドを用いることもできます．
+（後述）
 \clearpage
 
-\section{$BEz$rKd$a9~$`!J(B1$B!K(B}
-$BH"$NEz$rK\J8Cf$K=q$$$F$*$-!$LdBj$N8e$K$^$H$a$F%?%$%W%;%C%H$9$k$3$H$,$G$-$^$9!%(B
-$B$3$l$O(B '...'$B%*%W%7%g%s$G!$(B'...' $B$NCf$KEz$r5-F~$7$F$*$-$^$9!%(B
-$B$?$@$7!$Ez$O?t<0%b!<%I$K$J$j$^$9!%(B
+\section{答を埋め込む（1）}
+箱の答を本文中に書いておき，問題の後にまとめてタイプセットすることができます．
+これは '...'オプションで，'...' の中に答を記入しておきます．
+ただし，答は数式モードになります．
 
-$B$^$:$O!$0lNc$r$4$i$sD:$-$^$7$g$&!%(B
-\showexample[\texttt{'..'}$B%*%W%7%g%s(B]{example/ex14.tex}
+まずは，一例をごらん頂きましょう．
+\showexample[\texttt{'..'}オプション]{example/ex14.tex}
 
-$B$9$J$o$A!$LdBj$NCf$G!$%3%^%s%I(B \cmd{Hako} $B$N%*%W%7%g%s0z?t(B '...' $B$NCf$K(B
-$B5-=R$5$l$?Ez$,LdBj$N8e$K%?%$%W%;%C%H$5$l$^$9!%(B
+すなわち，問題の中で，コマンド \cmd{Hako} のオプション引数 '...' の中に
+記述された答が問題の後にタイプセットされます．
 
 \begin{itemize}
-\item[$BCm(B1$B!%(B] $BEz$O!$JL%U%!%$%k!JF10l%U%!%$%kL>$G!$3HD%;R$,(B .hka$B!K$K(B
-$B=q$-=P$5$l$^$9!%$=$l$r(B\par
+\item[注1．] 答は，別ファイル（同一ファイル名で，拡張子が .hka）に
+書き出されます．それを\par
 \centerline{\cmd{inputHakoKaiFile}}
-$B$H$$$&%3%^%s%I$GFI$_9~$_$^$9!%(B
+というコマンドで読み込みます．
 
 \end{itemize}
 
-\section{$BEz$rKd$a9~$`!J(B2$B!K(B}
-$B%;%s%?!<;n83$G$O!$Ez$N7e?tJ,$@$1%O%3$NCf$KJ8;z$,8=$l$^$9!%$3$l$r(B\par
+\section{答を埋め込む（2）}
+センター試験では，答の桁数分だけハコの中に文字が現れます．これを\par
 \centerline{\cmd{Hako}\texttt{<2>'43'}}
-$BEy$N$h$&$KEz$H7e?t$NN>J}$r5-=R$9$k$N$OL5BL$G$9$M!%(B
-$B$=$3$G!$(B\texttt{'...'} $B%*%W%7%g%s$r$D$1$F$=$NFbMF$+$i7e?t$,%+%&%s%H$G$-$k(B
-$B>l9g$O(B\texttt{<..>}$B%*%W%7%g%s$r>JN,$9$k$3$H$,$G$-$k$h$&$K$7$^$7$?!%(B
-$B$=$N$*$^$8$J$$$,(B\par
+等のように答と桁数の両方を記述するのは無駄ですね．
+そこで，\texttt{'...'} オプションをつけてその内容から桁数がカウントできる
+場合は\texttt{<..>}オプションを省略することができるようにしました．
+そのおまじないが\par
 \centerline{\cmd{centermodetrue}}
-$B$G$9!%$=$NNc$r$4$i$sD:$-$^$7$g$&!%(B
+です．その例をごらん頂きましょう．
 \showexample[\cmd{centermodetrue}]{example/ex15.tex}
 
-$B$9$J$o$A(B \cmd{hakosyokika} $B$KB3$1$F!$(B\cmd{centermodetrue} $B$H$7$^$9$H!$(B
-$B%O%3$KF~$l$k$Y$-J8;z?t$O!$(B\texttt{'..'}$B%*%W%7%g%s$GM?$($i$l$k(B
-$BEz$NJ8;z?t$H$J$j$^$9!%(B
-$B$3$N>l9g!$(B\texttt{<...>}$B%*%W%7%g%s$r$D$1$F$bL5;k$5$l$^$9!%(B
+すなわち \cmd{hakosyokika} に続けて，\cmd{centermodetrue} としますと，
+ハコに入れるべき文字数は，\texttt{'..'}オプションで与えられる
+答の文字数となります．
+この場合，\texttt{<...>}オプションをつけても無視されます．
 
-$B$J$*!$%G%U%)%k%H$O(B \cmd{centermodefalse} $B$N>uBV$G$9!%(B
-$BA0@a$NNc$O!$$3$N>uBV$G<B9T$5$l$F$$$^$9!%(B
+なお，デフォルトは \cmd{centermodefalse} の状態です．
+前節の例は，この状態で実行されています．
 
-\section{$BKd$a9~$s$@Ez$($NI=<(7A<0(B}
-$BKd$a9~$s$@Ez$($rI=<($9$k7A<0$O(B
+\section{埋め込んだ答えの表示形式}
+埋め込んだ答えを表示する形式は
   \begin{jquote}
-    $B%"(B = 1, $B%$%&(B = 23
+    ア = 1, イウ = 23
   \end{jquote}
-$B$H$$$&9T7A<0$N$[$+!$(B
+という行形式のほか，
   \begin{jquote}
   \begin{tabular}{|c|c|}\hline
-    $B%"(B & $B%$%&(B \\\hline
+    ア & イウ \\\hline
     1  &  23  \\\hline
   \end{tabular}
   \end{jquote}
-$B$H$$$&I=7A<0$r?7@_$7$?$3$H$K$"$j$^$9!#(B
+という表形式を新設したことにあります。
 
-$B$3$N7A<0$rMxMQ$9$k$K$O!$(B
+この形式を利用するには，
 \begin{jquote}
 \begin{verbatim}
 \HakoKaiKata{t}
 \end{verbatim}
 \end{jquote}
-$B$H@k8@$7$^$9!#(B
+と宣言します。
 
-$B<!$K0lNc$G$9!#(B
+次に一例です。
 
-$B$^$:!$:#$^$G$N7A<0$+$i(B
+まず，今までの形式から
 
-\begin{showEx}{$B=>Mh$N7A<0(B}
+\begin{showEx}{従来の形式}
 \hakosyokika
 \centermodetrue
 \openHakoKaiFile
@@ -550,18 +550,18 @@ Waver $B$5$s$N$*1"$G!$BgJQ3Z$,$G$-$k$h$&$K$J$j$^$7$?!%(B
 \end{Kaitou}
 \end{showEx}
 
-$B2rEz$rI=7A<0$K$9$k$K$O(B\verb/\HakoKaiKata{t}/$B$r@k8@$7$^$9!#(B
-$B2<$NNc$G$O!$(B\verb/\inputHakoKaiFile/$B$ND>A0$K@k8@$7$F$$$^$9$,!$(B
-$BJ8=qA4BN$G$3$N7A<0$r$H$k$H$-$O!$J8=q$NKAF,$G(B
+解答を表形式にするには\verb/\HakoKaiKata{t}/を宣言します。
+下の例では，\verb/\inputHakoKaiFile/の直前に宣言していますが，
+文書全体でこの形式をとるときは，文書の冒頭で
 \begin{jquote}
 \begin{verbatim}
   \hakosyokika
   \HakoKaiKata{t}
 \end{verbatim}
 \end{jquote}
-$B$J$I$H$9$l$P$h$$$G$7$g$&!#(B
+などとすればよいでしょう。
 
-\begin{showEx}{$BI=7A<0(B}
+\begin{showEx}{表形式}
 \hakosyokika
 \centermodetrue
 \openHakoKaiFile
@@ -575,9 +575,9 @@ Waver $B$5$s$N$*1"$G!$BgJQ3Z$,$G$-$k$h$&$K$J$j$^$7$?!%(B
 
 \clearpage
 
-$BEz$($KJ,?t$J$I$,4^$^$l!$9b$5$,0[$J$k$H$-$O$=$ND4@0$,I,MW$G$9!#(B
+答えに分数などが含まれ，高さが異なるときはその調整が必要です。
 
-\begin{showEx}(.55,.39){$B9b$5$,0[$J$k>l9g(B}
+\begin{showEx}(.55,.39){高さが異なる場合}
 \hakosyokika
 \openHakoKaiFile
 \[ a=\Hako'\bunsuu12',~b=\Hako'\sqrt3' \]
@@ -588,15 +588,15 @@ Waver $B$5$s$N$*1"$G!$BgJQ3Z$,$G$-$k$h$&$K$J$j$^$7$?!%(B
 \end{Kaitou}
 \end{showEx}
 
-$BBP:v$O;YCl$rN)$F$k$3$H$G$9!#=q<0$O(B
+対策は支柱を立てることです。書式は
 \begin{jquote}
 \begin{verbatim}
-\HakoKaiSityuu[$B?<$5(B]{$B9b$5(B}
+\HakoKaiSityuu[深さ]{高さ}
 \end{verbatim}
 \end{jquote}
-$B$G$9!#>e$NNc$G;YCl$rN)$F$F$_$^$9!#(B
+です。上の例で支柱を立ててみます。
 
-\begin{showEx}(.55,.39){$B9b$5$,0[$J$k>l9g$ND4@0(B}
+\begin{showEx}(.55,.39){高さが異なる場合の調整}
 \hakosyokika
 \openHakoKaiFile
 \[ a=\Hako'\bunsuu12',~b=\Hako'\sqrt3' \]
@@ -608,35 +608,35 @@ Waver $B$5$s$N$*1"$G!$BgJQ3Z$,$G$-$k$h$&$K$J$j$^$7$?!%(B
 \end{Kaitou}
 \end{showEx}
 
-\cmd{Hako}$B$NEz$(J8;zNs$r=$>~$9$k$K$O!$(B\cmd{hakokaisyotai}$B$rMQ$$$^$9!#(B
+\cmd{Hako}の答え文字列を修飾するには，\cmd{hakokaisyotai}を用います。
 
-\begin{showEx}(.54,.4){$BEz$($r@V$G(B}
+\begin{showEx}(.54,.4){答えを赤で}
 \openHakoKaiFile
 $(x+a)^2=x^2+\Hako'2a'x+\Hako'a^2'$
 \closeHakoKaiFile
 
 \hakokaisyotai{\color{red}\ensuremath}
-$B!ZEz![(B
+【答】
 \inputHakoKaiFile
 \end{showEx}
 
-$B%G%U%)%k%H$O(B
+デフォルトは
 \begin{jquote}
 \begin{verbatim}
 \hakokaisyotai{\ensuremath}
 \end{verbatim}
 \end{jquote}
-$B$,<B9T$5$l$?>uBV$G!$Ez$($O?t<0%b!<%I$KF~$k!$$H$$$&$N$O:#$^$GDL$j$G$9!#(B
+が実行された状態で，答えは数式モードに入る，というのは今まで通りです。
 
-$B$3$N(B\cmd{ensuremath}$B$r30$7$F$7$^$($P!$Ez$($O%F%-%9%H%b!<%I$GI=$5$l$^$9!#(B
+この\cmd{ensuremath}を外してしまえば，答えはテキストモードで表されます。
 
-\begin{showEx}(.54,.4){$BEz$($r(B\cmd{texttt}$B$G(B}
+\begin{showEx}(.54,.4){答えを\cmd{texttt}で}
 \openHakoKaiFile
-$B$D$.$N(B\karaHako $B$K2<$NA*Br;h$NCf$+$i(B
-$B:G$bE,@Z$J$b$N$rA*$S!$5-9f$GEz$($h!#(B
+つぎの\karaHako に下の選択肢の中から
+最も適切なものを選び，記号で答えよ。
 \[ (x+t)^2=x^2+\Hako'(c)'x+\Hako'(d)' \]
 
-$BA*Br;h!'(B
+選択肢：
 \begin{jquote}
 \begin{edaenumerate}[\ttfamily(a)]
   \item 0
@@ -648,25 +648,25 @@ $(x+a)^2=x^2+\Hako'2a'x+\Hako'a^2'$
 \closeHakoKaiFile
 
 \hakokaisyotai{\ttfamily}
-$B!ZEz![(B
+【答】
 \HakoKaiKata{t}
 \inputHakoKaiFile
 \end{showEx}
 
-\section{$B%O%3$NCf$rLV3]$1(B}
-$B%O%3$r(B2$B<oN`6hJL$7$?$$$H$-$K!$0lJ}$rLV3]$1$9$k!$(B
-$B$H$$$&=PBj$r$9$kBg3X$b$"$j$^$9!%(B
+\section{ハコの中を網掛け}
+ハコを2種類区別したいときに，一方を網掛けする，
+という出題をする大学もあります．
 
-$B$=$N$?$a$K!$(B\verb/\amiHako/ $B$H$$$&%3%^%s%I$r:n$j$^$7$?!%(B
-$B$?$@$7!$$3$l$O(B \verb/hako.sty/ $B$G$O$J$/!$(B
-\verb/arhako.sty/ $B$H$$$&JL%U%!%$%k$K$7$F$$$^$9$+$i!$(B
-$B$=$l$rFI$_9~$`I,MW$,$"$j$^$9!%(B
-$B$^$?!$FI$_9~$`=g=x$bLdBj$G(B \verb/hako.sty/ $B$r@h$K!$(B
-\verb/arhako.sty/ $B$r$=$N8e$KFI$_9~$`I,MW$,$"$j$^$9!%(B
-$B$5$i$K!$$3$N%Q%C%1!<%8$O(B
-\verb/ascmac.sty/$B$rI,MW$H$7$^$9!%(B
+そのために，\verb/\amiHako/ というコマンドを作りました．
+ただし，これは \verb/hako.sty/ ではなく，
+\verb/arhako.sty/ という別ファイルにしていますから，
+それを読み込む必要があります．
+また，読み込む順序も問題で \verb/hako.sty/ を先に，
+\verb/arhako.sty/ をその後に読み込む必要があります．
+さらに，このパッケージは
+\verb/ascmac.sty/を必要とします．
 
-$B0lNc$r5s$2$^$9!%(B
+一例を挙げます．
 
 \begin{itembox}{\cmd{amiHako}}
 \ifx\fmtname\tmpname%
@@ -682,21 +682,21 @@ $(x+a)^2=x^2+\Hako'2a'x+\Hako'a^2'$
 \begin{verbatim}
 \begin{document}
 \hakosyokika
-$B<!$N(B\Hako/$B!!(B/$B$K$"$F$O$^$k?tCM$rEz$($h!%(B
-$B$^$?!$(B\amiHako/$B!!(B/$B$K$"$F$O$^$k5-9f$r2<$NA*Br;h$+$iA*$S!$(B
-$B$=$NHV9f$rEz$($h!%(B
+次の\Hako/　/にあてはまる数値を答えよ．
+また，\amiHako/　/にあてはまる記号を下の選択肢から選び，
+その番号を答えよ．
 
-$x$$B$K$D$$$F$NJ}Dx<0(B$4x^2-2ax+\sqrt{3}=0$$B$N(B2$B$D$N2r$,(B
-$\sin\theta$, $\cos\theta$$B$G$"$k$H$$$&!%(B
-$B$?$@$7!$(B$0\Deg\leqq \theta\leqq 45\Deg$$B$G!$(B$a$$B$ODj?t$G$"$k!%(B
-$B$3$N$H$-(B
+$x$についての方程式$4x^2-2ax+\sqrt{3}=0$の2つの解が
+$\sin\theta$, $\cos\theta$であるという．
+ただし，$0\Deg\leqq \theta\leqq 45\Deg$で，$a$は定数である．
+このとき
 \[ a^2=\Hako\amiHako\Hako\sqrt{\Hako} \]
-$B$7$?$,$C$F!$(B$0\Deg\leqq \theta\leqq 45\Deg$$B$KCm0U$9$k$H(B
+したがって，$0\Deg\leqq \theta\leqq 45\Deg$に注意すると
 \[a=\Hako\amiHako\Hako\sqrt{\Hako},
 \quad\theta={\Hako\Hako}\Deg\]
-$B$G$"$k!%(B
+である．
 
-\begin{itemize}\itemindent2zw\item[$B!ZA*Br;h![(B]
+\begin{itemize}\itemindent2zw\item[【選択肢】]
 \renewcommand{\labelenumi}{\maru{\theenumi}}%
 \begin{edaenumerate}<4>
 \ttfamily\edaitemindent2zw%
@@ -710,25 +710,25 @@ $\sin\theta$, $\cos\theta$$B$G$"$k$H$$$&!%(B
 \end{verbatim}
 \end{itembox}
 
-$B$r%?%$%W%;%C%H$9$k$H(B
+をタイプセットすると
 
 \begin{shadebox}
 \hakosyokika
-$B<!$N(B\Hako/$B!!(B/$B$K$"$F$O$^$k?tCM$rEz$($h!%(B
-$B$^$?!$(B\amiHako/$B!!(B/$B$K$"$F$O$^$k5-9f$r2<$NA*Br;h$+$iA*$S!$(B
-$B$=$NHV9f$rEz$($h!%(B
+次の\Hako/　/にあてはまる数値を答えよ．
+また，\amiHako/　/にあてはまる記号を下の選択肢から選び，
+その番号を答えよ．
 
-$x$$B$K$D$$$F$NJ}Dx<0(B$4x^2-2ax+\sqrt{3}=0$$B$N(B2$B$D$N2r$,(B
-$\sin\theta$, $\cos\theta$$B$G$"$k$H$$$&!%(B
-$B$?$@$7!$(B$0\Deg\leqq \theta\leqq 45\Deg$$B$G!$(B$a$$B$ODj?t$G$"$k!%(B
-$B$3$N$H$-(B
+$x$についての方程式$4x^2-2ax+\sqrt{3}=0$の2つの解が
+$\sin\theta$, $\cos\theta$であるという．
+ただし，$0\Deg\leqq \theta\leqq 45\Deg$で，$a$は定数である．
+このとき
 \[ a^2=\Hako\amiHako\Hako\sqrt{\Hako} \]
-$B$7$?$,$C$F!$(B$0\Deg\leqq \theta\leqq 45\Deg$$B$KCm0U$9$k$H(B
+したがって，$0\Deg\leqq \theta\leqq 45\Deg$に注意すると
 \[a=\Hako\amiHako\Hako\sqrt{\Hako},
 \quad\theta={\Hako\Hako}{\Deg}\]
-$B$G$"$k!%(B
+である．
 
-\begin{itemize}\itemindent2zw\item[$B!ZA*Br;h![(B]$B!!(B
+\begin{itemize}\itemindent2zw\item[【選択肢】]　
 \renewcommand{\labelenumi}{\maru{\theenumi}}%
 
 \begin{edaenumerate}<4>
@@ -741,63 +741,63 @@ $\sin\theta$, $\cos\theta$$B$G$"$k$H$$$&!%(B
 \end{itemize}
 \end{shadebox}
 
-$B$H$J$j$^$9!%(B
+となります．
 
-$B%3%^%s%I(B \verb/\amiHako/ $B$O!$LV3]$1%U%i%C%0$rN)$F$F!$(B
-\verb/\Hako/ $B$r8F$S=P$7$F$$$^$9!%(B
-$B=>$C$F!$%*%W%7%g%s0z?t$N;H$$J}Ey$O(B \verb/\Hako/ $B$HF1MM$G!$(B
-$BAj8_;2>H$J$I$b2DG=$G$9$,!$;2>H$bLV3]$1$N%O%3$K$7$?$$$H$-$O(B
-\verb/\refamiHako*/ $B$rMQ$$$^$9!%(B
+コマンド \verb/\amiHako/ は，網掛けフラッグを立てて，
+\verb/\Hako/ を呼び出しています．
+従って，オプション引数の使い方等は \verb/\Hako/ と同様で，
+相互参照なども可能ですが，参照も網掛けのハコにしたいときは
+\verb/\refamiHako*/ を用います．
 
-\section{$B%O%3$$$m$$$m(B}
-\subsection{$B%O%3$NJ8;z$N4V$K=D;E@Z@~(B}
-$B%O%3$NCf$KJ#?t$NJ8;z$,F~$k$H$-!$$=$NJ8;z$N4V$K=D$N;E@Z@~$rF~$l$k(B
-$BN.57$b$"$j$^$9!%$=$N$?$a$N%3%^%s%I$,(B \verb/\renHako<$BJ8;z?t(B>/ 
-$B$G$9!%Nc$($P!$(B
+\section{ハコいろいろ}
+\subsection{ハコの文字の間に縦仕切線}
+ハコの中に複数の文字が入るとき，その文字の間に縦の仕切線を入れる
+流儀もあります．そのためのコマンドが \verb/\renHako<文字数>/ 
+です．例えば，
 \hakosyokika
 \showexample[\cmd{renHako}]{example/ex12.tex}
-$B$3$N%3%^%s%I$NMQ$$J}$O!$(B\verb/\Hako/ $B$H$[$\F1MM$G$9!%(B
-$B$?$@$7!$$3$N%3%^%s%I$O(B \texttt{hako.sty} $B$G$O$J$/!$(B
-\texttt{arhako.sty} $B$GDj5A$5$l$F$$$^$9$+$i!$(B
-\texttt{hako.sty} $B$K0z$-B3$-(B \texttt{arhako.sty} $B$r(B
-$BFI$_9~$`I,MW$,$"$j$^$9!%(B
-$B$J$*!$$3$N%3%^%s%I$O(B \verb/\hakoxyohaku{0pt}/ $B$rFbIt$G<B9T$7$^$9!%(B
+このコマンドの用い方は，\verb/\Hako/ とほぼ同様です．
+ただし，このコマンドは \texttt{hako.sty} ではなく，
+\texttt{arhako.sty} で定義されていますから，
+\texttt{hako.sty} に引き続き \texttt{arhako.sty} を
+読み込む必要があります．
+なお，このコマンドは \verb/\hakoxyohaku{0pt}/ を内部で実行します．
 %\fi
 \clearpage
 
-\subsection{$BGK@~$N;E@Z(B}
-$B;E@Z$j@~$rGK@~$K$9$k$3$H$b2DG=$G$9!#(B
+\subsection{破線の仕切}
+仕切り線を破線にすることも可能です。
 
 \begin{showEx}{\cmd{sikirisen}}
 \hakosyokika
-\sikirisen{\hasen}{0.4pt}{$B$"(B}
+\sikirisen{\hasen}{0.4pt}{あ}
 \renHako<3>
 \end{showEx}
 
-$B?75!G=$rMxMQ$9$k$K$O!$$^$:!$(B\textsf{arhako.sty}$B$r(B\verb+[tpic]+$B%*%W%7%g%s$r(B
-$B$D$1$FFI$_9~$_$^$9!'(B
+新機能を利用するには，まず，\textsf{arhako.sty}を\verb+[tpic]+オプションを
+つけて読み込みます：
 \begin{jquote}
 \begin{verbatim}
 \usepackage[tpic]{arhako}
 \end{verbatim}
 \end{jquote}
 
-$B<!$$$G!$%3%^%s%I(B\cmd{sikirisen}$B$K$h$j!$;E@Z$j@~$N7A>u$r;XDj$7$^$9!#(B
-\cmd{sikirisen}$B$N=q<0$O!'(B
+次いで，コマンド\cmd{sikirisen}により，仕切り線の形状を指定します。
+\cmd{sikirisen}の書式は：
 
 \begin{boxnote}
 \begin{verbatim}
 \sikirisen#1#2#3
-  #1 : $B;E@Z$j@~$r0z$/IA2h4X?t(B
+  #1 : 仕切り線を引く描画関数
         ex: \drawline(default), \hasen, \hasen[L=2pt,G=1pt],....
-  #2 : $B;E@Z$j@~$NB@$5(B
-  #3 : $B%O%3$KF~$k!$:GBg$N9b$5!&?<$5$r;}$DJ8;z(B
+  #2 : 仕切り線の太さ
+  #3 : ハコに入る，最大の高さ・深さを持つ文字
 \end{verbatim}
 \end{boxnote}
 
-$BGK@~$r$b$&>/$7:Y$+$/$7$F$_$^$9!#(B
+破線をもう少し細かくしてみます。
 
-\begin{showEx}(.7,.24){$BGK@~$r:Y$+$/(B}
+\begin{showEx}(.7,.24){破線を細かく}
 \hakosyokika
 \hakosyotai{\normalfont}
 \hakomozisyu{(1)}
@@ -807,26 +807,26 @@ $\sin\theta$, $\cos\theta$$B$G$"$k$H$$$&!%(B
 
 
 \begin{description}
-\item [$BCm!!(B]$B$3$N5!G=$O(B\texttt{tpic-specials}$B$rMQ$$$F$$$^$9!#(B
-  $B$7$?$,$C$F!$$3$l$r%5%]!<%H$7$F$$$J$$(B\texttt{dvi-ware}$B$G$O;HMQ$G$-$^$;$s!#(B
+\item [注　]この機能は\texttt{tpic-specials}を用いています。
+  したがって，これをサポートしていない\texttt{dvi-ware}では使用できません。
 \end{description}
 
-\subsection{$B@hF,J8;z$r!{$G0O$`(B}
-$B$^$:$O!$6qBNNc$r$4Mw$/$@$5$$!#(B
+\subsection{先頭文字を○で囲む}
+まずは，具体例をご覧ください。
 \bigskip
 
 \begin{shadebox}
 \ReadTeXFile{2114200510.tex}
-\syutten{2005 $BElMNBg3X(B}
+\syutten{2005 東洋大学}
 \end{shadebox}
 \bigskip
 
-\verb+\centermodetrue+$B$N$H$-!$(B
+\verb+\centermodetrue+のとき，
 \begin{jquote}
-$B%O%3$KF~$kJ8;zNs$N@hF,$r!{$G0O$_!$(B\\
-$B$3$3$K$OId9f$J$I?t;z0J30$N$b$N$,F~$k$3$H$rL@<($9$k(B
+ハコに入る文字列の先頭を○で囲み，\\
+ここには符号など数字以外のものが入ることを明示する
 \end{jquote}
-$B$H$$$&I=8=K!$KBP1~$9$k$?$a$N%3%^%s%I$,(B\verb+\tmHako+$B$G$9!#(B
+という表現法に対応するためのコマンドが\verb+\tmHako+です。
 
 \begin{showEx}{\cmd{tmHako}}
 \hakosyokika
@@ -846,353 +846,353 @@ $\sin\theta$, $\cos\theta$$B$G$"$k$H$$$&!%(B
 \end{showEx}
 
 
-\section{\cmd{HAKO} --- $B9bB.HG(B \cmd{Hako} }
-\cmd{Hako} $B$,B?$/$N%*%W%7%g%s0z?t$r$H$k$h$&$K$J$C$?$?$a!$(B
-$B=hM}B.EY$,Dc2<$7$F$-$^$7$?!%$=$3$G;HMQIQEY$N9b$$%*%W%7%g%s$@$1(B
-$B$r$H$k%3%^%s%I(B \cmd{HAKO} $B$r:n$j$^$7$?!%$D$1$k$3$H$N$G$-$k%*%W%7%g%s$O(B
+\section{\cmd{HAKO} --- 高速版 \cmd{Hako} }
+\cmd{Hako} が多くのオプション引数をとるようになったため，
+処理速度が低下してきました．そこで使用頻度の高いオプションだけ
+をとるコマンド \cmd{HAKO} を作りました．つけることのできるオプションは
 \begin{itemize}
-  \item \texttt{<..>} $BJ8;z8D?t%*%W%7%g%s(B
-  \item \texttt{[..]} $B%i%Y%k%*%W%7%g%s!JA4BN%i%Y%k$N$_!K(B
-  \item \texttt{(..)} $B2#6RJQ99%*%W%7%g%s(B
+  \item \texttt{<..>} 文字個数オプション
+  \item \texttt{[..]} ラベルオプション（全体ラベルのみ）
+  \item \texttt{(..)} 横巾変更オプション
 \end{itemize}
-$B$N(B3$B8D$@$1$G$9!%$=$NB>$N%*%W%7%g%s$r$D$1$?$$$H$-$O!$(B
-$B=>Mh$N(B \cmd{Hako} $B$r;HMQ$7$F$/$@$5$$!%(B
+の3個だけです．その他のオプションをつけたいときは，
+従来の \cmd{Hako} を使用してください．
 
-\cmd{HAKO} $B$H(B \cmd{Hako} $B$N:.:_;HMQ$O2DG=$G!$(B
-$BHV9f$ON><T$G6&DL$K%$%s%/%j%a%s%H$5$l$^$9!%(B
-$B$=$N0lNc$r8+$F$$$?$@$-$^$7$g$&!%(B
-$B2<$NNc$O!$(B2$BJ8;z$r4^$`%O%3$K$*$$$F!$8DJL%i%Y%k!JBh(B2$B$N(B \texttt{[...]}$B%*%W%7%g%s!K(B
-$B$rIU$1$k(B2$B8D=j$@$1(B \cmd{Hako} $B$r;HMQ$7!$B>$N%O%3$K$O(B \cmd{HAKO} $B$rMQ$$$F$$$^$9!%(B
-$B$^$?!$(B\cmd{HAKO} $B$GIU$1$?%i%Y%k$rMQ$$$F$N;2>H$O!$(B\cmd{Hako} $B$KBP$9$k$HF1$8$/(B
-\cmd{refHako} $B$^$?$O(B \cmd{refHako*} $B$rMQ$$$^$9!%(B
+\cmd{HAKO} と \cmd{Hako} の混在使用は可能で，
+番号は両者で共通にインクリメントされます．
+その一例を見ていただきましょう．
+下の例は，2文字を含むハコにおいて，個別ラベル（第2の \texttt{[...]}オプション）
+を付ける2個所だけ \cmd{Hako} を使用し，他のハコには \cmd{HAKO} を用いています．
+また，\cmd{HAKO} で付けたラベルを用いての参照は，\cmd{Hako} に対すると同じく
+\cmd{refHako} または \cmd{refHako*} を用います．
 
-\showexample[\cmd{HAKO} $B$H(B \cmd{Hako} $B$N:.MQ(B]{example/exHAKO.tex}
+\showexample[\cmd{HAKO} と \cmd{Hako} の混用]{example/exHAKO.tex}
 
 \clearpage
 
-\section{$B%3%^%s%I%j%U%!%l%s%9(B(1)}
+\section{コマンドリファレンス(1)}
 \begin{verbatim}
- \Hako<$B%O%3$NCf$NJ8;z?t(B>($B%O%3$NI}(B)($B0LCV;XDj(B)
-       [$BA4BN%i%Y%k(B][$B8DJL%i%Y%k(B]"$B%O%3$NCf$NJ8;z(B"
-       '$B%O%3$NEz(B'/$B%O%3$NCf$NJ8;z<o(B/
+ \Hako<ハコの中の文字数>(ハコの幅)(位置指定)
+       [全体ラベル][個別ラベル]"ハコの中の文字"
+       'ハコの答'/ハコの中の文字種/
 \end{verbatim}
-\renewcommand{\labelenumi}{$BBh(B\arabic{enumi}$B0z?t(B\ }
+\renewcommand{\labelenumi}{第\arabic{enumi}引数\ }
 \begin{jquote}(6zw)
 \begin{enumerate}
-  \item \texttt{<}$B%O%3$NCf$NJ8;z?t(B($B%G%U%)%k%H$O#1(B)\texttt{>}
-  \item ($B%O%3$N2#I}$NM>Gr%5%$%:(B)
-  \item ($B0LCV;XDj(B)\par
+  \item \texttt{<}ハコの中の文字数(デフォルトは１)\texttt{>}
+  \item (ハコの横幅の余白サイズ)
+  \item (位置指定)\par
      \begin{tabular}{l@{~:~}l}
-               \texttt{c} & $BCf1{(B($B%G%U%)%k%H(B)\\
-               \texttt{l} & $B:84s$;(B\\
-               \texttt{\char'136} & $B>eIU$-(B($BI,A3E*$K:84s$;(B)\\
-               \texttt{|} & $BJ8;z$N1&$K=D7S@~(B($BI,A3E*$K:84s$;(B)\\
-               \texttt{L} & $B:830>eIU$-(B\\
-               \texttt{b} & $B%O%3$N(B baseline $B$r%O%3$N2<OH@~$H$9$k!%(B\\
-               \texttt{t} & $B%O%3$N(B baseline $B$r%O%3$N>eOH@~$H$9$k!%(B
+               \texttt{c} & 中央(デフォルト)\\
+               \texttt{l} & 左寄せ\\
+               \texttt{\char'136} & 上付き(必然的に左寄せ)\\
+               \texttt{|} & 文字の右に縦罫線(必然的に左寄せ)\\
+               \texttt{L} & 左外上付き\\
+               \texttt{b} & ハコの baseline をハコの下枠線とする．\\
+               \texttt{t} & ハコの baseline をハコの上枠線とする．
     \end{tabular}
 
-   \item{} [$BA4BN%i%Y%k(B]
+   \item{} [全体ラベル]
 
-   \item{} [$B8DJL%i%Y%k(B]\par
-               $BBh(B1$B0z?t$GJ#?t$NJ8;z$r;XDj$7$?>l9g!$(B
-               $B$=$N?t$@$1%i%Y%k$r(B , $B$G6h@Z$C$FJB$Y$k!%(B
-   \item "$B%O%3$NCf$NJ8;z(B"\par
-               $B%+%&%s%?$NCM$H$OL54X78$K!$%O%3$NCf$KF~$kJ8;z$r(B
-               $BD>@\;XDj$9$k!%(B
-   \item '$B%O%3$NEz(B'\par
-               $B%O%3$KF~$l$k$Y$-Ez$r5-=R$7$F$*$$$F!$(B
-               $BLdBj$N8e$m$K%?%$%W%;%C%H$9$k!%(B
-   \item /$B%O%3$NCf$NJ8;z<o(B/\par
+   \item{} [個別ラベル]\par
+               第1引数で複数の文字を指定した場合，
+               その数だけラベルを , で区切って並べる．
+   \item "ハコの中の文字"\par
+               カウンタの値とは無関係に，ハコの中に入る文字を
+               直接指定する．
+   \item 'ハコの答'\par
+               ハコに入れるべき答を記述しておいて，
+               問題の後ろにタイプセットする．
+   \item /ハコの中の文字種/\par
       \begin{tabular}{c@{~:~}l}
-               $B%"(B & $B%"(B,$B%$(B,$B%&(B,$B%((B,$B%*(B,..... ($B%G%U%)%k%H(B)\\
-               $B%$(B & $B%$(B,$B%m(B,$B%O(B,$B%K(B,$B%[(B,.....\\
-               $B$"(B & $B$"(B,$B$$(B,$B$&(B,$B$((B,$B$*(B,.....\\
-               $B$$(B & $B$$(B,$B$m(B,$B$O(B,$B$K(B,$B$[(B,.....\\
+               ア & ア,イ,ウ,エ,オ,..... (デフォルト)\\
+               イ & イ,ロ,ハ,ニ,ホ,.....\\
+               あ & あ,い,う,え,お,.....\\
+               い & い,ろ,は,に,ほ,.....\\
                1  & 1, 2, 3, 4, 5,.....\\
                i  & i, ii, iii, iv, v,.....\\
                I  & I, II, III, IV, V,.....\\
                a  & a, b, c, d, e,.....\\
                A  & A, B, C, D, E,....\\
-               m  & $B4]IU$-?t;z(B\\
-               $B0l(B & $B0l(B,$BFs(B,$B;0(B,$B;M(B,$B8^(B,....
+               m  & 丸付き数字\\
+               一 & 一,二,三,四,五,....
       \end{tabular}
-\renewcommand{\labelenumii}{$BCm(B\arabic{enumii}$B!%(B\ }
+\renewcommand{\labelenumii}{注\arabic{enumii}．\ }
       \begin{enumerate}
-        \item $B$=$NB>$NJ8;z$O$=$N$^$^=PNO$5$l$^$9$+$i!$(B\\
-              \hspace{2zw}/(1)/ $B$H;XDj$9$l$P!$(B\\
+        \item その他の文字はそのまま出力されますから，\\
+              \hspace{2zw}/(1)/ と指定すれば，\\
               \hspace{4zw}(1),(2),(3),(4),(5),.....\\
-                   $B$H!$%J%s%P%j%s%0$5$l$^$9!%(B
-        \item $B%G%U%)%k%H$O(B /$B%"(B/ $B$G$9$,!$(B
+                   と，ナンバリングされます．
+        \item デフォルトは /ア/ ですが，
               \begin{jquote}
-                \verb/\hakomozisyu{$B$$(B}/
+                \verb/\hakomozisyu{い}/
               \end{jquote}
-              $B$J$I$H!$@k8@$9$l$P!$(B
-              $B0J9_%G%U%)%k%H$NJ8;z<o$,(B /$B$$(B/ $B$KJQ99$5$l$^$9!%(B\par
-              $B$9$J$o$A!$C1$K(B \verb/\Hako/ $B$G(B
+              などと，宣言すれば，
+              以降デフォルトの文字種が /い/ に変更されます．\par
+              すなわち，単に \verb/\Hako/ で
               \begin{jquote}
-                   $B$$(B,$B$m(B,$B$O(B,$B$K(B,$B$[(B,....
+                   い,ろ,は,に,ほ,....
               \end{jquote}
-              $B$H=PNO$5$l$^$9!%(B
-%        \item \texttt{/m/}$B!J4]IU$-?t;z!K$N>l9g$O!$(B
-%          \texttt{< >} $B%*%W%7%g%s$OL58z$G$9!%(B
+              と出力されます．
+%        \item \texttt{/m/}（丸付き数字）の場合は，
+%          \texttt{< >} オプションは無効です．
        \end{enumerate}
  \end{enumerate}
 \end{jquote}
  
-\verb+\refHako/$B%O%3$NCf$NJ8;z<o(B/{$B%i%Y%k(B}+
+\verb+\refHako/ハコの中の文字種/{ラベル}+
   \begin{jquote}(3zw)
-       \verb/\Hako/ $B$G$D$1$?(B"$B%i%Y%k(B"$B$r<h$j=P$7$^$9!%(B
-%      / / $B%*%W%7%g%s$O!$4]IU$-?t;z$N>l9g$@$1I,MW$G$9!%(B
+       \verb/\Hako/ でつけた"ラベル"を取り出します．
+%      / / オプションは，丸付き数字の場合だけ必要です．
   \end{jquote}
 
-\verb+\refHako*($B%O%3$NI}(B)($B0LCV;XDj(B)/$B%O%3$NCf$NJ8;z<o(B/{$B%i%Y%k(B}+
+\verb+\refHako*(ハコの幅)(位置指定)/ハコの中の文字種/{ラベル}+
   \begin{jquote}(3zw)
-       \verb/\Hako/ $B$G$D$1$?(B"$B%i%Y%k(B"$B$r%O%3$NOH$r$D$1$?7A$G<h$j=P$7$^$9!%(B
-       ($B%O%3$NI}(B)($B0LCV;XDj(B)$B%*%W%7%g%s$O(B \verb/\Hako/ $B$HF1MM$G$9!%(B
-%       / / $B%*%W%7%g%s$O!$4]IU$-?t;z$N>l9g$@$1I,MW$G$9!%(B
+       \verb/\Hako/ でつけた"ラベル"をハコの枠をつけた形で取り出します．
+       (ハコの幅)(位置指定)オプションは \verb/\Hako/ と同様です．
+%       / / オプションは，丸付き数字の場合だけ必要です．
   \end{jquote}
 \clearpage
 
-\section{$B%3%^%s%I%j%U%!%l%s%9(B(2)}
+\section{コマンドリファレンス(2)}
 \verb/\hakosyokika/
   \begin{jquote}(3zw)
-    hako.sty $B$NFbItJQ?t$J$I$r=i4|2=$7$^$9!%(B
-    $B$3$N%Q%C%1!<%8$r;HMQ$9$k$H$-$O!$:G=i$K8F$VI,MW$,$"$j$^$9!%(B
+    hako.sty の内部変数などを初期化します．
+    このパッケージを使用するときは，最初に呼ぶ必要があります．
   \end{jquote}
 
 \verb/\hakobansyokika/
   \begin{jquote}(3zw)
-    $B%O%3$N%+%&%s%?$r$9$Y$F=i4|2=(B(0)$B$7$^$9!%(B
+    ハコのカウンタをすべて初期化(0)します．
   \end{jquote}
 
 \verb/\hakomozisyu{..}/
   \begin{jquote}(3zw)
-    $B%O%3$NCf$NJ8;z<o$rJQ99$7$^$9!%!JBh(B5$B@a;2>H!K(B
+    ハコの中の文字種を変更します．（第5節参照）
   \end{jquote}
 
 \verb/\hakosenhaba{..}/
   \begin{jquote}(3zw)
-    $B%O%3$NOH@~$NB@$5$rJQ99$7$^$9!%!JBh(B9$B@a;2>H!K(B
+    ハコの枠線の太さを変更します．（第9節参照）
   \end{jquote}
 
 \verb/\hakosityuu{..}/
   \begin{jquote}(3zw)
-    $B%O%3$N9b$5$r;XDj$7$^$9!%(B($BBh(B13$B@a;2>H(B))
+    ハコの高さを指定します．(第13節参照))
   \end{jquote}
 
 \verb/\hakosyotai{..}/
   \begin{jquote}(3zw)
-    $B%O%3$NCf$NJ8;z$N=qBN$r@_Dj$7$^$9!%!JBh(B8$B@a;2>H!K(B
+    ハコの中の文字の書体を設定します．（第8節参照）
   \end{jquote}
 
 \verb/\hakoxyohaku{..}/
   \begin{jquote}(3zw)
-    $B%O%3$N2#M>GrNL$r@_Dj$7$^$9!%!JBh(B10$B@a;2>H!K(B
+    ハコの横余白量を設定します．（第10節参照）
   \end{jquote}
 
 \verb/\hakoyohaku{..}/
   \begin{jquote}(3zw)
-    $B%O%3$NCf$NJ8;z$HOH@~$N4V!J>e2<:81&!K$NM>GrNL$r@_Dj$7$^$9!%(B
-    $B%G%U%)%k%HCM$O!$(B\verb/\fboxsep/ $B$HF1$8$/(B \texttt{3pt} $B$G$9!%(B
+    ハコの中の文字と枠線の間（上下左右）の余白量を設定します．
+    デフォルト値は，\verb/\fboxsep/ と同じく \texttt{3pt} です．
   \end{jquote}
 
-\section{$BIm(B $B5-9f$rIUM?$7$J$$%O%3(B}
-\textsf{hako.sty}$B$G$O!$%O%3$K(B
+\section{附 記号を付与しないハコ}
+\textsf{hako.sty}では，ハコに
 \begin{jquote}
 \begin{verbatim}
-$B%"!$%$!$%&!$!&!&!&!&!&(B
+ア，イ，ウ，・・・・・
 \end{verbatim}
 \end{jquote}
-$B$H5-9f$rIUM?$7!$$=$l$rAj8_;2>H$9$k$3$H$rL\E*$H$7$F$$$^$9$,!$(B
-$B6u$N%O%3$r;H$$$?$$!$$"$k$$$OEz$($rKd$a9~$_$?$$$H$$$&$4MWK>$b$"$j$^$9!#(B
-$B$=$l$KEz$($k$N$,(B
+と記号を付与し，それを相互参照することを目的としていますが，
+空のハコを使いたい，あるいは答えを埋め込みたいというご要望もあります。
+それに答えるのが
 \begin{jquote}
 \begin{verbatim}
 \karaHako
 \maskHako
 \end{verbatim}
 \end{jquote}
-$B$G$9!#(B
+です。
 
 \subsection{\cmd{karaHako}}
 \showexample[\cmd{karaHako}]{example/karaHako.tex}
 
-\cmd{karaHako} $B$N=q<0$O(B
+\cmd{karaHako} の書式は
 \begin{boxnote}
 \begin{verbatim}
 \karaHako(#1)[#2][#3]
-    #1 : $B2#I}(B $B!J%G%U%)%k%H(B = 2zw$B!K(B
-    #2 : $B9b$5(B $B!J%G%U%)%k%H(B = 1zh$B!K(B
-    #3 : $B?<$5(B $B!J%G%U%)%k%H(B = 0zh$B!K(B
+    #1 : 横幅 （デフォルト = 2zw）
+    #2 : 高さ （デフォルト = 1zh）
+    #3 : 深さ （デフォルト = 0zh）
 \end{verbatim}
 \end{boxnote}
 
 \subsection{\cmd{maskHako}}
-\cmd{karaHako}$B$G$O!$6uGr$N%O%3$rI=<($9$k$@$1$G$9$,!$(B
-$BEz$($rKd$a9~$s$GCV$-!$(B
-$B%O%3$NCf$r6uGr$K$7$F$*$/$+!$Ez$($rI=<($9$k$+$O!$(B
-\cmd{ifmaskhako}$B$N??56CM$G%3%s%H%m!<%k$7$h$&!$(B
-$B$H$$$&$N$,(B\cmd{maskHako}$B$G$9!#(B
-$B$?$@$7!$$3$N%3%^%s%I$O(B \textsf{color}$B%Q%C%1!<%8$rI,MW$H$7$^$9!#(B
+\cmd{karaHako}では，空白のハコを表示するだけですが，
+答えを埋め込んで置き，
+ハコの中を空白にしておくか，答えを表示するかは，
+\cmd{ifmaskhako}の真偽値でコントロールしよう，
+というのが\cmd{maskHako}です。
+ただし，このコマンドは \textsf{color}パッケージを必要とします。
 
 \abovedisplayskip=0pt
 \belowdisplayskip=0pt
 \begin{showEx}(.6,.34){\cmd{maskHako}}
-$B<!$N(B\karaHako $B$rJd$(!#(B
+次の\karaHako を補え。
 
-$f(x)=x^n$$B$NF34X?t$O(B
+$f(x)=x^n$の導関数は
 \[f'(x)=\maskHako(4zw)[2zh][1zh]{nx^{n-1}}\]
-$B$G$"$k!#(B
+である。
 \end{showEx}
 
-$B?7$7$$%3%^%s%I$O(B \cmd{maskHako}$B$G!$$=$N=q<0$O(B
+新しいコマンドは \cmd{maskHako}で，その書式は
 \begin{boxnote}
 \begin{verbatim}
 \maskHako(#1)[#2][#3]#4
-  #1 : $B%O%3$N2#I}(B
-  #2 : $B%O%3$N9b$5(B
-  #3 : $B%O%3$N?<$5(B
-  #4 : $BEz$(!J?t<0%b!<%IFb$H2>Dj$5$l$F$$$^$9!K(B
+  #1 : ハコの横幅
+  #2 : ハコの高さ
+  #3 : ハコの深さ
+  #4 : 答え（数式モード内と仮定されています）
 
 \ifmaskhako
-  \maskhakotrue $B!J%G%U%)%k%H!K$N$H$-$O(B
-    #1,#2,#3 $B$G;XDj$5$l$?%5%$%:$N6u%O%3$r:n$k!#(B
-    #1,#2,#3 $B$r;XDj$7$J$$$H$-$O(B #4 $B$,G<$^$k%O%3$r:n$k!#(B
-  \maskhakofalse $B$H$9$k$H(B
-    #1,#2,#3 $B$G;XDj$5$l$?%5%$%:$N%O%3Cf1{$K(B #4 $B$r<($9!#(B
+  \maskhakotrue （デフォルト）のときは
+    #1,#2,#3 で指定されたサイズの空ハコを作る。
+    #1,#2,#3 を指定しないときは #4 が納まるハコを作る。
+  \maskhakofalse とすると
+    #1,#2,#3 で指定されたサイズのハコ中央に #4 を示す。
 \end{verbatim}
 \end{boxnote}
-$B$G$9!#%G%U%)%k%H$G$O(B \cmd{maskhakotrue} $B$9$J$o$A!$Ez$($OI=<($;$:!$(B
-$B%O%3$NOH$N$_$r<($7$^$9!#(B
+です。デフォルトでは \cmd{maskhakotrue} すなわち，答えは表示せず，
+ハコの枠のみを示します。
 
-\cmd{maskhakofalse}$B$H@k8@$7$^$9$H(B
+\cmd{maskhakofalse}と宣言しますと
 
 \begin{showEx}(.6,.34){\cmd{ifmaskhako}}
 \maskhakofalse
-$B<!$N(B\karaHako $B$rJd$(!#(B
+次の\karaHako を補え。
 
-$f(x)=x^n$$B$NF34X?t$O(B
+$f(x)=x^n$の導関数は
 \[f'(x)=\maskHako(4zw)[2zh][1zh]{nx^{n-1}}\]
-$B$G$"$k!#(B
+である。
 \end{showEx}
-$B$H!$%O%3$NCf$KEz$($,I=<($5$l$^$9!#(B
+と，ハコの中に答えが表示されます。
 
-$BEz$($r@V$GI=<($7$?$$!$$H$$$&$H$-(B \verb+\color+$BJ8$G;XDj$9$k$H(B
+答えを赤で表示したい，というとき \verb+\color+文で指定すると
 
-\begin{showEx}(.8,.8){$B2rEz$r@V$GKd$a9~$`(B}
+\begin{showEx}(.8,.8){解答を赤で埋め込む}
   ${(x^2)}'=\maskHako(4zw)[2zh][1zh]{\color{red}2x}$
 \end{showEx}
 
-$B$h$5$=$&$G$9$,!$(B\cmd{maskhakotrue}$B$H$7$F$b!$(B
-$B2rEz$,@V$G=P$F$7$^$$$^$9!#(B
+よさそうですが，\cmd{maskhakotrue}としても，
+解答が赤で出てしまいます。
 
-\begin{showEx}(.8,.8){$B%^%9%/$G$-$J$$(B}
+\begin{showEx}(.8,.8){マスクできない}
   \maskhakotrue
   ${(x^2)}'=\maskHako(4zw)[2zh][1zh]{\color{red}2x}$
 \end{showEx}
 
-$BBP1~K!$O!V@V$rGr$H8@$$$/$k$a$k!W$H$$$&$N$,$"$j$^$9!#(B
+対応法は「赤を白と言いくるめる」というのがあります。
 
-\begin{showEx}(.9,.8){$B@V$H$OGr$N$3$H$J$j(B $B!)(B}
+\begin{showEx}(.9,.8){赤とは白のことなり ？}
   \maskhakotrue
-  \ifmaskhako% maskhakotrue $B$N$H$-$O(B
-    \definecolor{red}{rgb}{1,1,1}% red$B$NDj5A$r(Bwhite$B$NDj5A$HF1$8$K(B
+  \ifmaskhako% maskhakotrue のときは
+    \definecolor{red}{rgb}{1,1,1}% redの定義をwhiteの定義と同じに
   \fi
   ${(x^2)}'=\maskHako(4zw)[2zh][1zh]{\color{red}2x}$
 \end{showEx}
 
-$B$A$H6/J[$G$9$M!#(B
-$B$H$$$&$3$H$G!$(B\cmd{everymaskHako}$B$NEP>l$G$9!#(B
+ちと強弁ですね。
+ということで，\cmd{everymaskHako}の登場です。
 
 \begin{showEx}(.8,.8){\cmd{everymaskHako}}
 \maskhakofalse
 \everymaskHako{\color{red}}
-$B<!$N(B\karaHako $B$rJd$(!#(B
+次の\karaHako を補え。
 \begin{align*}
   {(x^2)}'&=\maskHako(4zw)[2zh][1zh]{2x}\\
   {(x^3)}'&=\maskHako(4zw)[2zh][1zh]{3x^2}
 \end{align*}
 \end{showEx}
 
-$B$3$N;XDjK!$O$9$Y$F$N(B\cmd{maskHako}$B$KBP$7$FF/$-$^$9!#(B
-$B%G%U%)%k%H>uBV$KLa$7$?$$$H$-$O(B
+この指定法はすべての\cmd{maskHako}に対して働きます。
+デフォルト状態に戻したいときは
 \begin{jquote}
 \begin{verbatim}
 \everymaskHako{\relax}
 \end{verbatim}
 \end{jquote}
-$B$H$7$^$9!#(B
+とします。
 
-$B$5$F!$%^%9%/$G$-$k$G$7$g$&$+!#(B
+さて，マスクできるでしょうか。
 
-\begin{showEx}(.8,.8){\cmd{maskhakotrue}$B$bM-8z(B}
+\begin{showEx}(.8,.8){\cmd{maskhakotrue}も有効}
 \maskhakotrue
 \everymaskHako{\color{red}}
-$B<!$N(B\karaHako $B$rJd$(!#(B
+次の\karaHako を補え。
 \begin{align*}
   {(x^2)}'&=\maskHako(4zw)[2zh][1zh]{2x}\\
   {(x^3)}'&=\maskHako(4zw)[2zh][1zh]{3x^2}
 \end{align*}
 \end{showEx}
 
-$B<XB-$J$,$i(B\cmd{color}$B$r;HMQ$9$k$K$O!$(B\textsf{color}$B%Q%C%1!<%8$,I,MW$G$9!#(B
-\textsf{emath}$B$G$O!$(B\textsf{emathPh}$B$J$I(B\textsf{emathP}$B7O$N$b$N$r;HMQ$9$k$H$-$O(B
-\textsf{color}$B%Q%C%1!<%8$O<+F0E*$KFI$_9~$^$l$F$$$^$9!#(B
+蛇足ながら\cmd{color}を使用するには，\textsf{color}パッケージが必要です。
+\textsf{emath}では，\textsf{emathPh}など\textsf{emathP}系のものを使用するときは
+\textsf{color}パッケージは自動的に読み込まれています。
 
 \clearpage
 
-$BB@;z;XDj!J(B\cmd{bm}$B!K$O!$>/!9LLE]$G$9!#(B
+太字指定（\cmd{bm}）は，少々面倒です。
 
-\begin{showEx}(.8,.8){\cmd{bm}$B;XDj(B}
+\begin{showEx}(.8,.8){\cmd{bm}指定}
 \maskhakofalse
 \everymaskHako[$]{$\bm}
-$B<!$N(B\karaHako $B$rJd$(!#(B
+次の\karaHako を補え。
 \begin{align*}
   {(x^2)}'&=\maskHako(4zw)[2zh][1zh]{2x}\\
   {(x^3)}'&=\maskHako(4zw)[2zh][1zh]{3x^2}
 \end{align*}
 \end{showEx}
 
-$B$9$J$o$A(B
+すなわち
 \begin{jquote}
 \begin{verbatim}
 \everymaskHako[#1]#2
-\maskHako{$B$J$s$?$i(B}
+\maskHako{なんたら}
 \end{verbatim}
 \end{jquote}
-$B$O<!$N$h$&$KE83+$5$l$^$9!'(B
+は次のように展開されます：
 \begin{jquote}
 \begin{verbatim}
-#2{\ensuremath{$B$J$s$?$i(B}}#1
+#2{\ensuremath{なんたら}}#1
 \end{verbatim}
 \end{jquote}
-$B$9$J$o$A!$>e$NNc$G$O(B
+すなわち，上の例では
 \begin{jquote}
 \begin{verbatim}
 $\bm{\ensuremath{2x}}$
 \end{verbatim}
 \end{jquote}
-$B$HE83+$5$l$^$9!#(B
+と展開されます。
 
-$B:G8e$K!$@V$GB@;z$N;XDj$G$9!#(B
+最後に，赤で太字の指定です。
 
-\begin{showEx}(.8,.8){$B@V$GB@;z(B}
+\begin{showEx}(.8,.8){赤で太字}
 \maskhakofalse
 \everymaskHako[$]{\color{red}$\bm}
-$B<!$N(B\karaHako $B$rJd$(!#(B
+次の\karaHako を補え。
 \begin{align*}
   {(x^2)}'&=\maskHako(4zw)[2zh][1zh]{2x}\\
   {(x^3)}'&=\maskHako(4zw)[2zh][1zh]{3x^2}
 \end{align*}
 \end{showEx}
 
-$B%^%9%/$N3NG'$r$7$^$7$g$&$+!#(B
+マスクの確認をしましょうか。
 
-\begin{showEx}(.8,.8){$B@V$GB@;z(B}
+\begin{showEx}(.8,.8){赤で太字}
 \maskhakotrue
 \everymaskHako[$]{\color{red}$\bm}
-$B<!$N(B\karaHako $B$rJd$(!#(B
+次の\karaHako を補え。
 \begin{align*}
   {(x^2)}'&=\maskHako(4zw)[2zh][1zh]{2x}\\
   {(x^3)}'&=\maskHako(4zw)[2zh][1zh]{3x^2}

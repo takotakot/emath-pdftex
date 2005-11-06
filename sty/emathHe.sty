@@ -1,11 +1,11 @@
-% emathHe.sty ver.0.06$B&A(B 2000/01/10   by tDB(CQB00260@nifty.ne.jp)
-%   $BJ?J}:,$N7W;;(B
-%     a+b$B"e&A(B+c$B"e&B(B+d$B"e&C(B+.......
-%       (a,b,c,d,...,$B&A(B,$B&B(B,$B&C(B,.... : $B@0?t(B)
-%     $B$N2C8:>h=|!J4^!'J,Jl$NM-M}2=!K(B
+% emathHe.sty ver.0.06α 2000/01/10   by tDB(CQB00260@nifty.ne.jp)
+%   平方根の計算
+%     a+b√α+c√β+d√γ+.......
+%       (a,b,c,d,...,α,β,γ,.... : 整数)
+%     の加減乗除（含：分母の有理化）
 
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesPackage{emathHe}[2000/01/10 v0.06$B&A(B]%
+\ProvidesPackage{emathHe}[2000/01/10 v0.06α]%
 
 \RequirePackage{emath}
 
@@ -21,7 +21,7 @@
 \def\root@mark{"}%
 \def\rootmark#1{\Strlen{#1}\@l
   \ifnum\@l=\@ne\def\root@mark{#1}\else
-  \errmessage{$B%k!<%H5-9f$O(B1$BJ8;z$G$J$1$l$P$J$j$^$;$s!%(B}\fi
+  \errmessage{ルート記号は1文字でなければなりません．}\fi
 }
 
 \def\Heihoukon#1#2{%
@@ -261,7 +261,7 @@
   \edef#2{\kukuridasi@a}%
 }
 
-\def\HIDiv#1#2#3{%  #2 $B$O@0?t(B
+\def\HIDiv#1#2#3{%  #2 は整数
   \Cfor{\edef\HIDiv@b{#1}\edef\HIDiv@ans{}}{\not\equal\HIDiv@b{}}{}\do{%
     \septerm\HIDiv@b\HIDiv@a\HIDiv@b
     \seproot\HIDiv@a\HIDiv@soto\HIDiv@naka
@@ -472,7 +472,7 @@
     \Incr\@i
     \ifnum\csname @lvl\romannumeral\@i\endcsname>\max@klvl
       \edef\max@klvl{\csname @lvl\romannumeral\@i\endcsname}\fi}%
-  \Cfor{}{\max@klvl>1}{\Decr\max@klvl}\do{%   $B3g8LM%@h(B
+  \Cfor{}{\max@klvl>1}{\Decr\max@klvl}\do{%   括弧優先
     \Cfor{\edef\@i{0}}{\@i<\nlvl}{\Incr\@i}\do{%
       \Incr\@i
       \ifnum \csname @lvl\romannumeral\@i\endcsname=\max@klvl\relax
@@ -487,28 +487,28 @@
       \fi
     }%
   }%
-  \Cfor{\edef\@i{2}}{\@i<\nlvl}{}\do{%  $BQQ7W;;(B
+  \Cfor{\edef\@i{2}}{\@i<\nlvl}{}\do{%  冪計算
     \ifnum\csname @opcode\romannumeral\@i\endcsname =6\relax
       \ISub\@i{1}\@j
       \doHcalc@ne{@kou}{@opcode}{@lvl}{\@j}\nlvl
     \else\Incr[2]\@i
     \fi
   }%
-  \Cfor{\edef\@i{1}}{\@i<\nlvl}{}\do{%  $BC19`%^%$%J%9(B
+  \Cfor{\edef\@i{1}}{\@i<\nlvl}{}\do{%  単項マイナス
     \ifnum\csname @opcode\romannumeral\@i\endcsname =5\relax
 %     \ISub\@i{1}\@j
       \doHcalc@ne{@kou}{@opcode}{@lvl}{\@i}\nlvl
     \else\Incr\@i
     \fi
   }%
-  \Cfor{\edef\@i{2}}{\@i<\nlvl}{}\do{% $B>h=|(B
+  \Cfor{\edef\@i{2}}{\@i<\nlvl}{}\do{% 乗除
     \ifnum\csname @opcode\romannumeral\@i\endcsname >\tw@
       \ISub\@i{1}\@j
       \doHcalc@ne{@kou}{@opcode}{@lvl}{\@j}\nlvl
     \else\Incr[2]\@i
     \fi
   }%
-  \Cfor{}{\nlvl>\@ne}{}\do{%          $B2C8:(B
+  \Cfor{}{\nlvl>\@ne}{}\do{%          加減
     \doHcalc@ne{@kou}{@opcode}{@lvl}{1}\nlvl
   }%
 }
@@ -730,7 +730,7 @@
 %\typeout{%
 %return from @getH : @kou=\@kou, @opcode=\@opcode, @kakkolvl=\@kakkolvl}%
       \ifthenelse{\equal\@kou{-}}%
-      {%  $BC19`%^%$%J%9(B
+      {%  単項マイナス
         \ifnum\@i=1\edef\@opcode{5}%
         \else\ISub\@i{1}\@j
           \ifthenelse{\hairetu{#3}\@j=\z@}{}{\edef\@opcode{5}}%
@@ -769,7 +769,7 @@
   \if \@t :\edef#2{\@t}\edef#4{4}\else
   \if \@t /\edef#2{\@t}\edef#4{4}\else
     \ifthenelse{\equal\@t{}}{}{%
-      \errmessage{$B9`$N;O$a$O3g8L$,I,MW$G$9!%(B#1$B$r(B(#1)$B$H=$@5$7$F$/$@$5$$!%(B}}%
+      \errmessage{項の始めは括弧が必要です．#1を(#1)と修正してください．}}%
   \fi\fi\fi\fi\fi\fi\fi\fi\fi\fi\fi
   \Cfor{}{\kakko@lvl>\z@}{}\do{%
     \headchar\@remain\@t\@remain
@@ -860,22 +860,22 @@
 
 \endinput
 
-% 0.00$B&A(B 2000/01/04
-% 0.01$B&A(B 2000/01/05
-%           \yuurika $B$K%P%0(B
-% 0.02$B&A(B 2000/01/05
-%           : $B$r(B / $B$KJQ99(B
-% 0.03$B&A(B 2000/01/06-07
-%           : $B$KLa$9!%(B
-%           < > $B$G$/$/$i$l$?3g8L$OI=<($7$J$$!%(B
-% 0.04$B&A(B 2000/01/08
-%           \HMul, \HtoH $B=$@5(B
-% 0.05$B&A(B 2000/01/09
-%           \HMul $B%P%0=$@5(B
-%           $BC19`%^%$%J%9$N=hM}(B
-%           $B$Y$->h$NDl$r3g8L$G$/$/$k$H$-$O869F$GL@<($9$k$h$&$KJQ99(B
-% 0.06$B&A(B 2000/01/10
-%           $B>.?t$r%5%]!<%H(B
-%           $B%+%C%3$N<oN`$O869F$G;XDj(B [<(`   ')>]
-%           $B=g=x$r%=!<%H(B
-%           $BJ,N%7A<0(B [s]$B%*%W%7%g%s(B
+% 0.00α 2000/01/04
+% 0.01α 2000/01/05
+%           \yuurika にバグ
+% 0.02α 2000/01/05
+%           : を / に変更
+% 0.03α 2000/01/06-07
+%           : に戻す．
+%           < > でくくられた括弧は表示しない．
+% 0.04α 2000/01/08
+%           \HMul, \HtoH 修正
+% 0.05α 2000/01/09
+%           \HMul バグ修正
+%           単項マイナスの処理
+%           べき乗の底を括弧でくくるときは原稿で明示するように変更
+% 0.06α 2000/01/10
+%           小数をサポート
+%           カッコの種類は原稿で指定 [<(`   ')>]
+%           順序をソート
+%           分離形式 [s]オプション

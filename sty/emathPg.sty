@@ -4,11 +4,11 @@
   \ProvidesPackage{emathPg}[2005/09/07 v 0.00]%
 %
 \@ifundefined{zahyou}{%
-	\errmessage{emathPh $B$,%m!<%I$5$l$F$$$^$;$s!#(B}%
+	\errmessage{emathPh がロードされていません。}%
 }{}%
 %
 % --------------------------------------------------------------------
-% $B4X?t$N%0%i%U(B
+% 関数のグラフ
 %
 % Gurafu
 %
@@ -72,7 +72,7 @@
   \fi\fi
 }%
 
-% $BJ,?t78?t$r5vMF(B
+% 分数係数を許容
 \def\GurafuB{\@ifnextchar<{\GurafuB@}{\GurafuB@<0.05>}}%
 \def\GurafuB@<#1>{\@ifnextchar[{\@GurafuB<#1>}{\@GurafuB<#1>[0]}}%
 \def\@GurafuB<#1>[#2]#3{\edef\@tmp{\empty}%
@@ -84,13 +84,13 @@
       \edef\@tmp{\@tmp,\@GurafuB@@c}\fi}%
   \@Gurafu<#1>[#2]{\@tmp}}
 %
-% (1) $B@04X?t(B
+% (1) 整関数
 % \KinziOresen#1#2#3#4#5
-% #1: $B@04X?t(B
-% #2: x $B$N=i4|CM(B
-% #3: x $B$N=*CM(B
-% #4: x $B$N9o$_(B
-% #5: $BE@Ns$r<u$1<h$k%3%s%H%m!<%k%7!<%1%s%9(B
+% #1: 整関数
+% #2: x の初期値
+% #3: x の終値
+% #4: x の刻み
+% #5: 点列を受け取るコントロールシーケンス
 
 \def\KinziOresen#1#2#3#4#5{%
   \def#5{}%
@@ -112,7 +112,7 @@
   \Kansuuti{#1}{#3}\KinziOresen@y
   \edefappend#5{(#3,\KinziOresen@y)}}
 
-% (2) $B0lHL$N4X?t(B
+% (2) 一般の関数
 \def\yKinziOresen#1#2#3#4#5{%
   \def#5{}%\han@inaifalse
   \ifdim #4 pt>\z@
@@ -133,7 +133,7 @@
   #1{#3}\KinziOresen@y
   \edef#5{#5(#3,\KinziOresen@y)}}
 
-% (2)' $B0lHL$N4X?t(B x=f(y)
+% (2)' 一般の関数 x=f(y)
 \def\xKinziOresen#1#2#3#4#5{%
   \def#5{}%\han@inaifalse
   \ifdim #4 pt>\z@
@@ -154,7 +154,7 @@
   #1{#3}\KinziOresen@y
   \edef#5{#5(\KinziOresen@y,#3)}}
 
-% (3) $BG^2pJQ?t(B
+% (3) 媒介変数
 \def\bKinziOresen#1#2#3#4#5#6{%
   \def#6{}%
   \For\bKinziOresen@t{#3}{#4}{#5}\Do{%
@@ -173,7 +173,7 @@
       \edef#6{#6(\bKinziOresen@x,\bKinziOresen@y)}\fi\fi\fi\fi}%
 
 
-% (4) $B6K:BI8(B
+% (4) 極座標
 \def\rKinziOresen#1#2#3#4#5{%
   \def#5{}%
   \For\rKinziOresen@t{#2}{#3}{#4}\Do{#1\rKinziOresen@t\rKinziOresen@r
@@ -205,23 +205,23 @@
 }\edef#3{\@tai}}%
 
 
-% $BFs<!J}Dx<0(B
+% 二次方程式
 % ax^2+bx+c=0
 % #1 : a
 % #2 : b
 % #3 : c
-% #4,#5 : x1, x2 (x1$B!e(Bx2)
+% #4,#5 : x1, x2 (x1≦x2)
 
 \def\Eqii#1#2#3#4#5{%
   \Mul{#2}{#2}\@D\Mul{#1}{#3}\Eqii@t\Mul{4}\Eqii@t\Eqii@t\Sub\@D\Eqii@t\@D%
   \ifdim\@D pt=\z@ \else\ifdim\@D pt>\z@ \Heihoukon\@D\@D\else%
-  \errmessage{$B5u?t2r(B}\fi\fi%
+  \errmessage{虚数解}\fi\fi%
   \Add{#2}\@D\@kai\Mul{-2}{#1}\Eqii@t\Div\@kai\Eqii@t\@kai\Mul{-1}{#2}\@@kai%
   \Div\@@kai{#1}\@@kai\Sub\@@kai\@kai\@@kai%
   \ifdim \@kai pt<\@@kai pt\relax\edef#4{\@kai}\edef#5{\@@kai}%
   \else \edef#4{\@@kai}\edef#5{\@kai}\fi}%
 
-% $BFs<!4X?tCM(B
+% 二次関数値
 \def\Funcii#1#2#3#4#5{%
   \Mul{#1}{#4}\@f
   \Add\@f{#2}\@f
@@ -229,26 +229,26 @@
   \Add\@f{#3}\@f
   \edef#5{\@f}}%
 
-% $B5U(B
+% 逆
 % ax^2+bx+c=y
 % #1 : a
 % #2 : b
 % #3 : c
 % #4 : y
-% #5,#6 : x1, x2 (x1$B!e(Bx2)
+% #5,#6 : x1, x2 (x1≦x2)
 
 \def\InvFuncii#1#2#3#4#5#6{%
   \Sub{#3}{#4}\InvFuncii@c
   \Eqii{#1}{#2}{\InvFuncii@c}\InvFuncii@x\@@x\edef#5{\InvFuncii@x}\edef#6{\@@x}}%
 
 
-% $BFs<!4X?t(B y=ax^2+bx+c (x1<x<x2) $B$N%0%i%U(B
-% #1 : $BJ|J*@~>e$NE@$N8D?t!J%G%U%)%k%H$O(B0($BL5?t(B))
+% 二次関数 y=ax^2+bx+c (x1<x<x2) のグラフ
+% #1 : 放物線上の点の個数（デフォルトは0(無数))
 %   #2 : a
 % #3 : b
 % #4 : c
-% #6 : x1 #5$B$K(B y or Y $B%*%W%7%g%s$rM?$($?$H$-$O(B y1
-% #8 : x2 #7$B$K(B y or Y $B%*%W%7%g%s$rM?$($?$H$-$O(B y2
+% #6 : x1 #5に y or Y オプションを与えたときは y1
+% #8 : x2 #7に y or Y オプションを与えたときは y2
 
 \def\GFuncii{\@ifnextchar[{\@GFuncii}{\@GFuncii[0]}}%
 \def\@GFuncii[#1]#2#3#4{\@ifnextchar[{\@@GFuncii[#1]{#2}{#3}{#4}}{%
@@ -268,18 +268,18 @@
   \Funcii{#2}{#3}{#4}{\GFunc@xi}\GFunc@yi\Funcii{#2}{#3}{#4}{\GFunc@xii}\GFunc@yii%
   \qbezier[#1](\GFunc@xi,\GFunc@yi)(\GFunc@x,\GFunc@y)(\GFunc@xii,\GFunc@yii)}%
 
-% $BJ|J*@~$HD>@~$N8rE@(B
-% y=ax+b $B$H(B y=px^2+qx+r $B$N8rE@(B
+% 放物線と直線の交点
+% y=ax+b と y=px^2+qx+r の交点
 %   a=#1, b=#2
 %   p=#3, q=#4, r=#5
-%   x1=#6, x2=#7 (x1$B!e(Bx2)
+%   x1=#6, x2=#7 (x1≦x2)
 \def\FiandFii#1#2#3#4#5#6#7{%
   \Sub{#4}{#1}\@q
   \Sub{#5}{#2}\@r
   \Eqii{#3}\@q\@r\@xi\@xii
   \edef#6{\@xi}\edef#7{\@xii}}%
 
-% $BD>@~$HD>@~$N8rE@(B
+% 直線と直線の交点
 % y=ax+b, y=mx+n
 % a=#1, b=#2
 % m=#3, n=#4
@@ -300,13 +300,13 @@
   \edef#5{(\FiandFi@x,\FiandFi@y)}%
 }%
 
-% $B@04X?t0J30!$0lHL$N%0%i%UIA2h(B
+% 整関数以外，一般のグラフ描画
 %   \yGurafu(#1)(#2)#3#4#5
-%       #1 : x$B$N9o$_CM(B $B%G%U%)%k%H(B=0.05
-%       #2 : $BE@@~$GIA2h$9$k$H$-$NIA2h$9$kItJ,$N(B x $B$N%l%s%8(B
-%       #3 : $B4X?t<0(B
-%       #4 : x$B$N;O$aCM(B
-%       #5 : x$B$N=*$jCM(B
+%       #1 : xの刻み値 デフォルト=0.05
+%       #2 : 点線で描画するときの描画する部分の x のレンジ
+%       #3 : 関数式
+%       #4 : xの始め値
+%       #5 : xの終り値
 
 \def\yGurafu{\@ifnextchar({\y@Gurafu}{\y@Gurafu(.05)}}%
 \def\y@Gurafu(#1){\@ifnextchar({\@y@Gurafu(#1)}{\@y@Gurafu(#1)(\empty)}}%
@@ -325,13 +325,13 @@
   \fi}}
 
 
-%  x=f(y) $B$N>l9g(B
+%  x=f(y) の場合
 %   \xGurafu(#1)(#2)#3#4#5
-%       #1 : x$B$N9o$_CM(B $B%G%U%)%k%H(B=0.05
-%       #2 : $BE@@~$GIA2h$9$k$H$-$NIA2h$9$kItJ,$N(B x $B$N%l%s%8(B
-%       #3 : $B4X?t<0(B
-%       #4 : x$B$N;O$aCM(B
-%       #5 : x$B$N=*$jCM(B
+%       #1 : xの刻み値 デフォルト=0.05
+%       #2 : 点線で描画するときの描画する部分の x のレンジ
+%       #3 : 関数式
+%       #4 : xの始め値
+%       #5 : xの終り値
 
 \def\xGurafu{\@ifnextchar({\x@Gurafu}{\x@Gurafu(.05)}}%
 \def\x@Gurafu(#1){\@ifnextchar({\@x@Gurafu(#1)}{\@x@Gurafu(#1)(\empty)}}%
@@ -350,14 +350,14 @@
   \fi}}
 
 
-% $BG^2pJQ?tI=<($N6J@~IA2h(B
+% 媒介変数表示の曲線描画
 % \bGurafu(#1)(#2)#3#4#5#6
-%   #1 : t $B$N9o$_CM!J%G%U%)%k%HCM$O(B 0.05 $B!K(B
-%   #2 : $BE@@~$GIA2h$9$k$H$-$NIA2h$9$kItJ,$N(B t $B$N%l%s%8(B
+%   #1 : t の刻み値（デフォルト値は 0.05 ）
+%   #2 : 点線で描画するときの描画する部分の t のレンジ
 %   #3 : x=f(t)
 %   #4 : y=g(t)
-%   #5 : t $B$N;O$aCM(B
-%   #6 :     $B=*$jCM(B
+%   #5 : t の始め値
+%   #6 :     終り値
 
 \def\bGurafu{\@ifnextchar({\b@Gurafu}{\b@Gurafu(.05)}}%
 \def\b@Gurafu(#1){\@ifnextchar({\@b@Gurafu(#1)}{\@b@Gurafu(#1)(\empty)}}%
@@ -384,13 +384,13 @@
   \fi}}%
 
 
-% $B6KJ}Dx<0$N%0%i%UIA2h(B
+% 極方程式のグラフ描画
 %   \rGurafu(#1)(#2)#3#4#5
-%       #1 : $B&H$N9o$_CM!J%G%U%)%k%H$O(B 0.05$B!K(B
-%       #2 : $BE@@~$GIA2h$9$k$H$-$NIA2h$9$kItJ,$N(B $B&H(B $B$N%l%s%8(B
-%       #3 : $B4X?t(B r=f($B&H(B)
-%       #4 : $B&H$N=i4|CM(B
-%       #5 : $B&H$N=*CM(B
+%       #1 : θの刻み値（デフォルトは 0.05）
+%       #2 : 点線で描画するときの描画する部分の θ のレンジ
+%       #3 : 関数 r=f(θ)
+%       #4 : θの初期値
+%       #5 : θの終値
 
 \def\rGurafu{\@ifnextchar({\r@Gurafu}{\r@Gurafu(0.05)}}%
 \def\r@Gurafu(#1){\@ifnextchar({\@r@Gurafu(#1)}{\@r@Gurafu(#1)(\empty)}}%
@@ -420,9 +420,9 @@
 \fi}}%
 
 
-% $BEI$j$D$V$7(B
-% (1) $B@04X?t(B
-%   \Nuri[$BG;$5(B](x$B$N9o$_CM(B){$B@04X?t(B}{x1}{x2}
+% 塗りつぶし
+% (1) 整関数
+%   \Nuri[濃さ](xの刻み値){整関数}{x1}{x2}
 %
 \def\Nuri{\@ifstar{\@hNuri}{\@sNuri}}%
 \def\@sNuri{\@ifnextchar[{\s@Nuri}{\s@Nuri[.5]}}%
@@ -430,8 +430,8 @@
 \def\s@@Nuri[#1]<#2>#3#4#5{\KinziOresen{#3}{#4}{#5}{#2}\@resen
 \Kansuuti{#3}{#4}\@@y\edef\@resen{\@resen(#4,\@@y)}\Nuritubusi[#1]\@resen}%
 
-% (1)' $B#2$D$N4X?t$N4V(B
-%   \Nurii[$BG;$5(B]<x$B$N9o$_CM(B>{$B@04X?t(B1}{$B@04X?t(B2}{x1}{x2}
+% (1)' ２つの関数の間
+%   \Nurii[濃さ]<xの刻み値>{整関数1}{整関数2}{x1}{x2}
 %
 \def\Nurii{\@ifstar{\@hNurii}{\@sNurii}}%
 \def\@sNurii{\@ifnextchar[{\s@Nurii}{\s@Nurii[.5]}}%
@@ -441,8 +441,8 @@
 \KinziOresen{#4}{#6}{#5}{-#2}\@@resen\edef\@resen{\@resen\@@resen}%
 \Kansuuti{#3}{#5}\@@y\edef\@resen{\@resen(#5,\@@y)}\Nuritubusi[#1]\@resen}%
 
-% (2) $B0lHL$N4X?t(B
-%   \yNuri[$BG;$5(B]<x$B$N9o$_CM(B>{$B4X?t(B}{x1}{x2}
+% (2) 一般の関数
+%   \yNuri[濃さ]<xの刻み値>{関数}{x1}{x2}
 
 \def\yNuri{\@ifstar{\@yhNuri}{\@ysNuri}}%
 \def\@ysNuri{\@ifnextchar[{\y@Nuri}{\y@Nuri[.5]}}%
@@ -451,8 +451,8 @@
 #3{#4}\@@y\edef\@resen{\@resen(#4,\@@y)}\Nuritubusi[#1]\@resen}%
 
 
-% (2)' $B#2$D$N4X?t$N4V(B
-%   \yNurii[$BG;$5(B]<x$B$N9o$_CM(B>{$B4X?t(B1}{$B4X?t(B2}{x1}{x2}
+% (2)' ２つの関数の間
+%   \yNurii[濃さ]<xの刻み値>{関数1}{関数2}{x1}{x2}
 %
 \def\yNurii{\@ifstar{\@yhNurii}{\@ysNurii}}%
 \def\@ysNurii{\@ifnextchar[{\s@yNurii}{\s@yNurii[.5]}}%
@@ -463,8 +463,8 @@
 \Nuritubusi[#1]\@resen}%
 
 
-% (3) $B0lHL$N4X?t(B x=f(y)
-%   \xNuri[$BG;$5(B]<y$B$N9o$_CM(B>{$B4X?t(B}{x1}{x2}
+% (3) 一般の関数 x=f(y)
+%   \xNuri[濃さ]<yの刻み値>{関数}{x1}{x2}
 %
 \def\xNuri{\@ifstar{\@xhNuri}{\@xsNuri}}%
 \def\@xsNuri{\@ifnextchar[{\x@Nuri}{\x@Nuri[.5]}}%
@@ -473,8 +473,8 @@
   #3{#4}\@@x\edef\@resen{\@resen(\@@x,#4)}\Nuritubusi[#1]\@resen}%
 
 
-% (2)' $B#2$D$N4X?t$N4V(B
-%   \xNurii[$BG;$5(B](x$B$N9o$_CM(B){$B4X?t(B1}{$B4X?t(B2}{x1}{x2}
+% (2)' ２つの関数の間
+%   \xNurii[濃さ](xの刻み値){関数1}{関数2}{x1}{x2}
 %
 \def\xNurii{\@ifstar{\@xhNurii}{\@xsNurii}}%
 \def\@xsNurii{\@ifnextchar[{\s@xNurii}{\s@xNurii[.5]}}%
@@ -485,8 +485,8 @@
 \Nuritubusi[#1]\@resen}%
 
 
-% (4) $BG^2pJQ?t(B
-%   \bNuri[$BG;$5(B](t$B$N9o$_CM(B){x=F(t)}{y=G(t)}{t1}{t2}
+% (4) 媒介変数
+%   \bNuri[濃さ](tの刻み値){x=F(t)}{y=G(t)}{t1}{t2}
 
 \def\bNuri{\@ifstar{\@bhNuri}{\@bsNuri}}%
 \def\@bsNuri{\@ifnextchar[{\b@Nuri}{\b@Nuri[.5]}}%
@@ -495,8 +495,8 @@
 #3{#5}\@@x#4{#5}\@@y\edef\@resen{\@resen(\@@x,\@@y)}\Nuritubusi[#1]\@resen}%
 
 
-% (5) $B6KJ}Dx<0(B
-%   \rNuri[$BG;$5(B]($B&H$N9o$_CM(B){r=f($B&H(B)}{$B&H(B1}{$B&H(B2}
+% (5) 極方程式
+%   \rNuri[濃さ](θの刻み値){r=f(θ)}{θ1}{θ2}
 
 \def\rNuri{\@ifnextchar[{\r@Nuri}{\r@Nuri[.5]}}%
 \def\r@Nuri[#1]{\@ifnextchar<{\r@@Nuri[#1]}{\r@@Nuri[#1]<0.05>}}%
@@ -505,9 +505,9 @@
 \edef\@resen{\@resen(\@@x,\@@y)}\Nuritubusi[#1]\@resen}%
 
 
-% $B%O%C%A%s%0(B
-% (1) $B@04X?t(B
-%   \Nuri*[$B<P@~3QEY(B]<k$B$N9o$_CM(B>(x$B$N9o$_CM(B){$B@04X?t(B}{x1}{x2}
+% ハッチング
+% (1) 整関数
+%   \Nuri*[斜線角度]<kの刻み値>(xの刻み値){整関数}{x1}{x2}
 %
 \def\@hNuri{\@ifnextchar[{\s@hNuri}{\s@hNuri[45]}}%
 \def\s@hNuri[#1]{\@ifnextchar<{\s@@hNuri[#1]}{\s@@hNuri[#1]<\empty>}}%
@@ -517,8 +517,8 @@
 \Kansuuti{#4}{#5}\@@y\edef\@resen{\@resen(#5,\@@y)}%
 \Hatchpolygon[#1]<#2>\@resen}%
 
-% (1)' $B#2$D$N4X?t$N4V(B
-%   \Nurii*[$B<P@~3QEY(B]<k$B$N9o$_CM(B>(x$B$N9o$_CM(B){$B@04X?t(B1}{$B@04X?t(B2}{x1}{x2}
+% (1)' ２つの関数の間
+%   \Nurii*[斜線角度]<kの刻み値>(xの刻み値){整関数1}{整関数2}{x1}{x2}
 %
 \def\@hNurii{\@ifnextchar[{\s@hNurii}{\s@hNurii[45]}}%
 \def\s@hNurii[#1]{\@ifnextchar<{\s@@hNurii[#1]}{\s@@hNurii[#1]<\empty>}}%
@@ -529,8 +529,8 @@
 \Kansuuti{#4}{#6}\@@y\edef\@resen{\@resen(#6,\@@y)}%
 \Hatchpolygon[#1]<#2>\@resen}%
 
-% (2) $B0lHL$N4X?t(B
-%   \yNuri*[$B<P@~J}8~3Q(B]<$B<P@~4V3V(B>(x$B$N9o$_CM(B){$B4X?t(B}{x1}{x2}
+% (2) 一般の関数
+%   \yNuri*[斜線方向角]<斜線間隔>(xの刻み値){関数}{x1}{x2}
 
 \def\@yhNuri{\@ifnextchar[{\y@hNuri}{\y@hNuri[45]}}%
 \def\y@hNuri[#1]{\@ifnextchar<{\y@@hNuri[#1]}{\y@@hNuri[#1]<\empty>}}%
@@ -540,8 +540,8 @@
   #4{#5}\@@y\edef\@resen{\@resen(#5,\@@y)}\Hatchpolygon[#1]<#2>\@resen}%
 
 
-% (2)' $B#2$D$N4X?t$N4V(B
-%   \yNurii*[$B<P@~J}8~3Q(B]<$B<P@~4V3V(B>(x$B$N9o$_CM(B){$B4X?t(B1}{$B4X?t(B2}{x1}{x2}
+% (2)' ２つの関数の間
+%   \yNurii*[斜線方向角]<斜線間隔>(xの刻み値){関数1}{関数2}{x1}{x2}
 %
 \def\@yhNurii{\@ifnextchar[{\y@hNurii}{\y@hNurii[45]}}%
 \def\y@hNurii[#1]{\@ifnextchar<{\y@@hNurii[#1]}{\y@@hNurii[#1]<\empty>}}%
@@ -553,8 +553,8 @@
   \Hatchpolygon[#1]<#2>\@resen}%
 
 
-% (3) $B0lHL$N4X?t(B x=f(y)
-%   \xNuri*[$B<P@~J}8~3Q(B]<$B<P@~4V3V(B>(x$B$N9o$_CM(B){$B4X?t(B}{x1}{x2}
+% (3) 一般の関数 x=f(y)
+%   \xNuri*[斜線方向角]<斜線間隔>(xの刻み値){関数}{x1}{x2}
 
 \def\@xhNuri{\@ifnextchar[{\x@hNuri}{\x@hNuri[45]}}%
 \def\x@hNuri[#1]{\@ifnextchar<{\x@@hNuri[#1]}{\x@@hNuri[#1]<\empty>}}%
@@ -564,8 +564,8 @@
   #4{#5}\@@x\edef\@resen{\@resen(\@@x,#5)}\Hatchpolygon[#1]<#2>\@resen}%
 
 
-% (3)' $B#2$D$N4X?t$N4V(B
-%   \xNurii*[$B<P@~J}8~3Q(B]<$B<P@~4V3V(B>(x$B$N9o$_CM(B){$B4X?t(B1}{$B4X?t(B2}{x1}{x2}
+% (3)' ２つの関数の間
+%   \xNurii*[斜線方向角]<斜線間隔>(xの刻み値){関数1}{関数2}{x1}{x2}
 %
 \def\@xhNurii{\@ifnextchar[{\x@hNurii}{\x@hNurii[45]}}%
 \def\x@hNurii[#1]{\@ifnextchar<{\x@@hNurii[#1]}{\x@@hNurii[#1]<\empty>}}%
@@ -577,8 +577,8 @@
   \Hatchpolygon[#1]<#2>\@resen}%
 
 
-% (4) $BG^2pJQ?t(B
-%   \bNuri*[$B<P@~J}8~3Q(B]<$B<P@~4V3V(B>(t$B$N9o$_CM(B){x=F(t)}{y=G(t)}{t1}{t2}
+% (4) 媒介変数
+%   \bNuri*[斜線方向角]<斜線間隔>(tの刻み値){x=F(t)}{y=G(t)}{t1}{t2}
 
 \def\@bhNuri{\@ifnextchar[{\b@hNuri}{\b@hNuri[45]}}%
 \def\b@hNuri[#1]{\@ifnextchar<{\b@@hNuri[#1]}{\b@@hNuri[#1]<\empty>}}%
@@ -588,8 +588,8 @@
 #4{#6}\@@x#5{#6}\@@y\edef\@resen{\@resen(\@@x,\@@y)}\Hatchpolygon[#1]<#2>\@resen}%
 
 
-% (5) $B6KJ}Dx<0(B
-%   \rNuri*[$B<P@~J}8~3Q(B]<$B<P@~4V3V(B>($B&H$N9o$_CM(B){r=f($B&H(B)}{$B&H(B1}{$B&H(B2}
+% (5) 極方程式
+%   \rNuri*[斜線方向角]<斜線間隔>(θの刻み値){r=f(θ)}{θ1}{θ2}
 
 \def\@rhNuri{\@ifnextchar[{\r@hNuri}{\r@hNuri[45]}}%
 \def\r@hNuri[#1]{\@ifnextchar<{\r@@hNuri[#1]}{\r@@hNuri[#1]<0.1>}}%
@@ -601,4 +601,4 @@
 %
 \endinput
 
-v 0.00 2005/09/07 emathPh $B$+$i!$@04X?t%0%i%UIA2h4XO"$rFHN)(B
+v 0.00 2005/09/07 emathPh から，整関数グラフ描画関連を独立

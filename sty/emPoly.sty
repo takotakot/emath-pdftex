@@ -7,22 +7,22 @@
 \define@key{emPoly}{vname}{\def\Rpoly@vname{#1}}%
 %
 %\Rpolygon<#1>[#2]#3#4#5#6
-% $B@~J,(B#3#4$B$r(B1$BJU$H$9$k@5(B#5$B3Q7A(B
-%   $BLa$jCM(B
-%     $BCf?4(B \#6
-%     $BD:E@(B \#6i(=#3), \#6ii, ......
-% $B%*%W%7%g%s0z?t(B
+% 線分#3#4を1辺とする正#5角形
+%   戻り値
+%     中心 \#6
+%     頂点 \#6i(=#3), \#6ii, ......
+% オプション引数
 %   #1 : key=val
-%   #2 : L (default) : 2$B$D$NCf?4$N$&$A!$(Bx$B:BI8$NBg$-$$$[$&(B
-%      : l           :                         $B>.$5$$$[$&(B
-%      : O           :                  $BBg$-$$$[$&$G@5B?3Q7A$rIA2h$7$J$$(B
-%      : o           :                  $B>.$5$$$[$&$G@5B?3Q7A$rIA2h$7$J$$(B
+%   #2 : L (default) : 2つの中心のうち，x座標の大きいほう
+%      : l           :                         小さいほう
+%      : O           :                  大きいほうで正多角形を描画しない
+%      : o           :                  小さいほうで正多角形を描画しない
 %
 \def\Rpolygon{\@ifnextchar<{\@Rpolygon}{\@Rpolygon<\empty>}}
 \def\@Rpolygon<#1>{\@ifnextchar[{\@@Rpolygon<#1>}{\@@Rpolygon<#1>[n]}}
 \def\@@Rpolygon<#1>[#2]#3#4#5#6{\Kyori{#3}{#4}\Rpoly@r
   \ifthenelse{\equal{#6}{P}}{%
-    \errmessage{$BD:E@5-9f$K(BP$B$r;H$&$3$H$O$G$-$^$;$s!#(B}}{}%
+    \errmessage{頂点記号にPを使うことはできません。}}{}%
   \def\Rpoly@vname{}%
   \ifx\empty #1\else\setkeys{emPoly}{#1}\fi
   \Div\Pie{#5}\Rpoly@th\Sin\Rpoly@th\Rpoly@work\Mul{2}\Rpoly@work\Rpoly@work
@@ -57,17 +57,17 @@
 }
 %
 %\CRpolygon<#1>[#2]#3#4#5#6{%
-%  $BCf?4(B#3$B$N1_<~>e$NE@(B#4$B$r0l$D$ND:E@$H$9$k!$1_$KFb@\$9$k@5(B#5$B3Q7A(B
-%  $BLa$jCM(B
-%    $BD:E@(B #6i(=#4), #6ii, #6iii, ...
-%  #2 = L (default) : $B@5B?3Q7A$rIA2h$9$k!#(B
-%     = O           : $B@5B?3Q7A$rIA2h$7$J$$(B
+%  中心#3の円周上の点#4を一つの頂点とする，円に内接する正#5角形
+%  戻り値
+%    頂点 #6i(=#4), #6ii, #6iii, ...
+%  #2 = L (default) : 正多角形を描画する。
+%     = O           : 正多角形を描画しない
 \def\CRpolygon{\@ifnextchar<{\@CRpolygon}{\@CRpolygon<\empty>}}
 \def\@CRpolygon<#1>{\@ifnextchar[{\@@CRpolygon<#1>}{\@@CRpolygon<#1>[L]}}
 \def\@@CRpolygon<#1>[#2]#3#4#5#6{%
 %\typeout{arg2=(#2)}%
   \ifthenelse{\equal{#6}{P}}{%
-    \errmessage{$BD:E@5-9f$K(BP$B$r;H$&$3$H$O$G$-$^$;$s!#(B}}{}%
+    \errmessage{頂点記号にPを使うことはできません。}}{}%
   \def\Rpoly@vname{}%
   \ifx\empty #1\else\setkeys{emPoly}{#1}\fi
   \Div{360}{#5}\CRpoly@th
@@ -100,16 +100,16 @@
 }
 %
 %\CCRpolygon[#1]#2#3#4#5{%
-%  $BCf?4(B#2$B$N1_<~>e$NE@(B#3$B$r0l$D$N@\E@$H$9$k!$1_$K30@\$9$k@5(B#4$B3Q7A(B
-%  $BLa$jCM(B
-%    $BD:E@(B #5i, #5ii, #5iii, ...
-%  #1 = L (default) : $B@5B?3Q7A$rIA2h$9$k!#(B
-%     = O           : $B@5B?3Q7A$rIA2h$7$J$$(B
+%  中心#2の円周上の点#3を一つの接点とする，円に外接する正#4角形
+%  戻り値
+%    頂点 #5i, #5ii, #5iii, ...
+%  #1 = L (default) : 正多角形を描画する。
+%     = O           : 正多角形を描画しない
 
 \def\CCRpolygon{\@ifnextchar[{\@CCRpolygon}{\@CCRpolygon[L]}}
 \def\@CCRpolygon[#1]#2#3#4#5{%
   \ifthenelse{\equal{#5}{P}}{%
-    \errmessage{$BD:E@5-9f$K(BP$B$r;H$&$3$H$O$G$-$^$;$s!#(B}}{}%
+    \errmessage{頂点記号にPを使うことはできません。}}{}%
   \Div{-180}{#4}\CCRpoly@th
   \DegRad\CCRpoly@th\CCRpoly@rad\Cos\CCRpoly@rad\CCRpoly@ratio
   \Div{1}\CCRpoly@ratio\CCRpoly@ratio
@@ -136,9 +136,9 @@
 
 % v0.00   2000/07/31
 % v0.01   2000/08/01
-%     $B1_$K30@\$9$k@5B?3Q7A$rIA2h$9$k(B \CCRpolygon $B$rDI2C!#(B
+%     円に外接する正多角形を描画する \CCRpolygon を追加。
 % v0.02   2004/07/08
 %     emathP ---> emathPh
-%     <vname=.> $B%*%W%7%g%s(B
+%     <vname=.> オプション
 % v0.03   2005/01/22
-%     \CRpolygon : $BB?3Q7A$ND:E@Ns$r(B\polygon $B$KJ]B8$7!$(B\Nuritubusi $B$J$I$KMxMQ(B
+%     \CRpolygon : 多角形の頂点列を\polygon に保存し，\Nuritubusi などに利用

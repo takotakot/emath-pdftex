@@ -6,9 +6,9 @@
 
 \begin{document}
 \section{newFx21}
-\textsf{emathFx.sty v 0.21}$B$G$O!$(B\verb+\bekutoru+$B%3%^%s%I$K$*$1$k(B
-$Bo7$N7A>u$rEI$j$D$V$7$?$b$N$H$9$k$?$a$K!$(B\verb+\bekutorukata+$B%3%^%s%I$N(B
-$B0z?t$K(B\verb+fill+$B$r?7@_$7$^$7$?!'(B
+\textsf{emathFx.sty v 0.21}では，\verb+\bekutoru+コマンドにおける
+鏃の形状を塗りつぶしたものとするために，\verb+\bekutorukata+コマンドの
+引数に\verb+fill+を新設しました：
 \begin{jquote}
 \begin{verbatim}
 \bekutorukata{fill}
@@ -16,69 +16,69 @@
 \end{jquote}
 \bigskip
 
-$B%G%U%)%k%H$N(B\verb+\bekutoru+$B$G$9!'(B
-\begin{showEx}(.6,.34){$B%G%U%)%k%H(B}
+デフォルトの\verb+\bekutoru+です：
+\begin{showEx}(.6,.34){デフォルト}
   \bekutoru{AB}
 \end{showEx}
 
-\verb+\bekutorukata{fill}+$B$r@k8@$7$^$9!'(B
+\verb+\bekutorukata{fill}+を宣言します：
 \begin{showEx}(.6,.34){\cmd{bekutorukata}\texttt{\{fill\}}}
   \bekutorukata{fill}
   \bekutoru{AB}
 \end{showEx}
 
-$Bo7$N7A>u$O(B\verb+\changeArrowHeadSize+$B%3%^%s%I$GJQ992DG=$G$9!#(B\\
-$B$D$.$O(B\verb+\changeArrowHeadSize[22.5]{1.2}+$B!JD9$5$r(B1.2$BG\$K!$(B
-$B@hC<$N3+$-3Q$r(B40\Deg(default=36\Deg)$B$K@_Dj$7$F$$$^$9!#!K!'(B
+鏃の形状は\verb+\changeArrowHeadSize+コマンドで変更可能です。\\
+つぎは\verb+\changeArrowHeadSize[22.5]{1.2}+（長さを1.2倍に，
+先端の開き角を40\Deg(default=36\Deg)に設定しています。）：
 
-\begin{showEx}(.6,.34){$Bo7$N7A>uJQ99(B}
+\begin{showEx}(.6,.34){鏃の形状変更}
   \bekutorukata{fill}
   \changeArrowHeadSize[22.5]{1.2}
   \bekutoru{AB}
 \end{showEx}
 
-\begin{enumerate}[$BCm(B 1.~]
-  \item $BLp0u$O(B\verb+\ArrowLine+$B$rMQ$$$F$$$^$9$+$i!$(B
+\begin{enumerate}[注 1.~]
+  \item 矢印は\verb+\ArrowLine+を用いていますから，
 \begin{jquote}
 \begin{verbatim}
 \usepackage{emathPh}
 \end{verbatim}
 \end{jquote}
-    $B$,I,?\$G$9!#(B
-  \item $BLp0u$N7A>u$rJQ99$9$k%3%^%s%I(B\verb+\bekutorukata+$B$O(B
-    \textsf{emathFx.sty}$B$GDj5A$5$l$F$$$^$9$+$i(B
+    が必須です。
+  \item 矢印の形状を変更するコマンド\verb+\bekutorukata+は
+    \textsf{emathFx.sty}で定義されていますから
 \begin{jquote}
 \begin{verbatim}
 \usepackage{emathFx}
 \end{verbatim}
 \end{jquote}
-    $B$bI,?\$G$9!#(B
-  \item $BJ8=qA4BN$rDL$7$F!$%Y%/%H%kLp@~$N7A>u$rJQ99$9$k$K$O!$(B
+    も必須です。
+  \item 文書全体を通して，ベクトル矢線の形状を変更するには，
 \begin{jquote}
 \begin{verbatim}
 \begin{document}
 \end{verbatim}
 \end{jquote}
-$BD>8e$K!$(B
+直後に，
 \begin{jquote}
 \begin{verbatim}
 \bekutorukata{fill}
 \changeArrowHeadSize[22.5]{1.2}
 \end{verbatim}
 \end{jquote}
-    $B$J$I$rCV$-$^$9!#(B    
-  \item $B%G%U%)%k%H$G$O(B
+    などを置きます。    
+  \item デフォルトでは
 \begin{jquote}
 \begin{verbatim}
 \bekutorukata{cm}
 \end{verbatim}
 \end{jquote}
-    $B$,<B9T$5$l$F$$$^$9!#2?$i$+$N;v>p$G=i4|>uBV$KLa$7$?$1$l$P(B
-    $B>e5-%3%^%s%I$rH/9T$7$F$/$@$5$$!#(B
-  \item $BA0HG$^$G$O!$(B\cmd{bekutorukata}$B$N0z?t$O(B
+    が実行されています。何らかの事情で初期状態に戻したければ
+    上記コマンドを発行してください。
+  \item 前版までは，\cmd{bekutorukata}の引数は
 \begin{jquote}
 \begin{verbatim}
-cm $B!J%G%U%)%k%H!K(B
+cm （デフォルト）
 abx
 eu
 px
@@ -86,9 +86,9 @@ tx
 xy
 \end{verbatim}
 \end{jquote}
-    $B$N$$$:$l$+$G$7$?$,!$$3$l$K(B\verb+fill+$B$,2C$o$C$?$H$$$&$3$H$G$9!#(B
-    $B>e=R$N0z?t$N8z2L$K$D$$$F$O!$4]$4$H%Q%C%/E:IU$N%I%-%e%a%s%H(B
-    \texttt{sampleFx.tex}$B$r$4Mw$/$@$5$$!#(B
+    のいずれかでしたが，これに\verb+fill+が加わったということです。
+    上述の引数の効果については，丸ごとパック添付のドキュメント
+    \texttt{sampleFx.tex}をご覧ください。
 \end{enumerate}
 
 \end{document}

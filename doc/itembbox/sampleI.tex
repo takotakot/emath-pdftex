@@ -6,332 +6,332 @@
   \usepackage{emathPh}
 
 \begin{document}
-\section*{$B%?%$%H%kIU$-7S@~%\%C%/%9(B}
-$B$3$N%9%?%$%k%U%!%$%k$G$O!$(B
-\verb/ascmac.sty/ $B$GDj5A$5$l$F$$$k(B \verb/itembox/ $B4D6-$NJQ7A$r(B
-$B$$$/$D$+MQ0U$7$^$7$?!%$=$N0lMw$G$9!%(B
+\section*{タイトル付き罫線ボックス}
+このスタイルファイルでは，
+\verb/ascmac.sty/ で定義されている \verb/itembox/ 環境の変形を
+いくつか用意しました．その一覧です．
 \begin{center}
 \begin{tabular}{|l|c|l|l|l|}\hline
-$B4D6-L>(B & $B%3!<%J!<$N7A>u(B & $B8+=P$7(B & $B%G%U%)%k%H0LCV(B & $BHw9M(B \\\hline
-(\tt itembox  & $B4](B           & $B>eOH(B   & $BCf1{(B       & ascmac.sty) \\\hline
-\tt itembbox  & $B4](B            & $B2<OH(B   & $B1&(B & \\\hline
-\tt itemtbbox  & $B4](B         & $B>eOH$H2<OH(B & $B>eOH$O:8!$2<OH$O1&(B & \\\hline
-\tt itemsquarebox  & $B3Q(B     & $B>eOH(B   & $BCf1{(B & \\\hline
-\tt itembsquarebox  & $B3Q(B      & $B2<OH(B   & $B1&(B & \\\hline
-\tt itemtbsquarebox  & $B3Q(B   & $B>eOH$H2<OH(B & $B>eOH$O:8!$2<OH$O1&(B & \\\hline
-\tt itemshadebox  & $B3Q(B      & $B>eOH(B  & $BCf1{(B & $B1F$D$-(B \\\hline
+環境名 & コーナーの形状 & 見出し & デフォルト位置 & 備考 \\\hline
+(\tt itembox  & 丸           & 上枠   & 中央       & ascmac.sty) \\\hline
+\tt itembbox  & 丸            & 下枠   & 右 & \\\hline
+\tt itemtbbox  & 丸         & 上枠と下枠 & 上枠は左，下枠は右 & \\\hline
+\tt itemsquarebox  & 角     & 上枠   & 中央 & \\\hline
+\tt itembsquarebox  & 角      & 下枠   & 右 & \\\hline
+\tt itemtbsquarebox  & 角   & 上枠と下枠 & 上枠は左，下枠は右 & \\\hline
+\tt itemshadebox  & 角      & 上枠  & 中央 & 影つき \\\hline
 %\hline
-%\tt  squarebox & $B3Q(B  & $B$J$7(B  & $B!](B  &  \\\hline
-%\tt dblbox   & $B3Q(B  & $B$J$7(B  & $B!](B  & $BFs=EOH(B \\\hline
+%\tt  squarebox & 角  & なし  & −  &  \\\hline
+%\tt dblbox   & 角  & なし  & −  & 二重枠 \\\hline
 \end{tabular}
 \end{center}
-$B$J$*!$$3$l$i$N4D6-$O(B ascmac.sty $B$N5!G=$r;HMQ$7$^$9$+$i!$(B
-ascmac.sty $B$r;HMQ$9$k$3$H$,A0Ds$H$J$j$^$9!%(B
+なお，これらの環境は ascmac.sty の機能を使用しますから，
+ascmac.sty を使用することが前提となります．
 
-$B$G$O!$$=$l$>$l$N;HMQNc$r$4$i$sD:$-$^$7$g$&!%(B
+では，それぞれの使用例をごらん頂きましょう．
 
 \section{itembox family}
 \subsection{itembbox}
-$B8+=P$7$r2<OH$K$D$1$^$9!%(B\verb/item/ $B$H(B \verb/box/ $B$N4V$N(B \verb/b/ $B$O(B
-\verb/bottom/ $B$NF,J8;z$N@Q$j$G$9!%(B
+見出しを下枠につけます．\verb/item/ と \verb/box/ の間の \verb/b/ は
+\verb/bottom/ の頭文字の積りです．
 
-\begin{itembbox}{1998 $BFL1zBg3X(B}
-$B<!$N3FLd$KEz$($h!%(B
+\begin{itembbox}{1998 凸凹大学}
+次の各問に答えよ．
 \end{itembbox}
 
-$B$3$l$O(B
+これは
 
 \begin{quote}\begin{verbatim}
   \documentclass{jarticle}
   \usepackage{ascmac,itembbox}
   \begin{document}
-  \begin{itembbox}{1998 $BFL1zBg3X(B}
-    $B<!$N3FLd$KEz$($h!%(B
+  \begin{itembbox}{1998 凸凹大学}
+    次の各問に答えよ．
   \end{itembbox}
   \end{document}
 \end{verbatim}
 \end{quote}
 
-$B$H$$$&%j%9%H$r%?%$%W%;%C%H$7$FF@$i$l$^$9!%(B\verb/itembbox/ $B$N=q<0$O(B
+というリストをタイプセットして得られます．\verb/itembbox/ の書式は
 
 \begin{quote}\begin{verbatim}
-  \begin{itembbox}[$BG[CV%*%W%7%g%s(B]{$B2<OH$N8+=P$7(B}
-$B$G(B
-  $BG[CV%*%W%7%g%s$O(B
-      l : $B:8(B    c : $BCf1{(B    r : $B1&(B($B%G%U%)%k%H(B)
-$B$N$$$:$l$+$G$9!%(B
+  \begin{itembbox}[配置オプション]{下枠の見出し}
+で
+  配置オプションは
+      l : 左    c : 中央    r : 右(デフォルト)
+のいずれかです．
 \end{verbatim}
 \end{quote}
 
 \pagebreak
 \subsection{itemtbbox}
-$B<!$O!$>eOH$K$b2<OH$K$b8+=P$7$rIU$1$k4D6-(B \verb/itemtbbox/ $B$G$9!%(B
-\verb/item/ $B$H(B \verb/box/ $B$N4V$N(B \verb/tb/ $B$O(B
-\verb/top & bottom/ $B$NF,J8;z$N@Q$j$G$9!%(B
+次は，上枠にも下枠にも見出しを付ける環境 \verb/itemtbbox/ です．
+\verb/item/ と \verb/box/ の間の \verb/tb/ は
+\verb/top & bottom/ の頭文字の積りです．
 
-$BNc$($P!$(B
+例えば，
 
-\begin{itemtbbox}{$BNcBj(B1}{1998 $B1zFLBg3X(B}
-$B<!$N@_Ld$KEz$($h!%(B
+\begin{itemtbbox}{例題1}{1998 凹凸大学}
+次の設問に答えよ．
 \begin{enumerate}
-  \item $B$&$s$?$i(B
-  \item $B$+$s$?$i(B
+  \item うんたら
+  \item かんたら
 \end{enumerate}
 \end{itemtbbox}
 
-$B$3$l$O(B
+これは
 \begin{quote}\begin{verbatim}
   \documentclass{jarticle}
   \usepackage{ascmac,itembbox}
   \begin{document}
-  \begin{itemtbbox}{$BNcBj(B1}{1998 $B1zFLBg3X(B}
-    $B<!$N@_Ld$KEz$($h!%(B
+  \begin{itemtbbox}{例題1}{1998 凹凸大学}
+    次の設問に答えよ．
     \begin{enumerate}
-      \item $B$&$s$?$i(B
-      \item $B$+$s$?$i(B
+      \item うんたら
+      \item かんたら
     \end{enumerate}
   \end{itemtbbox}
   \end{document}
 \end{verbatim}
 \end{quote}
-$B$H$$$&%j%9%H$r%?%$%W%;%C%H$7$FF@$i$l$^$9!%(B\verb/itemtbbox/ $B$N=q<0$O(B
+というリストをタイプセットして得られます．\verb/itemtbbox/ の書式は
 
 \begin{quote}\begin{verbatim}
-  \begin{itemtbbox}<$B>eOH$NG[CV(B>[$B2<OH$NG[CV(B]{$B>eOH$N8+=P$7(B}{$B2<OH$N8+=P$7(B}
-            <$B>eOH$NG[CV(B> $B$O>JN,2DG=$J%*%W%7%g%s0z?t$G!$(B 
-                 l($B:8(B), c($BCf1{(B), r($B1&(B) $B$N$$$:$l$+$G$9!%%G%U%)%k%H$O(B l
-            [$B2<OH$NG[CV(B] $B$b>JN,2DG=$J%*%W%7%g%s0z?t$G!$(B 
-                 l($B:8(B), c($BCf1{(B), r($B1&(B) $B$N$$$:$l$+$G$9!%%G%U%)%k%H$O(B r
+  \begin{itemtbbox}<上枠の配置>[下枠の配置]{上枠の見出し}{下枠の見出し}
+            <上枠の配置> は省略可能なオプション引数で， 
+                 l(左), c(中央), r(右) のいずれかです．デフォルトは l
+            [下枠の配置] も省略可能なオプション引数で， 
+                 l(左), c(中央), r(右) のいずれかです．デフォルトは r
 \end{verbatim}
 \end{quote}
 \pagebreak
 
 \section{itemsquarebox family}
 \setcounter{subsection}{-1}%
-\verb/itembox family/ $B$O%3!<%J!<$,1_$$%\%C%/%9$G$7$?!%(B\par\noindent
-$B$3$l$rD>3Q$K$7$?$b$N$,(B\verb/itemsquarebox family/ $B$G$9!%(B
+\verb/itembox family/ はコーナーが円いボックスでした．\par\noindent
+これを直角にしたものが\verb/itemsquarebox family/ です．
 \subsection{itemsquarebox}
-$B$^$:$O!$>eOH$K8+=P$7$r$D$1$^$9!%(B
+まずは，上枠に見出しをつけます．
 
-\begin{itemsquarebox}{$BNcBj(B}
-$B<!$N@_Ld$KEz$($h!%(B
+\begin{itemsquarebox}{例題}
+次の設問に答えよ．
 \end{itemsquarebox}
 
-$B$3$l$O(B
+これは
 \begin{quote}\begin{verbatim}
   \documentclass{jarticle}
   \usepackage{ascmac,itembbox}
   \begin{document}
-  \begin{itemsquarebox}{$BNcBj(B}
-    $B<!$N@_Ld$KEz$($h!%(B
+  \begin{itemsquarebox}{例題}
+    次の設問に答えよ．
   \end{itemsquarebox}
   \end{document}
 \end{verbatim}
 \end{quote}
-$B$H$$$&%j%9%H$r%?%$%W%;%C%H$7$FF@$i$l$^$9!%(B\verb/itemsquarebox/ $B$N=q<0$O(B
+というリストをタイプセットして得られます．\verb/itemsquarebox/ の書式は
 \begin{quote}\begin{verbatim}
-  \begin{itemsquarebox}[$BG[CV%*%W%7%g%s(B]{$B>eOH$N8+=P$7(B}
-$B$G(B
-  $BG[CV%*%W%7%g%s$O(B
-      l : $B:8(B    c : $BCf1{(B($B%G%U%)%k%H(B)    r : $B1&(B
-$B$N$$$:$l$+$G$9!%(B
+  \begin{itemsquarebox}[配置オプション]{上枠の見出し}
+で
+  配置オプションは
+      l : 左    c : 中央(デフォルト)    r : 右
+のいずれかです．
 \end{verbatim}
 \end{quote}
 \pagebreak
 
 \subsection{itembsquarebox}
-$B<!$O8+=P$7$r2<OH$K$D$1$^$9!%(B
-\begin{itembsquarebox}{1998 $BFL1zBg3X(B}
-$B<!$N@_Ld$KEz$($h!%(B
+次は見出しを下枠につけます．
+\begin{itembsquarebox}{1998 凸凹大学}
+次の設問に答えよ．
 \end{itembsquarebox}
 
-$B$3$l$O(B
+これは
 \begin{quote}\begin{verbatim}
   \documentclass{jarticle}
   \usepackage{ascmac,itembbox}
   \begin{document}
-  \begin{itembsquarebox}{1998 $BFL1zBg3X(B}
-    $B<!$N@_Ld$KEz$($h!%(B
+  \begin{itembsquarebox}{1998 凸凹大学}
+    次の設問に答えよ．
   \end{itembsquarebox}
   \end{document}
 \end{verbatim}
 \end{quote}
-$B$H$$$&%j%9%H$r%?%$%W%;%C%H$7$FF@$i$l$^$9!%(B\verb/itembsquarebox/ $B$N=q<0$O(B
+というリストをタイプセットして得られます．\verb/itembsquarebox/ の書式は
 \begin{quote}\begin{verbatim}
-  \begin{itembsquarebox}[$BG[CV%*%W%7%g%s(B]{$B2<OH$N8+=P$7(B}
-$B$G(B
-  $BG[CV%*%W%7%g%s$O(B
-      l : $B:8(B    c : $BCf1{(B    r : $B1&(B($B%G%U%)%k%H(B)
-$B$N$$$:$l$+$G$9!%(B
+  \begin{itembsquarebox}[配置オプション]{下枠の見出し}
+で
+  配置オプションは
+      l : 左    c : 中央    r : 右(デフォルト)
+のいずれかです．
 \end{verbatim}
 \end{quote}
 
 \subsection{itemtbsquarebox}
-$B;0HVL\$O!$>eOH!&2<OHN>J}$K8+=P$7$r$D$1$^$9!%(B
+三番目は，上枠・下枠両方に見出しをつけます．
 
-\begin{itemtbsquarebox}{$BNcBj(B1}{1998 $B1zFLBg3X(B}
-$B<!$N@_Ld$KEz$($h!%(B
+\begin{itemtbsquarebox}{例題1}{1998 凹凸大学}
+次の設問に答えよ．
 \end{itemtbsquarebox}
 
-$B$3$l$O(B
+これは
 \begin{quote}\begin{verbatim}
   \documentclass{jarticle}
   \usepackage{ascmac,itembbox}
   \begin{document}
-  \begin{itemtbsquarebox}{$BNcBj(B1}{1998 $B1zFLBg3X(B}
-    $B<!$N@_Ld$KEz$($h!%(B
+  \begin{itemtbsquarebox}{例題1}{1998 凹凸大学}
+    次の設問に答えよ．
   \end{itemtbsquarebox}
   \end{document}
 \end{verbatim}
 \end{quote}
-$B$H$$$&%j%9%H$r%?%$%W%;%C%H$7$FF@$i$l$^$9!%(B\verb/itemtbsquarebox/ $B$N=q<0$O(B
+というリストをタイプセットして得られます．\verb/itemtbsquarebox/ の書式は
 
 \begin{quote}\begin{verbatim}
-  \begin{itemtbsquarebox}<$B>eOH$NG[CV(B>[$B2<OH$NG[CV(B]{$B>eOH$N8+=P$7(B}{$B2<OH$N8+=P$7(B}
-            <$B>eOH$NG[CV(B> $B$O>JN,2DG=$J%*%W%7%g%s0z?t$G!$(B 
-                 l($B:8(B), c($BCf1{(B), r($B1&(B) $B$N$$$:$l$+$G$9!%%G%U%)%k%H$O(B l
-            [$B2<OH$NG[CV(B] $B$b>JN,2DG=$J%*%W%7%g%s0z?t$G!$(B 
-                 l($B:8(B), c($BCf1{(B), r($B1&(B) $B$N$$$:$l$+$G$9!%%G%U%)%k%H$O(B r
+  \begin{itemtbsquarebox}<上枠の配置>[下枠の配置]{上枠の見出し}{下枠の見出し}
+            <上枠の配置> は省略可能なオプション引数で， 
+                 l(左), c(中央), r(右) のいずれかです．デフォルトは l
+            [下枠の配置] も省略可能なオプション引数で， 
+                 l(左), c(中央), r(右) のいずれかです．デフォルトは r
 \end{verbatim}
 \end{quote}
 \pagebreak
 
 \section{itemshadebox}
-$B1F$D$-%\%C%/%9$N>eOH$K8+=P$7$r$D$1$^$9!%(B
+影つきボックスの上枠に見出しをつけます．
 
-  \begin{itemshadebox}[r]{\gt $B=EJ#=gNs(B}
-    $n$$B8D$N$b$N$+$i(B$r$$B8D$r$H$C$?=EJ#=gNs$NAm?t$O(B$n^r$$B$G$"$k!%(B
+  \begin{itemshadebox}[r]{\gt 重複順列}
+    $n$個のものから$r$個をとった重複順列の総数は$n^r$である．
   \end{itemshadebox}
 
-$B$3$l$O(B
+これは
 \begin{quote}\begin{verbatim}
   \documentclass{jarticle}
   \usepackage{ascmac,itembbox}
   \begin{document}
-  \begin{itemshadebox}[r]{\gt $B=EJ#=gNs(B}
-    $n$$B8D$N$b$N$+$i(B$r$$B8D$r$H$C$?=EJ#=gNs$NAm?t$O(B$n^r$$B$G$"$k!%(B
+  \begin{itemshadebox}[r]{\gt 重複順列}
+    $n$個のものから$r$個をとった重複順列の総数は$n^r$である．
   \end{itemshadebox}
   \end{document}
 \end{verbatim}
 \end{quote}
-$B$H$$$&%j%9%H$r%?%$%W%;%C%H$7$FF@$i$l$^$9!%(B\verb/itemshadebox/ $B$N=q<0$O(B
+というリストをタイプセットして得られます．\verb/itemshadebox/ の書式は
 \begin{quote}\begin{verbatim}
-  \begin{itemshadebox}[$BG[CV%*%W%7%g%s(B]{$B>eOH$N8+=P$7(B}
-$B$G(B
-  $BG[CV%*%W%7%g%s$O(B
-      l : $B:8(B    c : $BCf1{(B($B%G%U%)%k%H(B)    r : $B1&(B
-$B$N$$$:$l$+$G$9!%(B
+  \begin{itemshadebox}[配置オプション]{上枠の見出し}
+で
+  配置オプションは
+      l : 左    c : 中央(デフォルト)    r : 右
+のいずれかです．
 \end{verbatim}
 \end{quote}
 
 \section{\cmd{EMkeytop}}
-\subsection{\textsf{ascmac.sty}$B$N(B\cmd{keytop}}
-\textsf{ascmac.sty}$B$GDj5A$5$l$F$$$k(B\cmd{keytop}$B$O!$OH@~38$NItJ,$H(B
-$B:81&$N=D7S@~$,>/$7N%$l$F$7$^$$$^$9!#(B
-$B$3$N8=>]$O!$(B\textsf{emath.sty}$B$rMQ$$$J$$>l9g$G$bH/@8$7$^$9!#(B
+\subsection{\textsf{ascmac.sty}の\cmd{keytop}}
+\textsf{ascmac.sty}で定義されている\cmd{keytop}は，枠線蓋の部分と
+左右の縦罫線が少し離れてしまいます。
+この現象は，\textsf{emath.sty}を用いない場合でも発生します。
 
-\begin{showEx}(.7,.24){\textsf{ascmac.sty}$B$N(B\cmd{keytop}}
+\begin{showEx}(.7,.24){\textsf{ascmac.sty}の\cmd{keytop}}
 \asckeytop{A}
 \end{showEx}
 
-$B!JCm!K(B \textsf{itembbox.sty}$B$G$O!$(B\textsf{ascmac.sty}$B$N(B\cmd{keytop}$B$r(B
-\cmd{asckeytop}$B$H2~L>$7$F$$$^$9!#(B
+（注） \textsf{itembbox.sty}では，\textsf{ascmac.sty}の\cmd{keytop}を
+\cmd{asckeytop}と改名しています。
 
-\subsection{\textsf{okumacro.sty}$B$N(B\cmd{keytop}}
-\cmd{keytop}$B$H$$$&%3%^%s%I$O!$1|B<@h@8$N(B\textsf{okumacro.sty}$B$G$b(B
-$BDj5A$5$l$F$$$^$9!#$3$A$i$OOH@~$Oe:No$K$D$J$,$C$F$$$^$9$,!$(B
-\textsf{emath}$B%Q%C%1!<%8$,KX$II,?\$H$7$F$$$k(B\textsf{eepic.sty}$B$H$OAj@-$,0-$/!$(B
-$BOH@~$,Mp$l$^$9!#(B
+\subsection{\textsf{okumacro.sty}の\cmd{keytop}}
+\cmd{keytop}というコマンドは，奥村先生の\textsf{okumacro.sty}でも
+定義されています。こちらは枠線は綺麗につながっていますが，
+\textsf{emath}パッケージが殆ど必須としている\textsf{eepic.sty}とは相性が悪く，
+枠線が乱れます。
 
-\begin{showEx}(.7,.24){\textsf{okumacro.sty}$B$N(B\cmd{keytop}}
+\begin{showEx}(.7,.24){\textsf{okumacro.sty}の\cmd{keytop}}
 \okukeytop{A}
 \end{showEx}
 
-\subsection{\textsf{itembbox.sty}$B$N(B\cmd{keytop}}
-$BA0@a$G;XE&$7$?OH@~$NMp$l$O!$(B\textsf{eepic.sty}$B$H(B\textsf{screen}$B4D6-$J$I$H$N(B
-$B4X78$H$7$FCN$i$l$F$$$k$b$N$G!$(B\textsf{itembbox.sty}$B$G$O!$1|B<@h@8$N(B
-\cmd{keytop}$B$KBP$7$F=$@5$r;\$7$F$$$^$9!#$=$N7k2L$O(B
+\subsection{\textsf{itembbox.sty}の\cmd{keytop}}
+前節で指摘した枠線の乱れは，\textsf{eepic.sty}と\textsf{screen}環境などとの
+関係として知られているもので，\textsf{itembbox.sty}では，奥村先生の
+\cmd{keytop}に対して修正を施しています。その結果は
 
-\begin{showEx}(.7,.24){\textsf{itembbox.sty}$B$N(B\cmd{keytop}}
+\begin{showEx}(.7,.24){\textsf{itembbox.sty}の\cmd{keytop}}
 \keytop{A}
 \end{showEx}
 
 \noindent
-$BOH@~$be:No$K$D$J$,$C$F$*$j!$L\=PEY$7L\=PEY$7$H;W$C$?$N$G$9$,!%!%!%!%!%(B
+枠線も綺麗につながっており，目出度し目出度しと思ったのですが．．．．．
 \clearpage
 
-\subsection{\cmd{keytop}$B$N%5%$%:(B}
-\cmd{keytop}$B$NCf?H$N%5%$%:$,JQ$o$j$^$9$H!$2#J}8~$OBg>fIW$G$9!#(B
+\subsection{\cmd{keytop}のサイズ}
+\cmd{keytop}の中身のサイズが変わりますと，横方向は大丈夫です。
 
-\begin{showEx}(.7,.24){\textsf{itembbox.sty}$B$N(B\cmd{keytop}}
+\begin{showEx}(.7,.24){\textsf{itembbox.sty}の\cmd{keytop}}
 \keytop{Enter}
 \end{showEx}
 
-$B=DJ}8~$,LdBj$G(B
+縦方向が問題で
 
-\begin{showEx}(.78,.16){\textsf{itembbox.sty}$B$N(B\cmd{keytop}}
+\begin{showEx}(.78,.16){\textsf{itembbox.sty}の\cmd{keytop}}
 \keytop{$\stackrel{\textstyle\mathsf{ROLL}}{\mathsf{UP}}$}
 \end{showEx}
 
-$BJ8;z%5%$%:$r>.$5$/$7$F$_$^$7$g$&!#(B
+文字サイズを小さくしてみましょう。
 
-\begin{showEx}(.78,.16){\textsf{itembbox.sty}$B$N(B\cmd{keytop}}
+\begin{showEx}(.78,.16){\textsf{itembbox.sty}の\cmd{keytop}}
 \keytop{$\stackrel{\scriptscriptstyle\mathsf{ROLL}}{%
   \scriptscriptstyle\mathsf{UP}}$}
 \end{showEx}
 
 \noindent
-$B$d$C$H<}$^$j$^$7$?$,!$E7$,$d$d5g6~$G$9!#(B
+やっと収まりましたが，天がやや窮屈です。
 
 \subsection{\cmd{EMkeytop}}
-$BA0@a$G$_$?$h$&$K!$(B\textsf{okumacro.sty}$B$N(B\cmd{keytop}$B$O!$(B
-$B=DJ}8~$N%5%$%:$O8GDj$H$J$C$F$$$k$h$&$G$9!#(B
+前節でみたように，\textsf{okumacro.sty}の\cmd{keytop}は，
+縦方向のサイズは固定となっているようです。
 
-$B$=$3$G!$=DJ}8~$b2DJQ$H$J$k$h$&$K=$@5$7$?$b$N$r(B
-\cmd{EMkeytop}$B$H>N$9$k$3$H$H$7$^$7$?!#(B
+そこで，縦方向も可変となるように修正したものを
+\cmd{EMkeytop}と称することとしました。
 
-\begin{showEx}(.78,.16){\textsf{itembbox.sty}$B$N(B\cmd{keytop}}
+\begin{showEx}(.78,.16){\textsf{itembbox.sty}の\cmd{keytop}}
 \EMkeytop{$\stackrel{\scriptscriptstyle\mathsf{ROLL}}{%
   \scriptscriptstyle\mathsf{UP}}$}
 \end{showEx}
 
-$BDL>o$NJ8;z%5%$%:$KBP$7$F$b(B
+通常の文字サイズに対しても
 
-\begin{showEx}(.78,.16){\textsf{itembbox.sty}$B$N(B\cmd{keytop}}
+\begin{showEx}(.78,.16){\textsf{itembbox.sty}の\cmd{keytop}}
 \EMkeytop{$\stackrel{\textstyle\mathsf{ROLL}}{\mathsf{UP}}$}
 \end{showEx}
 
-$B$b$C$H$b!$=D%5%$%:$r2DJQ$H$9$k$3$H$,A1$H$O8@$($^$;$s!#(B
-$B2<$N(B2$B$D$rHf3S$7$F$/$@$5$$!#(B
+もっとも，縦サイズを可変とすることが善とは言えません。
+下の2つを比較してください。
 
-\begin{showEx}(.78,.16){$B=D%5%$%:2DJQ(B}
+\begin{showEx}(.78,.16){縦サイズ可変}
 \EMkeytop{\textsf{A}}
 \EMkeytop{$\stackrel{\scriptscriptstyle\mathsf{ROLL}}{%
   \scriptscriptstyle\mathsf{UP}}$}
 \end{showEx}
 
-\begin{showEx}(.78,.16){$B=D%5%$%:8GDj(B}
+\begin{showEx}(.78,.16){縦サイズ固定}
 \keytop{A}
 \keytop{$\stackrel{\scriptscriptstyle\mathsf{ROLL}}{%
   \scriptscriptstyle\mathsf{UP}}$}
 \end{showEx}
 
-$B8GDj$NJ}$,K>$^$7$$$G$7$g$&!#2DJQ$H$7$?$$$H$-$N$?$a$K(B
-\cmd{EMkeytop}$B$rMQ0U$7$?$H$$$&$3$H$G$9!#(B
+固定の方が望ましいでしょう。可変としたいときのために
+\cmd{EMkeytop}を用意したということです。
 
-\subsection{\cmd{keytop}$B$N=qBN(B}
-$B1|B<@h@8$N(B\cmd{keytop}$B$N=qBN$O(B\verb+\normalfont\sffamily+$B$H$J$C$F$$$^$9!#(B
-$B0lJ}!$(B\cmd{EMkeytop}$B$O(B\verb+\normalfont+$B$G$9!#(B
+\subsection{\cmd{keytop}の書体}
+奥村先生の\cmd{keytop}の書体は\verb+\normalfont\sffamily+となっています。
+一方，\cmd{EMkeytop}は\verb+\normalfont+です。
 
-\begin{showEx}(.7,.24){$B=qBN$NHf3S(B}
+\begin{showEx}(.7,.24){書体の比較}
 \keytop{A}\par
 \EMkeytop{A}
 \end{showEx}
 
-\cmd{EMkeytop}$B$N=qBN$rJQ99$9$k$K$O(B
-\cmd{EMkeytopfont}$B$rMQ$$$^$9!#(B
+\cmd{EMkeytop}の書体を変更するには
+\cmd{EMkeytopfont}を用います。
 
-\begin{showEx}(.7,.24){$B=qBN$NJQ99(B}
+\begin{showEx}(.7,.24){書体の変更}
 \keytop{A}\par
 \EMkeytopfont{\sffamily}
 \EMkeytop{A}\par
@@ -339,11 +339,11 @@ ascmac.sty $B$r;HMQ$9$k$3$H$,A0Ds$H$J$j$^$9!%(B
 \EMkeytop{A}
 \end{showEx}
 
-\subsection{$B%3!<%J!<%5%$%:$NJQ99(B}
-\cmd{EMkeytop}$B$G$O!$%3!<%J!<%5%$%:$r(B\cmd{EMkeytopcornersize}$B$G(B
-$B;XDj2DG=$H$7$F$"$j$^$9!#(B
-$B0z?t$O(B1$B!A(B20$B$G!$(B20$B$H$9$k$H!$(B\textsf{screen}$B4D6-$N%3!<%J!<$HF1$87A$H$J$j$^$9!#(B
-$B%G%U%)%k%HCM$O(B4$B$G$9!#(B
+\subsection{コーナーサイズの変更}
+\cmd{EMkeytop}では，コーナーサイズを\cmd{EMkeytopcornersize}で
+指定可能としてあります。
+引数は1〜20で，20とすると，\textsf{screen}環境のコーナーと同じ形となります。
+デフォルト値は4です。
 
 \begin{showEx}(.7,.24){\cmd{EMkeytopcornersize}}
 \EMkeytop{A}\par
@@ -351,19 +351,19 @@ ascmac.sty $B$r;HMQ$9$k$3$H$,A0Ds$H$J$j$^$9!%(B
 \EMkeytop{A}
 \end{showEx}
 
-\subsection{\cmd{keytop}$B:81&$N%"%-(B}
-$B1|B<@h@8$N(B\cmd{keytop}$B$O!$:81&$=$l$>$l(B\texttt{1pt}$B$N%"%-$,F~$j$^$9!#(B
-$B0lJ}!$(B\cmd{EMkeytop}$B$O%"%-%J%7$G$9!#(B
+\subsection{\cmd{keytop}左右のアキ}
+奥村先生の\cmd{keytop}は，左右それぞれ\texttt{1pt}のアキが入ります。
+一方，\cmd{EMkeytop}はアキナシです。
 
-\begin{showEx}(.7,.24){$B:81&$N%"%-(B}
+\begin{showEx}(.7,.24){左右のアキ}
 abc\keytop{A}xyz\par
 abc\EMkeytop{A}xyz
 \end{showEx}
 
 \if0
-$B%"%-$r=|5n$7$?$N$O!$<!$N$h$&$J;HMQ$rA[Dj$7$?$+$i$G$9!#(B
+アキを除去したのは，次のような使用を想定したからです。
 
-\begin{showEx}(.9,.9){$B;HMQNc(B}
+\begin{showEx}(.9,.9){使用例}
 \begin{zahyou}[ul=10mm,Sitayohaku=10mm](-1,7)(-.2,2.5)
   \footnotesize
   \def\Ft{T-sin(T)}

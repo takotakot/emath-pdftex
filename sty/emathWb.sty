@@ -1,43 +1,43 @@
-% emathWb.sty ver.0.01 $B&A%F%9%HHG(B 2000/09/01
+% emathWb.sty ver.0.01 αテスト版 2000/09/01
 
 \NeedsTeXFormat{LaTeX2e}%
 \ProvidesPackage{emathWb}[2000/09/01 v0.01]%
 \RequirePackage{emathB}
 
-%(1) $BM-M}?t78?t@0<0$N>hK!(B
-%       $B0lJQ?t$G(B
-%       $B78?t$O@0?t$NHO0OFb!JJ,?t78?t$,EP>l$9$k$b$N$O%@%a!K(B
-%       $B0z?t$O!$78?t$r9_$Y$-=g$K%3%s%^6h@Z$j$GJB$Y$k!%(B
-%   \fzyouhou[$BJ8;z(B]<A>{$BHo>h?t(B}{$B>h?t(B}
-%       [$BJ8;z(B]$B%*%W%7%g%s$O@0<0$NJ8;z$rJQ99$9$k!%(B
-%       <A>$B%*%W%7%g%s$O!$(BemathA.sty $B$r;HMQ$9$k$H$-$N(B
-%       \kaitou $B%3%^%s%I$N0z?t$r<+F0:n@.$9$k!%(B
+%(1) 有理数係数整式の乗法
+%       一変数で
+%       係数は整数の範囲内（分数係数が登場するものはダメ）
+%       引数は，係数を降べき順にコンマ区切りで並べる．
+%   \fzyouhou[文字]<A>{被乗数}{乗数}
+%       [文字]オプションは整式の文字を変更する．
+%       <A>オプションは，emathA.sty を使用するときの
+%       \kaitou コマンドの引数を自動作成する．
 %
-%(2) $BM-M}?t78?t@0<0$N=|K!(B
-%       $B0lJQ?t$G(B
-%       $BHo=|?t$O#8<!0J2<!$=|?t$O#4<!0J2<(B
-%       $B78?t$OM-M}?t$NHO0OFb(B
-%       $B0z?t$O!$78?t$r9_$Y$-=g$K%3%s%^6h@Z$j$GJB$Y$k!%(B
-%   \fzyohou[$BJ8;z(B]<A>{$BHo=|?t(B}{$B=|?t(B}
-%       [$BJ8;z(B]$B%*%W%7%g%s$O@0<0$NJ8;z$rJQ99$9$k!%(B
-%       <A>$B%*%W%7%g%s$O!$(BemathA.sty $B$r;HMQ$9$k$H$-$N(B
-%       \kaitou $B%3%^%s%I$N0z?t$r<+F0:n@.$9$k!%(B
-%(3) $BM-M}?t78?t@0<0$N2CK!(B
-%       $B0lJQ?t$G(B
-%       $B78?t$OM-M}?t$NHO0OFb(B
-%       $B0z?t$O!$78?t$r9_$Y$-=g$K%3%s%^6h@Z$j$GJB$Y$k!%(B
-%   \fkahou[$BJ8;z(B]<A>{$B<0#1(B}{$B<0#2(B}
-%       [$BJ8;z(B]$B%*%W%7%g%s$O@0<0$NJ8;z$rJQ99$9$k!%(B
-%       <A>$B%*%W%7%g%s$O!$(BemathA.sty $B$r;HMQ$9$k$H$-$N(B
-%       \kaitou $B%3%^%s%I$N0z?t$r<+F0:n@.$9$k!%(B
-%(4) $BM-M}?t78?t@0<0$N8:K!(B
-%       $B0lJQ?t$G(B
-%       $B78?t$OM-M}?t$NHO0OFb(B
-%       $B0z?t$O!$78?t$r9_$Y$-=g$K%3%s%^6h@Z$j$GJB$Y$k!%(B
-%   \fgenpou[$BJ8;z(B]<A>{$B<0#1(B}{$B<0#2(B}
-%       [$BJ8;z(B]$B%*%W%7%g%s$O@0<0$NJ8;z$rJQ99$9$k!%(B
-%       <A>$B%*%W%7%g%s$O!$(BemathA.sty $B$r;HMQ$9$k$H$-$N(B
-%       \kaitou $B%3%^%s%I$N0z?t$r<+F0:n@.$9$k!%(B
+%(2) 有理数係数整式の除法
+%       一変数で
+%       被除数は８次以下，除数は４次以下
+%       係数は有理数の範囲内
+%       引数は，係数を降べき順にコンマ区切りで並べる．
+%   \fzyohou[文字]<A>{被除数}{除数}
+%       [文字]オプションは整式の文字を変更する．
+%       <A>オプションは，emathA.sty を使用するときの
+%       \kaitou コマンドの引数を自動作成する．
+%(3) 有理数係数整式の加法
+%       一変数で
+%       係数は有理数の範囲内
+%       引数は，係数を降べき順にコンマ区切りで並べる．
+%   \fkahou[文字]<A>{式１}{式２}
+%       [文字]オプションは整式の文字を変更する．
+%       <A>オプションは，emathA.sty を使用するときの
+%       \kaitou コマンドの引数を自動作成する．
+%(4) 有理数係数整式の減法
+%       一変数で
+%       係数は有理数の範囲内
+%       引数は，係数を降べき順にコンマ区切りで並べる．
+%   \fgenpou[文字]<A>{式１}{式２}
+%       [文字]オプションは整式の文字を変更する．
+%       <A>オプションは，emathA.sty を使用するときの
+%       \kaitou コマンドの引数を自動作成する．
 
 \newif\ifprFdivcalc
 \newif\ifFzyo@not@align\Fzyo@not@alignfalse
@@ -458,6 +458,6 @@
 \endinput
 
 % v0.00   2000/08/27 
-%   $B&A%F%9%HHG(B
+%   αテスト版
 % v0.01   2000/09/01
-%   emathW.sty (v0.11 $B0J9_(B) $B$H$NJ;MQ$r9MN8(B
+%   emathW.sty (v0.11 以降) との併用を考慮

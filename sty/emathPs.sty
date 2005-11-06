@@ -2,7 +2,7 @@
 %
 \NeedsTeXFormat{LaTeX2e}
 \def\Ps@version{0.94}
-\ProvidesPackage{emathPs}[2005/11/05 v \Ps@version $B&B(B]%
+\ProvidesPackage{emathPs}[2005/11/05 v \Ps@version β]%
 %
 \@ifundefined{ifpapersize}{\newif\ifpapersize\papersizefalse}{}%
 \def\EMcolor@type{rgb}%
@@ -90,7 +90,7 @@
 \def\default@linewidth{10}%
 \def\defaultlinewidth#1{\edef\default@linewidth{#1}}
 %
-% $B?'(B
+% 色
 %
 \def\EMpsIrositei#1{%
   \@ifundefined{EMps@#1}{%
@@ -102,7 +102,7 @@
 \edef\EMsetcolor{set\EMcolor@type color}
 \ifthenelse{\equal\EMcolor@type{rgb}}{%
 %
-% $B?'(B(RGB)
+% 色(RGB)
 %
 \def\EMps@black{0 0 0}%
 \def\EMps@red{1 0 0}%
@@ -150,7 +150,7 @@
   \expandafter\def\csname EMps@#1\endcsname{#2\space#3\space#4}}%
 }{%
 %
-% $B?'(B(CMYK)
+% 色(CMYK)
 %
   \def\EMps@GreenYellow{0.15 0 0.69 0}%
   \def\EMps@Yellow{0 0 1 0}%
@@ -223,29 +223,29 @@
 %
   \def\EMps@PastelBlue         {0.50 0 0 0}%
 %
-  \def\EMps@$B:y?'(B{0 0.16 0.05 0}%
-  \def\EMps@$B0l6T@w(B{0 0.13 0.08 0}%
-  \def\EMps@$BH)?'(B{0 0.30 0.35 0}%
-  \def\EMps@$B8O?'(B{0.08 0.28 0.42 0}%
-  \def\EMps@$B9a?'(B{0.05 0.17 0.42 0.10}%
-  \def\EMps@$BGrCc(B{0.14 0.28 0.37 0}%
-  \def\EMps@$B2+]"?'(B{0.15 0.20 0.92 0}%
-  \def\EMps@$BD;$N;R?'(B{0 0.07 0.30 0}%
-  \def\EMps@$BN}?'(B{0 0.10 0.24 0}%
-  \def\EMps@$B<cMU?'(B{0.35 0 0.47 0.04}%
-  \def\EMps@$BLx?'(B{0.44 0.12 0.63 0}%
-  \def\EMps@$BKuCc?'(B{0.33 0.15 0.60 0}%
-  \def\EMps@$B@uNP(B{0.42 0 0.42 0}%
-  \def\EMps@$BGrNP(B{0.32 0 0.25 0}%
-  \def\EMps@$B@D<'?'(B{0.60 0.08 0.48 0}%
-  \def\EMps@$B?e@uG,(B{0.45 0.04 0.14 0}%
-  \def\EMps@$B?e?'(B{0.45 0 0.06 0}%
-  \def\EMps@$BISGA(B{0.32 0 0.14 0}%
-  \def\EMps@$B6u?'(B{0.50 0 0.03 0.03}%
-  \def\EMps@$BF#?'(B{0.42 0.40 0 0}%
-  \def\EMps@$BGv?'(B{0.20 0.30 0.10 0.30}%
-  \def\EMps@$BF}Gr?'(B{0.03 0 0.03 0.03}%
-  \def\EMps@$B3%Gr?'(B{0.05 0.06 0.12 0}%
+  \def\EMps@桜色{0 0.16 0.05 0}%
+  \def\EMps@一斤染{0 0.13 0.08 0}%
+  \def\EMps@肌色{0 0.30 0.35 0}%
+  \def\EMps@枯色{0.08 0.28 0.42 0}%
+  \def\EMps@香色{0.05 0.17 0.42 0.10}%
+  \def\EMps@白茶{0.14 0.28 0.37 0}%
+  \def\EMps@黄蘗色{0.15 0.20 0.92 0}%
+  \def\EMps@鳥の子色{0 0.07 0.30 0}%
+  \def\EMps@練色{0 0.10 0.24 0}%
+  \def\EMps@若葉色{0.35 0 0.47 0.04}%
+  \def\EMps@柳色{0.44 0.12 0.63 0}%
+  \def\EMps@抹茶色{0.33 0.15 0.60 0}%
+  \def\EMps@浅緑{0.42 0 0.42 0}%
+  \def\EMps@白緑{0.32 0 0.25 0}%
+  \def\EMps@青磁色{0.60 0.08 0.48 0}%
+  \def\EMps@水浅葱{0.45 0.04 0.14 0}%
+  \def\EMps@水色{0.45 0 0.06 0}%
+  \def\EMps@瓶覗{0.32 0 0.14 0}%
+  \def\EMps@空色{0.50 0 0.03 0.03}%
+  \def\EMps@藤色{0.42 0.40 0 0}%
+  \def\EMps@薄色{0.20 0.30 0.10 0.30}%
+  \def\EMps@乳白色{0.03 0 0.03 0.03}%
+  \def\EMps@灰白色{0.05 0.06 0.12 0}%
 %  \def\EMps@{}%
 %
 \def\defineEMpscolor#1#2#3#4#5{%
@@ -305,9 +305,9 @@
 \define@key{emPs}{waku}[1]{\def\ps@drawwaku@{#1}}%
 \define@key{emPs}{yazirusi}[a]{\def\yazirusi@opt{#1}}%
 %
-% dousa = p : 0 : path $B$rIU2C$9$k$N$_(B
-%         s : 1 : stroke $BIA2h!J%G%U%)%k%H!K(B
-%         f : 2 : fill $BEI$j$D$V$7(B
+% dousa = p : 0 : path を付加するのみ
+%         s : 1 : stroke 描画（デフォルト）
+%         f : 2 : fill 塗りつぶし
 %         F : 3 : fill & stroke
 %         c : 4 : close & stroke
 %
@@ -341,7 +341,7 @@
 %          key=val
 %             linewidth=3
 %             dash=[.1]{.2,.2}
-%   #2   : $BE@Ns(B
+%   #2   : 点列
 \def\psDrawline{\def\iro@{\empty}\@psDrawline}%
 \def\@psDrawline{\@ifnextchar<{\@@psDrawline}{\@@psDrawline<\empty>}}
 \def\@@psDrawline<#1>#2{%
@@ -445,7 +445,7 @@
       \@@emathPut@@@{#1}[\@houi]}%
   }{\@@emathPut@@@{#1}[#2]}}
 %
-% picture $B4D6-(B
+% picture 環境
 %
 \def\EMpspicture(#1,#2){\@ifnextchar({\@EMpspicture(#1,#2)}{%
   \@EMpspicture(#1,#2)(0,0)}}
@@ -456,12 +456,12 @@
 }
 \def\endEMpspicture{\csname endzahyou*\endcsname}
 %
-% zahyou* $B4D6-(B
+% zahyou* 環境
 %
 \expandafter\def\csname pszahyou*\endcsname{\drawaxisfalse\pszahyou}
 \expandafter\def\csname endpszahyou*\endcsname{\endpszahyou\@ignoretrue}
 %
-% pszahyou $B4D6-(B
+% pszahyou 環境
 %
 \def\pszahyou{%
  \define@key{emP}{iro}{\edef\iro@{##1}}%
@@ -502,7 +502,7 @@
 %  \def\hidari@yohaku{0}%
 %  \def\arrow@headsize{1}%
   \@@@@@zahyou[#1][#2]<#3><#4><#5>(#6,#7)(#8,#9)
-% \def\special#1{\@warning{pszahyou$B4D6-$G(Bspecial:#1$B$r;H$*$&$H$7$F$$$^$9!#(B}}%
+% \def\special#1{\@warning{pszahyou環境でspecial:#1を使おうとしています。}}%
   \ifthenelse{\equal\EMps@filename\empty}{%
     \refstepcounter{EMps@flnm}%
     \edef\EMps@filename{\EMps@filedir\jobname\theEMps@flnm .eps}%
@@ -1550,7 +1550,7 @@
     }%
 %
 %
-% Bezier 3$B<!6J@~(B
+% Bezier 3次曲線
 %
 % \EMpsBezier<##1>##2##3##4##5
 %   <##1> : key=val
@@ -1558,10 +1558,10 @@
 %           dash=
 %           yazirusi=a/r
 %           waku
-%    ##2  : $BC<E@(B1
-%    ##3  : $B@)8fE@(B1
-%    ##4  : $B@)8fE@(B2
-%    ##5  : $BC<E@(B2
+%    ##2  : 端点1
+%    ##3  : 制御点1
+%    ##4  : 制御点2
+%    ##5  : 端点2
 %
 \def\ps@drawwaku@{0}%
 \def\psdrawwaku##1{\def\ps@drawwaku@{##1}}%
@@ -1606,10 +1606,10 @@
 %           linewidth=
 %           dash=
 %           waku
-%    ##2  : $BC<E@(B1
-%    ##3  : $BC<E@(B1$B$r;OE@$H$9$kJd=uE@(B1$B$N6K:BI8(B
-%    ##4  : $BC<E@(B2
-%    ##5  : $BC<E@(B2$B$r;OE@$H$9$kJd=uE@(B2$B$N6K:BI8(B
+%    ##2  : 端点1
+%    ##3  : 端点1を始点とする補助点1の極座標
+%    ##4  : 端点2
+%    ##5  : 端点2を始点とする補助点2の極座標
 %
 \def\EMpsRBezier{\@ifnextchar<{\@EMpsRBezier}{\@EMpsRBezier<\empty>}}
 \def\@EMpsRBezier<##1>##2##3##4##5{%
@@ -1677,9 +1677,9 @@
     }%
 %
 % \EPSkaiten#1#2#3
-%   #1 : $B2sE>$NCf?4(B
-%   #2 : $B2sE>3Q!JO;==J,K!!K(B
-%   #3 : $B2sE>$9$kBP>](B
+%   #1 : 回転の中心
+%   #2 : 回転角（六十分法）
+%   #3 : 回転する対象
 %
     \def\EPSkaiten##1##2##3{%
       \bgroup
@@ -1698,7 +1698,7 @@
 %      \immediate\write\EMps@out{grestore}%
 %    }%
 %
-% $BE@(B#1$B$rDL$j!$J}8~3Q(B#2$B$ND>@~$K4X$7$F(B#3$B$r@~BP>N$KF0$+$9!#(B
+% 点#1を通り，方向角#2の直線に関して#3を線対称に動かす。
 %
 \def\sentaisyou##1##2##3{
       \bgroup
@@ -1738,9 +1738,9 @@
 %}
 %
 % \EPSkakudai##1##2##3
-%   ##1 : $BAj;w3HBg$NCf?4(B
-%   ##2 : $B3HBgN((B
-%   ##3 : $B3HBg$9$kBP>](B
+%   ##1 : 相似拡大の中心
+%   ##2 : 拡大率
+%   ##3 : 拡大する対象
 %
     \def\EPSkakudai##1##2##3{%
       \bgroup
@@ -1972,7 +1972,7 @@
   \@ignoretrue
 }
 %
-% $B6u4V(B
+% 空間
 %
 \@ifundefined{iiiDrawline}{}{%
 %
@@ -1981,7 +1981,7 @@
 %          key=val
 %             linewidth=3
 %             dash=[.1]{.2,.2}
-%   #2   : $BE@Ns(B
+%   #2   : 点列
 %\let\PkDrawline\iiiDrawline
 %\def\iiiDrawline{\@ifnextchar<{\@psiiiDrawline}{\@psiiiDrawline<\empty>}}%
 %\def\@psiiiDrawline<#1>#2{%
@@ -2029,9 +2029,9 @@
   \def\EMps@clip{true}%
   \edef\Ex@Org{\empty}%
   \edef\Ex@R{.9}%
-  \def\@@@Ey{(1,0)}%             y$B<4@5J}8~$NC10L%Y%/%H%k(B
-  \def\@@@Ez{(0,1)}%             z$B<4@5J}8~$NC10L%Y%/%H%k(B
-  \Rdef(.667,-138)\@@@Ex%  x$B<4@5J}8~$NC10L%Y%/%H%k(B
+  \def\@@@Ey{(1,0)}%             y軸正方向の単位ベクトル
+  \def\@@@Ez{(0,1)}%             z軸正方向の単位ベクトル
+  \Rdef(.667,-138)\@@@Ex%  x軸正方向の単位ベクトル
   \Strchr{#1}{=}\zahyou@tmp
   \ifnum\zahyou@tmp>\z@
     \setkeys{emP}{#1}%
@@ -2056,7 +2056,7 @@
   \Max{\Y@mmm,\Y@mmM,\Y@mMm,\Y@mMM,\Y@Mmm,\Y@MmM,\Y@MMm,\Y@MMM}\ymax
   \Min{\Y@mmm,\Y@mmM,\Y@mMm,\Y@mMM,\Y@Mmm,\Y@MmM,\Y@MMm,\Y@MMM}\ymin
 %
-%   emathPs.sty $B$N(B \borderwidth $B$X$NBP1~(B
+%   emathPs.sty の \borderwidth への対応
 \edef\truexmin{\xmin}%
 \edef\trueymin{\ymin}%
 \edef\truexmax{\xmax}%
@@ -2093,12 +2093,12 @@
   \@ignoretrue
 }%
 %
-% $B:BI8<4$rIA2h$7$J$$(B psZahyou* $B4D6-(B
+% 座標軸を描画しない psZahyou* 環境
 \expandafter\def\csname psZahyou*\endcsname{\Drawaxisfalse\psZahyou}
 \expandafter\def\csname endpsZahyou*\endcsname{\endpsZahyou}
 }%
 %
-% $B0lHL$N;M3Q7A$rI=$95-9f(B
+% 一般の四角形を表す記号
 %
 \def\Sikakkei{%
       \begin{pszahyou*}[ul=.11ex,EPSclip=false](0,17)(0,13)
@@ -2165,9 +2165,9 @@
   \box0\hspace{\EMpsoval@sep}}\ignorespaces}
 \@ifundefined{pst@dima}{\let\psovalbox\EMpsovalbox}{}%
 %
-% $B2<@~(B
+% 下線
 %
-% $BGH2<@~(B
+% 波下線
 %
 \define@key{emPs}{kasenFunc}{\kasenFunc{#1}}%
 \define@key{emPs}{kasenUehosei}{\def\namikasen@uehosei{#1}}%
@@ -2307,7 +2307,7 @@
 %  \end{picture}%
 %  \box0}}
 %%
-% \emathPut $B$NJ}0L;XDj(B
+% \emathPut の方位指定
 %
 \def\@@emathPut@@@#1[#2]#3{%
   \edef\h@ukou{0}%
@@ -2320,26 +2320,26 @@
   \ifnum\h@ukou=\m@ne\edef\h@ukou{2}\fi
   \ifcase\h@ukou
     \@@emathPut{#1}(0,2pt)[c]{#3}%
-  \or%  1 $BEl(B
+  \or%  1 東
     \@@emathPut{#1}(3pt,0)[l]{#3}%
-  \or%  2 $B@>(B
+  \or%  2 西
     \@@emathPut{#1}(-3pt,0)[r]{#3}%
-  \or%  3 $BFn@>(B
+  \or%  3 南西
     \@@emathPut{#1}(-2pt,-2pt)[rt]{#3}%
-  \or%  4 $BFn(B
+  \or%  4 南
     \@@emathPut{#1}(0,-3pt)[ct]{#3}%
-  \or%  5 $BFnEl(B
+  \or%  5 南東
     \@@emathPut{#1}(2pt,-2pt)[lt]{#3}%
-  \or%  6 $BKL@>(B
+  \or%  6 北西
     \@@emathPut{#1}(-2pt,2pt)[rb]{#3}%
-  \or%  7 $BKL(B
+  \or%  7 北
     \@@emathPut{#1}(0,3pt)[cb]{#3}%
-  \or%  8 $BKLEl(B
+  \or%  8 北東
     \@@emathPut{#1}(2pt,2pt)[lb]{#3}%
   \fi%
 }
 %
-% TeX $B$H(B PS $B$NC10LD9$ND4@0(B
+% TeX と PS の単位長の調整
 %     1pt = 1/72 inch : PostScript
 %     1pt = 1/72.27 inch : TeX
 \def\cPut#1{%
@@ -2353,7 +2353,7 @@
   \Add\cPut@y\ymin\cPut@y
   \emath@Put{(\cPut@x,\cPut@y)}}
 %
-% rectbox $B$N(B ps $BHG(B $B!J;HMQNc!'(Bsizuoka03.tex$B!K(B
+% rectbox の ps 版 （使用例：sizuoka03.tex）
 %
 \def\prerectbox{\relax}%
 \def\EMpsrectbox{\def\rectbox@item{\empty}\def\rectbox@item@pos{l}\def\@pos{c}%
@@ -2454,135 +2454,135 @@
 
 v 0.05 2003/01/11
         \qbezier ---> \ltxqbezier
-        EMpspicture $B4D6-(B
-        \setdash : $BGK@~G[Ns$N;XDj(B
-        \setarrowsize : $BLp@~$N7A>u;XDj(B
+        EMpspicture 環境
+        \setdash : 破線配列の指定
+        \setarrowsize : 矢線の形状指定
         \Yaziri
         \Daen, \Daenko
         \ougigata, \yumigata
         \XGurafu, \BGurafu
-        \Drawline $B$K(B <linewidth=.,dash=[.]{.,.}>$B%*%W%7%g%s(B
+        \Drawline に <linewidth=.,dash=[.]{.,.}>オプション
         \pushGP, \popGP
-v 0.06  \yclipDrawline $B$N=$@5(B
-v 0.07  $B:n@.$9$k(B eps $B%U%!%$%kL>$r;XDj2DG=$H$9$k!#(B
-        \ifincludeEPS $B$G!$(Beps $B$r:n@.$9$k$@$1$G%m!<%I$7$J$$$3$H$b2DG=$H$9$k!#(B
-v 0.08  $B1|B<@h@8$+$i$N$465<($K$h$j(B
+v 0.06  \yclipDrawline の修正
+v 0.07  作成する eps ファイル名を指定可能とする。
+        \ifincludeEPS で，eps を作成するだけでロードしないことも可能とする。
+v 0.08  奥村先生からのご教示により
           !PS-Adobe-3.0 EPSF-3.0
-        $B$rKAF,$K$D$1$k!#(B
-v 0.09  \xclipDrawline, \clipDrawline $B=$@5(B
+        を冒頭につける。
+v 0.09  \xclipDrawline, \clipDrawline 修正
         \gsave, \grestore
-v 0.10  $B6u4V(B psZahyou$B4D6-(B
-v 0.11  EPSclip=true/false $B$G%/%j%C%W$r<B9T$9$k$+H]$+$r;XDj2DG=(B
+v 0.10  空間 psZahyou環境
+v 0.11  EPSclip=true/false でクリップを実行するか否かを指定可能
 v 0.12  2003/01/30
-        EMpscolor$B4D6-(B
-        \Put $B$G!$?^7A$bIA2h$G$-$k$h$&$K$9$k!#(B
+        EMpscolor環境
+        \Put で，図形も描画できるようにする。
 v 0.13  2003/02/02
-        psZahyou$B4D6-$N=i4|2=IT==J,(B
-        \ifarrowfill $B!J%G%U%)%k%H$O(Btrue$B!K(B
-v 0.14  \migiT $B$J$I$rM-8z$K(B
-        \yclipDrawline $B$J$I(B : \Drawline $B$H$9$k!#(B
-v 0.15  \EPSkaiten $B!'(B $B2sE>(B
-v 0.16  \sentaisyou : $B@~BP>N(B
-        \borderwidth : $BIA2hNN0h$r@~I}J,!$>e2<:81&$K9-$2$k(B
-        \EPSkakudai : $B3HBg=L>.(B
-v 0.17  psZahyou$B4D6-$N%5%$%:$r@5$7$/5a$a$k!#(B
+        psZahyou環境の初期化不十分
+        \ifarrowfill （デフォルトはtrue）
+v 0.14  \migiT などを有効に
+        \yclipDrawline など : \Drawline とする。
+v 0.15  \EPSkaiten ： 回転
+v 0.16  \sentaisyou : 線対称
+        \borderwidth : 描画領域を線幅分，上下左右に広げる
+        \EPSkakudai : 拡大縮小
+v 0.17  psZahyou環境のサイズを正しく求める。
 v 0.18  \Sikakkei
 v 0.19  \zahyouMemori
-          <...> $B%*%W%7%g%s$K!$(B
+          <...> オプションに，
                 xmemoriiti=
                 ymemoriiti=
-        \edef\Kuromaru@Hankei{1.5pt}% $B>/$7Bg$-$/(B
-v 0.20  \emathPut $BJ}0L%*%W%7%g%s$N=$@5(B
-v 0.21  \zahyouMemori $BL\@9$j$,>.?tE@$rH<$&>l9g$N4]$a(B
-v 0.22  pszahyou $B4D6-$N=D0LCVJd@5%*%W%7%g%s(B
-v 0.23  \ArrowLine : [b]$B%*%W%7%g%s$rM-8z$K(B
-        EMpsrectbox : rectbox $B$N(B Ps$BHG(B
-        \Daenko : $BLp0u$N=$@5(B
-v 0.24  \qbezier : gsave, grestore $B$G64$`!#(B
-v 0.25  \@O : $B86E@(B
-v 0.26  \psKuromaru@Hankei $B$rMQ0U$7!$(B\psKuromaruHankei $B$GJQ992DG=(B
-v 0.27  syaeisensyu $B$K$D$$$F!$(Bzahyou$B4D6-$H$N:.MQ$KG[N8(B
-v 0.28  \Enk@@@ : hasenopt $B$,$"$k>l9g$ND4@0(B
-v 0.29  \kaitenkigou : \rotatebox $B$NBe$o$j$K(B \EPSkaiten $B$r;HMQ(B
+        \edef\Kuromaru@Hankei{1.5pt}% 少し大きく
+v 0.20  \emathPut 方位オプションの修正
+v 0.21  \zahyouMemori 目盛りが小数点を伴う場合の丸め
+v 0.22  pszahyou 環境の縦位置補正オプション
+v 0.23  \ArrowLine : [b]オプションを有効に
+        EMpsrectbox : rectbox の Ps版
+        \Daenko : 矢印の修正
+v 0.24  \qbezier : gsave, grestore で挟む。
+v 0.25  \@O : 原点
+v 0.26  \psKuromaru@Hankei を用意し，\psKuromaruHankei で変更可能
+v 0.27  syaeisensyu について，zahyou環境との混用に配慮
+v 0.28  \Enk@@@ : hasenopt がある場合の調整
+v 0.29  \kaitenkigou : \rotatebox の代わりに \EPSkaiten を使用
 v 0.30  \YGurafu, \XGurafu, \BGurafu, \RGurafu :
-          [linewidth=..,dash=..] $B%*%W%7%g%s$r2DG=$H$9$k!#!J6I=jE*!K(B
+          [linewidth=..,dash=..] オプションを可能とする。（局所的）
         \En, \Enko, \Daen, \Daenko
-          <linewidth=..,dash=..> $B%*%W%7%g%s$r2DG=$H$9$k!#!J6I=jE*!K(B
-        Nuri* $B7O%3%^%s%I!J<BAu$O!$(B\Hatchpolygon$B!K(B
-          <linewidth=..,dash=..> $B%*%W%7%g%s$r2DG=$H$9$k!#!J6I=jE*!K(B
-        \Hen_ko<#2> $B$K(B <linewidth=,dash=,henkohi=> $B%*%W%7%g%s(B (emathPxy)
-v 0.32  \Enk@@@ $B%P%0<h$j(B
-        \if ... \else ... \fi $B$NCf$K!$(B\ifthenelse $BIT2D(B
-v 0.33  syaei $B$N(B linewidth $B=hM}$N%?%$%_%s%0=$@5(B
-v 0.34  \defaultlinewidth $B$K$h$j@~I}$N=i4|CM$r@_Dj(B
-v 0.35  \drawXYaxis : emathPh $B$HF14|(B
-v 0.36  \En* $B$N%*%W%7%g%s(B2$B8D$rDI2C(B
-          $B6-3&@~IA2h$r$9$k!?$7$J$$$r$7$F$9$k%*%W%7%g%s(B border=
-          $BEI$j$NG;EY$r;XDj$9$k(B noudo=
-        \pszahyou $B4D6-$G(B borderwidth $B$r;XDj$7$?$H$-(B
-          \truexmax $B$J$I$G(B borderwidth $B$rF~$l$J$$CM$rJ]B8(B
-v 0.37  notMy $B%*%W%7%g%s(B
-v 0.38  pszahyou$B4D6-Fb$N(B \Drawline ---> \psDrawline
-v 0.39  \iiiDrawlines $B$K$b(B<...>$B%*%W%7%g%s(B
-v 0.40  $B#22s$N%?%$%W%;%C%H$r6/MW$9$k$?$a!$(Blastpage.sty $B$rFI$_9~$`!#(B
-v 0.41  borderwidth=.. $B%*%W%7%g%s$,(B psZahyou$B4D6-$KBP$7$F$bM-8z$H$J$k$h$&$K=$@5(B
+          <linewidth=..,dash=..> オプションを可能とする。（局所的）
+        Nuri* 系コマンド（実装は，\Hatchpolygon）
+          <linewidth=..,dash=..> オプションを可能とする。（局所的）
+        \Hen_ko<#2> に <linewidth=,dash=,henkohi=> オプション (emathPxy)
+v 0.32  \Enk@@@ バグ取り
+        \if ... \else ... \fi の中に，\ifthenelse 不可
+v 0.33  syaei の linewidth 処理のタイミング修正
+v 0.34  \defaultlinewidth により線幅の初期値を設定
+v 0.35  \drawXYaxis : emathPh と同期
+v 0.36  \En* のオプション2個を追加
+          境界線描画をする／しないをしてするオプション border=
+          塗りの濃度を指定する noudo=
+        \pszahyou 環境で borderwidth を指定したとき
+          \truexmax などで borderwidth を入れない値を保存
+v 0.37  notMy オプション
+v 0.38  pszahyou環境内の \Drawline ---> \psDrawline
+v 0.39  \iiiDrawlines にも<...>オプション
+v 0.40  ２回のタイプセットを強要するため，lastpage.sty を読み込む。
+v 0.41  borderwidth=.. オプションが psZahyou環境に対しても有効となるように修正
 v 0.42  \EMpsBezier : curveto
 v 0.43  \setlinecap, \setlinejoin
-        \psZahyou, \pszahyou : haiti=.. $B$J$I$N=i4|2=%?%$%_%s%0=$@5(B
+        \psZahyou, \pszahyou : haiti=.. などの初期化タイミング修正
 v 0.44  \psDrawlines
-v 0.45  \def@memori@nagasa $BF3F~(B
-v 0.46  \Enk@@@ \arrow@headsize=0 $B$N$H$-$O!$Lp0u$rIA2h$7$J$$!#(B
-v 0.47  \cPut $BJ8;zG[CV$K$*$$$F!$(BPostScript $B$H(B TeX $B$NC10LD9$ND4@0(B
-v 0.48  \cPut : syaei=.. $B%*%W%7%g%s$r$D$1$?$H$-$O!$D4@0A0$N?tCM$r=PNO(B
-v 0.49  pszahyou $B4D6-$KF~$kA0$N(B color $B;XDj$rM-8z$H$9$k!#(B
-v 0.51  \@iiiDrawline $B$,(B emathPk.sty $B$H%@%V%k(B
-v 0.52  \EMpsFileDir : eps $B%U%!%$%k$N3JG<>l=j$r;XDj(B
-v 0.53  \psnamikasen : $BGH2<@~(B
-v 0.54  \psnamikasen : $B5!G=3HD%(B
+v 0.45  \def@memori@nagasa 導入
+v 0.46  \Enk@@@ \arrow@headsize=0 のときは，矢印を描画しない。
+v 0.47  \cPut 文字配置において，PostScript と TeX の単位長の調整
+v 0.48  \cPut : syaei=.. オプションをつけたときは，調整前の数値を出力
+v 0.49  pszahyou 環境に入る前の color 指定を有効とする。
+v 0.51  \@iiiDrawline が emathPk.sty とダブル
+v 0.52  \EMpsFileDir : eps ファイルの格納場所を指定
+v 0.53  \psnamikasen : 波下線
+v 0.54  \psnamikasen : 機能拡張
         \pskasen
-        \psdebugmode : $B6I=jE*$K(B [debug] $BIU$-$H$9$k(B
-v 0.55  \pskasen, \psnamikasen $B$rIA2h$9$k(B pszahyou*$B4D6-Fb$K(B
-        $BG$0U$N%3%^%s%I$rG[CV$9$k$?$a$N(B '.....' $B%*%W%7%g%s(B
-        $B:81&$N%"%-$r(B \underline $B$HB7$($k(B
+        \psdebugmode : 局所的に [debug] 付きとする
+v 0.55  \pskasen, \psnamikasen を描画する pszahyou*環境内に
+        任意のコマンドを配置するための '.....' オプション
+        左右のアキを \underline と揃える
 v 0.56  \EMpsovalbox
 v 0.57  \EMpsovalbox*
-v 0.58  \En*, \yumigata*, \ougigata* : $B%+%i!<2=(B
-v 0.59  \psZahyou : Zahyou $B$N=$@5$KBP1~(B
-v 0.60  \color $B$K$h$k?';XDj$r(B \Drawline $B$K$bH?1G$5$;$k(B
-v 0.61  \EMpsovalbox* : $BGX7J?'!$OH$N?'!$%F%-%9%H$N?'$rFHN)$K;XDj(B
-v 0.62  \En : <iro=..>$B%*%W%7%g%s$rM-8z$H$9$k(B
-        \En* : [iro=..]$B$G1_<~$N?'!$(B[nuriiro=..]$B$GFbIt$N?';XDj(B
-v 0.63  $B%m!<%I%*%W%7%g%s(B papersize
-v 0.64  \Yaziri : \arrowsize $B$KDI?o(B
-v 0.65  HTML$B5,3J$N%+%i!<%M!<%`$N;HMQ(B
-v 0.66  CMYK $BJ}<0$rMQ$$$k$?$a$N%m!<%I%*%W%7%g%s(B [cmyk]
-v 0.67  \ArrowLine $B$N(B<#1>$B%*%W%7%g%s$,L58z$G$"$C$?$N$r=$@5(B
-v 0.68  $B%m!<%I%*%W%7%g%s(B[tpic]
-v 0.69  $B%m!<%I%*%W%7%g%s(B[Pk]
-v 0.70  psZahyou : $B=i4|2=IT==J,(B \let\clipDrawline\psDrawline $B$J$I(B
-v 0.71  gsave, grestore : \bgroup, \egroup$B$rIU2C(B --- $BLdBj$"$j(B $BJ]N1(B
-v 0.72  \@@emathPut@@ : \grestore $B$N%?%$%_%s%0=$@5(B
-v 0.73  \@@ArrowLine : [b]$B%*%W%7%g%s$N=hM}$r=$@5(B
-v 0.74  \psdrawwaku : \EMpsBezier $B$N@)8f@~$rI=<($5$;$k(B
-v 0.75  \EMpsrectbox : mawarikomi$B4D6-2<$K$*$1$k2#I}D4@0(B
-v 0.76  2005/04/10 \EMpsrectbox : rectboxoval=.. $B%*%W%7%g%s(B
-v 0.77  2005/04/11 \EMps@newpath $B$J$I$N=i4|2=(B
-v 0.78  2005/04/12 \EMpsrectbox : rectboxoval $B%*%W%7%g%s;HMQ;~$O(B arcto $B$rMxMQ(B
-v 0.79  2005/04/21 \Enk@@@ : EMps@mode=0 $B$N>l9g(B \relax
-v 0.80  2005/04/26 EMpsrectbox$B4D6-!'>e2<$N6u$-$r@_Dj$9$k%?%$%_%s%0=$@5(B
-v 0.81  2005/04/27 \EMpscontinue : path $B$r7R$2$k$@$1$N%b!<%I(B
-v 0.82  2005/05/16 \Yaziri : $B$b$H$N@~J,$rGrEI$j(B
-                   \EMpsBezier: $BLp0uIm2C(B
-                   \Drawline : <..>$B%*%W%7%g%s$,6I=j2=$5$l$F$$$J$+$C$?$N$r=$@5(B
-v 0.83  2005/05/17 \Enk@@@ : EMpscolor$B4D6-$r=*N;$9$k>r7o=$@5(B
-v 0.84  2005/06/27 \endpszahyou : $B6uGr$N:.F~GS=|(B
-v 0.85  2005/08/01 EMpsrectbox : mawarikomi $B$H$N4XO"$r=$@5(B
-v 0.86  2005/09/03 EMpsrectbox : emathMw.sty $B$NFHN)$KH<$&=$@5(B
-v 0.87  2005/09/14 \ArrowHeadSize : \ArrowLine $B$K7&$_(B
-v 0.88  2005/09/19 $B%m!<%I%*%W%7%g%s(B dvipdfmx
-v 0.89  2005/09/25 \ArrowLine : <heni=..,henii=..> $B=$@5%Y%/%H%k(B
-v 0.90  2005/10/08 \Ex@Org $B=i4|2=(B
-v 0.91  2005/10/09 pszahyou(*)$B4D6-$N=i4|2=$G(B \setarrowsize $B$r<B9T(B
-v 0.92  2005/10/10 EMpsrectbox$B4D6-(B:[rectboxparindent=..]$B$rM-8z$K(B
-v 0.93  2005/10/15 Daen* : $B6-3&$N?'(B
-v 0.94  2005/11/05 \ArrowLine : iro=.. $B$rM-8z$K(B
+v 0.58  \En*, \yumigata*, \ougigata* : カラー化
+v 0.59  \psZahyou : Zahyou の修正に対応
+v 0.60  \color による色指定を \Drawline にも反映させる
+v 0.61  \EMpsovalbox* : 背景色，枠の色，テキストの色を独立に指定
+v 0.62  \En : <iro=..>オプションを有効とする
+        \En* : [iro=..]で円周の色，[nuriiro=..]で内部の色指定
+v 0.63  ロードオプション papersize
+v 0.64  \Yaziri : \arrowsize に追随
+v 0.65  HTML規格のカラーネームの使用
+v 0.66  CMYK 方式を用いるためのロードオプション [cmyk]
+v 0.67  \ArrowLine の<#1>オプションが無効であったのを修正
+v 0.68  ロードオプション[tpic]
+v 0.69  ロードオプション[Pk]
+v 0.70  psZahyou : 初期化不十分 \let\clipDrawline\psDrawline など
+v 0.71  gsave, grestore : \bgroup, \egroupを付加 --- 問題あり 保留
+v 0.72  \@@emathPut@@ : \grestore のタイミング修正
+v 0.73  \@@ArrowLine : [b]オプションの処理を修正
+v 0.74  \psdrawwaku : \EMpsBezier の制御線を表示させる
+v 0.75  \EMpsrectbox : mawarikomi環境下における横幅調整
+v 0.76  2005/04/10 \EMpsrectbox : rectboxoval=.. オプション
+v 0.77  2005/04/11 \EMps@newpath などの初期化
+v 0.78  2005/04/12 \EMpsrectbox : rectboxoval オプション使用時は arcto を利用
+v 0.79  2005/04/21 \Enk@@@ : EMps@mode=0 の場合 \relax
+v 0.80  2005/04/26 EMpsrectbox環境：上下の空きを設定するタイミング修正
+v 0.81  2005/04/27 \EMpscontinue : path を繋げるだけのモード
+v 0.82  2005/05/16 \Yaziri : もとの線分を白塗り
+                   \EMpsBezier: 矢印附加
+                   \Drawline : <..>オプションが局所化されていなかったのを修正
+v 0.83  2005/05/17 \Enk@@@ : EMpscolor環境を終了する条件修正
+v 0.84  2005/06/27 \endpszahyou : 空白の混入排除
+v 0.85  2005/08/01 EMpsrectbox : mawarikomi との関連を修正
+v 0.86  2005/09/03 EMpsrectbox : emathMw.sty の独立に伴う修正
+v 0.87  2005/09/14 \ArrowHeadSize : \ArrowLine に窪み
+v 0.88  2005/09/19 ロードオプション dvipdfmx
+v 0.89  2005/09/25 \ArrowLine : <heni=..,henii=..> 修正ベクトル
+v 0.90  2005/10/08 \Ex@Org 初期化
+v 0.91  2005/10/09 pszahyou(*)環境の初期化で \setarrowsize を実行
+v 0.92  2005/10/10 EMpsrectbox環境:[rectboxparindent=..]を有効に
+v 0.93  2005/10/15 Daen* : 境界の色
+v 0.94  2005/11/05 \ArrowLine : iro=.. を有効に

@@ -3,9 +3,9 @@
 \usepackage{itembbox}
 
 \begin{document}
-\begin{itembox}{$B=EJ#=gNs(B}
-$B<!$N(B4$B<oN`$N?t;z$rMQ$$$F!$(B3$B7e0J2<$N@5$N@0?t$O$$$/$D:n$l$k$+!#(B
-$B$?$@$7!$F1$8?t;z$r7+$jJV$7MQ$$$F$b$h$$$b$N$H$9$k!#(B
+\begin{itembox}{重複順列}
+次の4種類の数字を用いて，3桁以下の正の整数はいくつ作れるか。
+ただし，同じ数字を繰り返し用いてもよいものとする。
 \begin{edaenumerate}[(1)]
   \item 1, 2, 3, 4
   \item 0, 1, 2, 3
@@ -15,32 +15,32 @@
 \begin{tyuukai}
 \abovedisplayskip=2pt\relax
 \belowdisplayskip=2pt\relax
-$B!Z2rEz![(B
+【解答】
 \begin{enumerate}[(1)]
-  \item 3$B7e!$(B2$B7e!$(B1$B7e$N@0?t$O!$$=$l$>$l(B$4^3$$B8D!$(B$4^2$$B8D!$(B$4$$B8D(B
-    $B$"$k$+$i!$A4It$G(B
-    \[ 4^3+4^2+4=\bm{84}$B!J8D!K(B\]
-  \item 3$B7e$N@0?t$O!$(B\tyuu{$B?t;z$K(B0$B$r4^$`$H$-$OMWCm0U!*(B\\
-    $B:G9b0L$K$O(B0$B$rCV$1$J$$(B}
-    $BI4$N0L$K$O(B0$B0J30$N?t;z$,$/$k$+$i!$I4$N0L$N?t;z$NA*$S$+$?$O(B3$BDL$j!#(B
-    $B==!$0l$N0L$O(B4$B<oN`$N?t;z$N$I$l$G$b$h$$$+$i!$$=$NA*$S$+$?$O(B$4^2$$BDL$j!#(B
+  \item 3桁，2桁，1桁の整数は，それぞれ$4^3$個，$4^2$個，$4$個
+    あるから，全部で
+    \[ 4^3+4^2+4=\bm{84}（個）\]
+  \item 3桁の整数は，\tyuu{数字に0を含むときは要注意！\\
+    最高位には0を置けない}
+    百の位には0以外の数字がくるから，百の位の数字の選びかたは3通り。
+    十，一の位は4種類の数字のどれでもよいから，その選びかたは$4^2$通り。
     {\mathindent=0pt\relax
       \begin{alignat*}{2}
-        &$B$h$C$F!$(B3$B7e$N@0?t$O(B \qquad && 3\times4^2=48$B!J8D!K(B\\
-        &$BF1MM$K$7$F!$(B2$B7e$N@0?t$O(B && 3\times4=12$B!J8D!K(B
-          \tyuu{$B==$N0L$N?t;z$NA*$S$+$?$O(B0$B0J30$N(B3$BDL$j$G!$(B
-        $B0l$N0L$O(B4$B<oN`$N$I$l$G$b$h$$!#(B}\\
-        &1$B7e$N@5$N@0?t$O(B && 3$B!J8D!K(B
+        &よって，3桁の整数は \qquad && 3\times4^2=48（個）\\
+        &同様にして，2桁の整数は && 3\times4=12（個）
+          \tyuu{十の位の数字の選びかたは0以外の3通りで，
+        一の位は4種類のどれでもよい。}\\
+        &1桁の正の整数は && 3（個）
       \end{alignat*}
     }%
-    $B$f$($K!$(B3$B7e0J2<$N@5$N@0?t$O(B
-    \[ 48+12+3=\bm{63}$B!J8D!K(B\]
+    ゆえに，3桁以下の正の整数は
+    \[ 48+12+3=\bm{63}（個）\]
 \end{enumerate}
 \end{tyuukai}
 
 \tyuuhaba=0.31\textwidth
-\begin{itembox}{$B;03QJ}Dx<0!&ITEy<0(B}
-$0\Deg\leqq \theta<360\Deg$$B$N$H$-!$<!$NJ}Dx<0!$ITEy<0$r2r$1!#(B
+\begin{itembox}{三角方程式・不等式}
+$0\Deg\leqq \theta<360\Deg$のとき，次の方程式，不等式を解け。
 \vspace{2ex}
 \begin{enumerate}[(1)]
   \item $\cos2\theta-3\cos\theta+2=0$
@@ -51,19 +51,19 @@ $0\Deg\leqq \theta<360\Deg$$B$N$H$-!$<!$NJ}Dx<0!$ITEy<0$r2r$1!#(B
 \begin{tyuukai}
 \abovedisplayskip=2pt\relax
 \belowdisplayskip=2pt\relax
-$B!Z2rEz![(B
+【解答】
 \begin{enumerate}[(1)]
   \item 
     $\cos2\theta=2\cos^2\theta-1$
-      \tyuu{$\cos\theta$$B$@$1$N<0$KJQ7A$9$k!#(B}
-    $B$rEy<0$KBeF~$7$F@0M}$9$k$H(B
+      \tyuu{$\cos\theta$だけの式に変形する。}
+    を等式に代入して整理すると
     {\mathindent=0pt\relax
       \begin{alignat*}{2}
         &&& 2\cos^2\theta-3\cos\theta+1=0\\
-        &$B$f$($K(B\qquad && (\cos\theta-1)(2\cos\theta-1)=0
+        &ゆえに\qquad && (\cos\theta-1)(2\cos\theta-1)=0
           \tyuu{\def\tasukikata{2}$\tasuki12{-1}{-1}$}
         \\
-        &$B$h$C$F(B && \cos\theta=1~$B$^$?$O(B~\cos\theta=\bunsuu{1}{2}
+        &よって && \cos\theta=1~または~\cos\theta=\bunsuu{1}{2}
       \end{alignat*}
     }\vspace{-\baselineskip}
 
@@ -79,12 +79,12 @@ $0\Deg\leqq \theta<360\Deg$$B$N$H$-!$<!$NJ}Dx<0!$ITEy<0$r2r$1!#(B
         \Drawline{\A\O\B}
         \Tyokusen\A\B{}{}
       \end{zahyou}}
-      $0\Deg\leqq \theta<360\Deg$$B$G$"$k$+$i(B\\
-      $\cos\theta=1$$B$N$H$-(B\quad $\theta=0\Deg$%
-      \tyuu{$\cos\theta=\bunsuu{1}{2}$$B$K$D$$$F$N;29M?^(B}\\
-      $\cos\theta=\bunsuu{1}{2}$$B$N$H$-(B \quad
+      $0\Deg\leqq \theta<360\Deg$であるから\\
+      $\cos\theta=1$のとき\quad $\theta=0\Deg$%
+      \tyuu{$\cos\theta=\bunsuu{1}{2}$についての参考図}\\
+      $\cos\theta=\bunsuu{1}{2}$のとき \quad
         $\theta=60\Deg$, $300\Deg$\\[1ex]
-      $B$f$($K(B $\bm{\theta=0\Deg}$, $\bm{60\Deg}$, $\bm{300\Deg}$
+      ゆえに $\bm{\theta=0\Deg}$, $\bm{60\Deg}$, $\bm{300\Deg}$
     \end{mawarikomi}
   \item 
     \begin{mawarikomi}[-3]{}{\small%
@@ -99,20 +99,20 @@ $0\Deg\leqq \theta<360\Deg$$B$N$H$-!$<!$NJ}Dx<0!$ITEy<0$r2r$1!#(B
         \Drawline{\A\O\B}
         \Tyokusen\A\B{}{}
       \end{zahyou}}
-    $\sin2\theta>\cos\theta$$B$+$i(B
+    $\sin2\theta>\cos\theta$から
     {\mathindent=0pt\relax
       \begin{alignat*}{2}
         &&& 2\sin\theta\cos\theta>\cos\theta \\
-        &$B$f$($K(B \qquad && \cos\theta(2\sin\theta-1)>0 
+        &ゆえに \qquad && \cos\theta(2\sin\theta-1)>0 
           \tyuu*{$AB>0$\\
             \hspace*{2zw}$\iff A>0,~B>0$\\
-            $B$^$?$O(B $A<0,~B<0$}%}
+            または $A<0,~B<0$}%}
           \\
-        &$B$h$C$F(B && \cos\theta>0,~\sin\theta>\bunsuu{1}{2} \\
-        &$B$^$?$O(B && \cos\theta<0,~\sin\theta<\bunsuu{1}{2}
+        &よって && \cos\theta>0,~\sin\theta>\bunsuu{1}{2} \\
+        &または && \cos\theta<0,~\sin\theta<\bunsuu{1}{2}
       \end{alignat*}
     }%
-    $0\Deg\leqq \theta < 360\Deg$$B$G$"$k$+$i(B
+    $0\Deg\leqq \theta < 360\Deg$であるから
     
     $\bm{30\Deg<\theta<90\Deg},~\bm{150\Deg<\theta<270\Deg}$
     \end{mawarikomi}
@@ -120,10 +120,10 @@ $0\Deg\leqq \theta<360\Deg$$B$N$H$-!$<!$NJ}Dx<0!$ITEy<0$r2r$1!#(B
 \end{tyuukai}
 
 \tyuumark{$\blacktriangleleft$~}
-\begin{itembox}{$B3Q$NFsEyJ,@~(B}
+\begin{itembox}{角の二等分線}
 \begin{caprm}
-\sankaku{ABC}$B$K$*$$$F!$(B$AB=5$, $AC=3$, $\kaku A=120\Deg$$B$H$9$k!#(B
-\kaku A$B$NFsEyJ,@~$H(BBC$B$H$N8rE@$r(BD$B$H$9$k$H$-!$<!$N@~J,$ND9$5$r5a$a$h!#(B
+\sankaku{ABC}において，$AB=5$, $AC=3$, $\kaku A=120\Deg$とする。
+\kaku Aの二等分線とBCとの交点をDとするとき，次の線分の長さを求めよ。
 \end{caprm}
 \begin{edaenumerate}<3>[(1)]
   \item BC
@@ -132,14 +132,14 @@ $0\Deg\leqq \theta<360\Deg$$B$N$H$-!$<!$NJ}Dx<0!$ITEy<0$r2r$1!#(B
 \end{edaenumerate}
 \end{itembox}\bigskip
 
-\noindent $B!Z2rK!$N<j=g![(B\vspace{1ex}
+\noindent 【解法の手順】\vspace{1ex}
 
 \begin{small}
 \begin{breakDbox}
 \begin{enumerate}[\protect\expandafter\fbox1]
-  \item $BM>89DjM}$rMQ$$$F!$(BBC$B$r7W;;$9$k!#(B
-  \item $B3Q$NFsEyJ,@~$N@-<A$h$j!$(BBD$B$r5a$a$k!#(B
-  \item $BLL@Q$rMxMQ$7$F!$(BAD$B$r5a$a$k!#(B
+  \item 余弦定理を用いて，BCを計算する。
+  \item 角の二等分線の性質より，BDを求める。
+  \item 面積を利用して，ADを求める。
 \end{enumerate}
 \end{breakDbox}
 \end{small}\bigskip
@@ -148,7 +148,7 @@ $0\Deg\leqq \theta<360\Deg$$B$N$H$-!$<!$NJ}Dx<0!$ITEy<0$r2r$1!#(B
 \tyuuhaba=0.25\textwidth
 \begin{tyuukai}
 \begin{caprm}
-$B!Z2rEz![(B
+【解答】
 \begin{enumerate}[(1)]
   \item 
     \begin{mawarikomi}[-1]{}{%
@@ -164,7 +164,7 @@ $0\Deg\leqq \theta<360\Deg$$B$N$H$-!$<!$NJ}Dx<0!$ITEy<0$r2r$1!#(B
         \Drawline{\A\B\C\A\D}
       \end{zahyou*}}
     \gyoutou{\small\fboxsep=3pt\fbox1}
-    $BM>89DjM}$h$j(B
+    余弦定理より
     \mathindent=0pt\relax
     \begin{align*}
       BC^2&=AB^2+AC^2-2AB\cdot AC\cos120\Deg
@@ -172,26 +172,26 @@ $0\Deg\leqq \theta<360\Deg$$B$N$H$-!$<!$NJ}Dx<0!$ITEy<0$r2r$1!#(B
         &=5^2+3^2-2\cdot5\cdot3\cdot\left(-\bunsuu12\right)\\
         &=49
     \end{align*}
-    $BC>0$$B$G$"$k$+$i(B $\bm{BC=7}$
+    $BC>0$であるから $\bm{BC=7}$
     \end{mawarikomi}
 
   \item 
     \gyoutou{\small\fboxsep=3pt\fbox2}
-    \tyuu{$BFsEyJ,@~$HHfNc$N4X78(B}
-    $AB:AC=BD:DC$$B$G$"$k$+$i(B
+    \tyuu{二等分線と比例の関係}
+    $AB:AC=BD:DC$であるから
     \[ BD:DC=5:3 \]
-    $B$h$C$F(B $BD=\bunsuu{5}{8}BC=\bm{\bunsuu{35}{8}}$
+    よって $BD=\bunsuu{5}{8}BC=\bm{\bunsuu{35}{8}}$
   \item 
     \gyoutou{\small\fboxsep=3pt\fbox3}%
-    \tyuu{$BLL@Q$K4X$9$kEy<0(B}%
-    $\sankaku{ABC}=\sankaku{ABD}+\sankaku{ADC}$$B$G$"$k$+$i!$(B
-    $AD=x$$B$H$*$/$H(B
+    \tyuu{面積に関する等式}%
+    $\sankaku{ABC}=\sankaku{ABD}+\sankaku{ADC}$であるから，
+    $AD=x$とおくと
     \[ \bunsuu{1}{2}\cdot5\cdot3\sin120\Deg
       =\bunsuu{1}{2}\cdot5x\sin60\Deg+\bunsuu{1}{2}\cdot3x\sin60\Deg 
        \tyuu{$\sin120\Deg=\bunsuu{\sqrt3}{2}$,\\
         $\sin60\Deg=\bunsuu{\sqrt3}{2}$}
     \]
-    $B$h$C$F(B $\bm{AD=\bunsuu{15}{8}}$
+    よって $\bm{AD=\bunsuu{15}{8}}$
 \end{enumerate}
 \end{caprm}
 \end{tyuukai}

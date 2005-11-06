@@ -1,7 +1,7 @@
 % emathAt.sty by tDB (CQB00260@nifty.ne.jp)
 
   \NeedsTeXFormat{LaTeX2e}
-  \ProvidesPackage{emathAt}[2002/08/09 v 0.03$B&B(B]%
+  \ProvidesPackage{emathAt}[2002/08/09 v 0.03β]%
   \RequirePackage{verbatim}%
   \RequirePackage{emath}%
 
@@ -18,7 +18,7 @@
 %  \edef\aftertyuukai{\the\@tempdima}}
 
 
-% $B9TF,!$:8Ms30$K%^!<%/$rCV$/!#(B
+% 行頭，左欄外にマークを置く。
 \let\ltx@noindent\noindent
 \let\ltx@indent\indent
 \edef\noindentflg{0}%
@@ -119,10 +119,10 @@
 \endinput
 ver 0.00 2002/03/02
 ver 0.01 2002/03/03
-      \tyuumark $B$G(B\itemize $B4D6-$N(B label $B$r;XDj$9$k(B
-      \hidarityuu $B:8Cm$b$D$1$k(B
+      \tyuumark で\itemize 環境の label を指定する
+      \hidarityuu 左注もつける
 ver 0.02 2002/03/06
-      \gyoutou $BCJMnKAF,!$:8Ms30$K4JC1$J%^!<%/$J$I$rCV$/(B
+      \gyoutou 段落冒頭，左欄外に簡単なマークなどを置く
       jquote ---> jquotation
 ver 0.03 2002/08/09
-      Enumerate* $B4D6-$GHV9f$,Ht$V%P%0$r=$@5(B
+      Enumerate* 環境で番号が飛ぶバグを修正

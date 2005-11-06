@@ -3,25 +3,25 @@
 \usepackage{emathB}
 \usepackage[continue]{emathAe}
 
-\def\KaitouTTL{\par\hfill $B!JEz!K(B~}
+\def\KaitouTTL{\par\hfill （答）~}
 
 \begin{document}
-\title{$BJ,?t7W;;%^%/%m(B\\
-emathB.sty {\normalsize ver.0.14}\\$B;HMQNc(B}
+\title{分数計算マクロ\\
+emathB.sty {\normalsize ver.0.14}\\使用例}
 \author{tDB}
 \date{2005/03/24}
 
 \maketitle\thispagestyle{empty}
 \begin{abstract}%
 \parindent1zw%
-$BJ,?t$N;MB'7W;;7k2L$rJ,?t$GI=8=$9$k$?$a$N%^%/%m=8$G$9!%(B
-\LaTeX2e $B$,A0Ds$G$9!%(B
+分数の四則計算結果を分数で表現するためのマクロ集です．
+\LaTeX2e が前提です．
 
-$B$3$N%^%/%m=8$N%^%/%m$K$D$$$F$N$4<ALd!$%P%0Js9p!$=$@5!&DI2C$NDs0FEy$O(B
+このマクロ集のマクロについてのご質問，バグ報告，修正・追加の提案等は
 \begin{center}
 http://emath.s40.xrea.com/
 \end{center}
-$B$N7G<(HD$X$I$&$>!#(B
+の掲示板へどうぞ。
 \end{abstract}
 \pagebreak
 \pagenumbering{roman}%
@@ -32,10 +32,10 @@ http://emath.s40.xrea.com/
 
 \pagenumbering{arabic}
 
-\section{$BJ,?t$NI=8=(B}
-$B$3$N%^%/%m$G$O!$J,?t(B$\bunsuu{2}{3}$$B$rJ8;zNs(B\verb+"2/3"+$B$HI=8=$7$^$9!#(B
-$BBSJ,?t(B$2\bunsuu45$$B$OJ8;zNs(B\verb+"2;4/5"+$B$G$9!#(B
-$B$3$NI=8=7A<0$rDL>o$NI=8=7A<0$KJQ49$9$k%^%/%m$,(B\cmd{prF}$B$G$9(B
+\section{分数の表現}
+このマクロでは，分数$\bunsuu{2}{3}$を文字列\verb+"2/3"+と表現します。
+帯分数$2\bunsuu45$は文字列\verb+"2;4/5"+です。
+この表現形式を通常の表現形式に変換するマクロが\cmd{prF}です
 
 \begin{showEx}{\cmd{prF}}
 \begin{gather*}
@@ -44,8 +44,8 @@ http://emath.s40.xrea.com/
 \end{gather*}
 \end{showEx}
 
-\cmd{prF}$B$OM?$($?7A<0$GI=<($7$^$9$,!$(B
-\cmd{prFK}$B$O2>J,?tI=<(!$(B\cmd{prFT}$B$OBSJ,?tI=<($r$7$^$9!#(B
+\cmd{prF}は与えた形式で表示しますが，
+\cmd{prFK}は仮分数表示，\cmd{prFT}は帯分数表示をします。
 
 \begin{showEx}{\cmd{prFK}, \cmd{prFT}}
 \begin{gather*}
@@ -54,169 +54,169 @@ http://emath.s40.xrea.com/
 \end{gather*}
 \end{showEx}
 
-\section{$BJ,?t$N;MB'(B}
-\subsection{$B2CK!(B}
-$BJ,?t$N2CK!$O(B\cmd{FAdd}$B$G9T$$$^$9!#(B
-$\bunsuu14+\bunsuu16$$B$r7W;;$9$kNc$G$9!#(B
-\verb+\FAdd{1/4}{1/6}\kotae+$B$K$h$j!$@)8fDV(B\cmd{kotae}$B$K$O!$(B
-$BJ8;zNs(B"5/12"$B$,F~$j$^$9!#$=$l$r(B\cmd{prF}$B$G(B$\bunsuu{5}{12}$$B$HI=<($5$;$^$9!#(B
+\section{分数の四則}
+\subsection{加法}
+分数の加法は\cmd{FAdd}で行います。
+$\bunsuu14+\bunsuu16$を計算する例です。
+\verb+\FAdd{1/4}{1/6}\kotae+により，制御綴\cmd{kotae}には，
+文字列"5/12"が入ります。それを\cmd{prF}で$\bunsuu{5}{12}$と表示させます。
 
 \begin{showEx}{\cmd{FAdd}}
   \FAdd{1/4}{1/6}\kotae
   $\prF\kotae$
 \end{showEx}
 
-\subsection{$B8:K!(B}
-$B8:K!$O(B\cmd{FSub}$B$G$9!#(B
-$\bunsuu14-\bunsuu16$$B$r7W;;$9$kNc$G$9!#(B
+\subsection{減法}
+減法は\cmd{FSub}です。
+$\bunsuu14-\bunsuu16$を計算する例です。
 
 \begin{showEx}{\cmd{FSub}}
   \FSub{1/4}{1/6}\kotae
   $\prF\kotae$
 \end{showEx}
 
-\subsection{$B>hK!(B}
-$B>hK!$O(B\cmd{FMul}$B$G$9!#(B
-$\bunsuu14\times\bunsuu25$$B$r7W;;$9$kNc$G$9!#(B
+\subsection{乗法}
+乗法は\cmd{FMul}です。
+$\bunsuu14\times\bunsuu25$を計算する例です。
 
 \begin{showEx}{\cmd{FMul}}
   \FMul{1/4}{2/5}\kotae
   $\prF\kotae$
 \end{showEx}
 
-\subsection{$B=|K!(B}
-$B=|K!$O(B\cmd{FDiv}$B$G$9!#(B
-$\bunsuu16\div\bunsuu12$$B$r7W;;$9$kNc$G$9!#(B
+\subsection{除法}
+除法は\cmd{FDiv}です。
+$\bunsuu16\div\bunsuu12$を計算する例です。
 
 \begin{showEx}{\cmd{FDiv}}
   \FDiv{1/6}{1/2}\kotae
   $\prF\kotae$
 \end{showEx}
 
-\subsection{$BN_>h(B}
-$BN_>h$O(B\cmd{FPower}$B$G$9!#(B
-$\left(\bunsuu23\right)^{-2}$$B$r7W;;$9$kNc$G$9!#(B
+\subsection{累乗}
+累乗は\cmd{FPower}です。
+$\left(\bunsuu23\right)^{-2}$を計算する例です。
 
 \begin{showEx}{\cmd{FPower}}
   \FPower{2/3}{-2}\kotae
   $\prF\kotae$
 \end{showEx}
 
-$B$?$@$7!$;X?t$O@0?t$G$J$1$l$P$J$j$^$;$s!#(B
+ただし，指数は整数でなければなりません。
 
-\section{$B;MB'7W;;<0(B}
+\section{四則計算式}
 \subsection{\cmd{Fcalc}}
-$BJ#;($J<0$r(B\cmd{FAdd}, \cmd{FDiv}$B$J$I$rAH$_9g$o$;$FI=8=$9$k$N$OLLE]$G$9$+$i!$(B
-\cmd{Fcalc}$B$rMQ0U$7$^$7$?!#(B
-$\bunsuu{1}{2}+\bunsuu{1}{3}\times2$$B$r7W;;$9$kNc$G$9!#(B
+複雑な式を\cmd{FAdd}, \cmd{FDiv}などを組み合わせて表現するのは面倒ですから，
+\cmd{Fcalc}を用意しました。
+$\bunsuu{1}{2}+\bunsuu{1}{3}\times2$を計算する例です。
 
 \begin{showEx}(.8,.14){\cmd{Fcalc}}
   \Fcalc{(1/2)+(1/3)*(2)}=\kotae
   $\prF\kotae$
 \end{showEx}
 
-$\left(\bunsuu{1}{2}+\bunsuu{1}{3}\right)\times2$$B$N>l9g$O(B
+$\left(\bunsuu{1}{2}+\bunsuu{1}{3}\right)\times2$の場合は
 
 \begin{showEx}(.8,.14){\cmd{Fcalc}}
   \Fcalc{((1/2)+(1/3))*(2)}=\kotae
   $\prF\kotae$
 \end{showEx}
 
-$B3F9`(B \verb+1/2+, \verb+1/3+, \verb+2+ $B$r$9$Y$F(B\verb+(  )+$B$G$/$/$C$F!$(B
-\verb+(1/2)+, \verb+(1/3)+, \verb+(2)+$B$HI=8=$7$J$1$l$P$J$i$J$$!$(B
-$B$H$$$&;EMM$O$A$HLq2p$G$O$"$j$^$9!#(B
+各項 \verb+1/2+, \verb+1/3+, \verb+2+ をすべて\verb+(  )+でくくって，
+\verb+(1/2)+, \verb+(1/3)+, \verb+(2)+と表現しなければならない，
+という仕様はちと厄介ではあります。
 
-\cmd{Fcalc}$B$N=q<0$G$9!#(B
+\cmd{Fcalc}の書式です。
 
 \begin{boxnote}
 \begin{verbatim}
 \Fcalc#1=#2
-  #1 : $B7W;;<0(B
-  #2 : $B7k2L$r<u$1<h$k@)8fDV(B
+  #1 : 計算式
+  #2 : 結果を受け取る制御綴
 \end{verbatim}
 \end{boxnote}
 
 \subsection{\cmd{Fkeisan}}
-\cmd{Fcalc}$B$NBh(B1$B0z?t$KM?$($k7W;;<0$rIaDL$NI=8=K!$GI=$9$N$,(B
-\cmd{Fkeisan}$B$G$9!#(B
+\cmd{Fcalc}の第1引数に与える計算式を普通の表現法で表すのが
+\cmd{Fkeisan}です。
 
 \begin{showEx}(.6,.34){\cmd{Fkeisan}}
   \Fkeisan{((1/2)+(1/3))*(2)}
 \end{showEx}
 \smallskip
 
-\cmd{Fkeisan}$B$K!$(B\verb+<A>+$B%*%W%7%g%s$rIU2C$9$k$H(B
+\cmd{Fkeisan}に，\verb+<A>+オプションを付加すると
 \begin{jquote}
 \begin{verbatim}
-\kaitou{\prF{$B7W;;7k2L(B}}
+\kaitou{\prF{計算結果}}
 \end{verbatim}
 \end{jquote}
-$B$,IU2C$5$l$^$9$+$i!$(B\textsf{emathAe.sty}
-$B$rMQ$$$F$=$l$r=hM}$9$k$3$H$,$G$-$^$9!#(B
-$B$3$NJ8=q$G$O(B
+が付加されますから，\textsf{emathAe.sty}
+を用いてそれを処理することができます。
+この文書では
 \begin{jquote}
 \begin{verbatim}
 \usepackage[continue]{emathAe}
 
-\def\KaitouTTL{\par\hfill $B!JEz!K(B~}
+\def\KaitouTTL{\par\hfill （答）~}
 \end{verbatim}
 \end{jquote}
-$B$H$7$F$"$j$^$9$+$i!$(B
+としてありますから，
 
-\begin{showEx}(.6,.34){\cmd{Fkeisan}$B$N(B\texttt{<A>}$B%*%W%7%g%s(B}
+\begin{showEx}(.6,.34){\cmd{Fkeisan}の\texttt{<A>}オプション}
   \Fkeisan<A>{((1/2)+(1/3))*(2)}
 \end{showEx}
 \smallskip
 
-$B$J$*(B \cmd{Fkeisan}$B$K$O!$L$CN?t$r(B\texttt{X}$B$H$9$k0l<!J}Dx<0$r2r$/5!G=(B
-$B$,$"$j$^$9$+$i!$(B
+なお \cmd{Fkeisan}には，未知数を\texttt{X}とする一次方程式を解く機能
+がありますから，
 
-\begin{showEx}(.6,.34){\cmd{Fkeisan}$B$N(B\texttt{<A>}$B%*%W%7%g%s(B}
+\begin{showEx}(.6,.34){\cmd{Fkeisan}の\texttt{<A>}オプション}
   \Fkeisan<A>{((0.5)+(1/3))*(2)=X}
 \end{showEx}
 
-$B$"$k$$$O(B
+あるいは
 
-\begin{showEx}(.6,.34){\cmd{Fkeisan}$B$N(B\texttt{<A>}$B%*%W%7%g%s(B}
+\begin{showEx}(.6,.34){\cmd{Fkeisan}の\texttt{<A>}オプション}
   \Fkeisan<A>{(X+(1/3))*(2)=(1)}
 \end{showEx}
 
-$B$b$C$HJ#;($JNc$K$D$$$F$O!$F1:-$N(B
+もっと複雑な例については，同梱の
 \begin{jquote}
 \begin{verbatim}
 calcfrac.tex, newB14.tex, Fsyndiv.tex
 \end{verbatim}
 \end{jquote}
-$B$r$4Mw$/$@$5$$!#(B
+をご覧ください。
 
-\section{$B=[4D>.?t(B}
-$BJ,?t(B \texttt{67/555} $B$r>.?tE83+$9$k$H(B \texttt{0.1207207207...} $B$H(B
-$B=[4D>.?t$K$J$j$^$9!%(B\textsf{emathB.sty} $B$G$O!$=[4D>.?t$O(B
-$B=[4D@a$r(B\texttt{(...)} $B$G$/$/$C$FI=8=$7$^$9!%$3$NNc$G$O(B
-\texttt{0.1(207)}$B$HI=$9$3$H$H$J$j$^$9!%(B
-$BJ,?t7A<0$r=[4D>.?t7A<0$KJQ49$9$k%^%/%m$,(B
-\verb/\FtoZ/ $B$G$9!%(B
+\section{循環小数}
+分数 \texttt{67/555} を小数展開すると \texttt{0.1207207207...} と
+循環小数になります．\textsf{emathB.sty} では，循環小数は
+循環節を\texttt{(...)} でくくって表現します．この例では
+\texttt{0.1(207)}と表すこととなります．
+分数形式を循環小数形式に変換するマクロが
+\verb/\FtoZ/ です．
 
 \begin{showEx}{\cmd{FtoZ}}
 \FtoZ{67/555}\tmp
 \tmp
 \end{showEx}
 
-$B$3$N7k2L$rDL>o$NI=8=7A<0$K$9$k$N$,(B \cmd{prZ} $B$G$9!%(B
+この結果を通常の表現形式にするのが \cmd{prZ} です．
 
 \begin{showEx}{\cmd{prZ}}
 \FtoZ{67/555}\tmp
 $\prZ\tmp$
 \end{showEx}
 
-$B5U$K=[4D>.?t7A<0$rJ,?t7A<0$KJQ49$9$k%3%^%s%I$,(B \cmd{ZtoF} $B$G$9!%(B
+逆に循環小数形式を分数形式に変換するコマンドが \cmd{ZtoF} です．
 
 \begin{showEx}{\cmd{ZtoF}}
 \ZtoF{0.1(207)}\tmp
 \tmp
 \end{showEx}
 
-$B$3$NJ,?t7A<0$rDL>o$NI=8=7A<0$K$9$k$N$,(B \cmd{prF} $B$G$9!%(B
+この分数形式を通常の表現形式にするのが \cmd{prF} です．
 
 \begin{showEx}{\cmd{prF}}
 \ZtoF{0.1(207)}\tmp

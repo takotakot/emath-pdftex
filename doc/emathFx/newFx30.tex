@@ -3,14 +3,14 @@
 \usepackage{showexample}
 \usepackage{jquote}
 \begin{document}
-$\pm$$B5-9f$r(B
+$\pm$記号を
 \begin{jquote}
   \textsf{txfonts}\\
   \textsf{mathabx}\\
 \end{jquote}
-$B$+$i$D$^$_?)$$$9$k%3%^%s%I$rIU2C$7$^$7$?!#(B
+からつまみ食いするコマンドを付加しました。
 
-\begin{showEx}(.64,.3){$\pm$$B$N$$$m$$$m(B}
+\begin{showEx}(.64,.3){$\pm$のいろいろ}
   $\begin{array}{|l|l|l|}\hline
     \textsf{cmfonts} & \pm1 & \mp 1\\\hline
     \textsf{txfonts} & \txpm1 & \txmp1\\\hline
@@ -18,11 +18,11 @@ $\pm$$B5-9f$r(B
   \end{array}$
 \end{showEx}
 
-$BJ8=qA4BN$G!$(B\textsf{txfonts}$B$N(B\cmd{pm}$B$rMQ$$$?$1$l$P!$(B
+文書全体で，\textsf{txfonts}の\cmd{pm}を用いたければ，
 \begin{jquote}
 \begin{verbatim}
 \let\pm\txpm
 \end{verbatim}
 \end{jquote}
-$B$J$I$r@k8@$7$^$9!#(B
+などを宣言します。
 \end{document}

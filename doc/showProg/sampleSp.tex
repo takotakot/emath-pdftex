@@ -1,11 +1,11 @@
 \documentclass{jarticle}
-\usepackage{amsmath}%   showProg $B$KI,?\$G$O$"$j$^$;$s!#(B
+\usepackage{amsmath}%   showProg に必須ではありません。
 \usepackage{showProg}
 
 \long\def\sample#1{%
 \input{example/#1.tex}
 
-$B$3$l$r<B8=$7$F$$$k%=!<%9%j%9%H$O<!$N$H$*$j$G$9!#(B
+これを実現しているソースリストは次のとおりです。
 
 \begin{itembox}{\texttt{#1.tex}}
 \verbatiminput{example/#1.tex}
@@ -13,15 +13,15 @@
 
 
 \begin{document}
-\title{$BBPLu(B \TeX\\
-showProg.sty {\normalsize ver.0.00$B&A(B}}
+\title{対訳 \TeX\\
+showProg.sty {\normalsize ver.0.00α}}
 \author{tDB}
 \date{2002/11/09}
 
 \maketitle\thispagestyle{empty}
 \begin{abstract}%
 \begin{center}
-\LaTeX $B$N%=!<%9%j%9%H$H%?%$%W%;%C%H7k2L$H$NBPHf(B
+\LaTeX のソースリストとタイプセット結果との対比
 \end{center}
 \end{abstract}
 \pagebreak
@@ -31,65 +31,65 @@ showProg.sty {\normalsize ver.0.00$B&A(B}}
 
 \pagebreak
 \pagenumbering{arabic}
-\section{\textsf{showProg.sty}$B$H$O(B}
-$BBPLu7A<0$G(B\TeX $B$N%=!<%9$H%?%$%W%;%C%H7k2L$rBPHf$9$k(B
-\textsf{showexample.sty}$B$N:8B&!J%=!<%9%j%9%H!K$K(B
-$B25It;a$N:n$K$J$k(B\textsf{program.sty}$B$r;HMQ$9$k;n$_$G$9!#(B
+\section{\textsf{showProg.sty}とは}
+対訳形式で\TeX のソースとタイプセット結果を対比する
+\textsf{showexample.sty}の左側（ソースリスト）に
+乙部氏の作になる\textsf{program.sty}を使用する試みです。
 
-\subsection{\textsf{showProg}$B4D6-(B}
-$B$^$:$O(B\textsf{program}$B4D6-$rMQ$$$?(B\textsf{showProg}$B4D6-$G$9!#(B
+\subsection{\textsf{showProg}環境}
+まずは\textsf{program}環境を用いた\textsf{showProg}環境です。
 
 \sample{ex01}
 
-$B$3$3$G!$(B\verb+\begin{showProg}+$B$N0z?t$N$&$A!$(B
-\verb+(1,.9)+$B$O%=!<%9It$H%?%$%W%;%C%HIt$N2#I}(B
-$B!JC10L$O(B\verb+\linewidth+$B!K$G!$(B
-$B<!$N(B2$B$D$N0z?t$O(B\textsf{program}$B4D6-$K0z$-EO$5$l$^$9!#(B
+ここで，\verb+\begin{showProg}+の引数のうち，
+\verb+(1,.9)+はソース部とタイプセット部の横幅
+（単位は\verb+\linewidth+）で，
+次の2つの引数は\textsf{program}環境に引き渡されます。
 \clearpage
 
-\subsection{$B9THV9f$NJQ99(B}
-$B%=!<%9It$N9THV9f$r(B1$B$+$i$G$O$J$/!$;XDj$7$?HV9f$+$i$O$8$a$k$h$&$K$9$k$K$O!$(B
-\textsf{program.sty}$B$G(B\textsf{nprogram}$B4D6-$,MQ0U$5$l$F$$$^$9$,!$(B
-$B$3$3$G$OL5@:$r$7$F!$(B\textsf{showProg}$B$N%*%W%7%g%s0z?t$GD4@0$9$k$3$H$K$7$^$7$?!#(B
-$B<!$NNc$G$O!$9THV9f$r(B11$B$+$i;O$a$F$$$^$9!#(B
+\subsection{行番号の変更}
+ソース部の行番号を1からではなく，指定した番号からはじめるようにするには，
+\textsf{program.sty}で\textsf{nprogram}環境が用意されていますが，
+ここでは無精をして，\textsf{showProg}のオプション引数で調整することにしました。
+次の例では，行番号を11から始めています。
 
 \sample{ex02}
 \clearpage
 
-\subsection{$B9THV9f$N7QB3(B}
-\textsf{showProg}$B4D6-$O!$9THV9f$r%j%;%C%H$7$F(B1$B$+$i;O$a$^$9$,!$(B
-$BA0$NHV9f$NB3$-$K$9$k$?$a$K!$(B
-\textsf{program.sty}$B$N(B\textsf{cprogram}$B4D6-$KJo$$!$(B
-\textsf{showcProg}$B4D6-$rMQ0U$7$^$7$?!#(B
-$B<!$NNc$G$O!$9THV9f$r(BList \ref{lineno}$B$KB3$1$F$$$^$9!#(B
+\subsection{行番号の継続}
+\textsf{showProg}環境は，行番号をリセットして1から始めますが，
+前の番号の続きにするために，
+\textsf{program.sty}の\textsf{cprogram}環境に倣い，
+\textsf{showcProg}環境を用意しました。
+次の例では，行番号をList \ref{lineno}に続けています。
 
 \sample{ex03}
 \clearpage
 
-\subsection{$B%U%C%?L5$7$NMM<0(B}
-$BD9$$%j%9%H$rESCf$G@Z$C$F2r@b$7$F$$$/$h$&$J$H$-$O!$(B
-$B$^$:!$%U%C%?L5$7$NMM<0$G;O$a$?$$$3$H$,$"$j$^$9!#(B
+\subsection{フッタ無しの様式}
+長いリストを途中で切って解説していくようなときは，
+まず，フッタ無しの様式で始めたいことがあります。
 
-\textsf{program.sty}$B$N(B\textsf{nfprogram}$B$KJo$$!$(B
-\textsf{shownfProg}$B4D6-$rMQ0U$7$^$7$?!#(B
-$B9THV9f$N=i4|CM$r;XDj$9$k%*%W%7%g%s$rIU$1$k$3$H$O2DG=$G$9!#(B
+\textsf{program.sty}の\textsf{nfprogram}に倣い，
+\textsf{shownfProg}環境を用意しました。
+行番号の初期値を指定するオプションを付けることは可能です。
 
 \sample{ex04}
 \clearpage
 
-\subsection{$B%X%C%@L5$7$NMM<0(B}
-$B%U%C%?L5$7$NBP$,%X%C%@L5$7$G(B\textsf{shownhProg}, \textsf{shownhcProg}$B4D6-$G$9!#(B
-$B2<$NNc$O!$(B\textsf{shownhcProg}$B$G9THV9f$rB3$1$F$$$^$9!#(B
+\subsection{ヘッダ無しの様式}
+フッタ無しの対がヘッダ無しで\textsf{shownhProg}, \textsf{shownhcProg}環境です。
+下の例は，\textsf{shownhcProg}で行番号を続けています。
 
 \sample{ex05}
 \clearpage
 
-\subsection{$B%\%C%/%9$N<oN`JQ99(B}
-$B%?%$%W%;%C%H$7$?7k2L$r(B\textsf{ascmac.sty}$B$GDj5A$5$l$F$$$k(B
-\textsf{shadebox}$B4D6-$rMQ$$$F$$$^$9$,!$(B
-$B$3$l$rJQ99$9$k$3$H$b2DG=$G$9!#<!$NNc$G$O!$(B\textsf{screen}$B4D6-$KJQ99$7$F$$$^$9!#(B
+\subsection{ボックスの種類変更}
+タイプセットした結果を\textsf{ascmac.sty}で定義されている
+\textsf{shadebox}環境を用いていますが，
+これを変更することも可能です。次の例では，\textsf{screen}環境に変更しています。
 
 \sample{ex06}
 
-$BKAF,$N(B1$B9T$,%\%C%/%9$N<oN`$r;XDj$7$F$$$^$9!#(B
+冒頭の1行がボックスの種類を指定しています。
 \end{document}

@@ -1,10 +1,10 @@
 % emathPa.sty by CQB00260@nifty.ne.jp
 
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesPackage{emathPa}[2004/09/28 v 0.08$B&B(B]%
+\ProvidesPackage{emathPa}[2004/09/28 v 0.08β]%
 \RequirePackage{emathPh}
 
-% azahyou $B4D6-$K$*$1$kE@$N:BI8$r(B zahyou $B4D6-$KK]Lu$9$k!#(B
+% azahyou 環境における点の座標を zahyou 環境に翻訳する。
 \def\aztoz#1#2{%
   \edef\aztoz@tmp{#1}\expandafter\@aztoz\aztoz@tmp#2}
 \def\@aztoz(#1,#2)#3{%
@@ -13,7 +13,7 @@
   \Addvec\az@x\az@y\az@x
   \Addvec\az@o\az@x #3}%
 
-% $BE@Ns$NK]Lu(B
+% 点列の翻訳
 \def\azTenretutoz#1#2{%
   \edef\azTenretu@a{#1}%
   \edef\azTenretu@b{}%
@@ -23,11 +23,11 @@
 \def\@@azTenretutoz@sub(#1,#2){\@aztoz(#1,#2)\azTenretu@c
   \edefappend\azTenretu@b{\azTenretu@c}\@azTenretutoz@sub}
 
-% $BE@Ns$NDj5A$H%i%Y%kG[CV(B
+% 点列の定義とラベル配置
 \def\aztenretu{\@ifstar{\ntenretu}{\laztenretu}}
 \def\laztenretu#1{\let\tenretu@Put\azPut\ltenretu{#1}\let\tenretu@Put\emathPut}
 
-% $BE@Ns$r(B azahyou $B4D6-$N:BI8$G;XDj$7$F@^$l@~$G7k$V(B
+% 点列を azahyou 環境の座標で指定して折れ線で結ぶ
 \def\azDrawline{\@ifnextchar<{\@azDrawline}{\@azDrawline<\empty>}}
 \def\@azDrawline<#1>#2{%
   \azTenretutoz{#2}\azDrawline@a\@Drawline<#1>\azDrawline@a}
@@ -40,11 +40,11 @@
   \aztoz{#2}\azTyoku@ii
   \Tyokusen\azTyoku@i\azTyoku@ii}
 
-% azahyou $B4D6-$N:BI8$G;XDj$7$?E@$KJ8;zNsEy$rG[CV$9$k(B
+% azahyou 環境の座標で指定した点に文字列等を配置する
 \def\azPut#1{%
   \aztoz{#1}\azPut@P\emathPut\azPut@P}
 
-% azahyou $B4D6-$N:BI8$G;XDj$7$?E@$K9u4]$rBG$D(B
+% azahyou 環境の座標で指定した点に黒丸を打つ
 \def\azKuromaru{\@ifnextchar[{\@azKuromaru}{\@azKuromaru[\Kuromaru@Hankei]}}
 \def\@azKuromaru[#1]#2{%
   \aztoz{#2}\azKuromaru@P\Kuromaru[#1]\azKuromaru@P}
@@ -55,7 +55,7 @@
     \azKuromaru[#1]\azkuromaru@a
     \edef\azkuromaru@a{\azkuromaru@b}}}
 
-% azahyou $B4D6-$N:BI8$G;XDj$7$?(B2$BE@$rLp@~$G7k$V(B
+% azahyou 環境の座標で指定した2点を矢線で結ぶ
 \def\azArrowLine{\@ifnextchar<{\@azArrowLine}{\@azArrowLine<\empty>}}%
 \def\@azArrowLine<#1>{\@ifnextchar[{\@@azArrowLine<#1>}{\@@azArrowLine<#1>[1]}}%
 \def\@@azArrowLine<#1>[#2]#3#4{%
@@ -63,7 +63,7 @@
   \aztoz{#4}\azArrowLine@b
   \ArrowLine<#1>[#2]\azArrowLine@a\azArrowLine@b}
 
-% azahyou $B4D6-$NC10L%Y%/%H%k$r4p=`$H$7$F3J;R$rIA2h$9$k!#(B
+% azahyou 環境の単位ベクトルを基準として格子を描画する。
 \def\azkousi#1#2{%
   \Cfor{\edef\azkousi@x{-1}}{\azkousi@x<#1}{}\do{\Incr\azkousi@x%
     \aztoz{(\azkousi@x,0)}\azkousi@a
@@ -78,7 +78,7 @@
     \Subvec\azkousi@b\az@o\azkousi@b
     \Sensyu{\azkousi@a\azkousi@b}}}%
 %
-% $BEI$j$D$V$7(B
+% 塗りつぶし
 %
 %\def\azNuritubusi#1{%
 %  \azTenretutoz{#1}\azNuritubusi@a\Nuritubusi\azNuritubusi@a}
@@ -94,12 +94,12 @@
 \def\@@azHatchpolygon[#1]<#2>#3{\azTenretutoz{#3}\azHatchpolygon@a
   \@@Hatchpolygon[#1]<#2>{\azHatchpolygon@a}}
 %
-% azahyou $B4D6-(B
+% azahyou 環境
 % \begin{zahyou}[#1]#2#3
-%   #1 : $B:BI886E@!J%G%U%)%k%H$O(B(0,0)$B!K(B
-%   #2 : x$B<4J}8~$NC10L%Y%/%H%k(B
-%   #3 : y$B<4J}8~$NC10L%Y%/%H%k(B
-%   $B!J0J>e$O$9$Y$F!$(Bzahyou $B4D6-$G$N?tCM!K(B
+%   #1 : 座標原点（デフォルトは(0,0)）
+%   #2 : x軸方向の単位ベクトル
+%   #3 : y軸方向の単位ベクトル
+%   （以上はすべて，zahyou 環境での数値）
 
 \def\azahyou{\@ifnextchar[{\@azahyou}{\@azahyou[{(0,0)}]}}
 \def\@azahyou[#1]#2#3{%
@@ -111,9 +111,9 @@
 
 % \azyasen[#1]<#2>(#3,#4)
 % \azYasen[#1]<#2>#3
-%   #1 : $B%i%Y%k$rCV$/0LCV!J%G%U%)%k%H(B=0.5, $BCfE@!K(B
-%   #2 : $B%i%Y%k!J0LCV;XDj$r4^$a$F!K(B
-%   (#3,#4) : $B=*E@!J;OE@$O(B \put $B$G;XDj!K(B
+%   #1 : ラベルを置く位置（デフォルト=0.5, 中点）
+%   #2 : ラベル（位置指定を含めて）
+%   (#3,#4) : 終点（始点は \put で指定）
 \newtoks\azyasen@toks
 \def\azyasen{\@ifnextchar[{\@azyasen}{\@azyasen[.5]}}
 \def\@azyasen[#1]{\@ifnextchar<{\@@azyasen[#1]}{\@@azyasen[#1]<\empty>}}
@@ -152,12 +152,12 @@
   \aztoz{#5}\azKaku@iii
   \@@Kakukigou[#1]<#2>{\azKaku@i}{\azKaku@ii}{\azKaku@iii}}
 %
-% $B:BI8<4>e$KL\@9$j(B
+% 座標軸上に目盛り
 %   \azxmemori[#1]#2
 %   \azymemori[#1]#2
 %
 %          #1 : key=val
-%                 memorinagasa=.. $B!JL5L>?t!K%G%U%)%k%H(B=1(pt)
+%                 memorinagasa=.. （無名数）デフォルト=1(pt)
 %                 putoption=(dx,dy)[pos]
 %
 \def\azxmemori{\@ifnextchar[{\@azxmemori}{\@azxmemori[\empty]}}
@@ -189,8 +189,8 @@
 v 0.01 2002/03/28
   \azTyokusen#1#2
 v 0.02 2002/04/05-13
-  \azyasen, \azYasen $B?7@_(B
-  \azArrowLine $B3HD%(B
+  \azyasen, \azYasen 新設
+  \azArrowLine 拡張
 v 0.03 2002/09/13-27
   \azkuromaru
   \aztenretu

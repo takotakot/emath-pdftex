@@ -8,23 +8,23 @@
 \unitlength1cm
 
 \begin{document}
-\title{$B<y7A?^IA2h%^%/%m(B\\
-emathZ.sty {\normalsize ver.0.08}\\$B;HMQNc(B}
+\title{樹形図描画マクロ\\
+emathZ.sty {\normalsize ver.0.08}\\使用例}
 \author{tDB}
 \date{2002/11/20}
 
 \maketitle\thispagestyle{empty}
 \begin{abstract}%
 \parindent1zw%
-$B<y7A?^$rIA2h$9$k$?$a$N%^%/%m$G$9!%(B
-$B$?$@$7!$?t3X$N%W%j%s%H:n@.$r$9$k$?$a!$$H$$$&L\E*$G$9!%(B
-$B=>$C$F!$(BemathP, emath $B$J$I$N%Q%C%1!<%8$N;HMQ$rA0Ds$H$7$^$9!%(B
+樹形図を描画するためのマクロです．
+ただし，数学のプリント作成をするため，という目的です．
+従って，emathP, emath などのパッケージの使用を前提とします．
 
-$B$3$N%^%/%m=8$N%^%/%m$K$D$$$F$N$4<ALd!$%P%0Js9p!$=$@5!&DI2C$NDs0FEy$O(B
+このマクロ集のマクロについてのご質問，バグ報告，修正・追加の提案等は
 \begin{center}
 http://emath.s40.xrea.com/
 \end{center}
-$B$N7G<(HD$X$I$&$>!#(B
+の掲示板へどうぞ。
 \end{abstract}
 \pagebreak
 \pagenumbering{roman}%
@@ -35,261 +35,261 @@ http://emath.s40.xrea.com/
 
 \pagenumbering{arabic}
 
-\section{$B4pK\E*MQK!(B}
-\subsection{\textsf{zyukeizu}$B4D6-$H(B\cmd{eda}$B%3%^%s%I(B}
-$B$^$:$O!$4pK\E*$JNc$+$i$O$8$a$^$9!%(B
+\section{基本的用法}
+\subsection{\textsf{zyukeizu}環境と\cmd{eda}コマンド}
+まずは，基本的な例からはじめます．
 
-\showexample[$B4pK\Nc(B](0.4)(0.3){example/Zex00}
+\showexample[基本例](0.4)(0.3){example/Zex00}
 
-\noindent $B$N$h$&$K!$(B\textsf{zyukeizu} $B4D6-Fb$G(B \cmd{eda} $B%3%^%s%I$r(B
-$BMQ$$$^$9!%>e$NNc$O(B2$BJ,4t$G$9$,!$(B\cmd{eda} $B$r=q$-JB$Y$l$P!$B?J,4t$b(B
-$B2DG=$G$9!%(B
+\noindent のように，\textsf{zyukeizu} 環境内で \cmd{eda} コマンドを
+用います．上の例は2分岐ですが，\cmd{eda} を書き並べれば，多分岐も
+可能です．
 
-\showexample[$BB?J,4t(B](0.4)(0.3){example/Zex01}
+\showexample[多分岐](0.4)(0.3){example/Zex01}
 
-$B5U$K(B1$BK\$@$1$N;^$b:n$l$^$9!%(B
+逆に1本だけの枝も作れます．
 
-\showexample[$B0lJ,4t(B](0.4)(0.3){example/Zex02}
+\showexample[一分岐](0.4)(0.3){example/Zex02}
 \clearpage
 
-\subsection{$BB?=EJ,4t(B}
-\textsf{zyukeizu}$B4D6-$O%M%9%H$5$;$k$3$H$,=PMh$^$9!%(B
-\cmd{eda}$B%3%^%s%IFb$K!$(B\textsf{zyukeizu}$B4D6-$r5-=R$9$k$3$H$G(B
-$BB?=EJ,4t$N<y7A?^$rIA2h$9$k$3$H$,=PMh$^$9!%(B
+\subsection{多重分岐}
+\textsf{zyukeizu}環境はネストさせることが出来ます．
+\cmd{eda}コマンド内に，\textsf{zyukeizu}環境を記述することで
+多重分岐の樹形図を描画することが出来ます．
 
-\showexample[$BB?=EJ,4t(B](0.45)(0.45){example/Zex03}
+\showexample[多重分岐](0.45)(0.45){example/Zex03}
 \clearpage
 
-$B;^$N?t$OIT6QEy$G$b9=$$$^$;$s!%(B
+枝の数は不均等でも構いません．
 
-\showexample[$BIT6QEy$JJ,4t(B](0.45)(0.45){example/Zex04}
+\showexample[不均等な分岐](0.45)(0.45){example/Zex04}
 \clearpage
 
-\section{$B;^$N7A>u(B}
-\subsection{$B;^$ND9$5(B}
-$B;^$ND9$5$rD4@0$9$k$?$a$N%3%^%s%I$,(B \cmd{zyukeizuEdaNagasa} $B$G$9!%(B
+\section{枝の形状}
+\subsection{枝の長さ}
+枝の長さを調整するためのコマンドが \cmd{zyukeizuEdaNagasa} です．
 
-{\showexample[$B;^$ND9$5(B](0.5)(0.4){example/Zex40}}
+{\showexample[枝の長さ](0.5)(0.4){example/Zex40}}
 
-$B%G%U%)%k%H$O!$(B\cmd{zyukeizuEdaNagasa}\texttt{\{30\}} $B$G$9!%(B
-$B?tCM$NC10L$O!$%]%$%s%H$G!$;^$N(B$x$$B<4J}8~!J2#AH$G$O?eJ?J}8~!K$N(B
-$BD9$5$r@0?t$G;XDj$7$^$9!%(B
+デフォルトは，\cmd{zyukeizuEdaNagasa}\texttt{\{30\}} です．
+数値の単位は，ポイントで，枝の$x$軸方向（横組では水平方向）の
+長さを整数で指定します．
 \clearpage
 
-\subsection{$B;^$N3+$-(B}
-$B;^$N3+$-6q9g$rD4@0$9$k$N$,(B \cmd{zyukeizuEdaVpitch} $B%3%^%s%I$G$9!%(B
+\subsection{枝の開き}
+枝の開き具合を調整するのが \cmd{zyukeizuEdaVpitch} コマンドです．
 
-{\showexample[$B;^$N3+$-6q9g(B](0.5)(0.4){example/Zex41}}
+{\showexample[枝の開き具合](0.5)(0.4){example/Zex41}}
 
-$B%G%U%)%k%H$O!$(B\cmd{zyukeizuEdaVpitch}\texttt{\{0\}} $B$G$9!%(B
+デフォルトは，\cmd{zyukeizuEdaVpitch}\texttt{\{0\}} です．
 
-$B0z?t$GM?$($k?tCM$O(B \cmd{zyukeizuEdaNagasa} $B$HF1$8$/!$(B
-pt $B$rC10L$H$9$k@0?tCM$G$9!%(B
+引数で与える数値は \cmd{zyukeizuEdaNagasa} と同じく，
+pt を単位とする整数値です．
 
-$B$3$N?tCM$,;^$H;^$N4V$N2~9TI}$KDI2C$5$l$^$9!%(B
+この数値が枝と枝の間の改行幅に追加されます．
 
-\subsection{$B3Q7?(B --- $B%H!<%J%a%s%HI=7A<0(B}
-$B;^$O!$%G%U%)%k%H$G$O<P@~$K$J$C$F$$$^$9$,!$$3$l$r=D2#$N@~$G%H!<%J%a%s%HI=(B
-$B$N$h$&$K$9$k$?$a$N%3%^%s%I$,(B \cmd{zyukeizuKata} $B$G$9!%(B
+\subsection{角型 --- トーナメント表形式}
+枝は，デフォルトでは斜線になっていますが，これを縦横の線でトーナメント表
+のようにするためのコマンドが \cmd{zyukeizuKata} です．
 
-{\showexample[$B3Q7?<y7A?^(B](0.5)(0.4){example/Zex00k}}
+{\showexample[角型樹形図](0.5)(0.4){example/Zex00k}}
 
-$B$3$N%3%^%s%I$N0z?t$O(B
+このコマンドの引数は
 \begin{jquote}
-s : $B<P@~(B $B!J%G%U%)%k%H!K(B\\
-k : $B3Q7?(B
+s : 斜線 （デフォルト）\\
+k : 角型
 \end{jquote}
-$B$N(B2$B<oN`$@$1$G$9!%(B
+の2種類だけです．
 \clearpage
 
-\subsection{$B3Q7?$K$*$1$k;^$ND9$5(B}
-\cmd{zyukeizuEdaNagasa} $B%3%^%s%I$G;XDj$5$l$k?tCM$O!$(B
-$B=D@~$N:8B&$N;^$ND9$5$H1&B&$N;^$ND9$5$r2C$($?$b$N$G!$(B
-$B$3$l$r(B2$BEyJ,$7$F:8$H1&$N;^$,:n$i$l$^$9!%(B
-2$BEyJ,$G$O$J$$<y7A?^$r:n$j$?$$$H$-$O(B \cmd{zyukeizuEdaNagasa} $B$N(B
-\texttt{[..]} $B%*%W%7%g%s$G:8B&$ND9$5$r;XDj$7$^$9!%(B
+\subsection{角型における枝の長さ}
+\cmd{zyukeizuEdaNagasa} コマンドで指定される数値は，
+縦線の左側の枝の長さと右側の枝の長さを加えたもので，
+これを2等分して左と右の枝が作られます．
+2等分ではない樹形図を作りたいときは \cmd{zyukeizuEdaNagasa} の
+\texttt{[..]} オプションで左側の長さを指定します．
 
-{\showexample[$B3Q7?$K$*$1$kD9$5;XDj(B](0.5)(0.4){example/Zex43}}
+{\showexample[角型における長さ指定](0.5)(0.4){example/Zex43}}
 
-\cmd{zyukeizuEdaNagasa}$B$N=q<0$G$9!%(B
+\cmd{zyukeizuEdaNagasa}の書式です．
 \begin{boxnote}
 \begin{verbatim}
 \zyukeizuEdaNagasa[#1]#2
-    #1 : $B3Q7?<y7A?^$N>l9g!$=D@~$G6h@Z$i$l$?:8B&$ND9$5(B
-    #2 : $B:8!&1&$r9g$o$;$?A4BN$ND9$5(B
+    #1 : 角型樹形図の場合，縦線で区切られた左側の長さ
+    #2 : 左・右を合わせた全体の長さ
 \end{verbatim}
 \end{boxnote}
 
-\subsection{$B;^$N@~<o(B}
-$B;^$N@~<o$rJQ99$9$k$K$O!$(B\cmd{sensyu}$B$r:FDj5A$7$^$9!#(B
+\subsection{枝の線種}
+枝の線種を変更するには，\cmd{sensyu}を再定義します。
 
-\begin{showEx}{$B;^$N@~<oJQ99(B}
+\begin{showEx}{枝の線種変更}
 \def\sensyu{\hasen}
-$B?'(B %
+色 %
 \begin{zyukeizu}%
-    \eda{ $B@V(B }%
-    \eda{ $BGr(B }%
+    \eda{ 赤 }%
+    \eda{ 白 }%
 \end{zyukeizu}%
 \end{showEx}
 
-\subsection{$B;^$NB@$5(B}
-$B$9$Y$F$N;^$NB@$5$rJQ99$9$k$K$O(B\cmd{edahutosa}$B%3%^%s%I$r;HMQ$7$^$9!#(B
+\subsection{枝の太さ}
+すべての枝の太さを変更するには\cmd{edahutosa}コマンドを使用します。
 
-\begin{showEx}{$B;^$NB@$5JQ99(B}
+\begin{showEx}{枝の太さ変更}
 \edahutosa{2pt}
-$B?'(B %
+色 %
 \begin{zyukeizu}%
-    \eda{ $B@V(B }%
-    \eda{ $BGr(B }%
+    \eda{ 赤 }%
+    \eda{ 白 }%
 \end{zyukeizu}%
 \end{showEx}
 
-$B0lIt$N;^$NB@$5$rJQ99$9$k$K$O!$Ev3:$N;^$rIA2h$9$k(B\cmd{eda}$B$K(B\verb+<hutosa=..>+
-$B%*%W%7%g%s$G;XDj$7$^$9!#(B
+一部の枝の太さを変更するには，当該の枝を描画する\cmd{eda}に\verb+<hutosa=..>+
+オプションで指定します。
 
-\begin{showEx}{$B0lIt$N;^$NB@$5JQ99(B}
-$B?'(B %
+\begin{showEx}{一部の枝の太さ変更}
+色 %
 \begin{zyukeizu}%
-    \eda<hutosa=2pt>{ $B@V(B }%
-    \eda{ $BGr(B }%
+    \eda<hutosa=2pt>{ 赤 }%
+    \eda{ 白 }%
 \end{zyukeizu}%
 \end{showEx}
 
 
 %\clearpage
 
-\section{$B;^$NK5$X$NJ8;zG[CV(B}
-\subsection{\texttt{[...]} $B%*%W%7%g%s(B}
-$B3NN($NLdBj2r@b$G$O!$<y7A?^$N;^$K3NN($NCM$rIU5-$7$?$$$3$H$,$"$j$^$9!%(B
-$B$=$N$?$a$K(B \cmd{eda} $B$O%*%W%7%g%s0z?t$r<h$k$3$H$,=PMh$^$9!%(B
+\section{枝の傍への文字配置}
+\subsection{\texttt{[...]} オプション}
+確率の問題解説では，樹形図の枝に確率の値を付記したいことがあります．
+そのために \cmd{eda} はオプション引数を取ることが出来ます．
 
-\showexample[$B3NN(<y7A?^(B](0.6)(0.3){example/Zex30}
+\showexample[確率樹形図](0.6)(0.3){example/Zex30}
 
-$B$9$J$o$A(B \cmd{eda} $B$N(B \texttt{[..]} $B%*%W%7%g%sFb$K!$(B
-$B;^$KIU5-$7$?$$J8;zNs$rM?$($^$9!%(B
-$B$7$+$7!$$3$NNc$G$O!$>e$N;^$H2<$N;^$KIU5-$7$??tCM$,=E$J$C$F$$$^$9!%(B
-$BG[CV%*%W%7%g%s$GJ8;z$N0LCV$rD4@0$7$^$9!%(B
+すなわち \cmd{eda} の \texttt{[..]} オプション内に，
+枝に付記したい文字列を与えます．
+しかし，この例では，上の枝と下の枝に付記した数値が重なっています．
+配置オプションで文字の位置を調整します．
 
-\subsection{$BG[CV%*%W%7%g%s(B \texttt{[...]}}
-\showexample[$BJ8;z0LCVD4@0(B(1)](0.6)(0.3){example/Zex31}
+\subsection{配置オプション \texttt{[...]}}
+\showexample[文字位置調整(1)](0.6)(0.3){example/Zex31}
 
-\subsection{$B4p=`E@D4@0%*%W%7%g%s(B \texttt{(x,y)}}
-$B2<$N;^$ONI$$$H$7$F!$>e$N;^$N?tCM$,;^$K$+$+$C$F$$$^$9!%(B
-$B$5$i$KD4@0$7$^$9!%(B
+\subsection{基準点調整オプション \texttt{(x,y)}}
+下の枝は良いとして，上の枝の数値が枝にかかっています．
+さらに調整します．
 
-\showexample[$BJ8;z0LCVD4@0(B(2)](0.6)(0.3){example/Zex32}
+\showexample[文字位置調整(2)](0.6)(0.3){example/Zex32}
 
-\subsection{$B4p=`E@$NJQ99(B}
-$BJ8;z$rG[CV$9$k4p=`E@$O!$;^$NCfE@$G$9!#(B
-$B$3$l$rJQ99$9$k$N$,(B\verb+<..>+$B%*%W%7%g%s$G$9!#(B
+\subsection{基準点の変更}
+文字を配置する基準点は，枝の中点です。
+これを変更するのが\verb+<..>+オプションです。
 
-\begin{showEx}(.6,.3){$B4p=`E@$NJQ99(B}
+\begin{showEx}(.6,.3){基準点の変更}
 \begin{zyukeizu}%
-  \eda[$\frac12$]<1>(0,6pt)[rb]{ $BI=(B }%
-  \eda[$\frac12$]<1>[rt]{ $BN"(B }%
+  \eda[$\frac12$]<1>(0,6pt)[rb]{ 表 }%
+  \eda[$\frac12$]<1>[rt]{ 裏 }%
 \end{zyukeizu}%
 \end{showEx}
 
-$B%*%W%7%g%s$O(B0$B$H(B1$B$N4V$N?tCM$G!$%G%U%)%k%H$O(B0.5$B!J;^$NCfE@!K$H$J$C$F$$$^$9!#(B
+オプションは0と1の間の数値で，デフォルトは0.5（枝の中点）となっています。
 
 %\clearpage
 
-\subsection{\cmd{eda} $B%3%^%s%I$N=q<0(B}
-\cmd{eda}$B$N=q<0$G$9!%(B
+\subsection{\cmd{eda} コマンドの書式}
+\cmd{eda}の書式です．
 \begin{boxnote}
 \begin{verbatim}
 \eda[#1]<#2>(#3,#4)[#5]#6
-    #1      : $B;^$NK5$KCV$/J8;zNs!J%G%U%)%k%H$O6uJ8;zNs!K(B
-    #2      : #1 $B$NJ8;zNs$rCV$/0LCV(B (0 $B!A(B 1) 
-                $B!J%G%U%)%k%H$O(B 0.5 $B$9$J$o$A;^$NCfE@!K(B
-              $B$^$?$O(B
+    #1      : 枝の傍に置く文字列（デフォルトは空文字列）
+    #2      : #1 の文字列を置く位置 (0 〜 1) 
+                （デフォルトは 0.5 すなわち枝の中点）
+              または
                   hutosa=..
                   iti=..
-    (#3,#4) : $BJ8;zNs$rCV$/0LCV$N=$@5%Y%/%H%k(B 
-                $B!J%G%U%)%k%H$O(B (0,0)$B!K(B
-    #5      : $BJ8;zNs$NG[CV(B (l, c, r; t, b)
-    #6      : $B;^$NKvC<$KCV$/J8;zNs(B
-$B!JCm!K(B#1$B!A(B#5$B$O(B
-    \sPut[#2]{$B;^$N:8C<(B}{$B;^$N1&C<(B}(#3,#4)[#5]{#1} $B$H$7$F(B\sPut$B$KEO$5$l$^$9!#(B
+    (#3,#4) : 文字列を置く位置の修正ベクトル 
+                （デフォルトは (0,0)）
+    #5      : 文字列の配置 (l, c, r; t, b)
+    #6      : 枝の末端に置く文字列
+（注）#1〜#5は
+    \sPut[#2]{枝の左端}{枝の右端}(#3,#4)[#5]{#1} として\sPutに渡されます。
 \end{verbatim}
 \end{boxnote}
 
-\section{$B=D7?(B}
-\subsection{\textsf{plext} $B%Q%C%1!<%8$G=DAH(B}
-$B<y7A?^$O%G%U%)%k%H$G$O1&$NJ}8~$K;^$,J,4t$7$F$$$-$^$9!%(B
-$B$3$l$r2<J}8~$KJ,4t$5$;$?$$!$$H$$$&OC$7$G$9!%(B
-$B0l0F$H$7$F(B \cmd{rotatebox} $B$G2sE>$9$k!$$H$$$&$3$H$b9M$($i$l$^$9$,!$(B
-$BJ8;z$b2sE>$7$F$7$^$$$^$9!%J8;zItJ,$r5U2sE>$5$;$k$N$b$"$j$^$9$,!%!%!%(B
+\section{縦型}
+\subsection{\textsf{plext} パッケージで縦組}
+樹形図はデフォルトでは右の方向に枝が分岐していきます．
+これを下方向に分岐させたい，という話しです．
+一案として \cmd{rotatebox} で回転する，ということも考えられますが，
+文字も回転してしまいます．文字部分を逆回転させるのもありますが．．．
 
-$B$3$3$G$O!$=DAH$rMxMQ$7$F$_$^$9!%(B
-$B$5$j$H$F!$(B\textsf{tarticle} $B%/%i%9$r;H$&$N$O!$?t3X$G$O5$>h$j$7$^$;$s!%(B
-$B$=$3$G!$(B\textsf{plext} $B%Q%C%1!<%8$G(B \textsf{minipage}$B4D6-$J$I$KIm2C$5$l$?(B
-$BAHJ}8~%*%W%7%g%s$rMxMQ$7$F$_$^$7$?!%(B
+ここでは，縦組を利用してみます．
+さりとて，\textsf{tarticle} クラスを使うのは，数学では気乗りしません．
+そこで，\textsf{plext} パッケージで \textsf{minipage}環境などに附加された
+組方向オプションを利用してみました．
 
-$B$?$@$7!$=DAH$N(B\verb+tpic specials+ $B$O(BDVI-ware$B$K0MB8$7$^$9!#(B
+ただし，縦組の\verb+tpic specials+ はDVI-wareに依存します。
 
 \begin{enumerate}[(1)]
-  \item dviout.exe $B$r;HMQ$9$k>l9g$O!$(B
+  \item dviout.exe を使用する場合は，
 \begin{jquote}
 \begin{verbatim}
 Option
     Setup Parameters
         Graphic
-$B$G(B tpic specials $B$N(B
+で tpic specials の
         tate
 \end{verbatim}
 \end{jquote}
-$B$K%A%'%C%/$rF~$l$kI,MW$,$"$j$^$9!#(B
+にチェックを入れる必要があります。
 
-  \item dvipdfm $B$G(B PDF $B2=$9$k:]$O(B
+  \item dvipdfm で PDF 化する際は
 \begin{jquote}
 \begin{verbatim}
 \usepackage[EMdvipdfm]{emathZ}
 \end{verbatim}
 \end{jquote}
-$B$H%m!<%I%*%W%7%g%s$rIm2C$9$kI,MW$,$"$j$^$9!#(B
+とロードオプションを附加する必要があります。
 
-$B!J$3$N>l9g!$(Bdvi $B%U%!%$%k$r(B dviout $B$G8+$k$H!$@~$,Mp$l$k$3$H$G$7$g$&!#(B
-$B>e=R$N(B tate $B%A%'%C%/$r$D$1$J$1$l$P(B dviout $B$G$bMp$l$^$;$s!#!K(B
+（この場合，dvi ファイルを dviout で見ると，線が乱れることでしょう。
+上述の tate チェックをつけなければ dviout でも乱れません。）
 
-  \item dvipsk+distiller $B$G(B PDF$B2=$9$k:]$O!$(B
+  \item dvipsk+distiller で PDF化する際は，
 \begin{jquote}
 \begin{verbatim}
 \usepackage{emathZ}
 \end{verbatim}
 \end{jquote}
-$B$H$7$J$1$l$P$J$j$^$;$s!#(B
+としなければなりません。
 \end{enumerate}
 
-\showexample[$B4pK\Nc!J=D!K(B](0.6)(0.3){example/Zex00t}
+\showexample[基本例（縦）](0.6)(0.3){example/Zex00t}
 
-\subsection{$B3Q7?$N=DAH(B}
+\subsection{角型の縦組}
 
-\showexample[$B3Q7?!J=D!K(B](0.6)(0.3){example/Zex00kt}
+\showexample[角型（縦）](0.6)(0.3){example/Zex00kt}
 \clearpage
 
-\section{$B1~MQNc(B}
-$B:G8e$K!$?t3X$NLdBj$d2r@b$GEP>l$9$k<y7A?^$r$4Mw$$$?$@$-$^$7$g$&!%(B
+\section{応用例}
+最後に，数学の問題や解説で登場する樹形図をご覧いただきましょう．
 
-\subsection{$BLs?t$N8D?t(B}
-$B2<$NNc$N%=!<%9%j%9%H$O(B \texttt{example} $B%U%)%k%@Fb$N(B
-\texttt{Zex20.tex} $B$r$4Mw$/$@$5$$!%(B
+\subsection{約数の個数}
+下の例のソースリストは \texttt{example} フォルダ内の
+\texttt{Zex20.tex} をご覧ください．
 
 \input{example/Zex20}
 \clearpage
 
-\subsection{$B3NN(<y7A?^(B}
-$B$D$.$O!$3NN(<y7A?^$NNc$G$9!%%=!<%9%j%9%H$O(B \texttt{Zex21.tex} $B$G$9!%(B
+\subsection{確率樹形図}
+つぎは，確率樹形図の例です．ソースリストは \texttt{Zex21.tex} です．
 
 \input{example/Zex21}
 
-\subsection{$B%H!<%J%a%s%HI=(B}
-$B<!$$$G!$%H!<%J%a%s%HI=$G$9!%%=!<%9%j%9%H$O(B \texttt{Zex22.tex} $B$G$9!%(B
+\subsection{トーナメント表}
+次いで，トーナメント表です．ソースリストは \texttt{Zex22.tex} です．
 
 \input{example/Zex22}
 
-$B:G8e$K>/$7Bg$-$$Nc$G$9!#(B
-2002$B%5%C%+!<%o!<%k%I%+%C%W$N7h>!%H!<%J%a%s%H7k2LI=$G$9!#(B
+最後に少し大きい例です。
+2002サッカーワールドカップの決勝トーナメント結果表です。
 
 \ReadTeXFile{example/wc2T}
 \end{document}

@@ -1,7 +1,7 @@
 % emathEy.sty by tDB (emath@nifty.com)
 
 \NeedsTeXFormat{LaTeX2e}%
-\ProvidesPackage{emathEy}[2005/09/05 v0.01 $B2#JB$S(B enumerate]%
+\ProvidesPackage{emathEy}[2005/09/05 v0.01 横並び enumerate]%
 \RequirePackage{emathEc}%
 
 \newif\ifedaenum@math%
@@ -54,8 +54,8 @@
 \def\items@@[#1]{\def\preitem{}\def\postitem{#1}\mark@item}
 
 %
-% $B>.Ld$r2#$KJB$Y$k(B
-% edaenumerate $B4D6-$H(B \item
+% 小問を横に並べる
+% edaenumerate 環境と \item
 %
 
 \newcounter{edamon@suu}%
@@ -94,7 +94,7 @@
 \def\endbetaenumerate{%
     \ifin@item\owariitem\fi%
     \ifbetaraggedlastline
-      \hfill\mbox{}%%% betaenumerate $B:G=*9T$O6QEy3d$7$J$$(B 2005/06/12
+      \hfill\mbox{}%%% betaenumerate 最終行は均等割しない 2005/06/12
     \fi
     \def\ed@beta{0}\endenumerate}%
 \let\edaenumerateb\betaenumerate
@@ -277,7 +277,7 @@
       \end{minipage}%
       \in@itemfalse
     \else
-%     \vspace{\parsep}%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 2005/05/25 $BJ]N1(B
+%     \vspace{\parsep}%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 2005/05/25 保留
       \end{minipage}\egroup\setlength{\@tempdima}{\ht\eda@box}%
       \@tempdimb=\eda@linewidth
       \addtolength{\eda@linewidth}{\wd\eda@box}%
@@ -297,7 +297,7 @@
             \vrule width .4pt height \@tempdima\kern-.4pt\relax
           }{{%
             \ifthenelse{\equal{\@gyoukan}{\ltxvfill}}{%
-              \errmessage{vfill $B$H(B edasikiri $B$OJ;MQIT2D(B!}%
+              \errmessage{vfill と edasikiri は併用不可!}%
             }{%
 %             \advance\@tempdima.5ex\relax
               \@tempdimc\gyoukan@a\p@\advance\@tempdimc.5zh\relax
@@ -391,7 +391,7 @@
   \end{edaenumerate}
 }
 
-% edaenumerate $B4D6-$N7QB3(B
+% edaenumerate 環境の継続
 
 \def\edaEnumerate{%
   \@ifnextchar<{\eda@Enumerate}{\eda@Enumerate<2>}}%
@@ -433,5 +433,5 @@
   \endedaenumerate}%
 \endinput
 %
-v 0.00 2005/09/03 emathE.sty $B$+$iJ,N%(B
-v 0.01 2005/09/05 emathEc.sty : emathE, emathEy $B$H$N6&DLItJ,(B
+v 0.00 2005/09/03 emathE.sty から分離
+v 0.01 2005/09/05 emathEc.sty : emathE, emathEy との共通部分

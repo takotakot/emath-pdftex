@@ -1,12 +1,12 @@
 \documentclass[a4j]{jarticle}
-\usepackage{enumerate}%       $BI,?\$G$O$"$j$^$;$s!#(Benumerate.sty $B$rFI$_9~$`$H$-$O(B yenumerate$B$NA0$K(B
-\usepackage[dvips]{graphicx}% $BI,?\$G$O$"$j$^$;$s!#EvJ8=q$G?^$r<h$j9~$`$?$a(B
+\usepackage{enumerate}%       必須ではありません。enumerate.sty を読み込むときは yenumerateの前に
+\usepackage[dvips]{graphicx}% 必須ではありません。当文書で図を取り込むため
 \usepackage{emathEy}
-\usepackage{jquote}%          $B$3$l$b!$EvJ8=q$N$?$a$K$N$_I,MW$G$9!#(B
-\usepackage{showexample}%     $B$3$l$b!$EvJ8=q$N$?$a$K$N$_I,MW$G$9!#(B
+\usepackage{jquote}%          これも，当文書のためにのみ必要です。
+\usepackage{showexample}%     これも，当文書のためにのみ必要です。
 
 \title{\textsf{emathYe.sty} \\{\normalsize v 0.00}\\
-$B;HMQNc(B}
+使用例}
 \author{tDB}
 \date{2005/09/03}
 
@@ -14,14 +14,14 @@
 \maketitle\thispagestyle{empty}
 \begin{abstract}%
 \parindent1zw%
-\textsf{enumerate}$B4D6-$G!"9`L\$r2#$KJB$Y$k$?$a$N4D6-$r(B
-$B$$$/$D$+MQ0U$7$?$b$N$G$9!#(B
+\textsf{enumerate}環境で、項目を横に並べるための環境を
+いくつか用意したものです。
 
-$B$3$N%^%/%m=8$N%^%/%m$K$D$$$F$N$4<ALd!$%P%0Js9p!$=$@5!&DI2C$NDs0FEy$O(B
+このマクロ集のマクロについてのご質問，バグ報告，修正・追加の提案等は
 \begin{center}
 http://emath.s40.xrea.com/
 \end{center}
-$B$N7G<(HD$X$I$&$>!#(B
+の掲示板へどうぞ。
 \end{abstract}
 
 \tableofcontents
@@ -33,89 +33,89 @@ http://emath.s40.xrea.com/
 \def\bunsuu{\displaystyle\frac}%
 
 \def\labelenumii{(\arabic{enumii})}
-\section{$B35N,(B}
+\section{概略}
 \begin{enumerate}
-\item $B2#$K(B2$B8DJB$Y$k(B\textsf{edaenumerate}$B4D6-(B
+\item 横に2個並べる\textsf{edaenumerate}環境
 \begin{edaenumerate}
-  \item $B$"$"(B
-  \item $B$$$$(B
-  \item $B$&$&$&(B
-  \item $B$($($((B
-  \item $B$($($($($((B
-  \item $B$*(B
-  \item $B$*(B
-  \item $B$($($($((B
-  \item $B$($($((B
+  \item ああ
+  \item いい
+  \item ううう
+  \item えええ
+  \item えええええ
+  \item お
+  \item お
+  \item ええええ
+  \item えええ
 \end{edaenumerate}
 
-\item $B2#$K(B3$B8DJB$Y$k(B\textsf{edaenumerate}$B4D6-(B
+\item 横に3個並べる\textsf{edaenumerate}環境
 
-  \textsf{edaenumerate}$B4D6-$O!$%G%U%)%k%H$G$O2#$K(B2$BLd$:$DJB$Y$^$9!#(B
-  $B$3$N8D?t$rJQ99$9$k$N$,(B\verb+<..>+$B%*%W%7%g%s$G!$$3$NLdBj$G$O!$(B
+  \textsf{edaenumerate}環境は，デフォルトでは横に2問ずつ並べます。
+  この個数を変更するのが\verb+<..>+オプションで，この問題では，
   \begin{quote}
   \verb+\begin{enumerate}<3>+
   \end{quote}
-  $B$H$7$F$$$^$9!#(B
+  としています。
 \begin{edaenumerate}<3>
-  \item $B$"$"(B
-  \item $B$$$$(B
-  \item $B$&$&$&(B
-  \item $B$($($((B
-  \item $B$($($($($((B
-  \item $B$*(B
-  \item $B$*(B
-  \item $B$($($($((B
-  \item $B$($($((B
+  \item ああ
+  \item いい
+  \item ううう
+  \item えええ
+  \item えええええ
+  \item お
+  \item お
+  \item ええええ
+  \item えええ
 \end{edaenumerate}
 
-\item $B2#$KJB$Y$k8D?t$r<+F0E*$K7h$a$k(B\textsf{yokoenumerate}$B4D6-(B
+\item 横に並べる個数を自動的に決める\textsf{yokoenumerate}環境
 
-  \textsf{edaenumerate}$B$,2#$KJB$Y$k>.Ld?t$r;XDj$9$kJ}<0$J$N$KBP$7$F!$(B
-  \textsf{yokoenumerate}$B$O!$>.Ld$N2#I}$r7WNL$7:GD9$N$b$N$GHGLL$r6QEy3d$7$F(B
-  $B2#$KJB$Y$k8D?t$r5a$a$^$9!#(B
+  \textsf{edaenumerate}が横に並べる小問数を指定する方式なのに対して，
+  \textsf{yokoenumerate}は，小問の横幅を計量し最長のもので版面を均等割して
+  横に並べる個数を求めます。
 \begin{yokoenumerate}
-  \item $B$"$"(B
-  \item $B$$$$(B
-  \item $B$&$&$&(B
-  \item $B$($($((B
-  \item $B$($($($($((B
-  \item $B$*(B
-  \item $B$*(B
-  \item $B$($($($((B
-  \item $B$($($((B
+  \item ああ
+  \item いい
+  \item ううう
+  \item えええ
+  \item えええええ
+  \item お
+  \item お
+  \item ええええ
+  \item えええ
 \end{yokoenumerate}
 
-\item $B2#$K%Y%?5M$GJB$Y$k(B\textsf{betaenumerate}$B4D6-(B
+\item 横にベタ詰で並べる\textsf{betaenumerate}環境
 
-  \textsf{edaenumerate}, \textsf{yokoenumerate}$B$O$$$:$l$b!$(B
-  $B>.Ld$N2#I}$O6Q0l$G$9!#$=$l$KBP$7!$(B\textsf{betaenumerate}$B$O!$(B
-  $B>.Ld$r%Y%?5M$7$F$$$-$^$9!#$7$?$,$C$FJ#?t9T$K$J$k$H$-!$(B
-  $B>.LdHV9f$,=D$KB7$$$^$;$s!#(B
+  \textsf{edaenumerate}, \textsf{yokoenumerate}はいずれも，
+  小問の横幅は均一です。それに対し，\textsf{betaenumerate}は，
+  小問をベタ詰していきます。したがって複数行になるとき，
+  小問番号が縦に揃いません。
 \begin{betaenumerate}
-  \item $B$"$"(B
-  \item $B$$$$(B
-  \item $B$&$&$&(B
-  \item $B$($($((B
-  \item $B$($($($($((B
-  \item $B$*(B
-  \item $B$*(B
-  \item $B$($($($((B
-  \item $B$($($((B
+  \item ああ
+  \item いい
+  \item ううう
+  \item えええ
+  \item えええええ
+  \item お
+  \item お
+  \item ええええ
+  \item えええ
 \end{betaenumerate}
 
 \clearpage
 
-% $B0J2<$G;HMQ$7$F$$$k?^(B
+% 以下で使用している図
 %           golfer.ps, tiger.ps
-% $B$O(B Ghostscript $B$K4^$^$l$k$b$N$G$9!#(B
+% は Ghostscript に含まれるものです。
 
-\item \textsf{edaenumerate}$B4D6-$G?^HG$rJB$Y$F$_$^$9!#(B
+\item \textsf{edaenumerate}環境で図版を並べてみます。
 
-$B0J2<$G;HMQ$7$F$$$k?^(B
+以下で使用している図
 \begin{verbatim}
   golfer.eps, tiger.eps
 \end{verbatim}
-$B$O(B Ghostscript $B$K4^$^$l$k$b$N$G$9!#(B
+は Ghostscript に含まれるものです。
 
   \begin{edaenumerate}
     \item \mbox{}\par\includegraphics[width=30mm,clip]{golfer.eps}
@@ -128,7 +128,7 @@ http://emath.s40.xrea.com/
 \def\fgcaption{\def\@captype{figure}\caption}
 \makeatother
 
-\item $B9`L\HV9f$r<h$j5n$j!$?^HV9f$rIU$1$F8+$^$9!#(B\bigskip
+\item 項目番号を取り去り，図番号を付けて見ます。\bigskip
   \begin{edaenumerate}
     \item[] 
     	\hfill\includegraphics[width=30mm,clip]{golfer.eps}\hfill\null
@@ -148,40 +148,40 @@ http://emath.s40.xrea.com/
 \end{enumerate}
 \clearpage
 
-\section{$B>.Ld$r2#$KJB$Y$k!#(B}
-\subsection{$B2#$KJB$Y$k8D?t;XDj(B}
-$B>.Ld$r2#$KJB$Y$k4D6-(B \textsf{edaenumerate} $B$G$9!#(B
+\section{小問を横に並べる。}
+\subsection{横に並べる個数指定}
+小問を横に並べる環境 \textsf{edaenumerate} です。
 
 {
 \renewcommand{\labelenumi}{\Alph{enumi}.}%
-\renewcommand{\labelenumii}{$B!Z(B\arabic{enumii}$B![(B}%
+\renewcommand{\labelenumii}{【\arabic{enumii}】}%
 \renewcommand{\labelenumiii}{(\arabic{enumiii})}%
 
 \begin{enumerate}
-\item $B0lHVB?$$$N$O!$2#$K(B2$BLd$:$DJB$Y$k%?%$%W$G$7$g$&$+!#(B
+\item 一番多いのは，横に2問ずつ並べるタイプでしょうか。
 
-\showexample[\textsf{edaenumerate}$B4D6-(B](.95)(0.9){example/eda01}
+\showexample[\textsf{edaenumerate}環境](.95)(0.9){example/eda01}
 \clearpage
 
-\item $B2#$K(B3$BLd$:$DJB$Y$?$$$H$-$O(B \texttt{<..>} $B%*%W%7%g%s$r;H$$$^$9!#(B
+\item 横に3問ずつ並べたいときは \texttt{<..>} オプションを使います。
 
 \showexample[\texttt{edaenumerate<3>}](.95)(0.9){example/eda02}
 
-$B$J$*!$(B\LaTeXe $B$G(B \textsf{enumerate} $B$K(B [...] $B%*%W%7%g%s$rJ;MQ$9$k>l9g$O(B
+なお，\LaTeXe で \textsf{enumerate} に [...] オプションを併用する場合は
 \begin{quote}\begin{verbatim}
       \begin{edaenumerate}<3>[(1)]
 \end{verbatim}
 \end{quote}
-$B$N$h$&$K!$(B\verb/<..>/ $B%*%W%7%g%s$r@h$KIU$1$F$/$@$5$$!#(B
+のように，\verb/<..>/ オプションを先に付けてください。
 
 \pagebreak
 
-\item $B>.Ld$N0lIt$O(B2$BLd$:$D!$0lIt$O(B3$BLd$:$DJB$Y$?$$!$$H$$$&Nc$G$9!#(B
+\item 小問の一部は2問ずつ，一部は3問ずつ並べたい，という例です。
 
-\showexample[\texttt{$BJQB'(B}](.95)(0.9){example/eda05}
+\showexample[\texttt{変則}](.95)(0.9){example/eda05}
 \pagebreak
 
-\item $B>.Ld$N0LCV!J:8%$%s%G%s%H!K$rJQ99$9$k$K$O(B (...) $B%*%W%7%g%s$rMQ$$$^$9!#(B
+\item 小問の位置（左インデント）を変更するには (...) オプションを用います。
 
 \showexample[edaenumerate(...)](.95)(0.9){example/eda06}
 
@@ -189,16 +189,16 @@ http://emath.s40.xrea.com/
 
 \pagebreak
 
-\item $B%F%9%HLdBj$J$I$G$O!$=DJ}8~$K6uGr$r:n$j$?$$$3$H$,$"$j$^$9!#(B
-\verb+<...>+ $B%*%W%7%g%s$K(B
+\item テスト問題などでは，縦方向に空白を作りたいことがあります。
+\verb+<...>+ オプションに
 \begin{jquote}
 \texttt{gyoukan=2cm}
 \end{jquote}
-$B$J$I$H9T4V$ND9$5$r;XDj$7$^$9!#(B
+などと行間の長さを指定します。
 
 \begin{showEx}{\texttt{<gyoukan=..>}}
 \begin{enumerate}[1.~]
-  \item $B<!$NLd$$$KEz$($h!#(B
+  \item 次の問いに答えよ。
     \begin{edaenumerate}%
     <gyoukan=2cm>[(1)]
       \item aaa
@@ -209,83 +209,83 @@ http://emath.s40.xrea.com/
 \end{enumerate}
 \end{showEx}
 
-$B2#$KJB$Y$k>.Ld?t$b;XDj$7$?$1$l$P!$%*%W%7%g%s$r(B
+横に並べる小問数も指定したければ，オプションを
 \begin{jquote}
 \begin{verbatim}
 <retusuu=3,gyoukan=2cm>
 \end{verbatim}
 \end{jquote}
-$B$J$I$H5-=R$7$^$9!#(B
+などと記述します。
 \index{retusuu=}\index{gyoukan=}
 \pagebreak
 
-$B6QEy3d$j$J$i!$(B
-\verb+\vfill+ $B$b;H$($^$9$7!$(B
+均等割りなら，
+\verb+\vfill+ も使えますし，
 \begin{jquote}
 \begin{verbatim}
 <gyoukan=\vfill>
 \end{verbatim}
 \end{jquote}
-$B$H;XDj$9$k$N$b$"$j$G$9!#(B
+と指定するのもありです。
 
-%\showexample[\cmd{vfill} $B$G=DJ}8~$N6uGr(B](.95)(.9){example/eda07}
-\begin{itembox}{\cmd{vfill} $B$G=DJ}8~$N6uGr(B}
+%\showexample[\cmd{vfill} で縦方向の空白](.95)(.9){example/eda07}
+\begin{itembox}{\cmd{vfill} で縦方向の空白}
 \verbatiminput{example/eda07}
 \end{itembox}
 
-$B$r%?%$%W%;%C%H$9$k$H!$2<$N$h$&$K$J$j$^$9!#(B
+をタイプセットすると，下のようになります。
 
 \input{example/eda07}
 \clearpage
 
-$B$^$?!$2#$KJB$Y$?>.Ld$N4V$K=D7S@~$rF~$l$?$$$3$H$,$"$j$^$9!#(B
-$B2rEz$NM>Gr$r=D(B \texttt{2cm} $B$H$7$F!$=D7S@~$rF~$l$kNc$G$9!#(B
+また，横に並べた小問の間に縦罫線を入れたいことがあります。
+解答の余白を縦 \texttt{2cm} として，縦罫線を入れる例です。
 
-\showexample[$B>.Ld$N4V$K=D7S@~(B](.95)(.9){example/eda04}
+\showexample[小問の間に縦罫線](.95)(.9){example/eda04}
 
-\item eda... $B$N=q<0$G$9!#(B
+\item eda... の書式です。
     \begin{enumerate}
-    \item $B4D6-(B
+    \item 環境
         \begin{verbatim}
-edaenumerate<$B2#$KJB$Y$k>.Ld$N8D?t(B($B%G%U%)%k%H$O(B2$B!K(B>
-            ($B>.Ld$N:8%$%s%G%s%H(B)
-            [enumerate $B$N%*%W%7%g%s$HF1$8(B(LaTeX2e$B$N$_(B)]
+edaenumerate<横に並べる小問の個数(デフォルトは2）>
+            (小問の左インデント)
+            [enumerate のオプションと同じ(LaTeX2eのみ)]
         \end{verbatim}
-    \item $B%3%^%s%I(B
+    \item コマンド
         \begin{verbatim}
-\item<$B2#$KJB$Y$k>.Ld$N8D?t(B
-    $B!J%G%U%)%k%H$O(B \begin{edaenumerate}$B$N;XDjCM!K(B>
-     ($B>.Ld$N2#I}(B)
-     [\item $B$N%*%W%7%g%s$HF1$8(B]
+\item<横に並べる小問の個数
+    （デフォルトは \begin{edaenumerate}の指定値）>
+     (小問の横幅)
+     [\item のオプションと同じ]
         \end{verbatim}
     \end{enumerate}
 \end{enumerate}
 }
 
-\subsection{$B%Y%?JB$Y(B}
-\textsf{edaenumerate}$B4D6-$O!$2#$KJB$Y$k8D?t$r;XDj$7$^$9$,!$(B
-$B8D?t$O;XDj$;$:!$%Y%?$KJB$Y$k$N$,(B\textsf{betaenumerate}$B4D6-$G$9!#(B
+\subsection{ベタ並べ}
+\textsf{edaenumerate}環境は，横に並べる個数を指定しますが，
+個数は指定せず，ベタに並べるのが\textsf{betaenumerate}環境です。
 
 \showexample[betaenumerate](.6)(.99){example/enumb01}
 
-$BM>GrNL$O%G%U%)%k%H$G(B
+余白量はデフォルトで
 \begin{jquote}
 \begin{verbatim}
 \def\betalabelwidth{3em}
 \end{verbatim}
 \end{jquote}
-$B$H$7$F$"$j$^$9!#(B
-$B$3$l$r:FDj5A$7$F>.$5$/$9$l$P99$K5M$a9~$`$3$H$,$G$-$^$9!#(B
+としてあります。
+これを再定義して小さくすれば更に詰め込むことができます。
 \clearpage
 
 \subsection{\textsf{yokoenumerate}}
-\textsf{betaenumerate}$B4D6-$ODI$$9~$_<0$N2#JB$Y$G$9$,!$(B
-$B9`L\I}$O9`L\$4$H$K0[$J$j$^$9!#(B
-$BD9$5$,:GBg$N9`L\I}$G2#JB$Y$9$k$N$,(B \textsf{yokoenumerate} $B4D6-$G$9!#(B
+\textsf{betaenumerate}環境は追い込み式の横並べですが，
+項目幅は項目ごとに異なります。
+長さが最大の項目幅で横並べするのが \textsf{yokoenumerate} 環境です。
 
-\begin{showEx}(1,1){\textsf{yokoenumerate}$B4D6-(B}
+\begin{showEx}(1,1){\textsf{yokoenumerate}環境}
 \begin{enumerate}[1.~]
-\item \textsf{betaenumerate}$B4D6-(B
+\item \textsf{betaenumerate}環境
 \begin{betaenumerate}
   \item aaa
   \item b
@@ -297,7 +297,7 @@ edaenumerate<$B2#$KJB$Y$k>.Ld$N8D?t(B($B%G%U%)%k%H$O(B2$B!K(B>
   \item hhhhhh
 \end{betaenumerate}
 
-\item \textsf{yokoenumerate}$B4D6-(B
+\item \textsf{yokoenumerate}環境
 \begin{yokoenumerate}
   \item aaa
   \item b
@@ -311,17 +311,17 @@ edaenumerate<$B2#$KJB$Y$k>.Ld$N8D?t(B($B%G%U%)%k%H$O(B2$B!K(B>
 \end{enumerate}
 \end{showEx}
 
-$B$3$N4D6-$H(B\textsf{edaenumerate}$B4D6-$H$N0c$$$O!$(B
-\textsf{edaenumerate}$B4D6-$O2#$KJB$Y$k9`L\?t$r$3$A$i$,;XDj$9$k$N$KBP$7$F!$(B
-\textsf{yokoenumerate}$B4D6-$O9`L\I}$HHGLL$H$N7s$M9g$$$G(B\TeX $B$,7h$a$F$/$l$k(B
-$B$H$$$&0c$$$G$9!#(B
+この環境と\textsf{edaenumerate}環境との違いは，
+\textsf{edaenumerate}環境は横に並べる項目数をこちらが指定するのに対して，
+\textsf{yokoenumerate}環境は項目幅と版面との兼ね合いで\TeX が決めてくれる
+という違いです。
 
-\section{$B;XDj$7$?9`L\HV9f$K(B\texttt{*}$B$J$I$rIm2C(B}
-$BLdBj=8$J$I$G!$0lIt$NLdBj$K(B\texttt{*}$B0u$J$I$r$D$1$h$&$H$$$&OC$G$9!#(B
+\section{指定した項目番号に\texttt{*}などを附加}
+問題集などで，一部の問題に\texttt{*}印などをつけようという話です。
 
 \begin{showEx}{\cmd{item*}}
 \begin{enumerate}[1.~]
-  \item $B<!$NLd$$$KEz$($h!#(B
+  \item 次の問いに答えよ。
   \begin{edaenumerate}[%
     \protect\preitem(1)]
     \item* aaa
@@ -332,15 +332,15 @@ edaenumerate<$B2#$KJB$Y$k>.Ld$N8D?t(B($B%G%U%)%k%H$O(B2$B!K(B>
 \end{enumerate}
 \end{showEx}
 
-$B$9$J$o$A!$=q<0;XDj$K(B\cmd{preitem}$B$rCV$-!$(B
-\texttt{*}$B$rIU$1$?$$9`L\$r%"%9%?%j%9%/IU$N(B \cmd{item*}
-$B$G5-=R$7$^$9!#(B
+すなわち，書式指定に\cmd{preitem}を置き，
+\texttt{*}を付けたい項目をアスタリスク付の \cmd{item*}
+で記述します。
 
-\texttt{*}$B$rHV9f$N8e$m$K$*$-$?$1$l$P(B
+\texttt{*}を番号の後ろにおきたければ
 
 \begin{showpEx}{\cmd{item**}}
 !\begin{enumerate}[1.~]
-! \item $B<!$NLd$$$KEz$($h!#(B
+! \item 次の問いに答えよ。
   \begin{edaenumerate}[(1){%
   \makebox[0pt][l]\postitem}~]
     \item** aaa
@@ -350,23 +350,23 @@ edaenumerate<$B2#$KJB$Y$k>.Ld$N8D?t(B($B%G%U%)%k%H$O(B2$B!K(B>
   \end{edaenumerate}
 !\end{enumerate}
 !\end{showpEx}
-$B=q<0;XDj$K(B\cmd{postitem}$B$r2C$(!$%"%9%?%j%9%/$r(B2$B8D$D$1$?(B\cmd{item**}$B$r(B
-$BMQ$$$^$9!#(B
+書式指定に\cmd{postitem}を加え，アスタリスクを2個つけた\cmd{item**}を
+用います。
 
-$B$^$?!$8eCV5-9f$N$"$j$J$7$GHV9fItJ,$N2#I}$,B7$&$h$&$K(B
+また，後置記号のありなしで番号部分の横幅が揃うように
 \begin{jquote}
 \begin{verbatim}
   \begin{edaenumerate}[(1){\makebox[0pt][l]\postitem}~]
 \end{verbatim}
 \end{jquote}
-$B$H!$:Y9)$r$7$F$$$^$9!#(B
+と，細工をしています。
 
-\texttt{*}$B0J30$N5-9f$r;H$$$?$$$H$-$O!$(B\cmd{item*}, \cmd{item**} $B$K(B
-\verb+[..]+$B%*%W%7%g%s$r$D$1$^$9!#(B
+\texttt{*}以外の記号を使いたいときは，\cmd{item*}, \cmd{item**} に
+\verb+[..]+オプションをつけます。
 
 \begin{showpEx}{\cmd{item*[..]}}
 !\begin{enumerate}[1.~]
-! \item $B<!$NLd$$$KEz$($h!#(B
+! \item 次の問いに答えよ。
   \begin{edaenumerate}[%
     \protect\preitem(1)]
     \item*[\dag] aaa
@@ -377,11 +377,11 @@ edaenumerate<$B2#$KJB$Y$k>.Ld$N8D?t(B($B%G%U%)%k%H$O(B2$B!K(B>
 !\end{enumerate}
 !\end{showpEx}
 
-$B8eCV$9$k>l9g$G$9!#(B
+後置する場合です。
 
 \begin{showpEx}{\cmd{item**[..]}}
 !\begin{enumerate}[1.~]
-! \item $B<!$NLd$$$KEz$($h!#(B
+! \item 次の問いに答えよ。
   \begin{edaenumerate}[(1){%
   \makebox[0pt][l]\postitem}~]
     \item**[\dag] aaa
@@ -392,12 +392,12 @@ edaenumerate<$B2#$KJB$Y$k>.Ld$N8D?t(B($B%G%U%)%k%H$O(B2$B!K(B>
 !\end{enumerate}
 !\end{showpEx}
 
-$BA0$H8e$m$NN>J}$K5-9f$r$D$1$?$$!$$H$$$&$3$H$O5/$3$j$=$&$b$"$j$^$;$s$,!$(B
-$B2DG=$G$O$"$j$^$9!#(B
+前と後ろの両方に記号をつけたい，ということは起こりそうもありませんが，
+可能ではあります。
 
-\begin{showpEx}{$BA08eCV(B}
+\begin{showpEx}{前後置}
 !\begin{enumerate}[1.~]
-! \item $B<!$NLd$$$KEz$($h!#(B
+! \item 次の問いに答えよ。
   \begin{edaenumerate}[%
   \protect\preitem(1){%
   \makebox[0pt][l]\postitem}~]
@@ -408,11 +408,11 @@ edaenumerate<$B2#$KJB$Y$k>.Ld$N8D?t(B($B%G%U%)%k%H$O(B2$B!K(B>
   \end{edaenumerate}
 !\end{enumerate}
 !\end{showpEx}
-$B$H!$(B\cmd{item*}$B$K(B\verb+[$BA0CV5-9f(B][$B8eCV5-9f(B]+$B$H(B2$B$D$N%*%W%7%g%s$r$D$1$^$9!#(B
-$B$3$N>l9g!$A0CV5-9f$,(B`\texttt{*}'$B$G$"$C$F$b!$L@<($9$kI,MW$,$"$j$^$9!#(B
+と，\cmd{item*}に\verb+[前置記号][後置記号]+と2つのオプションをつけます。
+この場合，前置記号が`\texttt{*}'であっても，明示する必要があります。
 
-$B0J>e$NNc$O$9$Y$F(B\textsf{edaenumerate}$B4D6-$G<($7$^$7$?$,!$(B
-$B0lHL$N(B\textsf{enumerate}$B4D6-!$3F<o$N2#JB$S(B\textsf{enumerate}$B4D6-$G$b(B
-$BM-8z$G$9!#(B
+以上の例はすべて\textsf{edaenumerate}環境で示しましたが，
+一般の\textsf{enumerate}環境，各種の横並び\textsf{enumerate}環境でも
+有効です。
 
 \end{document}

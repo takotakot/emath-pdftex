@@ -1,17 +1,17 @@
-%%% $B9M::MQ;f%9%?%$%k(B $B#B#42#;0CJAH(B $B%5%s%W%k%U%!%$%k(B
-%%% $BN>LL0u:~$NNc$G$9!%(B
+%%% 考査用紙スタイル Ｂ４横三段組 サンプルファイル
+%%% 両面印刷の例です．
 
-\documentclass[landscape,b4paper,fleqn,twoside]{jarticle}%twoside $B%*%W%7%g%s(B
+\documentclass[landscape,b4paper,fleqn,twoside]{jarticle}%twoside オプション
 \usepackage[papersize]{emath}%
 \usepackage{b4yoko3}%
 
 \begin{document}
-\testname{\ 1$B3XG/!X?t3X(BI$B!YFs3X4|Cf4V9M::(B\ \ 1998.10.22($BLZ(B)\ }%
+\testname{\ 1学年『数学I』二学期中間考査\ \ 1998.10.22(木)\ }%
 \prpagetrue
-\pageran{\thepage/\pageref{lastpage}}% $B%Z!<%8HV9f$N=PNOMM<0$rJQ99$7$F$_$^$9!%(B
-                                     % $BAm%Z!<%8?t$rI,MW$H$9$k$H$-$O!$(B
-                                     % $B:G=*%Z!<%8$G(B \label{lastpage} $B$H$7$F(B
-                                     % $B%i%Y%k(B lastpage $B$rDj5A$7$^$9!%(B
+\pageran{\thepage/\pageref{lastpage}}% ページ番号の出力様式を変更してみます．
+                                     % 総ページ数を必要とするときは，
+                                     % 最終ページで \label{lastpage} として
+                                     % ラベル lastpage を定義します．
 \begin{sheet}
   \begin{column}
     \item aaa
@@ -25,13 +25,13 @@
   \end{column}
 \end{sheet}
 
-% $BN"LL$G$9!%(B
-%\mondaibangou{1}%    $BN"LL$,I=LL$N2rEz$G$"$k>l9g$O!$LdBjHV9f$r(B1$B$+$i?6$jD>$9(B
-%                     $BI,MW$,$"$j$^$9!%$=$N$?$a$N%3%^%s%I$G$9!%(B
+% 裏面です．
+%\mondaibangou{1}%    裏面が表面の解答である場合は，問題番号を1から振り直す
+%                     必要があります．そのためのコマンドです．
 
-\danhaba{0.275}{0.275}{0.45}% $BN"LL$OCJ$N2#6R$rIT6QEy$K$7$F$_$^$9!%(B
-                            % $B;0$D$NCJ$N2#6RHfN($r(B $BOB$,(B1$B$K$J$k$h$&$J?tCM$G(B
-                            % $BM?$($^$9!%(B
+\danhaba{0.275}{0.275}{0.45}% 裏面は段の横巾を不均等にしてみます．
+                            % 三つの段の横巾比率を 和が1になるような数値で
+                            % 与えます．
 \begin{sheet}
   \begin{column}
     \item ddd
@@ -39,10 +39,10 @@
   \begin{column}
     \item eee
   \end{column}
-% \begin{column}%     $BN"LL$N(B3$BCJL\$,ITMW$N$H$-$O>JN,$9$k$3$H$,$G$-$^$9!%(B
+% \begin{column}%     裏面の3段目が不要のときは省略することができます．
 %   \item fff
 % \end{column}
 \end{sheet}%
-\label{lastpage}%     $BA4%Z!<%8>pJs$r%X%C%@$J$I$G;HMQ$9$k$H$-$O(B
-                %     lastpage $B$H$$$&L>A0$N%i%Y%k$rMxMQ$7$^$9!%(B
+\label{lastpage}%     全ページ情報をヘッダなどで使用するときは
+                %     lastpage という名前のラベルを利用します．
 \end{document}

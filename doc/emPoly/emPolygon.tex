@@ -4,11 +4,11 @@
 
 \begin{document}
 \section{\textsf{emPoly.sty}}
-$B@5B?3Q7A$rIA2h$9$k$?$a$N%9%?%$%k%U%!%$%k$G$9!#(B
-\subsection{$B0lJU$rM?$($F@5B?3Q7A(B}
-$B0lJU$rM?$($F@5B?3Q7A$rIA2h$9$k%3%^%s%I$,(B\cmd{Rpolygon}$B$G$9!#(B
-$B0lNc$H$7$F!$(BO\retu(0,0), A\retu(1,0)$B$r7k$V@~J,(BOA$B$r0lJU$H$9$k(B
-$B@5O;3Q7A$rIA2h$7$F$_$^$7$g$&!#(B
+正多角形を描画するためのスタイルファイルです。
+\subsection{一辺を与えて正多角形}
+一辺を与えて正多角形を描画するコマンドが\cmd{Rpolygon}です。
+一例として，O\retu(0,0), A\retu(1,0)を結ぶ線分OAを一辺とする
+正六角形を描画してみましょう。
 
 \begin{showEx}(.6,.34){\cmd{Rpolygon}}
 \begin{zahyou}[ul=10mm](-1.5,2)(-.5,2.5)
@@ -17,42 +17,42 @@
 \end{zahyou}
 \end{showEx}
 
-\subsection{\cmd{Rpolygon}$B$N=q<0(B}
+\subsection{\cmd{Rpolygon}の書式}
 
-\cmd{Rpolygon}$B$N=q<0$O<!$N$H$*$j$G$9!#(B
+\cmd{Rpolygon}の書式は次のとおりです。
 
 \begin{boxnote}
 \begin{verbatim}
 \Rpolygon[#1]#2#3#4#5
- $B@~J,(B#2#3$B$r(B1$BJU$H$9$k@5(B#4$B3Q7A(B
-   $BLa$jCM(B
-     $BCf?4(B \#5
-     $BD:E@(B \#5i(=#2), \#5ii, ......
- $B%*%W%7%g%s0z?t(B
-   #1 = L (default) : 2$B$D$NCf?4$N$&$A!$(Bx$B:BI8$NBg$-$$$[$&(B
-      = l           :                         $B>.$5$$$[$&(B
-      = O           :                  $BBg$-$$$[$&$G@5B?3Q7A$rIA2h$7$J$$(B
-      = o           :                  $B>.$5$$$[$&$G@5B?3Q7A$rIA2h$7$J$$(B
+ 線分#2#3を1辺とする正#4角形
+   戻り値
+     中心 \#5
+     頂点 \#5i(=#2), \#5ii, ......
+ オプション引数
+   #1 = L (default) : 2つの中心のうち，x座標の大きいほう
+      = l           :                         小さいほう
+      = O           :                  大きいほうで正多角形を描画しない
+      = o           :                  小さいほうで正多角形を描画しない
 \end{verbatim}
 \end{boxnote}
 
-$B@h$NNc$G$O!$(B
+先の例では，
 \begin{verbatim}
   #2 = \O
   #3 = \A
   #4 = 6
   #5 = C
 \end{verbatim}
-$B$H$7$F$$$^$9$+$i!$(BOA$B$r0lJU$H$9$k@5(B6$B3Q7A$,IA2h$5$l!$(B
+としていますから，OAを一辺とする正6角形が描画され，
 \begin{jquote}
 \begin{verbatim}
-$BCf?4$,(B \C
-$BD:E@$,(B \Ci, \Cii, \Ciii, \Civ, \Cv, \Cvi
+中心が \C
+頂点が \Ci, \Cii, \Ciii, \Civ, \Cv, \Cvi
 \end{verbatim}
 \end{jquote}
-$B$HDj5A$5$l$^$9!#$=$N$&$A(B\verb+\Ci=\O+, \verb+\Cii=\A+ $B$G$9!#(B
+と定義されます。そのうち\verb+\Ci=\O+, \verb+\Cii=\A+ です。
 
-\begin{showEx}(.6,.34){\cmd{Rpolygon}$B$NLa$jCM(B}
+\begin{showEx}(.6,.34){\cmd{Rpolygon}の戻り値}
 \begin{zahyou}[ul=10mm](-1.5,2)(-.5,2.5)
   \tenretu{[]O(0,0);A(1,0)s}
   \Rpolygon\O\A{6}{C}
@@ -65,15 +65,15 @@
 \end{zahyou}
 \end{showEx}
 
-OA$B$r0lJU$H$9$k@5B?3Q7A$O(B2$B8DB8:_$7$^$9$,!$(B
-$B%*%W%7%g%s0z?t(B\verb+#1+$B$r;XDj$7$J$$$H$-$O!$(B
-$BCf?4$N(B$x$$B:BI8$NBg$-$$J}!JEy$7$$$H$-$O!$(B$y$$B:BI8!K$,;XDj$5$l$?$b$N$H$_$J$7$^$9!#(B
-$B5U$NJ}$rIA2h$7$?$1$l$P!$%*%W%7%g%s0z?t$r(B\verb+[l]+$B$H;XDj$9$k$3$H$H$J$j$^$9!#(B
+OAを一辺とする正多角形は2個存在しますが，
+オプション引数\verb+#1+を指定しないときは，
+中心の$x$座標の大きい方（等しいときは，$y$座標）が指定されたものとみなします。
+逆の方を描画したければ，オプション引数を\verb+[l]+と指定することとなります。
 
-$B%*%W%7%g%s0z?t$r(B\verb+[O]+ $B$^$?$O(B \verb+[o]+ $B$H$7$?$H$-$O!$(B
-$B@5B?3Q7A$OIA2h$5$l$:!$Cf?4!$D:E@$N0LCV$N$_$,JV$C$F$-$^$9!#(B
+オプション引数を\verb+[O]+ または \verb+[o]+ としたときは，
+正多角形は描画されず，中心，頂点の位置のみが返ってきます。
 
-\begin{showEx}(.6,.34){\cmd{Rpolygon}$B$N(B\texttt{[l]}$B%*%W%7%g%s(B}
+\begin{showEx}(.6,.34){\cmd{Rpolygon}の\texttt{[l]}オプション}
 \begin{zahyou}[ul=10mm](-1.5,2)(-2.5,.5)
   \tenretu{[]O(0,0);A(1,0)s}
   \Rpolygon[l]\O\A{6}{C}
@@ -81,10 +81,10 @@ OA$B$r0lJU$H$9$k@5B?3Q7A$O(B2$B8DB8:_$7$^$9$,!$(B
 \end{showEx}
 
 
-\subsection{$BCf?4$H0lD:E@$rM?$($F@5B?3Q7A(B}
+\subsection{中心と一頂点を与えて正多角形}
 
-$BCf?4$H1_<~>e$N0lD:E@$r;XDj$7$F!$1_$KFb@\$9$k@5B?3Q7A$rIA2h$9$k%^%/%m$,(B
-\cmd{CRpolygon}$B$G$9!#(B
+中心と円周上の一頂点を指定して，円に内接する正多角形を描画するマクロが
+\cmd{CRpolygon}です。
 
 \begin{showEx}(.6,.34){\cmd{CRpolygon}}
 \unitlength10mm\footnotesize
@@ -101,9 +101,9 @@ OA$B$r0lJU$H$9$k@5B?3Q7A$O(B2$B8DB8:_$7$^$9$,!$(B
 \end{zahyou}
 \end{showEx}
 
-$B@5B?3Q7A$rIA2h$;$:!$D:E@$N$_$rF@$k$K$O(B\texttt{[O]}$B%*%W%7%g%s$rMQ$$$^$9!#(B
+正多角形を描画せず，頂点のみを得るには\texttt{[O]}オプションを用います。
 
-\begin{showEx}(.6,.34){\texttt{[O]}$B%*%W%7%g%s(B}
+\begin{showEx}(.6,.34){\texttt{[O]}オプション}
 \unitlength10mm\footnotesize
 \begin{zahyou}(-1,3)(-1,3)
 \def\C{(1,1)}
@@ -118,35 +118,35 @@ OA$B$r0lJU$H$9$k@5B?3Q7A$O(B2$B8DB8:_$7$^$9$,!$(B
 \end{zahyou}
 \end{showEx}
 
-\cmd{Rpolygon}$B$H0c$C$F!$@5B?3Q7A$O0l0U$K7h$^$j$^$9$+$i!$(B\texttt{[l], [o]}
-$B%*%W%7%g%s$O0UL#$r$b$A$^$;$s!#(B
+\cmd{Rpolygon}と違って，正多角形は一意に決まりますから，\texttt{[l], [o]}
+オプションは意味をもちません。
 
-\cmd{Rpolygon}$B$N$H$-$K$D$1K:$l$?!LCm!M$G$9$,!$@5B?3Q7A$ND:E@5-9f$K(B`P'
-$B$O;HMQ$G$-$^$;$s!#(B
-$B$3$l$O!$(B\cmd{Pi} $B$,(B \LaTeX $B$GDj5A:Q$_$G$"$k$b$N$rGK2u$9$k$3$H$K$J$k$+$i$G$9!#(B
-$B$^$?!$(B\cmd{Pii}$B$b(B\textsf{eclarith.sty}$B$G(B$2\pi$$B$rI=$9?tCM$H$7$F(B
-$BDj5A$5$l$F$$$^$9!#(B
+\cmd{Rpolygon}のときにつけ忘れた〔注〕ですが，正多角形の頂点記号に`P'
+は使用できません。
+これは，\cmd{Pi} が \LaTeX で定義済みであるものを破壊することになるからです。
+また，\cmd{Pii}も\textsf{eclarith.sty}で$2\pi$を表す数値として
+定義されています。
 
-$BD:E@5-9f$H$7$F(B`P'$B$rMQ$$$?$$$H$-$O!$(B\verb/\CRpolygon\C\A{5}{PP}/ $B$J$I$H(B
-$BJL$N5-9f$rMQ$$$F!$I=<(%i%Y%k$r(BP$B$H$9$k$J$I$NFs=ED"JmE*$J=hM}$,I,MW$H$J$j$^$9!#(B
+頂点記号として`P'を用いたいときは，\verb/\CRpolygon\C\A{5}{PP}/ などと
+別の記号を用いて，表示ラベルをPとするなどの二重帳簿的な処理が必要となります。
 
-$B:G8e$K=q<0$G$9!#(B
+最後に書式です。
 
 \begin{boxnote}
 \begin{verbatim}
 \CRpolygon[#1]#2#3#4#5{%
-  $BCf?4(B#2$B$N1_<~>e$NE@(B#3$B$r0l$D$ND:E@$H$9$k!$1_$KFb@\$9$k@5(B#4$B3Q7A(B
-  $BLa$jCM(B
-    $BD:E@(B #5i(=#3), #5ii, #5iii, ...
-  #1 = L (default) : $B@5B?3Q7A$rIA2h$9$k!#(B
-     = O           : $B@5B?3Q7A$rIA2h$7$J$$(B
+  中心#2の円周上の点#3を一つの頂点とする，円に内接する正#4角形
+  戻り値
+    頂点 #5i(=#3), #5ii, #5iii, ...
+  #1 = L (default) : 正多角形を描画する。
+     = O           : 正多角形を描画しない
 \end{verbatim}
 \end{boxnote}
 \clearpage
 
-\subsection{$B1_$K30@\$9$k@5B?3Q7A(B}
-$B1_$NCf?4$H!$1_<~>e$N0lE@$rM?$($F!$1_$K30@\$9$k@5B?3Q7A$rIA2h$9$k%3%^%s%I$,(B
-\cmd{CCRpolygon}$B$G$9!#(B
+\subsection{円に外接する正多角形}
+円の中心と，円周上の一点を与えて，円に外接する正多角形を描画するコマンドが
+\cmd{CCRpolygon}です。
 
 \begin{showEx}(.6,.34){\cmd{CCRpolygon}}
 \begin{zahyou}[ul=10mm](-.5,2.5)(-.5,2.5)
@@ -157,16 +157,16 @@ OA$B$r0lJU$H$9$k@5B?3Q7A$O(B2$B8DB8:_$7$^$9$,!$(B
 \end{zahyou}
 \end{showEx}
 
-$B$=$N=q<0$G$9!'(B
+その書式です：
 
 \begin{boxnote}
 \begin{verbatim}
 \CCRpolygon[#1]#2#3#4#5{%
-  $BCf?4(B#2$B$N1_<~>e$NE@(B#3$B$r0l$D$N@\E@$H$9$k!$1_$K30@\$9$k@5(B#4$B3Q7A(B
-  $BLa$jCM(B
-    $BD:E@(B #5i, #5ii, #5iii, ...
-  #1 = L (default) : $B@5B?3Q7A$rIA2h$9$k!#(B
-     = O           : $B@5B?3Q7A$rIA2h$7$J$$(B
+  中心#2の円周上の点#3を一つの接点とする，円に外接する正#4角形
+  戻り値
+    頂点 #5i, #5ii, #5iii, ...
+  #1 = L (default) : 正多角形を描画する。
+     = O           : 正多角形を描画しない
 \end{verbatim}
 \end{boxnote}
 \end{document}

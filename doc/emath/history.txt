@@ -1,650 +1,650 @@
-%%% $B2~HGMzNr(B
+%%% 改版履歴
 %%% ver0.00  1998/2/20
 %%%
 %%% ver0.001 1998/2/20
-%%%     LaTeX 2.09 $B$KBP$7!$(B
+%%%     LaTeX 2.09 に対し，
 %%%         \newcommand{\tagform}[1]{}%
-%%%     $B$rIU2C$9$k!%(B
+%%%     を付加する．
 %%% ver0.002 1998/2/22
-%%%     syouMon... $B$r(B edaMon... $B$KJQ99$9$k!%(B
+%%%     syouMon... を edaMon... に変更する．
 %%% ver.0.003 1998/2/22
-%%%     \postEqlabel $B$r?7@_$7$F!$(B
-%%%     $B?t<0HV9f$N8e$m$K(B($B6uGr$G$b(B)$BF~$l$i$l$k$h$&$K$9$k!%(B
+%%%     \postEqlabel を新設して，
+%%%     数式番号の後ろに(空白でも)入れられるようにする．
 %%% ver.0.004 1998/2/23
-%%%     \newif\ifedaMonnopar $B$rDI2C$7$F!$(B
-%%%     edaMon $B$N@hF,$N(B \par $B$rL58z2=$G$-$k$h$&$K$7$?!%(B
+%%%     \newif\ifedaMonnopar を追加して，
+%%%     edaMon の先頭の \par を無効化できるようにした．
 %%% ver.0.005 1998/2/24
-%%%     \retuwa $B$NDj5A$NCf$N(B \ensuremath $B$r:o=|$7$?!%(B
+%%%     \retuwa の定義の中の \ensuremath を削除した．
 %%% ver.0.006 1998/2/27
-%%%     \ifedaMonnopar $B$rGQ;_$7!$(B\preedaMon($BFbIt!'(B\pre@edaMon) $B$r?7@_(B
+%%%     \ifedaMonnopar を廃止し，\preedaMon(内部：\pre@edaMon) を新設
 %%% ver.0.007 1998/3/1
-%%%     \edaMon $B$N2#I}$N7W;;4p=`$r(B \columnwidth $B$+$i(B \linewidth $B$KJQ99(B
+%%%     \edaMon の横幅の計算基準を \columnwidth から \linewidth に変更
 %%% ver.0.008 1998/3/2
-%%%     \edamon[$B2#$KJB$Y$k>.Ld$N8D?t(B]{$B>.Ld$NFbMF(B} $B$r?7@_(B
+%%%     \edamon[横に並べる小問の個数]{小問の内容} を新設
 %%% ver.0.01 1998/3/5
-%%%     \edamon $BGQ;_(B
-%%%     $B>.Ld$r2#$KJB$Y$k(B edaenumerate $B4D6-$r?7@_(B
+%%%     \edamon 廃止
+%%%     小問を横に並べる edaenumerate 環境を新設
 %%% ver.0.01a 1998/3/7
 %%%   \edaenumerate
-%%%     \leftmargin=0pt $B$O(B list $B$N?<$5$,(B1$B$h$jBg$-$$>l9g$K8BDj(B
-%%%     minipage $B$N4V$K%0%k!<$rF~$l$k!%(B
+%%%     \leftmargin=0pt は list の深さが1より大きい場合に限定
+%%%     minipage の間にグルーを入れる．
 %%% ver.0.01b 1998/3/8
-%%%   \suuretu {,} $B$r(B \left\{,\right} $B$K$9$k(B
+%%%   \suuretu {,} を \left\{,\right} にする
 %%% ver.0.01c 1998/3/10
-%%%   \ko \tate $B$,L$Dj5A$N>l9g$O(B \frown $B$rMQ$$$k(B
+%%%   \ko \tate が未定義の場合は \frown を用いる
 %%% ver.0.01d 1998/3/11
-%%%   edaenumerate $B4D6-$K(B < > $B%*%W%7%g%s$rIU$1$k!%(B
-%%%   \edaitem*(\edaitemm $B$b$*$J$8!K$r?7@_$7!$0z?t$r?t<04D6-$H$9$k!%(B
+%%%   edaenumerate 環境に < > オプションを付ける．
+%%%   \edaitem*(\edaitemm もおなじ）を新設し，引数を数式環境とする．
 %%% ver.0.01e 1998/3/12
-%%%   \edasep $B$G>.Ld$N:81&$N4V3V$r;XDj$G$-$k$h$&$K$9$k!%(B
-%%%     $B!J%G%U%)%k%H(B = 1zw $B!K(B
-%%%   \preedaenumskip $B$GK\J8$H(B edaenumerate $B4D6-$N9T4V3V$r(B
-%%%     $B;XDj$G$-$k$h$&$K$9$k!%!J%G%U%)%k%H(B = -0.5ex $B!K(B
-%%%   edaenumeratem $B4D6-!JA4Ld$,?t<0%b!<%I$N$H$-!K$rIU2C(B
+%%%   \edasep で小問の左右の間隔を指定できるようにする．
+%%%     （デフォルト = 1zw ）
+%%%   \preedaenumskip で本文と edaenumerate 環境の行間隔を
+%%%     指定できるようにする．（デフォルト = -0.5ex ）
+%%%   edaenumeratem 環境（全問が数式モードのとき）を付加
 %%% ver.0.01f 1998/3/14
-%%%   \zettaiti $B@dBPCM5-9f$rI=$9%3%^%s%I$r?7@_(B
+%%%   \zettaiti 絶対値記号を表すコマンドを新設
 %%% ver.0.01h 1998/3/16
-%%%   caprm $B4D6-!J?t<0%b!<%I$G1QBgJ8;z$r%m!<%^%sBN$K$9$k!K$r?7@_(B
+%%%   caprm 環境（数式モードで英大文字をローマン体にする）を新設
 %%% ver.0.01i 1998/3/19
-%%%   \bekutoru $B:81&$NM>Gr$r=|5n$7!$Lp0u$N9b$5$r>/$79b$/$7!$(B
-%%%     $B$=$l$rJQ99$9$k%3%^%s%I$rMQ0U(B
+%%%   \bekutoru 左右の余白を除去し，矢印の高さを少し高くし，
+%%%     それを変更するコマンドを用意
 %%% ver.0.01j 1998/3/26
-%%%   edaenumerate $B4D6-$G!$(Bpreedaenumskip, postedaenumskip $B$rD4@0(B
+%%%   edaenumerate 環境で，preedaenumskip, postedaenumskip を調整
 %%% ver.0.01k 1998/3/28
-%%%   \kyouyaku $B6&LrJ#AG?t$rI=$9%3%^%s%I$r?7@_(B
+%%%   \kyouyaku 共役複素数を表すコマンドを新設
 %%% ver.0.01l 1998/3/29
-%%%   \naiseki $B%Y%/%H%k$NFb@Q$rI=$9%3%^%s%I$r?7@_(B
+%%%   \naiseki ベクトルの内積を表すコマンドを新設
 %%% ver.0.02  1998/4/1
-%%%   $B8x3+(B
+%%%   公開
 %%% ver.0.02a 1998/4/5
-%%%   $B%+%&%s%?(B tempcnta(b,c) $B$r?7@_(B
+%%%   カウンタ tempcnta(b,c) を新設
 %%% ver.0.02b 1998/4/7
-%%%   \bunsuu \mathchoice $B$rMQ$$$F!$(B\subscript type $B$KBP1~$9$k!%(B
+%%%   \bunsuu \mathchoice を用いて，\subscript type に対応する．
 %%% ver.0.02c 1998/4/8
-%%%   \itembbox   $B2<$K8+=P$7$rIU$1$k(B itembox
-%%%   \itemtbbox  $B>e2<$K8+=P$7$rIU$1$k(B itembox
+%%%   \itembbox   下に見出しを付ける itembox
+%%%   \itemtbbox  上下に見出しを付ける itembox
 %%% ver.0.02d 1998/4/8
-%%%   \itembbox, \itemtbbox $BFHN)$5$;$k!%(B
+%%%   \itembbox, \itemtbbox 独立させる．
 %%% ver.0.02e 1998/4/9
-%%%   \resetcounter#1[#2] $B%+%&%s%?$N%j%;%C%H!$?F;R4X78$N@_Dj(B
+%%%   \resetcounter#1[#2] カウンタのリセット，親子関係の設定
 %%% ver.0.02f 1998/4/10
-%%%   \bunsuu \mathchoice $B$r;H$&$H!$(B\Hako $B$KI{:nMQ$"$j!%;HMQJ]N1(B
+%%%   \bunsuu \mathchoice を使うと，\Hako に副作用あり．使用保留
 %%% ver.0.02g 1998/4/12
-%%%   \renritu $BO"N)J}Dx<0$N?t<0HV9f(B
-%%%   \houteisiki $BJ}Dx<0$r%_%K%Z!<%8$KF~$l$F?t<0HV9f$rIU2C(B
+%%%   \renritu 連立方程式の数式番号
+%%%   \houteisiki 方程式をミニページに入れて数式番号を付加
 %%% ver.0.02h 1998/4/18
-%%%   zu $B?^$N$^$o$j$K%F%-%9%H$r$r2s$j9~$^$;$k4D6-(B
+%%%   zu 図のまわりにテキストをを回り込ませる環境
 %%% ver.0.02i 1998/4/23
-%%%   enumerate $B4D6-$N%*%W%7%g%s$K(B
-%%%     $B%"!'%"%$%&%(%*!%!%!%(B
-%%%     $B%$!'%$%m%O%K%[!%!%!%(B
-%%%     $B$"!'$"$$$&$($*!%!%!%(B
-%%%     $B$$!'$$$m$O$K$[!%!%!%(B
-%%%     $B0l!'0lFs;0;M8^!%!%!%(B
-%%%   $B$rDI2C$9$k!%(B
+%%%   enumerate 環境のオプションに
+%%%     ア：アイウエオ．．．
+%%%     イ：イロハニホ．．．
+%%%     あ：あいうえお．．．
+%%%     い：いろはにほ．．．
+%%%     一：一二三四五．．．
+%%%   を追加する．
 %%% ver.0.02j 1998/4/28
-%%%   edaenumerate $B4D6-$NKAF,$K(B \leavevmode $B$rF~$l$k!%(B
-%%%     \item % $B6uJ8$N>l9g!$IT6q9g$,H/@8$7$?$b$N$KBP1~(B
+%%%   edaenumerate 環境の冒頭に \leavevmode を入れる．
+%%%     \item % 空文の場合，不具合が発生したものに対応
 %%%       \begin{edaenumerate}
 %%% ver.0.02k 1998/4/29
-%%%     \edaitem \long\def $B$H$9$k!%(B
+%%%     \edaitem \long\def とする．
 %%% ver.0.03 1998/05/01
-%%%   $B8x3+(B
+%%%   公開
 %%% ver.0.03a 1998/05/04
-%%%     $BJ#AG?t$N<BIt!$5uIt$rI=$95-9f(B
+%%%     複素数の実部，虚部を表す記号
 %%%     \zitubu, \kyobu
 %%% ver.0.03b 1998/05/09
-%%%     \zuhan $B?^$H%F%-%9%H$r2#$KJB$Y$k!%(B
-%%%         zu $B4D6-$H0[$J$j!$2s$j9~$_$O$7$J$$!%(B
-%%%         $B%F%-%9%HItJ,$K(B enumerate $B4D6-$J$I$,$"$C$F$b$h$$!%(B
+%%%     \zuhan 図とテキストを横に並べる．
+%%%         zu 環境と異なり，回り込みはしない．
+%%%         テキスト部分に enumerate 環境などがあってもよい．
 %%% ver.0.03c 1998/05/10
-%%%     \houteisiki \abovedisplayskip $B$K0MB8$9$k!%(B
+%%%     \houteisiki \abovedisplayskip に依存する．
 %%% ver.0.03d 1998/05/14
-%%%     \kaku, \sankaku, \bekutoru *$BIU$-%3%^%s%I$r?7@_!%(B
-%%%       $B0z?t$O?t<0%b!<%I(B (caprm $B4D6-Fb$G;HMQ$rA[Dj(B)
+%%%     \kaku, \sankaku, \bekutoru *付きコマンドを新設．
+%%%       引数は数式モード (caprm 環境内で使用を想定)
 %%% ver.0.03e 1998/05/14
-%%%     \zettaiti $B4V3V$r(B \lvert, \rvert $B$KB7$($k!%(B
+%%%     \zettaiti 間隔を \lvert, \rvert に揃える．
 %%% ver.0.03f 1998/05/17
-%%%     \houteisiki \preEqlabel{$\cdots\cdots$}$B$H$9$k!%(B
+%%%     \houteisiki \preEqlabel{$\cdots\cdots$}とする．
 %%% ver.0.03g 1998/05/24
-%%%     \renritu fleqn $B%*%W%7%g%s$,$J$/$F$b;HMQ2DG=!%(B
-%%%     $B$?$@$7!$:84s$;$H$J$k$N$G(B(..)$B%*%W%7%g%s$G:8%^!<%8%s$r;XDj!%(B
+%%%     \renritu fleqn オプションがなくても使用可能．
+%%%     ただし，左寄せとなるので(..)オプションで左マージンを指定．
 %%% ver.0.03h 1998/06/07
-%%%     \renritu \abovedisplayskip, \belowdisplayskip $B$rM-8z$H$9$k(B
+%%%     \renritu \abovedisplayskip, \belowdisplayskip を有効とする
 %%% ver.0.03i 1998/06/26
 %%%     \kongou
 %%% ver.0.03j 1998/07/21
-%%%     \nidan  $BItJ,E*FsCJAH(B (\zuhan $B$O:o=|(B)
+%%%     \nidan  部分的二段組 (\zuhan は削除)
 %%% ver.0.03k 1998/07/31
-%%%     \houteisiki fleqn $B%*%W%7%g%s$,$J$/$H$b2D$H$9$k!%(B
+%%%     \houteisiki fleqn オプションがなくとも可とする．
 %%% ver.0.03l 1998/08/10
 %%%     \preEqlabel*#1
-%%%         $B?t<0HV9f$N:8$N!&!&!&$rD9$5(B0$B$N%\%C%/%9$H$9$k!%(B
-%%%         $B!J(B alignat $B4D6-MQ!K(B
+%%%         数式番号の左の・・・を長さ0のボックスとする．
+%%%         （ alignat 環境用）
 %%% ver.0.03m 1998/08/11
-%%%     \kyouyaku $B6&LrJ#AG?t$rI=$9%3%^%s%I(B
+%%%     \kyouyaku 共役複素数を表すコマンド
 %%% ver.0.04 1998/08/12
-%%%     $B%U%!%$%kL>$r(B emath.sty $B$KJQ99(B
+%%%     ファイル名を emath.sty に変更
 %%% ver.0.04a 1998/08/19
-%%%     \bunsuu $B$r(B \mathchoice $BBP1~$H$7!$9g$o$;$F(B \houteisiki
-%%%     $B%3%^%s%I$H$H$b$K!$(B \Hako $B$N%+%&%s%?$,?J$_2a$.$k$N$r@)8f$9$k!%(B
+%%%     \bunsuu を \mathchoice 対応とし，合わせて \houteisiki
+%%%     コマンドとともに， \Hako のカウンタが進み過ぎるのを制御する．
 %%% ver.0.04b 1998/08/21
-%%%     \renritu $B%3%^%s%I$N%*%W%7%g%s0z?t(B [...] $B$NKAF,$,%3%^%s%I$N>l9g(B
-%%%     2$B2s%?%$%W%;%C%H$5$l$F$7$^$&!%(B
+%%%     \renritu コマンドのオプション引数 [...] の冒頭がコマンドの場合
+%%%     2回タイプセットされてしまう．
 %%% ver.0.04c 1998/08/24
-%%%     \strlen $BJ8;zNs$ND9$5$N7W;;(B
+%%%     \strlen 文字列の長さの計算
 %%% ver.0.04d 1998/08/25
-%%%     \teisei $BDI2C(B
-%%%     \yakubun $BDI2C(B
-%%%     \?e?arrow eepic $B$H$N6&B8(B
+%%%     \teisei 追加
+%%%     \yakubun 追加
+%%%     \?e?arrow eepic との共存
 %%% ver.0.04e 1998/09/05
-%%%     Enumerate, Enumerate* $B4D6-(B $B!'(Benumerate $B4D6-$NCfCG!&:F3+(B
+%%%     Enumerate, Enumerate* 環境 ：enumerate 環境の中断・再開
 %%% ver.0.04f 1998/09/09
-%%%     \edaitem $B$D$.$N(B \edaitem $B$^$?$O(B \end{edaenumerate} $B$^$G$r0z?t$H$9$k!%(B
-%%%       $B6/@)2~9T$O(B \edakaigyou
-%%%       $BNs4V7S@~$O(B \edasikiri
+%%%     \edaitem つぎの \edaitem または \end{edaenumerate} までを引数とする．
+%%%       強制改行は \edakaigyou
+%%%       列間罫線は \edasikiri
 %%% ver.0.04g 1998/09/18
-%%%     \souzi, \heikousihenkei, \?e?arrow $B$rJ8;z%5%$%:$NJQ99$KDI?o$5$;$k!%(B
-%%%     \getcurrentsize, \current@ex, \HUge, \HUGe $B$rDI2C!%(B
+%%%     \souzi, \heikousihenkei, \?e?arrow を文字サイズの変更に追随させる．
+%%%     \getcurrentsize, \current@ex, \HUge, \HUGe を追加．
 %%% ver.0.04h 1998/09/19
-%%%     \teisei $B<h>C$7@~$K?'$r$D$1$i$l$k$h$&$K$9$k!%(B
+%%%     \teisei 取消し線に色をつけられるようにする．
 %%% ver.0.04i 1998/09/20
-%%%     edaenumerate $B4D6-(B \edaitem $B4V$N4V3V(B \edasep $B$r(B
-%%%        \pre@edasep, \post@edasep $B$KJ,N%$9$k!%(B
+%%%     edaenumerate 環境 \edaitem 間の間隔 \edasep を
+%%%        \pre@edasep, \post@edasep に分離する．
 %%% ver.0.04j 1998/09/30
-%%%     edaitem $B$rC1$K(B \item $B$GNI$$$3$H$K$9$k!%(B
-%%%     jquote $B4D6-!'(B $B:8$N$_%$%s%G%s%H!$%$%s%G%s%HNL$b;XDj2DG=(B
+%%%     edaitem を単に \item で良いことにする．
+%%%     jquote 環境： 左のみインデント，インデント量も指定可能
 %%% ver.0.04k 1998/10/08
-%%%     \refcurrentenum enumerate $B4D6-$K$*$1$kAj8_;2>HHV9f$r(B
-%%%       $BEv3:%l%Y%k$N$_$H$9$k!%(B
+%%%     \refcurrentenum enumerate 環境における相互参照番号を
+%%%       当該レベルのみとする．
 %%% ver.0.04l 1998/10/20
-%%%     \dmyln[dim] nidan $B4D6-$N1&B&$N=D0LCV=$@5MQ(B
-%%%     caprm [l] $B%*%W%7%g%s$G>.J8;z$b%m!<%^%sBN(B
+%%%     \dmyln[dim] nidan 環境の右側の縦位置修正用
+%%%     caprm [l] オプションで小文字もローマン体
 %%% ver.0.04m 1998/10/24
-%%%     \DEG $B3QEY$rI=$95-9f(B \r{} $B$rMQ$$$?$b$N(B
+%%%     \DEG 角度を表す記号 \r{} を用いたもの
 %%% ver.0.04n 1998/11/01
-%%%     jquote $B4D6-(B topsep $B$r(B [...] $B%*%W%7%g%s$G;XDj(B
-%%%     jquotation $B4D6-$rJ;@_(B
+%%%     jquote 環境 topsep を [...] オプションで指定
+%%%     jquotation 環境を併設
 %%% ver.0.04o 1998/11/20
-%%%     $B?t<04D6-Fb$GBgJ8;z$N$_$r%m!<%^%sBN$K$9$k%3%^%s%I(B \mathRM
+%%%     数式環境内で大文字のみをローマン体にするコマンド \mathRM
 %%% ver.0.04p 1998/11/29
-%%%     \dpower $BN_>h$NN_>h$G(B2$B<o$NN_>h$N%Y!<%9%i%$%s$rB7$($k!%(B
+%%%     \dpower 累乗の累乗で2種の累乗のベースラインを揃える．
 %%% ver.0.04q 1998/12/4
-%%%     enumerate $B4D6-$N%*%W%7%g%sJ8;z$rDI2C(B
-%%%       m: $B4]IU$-HV9f(B
-%%%     Enumerate* $B4D6-$K$O%*%W%7%g%sITMW(B
-%%%       Enumerate $B4D6-$N%*%W%7%g%s$r0z$-7Q$0(B
+%%%     enumerate 環境のオプション文字を追加
+%%%       m: 丸付き番号
+%%%     Enumerate* 環境にはオプション不要
+%%%       Enumerate 環境のオプションを引き継ぐ
 %%% ver.0.04r 1998/12/5
-%%%     \setcurrentenum $B8=:_$N%l%Y%k$N(B enumerate $BHV9f$r%;%C%H$9$k!%(B
+%%%     \setcurrentenum 現在のレベルの enumerate 番号をセットする．
 %%%
-%%%     $BA}2C8:>/$H1zFL$rI=8=$9$k%3%^%s%I$NJLL>(B
-%%%           $B2<$KFL(B    $B>e$KFL(B  $B1zFL6hJLL5(B
-%%%       $BA}2C(B  \totuzou  \ouzou  \zouka
-%%%       $B8:>/(B  \totugen  \ougen  \gensyou
+%%%     増加減少と凹凸を表現するコマンドの別名
+%%%           下に凸    上に凸  凹凸区別無
+%%%       増加  \totuzou  \ouzou  \zouka
+%%%       減少  \totugen  \ougen  \gensyou
 %%% ver.0.05  1998/12/16
-%%%     $B8x3+(B
+%%%     公開
 %%% ver.0.05a 1998/12/20
-%%%     \edaitemindent $B$,L58z$K$J$C$F$$$?!%(B
+%%%     \edaitemindent が無効になっていた．
 %%% ver.0.05b 1998/12/24
-%%%     \edaitemindent $B$rGQ;_$7!$(B
-%%%     edaenumerate $B$K(B (...) $B%*%W%7%g%s$r?7@_(B
-%%%     \begin{edaenumerate}<$B>.Ld?t(B>($B:8%$%s%G%s%H(B)[$BLdBjHV9f7A<0(B]
+%%%     \edaitemindent を廃止し，
+%%%     edaenumerate に (...) オプションを新設
+%%%     \begin{edaenumerate}<小問数>(左インデント)[問題番号形式]
 %%% ver.0.05c 1999/01/01
-%%%     \zyohou $B@0<0$N=D=q$-3d;;(B
+%%%     \zyohou 整式の縦書き割算
 %%% ver.0.05d 1999/01/10
-%%%     \kyokukeisiki $B0z?t$K(B \Hako $B$rM?$($?$H$-!$(B
-%%%       $B<BIt$H5uIt$NH"$NJ8;z$,0c$C$F$7$^$&!%(B
+%%%     \kyokukeisiki 引数に \Hako を与えたとき，
+%%%       実部と虚部の箱の文字が違ってしまう．
 %%% ver.0.05e 1999/02/05
-%%%     enumerate, edaenumerate $B$K(B '.....' $B%*%W%7%g%s$rIU2C(B
-%%%     \renewcommand{\labelenumi}{.....} $B$KAjEv!%(B
+%%%     enumerate, edaenumerate に '.....' オプションを付加
+%%%     \renewcommand{\labelenumi}{.....} に相当．
 %%% ver.0.05f 1999/02/06
-%%%     $B=DD9$N4]IU$-J8;z(B
+%%%     縦長の丸付き文字
 %%%     \nagamaru#1
 %%% ver.0.05g 1999/02/07
-%%%     $BD>3Q$rI=$95-9f(B \tyokkaku[$B2sE>3Q(B]{$B%5%$%:(B}
+%%%     直角を表す記号 \tyokkaku[回転角]{サイズ}
 %%% ver.0.05h 1999/03/07
-%%%     \teisei $B$J$I(B
-%%%     picture $B4D6-$G$N(B \unitlength $B$rL@<($9$k!%(B
-%%%     \tyokkaku $B$O(B emathP.sty $B$K0\$9!%(B
-%%% ver.0.06$B&B(B  1999/04/25
-%%% ver.0.06$B&B(B1 1999/05/01
-%%%     \tasuki, \Tasuki $B$N?7@_(B
-%%% ver.0.06$B&B(B2 1999/05/02
-%%%     \tasuki $B$K(B [l]$B%*%W%7%g%s!J:8B&$@$1!K(B
-%%% ver.0.06$B&B(B3 1999/05/09
-%%%     \Retube $B#3<!$NNs%Y%/%H%k(B
-%%% ver.0.06$B&B(B4 1999/05/10
-%%%     \Retube LaTeX2.09 $B$N>l9g$N%P%0=$@5(B
-%%% ver.0.06$B&B(B5 1999/05/11
-%%%     \renritu* $B$G<0HV9f$J$7(B
-%%% ver.0.06$B&B(B6 1999/05/24
-%%%     \Teisei $BD{@58e$NJ8;zNs$r(B scriptstyle $B$G!$G[CV$r(B
-%%%             $B>e!$1&>e!$:8>e(B
-%%%             $B2<!$1&2<!$:82<(B
+%%%     \teisei など
+%%%     picture 環境での \unitlength を明示する．
+%%%     \tyokkaku は emathP.sty に移す．
+%%% ver.0.06β  1999/04/25
+%%% ver.0.06β1 1999/05/01
+%%%     \tasuki, \Tasuki の新設
+%%% ver.0.06β2 1999/05/02
+%%%     \tasuki に [l]オプション（左側だけ）
+%%% ver.0.06β3 1999/05/09
+%%%     \Retube ３次の列ベクトル
+%%% ver.0.06β4 1999/05/10
+%%%     \Retube LaTeX2.09 の場合のバグ修正
+%%% ver.0.06β5 1999/05/11
+%%%     \renritu* で式番号なし
+%%% ver.0.06β6 1999/05/24
+%%%     \Teisei 訂正後の文字列を scriptstyle で，配置を
+%%%             上，右上，左上
+%%%             下，右下，左下
 %%% ver.0.06  1999/06/06
 %%% ver.0.07    1999/06/26-07/21
-%%%     emath2e \RequirePackage $BJ8$N0LCV$,ITHw$G(B \fleqn $B$,L58z$H$J$k!%(B
+%%%     emath2e \RequirePackage 文の位置が不備で \fleqn が無効となる．
 %%%     \marudashtag, \marudashref
-%%%       $B?t<0HV9f$K%@%C%7%e$r$D$1$k!%(B
-%%%     $B>e5-$K4XO"$7$F(B \houteisiki $B%3%^%s%I$G(B \tag, \tag* $B$r$D$1$k$H$-$O(B
-%%%       [\tag{..}] $B%*%W%7%g%s$rIm2C!%(B
-%%%     $BFbIt4X?t(B \IDiv, \IMod, \IDivMod $BDI2C(B
+%%%       数式番号にダッシュをつける．
+%%%     上記に関連して \houteisiki コマンドで \tag, \tag* をつけるときは
+%%%       [\tag{..}] オプションを附加．
+%%%     内部関数 \IDiv, \IMod, \IDivMod 追加
 %%% ver.0.08  1999/08/23 - 10/30
-%%%     \fsizeup, \fsizedown $B8=:_$h$j0l%i%s%/>e2<$N%U%)%s%H%5%$%:$K(B
-%%%     \chgfontsizeratio $B%U%)%s%H%5%$%:$rHfN($r;XDj$7$FJQ99(B
-%%%     ifthen $B%Q%C%1!<%8<+F0%m!<%I(B
-%%%     \neqq scriptstyle $B$KBP1~(B
-%%%     \maru $BJ8;z%5%$%:$NJQ99$KBP1~$9$k!#(B
-%%%     fleqn $B$N%*%s!&%*%U$,$G$-$k$h$&$K$9$k!%(B
+%%%     \fsizeup, \fsizedown 現在より一ランク上下のフォントサイズに
+%%%     \chgfontsizeratio フォントサイズを比率を指定して変更
+%%%     ifthen パッケージ自動ロード
+%%%     \neqq scriptstyle に対応
+%%%     \maru 文字サイズの変更に対応する。
+%%%     fleqn のオン・オフができるようにする．
 %%%       (\fleqnon, \fleqnoff)
-%%%     \bunsuu $BJ,?t7S@~$N>e2<$r69$/$9$k!%(B
-%%%     \ruizyoukon \sqrt[n]{a} $B$N(B n $B$r:8$K0\F0$9$k!%(B
+%%%     \bunsuu 分数罫線の上下を狭くする．
+%%%     \ruizyoukon \sqrt[n]{a} の n を左に移動する．
 %%% ver0.09   1999/11/21-12/21
 %%%     \BEGINalltt, \ENDalltt
-%%%       emathR $B$rMQ$$$k$H$-!$(B\end{alltt} $B$,(B \end {alltt}
-%%%       $B$H=q$-=P$5$l%(%i!<$H$J$k$3$H$X$NBP:v(B
-%%%     \IForNext $B@0?tJQ?t$N(B FOR $B%k!<%W(B
+%%%       emathR を用いるとき，\end{alltt} が \end {alltt}
+%%%       と書き出されエラーとなることへの対策
+%%%     \IForNext 整数変数の FOR ループ
 %%%     \Strlen, \bStrlen
-%%%       $B4X?tCM$r;XDj$7$?%3%s%H%m!<%k%7!<%1%s%9$KJV$9!%(B
-%%%       $BA43Q$O#2%P%$%H(B \bStrlen
-%%%     \Maru $BCf$NJ8;z$rBg$-$a$K(B
-%%%     \writeLabel $B%i%Y%k=q$-=P$7%3%^%s%I$r?7@_$9$k!%(B
-%%%     \topchar $B@hF,$N0lJ8;z$rJ,N%$9$k!%(B
+%%%       関数値を指定したコントロールシーケンスに返す．
+%%%       全角は２バイト \bStrlen
+%%%     \Maru 中の文字を大きめに
+%%%     \writeLabel ラベル書き出しコマンドを新設する．
+%%%     \topchar 先頭の一文字を分離する．
 %%%     \edefappend
-%%%       \edef $B$N0z?t$K(B \sqrt, \bunsuu $B$J$I$r5-=R$G$-$k$h$&$K$9$k!%(B
-%%%       $B!J(B\noexpand $B$NJ;MQ!K(B
+%%%       \edef の引数に \sqrt, \bunsuu などを記述できるようにする．
+%%%       （\noexpand の併用）
 %%%     \gIForNext \global \IForNext
 %%% ver0.10 1999/12/22-24
-%%%     \Cfor C$B8@8lIw$N(B for $B%k!<%W(B
-%%%       $B%$%s%/%j%a%s%H(B \Incr, \xIncr
-%%%       $B%G%/%j%a%s%H(B   \Decr, \xDecr
+%%%     \Cfor C言語風の for ループ
+%%%       インクリメント \Incr, \xIncr
+%%%       デクリメント   \Decr, \xDecr
 %%% ver0.11 1999/12/24-26
-%%%     \IMax $B:GBgCM(B
-%%%     \Icalc a+b=c $B$N7A<0(B
+%%%     \IMax 最大値
+%%%     \Icalc a+b=c の形式
 %%%     \strchr, \strsep
 %%% ver 0.12 1999/12/27-28
-%%%     \headchar $B=$@5(B
-%%%     \strsep   $B=$@5(B
+%%%     \headchar 修正
+%%%     \strsep   修正
 %%%     \Leftstr, \Rightstr, \Midstr
 %%% ver 0.13 2000/01/01-07
-%%%     \getflnode $B=$@5(B
-%%%     $B%U%!%$%k=hM}(B
-%%%       \gettimestamp $B%?%$%`%9%?%s%W$rF@$k!%(B
-%%%       \delfile      $B%U%!%$%k$r:o=|$9$k!%(B
-%%%       \getTEXMFDIR  $B4D6-JQ?t(B TEXMF $B$NCM$rJ8;zNs$H$7$F<hF@$9$k!%(B
+%%%     \getflnode 修正
+%%%     ファイル処理
+%%%       \gettimestamp タイムスタンプを得る．
+%%%       \delfile      ファイルを削除する．
+%%%       \getTEXMFDIR  環境変数 TEXMF の値を文字列として取得する．
 %%%     \hairetu, \edefhairetu
 %%% ver 0.14  2000/01/08
-%%%       \headchar $B=$@5(B
+%%%       \headchar 修正
 %%% ver 0.16  2000/02/13-15
-%%%     \polar $B%*%W%7%g%s$G@dBPCM!$%+%C%3$N<oN`$r;XDj2DG=$H$9$k!%(B
-%%%     \Saidaikouyakusuu, \saisyoukoubaisuu, \Saisyoukoubaisuu $BDI2C(B
+%%%     \polar オプションで絶対値，カッコの種類を指定可能とする．
+%%%     \Saidaikouyakusuu, \saisyoukoubaisuu, \Saisyoukoubaisuu 追加
 %%% ver.0.17
 %%%     \IADD, \IMUL
 %%% ver.0.18  2000/02/26
-%%%     \Not $BH]Dj$N%9%i%C%7%e$r=E$M$k!%(B
+%%%     \Not 否定のスラッシュを重ねる．
 %%% ver.0.19  2000/03/11
-%%%     \kyouyaku $B$NF15A8l$H$7$F(B \conjugate, \conj $B$rDj5A(B
+%%%     \kyouyaku の同義語として \conjugate, \conj を定義
 %%% ver.0.20  2000/03/12
-%%%     \dlim [...] $B%*%W%7%g%s$G(B lim $B$N2<$NJ8;z$K$D$$$F2#J}8~05=LN($r;XDj(B
+%%%     \dlim [...] オプションで lim の下の文字について横方向圧縮率を指定
 %%% ver.0.21  2000/03/16
-%%%     \to [..] $B%*%W%7%g%s$GLp@~$ND9$5$rJQ99(B
+%%%     \to [..] オプションで矢線の長さを変更
 %%% v0.22     2000/03/19-22
-%%%     \Strcat $B?7@_(B
-%%%     \senbun, \senbun* $B@~J,$ND9$5$rI=$95-9f!J(B\overline)
+%%%     \Strcat 新設
+%%%     \senbun, \senbun* 線分の長さを表す記号（\overline)
 %%% v0.23     2000/03/28
-%%%     \renritu $B$r4D6-;EN)$F$H$9$k!'(BRenritu
+%%%     \renritu を環境仕立てとする：Renritu
 %%% v0.24     2000/04/11
-%%%     \owari $B9TKv$K%^!<%/!J%G%U%)%k%H$O(B $\blacksquare$ $B!K$rCV$/!#(B
-%%%     \Cdots $BA43Q$N(B3$BE@%j!<%@!<!V!D!W(B
-%%%     \kotae $B9TKv$K!V!JEz!K!W(B
-%%%       $B$=$NA0$N(B3$BE@%j!<%@!<$N8D?t$r(B [.] $B%*%W%7%g%s$G;XDj$9$k!#(B
-%%%         $B!J%G%U%)%k%H$O#2!K(B
+%%%     \owari 行末にマーク（デフォルトは $\blacksquare$ ）を置く。
+%%%     \Cdots 全角の3点リーダー「…」
+%%%     \kotae 行末に「（答）」
+%%%       その前の3点リーダーの個数を [.] オプションで指定する。
+%%%         （デフォルトは２）
 %%% v0.25     2000/04/16
 %%%     \syutten, \owari, \kotae, \Cdots
-%%%       $B%3%^%s%IL>$N>WFM$KHw$((B\newcommand $B$GDj5A$9$k!#(B
+%%%       コマンド名の衝突に備え\newcommand で定義する。
 %%% v0.26     2000/04/26-27
-%%%     \syutten, \owari, \kotae vmode $B$N$H$-$O(B \leavevmode $B$rIm2C$9$k!#(B
-%%%     \tasuki, \Tasuki $B%P%j%(!<%7%g%s(B
-%%%       \tasukikata, \tasukimozihaiti $B$r?7@_(B
+%%%     \syutten, \owari, \kotae vmode のときは \leavevmode を附加する。
+%%%     \tasuki, \Tasuki バリエーション
+%%%       \tasukikata, \tasukimozihaiti を新設
 %%% v0.27     2000/06/01-04
 %%%     \Heikou, \nHeikou
-%%%       picture$B4D6-$rMQ$$$?J?9T5-9f(B
-%%%     \syndiv $BAH$_N)$F=|K!(B
-%%%     \kagenhou $B2C8:K!(B
-%%%     \houteisiki $B>e2<0LCV$rD4@0$9$k$?$a$N%*%W%7%g%s(B <...> $B$rIU2C(B
+%%%       picture環境を用いた平行記号
+%%%     \syndiv 組み立て除法
+%%%     \kagenhou 加減法
+%%%     \houteisiki 上下位置を調整するためのオプション <...> を付加
 %%% v0.28     2000/06/11
-%%%     \tasuki \unitlength$B$NJQ99$r6I=jE*$K(B
-%%%     \maru $B0z?t$O%F%-%9%H%b!<%I$H$9$k!#(B
+%%%     \tasuki \unitlengthの変更を局所的に
+%%%     \maru 引数はテキストモードとする。
 %%% v0.29     2000/07/02
-%%%     LaTeX(plain TeX) $B$N(B \cases $B$r(B \baaiwake $B$G;HMQ2DG=$H$9$k!#(B
+%%%     LaTeX(plain TeX) の \cases を \baaiwake で使用可能とする。
 %%% v0.30     2000/07/11-12
-%%%     \kagenhou $B78?t$,(B0$B$N>l9g$NIT6q9g$r=$@5(B
-%%%     \baaiwake $B$K(B[r]$B%*%W%7%g%s!J1&3g8L$r$D$1$k7A<0!K$rIU2C(B
-%%%     emcases $B4D6-(B
+%%%     \kagenhou 係数が0の場合の不具合を修正
+%%%     \baaiwake に[r]オプション（右括弧をつける形式）を付加
+%%%     emcases 環境
 %%%       \begin{emcases}[#1][#2]
 %%%         #1 : l or r or b
-%%%         #2 : array $B4D6-$N0z?t(B
-%%%       \casesstretch emcases$BFb$N(B \arraystretch $B%G%U%)%k%HCM(B=1
+%%%         #2 : array 環境の引数
+%%%       \casesstretch emcases内の \arraystretch デフォルト値=1
 %%% v0.31     2000/07/15
-%%%     emcases amsmath.sty ver.1 $B$K$bBP1~(B
-%%%       \emcasesArrayarg $B$G(B array$B4D6-$N0z?t$N%G%U%)%k%H$rJQ99(B
+%%%     emcases amsmath.sty ver.1 にも対応
+%%%       \emcasesArrayarg で array環境の引数のデフォルトを変更
 %%% v0.32     2000/07/15-18
-%%%     \preHEqlabel \houteisiki $B?t<0HV9f$KA0CV$9$k%j!<%@!<$J$I$N;XDj(B
-%%%     \cdotfill, \crulefill $B7S@~%j!<%@!<(B
+%%%     \preHEqlabel \houteisiki 数式番号に前置するリーダーなどの指定
+%%%     \cdotfill, \crulefill 罫線リーダー
 %%%     \Cdotfill
 %%% v0.33     2000/08/03-09/01
-%%%     \edaMon emathOld $B$K0\$9!#(B
-%%%     emcases $B4D6-$H(B array $B%Q%C%1!<%8$N6&B8$r?^$k!#(B
-%%%     \renritu $B:G8e$K(B \ignorespaces $B$rDI2C(B
-%%%     \tsqrt \textstyle\sqrt : $BFs=E:,9f$G$OJXMx$+$b(B
+%%%     \edaMon emathOld に移す。
+%%%     emcases 環境と array パッケージの共存を図る。
+%%%     \renritu 最後に \ignorespaces を追加
+%%%     \tsqrt \textstyle\sqrt : 二重根号では便利かも
 %%%     \edeffrontappend#1#2  #2#1--->#1
 %%%       cf. \edefappend#1#2 #1#2 ---> #1
 %%% v0.34     2000/09/18
-%%%     \argsep $BJ8;zNs$r;XDj$7$?J8;z$r6h@Z;R$H$7$F@Z$jJ,$1$k!#(B
+%%%     \argsep 文字列を指定した文字を区切子として切り分ける。
 %%% v 0.35    2000/10/09-10
-%%%     \ifempty eplain.tex $B$h$j(B
-%%%     \ifthenelse $B7A<0$N(B \IFempty
+%%%     \ifempty eplain.tex より
+%%%     \ifthenelse 形式の \IFempty
 %%% v 0.36    2000/10/16
-%%%     \Strchr $B0z?t$,6u$N>l9g$K$bBP1~(B
+%%%     \Strchr 引数が空の場合にも対応
 %%% v 0.37    2000/10/29-30
-%%%     \sityuu $B?<$5$b%*%W%7%g%s$G;XDj2DG=$H$9$k(B
-%%%     \strcmp $BJ8;zNsHf3S(B
+%%%     \sityuu 深さもオプションで指定可能とする
+%%%     \strcmp 文字列比較
 %%% v 0.38    2000/11/15
-%%%     mawarikomi $B4D6-$H$N4X78$G(B
-%%%       \endjquote, \endjquotation $B$r=$@5(B
+%%%     mawarikomi 環境との関係で
+%%%       \endjquote, \endjquotation を修正
 %%% v 0.39    2000/11/26-12/05
-%%%     $BJ8;zNs$N@hF,!$KvHx$N6uGr$r=|5n$9$k(B \trim
-%%%     $B%m!<%I%*%W%7%g%s(B times
-%%%     \tasuki, \Tasuki : array.sty $B$HJ;MQ$9$k$H%(%i!<(B
-%%%       $B4XO"$7$F!$%3%^%s%I(B \Tasukimozihaiti $B$r?7@_(B
+%%%     文字列の先頭，末尾の空白を除去する \trim
+%%%     ロードオプション times
+%%%     \tasuki, \Tasuki : array.sty と併用するとエラー
+%%%       関連して，コマンド \Tasukimozihaiti を新設
 %%% v 0.40    2000/12/09
-%%%     array$B4D6-$N0z?t$rJQ?t$G<h$k$3$H$r2DG=$H$9$k(B EMarray$B4D6-(B
-%%%     \Tasukimozihaiti $B$OITMW(B
+%%%     array環境の引数を変数で取ることを可能とする EMarray環境
+%%%     \Tasukimozihaiti は不要
 %%% v 0.41    2000/12/19
-%%%     \nagamaru $B$GMQ$$$F$$$k(B tpic special ar $B$,>.?t$r0z?t$H$7$F$$$?$N$G!$(B
-%%%       \@seisuu $B$NDj5A$r(B emathPh.sty $B$+$i(B emath.sty $B$K0\$7!$$=$l$rMQ$$$k!#(B
-%%%     \EMcaption $B?^(B??: $B$N%3%m%s$r$D$1$J$$!#(B
-%%%       $B4XO"$7$F!$(B\fgEMcaption, \tbEMcaption
+%%%     \nagamaru で用いている tpic special ar が小数を引数としていたので，
+%%%       \@seisuu の定義を emathPh.sty から emath.sty に移し，それを用いる。
+%%%     \EMcaption 図??: のコロンをつけない。
+%%%       関連して，\fgEMcaption, \tbEMcaption
 %%% v 0.44    2001/03/04
-%%%     \EMabs : \zettaiti $B$NF15A8l(B
+%%%     \EMabs : \zettaiti の同義語
 %%% v 0.45    2001/03/17
 %%%     \syuugou, \teisekibun, \fboxnil
 %%% v 0.46    2001/03/20---4/7
-%%%     $B%m!<%I%*%W%7%g%s(B varg, txfonts
-%%%     $B%Y%/%H%k$NFb@Q(B \vnaiseki
-%%%               $BBg$-$5(B \EMvabs
+%%%     ロードオプション varg, txfonts
+%%%     ベクトルの内積 \vnaiseki
+%%%               大きさ \EMvabs
 %%% v 0.47    2001/04/22-27
-%%%     \izyohou $B$H(B \zyohou $B$rF1;~$K;HMQ$9$k$H43>D$9$k!#$3$l$r2sHr!#(B
+%%%     \izyohou と \zyohou を同時に使用すると干渉する。これを回避。
 %%%     \Seisuububun 
 %%% v 0.48    2001/05/03
-%%%     $B>e5-43>D$N2sHr$=$N#2(B
-%%%     \soinsi $B:n$jJQ$((B
+%%%     上記干渉の回避その２
+%%%     \soinsi 作り変え
 %%%     \Soinsuubunkai
 %%% v 0.49    2001/06/07-07/22
-%%%     \nagamaru $B$N@5<0L>$r(B \EMnagamaru $B$H$9$k!#(B
-%%%     $B!J2J8&Hq%^%/%m$H$N>WFM!K(B
-%%%     \vnaiseki, \syuugou : \ensuremath $B$r$+$V$;$k!#(B
+%%%     \nagamaru の正式名を \EMnagamaru とする。
+%%%     （科研費マクロとの衝突）
+%%%     \vnaiseki, \syuugou : \ensuremath をかぶせる。
 %%% v 0.50    2001/07/25
-%%%     jquote$B4D6-(B $BKAF,$N(B \leavevmode $B$r:o=|(B
-%%%                       $B!J>e$NCJMn$H$N4V3V$,6u$-$9$.$k>l9g$"$j!K(B
+%%%     jquote環境 冒頭の \leavevmode を削除
+%%%                       （上の段落との間隔が空きすぎる場合あり）
 %%% v 0.51    2001/07/31-08/06
-%%%     \Requirepackage[psamsfonts]{amssymb} $B%*%W%7%g%sIm2C(B --- $BJ]N1(B
-%%%                                                   type1cm.sty $B$GBe9T(B
-%%%     \bekusityuu \beku $B$N;YCl$rJQ99$9$k(B
+%%%     \Requirepackage[psamsfonts]{amssymb} オプション附加 --- 保留
+%%%                                                   type1cm.sty で代行
+%%%     \bekusityuu \beku の支柱を変更する
 %%% v 0.52 2001/08/23
-%%%     \soinsi 1$B$N>l9g$NNc30=hM}$rDI2C(B
+%%%     \soinsi 1の場合の例外処理を追加
 %%% v 0.53 2001/08/25
-%%%     \getEMATHDIR : kpsewhich $B$rMxMQ$7$F(B emath.sty $B$N%U%)%k%@L>$rF@$k!#(B
+%%%     \getEMATHDIR : kpsewhich を利用して emath.sty のフォルダ名を得る。
 %%% v 0.54 2001/08/27
-%%%     \getEMATHDIR : \@currdir $B$rMQ$$$F!$(B\kugirisi $B$rDj$a$k!#(B
+%%%     \getEMATHDIR : \@currdir を用いて，\kugirisi を定める。
 %%% v 0.55 2001/09/02
-%%%     emathPh $B$G$N(B Gurafu.pl $BGQ;_$KH<$$!$(B\getEMATHDIR $B<B9TJ]N1(B
+%%%     emathPh での Gurafu.pl 廃止に伴い，\getEMATHDIR 実行保留
 %%% v 0.56 2001/09/07
-%%%     \kaizyou $B3,>h5-9f!J(B! $B$N:81&$K(B 1mu $B$N%9%Z!<%9$r$D$1$k!K(B
+%%%     \kaizyou 階乗記号（! の左右に 1mu のスペースをつける）
 %%% v 0.57 2001/09/09
-%%%     \kaizyou \ensuremath $B$r$+$V$;$k!#(B
+%%%     \kaizyou \ensuremath をかぶせる。
 %%% v 0.58 2001/09/28
-%%%     \zettaiti $B@dBPCM5-9f$N9b$5!&?<$5$rJL!9$K@)8f2DG=$H$9$k!#(B
-%%%     \textstyle\retuwa $B$N>JN,7A(B \tretuwa
-%%%     \emsideset $B:81&!$>eIU$-!&2<IU$-(B
+%%%     \zettaiti 絶対値記号の高さ・深さを別々に制御可能とする。
+%%%     \textstyle\retuwa の省略形 \tretuwa
+%%%     \emsideset 左右，上付き・下付き
 %%% v 0.59  2001/10/03
-%%%     \bm bm.sty $B$r%m!<%I:Q$_$N$H$-$O!$$=$A$i$rMQ$$$k(B
-%%%     \kyouyaku : $B9b$5$r=$@5$9$k%*%W%7%g%s$rIm2C(B
-%%%     \renrituat : alignat $B4D6-$r%Y!<%9$K$7$?(B \renritu
+%%%     \bm bm.sty をロード済みのときは，そちらを用いる
+%%%     \kyouyaku : 高さを修正するオプションを附加
+%%%     \renrituat : alignat 環境をベースにした \renritu
 %%% v 0.60  2001/11/08-21
-%%%     $B%P!<%8%g%s%a%C%;!<%8$r(B emath.sty, emath2e.sty $BN>J}$G=P$9!#(B
+%%%     バージョンメッセージを emath.sty, emath2e.sty 両方で出す。
 %%%     \templa, \templb \newlength ---> \newdimen
 %%% v 0.61  2001/11/26
-%%%     \Deruta : $B-y5-9f(B
-%%%     \syou@amari $BJQ?t$N1#JC%_%9$,$"$j!$(B\Yakubun $B$,$*$+$7$/$J$C$F$$$?!#(B
+%%%     \Deruta : ⊿記号
+%%%     \syou@amari 変数の隠蔽ミスがあり，\Yakubun がおかしくなっていた。
 %%% v 0.62 2001/12/02
-%%%     \polar <c> $B%*%W%7%g%s$G6&Lr$rI=$9!#(B
+%%%     \polar <c> オプションで共役を表す。
 %%% v 0.63 2001/12/05
-%%%     \maru \text $B$r$+$V$;$k(B
+%%%     \maru \text をかぶせる
 %%% v 0.64 2002/01/03
-%%%     \kasen $B2<@~(B
-%%%     $B7W;;ItJ,$r(B emathC.sty $B$KJ,N%(B
-%%%     \bekutorukata \bekutoru $B$NLp0u$N7?$r(B cm, tx, eu, xy $B$N(B4$B<oN`(B
-%%%     \pxpercent pxfonts $B$N(B `%'
+%%%     \kasen 下線
+%%%     計算部分を emathC.sty に分離
+%%%     \bekutorukata \bekutoru の矢印の型を cm, tx, eu, xy の4種類
+%%%     \pxpercent pxfonts の `%'
 %%% v 0.65 2002/02/02
-%%%     \kotae <..> $B%*%W%7%g%s$G1&M>GrNL$r;XDj$9$k!#(B
-%%%     \eqref $B?t;z$G$J$$>l9g$K$bBP1~(B
+%%%     \kotae <..> オプションで右余白量を指定する。
+%%%     \eqref 数字でない場合にも対応
 %%% v 0.66 2002/02/22
-%%%     jquote $B4D6-$N0z?t$K7W;;<0$r5vMF(B
+%%%     jquote 環境の引数に計算式を許容
 %%% v 0.67 2002/03/14
-%%%     \tasuki $B$N2#I}$r>/$7C;$/$7$?(B \stasuki
-%%%     \bekutoru $B$NDj5A$r5l$KLa$7!$Lp0u$N7A>uJQ99$O(B emathFx $B$K0\$9!#(B
-%%%     \EMvphantom $B>e2<$KM>Gr$r$D$1$k(B
-%%%     \syuugou |$B$N9b$5$r!$:81&$N$b$N$H$"$o$;$k!#(B\hakobanpush$BIm2C(B
+%%%     \tasuki の横幅を少し短くした \stasuki
+%%%     \bekutoru の定義を旧に戻し，矢印の形状変更は emathFx に移す。
+%%%     \EMvphantom 上下に余白をつける
+%%%     \syuugou |の高さを，左右のものとあわせる。\hakobanpush附加
 %%% v 0.68 2002/04/09-11
-%%%     \bsityuu    : $B%G%U%)%k%HCM$NJQ99(B
-%%%     \knagamaru  : $B=DD9$N4]0O$_?t;z$r!$Gr9uH?E>(B
-%%%     \ynagamaru  : $B2#D9$N4]0O$_?t;z(B
-%%%     \kynagamaru : $B$=$NGr9uH?E>(B
-%%%     \kmaru      : \maru $B$NGr9uH?E>(B
+%%%     \bsityuu    : デフォルト値の変更
+%%%     \knagamaru  : 縦長の丸囲み数字を，白黒反転
+%%%     \ynagamaru  : 横長の丸囲み数字
+%%%     \kynagamaru : その白黒反転
+%%%     \kmaru      : \maru の白黒反転
     v 0.69 2002/04/18
-        pxfonts $B%*%W%7%g%s(B
-        \dumyeq : align$B4D6-$G!$:8C<$N(B = $B$r$=$m$($k:]!$@hF,9T$N%@%_!<Ey9f(B
+        pxfonts オプション
+        \dumyeq : align環境で，左端の = をそろえる際，先頭行のダミー等号
     v 0.70 2002/05/02
-        \degree ---> \EMdegree $B$H2~L>(B
-        $B!J(B mathabx.sty $B%*%W%7%g%s;~0J30$O(B \let\degree\EMdegree $B!K(B
+        \degree ---> \EMdegree と改名
+        （ mathabx.sty オプション時以外は \let\degree\EMdegree ）
     emath2e v 0.67 2002/04/25-05/02
-        txfonts, pxfonts $B$N=hM}K!$rJQ99(B
-        $B%m!<%I%*%W%7%g%s(B mathabx $B?7@_(B
+        txfonts, pxfonts の処理法を変更
+        ロードオプション mathabx 新設
     v 0.71 2002/05/14-15
-        \atag align*$B4D6-$J$I$G!$?t<0HV9f$rIUM?$9$k(B
-        \zitubu, \kyobu ---> \DeclareMathOperator $B$rMQ$$$k(B
+        \atag align*環境などで，数式番号を付与する
+        \zitubu, \kyobu ---> \DeclareMathOperator を用いる
     v 0.72 2002/06/09-30
-        [mathabx]$B%*%W%7%g%s$r$D$1$?$H$-$N(B \bekutorusityuu $B$rDc$/$9$k(B
+        [mathabx]オプションをつけたときの \bekutorusityuu を低くする
                   \cmsum, \cmint
-        \Not : \backslash $B$H$9$k!#(B
-        \Incr $B$J$I$r(B emathC.sty $B$K0\4I(B
+        \Not : \backslash とする。
+        \Incr などを emathC.sty に移管
         \gyouretu[r]{}{}{}{}, \gyouretuhaiti{r}
-            $B9TNs$NMWAG$rG[CV$9$kB7$($r;XDj2DG=$H$9$k!#(B
+            行列の要素を配置する揃えを指定可能とする。
     v 0.73 2002/08/11-28
-        \lineskip=3pt plus 0.5pt $B$H@_Dj(B
-        \EMphantombox : phantom $B7O%3%^%s%I$rH/9T$7$?$H$-!$(B
-                        $B$=$N%5%$%:$r;}$D%\%C%/%9(B
-        \Ifor : $B@0?t7?(B FOR .... NEXT 
+        \lineskip=3pt plus 0.5pt と設定
+        \EMphantombox : phantom 系コマンドを発行したとき，
+                        そのサイズを持つボックス
+        \Ifor : 整数型 FOR .... NEXT 
     v 0.74 2002/09/12-16
-        \Zyunretu : $B=EJ#=gNs(B
-        \Kumiawase : $B=EJ#AH9g$;(B
-        \Cnum : $BJ#AG?t$N5uIt$H(Bi$B$N4V$K>.%9%Z!<%9(B
+        \Zyunretu : 重複順列
+        \Kumiawase : 重複組合せ
+        \Cnum : 複素数の虚部とiの間に小スペース
     v 0.75 2002/09/28-10/14
         \Cfor@sub : \gdef ---> \def
-        \pgyouretu : $B0lHL$N9TNs(B
-        \maru : \protect $B$r$+$V$;$k!#(B
-        \writeLabel : \hyperref $B$KBP1~$9$k$?$a$N1~5^=hCV(B
+        \pgyouretu : 一般の行列
+        \maru : \protect をかぶせる。
+        \writeLabel : \hyperref に対応するための応急処置
     v 0.76 2002/11/05
-        \kmaru : $BD4@0(B
+        \kmaru : 調整
     v 0.77 2002/11/12
-        \kmaru : $BJ8;z$b5vMF$9$k!#(B
+        \kmaru : 文字も許容する。
     v 0.78 2002/11/26
-        \owari : $B?t<0HV9f$H$N6&B8(B
+        \owari : 数式番号との共存
     v 0.79 2002/12/11
-        \delfile : $BL58z%3%^%s%I$H$9$k!#(B
+        \delfile : 無効コマンドとする。
     v 0.80 2002/12/20
-        \zwmaru : 2$B7e0J>e$OA43Q(B1$BJ8;zI}$K=L>.(B
+        \zwmaru : 2桁以上は全角1文字幅に縮小
     v 0.81 2002/12/30
         %\newdimen\tmp@ht@s%
-        %\newdimen\tmp@dp@s% $B$r%3%^%s%I$K(B
+        %\newdimen\tmp@dp@s% をコマンドに
     v 0.82 2003/03/03
-        \heikukan : $BJD6h4V(B
-        \endcaprm : \@ignoretrue $B$rA^F~$7!$H>3Q6uGr%:%l$r2sHr(B
+        \heikukan : 閉区間
+        \endcaprm : \@ignoretrue を挿入し，半角空白ズレを回避
     v 0.83 2003/03/15
-        $B%m!<%I%*%W%7%g%s(B notMy
+        ロードオプション notMy
     v 0.84 2003/03/22
-        \EMcaption : $BG[CV%*%W%7%g%s(B[l]
+        \EMcaption : 配置オプション[l]
     v 0.85 2003/04/02
-        \renritu : mawarikomi$B4D6-Fb$G$N;HMQ$r9MN8(B
+        \renritu : mawarikomi環境内での使用を考慮
     v 0.86 2003/04/06
-        \EMparbox : $B<+A3D9$N(B\parbox
-        \kagenhou $B$K(B<M>$B%*%W%7%g%s(B
+        \EMparbox : 自然長の\parbox
+        \kagenhou に<M>オプション
     v 0.87 2003/06/12
-        \syutten : mawarikomi $B$H$N4XO"D4@0(B
+        \syutten : mawarikomi との関連調整
     v 0.88 2003/06/21-23
-        \EMparbox : <t> $B$G=DAH$r2DG=(B
-        \syutten : $B>e5-!$:FD4@0(B
+        \EMparbox : <t> で縦組を可能
+        \syutten : 上記，再調整
     v 0.89 2003/07/04
-        \DEG : schlmath $B$G$bF1L>%3%^%s%I$,$"$k$N$G(B \emDEG $B$KJQ99(B
-               $B!J(B\DEG $B$b;HMQ2D!K(B
+        \DEG : schlmath でも同名コマンドがあるので \emDEG に変更
+               （\DEG も使用可）
     v 0.90 2003/08/04
-        \rbunsuu : $BJ,?t$NJ,;R!&J,Jl$r1&B7$((B
+        \rbunsuu : 分数の分子・分母を右揃え
     v 0.91 2003/08/30
-        $B9TNs$N3g8L5-9f$r>.$5$a$K$9$k=$@5(B
+        行列の括弧記号を小さめにする修正
     v 0.93 2003/09/11
-        \Ifor, \Cfor : emathC $B$K0\@R(B
-        \retube, \Retube $B$KBP$7$F$b(B [r] $B%*%W%7%g%s$rM-8z$H$9$k!#(B
+        \Ifor, \Cfor : emathC に移籍
+        \retube, \Retube に対しても [r] オプションを有効とする。
     v 0.94 2003/09/21
-        $B1|B<@h@8$N(B okumacro.sty $B$+$i(B \MARU $B$r<ZMQ(B
+        奥村先生の okumacro.sty から \MARU を借用
     v 0.95 2003/09/22
-        \MARU $B$NDj5A$K!$(B\@ifundefined $B$r$+$V$;$k!#(B
+        \MARU の定義に，\@ifundefined をかぶせる。
     v 0.96 2003/09/27
         \kaikukan(#1,#2)
     v 0.97 2003/10/11
-        \seibun $B%3%s%^6h@Z$j$NJ8;zNs(B
-        \seibun $B$J$I$N=8Bg@.$H$7$F(B \retu
+        \seibun コンマ区切りの文字列
+        \seibun などの集大成として \retu
     v 0.98 2003/11/01
-        \EMcaption $B$K(B <font=..> $B%*%W%7%g%s$rIm2C(B
+        \EMcaption に <font=..> オプションを附加
     v 1.00 2003/12/03
-        \Mumeisuu#1#2 : $BC10LIU?tCM(B#1$B$r(Bpt$BC10L$K49;;$7!$L5L>?t$G(B#2$B$N@)8fDV$KJV$9(B
+        \Mumeisuu#1#2 : 単位付数値#1をpt単位に換算し，無名数で#2の制御綴に返す
     v 1.01 2003/12/13
-        mathabx.sty $B$N2~D{$KBP1~(B
+        mathabx.sty の改訂に対応
     v 1.02 2004/01/02
-        \ifsymMaru $B!{0O$_$r(B ifsym $B$N(B \BigCircle
+        \ifsymMaru ○囲みを ifsym の \BigCircle
     v 1.03 2004/01/13
-        \kaku, \sankaku : \text ---> \mbox (hako.sty $B$H$N4XO"(B)
+        \kaku, \sankaku : \text ---> \mbox (hako.sty との関連)
     v 1.04 2004/03/01
-        jquote \topsep : 0pt ---> $B$=$N;~E@$N(B \topsep
+        jquote \topsep : 0pt ---> その時点の \topsep
     v 1.05 2004/03/10
-        \kagenhou : $BJQ?t;XDj$r6I=jE*$K(B
+        \kagenhou : 変数指定を局所的に
     v 1.06 2004/04/19
-        \kagenhou : array$B4D6-$NG[CV%*%W%7%g%s$r(B <pos=t/b/c> $B$G2DG=$H$9$k!#(B
+        \kagenhou : array環境の配置オプションを <pos=t/b/c> で可能とする。
     v 1.07 2004/05/13
-        \EMcaptionpunc : \caption $BHV9f$H%-%c%W%7%g%s4V$N=q<0;XDj(B
+        \EMcaptionpunc : \caption 番号とキャプション間の書式指定
     v 1.08 2004/05/18
-        \p@=1truept $B$H$9$k!#(B---$B8+9g$;(B
+        \p@=1truept とする。---見合せ
     v 1.09 2004/06/18
-        \bekutoru*, \sankaku*, \kaku* : [caprm]$B%*%W%7%g%s$rIm2C(B
+        \bekutoru*, \sankaku*, \kaku* : [caprm]オプションを附加
 	  v 1.10 2004/07/01
-	  		\renritu : jsarticle [9pt] $B%*%W%7%g%s$J$I$KBP1~(B
+	  		\renritu : jsarticle [9pt] オプションなどに対応
 				\bnaiseki
-				\kumiawase : $B:8B&$K(B \Hako $B$J$I$rG[CV$9$k$H$-$O(B \kumiawase* $B$H$9$k!#(B
+				\kumiawase : 左側に \Hako などを配置するときは \kumiawase* とする。
 		v 1.12 2004/07/18
-				\eqref : hyperref $BBP:v$G!$(B\ref $B$KBe$($F(B \ltxref $B$r8F$S=P$9!#(B
+				\eqref : hyperref 対策で，\ref に代えて \ltxref を呼び出す。
 		v 1.13 2004/07/25
 				\gyoube
 		v 1.14 2004/07/29
-				\zettaiti : $B%9%j%`2=(B
+				\zettaiti : スリム化
 		v 1.15 2004/07/30
-				\EMvphantom* : $B;YCl$rN)$F$k$@$1$G$O$J$/!$0z?t$r%?%$%W%;%C%H$9$k!#(B
-				\emabs : \left|, \right| $B$G0O$`$@$1!#(B
+				\EMvphantom* : 支柱を立てるだけではなく，引数をタイプセットする。
+				\emabs : \left|, \right| で囲むだけ。
 		v 1.16 2004/08/06-14
-				\mitC : $B?t<0%$%?%j%C%/(BS
-				\mitS : $B?t<0%$%?%j%C%/(BS
-				\mitV : $B?t<0%$%?%j%C%/(BV
-				\ko*  : $B0z?t$O?t<0%b!<%IFb(B
-				\EMresetstrutbox : \f@size $B$K$h$k>l9g$o$1(B
+				\mitC : 数式イタリックS
+				\mitS : 数式イタリックS
+				\mitV : 数式イタリックV
+				\ko*  : 引数は数式モード内
+				\EMresetstrutbox : \f@size による場合わけ
 		v 1.17 2004/08/20
-				\zyohou : ) $B$NBg$-$5!$0LCV$ND4@0(B
+				\zyohou : ) の大きさ，位置の調整
 		v 1.18 2004/08/23
-				\namikasen : $BGH2<@~(B
-				\EMresetstrutbox : \f@size $B$,@0?t$G$J$$>l9g$KBP1~(B
+				\namikasen : 波下線
+				\EMresetstrutbox : \f@size が整数でない場合に対応
 		v 1.19 2004/08/23
-				\namikasen $B@0Hw(B
+				\namikasen 整備
 		v 1.20 2004/08/31-09/16
-				\EMleqno : $B?t<0HV9f$r:8$K(B
-				\EMsaveeqno, \EMrestoreeqno : $B?t<0HV9f$NJ]B8(B
-				\Int : $B@0?tItJ,(B
+				\EMleqno : 数式番号を左に
+				\EMsaveeqno, \EMrestoreeqno : 数式番号の保存
+				\Int : 整数部分
 				load option [normallineskip]
-				\eqref : \ltxref ---> \ref $B$KLa$9(B
-				         \ltxref $B$K$7$?$$$H$-$O(B \let\eqrefref\ltxref
-				         $B%G%U%)%k%H$O(B           \let\eqrefref\ref
+				\eqref : \ltxref ---> \ref に戻す
+				         \ltxref にしたいときは \let\eqrefref\ltxref
+				         デフォルトは           \let\eqrefref\ref
 		v 1.21 2004/09/20
 				\emovalbox
 		v 1.24 2004/11/21
-				fleqnon, fleqnoff ---> $B4D6-;EN)$F$H$7!$=*N;8e$NH>3Q%9%Z!<%9:.F~$r2sHr(B
-				EMleqno, EMreqno  ---> $B4D6-;EN)$F$H$7!$=*N;8e$NH>3Q%9%Z!<%9:.F~$r2sHr(B
+				fleqnon, fleqnoff ---> 環境仕立てとし，終了後の半角スペース混入を回避
+				EMleqno, EMreqno  ---> 環境仕立てとし，終了後の半角スペース混入を回避
 		v 1.26 2005/01/09
-				$B%m!<%I%*%W%7%g%s(B papersize
+				ロードオプション papersize
 		v 1.27 2005/01/09
-				papersize $B%*%W%7%g%s!'(Bjs*.cls $B$KBP$7$F$OL58z(B
+				papersize オプション：js*.cls に対しては無効
     v 1.28 2005/01/23
-				\houteisiki <#2> $BId9f$rH<$&>l9g$O!$%G%U%)%k%HCM$KBP$9$kAjBPCM(B
+				\houteisiki <#2> 符号を伴う場合は，デフォルト値に対する相対値
 		v 1.29 2005/02/12
-				\@percent $B$J$I$NDj5A$r(B emathPp.sty $B$+$i0\4I(B
+				\@percent などの定義を emathPp.sty から移管
 		v 1.30 2005/02/19
-				$BJL9TN)$F?t<0Fb$G$b(B \baselinestretch $B$rH?1G$5$;$k(B
+				別行立て数式内でも \baselinestretch を反映させる
 		v 1.31 2005/03/01
-        $B%m!<%I%*%W%7%g%s(B normallineskip $B$r@0Hw(B
+        ロードオプション normallineskip を整備
 		v 1.32 2005/03/10
-				\EMresetstrutbox : \small $B$N>l9g(B
+				\EMresetstrutbox : \small の場合
 		v 1.33 2005/04/02
-				\notni : \ni $B$NH]Dj1i;;;R(B
+				\notni : \ni の否定演算子
 		v 1.34 2005/04/23
-				\mathRM : \ensuremath $B$r$+$V$;$k(B
+				\mathRM : \ensuremath をかぶせる
 		v 1.35 2005/05/06
-				LaTeX $B$N(Bequation$B$r(Bltxequation$B$H$7$FJ]B8$7!$(B\houteisiki$B$G;HMQ(B
-        equation$B$r;HMQ$9$k$b$N$r(B\amshouteisiki
+				LaTeX のequationをltxequationとして保存し，\houteisikiで使用
+        equationを使用するものを\amshouteisiki
 		v 1.36 2005/05/12
 				\everyEMresetstrutbox
-				\maru $BCf$NJ8;z$K$D$$$F!$%Y!<%9%i%$%s$r30B&$H$=$m$($?$b$N$r(B \bmaru
+				\maru 中の文字について，ベースラインを外側とそろえたものを \bmaru
 		v 1.37 2005/05/14
-				\conjstrut $B?7@_(B ex->2218200518.tex
+				\conjstrut 新設 ex->2218200518.tex
 		v 1.38 2005/05/17
-				\ltxequation : $B6IItE*$K(B \let\normalcolor\relax $B$H$9$k(B
+				\ltxequation : 局部的に \let\normalcolor\relax とする
 		v 1.39 2005/05/22
-				\EMresetstrutbox : [12pt]$B%*%W%7%g%s$N>l9g(B
-													 js*.cls $B$N>l9g$O(B \relax $B$H$9$k(B
+				\EMresetstrutbox : [12pt]オプションの場合
+													 js*.cls の場合は \relax とする
 		v 1.40 2005/05/28
-				\teisei $B$GIA2h$9$k<P@~$K$D$$$F!$(B\rotateline $B$,;H$($k$h$&$K$9$k!#(B
+				\teisei で描画する斜線について，\rotateline が使えるようにする。
 		v 1.41 2005/06/12
-				jquote, jquotation: <tsep=..,bsep=..,vsep=..> $B$G>e2<$H$N4V3VD4@0(B
+				jquote, jquotation: <tsep=..,bsep=..,vsep=..> で上下との間隔調整
 		v 1.42 2005/06/19
-				\ltxcdots : amsmath $B$G$O(B \edef\foo{\cdots} $B$G%(%i!<$H$J$k$3$H$X$NBP1~(B
+				\ltxcdots : amsmath では \edef\foo{\cdots} でエラーとなることへの対応
 		v 1.43 2005/06/24
-				\EMmaru : 	$B;YCl$rN)$F$k(B
+				\EMmaru : 	支柱を立てる
 		v 1.44 2005/06/30
-				jquote, jquotation$B4D6-$r(B jquote.sty $B$H$7$FJ,N%(B
+				jquote, jquotation環境を jquote.sty として分離
     v 1.45 2005/08/01
-        \renritu : mawarikomi $B$H$ND4@0(B
+        \renritu : mawarikomi との調整
     v 1.46 2005/08/14
-				\marusuuref : \ref $B$GF@$i$l$kJ8;zNsKvHx$N(B \relax $B$r=|5n(B
-				\zwmaru : \scriptsize $B;XDj!$(B\EMmaru $B$r8F$S=P$9!#(B
+				\marusuuref : \ref で得られる文字列末尾の \relax を除去
+				\zwmaru : \scriptsize 指定，\EMmaru を呼び出す。
 		v 1.47 2005/09/03
 				jquote, jquotation ---> jquote.sty
-				fgcaption $B$J$I(B -------> emathCap.sty
+				fgcaption など -------> emathCap.sty
 		v 1.48 2005/09/12
-				\bunsuu* : \displaystyle $B$H$$$&A0Ds$r;}$?$J$$(B
-				$B%m!<%I%*%W%7%g%s(B [ceo]
+				\bunsuu* : \displaystyle という前提を持たない
+				ロードオプション [ceo]
 					\kaku ---> \EMkaku
-				preEqlabel : $B=i4|CMJQ99(B (cdot ---> cdotp)
+				preEqlabel : 初期値変更 (cdot ---> cdotp)
 		v 1.49 2005/10/06
-				ceo.sty 2005/10/05 $B$KBP1~(B
+				ceo.sty 2005/10/05 に対応
 					\sankaku ---> \EMsankaku
-					$B5U$K(B \maru $B$O(B emath.sty $B$N$b$N$rM%@h$7!$(Bceo.sty $B$N$b$N$O(B \ceomaru
+					逆に \maru は emath.sty のものを優先し，ceo.sty のものは \ceomaru
 		v 1.50 2005/10/09
-				\marudashref: \maru $B$,(B \arMaru $B$J$I$N>l9g$K$D$$$F=$@5!J(B\text... $B$rIU2C!K(B		v 1.51 2005/10/23
-				\maruKata, \Kakko : $B?7@_!J(BemathUtf $B8_49$N$?$a!K(B
+				\marudashref: \maru が \arMaru などの場合について修正（\text... を付加）		v 1.51 2005/10/23
+				\maruKata, \Kakko : 新設（emathUtf 互換のため）
 		v 1.54 2005/10/31
-				\nagamaruyokoHankei, \nagamarutateHankei : $BC10LIU$ND9$5$r0z?t$K(B
+				\nagamaruyokoHankei, \nagamarutateHankei : 単位付の長さを引数に

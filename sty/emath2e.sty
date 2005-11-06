@@ -37,7 +37,7 @@
 }{}%
 \@ifundefined{@amsmath@err}{}{\if@fleqn\let\mathindent=\@mathmargin\fi}%
 
-% $B%U%)%s%H%5%$%:$r(B #1 $BG\$K$9$k!%(B
+% フォントサイズを #1 倍にする．
 %\def\chgfontsizeratio#1{\Mul{#1}\f@size\f@@size
 %\Mul{1.2}\f@@size\f@@@size
 %\def\@tmp@size{\@setfontsize\@tmp@size{\f@@size pt}{\f@@@size}}\@tmp@size}
@@ -48,7 +48,7 @@
 
 
 \if0
-% -- \Relbar $B$O(B cmr17 $B$rMQ$$$:!$(Bcmr10 $B$H$9$k!#(B--------- begin
+% -- \Relbar は cmr17 を用いず，cmr10 とする。--------- begin
 \let\Relbar\undefined
 \DeclareFontFamily{OT1}{cmrx}{\hyphenchar\font45 }
 \DeclareSymbolFont{operatorsx}{OT1}{cmrx} {m}{n}
@@ -100,7 +100,7 @@
    }{}
 \fi
 
-% $BAj;w$N5-9f(B
+% 相似の記号
 \def\souzi{%
-  \kern.1em{\mbox{\chgfontsizeratio{1.44}\raisebox{-.33ex}{$B"f(B}}}\kern.1em}%
+  \kern.1em{\mbox{\chgfontsizeratio{1.44}\raisebox{-.33ex}{∽}}}\kern.1em}%
 \endinput

@@ -1,278 +1,278 @@
-\section{$B0O$_(B}
-\subsection{\textsf{rectbox}$B4D6-(B}
-$B$3$N@a$G>R2p$9$k(B\textsf{rectbox}$B4D6-$O(B
-\textsf{emathPb.sty}$B$GDj5A$5$l$F$$$^$9!#(B
+\section{囲み}
+\subsection{\textsf{rectbox}環境}
+この節で紹介する\textsf{rectbox}環境は
+\textsf{emathPb.sty}で定義されています。
 
-\subsubsection{\textsf{rectbox}$B$H$O(B}
-$B7S@~0O$_$N0l<o$G$9!#(B
-$B7S@~$r(B\textsf{picture}$B4D6-$GIA2h$7$^$9!#(B
+\subsubsection{\textsf{rectbox}とは}
+罫線囲みの一種です。
+罫線を\textsf{picture}環境で描画します。
 
-$B%Z!<%8$r$^$?$0$3$H$O$G$-$^$;$s!#$^$?!$K5Cm$b$D$1$i$l$^$;$s!#(B
+ページをまたぐことはできません。また，傍注もつけられません。
 
-\begin{showEx}(.9,1){\textsf{rectbox}$B4D6-(B}
+\begin{showEx}(.9,1){\textsf{rectbox}環境}
 \begin{rectbox}
-$B$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"(B
-$B$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"(B
-$B$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"(B
+あああああああああああああああああああ
+あああああああああああああああああああ
+あああああああああああああああああああ
 
-$B$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$(B
-$B$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$(B
-$B$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$(B
-$B$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$(B
+いいいいいいいいいいいいいいいいいいい
+いいいいいいいいいいいいいいいいいいい
+いいいいいいいいいいいいいいいいいいい
+いいいいいいいいいいいいいいいいいいい
 \end{rectbox}
 \end{showEx}
 %\pagebreak
 
-\subsubsection{$B7S@~$HK\J8$H$N4V3V(B}
+\subsubsection{罫線と本文との間隔}
 \paragraph{\texttt{fboxsep}}
-$B7S@~$HCf$N%F%-%9%H$H$N4V3V$O!$(B\cmd{fboxsep}$B$G7h$^$j$^$9!#(B
-$B$3$l$rJQ99$7$?$$$H$-$O!$(B\verb+[fbox=..]+$B%*%W%7%g%s$rM?$($^$9!#(B
+罫線と中のテキストとの間隔は，\cmd{fboxsep}で決まります。
+これを変更したいときは，\verb+[fbox=..]+オプションを与えます。
 
-\begin{showEx}(.9,1){\texttt{fboxsep}$B%*%W%7%g%s(B}
+\begin{showEx}(.9,1){\texttt{fboxsep}オプション}
 \begin{rectbox}[fboxsep=1zw]
-$B$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"(B
-$B$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"(B
-$B$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"(B
+あああああああああああああああああああ
+あああああああああああああああああああ
+あああああああああああああああああああ
 \end{rectbox}
 \end{showEx}
 
 \paragraph{\texttt{hsep vsep}}
-\verb+[fboxsep=..]+$B%*%W%7%g%s$O!$:81&!&>e2<$9$Y$F$r0lN'$KJQ99$7$^$9$7!$(B
-$BEv3:4D6-Fb$N$_$G$O$"$j$^$9$,!$(B\cmd{fboxsep}$B$NCM$,JQ99$5$l$F$$$^$9!#(B
+\verb+[fboxsep=..]+オプションは，左右・上下すべてを一律に変更しますし，
+当該環境内のみではありますが，\cmd{fboxsep}の値が変更されています。
 
-\begin{showEx}(.9,1){\texttt{fboxsep}$B%*%W%7%g%s$NI{:nMQ(B}
+\begin{showEx}(.9,1){\texttt{fboxsep}オプションの副作用}
 \begin{rectbox}[fboxsep=1zw]
-$B$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"(B
+あああああああああああああああああああ
 
-\fbox{$B$$$$$$(B}
+\fbox{いいい}
 \end{rectbox}
 
-\fbox{$B$&$&$&(B}
+\fbox{ううう}
 \end{showEx}
 
-$B$=$3$G!$:81&$N6u$-$r;XDj$9$k%*%W%7%g%s(B\verb+hsep=..+$B$H!$(B
-$B>e2<$N6u$-$r;XDj$9$k%*%W%7%g%s(B\verb+vsep=..+$B$r?7@_$7$^$7$?!#(B
+そこで，左右の空きを指定するオプション\verb+hsep=..+と，
+上下の空きを指定するオプション\verb+vsep=..+を新設しました。
 
-\begin{showEx}(.9,1){\texttt{hsep, vsep}$B%*%W%7%g%s(B}
+\begin{showEx}(.9,1){\texttt{hsep, vsep}オプション}
 \begin{rectbox}[hsep=3zw,vsep=1zw]
-$B$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"(B
-$B$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"(B
+あああああああああああああああああああ
+あああああああああああああああああああ
 
-\fbox{$B$$$$$$(B}
+\fbox{いいい}
 \end{rectbox}
 
-\fbox{$B$&$&$&(B}
+\fbox{ううう}
 \end{showEx}
 
-\subsubsection{$B2#I}(B}
+\subsubsection{横幅}
 \paragraph{\texttt{rectboxwidth}}
-\textsf{rectbox}$B4D6-$N2#I}$O(B\cmd{linewidth}$B$G!$2#$$$C$Q$$$K9-$,$j$^$9!#(B
-$B$3$l$r@)8B$9$k%*%W%7%g%s$,(B\verb+rectboxwidth=..+$B$G$9!#(B
+\textsf{rectbox}環境の横幅は\cmd{linewidth}で，横いっぱいに広がります。
+これを制限するオプションが\verb+rectboxwidth=..+です。
 
-\begin{showEx}(.9,1){\texttt{rectboxwidth}$B%*%W%7%g%s(B}
-$B$"$"$"(B
+\begin{showEx}(.9,1){\texttt{rectboxwidth}オプション}
+あああ
 \begin{rectbox}[rectboxwidth=8zw]
-$B$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$(B
-$B$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$(B
+いいいいいいいいいいいいいいいい
+いいいいいいいいいいいいいいいい
 \end{rectbox}
 
-$B$&$&$&(B
+ううう
 \end{showEx}
 
-$B2#I}$r(B8zw$B$H;XDj$7$F$$$^$9$,!$<B:]$N%\%C%/%9I}$O!$(B
-$B$3$l$K!$:81&$N6u$-$,2C$o$j$^$9!#(B
+横幅を8zwと指定していますが，実際のボックス幅は，
+これに，左右の空きが加わります。
 
 \paragraph{\cmd{Rectbox}}
-\textsf{rectbox}$B$NCf?H$,C;$$$H$-$J$I!$2#I}$r$$$A$$$A;XDj$9$k$N$,LLE]$J$H$-$O!$(B
-\cmd{Rectbox}$B%3%^%s%I$rMQ$$$^$9!#(B
+\textsf{rectbox}の中身が短いときなど，横幅をいちいち指定するのが面倒なときは，
+\cmd{Rectbox}コマンドを用います。
 
-\begin{showEx}(.9,1){\cmd{Rectbox}$B%3%^%s%I(B}
-\Rectbox{$B$"$$$&$($*(B}
+\begin{showEx}(.9,1){\cmd{Rectbox}コマンド}
+\Rectbox{あいうえお}
 \end{showEx}
 
-$B$3$N%3%^%s%I$O!$J#?t9T$KBP$7$F$b;HMQ2DG=$G$9!#(B
+このコマンドは，複数行に対しても使用可能です。
 
-\begin{showEx}(.9,1){\cmd{Rectbox}$B%3%^%s%I!JJ#?t9T!K(B}
+\begin{showEx}(.9,1){\cmd{Rectbox}コマンド（複数行）}
 \Rectbox{%
   $y=ax^2+bx+c$\\
   $x^2+y^2=r^2$}
 \end{showEx}
 
-$B!JCm!K(B\cmd{Rectbox}$B%3%^%s%I$N0z?tFb$K!$JL9TN)$F?t<04D6-$r(B
-$BF~$l$k$3$H$O$G$-$^$;$s!#(B
+（注）\cmd{Rectbox}コマンドの引数内に，別行立て数式環境を
+入れることはできません。
 %\clearpage
 
-\subsubsection{$B8+=P$7$r$D$1$k(B}
-$B>eItOH@~$K8+=P$7$r$D$1$k$3$H$,$G$-$^$9!#(B
+\subsubsection{見出しをつける}
+上部枠線に見出しをつけることができます。
 
-\begin{showEx}(.9,1){\texttt{item}$B%*%W%7%g%s(B}
-\begin{rectbox}[item={~$B8+=P$7(B~}]
-$B$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"(B
-$B$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"(B
-$B$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"(B
+\begin{showEx}(.9,1){\texttt{item}オプション}
+\begin{rectbox}[item={~見出し~}]
+あああああああああああああああああああ
+あああああああああああああああああああ
+あああああああああああああああああああ
 \end{rectbox}
 \end{showEx}
 
-$B$=$N0LCV$O%G%U%)%k%H$G$O:8$G$9$,!$Cf1{!J1&!K$K$9$k$K$O!$(B
-\verb+itempos=..+$B%*%W%7%g%s$rMQ$$$^$9!#(B
+その位置はデフォルトでは左ですが，中央（右）にするには，
+\verb+itempos=..+オプションを用います。
 
-\begin{showEx}(.9,1){\texttt{itempos=c}$B%*%W%7%g%s(B}
-\begin{rectbox}[item={~$BCf1{8+=P$7(B~},itempos=c]
-$B$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"(B
-$B$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"(B
-$B$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"(B
+\begin{showEx}(.9,1){\texttt{itempos=c}オプション}
+\begin{rectbox}[item={~中央見出し~},itempos=c]
+あああああああああああああああああああ
+あああああああああああああああああああ
+あああああああああああああああああああ
 \end{rectbox}
 \end{showEx}
 
-\begin{showEx}(.9,1){\texttt{itempos=r}$B%*%W%7%g%s(B}
-\begin{rectbox}[item={~$B1&8+=P$7(B~},itempos=r]
-$B$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"(B
-$B$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"(B
-$B$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"(B
+\begin{showEx}(.9,1){\texttt{itempos=r}オプション}
+\begin{rectbox}[item={~右見出し~},itempos=r]
+あああああああああああああああああああ
+あああああああああああああああああああ
+あああああああああああああああああああ
 \end{rectbox}
 \end{showEx}
 
-$B2<$K8+=P$7$r$D$1$k$3$H$b$G$-$^$9(B.
+下に見出しをつけることもできます.
 
-\begin{showEx}(.9,1){\texttt{bitemp=..}$B%*%W%7%g%s(B}
-\begin{rectbox}[bitem={~$B2<8+=P$7(B~}]
-$B$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"(B
-$B$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"(B
-$B$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"(B
+\begin{showEx}(.9,1){\texttt{bitemp=..}オプション}
+\begin{rectbox}[bitem={~下見出し~}]
+あああああああああああああああああああ
+あああああああああああああああああああ
+あああああああああああああああああああ
 \end{rectbox}
 \end{showEx}
 
-$B:8!?Cf1{!?1&$NG[CV;XDj$O(B\verb+[bitempos=l/c/r]+$B$G9T$$$^$9(B.
+左／中央／右の配置指定は\verb+[bitempos=l/c/r]+で行います.
 
-\begin{showEx}(.9,1){\texttt{bitemp=..}$B%*%W%7%g%s(B}
-\begin{rectbox}[bitem={~$B2<8+=P$7(B~},bitempos=c]
-$B$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"(B
-$B$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"(B
-$B$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"(B
+\begin{showEx}(.9,1){\texttt{bitemp=..}オプション}
+\begin{rectbox}[bitem={~下見出し~},bitempos=c]
+あああああああああああああああああああ
+あああああああああああああああああああ
+あああああああああああああああああああ
 \end{rectbox}
 \end{showEx}
 
-\subsubsection{$B7S@~$N<oN`JQ99(B}
-$B%G%U%)%k%H$G$O!$7S@~$O(B\verb+\drawline+$B$G0z$+$l$^$9!#(B
-$B$3$l$rJQ99$9$k%*%W%7%g%s$G$9!#(B
+\subsubsection{罫線の種類変更}
+デフォルトでは，罫線は\verb+\drawline+で引かれます。
+これを変更するオプションです。
 
-\begin{showEx}(.9,1){\texttt{sensyu}$B%*%W%7%g%s(B}
+\begin{showEx}(.9,1){\texttt{sensyu}オプション}
 \begin{rectbox}[sensyu=\hasen]
-$B$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"(B
-$B$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"(B
-$B$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"(B
+あああああああああああああああああああ
+あああああああああああああああああああ
+あああああああああああああああああああ
 \end{rectbox}
 \end{showEx}
 
-$BGK@~$KJQ99$7$^$7$?$,!$<!$OE@@~$K$7$F$_$^$7$g$&!#(B
+破線に変更しましたが，次は点線にしてみましょう。
 
-\begin{showEx}(.9,1){\texttt{sensyu}$B%*%W%7%g%s(B}
+\begin{showEx}(.9,1){\texttt{sensyu}オプション}
 \begin{rectbox}[sensyu=\dottedline{.2}]
-$B$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"(B
-$B$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"(B
-$B$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"(B
+あああああああああああああああああああ
+あああああああああああああああああああ
+あああああああああああああああああああ
 \end{rectbox}
 \end{showEx}
 %\pagebreak
 
-\subsubsection{$B7S@~$NB@$5JQ99(B}
+\subsubsection{罫線の太さ変更}
 
-\begin{showEx}(.9,1){\texttt{allinethickness}$B%*%W%7%g%s(B}
+\begin{showEx}(.9,1){\texttt{allinethickness}オプション}
 \begin{rectbox}[allinethickness=1pt]
-$B$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"(B
-$B$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"(B
-$B$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"(B
+あああああああああああああああああああ
+あああああああああああああああああああ
+あああああああああああああああああああ
 \end{rectbox}
 \end{showEx}
 
-$B7S@~$NB@$5$r(B\texttt{1pt}$B$HB@$/$7$F$_$^$7$?$,!$(B
-$B;M6y$N$D$J$,$j6q9g$,46?4$7$^$;$s!#(B
+罫線の太さを\texttt{1pt}と太くしてみましたが，
+四隅のつながり具合が感心しません。
 
-$B$=$NE@$O(B\textsf{emathPs.sty}$B$GDj5A$5$l$F$$$k(B
-\textsf{EMpsrectbox}$B4D6-$NJ}$,$h$m$7$$$G$7$g$&!#(B
+その点は\textsf{emathPs.sty}で定義されている
+\textsf{EMpsrectbox}環境の方がよろしいでしょう。
 
-$B>\$7$/$O!$(B\texttt{samplePs.tex}$B$r$4Mw$/$@$5$$!#(B
+詳しくは，\texttt{samplePs.tex}をご覧ください。
 
-\subsubsection{$BOH@~$K?'IU(B}
-\textsf{rectbox}$B4D6-$G:n$i$l$k0O$_OH$NOH@~$K?'$r$D$1$k$K$O!$(B
-\texttt{[framecolor=..]}$B%*%W%7%g%s$rMQ$$$^$9!#(B
+\subsubsection{枠線に色付}
+\textsf{rectbox}環境で作られる囲み枠の枠線に色をつけるには，
+\texttt{[framecolor=..]}オプションを用います。
 
-\begin{showEx}{\texttt{[framecolor=..]}$B%*%W%7%g%s(B}
+\begin{showEx}{\texttt{[framecolor=..]}オプション}
 \begin{rectbox}[framecolor=red]
-$B$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"(B
-$B$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"(B
-$B$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"(B
+あああああああああああああああああ
+あああああああああああああああああ
+あああああああああああああああああ
 \end{rectbox}
 \end{showEx}
 
-\subsubsection{$BGX7J?'(B}
-$B0O$_OH$NCf$NGX7J?'$r$7$F$$$k$9$k$K$O!$(B
-\texttt{[backgroundcolor=..]}$B%*%W%7%g%s$rMQ$$$^$9!#(B
+\subsubsection{背景色}
+囲み枠の中の背景色をしているするには，
+\texttt{[backgroundcolor=..]}オプションを用います。
 
-\begin{showEx}{\texttt{[backgroundcolor=..]}$B%*%W%7%g%s(B}
+\begin{showEx}{\texttt{[backgroundcolor=..]}オプション}
 \begin{rectbox}[framecolor=red,%
   backgroundcolor=cyan]
-$B$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"(B
-$B$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"(B
-$B$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"(B
+あああああああああああああああああ
+あああああああああああああああああ
+あああああああああああああああああ
 \end{rectbox}
 \end{showEx}
 
-\subsubsection{$B8+=P$7$HGX7J?'$O(B}
-$B8+=P$7$r$D$1$k$H$-!$8=;~E@$G$N;EMM$O(B
+\subsubsection{見出しと背景色は}
+見出しをつけるとき，現時点での仕様は
 
-\begin{showEx}{$B8+=P$7(B}
+\begin{showEx}{見出し}
 \begin{rectbox}[framecolor=red,%
-  backgroundcolor=cyan,item=$B8+=P$7(B]
-$B$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"(B
-$B$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"(B
-$B$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"(B
+  backgroundcolor=cyan,item=見出し]
+あああああああああああああああああ
+あああああああああああああああああ
+あああああああああああああああああ
 \end{rectbox}
 \end{showEx}
 
 \noindent
-$B!V8+=P$7!W$,GX7J?'$r?/?)$9$k!$$3$H$K$7$F$$$^$9$,!$$I$s$J$b$N$G$7$g$&$+!#(B
+「見出し」が背景色を侵食する，ことにしていますが，どんなものでしょうか。
 
-\subsubsection{$B8+=P$7$NGX7J?';XDj(B}
-$B8+=P$7$NGX7J?'$r;XDj$9$k$3$H$b$G$-$^$9$,!$$A$g$C$H$7$D$3$$$G$7$g$&$+!#(B
+\subsubsection{見出しの背景色指定}
+見出しの背景色を指定することもできますが，ちょっとしつこいでしょうか。
 
-\begin{showEx}{$B8+=P$7(B}
+\begin{showEx}{見出し}
 \begin{rectbox}[framecolor=red,%
   backgroundcolor=cyan,%
-  item=$B8+=P$7(B,itempos=c,%
+  item=見出し,itempos=c,%
   midasibackgroundcolor=lightgray]
-$B$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"(B
-$B$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"(B
-$B$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"(B
+あああああああああああああああああ
+あああああああああああああああああ
+あああああああああああああああああ
 \end{rectbox}
 \end{showEx}
 
-\begin{showEx}{$B2<8+=P$7(B}
+\begin{showEx}{下見出し}
 \begin{rectbox}[framecolor=red,%
   backgroundcolor=cyan,%
-  bitem=$B2<8+=P$7(B,bitempos=l,%
+  bitem=下見出し,bitempos=l,%
   midasibackgroundcolor=lightgray]
-$B$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"(B
-$B$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"(B
-$B$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"(B
+あああああああああああああああああ
+あああああああああああああああああ
+あああああああああああああああああ
 \end{rectbox}
 \end{showEx}
 
-\subsubsection{\textsf{enumrectbox}$B4D6-(B}
-\textsf{rectbox}$B4D6-$NI=BjIt$K!$<+F0E*$KO"HV$r?6$C$F$$$/$N$,(B
-\textsf{enumrectbox}$B4D6-$G$9!#(B
+\subsubsection{\textsf{enumrectbox}環境}
+\textsf{rectbox}環境の表題部に，自動的に連番を振っていくのが
+\textsf{enumrectbox}環境です。
 
-\begin{showEx}{\textsf{enumrectbox}$B4D6-(B}
+\begin{showEx}{\textsf{enumrectbox}環境}
 \begin{enumrectbox}
-$B$"$"$"$"$"$"$"$"$"$"(B
+ああああああああああ
 \end{enumrectbox}
 
 \begin{enumrectbox}
-$B$$$$$$$$$$$$$$$$$$$$(B
+いいいいいいいいいい
 \end{enumrectbox}
 \end{showEx}
 
-$B$3$NHV9fIU$1$O!$%+%&%s%?(B
+この番号付けは，カウンタ
 
 \begin{boxnote}
 \begin{verbatim}
@@ -280,267 +280,267 @@
 \end{verbatim}
 \end{boxnote}
 \noindent
-$B$K$h$C$F9T$o$l$^$9!#(B
-$B$7$?$,$C$F(B
+によって行われます。
+したがって
 \begin{jquote}
 \verb+\resetcounter{rectboxenum}+\\
 \verb+\setcounter{rectboxenum}+
 \end{jquote}
-$B$J$I$G@)8f$9$k$3$H$,$G$-$^$9!#(B
+などで制御することができます。
 
-\begin{showEx}{$BHV9f=i4|CM$N;XDj(B}
+\begin{showEx}{番号初期値の指定}
 \setcounter{rectboxenum}{100}
 \begin{enumrectbox}
-$B$"$"$"$"$"$"$"$"$"$"(B
+ああああああああああ
 \end{enumrectbox}
 
 \begin{enumrectbox}
-$B$$$$$$$$$$$$$$$$$$$$(B
+いいいいいいいいいい
 \end{enumrectbox}
 \end{showEx}
 %\newpage
 
 \subsubsection{\cmd{labelrectboxenum}}
-$BHV9fIt$r!$C1$K(B
+番号部を，単に
 \begin{jquote}
 1, 2, 3, \Cdots
 \end{jquote}
-$B$G$O$J$/(B
+ではなく
 \begin{jquote}
-$BNcBj(B1, $BNcBj(B2, $BNcBj(B3, \Cdots
+例題1, 例題2, 例題3, \Cdots
 \end{jquote}
-$B$J$I$H=$>~$9$k$?$a$K%3%^%s%I(B\verb+\labelrectboxenum+$B$rMQ0U$7$^$7$?!#(B
+などと修飾するためにコマンド\verb+\labelrectboxenum+を用意しました。
 
 \begin{showEx}{\cmd{labelrectboxenum}}
 \resetcounter{rectboxenum}
 \def\labelrectboxenum{%
-$BNcBj(B\arabic{rectboxenum}}
+例題\arabic{rectboxenum}}
 \begin{enumrectbox}
-$B$"$"$"$"$"$"$"$"$"$"(B
+ああああああああああ
 \end{enumrectbox}
 
 \begin{enumrectbox}
-$B$$$$$$$$$$$$$$$$$$$$(B
+いいいいいいいいいい
 \end{enumrectbox}
 \end{showEx}
 
-\cmd{labelenumi}$B$J$I$HF1MM$N;H$$J}$r$7$^$9!#(B
+\cmd{labelenumi}などと同様の使い方をします。
 
-\subsubsection{$B8+=P$7J8$bIU2C(B}
-$BHV9f$KB3$1$F!$8+=P$7J8$b$D$1$?$$$H$-$O!$(B\textsf{rectbox}$B4D6-$KBP$9$k(B
-\verb+[item=...]+$B%*%W%7%g%s$r;HMQ$7$^$9!#(B
+\subsubsection{見出し文も付加}
+番号に続けて，見出し文もつけたいときは，\textsf{rectbox}環境に対する
+\verb+[item=...]+オプションを使用します。
 
 \begin{showEx}{\cmd{labelrectboxenum}}
 \resetcounter{rectboxenum}
 \def\labelrectboxenum{%
-$BNcBj(B\arabic{rectboxenum}.~}
-\begin{enumrectbox}[item=$B%"%"%"(B]
-$B$"$"$"$"$"$"$"$"$"$"(B
+例題\arabic{rectboxenum}.~}
+\begin{enumrectbox}[item=アアア]
+ああああああああああ
 \end{enumrectbox}
 
-\begin{enumrectbox}[item=$B%$%$%$(B]
-$B$$$$$$$$$$$$$$$$$$$$(B
+\begin{enumrectbox}[item=イイイ]
+いいいいいいいいいい
 \end{enumrectbox}
 \end{showEx}
 \newpage
 
-\subsubsection{$BAj8_;2>H(B}
-$BAj8_;2>H$r$9$k$K$O!$(B\verb+\label{...}+$B$KBe$($F!$(B\verb+\begin{enumrectbox}+$B$K(B
-\verb+<...>+$B%*%W%7%g%s$rMQ$$$^$9!#(B\verb+\ref+$B$O!$$=$N$^$^M-8z$G$9!#(B
+\subsubsection{相互参照}
+相互参照をするには，\verb+\label{...}+に代えて，\verb+\begin{enumrectbox}+に
+\verb+<...>+オプションを用います。\verb+\ref+は，そのまま有効です。
 
-\begin{showEx}{$BAj8_;2>H(B}
+\begin{showEx}{相互参照}
 \resetcounter{rectboxenum}
 \def\labelrectboxenum{%
-$BNcBj(B\arabic{rectboxenum}}
+例題\arabic{rectboxenum}}
 \begin{enumrectbox}<L1>
-$B$"$"$"$"$"$"$"$"$"$"(B
+ああああああああああ
 \end{enumrectbox}
 
 \begin{enumrectbox}
-$BNcBj(B\ref{L1}$B$K$*$$$F!$(B
+例題\ref{L1}において，
 \end{enumrectbox}
 \end{showEx}
 
-\subsubsection{\textsf{enumrectbox}$B$N=q<0(B}
-\verb+\begin{enumrectbox}+$B$N=q<0$G$9!#(B
+\subsubsection{\textsf{enumrectbox}の書式}
+\verb+\begin{enumrectbox}+の書式です。
 
 \begin{boxnote}
 \begin{verbatim}
 \begin{enumrectbox}<#1>[#2]
-  #1 : $B%i%Y%kL>(B
-  #2 : rectbox$B4D6-$K0z$-7Q$,$l$k%*%W%7%g%s(B
+  #1 : ラベル名
+  #2 : rectbox環境に引き継がれるオプション
 \end{verbatim}
 \end{boxnote}
 
-\subsubsection{\textsf{rectbox}$B4D6-$K$*$1$k7S@~$H$N4V3V(B}
-\textsf{rectbox}$B$K$*$$$F!$7S@~$H%F%-%9%HIt$H$N4V3V$O!$(B
-$B%G%U%)%k%H$G$O(B\verb+\fboxsep+$B$G$9$,!$$3$l$rJQ99$9$k%3%^%s%I$rMQ0U$7$^$7$?!#(B
+\subsubsection{\textsf{rectbox}環境における罫線との間隔}
+\textsf{rectbox}において，罫線とテキスト部との間隔は，
+デフォルトでは\verb+\fboxsep+ですが，これを変更するコマンドを用意しました。
 
 \begin{boxnote}
 \begin{verbatim}
 \HVsep#1#2
-  #1 : $B:81&$N6u$-(B
-  #2 : $B>e2<$N6u$-(B
-$B$$$:$l$b!$C10L$D$-$N?tCM(B
+  #1 : 左右の空き
+  #2 : 上下の空き
+いずれも，単位つきの数値
 \end{verbatim}
 \end{boxnote}
 
-$B;HMQNc$G$9!#(B
+使用例です。
 
-\begin{showEx}{$B7S@~$H%F%-%9%HIt$H$N4V3V(B}
-$B%G%U%)%k%H$G$9!#(B
+\begin{showEx}{罫線とテキスト部との間隔}
+デフォルトです。
 
 \begin{rectbox}
-$B$"$"$"$"$"$"$"$"$"$"$"$"$"(B
-$B$"$"$"$"$"$"$"$"$"$"$"$"$"(B
-$B$"$"$"$"$"$"$"$"$"$"$"$"$"(B
+あああああああああああああ
+あああああああああああああ
+あああああああああああああ
 \end{rectbox}
 
 \verb+\HVsep{1zw}{.5zh}+
-$B$rH/9T$7$^$9!#(B
+を発行します。
 
 \HVsep{1zw}{.5zh}
 \begin{rectbox}
-$B$"$"$"$"$"$"$"$"$"$"$"$"$"(B
-$B$"$"$"$"$"$"$"$"$"$"$"$"$"(B
-$B$"$"$"$"$"$"$"$"$"$"$"$"$"(B
+あああああああああああああ
+あああああああああああああ
+あああああああああああああ
 \end{rectbox}
 \end{showEx}
 
-$B$J$*!$(B\textsf{rectbox}$B4D6-$K$*$$$F!$(B
-\verb+[hsep=..,vsep=..]+$B%*%W%7%g%s$rH/9T$7$?$H$-$O!$(B
-$B$=$N%*%W%7%g%s$,M-8z$H$J$j$^$9!#(B
+なお，\textsf{rectbox}環境において，
+\verb+[hsep=..,vsep=..]+オプションを発行したときは，
+そのオプションが有効となります。
 
-$B$3$N%3%^%s%I(B\verb+HVsep+$B$O!$(B\textsf{enumrectbox}$B4D6-$KBP$7$F$bM-8z$G$9!#(B
+このコマンド\verb+HVsep+は，\textsf{enumrectbox}環境に対しても有効です。
 
-\begin{showEx}{\textsf{enumrectbox}$B4D6-$N>l9g(B}
+\begin{showEx}{\textsf{enumrectbox}環境の場合}
 \resetcounter{rectboxenum}
 \HVsep{2zw}{.5\baselineskip}
 \begin{enumrectbox}
-$B$"$"$"$"$"$"$"$"$"$"(B
-$B$"$"$"$"$"$"$"$"$"$"(B
+ああああああああああ
+ああああああああああ
 \end{enumrectbox}
 
 \begin{enumrectbox}
-$B$$$$$$$$$$$$$$$$$$$$(B
-$B$$$$$$$$$$$$$$$$$$$$(B
+いいいいいいいいいい
+いいいいいいいいいい
 \end{enumrectbox}
 \end{showEx}
 \newpage
 
-\subsubsection{$B%3!<%J!<$r4]$/(B}
-\textsf{rectbox}$B4D6-$N%3!<%J!<$r4]$/$9$k$K$O!$(B
-\verb+[rectboxoval=...]+$B%*%W%7%g%s$rMQ$$$^$9!#(B
-$B1&JUCM$O%3!<%J!<;MJ,1_$NH>7B$r!$C10L$D$-?tCM$GM?$($^$9!#(B
+\subsubsection{コーナーを丸く}
+\textsf{rectbox}環境のコーナーを丸くするには，
+\verb+[rectboxoval=...]+オプションを用います。
+右辺値はコーナー四分円の半径を，単位つき数値で与えます。
 
-\begin{showEx}(.9,1){\texttt{rectboxoval=..}$B%*%W%7%g%s(B}
+\begin{showEx}(.9,1){\texttt{rectboxoval=..}オプション}
 \begin{rectbox}[rectboxoval=10pt]
-$B$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"(B
-$B$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"(B
-$B$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"(B
+あああああああああああああああああああ
+あああああああああああああああああああ
+あああああああああああああああああああ
 
-$B$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$(B
-$B$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$(B
-$B$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$(B
-$B$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$(B
+いいいいいいいいいいいいいいいいいいい
+いいいいいいいいいいいいいいいいいいい
+いいいいいいいいいいいいいいいいいいい
+いいいいいいいいいいいいいいいいいいい
 \end{rectbox}
 \end{showEx}
 
-\verb+\rectboxoval+$B%3%^%s%I$rMQ$$$k$H!$(B
-$B$9$Y$F$N(B\textsf{(enum)rectbox}$B4D6-$N%3!<%J!<$r4]$/$9$k$3$H$,$G$-$^$9!#(B
-$B0z?t$OH>7B$r!$C10L$D$-?tCM$GM?$($^$9!#(B
+\verb+\rectboxoval+コマンドを用いると，
+すべての\textsf{(enum)rectbox}環境のコーナーを丸くすることができます。
+引数は半径を，単位つき数値で与えます。
 
 \begin{showEx}{\cmd{rectboxoval}}
 \resetcounter{rectboxenum}
 \rectboxoval{6pt}
 \begin{enumrectbox}
-$B$"$"$"$"$"$"$"$"$"$"(B
-$B$"$"$"$"$"$"$"$"$"$"(B
+ああああああああああ
+ああああああああああ
 \end{enumrectbox}
 
 \begin{rectbox}[rectboxoval=0pt]
-$B%J%s%P%j%s%0$7$J$$(B
-\textsf{rectbox}$B4D6-$G$9!#(B
-$B%3!<%J!<$r4]$/$7$?$/$J$1$l$P(B
+ナンバリングしない
+\textsf{rectbox}環境です。
+コーナーを丸くしたくなければ
 \verb+[rectboxoval=0pt]+
-$B%*%W%7%g%s$,I,MW$G$9!#(B
+オプションが必要です。
 \end{rectbox}
 
 \begin{enumrectbox}
-$B$$$$$$$$$$$$$$$$$$$$(B
-$B$$$$$$$$$$$$$$$$$$$$(B
+いいいいいいいいいい
+いいいいいいいいいい
 \end{enumrectbox}
 \end{showEx}
 
-\subsection{$B4]0O$_J8;z(B}
+\subsection{丸囲み文字}
 \subsubsection{\cmd{maru}}
-$BJ8;z$r!{$G0O$`$N$K!$(B\textsf{emath.sty}$B$G$O!$J8;z$r>.$5$a$K$7$?(B\cmd{maru}
-$B$rMQ0U$7$F$$$^$9!#(B
+文字を○で囲むのに，\textsf{emath.sty}では，文字を小さめにした\cmd{maru}
+を用意しています。
 
 \begin{showEx}(.6,.34){\cmd{maru}}
-\maru{1}, \maru{39}, \maru{$B$"(B}
+\maru{1}, \maru{39}, \maru{あ}
 \end{showEx}
 
 \subsubsection{\cmd{emPmaru}}
-$BJ8;z$,>.$5$$$N$,FqE@$G$9!#(B
-$B$=$3$G!$J8;z%5%$%:$O$=$N$^$^$G!$!{$rBg$-$/$9$kJ}<0$N%3%^%s%I$r(B
-$B?7@_$7$^$7$?!#(B
+文字が小さいのが難点です。
+そこで，文字サイズはそのままで，○を大きくする方式のコマンドを
+新設しました。
 
 \begin{showEx}(.6,.34){\cmd{emPmaru}}
-\emPmaru{1}, \emPmaru{39}, \emPmaru{$B$"(B}
+\emPmaru{1}, \emPmaru{39}, \emPmaru{あ}
 \end{showEx}
 
 \subsubsection{\cmd{emPmaruKizyun}}
-\cmd{emPmaru}$B$O!$Cf$NJ8;z$KBP1~$7$F!$!{$N%5%$%:$,7h$^$j$^$9$,!$(B
-$B$3$l$r0lDj$K$7$?$$$H$-$O(B
+\cmd{emPmaru}は，中の文字に対応して，○のサイズが決まりますが，
+これを一定にしたいときは
 \begin{jquote}
 \begin{verb}
-\emPmaruKizyun{$B$"(B}
+\emPmaruKizyun{あ}
 \end{verb}
 \end{jquote}
-$B$J$I$H!$4p=`$NJ8;z$r;XDj$7$^$9!#(B
+などと，基準の文字を指定します。
 
 \begin{showEx}(.6,.34){\cmd{emPmaru}}
-\emPmaruKizyun{$B$"(B}
-\emPmaru{1}, \emPmaru{39}, \emPmaru{$B$"(B}
+\emPmaruKizyun{あ}
+\emPmaru{1}, \emPmaru{39}, \emPmaru{あ}
 \end{showEx}
 %\clearpage
 
-\subsubsection{\textsf{enumerate}$B4D6-$G$NHV9fIU$1(B}
-\cmd{emPmaru}$B$r(B\textsf{enumerate}$B4D6-$G$NHV9fIU$1$K;HMQ$7$F$_$^$7$g$&!#(B
+\subsubsection{\textsf{enumerate}環境での番号付け}
+\cmd{emPmaru}を\textsf{enumerate}環境での番号付けに使用してみましょう。
 
 \begin{showEx}(.7,.24){\cmd{emPmaru}}
-\emPmaruKizyun{$B$"(B}
+\emPmaruKizyun{あ}
 \begin{enumerate}[\protect\expandafter\emPmaru 1]
-  \item $B$"$"$"(B
-  \item $B$"$"$"(B
-  \item $B$"$"$"(B
-  \item $B$"$"$"(B
-  \item $B$"$"$"(B
-  \item $B$"$"$"(B
-  \item $B$"$"$"(B
-  \item $B$"$"$"(B
-  \item $B$"$"$"(B
-  \item $B$"$"$"(B
-  \item $B$"$"$"(B
-  \item $B$"$"$"(B
-  \item $B$"$"$"(B
-  \item $B$"$"$"(B
-  \item $B$"$"$"(B
-  \item $B$"$"$"(B
-  \item $B$"$"$"(B
-  \item $B$"$"$"(B
-  \item $B$"$"$"(B
-  \item $B$"$"$"(B
+  \item あああ
+  \item あああ
+  \item あああ
+  \item あああ
+  \item あああ
+  \item あああ
+  \item あああ
+  \item あああ
+  \item あああ
+  \item あああ
+  \item あああ
+  \item あああ
+  \item あああ
+  \item あああ
+  \item あああ
+  \item あああ
+  \item あああ
+  \item あああ
+  \item あああ
+  \item あああ
 \end{enumerate}
 \end{showEx}
 %\clearpage
 
-\subsubsection{$B?t<0HV9f$K(B\cmd{emPmaru}}
-\textsf{align}$B4D6-$J$I!$?t<0HV9f$K(B\cmd{emPmaru}$B$r;HMQ$7$F$_$^$7$g$&!#(B
+\subsubsection{数式番号に\cmd{emPmaru}}
+\textsf{align}環境など，数式番号に\cmd{emPmaru}を使用してみましょう。
 
-\begin{showEx}{$B?t<0HV9f$K(B\cmd{emPmaru}}
-\emPmaruKizyun{$B$"(B}
+\begin{showEx}{数式番号に\cmd{emPmaru}}
+\emPmaruKizyun{あ}
 \def\tagform#1{\emPmaru{#1}}
 \begin{align}
   y &= x\\
@@ -558,11 +558,11 @@
 \end{align}
 \end{showEx}
 
-$B?t<0HV9f$,L\N)$A$9$.$G$9$+!#%5%$%:$rMn$H$7$F$_$^$7$g$&$+!#(B
+数式番号が目立ちすぎですか。サイズを落としてみましょうか。
 
 \resetcounter{equation}
-\begin{showEx}{$B?t<0HV9f$K(B\cmd{emPmaru}}
-\emPmaruKizyun{$B$"(B}
+\begin{showEx}{数式番号に\cmd{emPmaru}}
+\emPmaruKizyun{あ}
 \def\tagform#1{%
   \footnotesize\emPmaru{#1}}
 \begin{align}
@@ -579,443 +579,443 @@
   y &= x\label{LL}\\
   y &= x
 \end{align}
-\eqref{LL}$B$K$*$$$F!$!%!%!%(B
+\eqref{LL}において，．．．
 \end{showEx}
 
-\cmd{eqref}$B$K$h$k;2>H;~$b%5%$%:$,Mn$A$^$9!#(B
+\cmd{eqref}による参照時もサイズが落ちます。
 
-\cmd{footnotesize}$B$G$O!$Mn$H$7$9$.$G$9$+!#(B\cmd{small}$B$G$O$I$&$G$7$g$&!#(B
-$B$*9%$_$G!%!%!%!%!%(B
+\cmd{footnotesize}では，落としすぎですか。\cmd{small}ではどうでしょう。
+お好みで．．．．．
 
-\subsubsection{$B!{$NB@$5(B}
-\cmd{emPmaru}$B$N!{0u$O!$(B\textsf{emathPh}$B$GDj5A$5$l$F$$$k(B\cmd{En}$B$rMQ$$$F(B
-$BIA2h$5$l$F$$$^$9!#$7$?$,$C$F!$$3$N%3%^%s%I$r;HMQ$9$k:]$O!$(B
-\textsf{emathPh}$B$r%m!<%I$7$F$*$/I,MW$,$"$j$^$9!#(B
-$B$H$$$&$3$H$G!$!{0u$N@~$NB@$5$rJQ99$9$k$K$O!$(B\cmd{thicklines}$BEy$,M-8z$G$9!#(B
-\begin{showEx}{\cmd{emPmaru}$B$N@~$NB@$5(B}
-\emPmaru{$B%"(B}\hspace{1zw}%
-\thicklines\emPmaru{$B%"(B}
+\subsubsection{○の太さ}
+\cmd{emPmaru}の○印は，\textsf{emathPh}で定義されている\cmd{En}を用いて
+描画されています。したがって，このコマンドを使用する際は，
+\textsf{emathPh}をロードしておく必要があります。
+ということで，○印の線の太さを変更するには，\cmd{thicklines}等が有効です。
+\begin{showEx}{\cmd{emPmaru}の線の太さ}
+\emPmaru{ア}\hspace{1zw}%
+\thicklines\emPmaru{ア}
 \end{showEx}
 
-\subsection{$B?a$-=P$7(B}
-$BL!2h$J$I$GMQ$$$i$l$k!V?a$-=P$7!W$b$I$-$G$9!#(B
-\textsf{emathPb.sty}$B$GDj5A$5$l$F$$$^$9!#(B
+\subsection{吹き出し}
+漫画などで用いられる「吹き出し」もどきです。
+\textsf{emathPb.sty}で定義されています。
 
 \subsubsection{\cmd{hukidasi}}
-$BAGKQ$J7A$+$i;O$a$^$9!#(B
+素朴な形から始めます。
 
 \begin{showEx}{\cmd{hukidasi}}
-$B$"$"$"$"$"$"$"$"$"$"(B%
+ああああああああああ%
 \hukidasi{%
-  $B$3$N4V$K(B\\
-  $B$$$$$$$$$$$$$$(B\\
-  $B$rJd$&(B
+  この間に\\
+  いいいいいいい\\
+  を補う
 }%
-$B$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&(B
-$B$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&(B
-$B$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&(B
-$B$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&(B
+うううううううううううううううううう
+うううううううううううううううううう
+うううううううううううううううううう
+うううううううううううううううううう
 \end{showEx}
 
-\subsubsection{$B7S@~$HJ8;z$N4V3V(B}
-$B?a$-=P$7$NBf;l$H$=$l$r0O$`7S@~$H$N4V3V$O(B\cmd{fboxsep}$B$G7h$^$j$^$9!#(B
-$B$?$@$7!$B>$X$N1F6A$rHr$1$k$?$a$K$O(B\cmd{hukidasi}$B$X$N(B\verb+[fboxsep=..]+
-$B%*%W%7%g%s$rMxMQ$9$k$N$,NI$$$G$7$g$&!#(B
+\subsubsection{罫線と文字の間隔}
+吹き出しの台詞とそれを囲む罫線との間隔は\cmd{fboxsep}で決まります。
+ただし，他への影響を避けるためには\cmd{hukidasi}への\verb+[fboxsep=..]+
+オプションを利用するのが良いでしょう。
 
-\begin{showEx}{\texttt{[fboxsep=..]$B%*%W%7%g%s(B}}
-$B$"$"$"$"$"$"$"$"$"$"(B%
+\begin{showEx}{\texttt{[fboxsep=..]オプション}}
+ああああああああああ%
 \hukidasi[fboxsep=10pt]{%
-  $B$3$N4V$K(B\\
-  $B$$$$$$$$$$$$$$(B\\
-  $B$rJd$&(B
+  この間に\\
+  いいいいいいい\\
+  を補う
 }%
-$B$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&(B
-$B$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&(B
-\fbox{$B$($($($((B}$B$*$*$*$*$*$*$*$*$*$*(B
+うううううううううううううううううう
+うううううううううううううううううう
+\fbox{ええええ}おおおおおおおおおお
 \end{showEx}
 
-$B>e2<!&:81&$rJL!9$K;XDj$9$k$K$O!$(B\verb+[hsep=..,vsep=..]+$B%*%W%7%g%s$rMQ$$$^$9!#(B
+上下・左右を別々に指定するには，\verb+[hsep=..,vsep=..]+オプションを用います。
 
-\begin{showEx}{\texttt{[hsep=..,vsep=..]$B%*%W%7%g%s(B}}
-$B$"$"$"$"$"$"$"$"$"$"(B%
+\begin{showEx}{\texttt{[hsep=..,vsep=..]オプション}}
+ああああああああああ%
 \hukidasi[vsep=10pt,hsep=4pt]{%
-  $B$3$N4V$K(B\\
-  $B$$$$$$$$$$$$$$(B\\
-  $B$rJd$&(B
+  この間に\\
+  いいいいいいい\\
+  を補う
 }%
-$B$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&(B
-$B$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&(B
-\fbox{$B$($($($((B}$B$*$*$*$*$*$*$*$*$*$*(B
+うううううううううううううううううう
+うううううううううううううううううう
+\fbox{ええええ}おおおおおおおおおお
 \end{showEx}
 
-\subsubsection{$B4]$$%3!<%J!<(B}
-4$B6y$r4]$/$9$k$K$O!$(B\cmd{hukidasi}$B$K(B\verb+[hankei=..]+$B$G!$(B4$B6y$N(B4$BJ,1_$NH>7B$r(B
-$B;XDj$7$^$9!#CM$OC10L$rH<$$$^$9!#(B
+\subsubsection{丸いコーナー}
+4隅を丸くするには，\cmd{hukidasi}に\verb+[hankei=..]+で，4隅の4分円の半径を
+指定します。値は単位を伴います。
 
-\begin{showEx}{\texttt{[hankei=..]$B%*%W%7%g%s(B}}
-$B$"$"$"$"$"$"$"$"$"$"(B%
+\begin{showEx}{\texttt{[hankei=..]オプション}}
+ああああああああああ%
 \hukidasi[hankei=10pt]{%
-  $B$3$N4V$K(B\\
-  $B$$$$$$$$$$$$$$(B\\
-  $B$rJd$&(B
+  この間に\\
+  いいいいいいい\\
+  を補う
 }%
-$B$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&(B
-$B$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&(B
-\fbox{$B$($($($((B}$B$*$*$*$*$*$*$*$*$*$*(B
+うううううううううううううううううう
+うううううううううううううううううう
+\fbox{ええええ}おおおおおおおおおお
 \end{showEx}
 
-$B$3$N>l9g!$OH$HBf;l$N4V$N4V3V$r:81&$9$k$b$N$O(B\cmd{fboxsep}$B$G$O$J$/!$(B
-\verb+[hankei=..]+$B$N1&JUCM$G$9!#$b$C$H69$/$7$?$$!$$J$I$N$H$-$O(B
-\verb+hsep, vsep+$B%*%W%7%g%s$r$4MxMQ$/$@$5$$!#(B
+この場合，枠と台詞の間の間隔を左右するものは\cmd{fboxsep}ではなく，
+\verb+[hankei=..]+の右辺値です。もっと狭くしたい，などのときは
+\verb+hsep, vsep+オプションをご利用ください。
 
-\begin{showEx}{\texttt{[hsep=..,vsep=..]$B%*%W%7%g%s(B}}
-$B$"$"$"$"$"$"$"$"$"$"(B%
+\begin{showEx}{\texttt{[hsep=..,vsep=..]オプション}}
+ああああああああああ%
 \hukidasi[hankei=10pt,%
 hsep=2pt,vsep=5pt]{%
-  $B$3$N4V$K(B\\
-  $B$$$$$$$$$$$$$$(B\\
-  $B$rJd$&(B
+  この間に\\
+  いいいいいいい\\
+  を補う
 }%
-$B$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&(B
-$B$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&(B
-\fbox{$B$($($($((B}$B$*$*$*$*$*$*$*$*$*$*(B
+うううううううううううううううううう
+うううううううううううううううううう
+\fbox{ええええ}おおおおおおおおおお
 \end{showEx}
 
-\subsubsection{$B?a$-=P$78}$N7A>u(B}
-$B?a$-=P$78}$O!$FsEyJU;03Q7A$G$9$,!$$=$NDlJU$H9b$5$r(B
+\subsubsection{吹き出し口の形状}
+吹き出し口は，二等辺三角形ですが，その底辺と高さを
 \begin{jquote}
 \begin{verbatim}
 hukidasihaba=..
 hukidasitakasa=..
 \end{verbatim}
 \end{jquote}
-$B%*%W%7%g%s$G;XDj$9$k$3$H$,$G$-$^$9!#%G%U%)%k%HCM$O(B
+オプションで指定することができます。デフォルト値は
 \begin{jquote}
 \begin{verbatim}
 hukidasihaba=20pt
 hukidasitakasa=10pt
 \end{verbatim}
 \end{jquote}
-$B$H$J$C$F$$$^$9!#(B
+となっています。
 
-\begin{showEx}{$B?a$-=P$78}$N7A>u(B}
-$B$"$"$"$"$"$"$"$"$"$"(B%
+\begin{showEx}{吹き出し口の形状}
+ああああああああああ%
 \hukidasi[hankei=10pt,%
 hukidasihaba=10pt,%
 hukidasitakasa=20pt]{%
-  $B$3$N4V$K(B\\
-  $B$$$$$$$$$$$$$$(B\\
-  $B$rJd$&(B
+  この間に\\
+  いいいいいいい\\
+  を補う
 }%
-$B$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&(B
-$B$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&(B
-\fbox{$B$($($($((B}$B$*$*$*$*$*$*$*$*$*$*(B
+うううううううううううううううううう
+うううううううううううううううううう
+\fbox{ええええ}おおおおおおおおおお
 \end{showEx}
 
-\subsubsection{$B2#I}$NJQ99(B}
-$B?a$-=P$7OH$N2#I}$O!$Bf;l$N<+A3D9$K@_Dj$5$l$^$9$,!$(B
-$B$3$l$r;XDj$9$k$K$O!$(B\verb+[width=..]+$B%*%W%7%g%s$rMQ$$$^$9!#(B
-$B$3$l$O!$Bf;l$NJ8;zItJ,$ND9$5$r;XDj$7$^$9!#(B
+\subsubsection{横幅の変更}
+吹き出し枠の横幅は，台詞の自然長に設定されますが，
+これを指定するには，\verb+[width=..]+オプションを用います。
+これは，台詞の文字部分の長さを指定します。
 
-\begin{showEx}{\texttt{width}$B%*%W%7%g%s(B}
-$B$"$"$"$"$"$"$"$"$"$"(B%
+\begin{showEx}{\texttt{width}オプション}
+ああああああああああ%
 \hukidasi[width=4zw]{%
-  $B$3$N4V$K(B\\
-  $B$$$$$$$$$$$$$$(B\\
-  $B$rJd$&(B
+  この間に\\
+  いいいいいいい\\
+  を補う
 }%
-$B$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&(B
-$B$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&(B
-$B$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&(B
-$B$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&(B
+うううううううううううううううううう
+うううううううううううううううううう
+うううううううううううううううううう
+うううううううううううううううううう
 \end{showEx}
 
-\subsubsection{$BJ8;z%5%$%:$NJQ99(B}
-$BBf;lItJ,$NJ8;z%5%$%:$NJQ99$O!$(B\cmd{hukidasi}$B$NA0$G9T$$$^$9!#(B
+\subsubsection{文字サイズの変更}
+台詞部分の文字サイズの変更は，\cmd{hukidasi}の前で行います。
 
-\begin{showEx}{$BJ8;z%5%$%:JQ99(B}
-$B$"$"$"$"$"$"$"$"$"$"(B%
+\begin{showEx}{文字サイズ変更}
+ああああああああああ%
 \begin{footnotesize}
 \hukidasi[hankei=10pt,%
 vsep=4pt,hsep=8pt,%
 hukidasihaba=10pt,%
 hukidasitakasa=20pt]{%
-  $B$3$N4V$K(B\\
-  $B$$$$$$$$$$$$$$(B\\
-  $B$rJd$&(B
+  この間に\\
+  いいいいいいい\\
+  を補う
 }%
 \end{footnotesize}%
-$B$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&(B
-$B$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&(B
-\fbox{$B$($($($((B}$B$*$*$*$*$*$*$*$*$*$*(B
+うううううううううううううううううう
+うううううううううううううううううう
+\fbox{ええええ}おおおおおおおおおお
 \end{showEx}
 
-\subsubsection{$B?a$-=P$78}$N0LCV(B}
-$B?a$-=P$78}$O!$%G%U%)%k%H$G$O!$OH$N>eIt$K$D$-$^$9!#(B\\
-$B$3$l$rJQ99$9$k$K$O!$(B\verb+[hukidasiiti=T/B/L/R}+$B%*%W%7%g%s$rMQ$$$^$9(B
-$B!J%G%U%)%k%H$O(B\verb+T+$B!K!#(B
+\subsubsection{吹き出し口の位置}
+吹き出し口は，デフォルトでは，枠の上部につきます。\\
+これを変更するには，\verb+[hukidasiiti=T/B/L/R}+オプションを用います
+（デフォルトは\verb+T+）。
 
-$B!JCm!K8=;~E@$G$O(B\verb+R+$B%*%W%7%g%s$O<BAu$7$F$$$^$;$s!#(B
+（注）現時点では\verb+R+オプションは実装していません。
 
-\paragraph{\texttt{[hukidasiiti=B]}$B%*%W%7%g%s(B}
-$BOH$N2<It$K?a$-=P$78}$r$D$1$k$N$,!$(B\texttt{[hukidasiiti=B]}$B%*%W%7%g%s$G$9!#(B
+\paragraph{\texttt{[hukidasiiti=B]}オプション}
+枠の下部に吹き出し口をつけるのが，\texttt{[hukidasiiti=B]}オプションです。
 
 \begin{showEx}{\texttt{hukidasiiti=B}}
-$B$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"(B
-$B$"$"$"$"$"$"$"(B%
+ああああああああああああああああああ
+あああああああ%
 \hukidasi[hukidasiiti=B]{%
-  $B$3$N4V$K(B\\
-  $B$$$$$$$$$$$$$$(B\\
-  $B$rJd$&(B
+  この間に\\
+  いいいいいいい\\
+  を補う
 }%
-$B$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&(B
-$B$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&(B
+うううううううううううううううううう
+うううううううううううううううううう
 \end{showEx}
 
-$B%3!<%J!<$r4]$/$9$k(B\verb+hankei=..+$B%*%W%7%g%s$rIm2C$7$?>l9g$G$9!#(B
+コーナーを丸くする\verb+hankei=..+オプションを附加した場合です。
 
 \begin{showEx}{\texttt{hukidasiiti=B}}
-$B$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"(B
-$B$"$"$"$"$"$"$"(B%
+ああああああああああああああああああ
+あああああああ%
 \hukidasi[%
     hankei=10pt,hukidasiiti=B]{%
-  $B$3$N4V$K(B\\
-  $B$$$$$$$$$$$$$$(B\\
-  $B$rJd$&(B
+  この間に\\
+  いいいいいいい\\
+  を補う
 }%
-$B$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&(B
-$B$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&(B
+うううううううううううううううううう
+うううううううううううううううううう
 \end{showEx}
 
-\paragraph{\texttt{[hukidasiiti=L]}$B%*%W%7%g%s(B}
-$BOH$N:8JU$K?a$-=P$78}$r$D$1$k(B\texttt{[hukidasiiti=L]}$B%*%W%7%g%s$O!$(B
-$BK5Cm%3%^%s%I(B\verb+\marginpar+$B$HJ;MQ$9$k$3$H$rA0Ds$H$7$^$9!#(B
+\paragraph{\texttt{[hukidasiiti=L]}オプション}
+枠の左辺に吹き出し口をつける\texttt{[hukidasiiti=L]}オプションは，
+傍注コマンド\verb+\marginpar+と併用することを前提とします。
 
-$B<!$NNc$G$O!$(B\verb+\marginpar+$B$r;HMQ$9$k$?$a!$(B
-$B:#$^$G$NNc$N$h$&$K%?%$%W%;%C%H7k2L$r(B\verb+\shadebox+$B$KF~$l$k$3$H$,$G$-$^$;$s!#(B
+次の例では，\verb+\marginpar+を使用するため，
+今までの例のようにタイプセット結果を\verb+\shadebox+に入れることができません。
 
 \begin{itembox}{\texttt{hukidasiiti=L}}
 \begin{verbatim}
-$B$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"(B
-$B$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"(B
-$B$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"(B
-$B$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"(B
-$B$"$"$"$"$"$"$"(B%
+ああああああああああああああああああああああああああああああああああああ
+ああああああああああああああああああああああああああああああああああああ
+ああああああああああああああああああああああああああああああああああああ
+ああああああああああああああああああああああああああああああああああああ
+あああああああ%
 \marginpar{%
 \hukidasi[hukidasiiti=L]{%
-  $B$3$N4V$K(B\\
-  $B$$$$$$$$$$$$$$(B\\
-  $B$rJd$&(B
+  この間に\\
+  いいいいいいい\\
+  を補う
 }%
 }%
-$B$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&(B
-$B$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&(B
-$B$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&(B
-$B$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&(B
-$B$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&(B
-\marginpar{$B%&%&%&%&%&%&%&%&%&%&%&(B}
-$B$($($($($($($($($($($($($($($($($($($($($($($($($($($($($($($($($($($($((B
-$B$($($($($($($($($($($($($($($($($($($($($($($($($($($($($($($($($($($($((B
+うううううううううううううううううううううううううううううううううううう
+うううううううううううううううううううううううううううううううううううう
+うううううううううううううううううううううううううううううううううううう
+うううううううううううううううううううううううううううううううううううう
+うううううううううううううううううううううううううううううううううううう
+\marginpar{ウウウウウウウウウウウ}
+ええええええええええええええええええええええええええええええええええええ
+ええええええええええええええええええええええええええええええええええええ
 \end{verbatim}
 \end{itembox}
-$B$r%?%$%W%;%C%H$7$?7k2L$O(B\smallskip
+をタイプセットした結果は\smallskip
 \hrule\smallskip
-$B$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"(B
-$B$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"(B
-$B$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"(B
-$B$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"(B
-$B$"$"$"$"$"$"$"(B%
+ああああああああああああああああああああああああああああああああああああ
+ああああああああああああああああああああああああああああああああああああ
+ああああああああああああああああああああああああああああああああああああ
+ああああああああああああああああああああああああああああああああああああ
+あああああああ%
 \marginpar{%
 \hukidasi[hukidasiiti=L]{%
-  $B$3$N4V$K(B\\
-  $B$$$$$$$$$$$$$$(B\\
-  $B$rJd$&(B
+  この間に\\
+  いいいいいいい\\
+  を補う
 }%
 }%
-$B$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&(B
-$B$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&(B
-$B$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&(B
-$B$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&(B
-$B$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&(B
-\marginpar{$B%&%&%&%&%&%&%&%&%&%&%&(B}
-$B$($($($($($($($($($($($($($($($($($($($($($($($($($($($($($($($($($($($((B
-$B$($($($($($($($($($($($($($($($($($($($($($($($($($($($($($($($($($($($((B
+うううううううううううううううううううううううううううううううううううう
+うううううううううううううううううううううううううううううううううううう
+うううううううううううううううううううううううううううううううううううう
+うううううううううううううううううううううううううううううううううううう
+うううううううううううううううううううううううううううううううううううう
+\marginpar{ウウウウウウウウウウウ}
+ええええええええええええええええええええええええええええええええええええ
+ええええええええええええええええええええええええええええええええええええ
 \smallskip\hrule\bigskip
 
-\textsf{emathBk.sty}$B$GDj5A$5$l$F$$$k(B\cmd{MigiRangai}$B$J$I$H$NJ;MQ$b2DG=$G$9!#(B
+\textsf{emathBk.sty}で定義されている\cmd{MigiRangai}などとの併用も可能です。
 
-\begin{showEx}(1,1){\cmd{MigiRangai}$B$H$NJ;MQ(B}
+\begin{showEx}(1,1){\cmd{MigiRangai}との併用}
 \begin{breakRline}[fboxsep=10pt,sensyu=\protect\drawline]
-$B$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"(B
-$B$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"(B
-$B$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"(B
-$B$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"(B
-$B$"$"$"$"$"$"$"(B%
+ああああああああああああああああああああああああああああああああああああ
+ああああああああああああああああああああああああああああああああああああ
+ああああああああああああああああああああああああああああああああああああ
+ああああああああああああああああああああああああああああああああああああ
+あああああああ%
 \MigiRangai{%
 \hukidasi[hukidasiiti=L]{%
-  $B$3$N4V$K(B\\
-  $B$$$$$$$$$$$$$$(B\\
-  $B$rJd$&(B
+  この間に\\
+  いいいいいいい\\
+  を補う
 }%
 }%
-$B$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&(B
-$B$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&(B
-$B$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&(B
-$B$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&(B
-$B$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&(B
-\MigiRangai{$B%&%&%&%&%&%&%&%&%&%&%&(B}
-$B$($($($($($($($($($($($($($($($($($($($($($($($($($($($($($($($($($($($((B
-$B$($($($($($($($($($($($($($($($($($($($($($($($($($($($($($($($($($($($((B
+うううううううううううううううううううううううううううううううううううう
+うううううううううううううううううううううううううううううううううううう
+うううううううううううううううううううううううううううううううううううう
+うううううううううううううううううううううううううううううううううううう
+うううううううううううううううううううううううううううううううううううう
+\MigiRangai{ウウウウウウウウウウウ}
+ええええええええええええええええええええええええええええええええええええ
+ええええええええええええええええええええええええええええええええええええ
 \end{breakRline}
 \end{showEx}
 
-\textsf{tyuukai}$B4D6-Fb$N(B\cmd{tyuu}$B$H$NJ;MQ$r$9$kNc$G$9!#(B
+\textsf{tyuukai}環境内の\cmd{tyuu}との併用をする例です。
 
-\begin{showEx}(1,1){\cmd{tyuu}$B$H$NJ;MQ(B}
-$BLdBjLdBjLdBjLdBjLdBjLdBjLdBjLdBjLdBjLdBjLdBjLdBjLdBjLdBjLdBjLdBjLdBjLdBj(B
-$BLdBjLdBjLdBjLdBjLdBjLdBjLdBjLdBjLdBjLdBjLdBjLdBjLdBjLdBjLdBjLdBjLdBjLdBj(B
+\begin{showEx}(1,1){\cmd{tyuu}との併用}
+問題問題問題問題問題問題問題問題問題問題問題問題問題問題問題問題問題問題
+問題問題問題問題問題問題問題問題問題問題問題問題問題問題問題問題問題問題
 
 \migityuukeisenfalse
 \begin{tyuukai}
 \tyuumark{}%
-$B!Z2rEz![(B\verb+tyuukai+$B4D6-Fb$K2rEzItJ,$r5-=R$9$k>l9g$K$b!$(B
-\cmd{hukidasi}$B$N(B\verb+[[hukidasiiti=L]+$B%*%W%7%g%s$OM-8z$G$9!#(B
-$B$"$"$"$"$"$"$"(B
+【解答】\verb+tyuukai+環境内に解答部分を記述する場合にも，
+\cmd{hukidasi}の\verb+[[hukidasiiti=L]+オプションは有効です。
+あああああああ
 \tyuu{%
 \hukidasi[hukidasiiti=L,hankei=8pt,hsep=4pt,vsep=4pt,hukidasihaba=10pt]{%
-  $B$3$N4V$K(B\\
-  $B$$$$$$$$$$$$$$(B\\
-  $B$rJd$&(B
+  この間に\\
+  いいいいいいい\\
+  を補う
 }%
 }%
-$B$3$3$GCm<a$r$D$1$F$_$^$9!#(B
-$B$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&$&(B
+ここで注釈をつけてみます。
+うううううううううううううううううううううううううううううううううううう
 \end{tyuukai}
 \end{showEx}
 
-\subsubsection{\textsf{mawarikomi}$B4D6-$H$NJ;MQ(B}
-\begin{showEx}(1,1){\textsf{mawarikomi}$B4D6-$H$NJ;MQ(B}
-$B$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"(B
-$B$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"$"(B
+\subsubsection{\textsf{mawarikomi}環境との併用}
+\begin{showEx}(1,1){\textsf{mawarikomi}環境との併用}
+あああああああああああああああああああああ
+あああああああああああああああああああああ
 
 \begin{mawarikomi}[4]{}{%
 \begin{zahyou*}[ul=1zw](0,4.5)(0,1)
-\put(0,-2.5){\hukidasi[hukidasiiti=L,width=4zw]{$B%"%"%"%"%"%"%"%"(B}}
+\put(0,-2.5){\hukidasi[hukidasiiti=L,width=4zw]{アアアアアアアア}}
 \end{zahyou*}
 }
-$B$*$*$*$*$*$*$*$*$*$*$*$*$*$*$*$*$*$*$*$*$*$*$*$*$*$*$*$*$*$*$*$*$*$*$*$*$*$*(B
-$B$*$*$*$*$*$*$*$*$*$*$*$*$*$*$*$*$*$*$*$*$*$*(B
-$B$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$(B
-$B$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$(B
-$B$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$(B
-$B$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$(B
-$B$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$(B
+おおおおおおおおおおおおおおおおおおおおおおおおおおおおおおおおおおおおおお
+おおおおおおおおおおおおおおおおおおおおおお
+いいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいい
+いいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいい
+いいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいい
+いいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいい
+いいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいい
 \end{mawarikomi}
 \end{showEx}
 
 
-\subsection{$B?tNs$N>e2<$K(B\cmd{HenKo}}
-\subsubsection{$B?tNs$N>e$K(B\cmd{HenKo}}
-$BEy:9?tNs$N@bL@?^$J$I$G!$?tNs$N>e$K1_8L$rO"$M$F!$(B
-$d$$B$:$DA}$($F$$$/$3$H$r<($9$3$H$,$"$j$^$9!#(B
-\textsf{emathPh.sty}$B$K$O!$(B\cmd{DrawHatC}$B$rMQ0U$7$F$"$j$^$9$,!$(B
-$B1_8L$rO"$M$k>l9g$O!$LLE]$G$9$+$i!$(B\cmd{DrawHatS}$B$r:n$C$F$_$^$7$?!#(B
+\subsection{数列の上下に\cmd{HenKo}}
+\subsubsection{数列の上に\cmd{HenKo}}
+等差数列の説明図などで，数列の上に円弧を連ねて，
+$d$ずつ増えていくことを示すことがあります。
+\textsf{emathPh.sty}には，\cmd{DrawHatC}を用意してありますが，
+円弧を連ねる場合は，面倒ですから，\cmd{DrawHatS}を作ってみました。
 
 \begin{showEx}(.6,.34){\cmd{DrawHatS}}
   $\DrawHatS{a_1,a_2,a_3, \cdots}{+d}$
 \end{showEx}
 
-$B1_8L$NItJ,$,>e$KHt$S=P$7$F$$$^$9!#(B\\
-$B1_8L$NItJ,$O(B\cmd{HenKo}$B$rMQ$$$F$$$^$9$,!$(B
-\verb+\begin{picture}(0,0)+$B$NCf$G(B\cmd{HenKo}$B$rH/9T$7$F$$$^$9$N$G!$(B
-$B$=$N%5%$%:$O(B$0\times0$$B$H$7$+!$(B\TeX $B$K$OG'<1$5$l$^$;$s!#(B
-\cmd{sityuu}$B$G;YCl$rN)$F$FBP1~$7$^$9!#(B
+円弧の部分が上に飛び出しています。\\
+円弧の部分は\cmd{HenKo}を用いていますが，
+\verb+\begin{picture}(0,0)+の中で\cmd{HenKo}を発行していますので，
+そのサイズは$0\times0$としか，\TeX には認識されません。
+\cmd{sityuu}で支柱を立てて対応します。
 
-\begin{showEx}(.6,.34){$B;YCl$rN)$F$F(B}
+\begin{showEx}(.6,.34){支柱を立てて}
   \sityuu{20pt}%
   $\DrawHatS{a_1,a_2,a_3, \cdots}{+d}$
 \end{showEx}
 
-`$+d$'$B$N0LCV$G$9$,!$(B\cmd{HenKo}$B$rMQ$$$F$$$^$9$+$i!$%G%U%)%k%H$G$O1_8L$r@Z$C$F(B
-$B$=$N>e$KG[CV$5$l$^$9!#$3$l$r$:$i$9$K$O!$(B\cmd{HenKo}$B$N%*%W%7%g%s$rMQ$$$^$9!#(B
-\cmd{DrawHatS}$B$O(B\verb+<...>+$B%*%W%7%g%sFb$K!$(B\cmd{HenKo}$B$KEO$9%*%W%7%g%s$r(B
-$B5-=R$G$-$k$h$&$K$7$F$"$j$^$9!#(B
+`$+d$'の位置ですが，\cmd{HenKo}を用いていますから，デフォルトでは円弧を切って
+その上に配置されます。これをずらすには，\cmd{HenKo}のオプションを用います。
+\cmd{DrawHatS}は\verb+<...>+オプション内に，\cmd{HenKo}に渡すオプションを
+記述できるようにしてあります。
 
-\begin{showEx}(.6,.34){`$+d$'$B$N0LCV(B}
+\begin{showEx}(.6,.34){`$+d$'の位置}
   \sityuu{28pt}%
   $\DrawHatS<putoption={(0,2pt)[b]}>%
     {a_1,a_2,a_3, \cdots}{+d}$
 \end{showEx}
 
 \noindent
-$B$3$N>l9g!$I,MW$K1~$8$F;YCl$N9b$5$b=$@5$7$^$9!#(B
+この場合，必要に応じて支柱の高さも修正します。
 
-$B1_8L$KLp0u$r$D$1$k$K$O!$(B\cmd{HenKo}$B$K(B\verb+yazirusi=r/a+$B%*%W%7%g%s$r$D$1$^$9!#(B
+円弧に矢印をつけるには，\cmd{HenKo}に\verb+yazirusi=r/a+オプションをつけます。
 
-\begin{showEx}(.6,.34){$B1_8L$KLp0u(B}
+\begin{showEx}(.6,.34){円弧に矢印}
   \sityuu{28pt}%
   $\DrawHatS%
     <yazirusi=r,putoption={(0,2pt)[b]}>%
     {a_1,a_2,a_3, \cdots}{+d}$
 \end{showEx}
 
-`$+d$'$B$NJ8;z%5%$%:$r>.$5$/$7$?$1$l$P!$(B
-$B?t<0%b!<%IFb$G$9$+$i(B\verb+\scriptstyle+$B$J$I$H$7$^$9!#(B
+`$+d$'の文字サイズを小さくしたければ，
+数式モード内ですから\verb+\scriptstyle+などとします。
 
-\begin{showEx}(.6,.34){`$+d$'$B$NJ8;z%5%$%:(B}
+\begin{showEx}(.6,.34){`$+d$'の文字サイズ}
   \sityuu{28pt}%
   $\DrawHatS<putoption={(0,2pt)[b]}>%
     {a_1,a_2,a_3, \cdots}{\scriptstyle +d}$
 \end{showEx}
 %\clearpage
 
-$B1_8L$NC<E@!J2#0LCV!K$O!$(B`$a_1$'$B$NCf1{$G$9$,!$E:$(;z$K:R$$$5$l$F!$(B
-$B$b$C$H:8$K4s$;$?$$!$$H;W$o$l$kJ}$bB?$$$G$7$g$&!#(B
-$B$=$N$?$a$K!$(B\cmd{DrawHatS}$B$K(B\verb+[offset=..]+$B%*%W%7%g%s$rMQ0U$7$^$7$?!#(B
+円弧の端点（横位置）は，`$a_1$'の中央ですが，添え字に災いされて，
+もっと左に寄せたい，と思われる方も多いでしょう。
+そのために，\cmd{DrawHatS}に\verb+[offset=..]+オプションを用意しました。
 
-\begin{showEx}(.6,.34){$B1_8L$N2#0LCV(B}
+\begin{showEx}(.6,.34){円弧の横位置}
   \sityuu{28pt}%
   $\DrawHatS[offset=-3pt]%
     <putoption={(0,2pt)[b]}>%
     {a_1,a_2,a_3, \cdots}{+d}$
 \end{showEx}
 
-$B1_8L$NC<E@!J=D0LCV!K$O!$%G%U%)%k%H$G$O%Y!<%9%i%$%s$N>eJ}(B\verb+1zh+
-$B$H$7$F$"$j$^$9!#(B
-$B$3$l$rJQ99$9$k%*%W%7%g%s$,(B\verb+[takasa=..]+$B$G$9!#(B
-$B>/$72<$2$F$_$^$7$g$&!#(B
+円弧の端点（縦位置）は，デフォルトではベースラインの上方\verb+1zh+
+としてあります。
+これを変更するオプションが\verb+[takasa=..]+です。
+少し下げてみましょう。
 
-\begin{showEx}(.6,.34){$B1_8L$N=D0LCV(B}
+\begin{showEx}(.6,.34){円弧の縦位置}
   \sityuu{28pt}%
   $\DrawHatS[takasa=6pt,offset=-3pt]%
     <putoption={(0,2pt)[b]}>%
     {a_1,a_2,a_3, \cdots}{+d}$
 \end{showEx}
 
-$B1_8L<+BN$N9b$5$O!$(B\cmd{HenKo}$B$N(B\verb+<henkoH=..>+$B%*%W%7%g%s$GJQ99$G$-$^$9!#(B
+円弧自体の高さは，\cmd{HenKo}の\verb+<henkoH=..>+オプションで変更できます。
 
-\begin{showEx}(.6,.34){$B1_8L$N9b$5(B}
+\begin{showEx}(.6,.34){円弧の高さ}
   \sityuu{28pt}%
   $\DrawHatS[takasa=6pt,offset=-3pt]%
     <henkoH=4pt,putoption={(0,2pt)[b]}>%
     {a_1,a_2,a_3, \cdots}{+d}$
 \end{showEx}
 
-$B?tNs$r(B\verb+a_1,a_2,a_3, \cdots+$B$HM?$($F$b!$3F9`$N4V$,6u$$$F$$$^$9!#(B
-$B$3$l$O!$6h@Z$j;R$r%G%U%)%k%H$G(B`\verb+,\kern1em+'$B$H@_Dj$7$F$$$k$?$a$G$9!#(B\\
-$B$3$l$r=$@5$9$k$N$,(B\verb+[kugirisi=...]+$B%*%W%7%g%s$G$9!#(B
-$B%3%s%^$r$D$1$:!$4V$r9-$2$F$_$^$9!#(B
+数列を\verb+a_1,a_2,a_3, \cdots+と与えても，各項の間が空いています。
+これは，区切り子をデフォルトで`\verb+,\kern1em+'と設定しているためです。\\
+これを修正するのが\verb+[kugirisi=...]+オプションです。
+コンマをつけず，間を広げてみます。
 
-\begin{showEx}(.54,.4){$B6h@Z$j$NJQ99(B}
+\begin{showEx}(.54,.4){区切りの変更}
   \sityuu{28pt}%
   $\DrawHatS
     [kugirisi=\kern2em]%
     {a_1,a_2,a_3, \cdots}{+d}$
 \end{showEx}
 
-\cmd{DrawHatS}$B$r$D$J$2$k$3$H$b$G$-$^$9!#(B
+\cmd{DrawHatS}をつなげることもできます。
 
-\begin{showEx}(.47,.47){\cmd{DrawHatS}$B$NO"7k(B}
+\begin{showEx}(.47,.47){\cmd{DrawHatS}の連結}
   \sityuu{28pt}%
 $
 \DrawHatS{a_1,a_2,a_3, \cdots}{+d}
@@ -1025,21 +1025,21 @@ $
 \end{showEx}
 %\clearpage
 
-\subsubsection{$B?tNs$N2<$K(B\cmd{HenKo}}
-\cmd{DrawHatS}$B$N(B\verb+[takasa=..]+$B%*%W%7%g%s$N1&JUCM$,@5$NCM$G$"$l$P!$(B
-$B1_8L$O?tNs$N>eJ}$K$D$-$^$9!#$=$l$KBP$7$F(B0$B0J2<$NCM$r;XDj$9$l$P!$(B
-$B1_8L$O?tNs$N2<J}$K$D$-$^$9!#(B
+\subsubsection{数列の下に\cmd{HenKo}}
+\cmd{DrawHatS}の\verb+[takasa=..]+オプションの右辺値が正の値であれば，
+円弧は数列の上方につきます。それに対して0以下の値を指定すれば，
+円弧は数列の下方につきます。
 
-\begin{showEx}(.6,.34){$B1_8L$r2<$K(B}
+\begin{showEx}(.6,.34){円弧を下に}
   $\DrawHatS%
     [takasa=-2pt]%
     {a_1,a_2,a_3, \cdots}{+d}$
 \end{showEx}
 
-$B:#EY$O!$;YCl$N?<$5$rA}$d$7$F$d$i$M$P$J$j$^$;$s$7!$(B
-\cmd{HenKo}$B$KM?$($k%*%W%7%g%s$bJQ99$9$kI,MW$,$"$j$^$9!#(B
+今度は，支柱の深さを増やしてやらねばなりませんし，
+\cmd{HenKo}に与えるオプションも変更する必要があります。
 
-\begin{showEx}(.6,.34){\cmd{HenKo}$B$ND4@0(B}
+\begin{showEx}(.6,.34){\cmd{HenKo}の調整}
   \sityuu[20pt]{0pt}%
   $\DrawHatS%
     [takasa=-2pt]%
@@ -1047,11 +1047,11 @@ $
     {a_1,a_2,a_3, \cdots}{+d}$
 \end{showEx}
 
-\subsubsection{$B3,:9?tNs(B}
-$BEy:9?tNs$N>l9g$O!$(B\cmd{HenKo}$B$KM?$($kJ8;zNs$O0lN'$G$9$,!$(B
-$B3,:9?tNs$H$J$k$H!$$P$i$P$i$G$9!#(B
+\subsubsection{階差数列}
+等差数列の場合は，\cmd{HenKo}に与える文字列は一律ですが，
+階差数列となると，ばらばらです。
 
-\begin{showEx}(.6,.34){$B3,:9?tNs(B}
+\begin{showEx}(.6,.34){階差数列}
   \sityuu[24pt]{0pt}%
   $\DrawHatS%
     [takasa=-4pt]%
@@ -1059,9 +1059,9 @@ $
     {a_1,a_2,a_3, \cdots}{b_1,b_2,\cdots}$
 \end{showEx}
 
-$B1_8L$G$O$J$/!$@^$l@~$K$7$?$$$G$9$+!#(B
+円弧ではなく，折れ線にしたいですか。
 
-\begin{showEx}(.6,.34){\texttt{henkotype=2}$B%*%W%7%g%s(B}
+\begin{showEx}(.6,.34){\texttt{henkotype=2}オプション}
   \sityuu[24pt]{0pt}%
   $\DrawHatS%
     [takasa=-4pt]%
@@ -1069,13 +1069,13 @@ $
     {a_1,a_2,a_3, \cdots}{b_1,b_2,\cdots}$
 \end{showEx}
 
-$B3,:9?tNs$K$D$$$F$O!$$"$H$G$b$&0lEY<h$j>e$2$^$9!#(B
+階差数列については，あとでもう一度取り上げます。
 %\clearpage
 
 \subsubsection{\cmd{DrawHatS*}}
-$B?tNs$N>e2<$K1_8LNs$rIA2h$9$k$K$O!$(B
-$B$^$:!$(B\verb+*+$B$D$-$N%3%^%s%I(B\cmd{DrawHatS*}$B$G>e$N1_8L$rIA2h$7!$(B
-$B$D$$$G!$(B\cmd{DrawHatS}$B$G2<$N1_8L$rIA2h$7$^$9!#(B
+数列の上下に円弧列を描画するには，
+まず，\verb+*+つきのコマンド\cmd{DrawHatS*}で上の円弧を描画し，
+ついで，\cmd{DrawHatS}で下の円弧を描画します。
 
 \begin{showEx}(.95,.9){\cmd{DrawHatS*}}
   \sityuu[25pt]{36pt}%
@@ -1087,7 +1087,7 @@ $
 $
 \end{showEx}
 
-\begin{showEx}(.95,.9){\texttt{<offset=..>}$B$HJ;MQ(B}
+\begin{showEx}(.95,.9){\texttt{<offset=..>}と併用}
   \sityuu[20pt]{28pt}%
 $
   \DrawHatS*[offset=-5pt,takasa=1zh,kugirisi=+]%
@@ -1100,56 +1100,56 @@ $
 \end{showEx}
 %\clearpage
 
-\subsubsection{$B=q<0(B}
-\cmd{DrawHatS} $B$N=q<0$G$9!#(B
+\subsubsection{書式}
+\cmd{DrawHatS} の書式です。
 
 \begin{boxnote}
 \begin{verbatim}
 \DrawHatS[#1]<#2>#3#4
-  #1 : key=val $B$N7A<0(B
-          kugirisi=.. $B?tNs$N9`4V$r@)8f(B
-          $B!!!!!!!!!!!!!!%G%U%)%k%H$O(B `,\kern1em'
-          takasa=..   $B1_8L$NC<Kv$H%Y!<%9%i%$%s$H$N5wN%!!%G%U%)%k%H$O(B 1zh
-                      $B!J$3$NCM$r(B0$B0J2<$K;XDj$9$k$H!$1_8L$O?tNs$N2<J}$K$D$/!K(B
-          offset=..   $B1_8L$NC<Kv2#0LCV$NHyD4@0!!%G%U%)%k%H$O(B0pt
-  #2 : \HenKo $B$N(B <...> $B%*%W%7%g%s$K0z$-EO$5$l$k(B
-          henkoH=..      $BJU$H8L$N5wN%(B($BC10LIU?tCM(B) $B%G%U%)%k%HCM(B=1.6ex
-          putoption=..   $B$3$NCf1{$KG[CV$5$l$kJ8;zNs$NG[CV%*%W%7%g%s(B
-          yazirusi=..    $B8L$KLp0u$r$D$1$k!J(Ba$B$G@5$N2sE>!$(Br$B$GIi$N2sE>$rI=$9!K(B
-          henkotype=..   2$B$H$9$k$H!$1_8L$G$O$J$/@^$l@~(B
-  #3 : $B?tNs!J%3%s%^6h@Z$j$NJ8;zNs!K(B
-  #4 : $B1_8L$NCf1{$KG[CV$5$l$kJ8;z(B
-       $B!J0lN'$G$J$$$H$-$O!$%3%s%^6h@Z$j$GM?$($k!#!K(B
+  #1 : key=val の形式
+          kugirisi=.. 数列の項間を制御
+          　　　　　　　デフォルトは `,\kern1em'
+          takasa=..   円弧の端末とベースラインとの距離　デフォルトは 1zh
+                      （この値を0以下に指定すると，円弧は数列の下方につく）
+          offset=..   円弧の端末横位置の微調整　デフォルトは0pt
+  #2 : \HenKo の <...> オプションに引き渡される
+          henkoH=..      辺と弧の距離(単位付数値) デフォルト値=1.6ex
+          putoption=..   この中央に配置される文字列の配置オプション
+          yazirusi=..    弧に矢印をつける（aで正の回転，rで負の回転を表す）
+          henkotype=..   2とすると，円弧ではなく折れ線
+  #3 : 数列（コンマ区切りの文字列）
+  #4 : 円弧の中央に配置される文字
+       （一律でないときは，コンマ区切りで与える。）
 
 \DrawHatS*[#1]<#2>#3#4
-  $B1_8L$rIA2h$9$k$N$_$G!$?tNs$O%?%$%W%;%C%H$5$l$J$$!#(B
-  $B;2>HE@$bF0$+$J$$!#(B
-  $B0z?t$O(B \DrawHatS $B$HF1$8!#(B
+  円弧を描画するのみで，数列はタイプセットされない。
+  参照点も動かない。
+  引数は \DrawHatS と同じ。
 \end{verbatim}
 \end{boxnote}
 %\clearpage
 
-\subsubsection{\textsf{manDrawHatS}$B4D6-(B}
-\cmd{DrawHatS}$B%3%^%s%I$G$O!$1_8L$J$I$O0lN'$N>r7o$GIA2h$5$l$^$9!#(B
-$B$3$l$i$r>l=j$K1~$8$F=$@5$7$?$$!$$J$I$H$$$&L\E*$N$?$a$K!$(B
-\textsf{manDrawHatS}$B4D6-$rMQ0U$7$^$7$?!#(B
+\subsubsection{\textsf{manDrawHatS}環境}
+\cmd{DrawHatS}コマンドでは，円弧などは一律の条件で描画されます。
+これらを場所に応じて修正したい，などという目的のために，
+\textsf{manDrawHatS}環境を用意しました。
 
-$B$3$N4D6-$G$O!$1_8L$OIA2h$5$l$^$;$s!#(B
-$B<jF0$G1_8L$rIA2h$9$k$?$a$N:`NA$rDs6!$9$k$3$H$,L\E*$G$9!#(B
+この環境では，円弧は描画されません。
+手動で円弧を描画するための材料を提供することが目的です。
 
-$B$3$N4D6-$O<B<AE*$K$O!$(B\textsf{picture}$B4D6-$G$9!#(B
-$B86E@$O?tNs!$=i9`$N:82<$K$"$j!$(B\verb+\unitlength+$B$O(B\verb+1pt+$B$H$J$C$F$$$^$9!#(B
-$B$3$N4D6-Fb$G$O!$<!$NJQ?t$,Dj5A$5$l$F$$$^$9!#(B
+この環境は実質的には，\textsf{picture}環境です。
+原点は数列，初項の左下にあり，\verb+\unitlength+は\verb+1pt+となっています。
+この環境内では，次の変数が定義されています。
 \begin{jquote}
 \begin{verbatim}
-\DHSTi, \DHSTii, \DHSTiii, ....$B!'?tNs$N>eJ}$KIA2h$5$l$k1_8L$NC<E@(B
-\DHSBi, \DHSBii, \DHSBiii, ....$B!'?tNs$N2<J}$KIA2h$5$l$k1_8L$NC<E@(B
+\DHSTi, \DHSTii, \DHSTiii, ....：数列の上方に描画される円弧の端点
+\DHSBi, \DHSBii, \DHSBiii, ....：数列の下方に描画される円弧の端点
 \end{verbatim}
 \end{jquote}
 
-$B$G$O!$0lNc$r(B
+では，一例を
 
-\begin{showEx}(1,.9){\textsf{manDrawHatS}$B4D6-(B}
+\begin{showEx}(1,.9){\textsf{manDrawHatS}環境}
   \sityuu[20pt]{28pt}%
 \begin{manDrawHatS}{1,3,5,7,\cdots}
   \HenKo<putoption={(0,2pt)[b]}>\DHSTii\DHSTi{$\scriptstyle 3-1=2$}
@@ -1159,11 +1159,11 @@ $
 \end{manDrawHatS}
 \end{showEx}
 
-$B>eJ}1_8LC<E@$N9b$5$O(B\verb+[takasa=..]+$B%*%W%7%g%s$G;XDj$G$-$k$N$O(B
-\cmd{DrawHatS}$B%3%^%s%I$HF1MM$G$9!#2<J}1_8L$K$D$$$F$O(B\verb+[hukasa=..]+
-$B%*%W%7%g%s$G;XDj$7$^$9!#$=$NNc$G$9!#(B
+上方円弧端点の高さは\verb+[takasa=..]+オプションで指定できるのは
+\cmd{DrawHatS}コマンドと同様です。下方円弧については\verb+[hukasa=..]+
+オプションで指定します。その例です。
 
-\begin{showEx}(1,.9){\texttt{hukasa=..}$B%*%W%7%g%s(B}
+\begin{showEx}(1,.9){\texttt{hukasa=..}オプション}
   \sityuu[30pt]{36pt}%
 \begin{manDrawHatS}[takasa=15pt,hukasa=10pt,kugirisi={,\,}]%
     {1,\bunsuu12,\bunsuu14,\bunsuu18,\cdots}
@@ -1174,9 +1174,9 @@ $
 \end{manDrawHatS}
 \end{showEx}
 
-$B:G8e$K>/$7J#;($JNc$r$4Mw$/$@$5$$!#(B
+最後に少し複雑な例をご覧ください。
 
-\begin{showEx}(1,.9){$B;(Nc(B}
+\begin{showEx}(1,.9){雑例}
   \sityuu[36pt]{1zh}%
 \begin{manDrawHatS}{a_1,a_2,a_3,a_4,\cdots,a_{n-1},a_n}
   \HenKo<henkotype=2,putoption={(2pt,-2pt)[t]}>\DHSBi\DHSBii{$b_1$,}
@@ -1187,13 +1187,13 @@ $
   \HenKo<henkotype=2,putoption={(0,-2pt)[t]}>\DHSBv\DHSBvi{$\cdots$}
   \HenKo<henkotype=2,putoption={(8pt,-2pt)[t]}>\DHSBvi\DHSBvii{$b_{n-1}$}
     \edef\Q{\HenKoTyuuten}%
-  \rotUbrace[depth=12pt]\P\Q{n-1~$B8D(B}
+  \rotUbrace[depth=12pt]\P\Q{n-1~個}
 \end{manDrawHatS}
 \end{showEx}
 
-\subsubsection{$B$U$?$?$S3,:9?tNs(B}
-$B3,:9?tNs$O$h$/;H$$$=$&$G$9$+$i!$(B\textsf{manDrawHatS}$B4D6-$rMxMQ$7$?%3%^%s%I(B
-\cmd{Kaisasuuretu}$B$r:n$C$F$*$-$^$9!#(B
+\subsubsection{ふたたび階差数列}
+階差数列はよく使いそうですから，\textsf{manDrawHatS}環境を利用したコマンド
+\cmd{Kaisasuuretu}を作っておきます。
 
 \begin{showEx}(1,.9){\cmd{Kaisasuuretu}}
   \sityuu[2.2zh]{1zh}%
@@ -1205,7 +1205,7 @@ $
 \end{showEx}
 %\clearpage
 
-$BBh(B2$B3,:9?tNs$^$GI,MW$J>l9g$O!$(B
+第2階差数列まで必要な場合は，
 
 \begin{showEx}(1,.9){\cmd{iiKaisasuuretu}}
   \sityuu[4.4zh]{1zh}%
@@ -1217,9 +1217,9 @@ $
 $
 \end{showEx}
 
-$BO"7k$b2DG=$G$9!#(B
+連結も可能です。
 
-\begin{showEx}(1,.9){\cmd{iiKaisasuuretu}$B$NO"7k(B}
+\begin{showEx}(1,.9){\cmd{iiKaisasuuretu}の連結}
   \sityuu[4.4zh]{1zh}%
 $
   \iiKaisasuuretu[kugirisi=\kern1em]<putoption={(0,-2pt)[t]}>%
@@ -1234,174 +1234,174 @@ $
 $
 \end{showEx}
 
-\subsection{$B2<@~(B}
-$BJ8;zNs$K2<@~$r0z$/%3%^%s%I$O(B\LaTeX $B$K(B\cmd{underline}$B$,MQ0U$5$l$F$$$^$9!#(B
+\subsection{下線}
+文字列に下線を引くコマンドは\LaTeX に\cmd{underline}が用意されています。
 
 \subsubsection{\cmd{phkasen}}
-\cmd{phkasen}$B$O!$2<@~$r0z$/(B\cmd{underline}$B$K(B
+\cmd{phkasen}は，下線を引く\cmd{underline}に
 \begin{jquote}
 \begin{enumerate}[(1)]
-  \item $B2<@~$rFs=E(B
-  \item $B2<@~$NB@$5$rJQ99(B
-  \item $B2<@~$N@~<o$rJQ99(B
-  \item $B2<@~$K?'$r$D$1$k(B
-  \item $B2<@~$H>e2<$N4V3VD4@0(B
-  \item $B2<@~$N6aK5$KJ8;z$rG[CV(B
+  \item 下線を二重
+  \item 下線の太さを変更
+  \item 下線の線種を変更
+  \item 下線に色をつける
+  \item 下線と上下の間隔調整
+  \item 下線の近傍に文字を配置
 \end{enumerate}
 \end{jquote}
-$B5!G=$rIm2C$7$?$b$N$G$9!#$?$@$7!$2<@~$O(B\verb+tpic-specials+$B$GIA2h$5$l$^$9!#(B
+機能を附加したものです。ただし，下線は\verb+tpic-specials+で描画されます。
 
-\subsubsection{$B4pK\MQK!(B}
-\cmd{phkasen}$B$N4pK\MQK!$O(B\cmd{underline}$B$HF1MM$G$9!#(B
+\subsubsection{基本用法}
+\cmd{phkasen}の基本用法は\cmd{underline}と同様です。
 
 \begin{showEx}(.7,.24){\cmd{phkasen}}
-$B$"$$(B\underline{$B$&$((B}$B$*(B
+あい\underline{うえ}お
 
-$B$"$$(B\phkasen{$B$&$((B}$B$*(B
+あい\phkasen{うえ}お
 \end{showEx}
 
-$B2<@~It$HA08e$NJ8$H$N4V$K6uGr$,$G$-$^$9$,!$$3$l$O(B\cmd{underline}$B$HF1MM$G$9!#(B
-$B$3$N6uGr$r=|5n$7$?$1$l$P!$2<@~It$r(B\verb+\mbox+$B$G0O$`$J$I$NBP:v$r$H$j$^$9!#(B
+下線部と前後の文との間に空白ができますが，これは\cmd{underline}と同様です。
+この空白を除去したければ，下線部を\verb+\mbox+で囲むなどの対策をとります。
 
-\begin{showEx}(.7,.24){$BA08e$N6uGr=|5n(B}
-$B$"$$(B\phkasen{$B$&$((B}$B$*(B
+\begin{showEx}(.7,.24){前後の空白除去}
+あい\phkasen{うえ}お
 
-$B$"$$(B\mbox{\phkasen{$B$&$((B}}$B$*(B
+あい\mbox{\phkasen{うえ}}お
 
-$B$"$$$&$($*(B
+あいうえお
 \end{showEx}
 
-\subsubsection{$B2<@~$NB@$5(B}
-$B2<@~$NB@$5$rJQ99$9$k$K$O!$(B\verb+<allinethickness=..>+$B%*%W%7%g%s$rMQ$$$^$9!#(B
+\subsubsection{下線の太さ}
+下線の太さを変更するには，\verb+<allinethickness=..>+オプションを用います。
 
-\begin{showEx}(.7,.24){$B2<@~$NB@$5JQ99(B}
-$B$"$$(B\phkasen<allinethickness=2pt>{$B$&$((B}$B$*(B
+\begin{showEx}(.7,.24){下線の太さ変更}
+あい\phkasen<allinethickness=2pt>{うえ}お
 \end{showEx}
 
-\subsubsection{$B2<@~$N@~<o(B}
-$B2<@~$N@~<o$rJQ99$9$k$K$O!$(B\verb+<sensyu=..>+$B%*%W%7%g%s$rMQ$$$^$9!#(B
+\subsubsection{下線の線種}
+下線の線種を変更するには，\verb+<sensyu=..>+オプションを用います。
 
-\begin{showEx}(.7,.24){$B2<@~$N@~<oJQ99(B}
-$B$"$$(B\phkasen<sensyu=\hasen>{$B$&$((B}$B$*(B
-\end{showEx}
-
-
-\subsubsection{$BFs=E2<@~(B}
-$B2<@~$rFs=E$H$9$k$K$O!$(B\cmd{phkasen}$B$K(B\verb+[..]+$B%*%W%7%g%s$rM?$($^$9!#(B
-\verb+[ ]+$BFb$N?tCM$OFsK\@~$N4V3V$G!$C10L$O(B\verb+pt+$B$G$9!#(B
-
-\begin{showEx}(.6,.34){$BFs=E2<@~(B}
-\phkasen[1.5]{$B$"$$$&$($*(B}
+\begin{showEx}(.7,.24){下線の線種変更}
+あい\phkasen<sensyu=\hasen>{うえ}お
 \end{showEx}
 
 
-\subsubsection{$B2<@~$N?'(B}
-$B2<@~$K?'$rIU$1$k$K$O!$(B\verb+<iro=..>+$B%*%W%7%g%s$rMQ$$$^$9!#(B
+\subsubsection{二重下線}
+下線を二重とするには，\cmd{phkasen}に\verb+[..]+オプションを与えます。
+\verb+[ ]+内の数値は二本線の間隔で，単位は\verb+pt+です。
 
-\begin{showEx}(.7,.24){$B2<@~$N?'(B}
-$B$"$$(B\phkasen<iro=red>{$B$&$((B}$B$*(B
+\begin{showEx}(.6,.34){二重下線}
+\phkasen[1.5]{あいうえお}
 \end{showEx}
 
-\subsubsection{$B2<@~>e2<$N4V3V(B}
-$B2<@~$H2<@~$r$D$1$?J8;zNs$H$N4V3V$rD4@0$9$k$K$O!$(B
-$B%3%^%s%I(B\cmd{kasenUehosei}$B$N0z?t$KA}8:$9$k?tCM!JC10LIU!K$rM?$($^$9!#(B
-$B2<@~$O!$@5$NCM$G2<J}$K!$Ii$NCM$G>eJ}$K0\F0$7$^$9!#(B
+
+\subsubsection{下線の色}
+下線に色を付けるには，\verb+<iro=..>+オプションを用います。
+
+\begin{showEx}(.7,.24){下線の色}
+あい\phkasen<iro=red>{うえ}お
+\end{showEx}
+
+\subsubsection{下線上下の間隔}
+下線と下線をつけた文字列との間隔を調整するには，
+コマンド\cmd{kasenUehosei}の引数に増減する数値（単位付）を与えます。
+下線は，正の値で下方に，負の値で上方に移動します。
 
 \begin{showEx}(.6,.34){\cmd{kasenUehosei}}
 \kasenUehosei{-6pt}%
-\phkasen<iro=red>[2]{$B$"$$$&$($*(B}
+\phkasen<iro=red>[2]{あいうえお}
 \end{showEx}
 
-$B%3%^%s%I(B\cmd{kasenUehosei}$B$K$h$kJQ99$O!$$=$N%3%^%s%I$NM-8zHO0OFb$K$"$k(B
-$B$9$Y$F$N(B\cmd{phkasen}$B$KBP$7$FF/$-$^$9$,!$(B
-\verb+<kasenUehosei=..>+$B%*%W%7%g%s$K$h$kJQ99$O!$Ev3:2<@~$N$_$KF/$-$^$9!#(B
+コマンド\cmd{kasenUehosei}による変更は，そのコマンドの有効範囲内にある
+すべての\cmd{phkasen}に対して働きますが，
+\verb+<kasenUehosei=..>+オプションによる変更は，当該下線のみに働きます。
 
 \begin{showEx}(.6,.34){\cmd{kasenUehosei}}
 \phkasen<kasenUehosei=-6pt,iro=red>[2]%
-  {$B$"$$$&$($*(B}
+  {あいうえお}
 \end{showEx}
 
-$B2<@~$H$=$N2<$N9T$H$N4V3V$rD4@0$9$k%3%^%s%I$,(B\cmd{kasenSitahosei}$B$G$9!#(B
+下線とその下の行との間隔を調整するコマンドが\cmd{kasenSitahosei}です。
 
 \begin{showEx}(.6,.34){\cmd{kasenSiahosei}}
-\phkasen{$B$"$$$&$($*(B}
-$B$*$*$*$*$*$*$*$*$*$*$*$*$*$*$*$*$*(B
-$B$*$*$*$*$*$*$*$*$*$*$*$*$*$*$*$*$*(B
-$B$*$*$*$*$*$*$*$*$*$*$*$*$*$*$*$*$*(B
+\phkasen{あいうえお}
+おおおおおおおおおおおおおおおおお
+おおおおおおおおおおおおおおおおお
+おおおおおおおおおおおおおおおおお
 
 \kasenSitahosei{10pt}%
-\phkasen{$B$"$$$&$($*(B}
-$B$*$*$*$*$*$*$*$*$*$*$*$*$*$*$*$*$*(B
-$B$*$*$*$*$*$*$*$*$*$*$*$*$*$*$*$*$*(B
-$B$*$*$*$*$*$*$*$*$*$*$*$*$*$*$*$*$*(B
+\phkasen{あいうえお}
+おおおおおおおおおおおおおおおおお
+おおおおおおおおおおおおおおおおお
+おおおおおおおおおおおおおおおおお
 \end{showEx}
 
-$BBh(B1$BCJMn$,I8=`$N4V3V$G$9!#(B
-$BBh(B2$BCJMn$O2<@~$N2<$r(B\texttt{10pt}$BA}$d$9$h$&$K;X<($5$l$F$$$^$9!#(B
+第1段落が標準の間隔です。
+第2段落は下線の下を\texttt{10pt}増やすように指示されています。
 %\pagebreak
 
-\subsubsection{$B2<@~6aJU$KJ8;zG[CV(B}\label{sayuu}
-$B2<@~$N:8C<$J$I!$2<@~$N6aJU$KJ8;zNs$rG[CV$7$?$$$3$H$,$"$j$^$9!#(B
-$B$=$N$?$a$K!$(B\cmd{phkasen}$B$K(B
-\verb+'....'+$B%*%W%7%g%s$rMQ0U$7$^$7$?!#(B
-\verb+'.....'+$BFb$K!$2<@~$r0z$/(B\textsf{zahyou*}$B4D6-Fb$K5-=R$9$k(B
-$B%3%^%s%I$r=q$/$3$H$,$G$-$^$9!#(B
+\subsubsection{下線近辺に文字配置}\label{sayuu}
+下線の左端など，下線の近辺に文字列を配置したいことがあります。
+そのために，\cmd{phkasen}に
+\verb+'....'+オプションを用意しました。
+\verb+'.....'+内に，下線を引く\textsf{zahyou*}環境内に記述する
+コマンドを書くことができます。
 
-\begin{showEx}(.6,.34){\texttt{'.....'$B%*%W%7%g%s(B}}
-\verb+'.....'+$BFb$K5-=R$7$?$b$N$O!$(B
-$B2<@~$rIA2h$9$k(B\textsf{zahyou}$B4D6-$K(B
-$BCV$+$l$^$9!#$3$N4D6-$N86E@$O!$2<@~$N:8C<$G$9!#(B
+\begin{showEx}(.6,.34){\texttt{'.....'オプション}}
+\verb+'.....'+内に記述したものは，
+下線を描画する\textsf{zahyou}環境に
+置かれます。この環境の原点は，下線の左端です。
 \phkasen%
   '\Put\O(0,0)[c]{$\bullet$}'%
-  {$B$"$$$&$($*(B}
+  {あいうえお}
 
-$B2<@~$N1&C<$O(B\cmd{XMAX}$B$G!$(B
-$B$=$N:BI8$O(B\verb+(\xmax,0)+$B$H$J$C$F$$$^$9!#(B
+下線の右端は\cmd{XMAX}で，
+その座標は\verb+(\xmax,0)+となっています。
 \phkasen%
   '\Put\XMAX(0,0)[c]{$\bullet$}'%
-  {$B$"$$$&$($*(B}
+  {あいうえお}
 \end{showEx}
 
-$B2<@~$KHV9f$r?6$C$F6hJL$9$kNc$G$9!#(B
+下線に番号を振って区別する例です。
 
-\begin{showEx}(.6,.34){$B2<@~$KHV9f(B}
-$B$"$$$&(B
+\begin{showEx}(.6,.34){下線に番号}
+あいう
 \phkasen<kasenSitahosei=5pt>%
   '\Put\O(0,-2pt)[r]{\scriptsize (1)}'%
-  {$B$+$-$/$1$3(B}
-$B$5$7$9$;$=(B
+  {かきくけこ}
+さしすせそ
 \phkasen%
   '\Put\O(0,-2pt)[r]{\scriptsize (2)}'%
-  {$B$J$K$L$M$N(B}
+  {なにぬねの}
 \begin{enumerate}[(1)]
-  \item $B2<@~It(B(1)$B$K$D$$$F(B...
-  \item $B2<@~It(B(2)$B$K$D$$$F(B...
+  \item 下線部(1)について...
+  \item 下線部(2)について...
 \end{enumerate}
 \end{showEx}
 %\pagebreak
 
-\subsubsection{\cmd{phkasen}$B$N=q<0(B}
-\cmd{phkasen}$B$N=q<0$G$9!#(B
+\subsubsection{\cmd{phkasen}の書式}
+\cmd{phkasen}の書式です。
 
 \begin{boxnote}
 \begin{verbatim}
 \phkasen<#1>[#2]'#3'#4
-  #1 : key=val $B$N7A<0(B
-       $BM-8z$J(Bkey$B$O(B
+  #1 : key=val の形式
+       有効なkeyは
           allinethickness
           sensyu
           iro
           kasenUehosei
-            $B!J$3$N%*%W%7%g%s$K$h$kJd@5$O!$Ev3:2<@~$N$_$G$9!#(B
-              $B0lJ}!$%3%^%s%I(B\kasenUehosei $B$OM-8zHO0OFb$9$Y$F$K8z$-$^$9!K(B
+            （このオプションによる補正は，当該下線のみです。
+              一方，コマンド\kasenUehosei は有効範囲内すべてに効きます）
           kasenSitahosei
-       $B$G!$$$$:$l$b8z2L$O6I=jE*$G$9!#(B
-  #2 : $B2<@~$rFs=E$K$9$k$H$-!$Fs=E@~$N4V3V!JL5L>?t$GC10L$O(Bpt$B$,$D$-$^$9!#!K(B
-  #3 : $B2<@~$r0z$/(Bzahyou*$B4D6-Fb$K$=$N$^$^G[CV$5$l$^$9!#(B
-       $B$=$N(Bzahyou*$B4D6-$K$D$$$F(B
-           \unitlength $B$O(B 1pt
-           $B86E@!J(B\O$B!K$O!$2<@~$N:8C<(B
-           $B1&C<$,(B \XMAX, $B:BI8$O(B (\xmax,0)
-  #4 : $B2<@~$r0z$/BP>](B
+       で，いずれも効果は局所的です。
+  #2 : 下線を二重にするとき，二重線の間隔（無名数で単位はptがつきます。）
+  #3 : 下線を引くzahyou*環境内にそのまま配置されます。
+       そのzahyou*環境について
+           \unitlength は 1pt
+           原点（\O）は，下線の左端
+           右端が \XMAX, 座標は (\xmax,0)
+  #4 : 下線を引く対象
 \end{verbatim}
 \end{boxnote}
