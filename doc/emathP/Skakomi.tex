@@ -1,0 +1,1407 @@
+\section{囲み}
+\subsection{\textsf{rectbox}環境}
+この節で紹介する\textsf{rectbox}環境は
+\textsf{emathPb.sty}で定義されています。
+
+\subsubsection{\textsf{rectbox}とは}
+罫線囲みの一種です。
+罫線を\textsf{picture}環境で描画します。
+
+ページをまたぐことはできません。また，傍注もつけられません。
+
+\begin{showEx}(.9,1){\textsf{rectbox}環境}
+\begin{rectbox}
+あああああああああああああああああああ
+あああああああああああああああああああ
+あああああああああああああああああああ
+
+いいいいいいいいいいいいいいいいいいい
+いいいいいいいいいいいいいいいいいいい
+いいいいいいいいいいいいいいいいいいい
+いいいいいいいいいいいいいいいいいいい
+\end{rectbox}
+\end{showEx}
+%\pagebreak
+
+\subsubsection{罫線と本文との間隔}
+\paragraph{\texttt{fboxsep}}
+罫線と中のテキストとの間隔は，\cmd{fboxsep}で決まります。
+これを変更したいときは，\verb+[fbox=..]+オプションを与えます。
+
+\begin{showEx}(.9,1){\texttt{fboxsep}オプション}
+\begin{rectbox}[fboxsep=1zw]
+あああああああああああああああああああ
+あああああああああああああああああああ
+あああああああああああああああああああ
+\end{rectbox}
+\end{showEx}
+
+\paragraph{\texttt{hsep vsep}}
+\verb+[fboxsep=..]+オプションは，左右・上下すべてを一律に変更しますし，
+当該環境内のみではありますが，\cmd{fboxsep}の値が変更されています。
+
+\begin{showEx}(.9,1){\texttt{fboxsep}オプションの副作用}
+\begin{rectbox}[fboxsep=1zw]
+あああああああああああああああああああ
+
+\fbox{いいい}
+\end{rectbox}
+
+\fbox{ううう}
+\end{showEx}
+
+そこで，左右の空きを指定するオプション\verb+hsep=..+と，
+上下の空きを指定するオプション\verb+vsep=..+を新設しました。
+
+\begin{showEx}(.9,1){\texttt{hsep, vsep}オプション}
+\begin{rectbox}[hsep=3zw,vsep=1zw]
+あああああああああああああああああああ
+あああああああああああああああああああ
+
+\fbox{いいい}
+\end{rectbox}
+
+\fbox{ううう}
+\end{showEx}
+
+\subsubsection{横幅}
+\paragraph{\texttt{rectboxwidth}}
+\textsf{rectbox}環境の横幅は\cmd{linewidth}で，横いっぱいに広がります。
+これを制限するオプションが\verb+rectboxwidth=..+です。
+
+\begin{showEx}(.9,1){\texttt{rectboxwidth}オプション}
+あああ
+\begin{rectbox}[rectboxwidth=8zw]
+いいいいいいいいいいいいいいいい
+いいいいいいいいいいいいいいいい
+\end{rectbox}
+
+ううう
+\end{showEx}
+
+横幅を8zwと指定していますが，実際のボックス幅は，
+これに，左右の空きが加わります。
+
+\paragraph{\cmd{Rectbox}}
+\textsf{rectbox}の中身が短いときなど，横幅をいちいち指定するのが面倒なときは，
+\cmd{Rectbox}コマンドを用います。
+
+\begin{showEx}(.9,1){\cmd{Rectbox}コマンド}
+\Rectbox{あいうえお}
+\end{showEx}
+
+このコマンドは，複数行に対しても使用可能です。
+
+\begin{showEx}(.9,1){\cmd{Rectbox}コマンド（複数行）}
+\Rectbox{%
+  $y=ax^2+bx+c$\\
+  $x^2+y^2=r^2$}
+\end{showEx}
+
+（注）\cmd{Rectbox}コマンドの引数内に，別行立て数式環境を
+入れることはできません。
+%\clearpage
+
+\subsubsection{見出しをつける}
+上部枠線に見出しをつけることができます。
+
+\begin{showEx}(.9,1){\texttt{item}オプション}
+\begin{rectbox}[item={~見出し~}]
+あああああああああああああああああああ
+あああああああああああああああああああ
+あああああああああああああああああああ
+\end{rectbox}
+\end{showEx}
+
+その位置はデフォルトでは左ですが，中央（右）にするには，
+\verb+itempos=..+オプションを用います。
+
+\begin{showEx}(.9,1){\texttt{itempos=c}オプション}
+\begin{rectbox}[item={~中央見出し~},itempos=c]
+あああああああああああああああああああ
+あああああああああああああああああああ
+あああああああああああああああああああ
+\end{rectbox}
+\end{showEx}
+
+\begin{showEx}(.9,1){\texttt{itempos=r}オプション}
+\begin{rectbox}[item={~右見出し~},itempos=r]
+あああああああああああああああああああ
+あああああああああああああああああああ
+あああああああああああああああああああ
+\end{rectbox}
+\end{showEx}
+
+下に見出しをつけることもできます.
+
+\begin{showEx}(.9,1){\texttt{bitemp=..}オプション}
+\begin{rectbox}[bitem={~下見出し~}]
+あああああああああああああああああああ
+あああああああああああああああああああ
+あああああああああああああああああああ
+\end{rectbox}
+\end{showEx}
+
+左／中央／右の配置指定は\verb+[bitempos=l/c/r]+で行います.
+
+\begin{showEx}(.9,1){\texttt{bitemp=..}オプション}
+\begin{rectbox}[bitem={~下見出し~},bitempos=c]
+あああああああああああああああああああ
+あああああああああああああああああああ
+あああああああああああああああああああ
+\end{rectbox}
+\end{showEx}
+
+\subsubsection{罫線の種類変更}
+デフォルトでは，罫線は\verb+\drawline+で引かれます。
+これを変更するオプションです。
+
+\begin{showEx}(.9,1){\texttt{sensyu}オプション}
+\begin{rectbox}[sensyu=\hasen]
+あああああああああああああああああああ
+あああああああああああああああああああ
+あああああああああああああああああああ
+\end{rectbox}
+\end{showEx}
+
+破線に変更しましたが，次は点線にしてみましょう。
+
+\begin{showEx}(.9,1){\texttt{sensyu}オプション}
+\begin{rectbox}[sensyu=\dottedline{.2}]
+あああああああああああああああああああ
+あああああああああああああああああああ
+あああああああああああああああああああ
+\end{rectbox}
+\end{showEx}
+%\pagebreak
+
+\subsubsection{罫線の太さ変更}
+
+\begin{showEx}(.9,1){\texttt{allinethickness}オプション}
+\begin{rectbox}[allinethickness=1pt]
+あああああああああああああああああああ
+あああああああああああああああああああ
+あああああああああああああああああああ
+\end{rectbox}
+\end{showEx}
+
+罫線の太さを\texttt{1pt}と太くしてみましたが，
+四隅のつながり具合が感心しません。
+
+その点は\textsf{emathPs.sty}で定義されている
+\textsf{EMpsrectbox}環境の方がよろしいでしょう。
+
+詳しくは，\texttt{samplePs.tex}をご覧ください。
+
+\subsubsection{枠線に色付}
+\textsf{rectbox}環境で作られる囲み枠の枠線に色をつけるには，
+\texttt{[framecolor=..]}オプションを用います。
+
+\begin{showEx}{\texttt{[framecolor=..]}オプション}
+\begin{rectbox}[framecolor=red]
+あああああああああああああああああ
+あああああああああああああああああ
+あああああああああああああああああ
+\end{rectbox}
+\end{showEx}
+
+\subsubsection{背景色}
+囲み枠の中の背景色をしているするには，
+\texttt{[backgroundcolor=..]}オプションを用います。
+
+\begin{showEx}{\texttt{[backgroundcolor=..]}オプション}
+\begin{rectbox}[framecolor=red,%
+  backgroundcolor=cyan]
+あああああああああああああああああ
+あああああああああああああああああ
+あああああああああああああああああ
+\end{rectbox}
+\end{showEx}
+
+\subsubsection{見出しと背景色は}
+見出しをつけるとき，現時点での仕様は
+
+\begin{showEx}{見出し}
+\begin{rectbox}[framecolor=red,%
+  backgroundcolor=cyan,item=見出し]
+あああああああああああああああああ
+あああああああああああああああああ
+あああああああああああああああああ
+\end{rectbox}
+\end{showEx}
+
+\noindent
+「見出し」が背景色を侵食する，ことにしていますが，どんなものでしょうか。
+
+\subsubsection{見出しの背景色指定}
+見出しの背景色を指定することもできますが，ちょっとしつこいでしょうか。
+
+\begin{showEx}{見出し}
+\begin{rectbox}[framecolor=red,%
+  backgroundcolor=cyan,%
+  item=見出し,itempos=c,%
+  midasibackgroundcolor=lightgray]
+あああああああああああああああああ
+あああああああああああああああああ
+あああああああああああああああああ
+\end{rectbox}
+\end{showEx}
+
+\begin{showEx}{下見出し}
+\begin{rectbox}[framecolor=red,%
+  backgroundcolor=cyan,%
+  bitem=下見出し,bitempos=l,%
+  midasibackgroundcolor=lightgray]
+あああああああああああああああああ
+あああああああああああああああああ
+あああああああああああああああああ
+\end{rectbox}
+\end{showEx}
+
+\subsubsection{\textsf{enumrectbox}環境}
+\textsf{rectbox}環境の表題部に，自動的に連番を振っていくのが
+\textsf{enumrectbox}環境です。
+
+\begin{showEx}{\textsf{enumrectbox}環境}
+\begin{enumrectbox}
+ああああああああああ
+\end{enumrectbox}
+
+\begin{enumrectbox}
+いいいいいいいいいい
+\end{enumrectbox}
+\end{showEx}
+
+この番号付けは，カウンタ
+
+\begin{boxnote}
+\begin{verbatim}
+\newcounter{rectboxenum}
+\end{verbatim}
+\end{boxnote}
+\noindent
+によって行われます。
+したがって
+\begin{jquote}
+\verb+\resetcounter{rectboxenum}+\\
+\verb+\setcounter{rectboxenum}+
+\end{jquote}
+などで制御することができます。
+
+\begin{showEx}{番号初期値の指定}
+\setcounter{rectboxenum}{100}
+\begin{enumrectbox}
+ああああああああああ
+\end{enumrectbox}
+
+\begin{enumrectbox}
+いいいいいいいいいい
+\end{enumrectbox}
+\end{showEx}
+%\newpage
+
+\subsubsection{\cmd{labelrectboxenum}}
+番号部を，単に
+\begin{jquote}
+1, 2, 3, \Cdots
+\end{jquote}
+ではなく
+\begin{jquote}
+例題1, 例題2, 例題3, \Cdots
+\end{jquote}
+などと修飾するためにコマンド\verb+\labelrectboxenum+を用意しました。
+
+\begin{showEx}{\cmd{labelrectboxenum}}
+\resetcounter{rectboxenum}
+\def\labelrectboxenum{%
+例題\arabic{rectboxenum}}
+\begin{enumrectbox}
+ああああああああああ
+\end{enumrectbox}
+
+\begin{enumrectbox}
+いいいいいいいいいい
+\end{enumrectbox}
+\end{showEx}
+
+\cmd{labelenumi}などと同様の使い方をします。
+
+\subsubsection{見出し文も付加}
+番号に続けて，見出し文もつけたいときは，\textsf{rectbox}環境に対する
+\verb+[item=...]+オプションを使用します。
+
+\begin{showEx}{\cmd{labelrectboxenum}}
+\resetcounter{rectboxenum}
+\def\labelrectboxenum{%
+例題\arabic{rectboxenum}.~}
+\begin{enumrectbox}[item=アアア]
+ああああああああああ
+\end{enumrectbox}
+
+\begin{enumrectbox}[item=イイイ]
+いいいいいいいいいい
+\end{enumrectbox}
+\end{showEx}
+\newpage
+
+\subsubsection{相互参照}
+相互参照をするには，\verb+\label{...}+に代えて，\verb+\begin{enumrectbox}+に
+\verb+<...>+オプションを用います。\verb+\ref+は，そのまま有効です。
+
+\begin{showEx}{相互参照}
+\resetcounter{rectboxenum}
+\def\labelrectboxenum{%
+例題\arabic{rectboxenum}}
+\begin{enumrectbox}<L1>
+ああああああああああ
+\end{enumrectbox}
+
+\begin{enumrectbox}
+例題\ref{L1}において，
+\end{enumrectbox}
+\end{showEx}
+
+\subsubsection{\textsf{enumrectbox}の書式}
+\verb+\begin{enumrectbox}+の書式です。
+
+\begin{boxnote}
+\begin{verbatim}
+\begin{enumrectbox}<#1>[#2]
+  #1 : ラベル名
+  #2 : rectbox環境に引き継がれるオプション
+\end{verbatim}
+\end{boxnote}
+
+\subsubsection{\textsf{rectbox}環境における罫線との間隔}
+\textsf{rectbox}において，罫線とテキスト部との間隔は，
+デフォルトでは\verb+\fboxsep+ですが，これを変更するコマンドを用意しました。
+
+\begin{boxnote}
+\begin{verbatim}
+\HVsep#1#2
+  #1 : 左右の空き
+  #2 : 上下の空き
+いずれも，単位つきの数値
+\end{verbatim}
+\end{boxnote}
+
+使用例です。
+
+\begin{showEx}{罫線とテキスト部との間隔}
+デフォルトです。
+
+\begin{rectbox}
+あああああああああああああ
+あああああああああああああ
+あああああああああああああ
+\end{rectbox}
+
+\verb+\HVsep{1zw}{.5zh}+
+を発行します。
+
+\HVsep{1zw}{.5zh}
+\begin{rectbox}
+あああああああああああああ
+あああああああああああああ
+あああああああああああああ
+\end{rectbox}
+\end{showEx}
+
+なお，\textsf{rectbox}環境において，
+\verb+[hsep=..,vsep=..]+オプションを発行したときは，
+そのオプションが有効となります。
+
+このコマンド\verb+HVsep+は，\textsf{enumrectbox}環境に対しても有効です。
+
+\begin{showEx}{\textsf{enumrectbox}環境の場合}
+\resetcounter{rectboxenum}
+\HVsep{2zw}{.5\baselineskip}
+\begin{enumrectbox}
+ああああああああああ
+ああああああああああ
+\end{enumrectbox}
+
+\begin{enumrectbox}
+いいいいいいいいいい
+いいいいいいいいいい
+\end{enumrectbox}
+\end{showEx}
+\newpage
+
+\subsubsection{コーナーを丸く}
+\textsf{rectbox}環境のコーナーを丸くするには，
+\verb+[rectboxoval=...]+オプションを用います。
+右辺値はコーナー四分円の半径を，単位つき数値で与えます。
+
+\begin{showEx}(.9,1){\texttt{rectboxoval=..}オプション}
+\begin{rectbox}[rectboxoval=10pt]
+あああああああああああああああああああ
+あああああああああああああああああああ
+あああああああああああああああああああ
+
+いいいいいいいいいいいいいいいいいいい
+いいいいいいいいいいいいいいいいいいい
+いいいいいいいいいいいいいいいいいいい
+いいいいいいいいいいいいいいいいいいい
+\end{rectbox}
+\end{showEx}
+
+\verb+\rectboxoval+コマンドを用いると，
+すべての\textsf{(enum)rectbox}環境のコーナーを丸くすることができます。
+引数は半径を，単位つき数値で与えます。
+
+\begin{showEx}{\cmd{rectboxoval}}
+\resetcounter{rectboxenum}
+\rectboxoval{6pt}
+\begin{enumrectbox}
+ああああああああああ
+ああああああああああ
+\end{enumrectbox}
+
+\begin{rectbox}[rectboxoval=0pt]
+ナンバリングしない
+\textsf{rectbox}環境です。
+コーナーを丸くしたくなければ
+\verb+[rectboxoval=0pt]+
+オプションが必要です。
+\end{rectbox}
+
+\begin{enumrectbox}
+いいいいいいいいいい
+いいいいいいいいいい
+\end{enumrectbox}
+\end{showEx}
+
+\subsection{丸囲み文字}
+\subsubsection{\cmd{maru}}
+文字を○で囲むのに，\textsf{emath.sty}では，文字を小さめにした\cmd{maru}
+を用意しています。
+
+\begin{showEx}(.6,.34){\cmd{maru}}
+\maru{1}, \maru{39}, \maru{あ}
+\end{showEx}
+
+\subsubsection{\cmd{emPmaru}}
+文字が小さいのが難点です。
+そこで，文字サイズはそのままで，○を大きくする方式のコマンドを
+新設しました。
+
+\begin{showEx}(.6,.34){\cmd{emPmaru}}
+\emPmaru{1}, \emPmaru{39}, \emPmaru{あ}
+\end{showEx}
+
+\subsubsection{\cmd{emPmaruKizyun}}
+\cmd{emPmaru}は，中の文字に対応して，○のサイズが決まりますが，
+これを一定にしたいときは
+\begin{jquote}
+\begin{verb}
+\emPmaruKizyun{あ}
+\end{verb}
+\end{jquote}
+などと，基準の文字を指定します。
+
+\begin{showEx}(.6,.34){\cmd{emPmaru}}
+\emPmaruKizyun{あ}
+\emPmaru{1}, \emPmaru{39}, \emPmaru{あ}
+\end{showEx}
+%\clearpage
+
+\subsubsection{\textsf{enumerate}環境での番号付け}
+\cmd{emPmaru}を\textsf{enumerate}環境での番号付けに使用してみましょう。
+
+\begin{showEx}(.7,.24){\cmd{emPmaru}}
+\emPmaruKizyun{あ}
+\begin{enumerate}[\protect\expandafter\emPmaru 1]
+  \item あああ
+  \item あああ
+  \item あああ
+  \item あああ
+  \item あああ
+  \item あああ
+  \item あああ
+  \item あああ
+  \item あああ
+  \item あああ
+  \item あああ
+  \item あああ
+  \item あああ
+  \item あああ
+  \item あああ
+  \item あああ
+  \item あああ
+  \item あああ
+  \item あああ
+  \item あああ
+\end{enumerate}
+\end{showEx}
+%\clearpage
+
+\subsubsection{数式番号に\cmd{emPmaru}}
+\textsf{align}環境など，数式番号に\cmd{emPmaru}を使用してみましょう。
+
+\begin{showEx}{数式番号に\cmd{emPmaru}}
+\emPmaruKizyun{あ}
+\def\tagform#1{\emPmaru{#1}}
+\begin{align}
+  y &= x\\
+  y &= x\\
+  y &= x\\
+  y &= x\\
+  y &= x\\
+  y &= x\\
+  y &= x\\
+  y &= x\\
+  y &= x\\
+  y &= x\\
+  y &= x\\
+  y &= x
+\end{align}
+\end{showEx}
+
+数式番号が目立ちすぎですか。サイズを落としてみましょうか。
+
+\resetcounter{equation}
+\begin{showEx}{数式番号に\cmd{emPmaru}}
+\emPmaruKizyun{あ}
+\def\tagform#1{%
+  \footnotesize\emPmaru{#1}}
+\begin{align}
+  y &= x\\
+  y &= x\\
+  y &= x\\
+  y &= x\\
+  y &= x\\
+  y &= x\\
+  y &= x\\
+  y &= x\\
+  y &= x\\
+  y &= x\\
+  y &= x\label{LL}\\
+  y &= x
+\end{align}
+\eqref{LL}において，．．．
+\end{showEx}
+
+\cmd{eqref}による参照時もサイズが落ちます。
+
+\cmd{footnotesize}では，落としすぎですか。\cmd{small}ではどうでしょう。
+お好みで．．．．．
+
+\subsubsection{○の太さ}
+\cmd{emPmaru}の○印は，\textsf{emathPh}で定義されている\cmd{En}を用いて
+描画されています。したがって，このコマンドを使用する際は，
+\textsf{emathPh}をロードしておく必要があります。
+ということで，○印の線の太さを変更するには，\cmd{thicklines}等が有効です。
+\begin{showEx}{\cmd{emPmaru}の線の太さ}
+\emPmaru{ア}\hspace{1zw}%
+\thicklines\emPmaru{ア}
+\end{showEx}
+
+\subsection{吹き出し}
+漫画などで用いられる「吹き出し」もどきです。
+\textsf{emathPb.sty}で定義されています。
+
+\subsubsection{\cmd{hukidasi}}
+素朴な形から始めます。
+
+\begin{showEx}{\cmd{hukidasi}}
+ああああああああああ%
+\hukidasi{%
+  この間に\\
+  いいいいいいい\\
+  を補う
+}%
+うううううううううううううううううう
+うううううううううううううううううう
+うううううううううううううううううう
+うううううううううううううううううう
+\end{showEx}
+
+\subsubsection{罫線と文字の間隔}
+吹き出しの台詞とそれを囲む罫線との間隔は\cmd{fboxsep}で決まります。
+ただし，他への影響を避けるためには\cmd{hukidasi}への\verb+[fboxsep=..]+
+オプションを利用するのが良いでしょう。
+
+\begin{showEx}{\texttt{[fboxsep=..]オプション}}
+ああああああああああ%
+\hukidasi[fboxsep=10pt]{%
+  この間に\\
+  いいいいいいい\\
+  を補う
+}%
+うううううううううううううううううう
+うううううううううううううううううう
+\fbox{ええええ}おおおおおおおおおお
+\end{showEx}
+
+上下・左右を別々に指定するには，\verb+[hsep=..,vsep=..]+オプションを用います。
+
+\begin{showEx}{\texttt{[hsep=..,vsep=..]オプション}}
+ああああああああああ%
+\hukidasi[vsep=10pt,hsep=4pt]{%
+  この間に\\
+  いいいいいいい\\
+  を補う
+}%
+うううううううううううううううううう
+うううううううううううううううううう
+\fbox{ええええ}おおおおおおおおおお
+\end{showEx}
+
+\subsubsection{丸いコーナー}
+4隅を丸くするには，\cmd{hukidasi}に\verb+[hankei=..]+で，4隅の4分円の半径を
+指定します。値は単位を伴います。
+
+\begin{showEx}{\texttt{[hankei=..]オプション}}
+ああああああああああ%
+\hukidasi[hankei=10pt]{%
+  この間に\\
+  いいいいいいい\\
+  を補う
+}%
+うううううううううううううううううう
+うううううううううううううううううう
+\fbox{ええええ}おおおおおおおおおお
+\end{showEx}
+
+この場合，枠と台詞の間の間隔を左右するものは\cmd{fboxsep}ではなく，
+\verb+[hankei=..]+の右辺値です。もっと狭くしたい，などのときは
+\verb+hsep, vsep+オプションをご利用ください。
+
+\begin{showEx}{\texttt{[hsep=..,vsep=..]オプション}}
+ああああああああああ%
+\hukidasi[hankei=10pt,%
+hsep=2pt,vsep=5pt]{%
+  この間に\\
+  いいいいいいい\\
+  を補う
+}%
+うううううううううううううううううう
+うううううううううううううううううう
+\fbox{ええええ}おおおおおおおおおお
+\end{showEx}
+
+\subsubsection{吹き出し口の形状}
+吹き出し口は，二等辺三角形ですが，その底辺と高さを
+\begin{jquote}
+\begin{verbatim}
+hukidasihaba=..
+hukidasitakasa=..
+\end{verbatim}
+\end{jquote}
+オプションで指定することができます。デフォルト値は
+\begin{jquote}
+\begin{verbatim}
+hukidasihaba=20pt
+hukidasitakasa=10pt
+\end{verbatim}
+\end{jquote}
+となっています。
+
+\begin{showEx}{吹き出し口の形状}
+ああああああああああ%
+\hukidasi[hankei=10pt,%
+hukidasihaba=10pt,%
+hukidasitakasa=20pt]{%
+  この間に\\
+  いいいいいいい\\
+  を補う
+}%
+うううううううううううううううううう
+うううううううううううううううううう
+\fbox{ええええ}おおおおおおおおおお
+\end{showEx}
+
+\subsubsection{横幅の変更}
+吹き出し枠の横幅は，台詞の自然長に設定されますが，
+これを指定するには，\verb+[width=..]+オプションを用います。
+これは，台詞の文字部分の長さを指定します。
+
+\begin{showEx}{\texttt{width}オプション}
+ああああああああああ%
+\hukidasi[width=4zw]{%
+  この間に\\
+  いいいいいいい\\
+  を補う
+}%
+うううううううううううううううううう
+うううううううううううううううううう
+うううううううううううううううううう
+うううううううううううううううううう
+\end{showEx}
+
+\subsubsection{文字サイズの変更}
+台詞部分の文字サイズの変更は，\cmd{hukidasi}の前で行います。
+
+\begin{showEx}{文字サイズ変更}
+ああああああああああ%
+\begin{footnotesize}
+\hukidasi[hankei=10pt,%
+vsep=4pt,hsep=8pt,%
+hukidasihaba=10pt,%
+hukidasitakasa=20pt]{%
+  この間に\\
+  いいいいいいい\\
+  を補う
+}%
+\end{footnotesize}%
+うううううううううううううううううう
+うううううううううううううううううう
+\fbox{ええええ}おおおおおおおおおお
+\end{showEx}
+
+\subsubsection{吹き出し口の位置}
+吹き出し口は，デフォルトでは，枠の上部につきます。\\
+これを変更するには，\verb+[hukidasiiti=T/B/L/R}+オプションを用います
+（デフォルトは\verb+T+）。
+
+（注）現時点では\verb+R+オプションは実装していません。
+
+\paragraph{\texttt{[hukidasiiti=B]}オプション}
+枠の下部に吹き出し口をつけるのが，\texttt{[hukidasiiti=B]}オプションです。
+
+\begin{showEx}{\texttt{hukidasiiti=B}}
+ああああああああああああああああああ
+あああああああ%
+\hukidasi[hukidasiiti=B]{%
+  この間に\\
+  いいいいいいい\\
+  を補う
+}%
+うううううううううううううううううう
+うううううううううううううううううう
+\end{showEx}
+
+コーナーを丸くする\verb+hankei=..+オプションを附加した場合です。
+
+\begin{showEx}{\texttt{hukidasiiti=B}}
+ああああああああああああああああああ
+あああああああ%
+\hukidasi[%
+    hankei=10pt,hukidasiiti=B]{%
+  この間に\\
+  いいいいいいい\\
+  を補う
+}%
+うううううううううううううううううう
+うううううううううううううううううう
+\end{showEx}
+
+\paragraph{\texttt{[hukidasiiti=L]}オプション}
+枠の左辺に吹き出し口をつける\texttt{[hukidasiiti=L]}オプションは，
+傍注コマンド\verb+\marginpar+と併用することを前提とします。
+
+次の例では，\verb+\marginpar+を使用するため，
+今までの例のようにタイプセット結果を\verb+\shadebox+に入れることができません。
+
+\begin{itembox}{\texttt{hukidasiiti=L}}
+\begin{verbatim}
+ああああああああああああああああああああああああああああああああああああ
+ああああああああああああああああああああああああああああああああああああ
+ああああああああああああああああああああああああああああああああああああ
+ああああああああああああああああああああああああああああああああああああ
+あああああああ%
+\marginpar{%
+\hukidasi[hukidasiiti=L]{%
+  この間に\\
+  いいいいいいい\\
+  を補う
+}%
+}%
+うううううううううううううううううううううううううううううううううううう
+うううううううううううううううううううううううううううううううううううう
+うううううううううううううううううううううううううううううううううううう
+うううううううううううううううううううううううううううううううううううう
+うううううううううううううううううううううううううううううううううううう
+\marginpar{ウウウウウウウウウウウ}
+ええええええええええええええええええええええええええええええええええええ
+ええええええええええええええええええええええええええええええええええええ
+\end{verbatim}
+\end{itembox}
+をタイプセットした結果は\smallskip
+\hrule\smallskip
+ああああああああああああああああああああああああああああああああああああ
+ああああああああああああああああああああああああああああああああああああ
+ああああああああああああああああああああああああああああああああああああ
+ああああああああああああああああああああああああああああああああああああ
+あああああああ%
+\marginpar{%
+\hukidasi[hukidasiiti=L]{%
+  この間に\\
+  いいいいいいい\\
+  を補う
+}%
+}%
+うううううううううううううううううううううううううううううううううううう
+うううううううううううううううううううううううううううううううううううう
+うううううううううううううううううううううううううううううううううううう
+うううううううううううううううううううううううううううううううううううう
+うううううううううううううううううううううううううううううううううううう
+\marginpar{ウウウウウウウウウウウ}
+ええええええええええええええええええええええええええええええええええええ
+ええええええええええええええええええええええええええええええええええええ
+\smallskip\hrule\bigskip
+
+\textsf{emathBk.sty}で定義されている\cmd{MigiRangai}などとの併用も可能です。
+
+\begin{showEx}(1,1){\cmd{MigiRangai}との併用}
+\begin{breakRline}[fboxsep=10pt,sensyu=\protect\drawline]
+ああああああああああああああああああああああああああああああああああああ
+ああああああああああああああああああああああああああああああああああああ
+ああああああああああああああああああああああああああああああああああああ
+ああああああああああああああああああああああああああああああああああああ
+あああああああ%
+\MigiRangai{%
+\hukidasi[hukidasiiti=L]{%
+  この間に\\
+  いいいいいいい\\
+  を補う
+}%
+}%
+うううううううううううううううううううううううううううううううううううう
+うううううううううううううううううううううううううううううううううううう
+うううううううううううううううううううううううううううううううううううう
+うううううううううううううううううううううううううううううううううううう
+うううううううううううううううううううううううううううううううううううう
+\MigiRangai{ウウウウウウウウウウウ}
+ええええええええええええええええええええええええええええええええええええ
+ええええええええええええええええええええええええええええええええええええ
+\end{breakRline}
+\end{showEx}
+
+\textsf{tyuukai}環境内の\cmd{tyuu}との併用をする例です。
+
+\begin{showEx}(1,1){\cmd{tyuu}との併用}
+問題問題問題問題問題問題問題問題問題問題問題問題問題問題問題問題問題問題
+問題問題問題問題問題問題問題問題問題問題問題問題問題問題問題問題問題問題
+
+\migityuukeisenfalse
+\begin{tyuukai}
+\tyuumark{}%
+【解答】\verb+tyuukai+環境内に解答部分を記述する場合にも，
+\cmd{hukidasi}の\verb+[[hukidasiiti=L]+オプションは有効です。
+あああああああ
+\tyuu{%
+\hukidasi[hukidasiiti=L,hankei=8pt,hsep=4pt,vsep=4pt,hukidasihaba=10pt]{%
+  この間に\\
+  いいいいいいい\\
+  を補う
+}%
+}%
+ここで注釈をつけてみます。
+うううううううううううううううううううううううううううううううううううう
+\end{tyuukai}
+\end{showEx}
+
+\subsubsection{\textsf{mawarikomi}環境との併用}
+\begin{showEx}(1,1){\textsf{mawarikomi}環境との併用}
+あああああああああああああああああああああ
+あああああああああああああああああああああ
+
+\begin{mawarikomi}[4]{}{%
+\begin{zahyou*}[ul=1zw](0,4.5)(0,1)
+\put(0,-2.5){\hukidasi[hukidasiiti=L,width=4zw]{アアアアアアアア}}
+\end{zahyou*}
+}
+おおおおおおおおおおおおおおおおおおおおおおおおおおおおおおおおおおおおおお
+おおおおおおおおおおおおおおおおおおおおおお
+いいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいい
+いいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいい
+いいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいい
+いいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいい
+いいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいい
+\end{mawarikomi}
+\end{showEx}
+
+
+\subsection{数列の上下に\cmd{HenKo}}
+\subsubsection{数列の上に\cmd{HenKo}}
+等差数列の説明図などで，数列の上に円弧を連ねて，
+$d$ずつ増えていくことを示すことがあります。
+\textsf{emathPh.sty}には，\cmd{DrawHatC}を用意してありますが，
+円弧を連ねる場合は，面倒ですから，\cmd{DrawHatS}を作ってみました。
+
+\begin{showEx}(.6,.34){\cmd{DrawHatS}}
+  $\DrawHatS{a_1,a_2,a_3, \cdots}{+d}$
+\end{showEx}
+
+円弧の部分が上に飛び出しています。\\
+円弧の部分は\cmd{HenKo}を用いていますが，
+\verb+\begin{picture}(0,0)+の中で\cmd{HenKo}を発行していますので，
+そのサイズは$0\times0$としか，\TeX には認識されません。
+\cmd{sityuu}で支柱を立てて対応します。
+
+\begin{showEx}(.6,.34){支柱を立てて}
+  \sityuu{20pt}%
+  $\DrawHatS{a_1,a_2,a_3, \cdots}{+d}$
+\end{showEx}
+
+`$+d$'の位置ですが，\cmd{HenKo}を用いていますから，デフォルトでは円弧を切って
+その上に配置されます。これをずらすには，\cmd{HenKo}のオプションを用います。
+\cmd{DrawHatS}は\verb+<...>+オプション内に，\cmd{HenKo}に渡すオプションを
+記述できるようにしてあります。
+
+\begin{showEx}(.6,.34){`$+d$'の位置}
+  \sityuu{28pt}%
+  $\DrawHatS<putoption={(0,2pt)[b]}>%
+    {a_1,a_2,a_3, \cdots}{+d}$
+\end{showEx}
+
+\noindent
+この場合，必要に応じて支柱の高さも修正します。
+
+円弧に矢印をつけるには，\cmd{HenKo}に\verb+yazirusi=r/a+オプションをつけます。
+
+\begin{showEx}(.6,.34){円弧に矢印}
+  \sityuu{28pt}%
+  $\DrawHatS%
+    <yazirusi=r,putoption={(0,2pt)[b]}>%
+    {a_1,a_2,a_3, \cdots}{+d}$
+\end{showEx}
+
+`$+d$'の文字サイズを小さくしたければ，
+数式モード内ですから\verb+\scriptstyle+などとします。
+
+\begin{showEx}(.6,.34){`$+d$'の文字サイズ}
+  \sityuu{28pt}%
+  $\DrawHatS<putoption={(0,2pt)[b]}>%
+    {a_1,a_2,a_3, \cdots}{\scriptstyle +d}$
+\end{showEx}
+%\clearpage
+
+円弧の端点（横位置）は，`$a_1$'の中央ですが，添え字に災いされて，
+もっと左に寄せたい，と思われる方も多いでしょう。
+そのために，\cmd{DrawHatS}に\verb+[offset=..]+オプションを用意しました。
+
+\begin{showEx}(.6,.34){円弧の横位置}
+  \sityuu{28pt}%
+  $\DrawHatS[offset=-3pt]%
+    <putoption={(0,2pt)[b]}>%
+    {a_1,a_2,a_3, \cdots}{+d}$
+\end{showEx}
+
+円弧の端点（縦位置）は，デフォルトではベースラインの上方\verb+1zh+
+としてあります。
+これを変更するオプションが\verb+[takasa=..]+です。
+少し下げてみましょう。
+
+\begin{showEx}(.6,.34){円弧の縦位置}
+  \sityuu{28pt}%
+  $\DrawHatS[takasa=6pt,offset=-3pt]%
+    <putoption={(0,2pt)[b]}>%
+    {a_1,a_2,a_3, \cdots}{+d}$
+\end{showEx}
+
+円弧自体の高さは，\cmd{HenKo}の\verb+<henkoH=..>+オプションで変更できます。
+
+\begin{showEx}(.6,.34){円弧の高さ}
+  \sityuu{28pt}%
+  $\DrawHatS[takasa=6pt,offset=-3pt]%
+    <henkoH=4pt,putoption={(0,2pt)[b]}>%
+    {a_1,a_2,a_3, \cdots}{+d}$
+\end{showEx}
+
+数列を\verb+a_1,a_2,a_3, \cdots+と与えても，各項の間が空いています。
+これは，区切り子をデフォルトで`\verb+,\kern1em+'と設定しているためです。\\
+これを修正するのが\verb+[kugirisi=...]+オプションです。
+コンマをつけず，間を広げてみます。
+
+\begin{showEx}(.54,.4){区切りの変更}
+  \sityuu{28pt}%
+  $\DrawHatS
+    [kugirisi=\kern2em]%
+    {a_1,a_2,a_3, \cdots}{+d}$
+\end{showEx}
+
+\cmd{DrawHatS}をつなげることもできます。
+
+\begin{showEx}(.47,.47){\cmd{DrawHatS}の連結}
+  \sityuu{28pt}%
+$
+\DrawHatS{a_1,a_2,a_3, \cdots}{+d}
+ \cdots
+\DrawHatS{\cdots,a_{n-1},a_n}{+d}
+$
+\end{showEx}
+%\clearpage
+
+\subsubsection{数列の下に\cmd{HenKo}}
+\cmd{DrawHatS}の\verb+[takasa=..]+オプションの右辺値が正の値であれば，
+円弧は数列の上方につきます。それに対して0以下の値を指定すれば，
+円弧は数列の下方につきます。
+
+\begin{showEx}(.6,.34){円弧を下に}
+  $\DrawHatS%
+    [takasa=-2pt]%
+    {a_1,a_2,a_3, \cdots}{+d}$
+\end{showEx}
+
+今度は，支柱の深さを増やしてやらねばなりませんし，
+\cmd{HenKo}に与えるオプションも変更する必要があります。
+
+\begin{showEx}(.6,.34){\cmd{HenKo}の調整}
+  \sityuu[20pt]{0pt}%
+  $\DrawHatS%
+    [takasa=-2pt]%
+    <yazirusi=a,putoption={(0,-2pt)[t]}>%
+    {a_1,a_2,a_3, \cdots}{+d}$
+\end{showEx}
+
+\subsubsection{階差数列}
+等差数列の場合は，\cmd{HenKo}に与える文字列は一律ですが，
+階差数列となると，ばらばらです。
+
+\begin{showEx}(.6,.34){階差数列}
+  \sityuu[24pt]{0pt}%
+  $\DrawHatS%
+    [takasa=-4pt]%
+    <putoption={(0,-2pt)[t]}>%
+    {a_1,a_2,a_3, \cdots}{b_1,b_2,\cdots}$
+\end{showEx}
+
+円弧ではなく，折れ線にしたいですか。
+
+\begin{showEx}(.6,.34){\texttt{henkotype=2}オプション}
+  \sityuu[24pt]{0pt}%
+  $\DrawHatS%
+    [takasa=-4pt]%
+    <henkotype=2,putoption={(0,-2pt)[t]}>%
+    {a_1,a_2,a_3, \cdots}{b_1,b_2,\cdots}$
+\end{showEx}
+
+階差数列については，あとでもう一度取り上げます。
+%\clearpage
+
+\subsubsection{\cmd{DrawHatS*}}
+数列の上下に円弧列を描画するには，
+まず，\verb+*+つきのコマンド\cmd{DrawHatS*}で上の円弧を描画し，
+ついで，\cmd{DrawHatS}で下の円弧を描画します。
+
+\begin{showEx}(.95,.9){\cmd{DrawHatS*}}
+  \sityuu[25pt]{36pt}%
+$
+  \DrawHatS*[takasa=1.5zh]<yazirusi=r,putoption={(0,2pt)[b]}>
+    {\bunsuu12,\bunsuu34,\bunsuu58,\bunsuu7{16},\cdots}{+2}
+  \DrawHatS[takasa=-1zh]<yazirusi=a,putoption={(0,-2pt)[t]}>
+    {\bunsuu12,\bunsuu34,\bunsuu58,\bunsuu7{16},\cdots}{\times2}
+$
+\end{showEx}
+
+\begin{showEx}(.95,.9){\texttt{<offset=..>}と併用}
+  \sityuu[20pt]{28pt}%
+$
+  \DrawHatS*[offset=-5pt,takasa=1zh,kugirisi=+]%
+    <yazirusi=r,putoption={(0,2pt)[b]}>
+    {1\,x\,,3x^2,5x^3,7x^5,\cdots}{+2}
+  \DrawHatS[offset=1pt,takasa=-2pt,kugirisi=+]%
+    <yazirusi=a,putoption={(0,-2pt)[t]}>
+    {1\,x\,,3x^2,5x^3,7x^5,\cdots}{\times x}
+$
+\end{showEx}
+%\clearpage
+
+\subsubsection{書式}
+\cmd{DrawHatS} の書式です。
+
+\begin{boxnote}
+\begin{verbatim}
+\DrawHatS[#1]<#2>#3#4
+  #1 : key=val の形式
+          kugirisi=.. 数列の項間を制御
+          　　　　　　　デフォルトは `,\kern1em'
+          takasa=..   円弧の端末とベースラインとの距離　デフォルトは 1zh
+                      （この値を0以下に指定すると，円弧は数列の下方につく）
+          offset=..   円弧の端末横位置の微調整　デフォルトは0pt
+  #2 : \HenKo の <...> オプションに引き渡される
+          henkoH=..      辺と弧の距離(単位付数値) デフォルト値=1.6ex
+          putoption=..   この中央に配置される文字列の配置オプション
+          yazirusi=..    弧に矢印をつける（aで正の回転，rで負の回転を表す）
+          henkotype=..   2とすると，円弧ではなく折れ線
+  #3 : 数列（コンマ区切りの文字列）
+  #4 : 円弧の中央に配置される文字
+       （一律でないときは，コンマ区切りで与える。）
+
+\DrawHatS*[#1]<#2>#3#4
+  円弧を描画するのみで，数列はタイプセットされない。
+  参照点も動かない。
+  引数は \DrawHatS と同じ。
+\end{verbatim}
+\end{boxnote}
+%\clearpage
+
+\subsubsection{\textsf{manDrawHatS}環境}
+\cmd{DrawHatS}コマンドでは，円弧などは一律の条件で描画されます。
+これらを場所に応じて修正したい，などという目的のために，
+\textsf{manDrawHatS}環境を用意しました。
+
+この環境では，円弧は描画されません。
+手動で円弧を描画するための材料を提供することが目的です。
+
+この環境は実質的には，\textsf{picture}環境です。
+原点は数列，初項の左下にあり，\verb+\unitlength+は\verb+1pt+となっています。
+この環境内では，次の変数が定義されています。
+\begin{jquote}
+\begin{verbatim}
+\DHSTi, \DHSTii, \DHSTiii, ....：数列の上方に描画される円弧の端点
+\DHSBi, \DHSBii, \DHSBiii, ....：数列の下方に描画される円弧の端点
+\end{verbatim}
+\end{jquote}
+
+では，一例を
+
+\begin{showEx}(1,.9){\textsf{manDrawHatS}環境}
+  \sityuu[20pt]{28pt}%
+\begin{manDrawHatS}{1,3,5,7,\cdots}
+  \HenKo<putoption={(0,2pt)[b]}>\DHSTii\DHSTi{$\scriptstyle 3-1=2$}
+  \HenKo<putoption={(0,2pt)[b]}>\DHSTiv\DHSTiii{$\scriptstyle 7-5=2$}
+  \HenKo<putoption={(0,-2pt)[t]}>\DHSBii\DHSBiii{$\scriptstyle 5-3=2$}
+  \HenKo<putoption={(0,-2pt)[t]}>\DHSBiv\DHSBv{}
+\end{manDrawHatS}
+\end{showEx}
+
+上方円弧端点の高さは\verb+[takasa=..]+オプションで指定できるのは
+\cmd{DrawHatS}コマンドと同様です。下方円弧については\verb+[hukasa=..]+
+オプションで指定します。その例です。
+
+\begin{showEx}(1,.9){\texttt{hukasa=..}オプション}
+  \sityuu[30pt]{36pt}%
+\begin{manDrawHatS}[takasa=15pt,hukasa=10pt,kugirisi={,\,}]%
+    {1,\bunsuu12,\bunsuu14,\bunsuu18,\cdots}
+  \HenKo<putoption={(0,2pt)[b]}>\DHSTii\DHSTi{$\times\frac12$}
+  \HenKo<putoption={(0,2pt)[b]}>\DHSTiv\DHSTiii{$\times\frac12$}
+  \HenKo<putoption={(0,-2pt)[t]}>\DHSBii\DHSBiii{$\times\frac12$}
+  \HenKo<putoption={(0,-2pt)[t]}>\DHSBiv\DHSBv{$\times\frac12$}
+\end{manDrawHatS}
+\end{showEx}
+
+最後に少し複雑な例をご覧ください。
+
+\begin{showEx}(1,.9){雑例}
+  \sityuu[36pt]{1zh}%
+\begin{manDrawHatS}{a_1,a_2,a_3,a_4,\cdots,a_{n-1},a_n}
+  \HenKo<henkotype=2,putoption={(2pt,-2pt)[t]}>\DHSBi\DHSBii{$b_1$,}
+    \edef\P{\HenKoTyuuten}%
+  \HenKo<henkotype=2,putoption={(2pt,-2pt)[t]}>\DHSBii\DHSBiii{$b_2$,}
+  \HenKo<henkotype=2,putoption={(2pt,-2pt)[t]}>\DHSBiii\DHSBiv{$b_3$,}
+  \HenKo<henkotype=2,putoption={(0,-2pt)[t]}>\DHSBiv\DHSBv{$\cdots$}
+  \HenKo<henkotype=2,putoption={(0,-2pt)[t]}>\DHSBv\DHSBvi{$\cdots$}
+  \HenKo<henkotype=2,putoption={(8pt,-2pt)[t]}>\DHSBvi\DHSBvii{$b_{n-1}$}
+    \edef\Q{\HenKoTyuuten}%
+  \rotUbrace[depth=12pt]\P\Q{n-1~個}
+\end{manDrawHatS}
+\end{showEx}
+
+\subsubsection{ふたたび階差数列}
+階差数列はよく使いそうですから，\textsf{manDrawHatS}環境を利用したコマンド
+\cmd{Kaisasuuretu}を作っておきます。
+
+\begin{showEx}(1,.9){\cmd{Kaisasuuretu}}
+  \sityuu[2.2zh]{1zh}%
+$
+  \Kaisasuuretu[kugirisi=\kern1em]<putoption={(0,-2pt)[t]}>%
+    {1,2,4,7,11,\cdots}%
+    {1,2,3,4,\cdots}
+$
+\end{showEx}
+%\clearpage
+
+第2階差数列まで必要な場合は，
+
+\begin{showEx}(1,.9){\cmd{iiKaisasuuretu}}
+  \sityuu[4.4zh]{1zh}%
+$
+  \iiKaisasuuretu[kugirisi=\kern1em]<putoption={(0,-2pt)[t]}>%
+    {6,8,18,42,86,156,258,\cdots}%
+    {2,10,24,44,70,102,\cdots}%
+    {8,14,20,26,32,\cdots}
+$
+\end{showEx}
+
+連結も可能です。
+
+\begin{showEx}(1,.9){\cmd{iiKaisasuuretu}の連結}
+  \sityuu[4.4zh]{1zh}%
+$
+  \iiKaisasuuretu[kugirisi=\kern1em]<putoption={(0,-2pt)[t]}>%
+    {a_1,a_2,a_3,a_4,\cdots}%
+    {b_1,b_2,b_3,\cdots\hbox to 0pt{$\cdots\cdots\cdots$}}%
+    {c_1,c_2,\cdots\hbox to 0pt{$\cdots\cdots\cdots\cdots\cdots$}}%
+  \cdots
+  \iiKaisasuuretu[kugirisi=\kern1em]<putoption={(0,-2pt)[t]}>%
+    {\cdots,a_{n-2},a_{n-1},a_n,\cdots}%
+    {\cdots,b_{n-2},b_{n-1},\cdots}%
+    {\cdots,c_{n-2},\cdots}%
+$
+\end{showEx}
+
+\subsection{下線}
+文字列に下線を引くコマンドは\LaTeX に\cmd{underline}が用意されています。
+
+\subsubsection{\cmd{phkasen}}
+\cmd{phkasen}は，下線を引く\cmd{underline}に
+\begin{jquote}
+\begin{enumerate}[(1)]
+  \item 下線を二重
+  \item 下線の太さを変更
+  \item 下線の線種を変更
+  \item 下線に色をつける
+  \item 下線と上下の間隔調整
+  \item 下線の近傍に文字を配置
+\end{enumerate}
+\end{jquote}
+機能を附加したものです。ただし，下線は\verb+tpic-specials+で描画されます。
+
+\subsubsection{基本用法}
+\cmd{phkasen}の基本用法は\cmd{underline}と同様です。
+
+\begin{showEx}(.7,.24){\cmd{phkasen}}
+あい\underline{うえ}お
+
+あい\phkasen{うえ}お
+\end{showEx}
+
+下線部と前後の文との間に空白ができますが，これは\cmd{underline}と同様です。
+この空白を除去したければ，下線部を\verb+\mbox+で囲むなどの対策をとります。
+
+\begin{showEx}(.7,.24){前後の空白除去}
+あい\phkasen{うえ}お
+
+あい\mbox{\phkasen{うえ}}お
+
+あいうえお
+\end{showEx}
+
+\subsubsection{下線の太さ}
+下線の太さを変更するには，\verb+<allinethickness=..>+オプションを用います。
+
+\begin{showEx}(.7,.24){下線の太さ変更}
+あい\phkasen<allinethickness=2pt>{うえ}お
+\end{showEx}
+
+\subsubsection{下線の線種}
+下線の線種を変更するには，\verb+<sensyu=..>+オプションを用います。
+
+\begin{showEx}(.7,.24){下線の線種変更}
+あい\phkasen<sensyu=\hasen>{うえ}お
+\end{showEx}
+
+
+\subsubsection{二重下線}
+下線を二重とするには，\cmd{phkasen}に\verb+[..]+オプションを与えます。
+\verb+[ ]+内の数値は二本線の間隔で，単位は\verb+pt+です。
+
+\begin{showEx}(.6,.34){二重下線}
+\phkasen[1.5]{あいうえお}
+\end{showEx}
+
+
+\subsubsection{下線の色}
+下線に色を付けるには，\verb+<iro=..>+オプションを用います。
+
+\begin{showEx}(.7,.24){下線の色}
+あい\phkasen<iro=red>{うえ}お
+\end{showEx}
+
+\subsubsection{下線上下の間隔}
+下線と下線をつけた文字列との間隔を調整するには，
+コマンド\cmd{kasenUehosei}の引数に増減する数値（単位付）を与えます。
+下線は，正の値で下方に，負の値で上方に移動します。
+
+\begin{showEx}(.6,.34){\cmd{kasenUehosei}}
+\kasenUehosei{-6pt}%
+\phkasen<iro=red>[2]{あいうえお}
+\end{showEx}
+
+コマンド\cmd{kasenUehosei}による変更は，そのコマンドの有効範囲内にある
+すべての\cmd{phkasen}に対して働きますが，
+\verb+<kasenUehosei=..>+オプションによる変更は，当該下線のみに働きます。
+
+\begin{showEx}(.6,.34){\cmd{kasenUehosei}}
+\phkasen<kasenUehosei=-6pt,iro=red>[2]%
+  {あいうえお}
+\end{showEx}
+
+下線とその下の行との間隔を調整するコマンドが\cmd{kasenSitahosei}です。
+
+\begin{showEx}(.6,.34){\cmd{kasenSiahosei}}
+\phkasen{あいうえお}
+おおおおおおおおおおおおおおおおお
+おおおおおおおおおおおおおおおおお
+おおおおおおおおおおおおおおおおお
+
+\kasenSitahosei{10pt}%
+\phkasen{あいうえお}
+おおおおおおおおおおおおおおおおお
+おおおおおおおおおおおおおおおおお
+おおおおおおおおおおおおおおおおお
+\end{showEx}
+
+第1段落が標準の間隔です。
+第2段落は下線の下を\texttt{10pt}増やすように指示されています。
+%\pagebreak
+
+\subsubsection{下線近辺に文字配置}\label{sayuu}
+下線の左端など，下線の近辺に文字列を配置したいことがあります。
+そのために，\cmd{phkasen}に
+\verb+'....'+オプションを用意しました。
+\verb+'.....'+内に，下線を引く\textsf{zahyou*}環境内に記述する
+コマンドを書くことができます。
+
+\begin{showEx}(.6,.34){\texttt{'.....'オプション}}
+\verb+'.....'+内に記述したものは，
+下線を描画する\textsf{zahyou}環境に
+置かれます。この環境の原点は，下線の左端です。
+\phkasen%
+  '\Put\O(0,0)[c]{$\bullet$}'%
+  {あいうえお}
+
+下線の右端は\cmd{XMAX}で，
+その座標は\verb+(\xmax,0)+となっています。
+\phkasen%
+  '\Put\XMAX(0,0)[c]{$\bullet$}'%
+  {あいうえお}
+\end{showEx}
+
+下線に番号を振って区別する例です。
+
+\begin{showEx}(.6,.34){下線に番号}
+あいう
+\phkasen<kasenSitahosei=5pt>%
+  '\Put\O(0,-2pt)[r]{\scriptsize (1)}'%
+  {かきくけこ}
+さしすせそ
+\phkasen%
+  '\Put\O(0,-2pt)[r]{\scriptsize (2)}'%
+  {なにぬねの}
+\begin{enumerate}[(1)]
+  \item 下線部(1)について...
+  \item 下線部(2)について...
+\end{enumerate}
+\end{showEx}
+%\pagebreak
+
+\subsubsection{\cmd{phkasen}の書式}
+\cmd{phkasen}の書式です。
+
+\begin{boxnote}
+\begin{verbatim}
+\phkasen<#1>[#2]'#3'#4
+  #1 : key=val の形式
+       有効なkeyは
+          allinethickness
+          sensyu
+          iro
+          kasenUehosei
+            （このオプションによる補正は，当該下線のみです。
+              一方，コマンド\kasenUehosei は有効範囲内すべてに効きます）
+          kasenSitahosei
+       で，いずれも効果は局所的です。
+  #2 : 下線を二重にするとき，二重線の間隔（無名数で単位はptがつきます。）
+  #3 : 下線を引くzahyou*環境内にそのまま配置されます。
+       そのzahyou*環境について
+           \unitlength は 1pt
+           原点（\O）は，下線の左端
+           右端が \XMAX, 座標は (\xmax,0)
+  #4 : 下線を引く対象
+\end{verbatim}
+\end{boxnote}

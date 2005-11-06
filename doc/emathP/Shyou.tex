@@ -1,0 +1,962 @@
+\section{作表}
+この節の環境，コマンド類は \textsf{emathT.sty} で定義されています。
+したがって，プリアンブルで
+\begin{jquote}
+  \verb/\usepackage{emathT}/
+\end{jquote}
+を宣言しておく必要があります．
+
+\subsection{\textsf{Hyou} 環境}
+\subsubsection{列幅指定}
+表を作成するには，\textsf{tabular}環境，\textsf{array}環境があります．
+これらの環境で作成される表の列幅は，列の中に置かれる内容によって
+自動的に定まります．これは便利ですが，ときには列幅を指定したいことも
+あります．
+そのための環境として \textsf{Hyou}環境を作りました．
+その一例です．
+
+\showexample[列幅一定の表](1)(.9){example/hyou01}
+
+\textsf{Hyou}環境は，実質 \textsf{tabular}環境と同じです．
+\index{Hyou @ Hyou 環境}
+ただ，欄指定子として \texttt{l, c, r} に加え，\texttt{L, C, R} が
+追加され，これらは欄の横幅を引数にとります．上の例では，
+\verb/*{4}{C{4zw}|}/として，4欄すべての横幅を\texttt{4zw}の
+中央揃えと指定しています．
+
+\subsubsection{カラムに斜線}
+また，この環境内では，\cmd{sya} コマンドで欄に斜線を引くことができます．
+\cmd{sya}コマンドの書式です．\cindex{sya}
+
+\begin{boxnote}
+\begin{verbatim}
+   \sya(#1)[#2][#3]<#4>
+       #1 : 横幅
+       #2 : 斜線の向き
+           n 右上から左下（デフォルト）
+           r 左上から右下
+           x クロス
+       #3=高さと深さ
+       #4 picture 環境内の記述
+\end{verbatim}
+\end{boxnote}
+
+各種オプションの説明です。
+
+\verb/[#2]/オプションは，斜線の向きを指定します。
+前ページの例では\verb/[r]/オプションで
+左上から右下方向の斜線を指定しています。
+
+つぎに，\verb/<#4>/オプションについて簡単に述べます．
+
+\textsf{Hyou}環境で \cmd{sya}コマンドを用いた欄には \textsf{picture}環境が
+定義されています．
+これを用いて斜線の左下，右上に文字列を配置することが出来ます．
+そのためのコマンドが \cmd{Hyoumidasi} で，書式は
+\begin{boxnote}
+\begin{verbatim}
+    \Hyoumidasi#1#2
+        #1 : 左下の文字列
+        #2 : 右上の文字列
+\end{verbatim}
+\end{boxnote}
+\cindex{Hyoumidasi}
+
+斜線の縦・横幅の調整をするオプションが \verb/(#1)/, \verb/[#3]/ 
+オプションです。
+
+まずは \verb/(#1)/ オプションの使用例です。
+
+\showexample[\cmd{sya}の横幅指定オプション](1)(.9){example/hyou02}
+
+\cmd{sya}の横幅についてデフォルトでは，
+\textsf{Hyou}環境の引数で L, C, R でサイズ指定した最後の値に
+設定されます。
+上の例では，\texttt{3zw}です。
+それ以外の横幅のところに斜線をひくにはその横幅を\verb/(#1)/オプションで
+指定する必要があります。
+
+次に高さ・深さを変更するオプション\verb/[#3]/オプションの使用例です。
+
+\showexample[\cmd{sya}の高さ指定オプション](1)(.9){example/hyou03}
+
+この例では，1行目が高くなっていますので，その分を\cmd{vphantom}で
+\cmd{sya}に伝えています。
+
+\paragraph{\cmd{Lmidasi}}
+表の左上欄に斜線を引き見出しをつける際，
+その行の文字位置を調整する手段を提供します。
+
+デフォルトの確認です。
+
+\begin{showEx}(1,.9){\textsf{Hyou}環境のデフォルト}
+\begin{Hyou}{|L{8zw}|*2{C{2zw}|}} \hline
+  \sya(8zw)[r]<\Hyoumidasi{行見出し}{列見出し}> & A & B \\\hline
+  あいうえお & 1 & 2 \\\hline
+  かきくけこ & 3 & 4 \\\hline
+\end{Hyou}
+\end{showEx}
+\bigskip
+
+行見出し，列見出しとも窮屈ですから，1行目の行高を増やすことにします。
+
+\begin{showEx}(1,.9){1行目の行高を増やす}
+\begin{Hyou}{|L{8zw}|*2{C{2zw}|}} \hline
+  \sya(8zw)[r][\stackrel{　}{　}\strut]<\Hyoumidasi{行見出し}{列見出し}> &A&B
+    \\\hline
+  あいうえお & 1 & 2 \\\hline
+  かきくけこ & 3 & 4 \\\hline
+\end{Hyou}
+\end{showEx}
+
+\bigskip
+
+「行見出し」という文字の位置を動かす変数が \verb+\Lmidasiiti+です。
+デフォルトは
+\begin{jquote}
+\begin{verbatim}
+\def\Lmidasiiti{(3pt,1pt)[lb]}%
+\def\Rmidasiiti{(-3pt,-1pt)[rt]}%
+\end{verbatim}
+\end{jquote}
+となっています。
+（\verb+Rmidasiiti+は「列見出し」の文字位置指定変数です。）
+この書式は，\verb+\emathPut+の位置指定オプションの形式です。
+配置基準点は，
+\begin{jquote}
+「行見出し」の方が，当該欄の左下コーナー\\
+「列見出し」の方が，当該欄の右上コーナー
+\end{jquote}
+です。
+%\clearpage
+
+下の例では，
+\begin{jquote}
+\begin{verbatim}
+\def\Lmidasiiti{(6pt,2pt)[lb]}%
+\def\Rmidasiiti{(-6pt,-2pt)[rt]}%
+\end{verbatim}
+\end{jquote}
+と変更しています。
+
+\begin{showEx}(1,.9){\cmd{Lmidasiiti}}
+\begin{Hyou}{|L{8zw}|*2{C{2zw}|}} \hline
+  \def\Lmidasiiti{(6pt,2pt)[lb]}%
+  \def\Rmidasiiti{(-6pt,-2pt)[rt]}%
+  \sya(8zw)[r][\stackrel{　}{　}\strut]<\Hyoumidasi{行見出し}{列見出し}> &A&B
+    \\\hline
+  あいうえお & 1 & 2 \\\hline
+  かきくけこ & 3 & 4 \\\hline
+\end{Hyou}
+\end{showEx}
+
+\paragraph{\cmd{agezoko}}
+列見出し -- 上の例での A B -- の位置を修正する変数が
+\verb+\agezoko+です。下の例では，
+\begin{jquote}
+\begin{verbatim}
+\def\agezoko{2}
+\end{verbatim}
+\end{jquote}
+とすることにより，ベースラインを上に\verb+2pt+持ち上げています。
+
+\begin{showEx}(1,.9){\cmd{agezoko}}
+\begin{Hyou}{|L{8zw}|*2{C{2zw}|}} \hline
+  \def\Lmidasiiti{(6pt,2pt)[lb]}%
+  \def\Rmidasiiti{(-6pt,-2pt)[rt]}%
+  \def\agezoko{2}%
+  \sya(8zw)[r][\stackrel{　}{　}\strut]<\Hyoumidasi{行見出し}{列見出し}> &A&B
+    \\\hline
+  あいうえお & 1 & 2 \\\hline
+  かきくけこ & 3 & 4 \\\hline
+\end{Hyou}
+\end{showEx}
+
+\paragraph{逆向きの斜線に対する\cmd{Hyoumidasi}}
+斜線の向きが逆，すなわち左下と右上を結ぶときも\\
+\cmd{Hyoumidasi}が使えるようにしたい，というのが今回の改定です。
+
+\begin{showEx}(.5,.44){\cmd{Hyoumidasi}}
+\def\arraystretch{1.25}
+\begin{Hyou}{|*3{C{4zw}|}}\hline
+  X & 1 & 2 \\\hline
+  Y & 10 & 20 \\\hline
+  \sya[n]<\Hyoumidasi{左上}{右下}>
+    & A & B \\\hline
+\end{Hyou}
+\end{showEx}
+
+\paragraph{斜線位置の微調整}
+\textsf{Hyou}環境で斜線を引く際
+
+\begin{showEx}(.56,.38){\textsf{Hyou}環境の斜線}
+\begin{Hyou}{|l|r|r|}\hline
+  \sya(8zw)[r][\bsityuu] & A & B \\\hline
+  x & 1 & 2 \\\hline
+\end{Hyou}
+\end{showEx}
+
+\noindent
+とした場合，左上の位置に不満があるというご意見をいただくことがあります。
+斜線の左上を少し下げたい，ということのようです。
+
+\begin{showEx}(.56,.38){斜線位置の微調整}
+\begin{Hyou}{|l|r|r|}\hline
+  \sya(8zw)[o][\bsityuu]%
+   <{\ArrowLine<Henvi={(0,-.3pt)},%
+       arrowheadsize=0>\LT\RB}>%
+   & A & B \\\hline
+  x & 1 & 2 \\\hline
+\end{Hyou}
+\end{showEx}
+
+下げすぎですって ？　\verb+<Henvi=..>+の右辺値をお好みで調整してください。
+斜線の右下も調整したければ，\verb+Henvii=..+も指定することとなります。
+
+\begin{showEx}(.56,.38){斜線右下も微調整}
+\begin{Hyou}{|l|r|r|}\hline
+  \sya(8zw)[o][\bsityuu]%
+   <%
+    {%
+     \ArrowLine%
+      <%
+       Henvi={(0,-.3pt)},%
+       Henvii={(0,.15pt)},%
+       arrowheadsize=0%
+      >%
+     \LT\RB
+    }%
+    \Put\RT(-3pt,-2pt)[rt]{行見出し}%
+    \Put\LB(3pt,2pt)[lb]{列見出し}%
+   >
+    & A & B \\\hline
+  x & 1 & 2 \\\hline
+\end{Hyou}
+\end{showEx}
+
+\subsection{\textsf{hyou} 環境}
+\index{hyou @ hyou 環境}
+\textsf{Hyou}環境が，横幅を指定した \textsf{tabular}環境であるのに対し，
+\textsf{hyou}環境は，横幅を指定した \textsf{array}環境です．
+
+使用例として，増減表をご覧いただきましょう．
+
+\showexample[増減表](1)(1){example/zougen1}
+
+次に，微分不能の点には斜線を引いてみましょう．
+
+\showexample[増減表](1)(1){example/zougen2}
+
+$y=x\sqrt{4-x^2}$ の増減表です．ついでにグラフも添えておきます．
+
+\begin{center}
+\unitlength1cm
+\begin{zahyou}<><><(2pt,-2pt)[lt]>(-3,3)(-3,3)%
+\def\Fx#1#2{\Mul{#1}{#1}\y
+    \Sub{4}\y\y\Heihoukon\y\y
+    \Mul{#1}\y\y
+    \edef#2{\y}}%
+\Put{(2,0)}(0,-2pt)[t]{2}%
+\Put{(1.41,0)}(0,-2pt)[t]{$\sqrt2$}%
+\Put{(-2,0)}(0,-2pt)[rt]{$-2$}%
+\Put{(-1.41,0)}(0,2pt)[b]{$-\sqrt2$}%
+\Put{(0,2)}(0,0)[r]{2 }%
+\Put{(0,-2)}(0,0)[l]{ $-2$}%
+\dashline[40]{.1}(1.41,0)(1.41,2)(0,2)%
+\dashline[40]{.1}(-1.41,0)(-1.41,-2)(0,-2)%
+{\thicklines
+\yGurafu\Fx{-1.414}{0}%
+\yGurafu\Fx{0}{1.414}%
+\yGurafu\Fx{-2}{-1.414}%
+\yGurafu\Fx{1.414}{2}%
+}%
+\end{zahyou}
+\end{center}
+
+増減表で，増加・減少を表現する矢印に次のものを用意しました．
+
+\begin{boxnote}
+\begin{Hyou}{*{4}{L{4zw} }L{6zw}}
+コマンド & 方位 & 記号 & 内容 \\
+\cmd{NE} & 北東 & $\NE$ & 増加 \\
+\cmd{SE} & 南東 & $\SE$ & 減少 \\
+\cmd{NEN}& 北北東 & $\NEN$ & 下に凸で増加\\
+\cmd{NEE}& 東北東 & $\NEE$ & 上に凸で増加\\
+\cmd{SES}& 南南東 & $\SES$ & 上に凸で減少\\
+\cmd{SEE}& 東南東 & $\SEE$ & 下に凸で減少
+\end{Hyou}
+\end{boxnote}
+\cindex{NE}
+\cindex{NEE}
+\cindex{NEN}
+\cindex{SE}
+\cindex{SES}
+\cindex{SEE}
+
+\subsection{表の罫線を太く}
+\subsubsection{\cmd{arrayrulewidth}}
+表の罫線全部を太くするのは，\LaTeX で用意されている
+\cmd{arrayrulewidth}の値を変更することで実現できます。
+
+\begin{showEx}{\cmd{arrayrulewidth}の変更}
+\arrayrulewidth1pt\relax
+\begin{tabular}{|c|c|c|c|}\hline
+  A & B & C & D \\\hline
+  1 & 2 & 3 & 4 \\\hline
+  a & b & c & d \\\hline
+\end{tabular}
+\end{showEx}
+
+\subsubsection{外枠のみを太く}
+外枠だけを太くしたい，など一部の罫線を太くするには，
+面倒な手順を踏まねばなりませんので，マクロ化することにしました。
+
+横罫線を太くするために
+\begin{jquote}
+\begin{verbatim}
+\hline, \cline
+\end{verbatim}
+\end{jquote}
+にかえて，それぞれ
+\begin{jquote}
+\begin{verbatim}
+\hlineb, \clineb
+\end{verbatim}
+\end{jquote}
+を新設しました。これらの罫線の太さは\cmd{arrarulewidthb}で指定します。
+デフォルトは\verb+1pt+としてあります。
+縦罫線を太くする位置には
+\begin{jquote}
+\begin{verbatim}
+|
+\end{verbatim}
+\end{jquote}
+にかえて
+\begin{jquote}
+\begin{verbatim}
+I
+\end{verbatim}
+\end{jquote}
+を用います。
+
+では，これらを用いて外枠だけを太くしてみましょう。
+
+\begin{showEx}(.5,.44){外枠を太く}
+\begin{tabular}{Ic|c|c|cI}\hlineb
+  A & B & C & D \\\hline
+  1 & 2 & 3 & 4 \\\hline
+  a & b & c & d \\\hlineb
+\end{tabular}
+\end{showEx}
+
+\subsubsection{二重罫線との併用}
+さらに，見出し行・列と表の内容との境界を二重線にすることもできます。
+この部分は\textsf{hhline.sty}の一部を修正しています。
+なお，\textsf{emathT.sty}はその中で，\textsf{array.sty}と
+\textsf{hhline.sty}を読み込んでいます。
+
+\begin{showEx}(.5,.44){二重罫線も}
+\begin{tabular}{Ic||c|c|cI}\hlineb
+  A & B & C & D \\\hhline{I=#=|=|=I}
+  1 & 2 & 3 & 4 \\\hline
+  a & b & c & d \\\hlineb
+\end{tabular}
+\end{showEx}
+
+\subsubsection{太罫線の太さ}
+太罫線の太さは\cmd{arrayrulewidthb}で決まりますから，もっと太くしたければ
+
+\begin{showEx}(.5,.44){\cmd{arrayrulewidthb}}
+\arrayrulewidthb=2pt\relax
+\begin{tabular}{Ic||c|c|cI}\hlineb
+  A & B & C & D \\\hhline{I=#=|=|=I}
+  1 & 2 & 3 & 4 \\\hline
+  a & b & c & d \\\hlineb
+\end{tabular}
+\end{showEx}
+
+\subsubsection{特定のブロック枠を太く}
+
+\begin{showEx}(.5,.44){一部分を太罫線で}
+\begin{tabular}{|c|c|c|c|}\hlineb
+  A & B & C & D \\\hline
+  \noalign{\vskip-\arrayrulewidth}
+  \clineb{2-3}
+  \multicolumn{1}{|cI}{1}
+    & \multicolumn{1}{c|}{2}
+    & \multicolumn{1}{cI}{3}
+    & 4 \\
+  \noalign{\vskip-\arrayrulewidthb
+  \vskip\arrayrulewidth}
+  \clineb{2-3}
+  \noalign{\vskip\arrayrulewidthb
+  \vskip-\arrayrulewidth}\hline
+  a & b & c & d \\\hlineb
+\end{tabular}
+\end{showEx}
+
+\subsection{罫線を点線で}
+罫線を点線で引くには，\textsf{arydshln.sty}を用いることが出来ます。
+しかし，このスタイルファイルは\textsf{hhline.sty}と相性が悪いので，
+\textsf{emathT.sty}との併用については，別文書(emathT-arydshln.tex)
+で述べることとします。
+
+%\clearpage
+
+\subsection{\textsf{hyou}環境・縦罫線に波線}
+表の縦罫線に二重の波線を描くには，\textsf{emathPp.sty}の
+機能を必要とします。\\
+\textsf{samplePp.tex}をご覧ください。
+
+\subsection{\textsf{hyou}環境の行高指定}
+\textsf{hyou}環境，すなわち\textsf{array}環境の行の高さ・深さは
+表の中に入るものによって変わります。
+
+\begin{showEx}(.64,.3){\textsf{hyou}環境の行高}
+\[
+\begin{hyou}{|*5{C{1zw}|}} \hline
+  x & 0 &\cdots & 1 & \cdots \\\hline
+  y & \sya & \NE   & \bunsuu12 & \SE \\\hline
+\end{hyou}
+\]
+\end{showEx}
+では，2行目に分数が入る分だけ行の高さ・深さが変化します。
+その結果，斜線についても問題が発生しています。
+
+\subsubsection{\cmd{gyoudaka}}
+そこで，コマンド\cmd{gyoudaka}を新設して，
+表の行高を揃えてしまうことを試みました。
+
+\begin{showEx}(.64,.3){\cmd{gyoudaka}}
+\[
+\gyoudaka[10pt]{15pt}
+\begin{hyou}{|>{\gyousityuu}*5{C{1zw}|}} \hline
+  x & 0 &\cdots & 1 & \cdots \\\hline
+  y & \sya & \NE   & \bunsuu12 & \SE \\\hline
+\end{hyou}
+\]
+\end{showEx}
+
+すなわち，
+\begin{jquote}
+\begin{verbatim}
+\gyoudaka[深さ]{高さ}
+\end{verbatim}
+\end{jquote}
+で，行の高さ・深さを指定し，\textsf{hyou}環境の欄指定子に
+\begin{jquote}
+\begin{verbatim}
+>{\gyousityuu}
+\end{verbatim}
+\end{jquote}
+と，各行に支柱を立てます。
+斜線の高さも追随します。
+
+\cmd{gyoudaka}の引数は単位を伴う数値です。
+%\clearpage
+
+\subsubsection{\cmd{Gyoudaka}}
+高さ・深さを指定するのに，\cmd{vphantom}などを用いるためのコマンドが
+\cmd{Gyoudaka}です。
+
+\begin{showpEx}(.64,.3){\cmd{Gyoudaka}}
+\[
+\Gyoudaka{\EMvphantom[2pt]{$\bunsuu12$}}
+% 以下，hyou環境の記述は同じ
+!\begin{hyou}{|>{\gyousityuu}*5{C{1zw}|}} \hline
+!  x & 0 &\cdots & 1 & \cdots \\\hline
+!  y & \sya & \NE   & \bunsuu12 & \SE \\\hline
+!\end{hyou}
+\]
+\end{showpEx}
+分数$\bunsuu{1}{2}$の上下に\texttt{2pt}ずつの余白をつけた支柱を
+すべての行に立てています。
+
+\subsection{増減表}
+増減表については，前にも触れましたが，細かいことも論じておきましょう。
+
+\subsubsection{増減表(1) --- \textsf{array}環境}
+まずは基本からということで，\textsf{array}環境を使用したものから見ていきます。
+
+\begin{showEx}(1,1){\textsf{array}環境}
+\[
+\begin{array}{c|*7{|c}}\hline
+    x & \cdots & 0 & \cdots & 1 & \cdots & 2 & \cdots \\\hline
+    y'&   +    & 0 &   -   & &   -    & 0 &   +       \\\hline
+    y &  \nearrow & 極大 &  \searrow  &   &  \searrow & 極小 & \nearrow
+        \\\hline
+\end{array}
+\]
+\end{showEx}
+
+\subsubsection{増減表(2) --- \textsf{hyou}環境}
+前節の\textsf{array}環境による表は，列の横幅が均一ではありません。
+さらに，不連続点には斜線を入れたい，ということで\textsf{emathT.sty}で
+定義されている\textsf{hyou}環境を用いてみます。
+
+\begin{showEx}(1,1){\textsf{hyou}環境}
+\[
+\begin{hyou}{c|*7{|C{2zw}}}\hline
+   x & \cdots & 0 & \cdots & 1 & \cdots & 2 & \cdots \\\hline
+   y'&   +    & 0 &   -   & \sya[x] &   -    & 0 &   +    \\\hline
+   y &  \NE & 極大 &  \SE & \sya[x] &  \SE & 極小 & \NE \\\hline
+\end{hyou}
+\]
+\end{showEx}
+
+\cmd{sya}が斜線を引くコマンドで，オプション引数で斜線の向きを指定します。
+\begin{jquote}
+\begin{verbatim}
+\sya    のみの場合は，右上から左下へ
+\sya[r] とすれば，逆に左上から右下へ
+\sya[x] でクロスの斜線が引かれます。
+\end{verbatim}
+\end{jquote}
+
+\subsubsection{増減表(3) --- 2行ぶち抜きで斜線}
+不連続点$x=1$において，$y$と$y'$の行別々に斜線を引いていますが，
+これを2行ぶち抜きで引いてみましょう。
+
+\begin{showEx}(1,1){2行ぶち抜きの斜線}
+\[
+\begin{hyou}{c|*7{|C{2zw}}}\hline
+   x & \cdots & 0 & \cdots & 1 & \cdots & 2 & \cdots \\\hline
+   y'&   +    & 0 &   -   
+     & \smash{\sya(D=\ht\strutbox+2\dp\strutbox)[x]}
+     &   -    & 0 &   +    \\\cline{1-4}\cline{6-8}
+   y &  \NE & 極大 &  \SE &  &  \SE & 極小 & \NE \\\hline
+\end{hyou}
+\]
+\end{showEx}
+
+この場合，斜線の高さ・深さを\cmd{sya}に伝えるために
+\begin{jquote}
+\begin{verbatim}
+\sya(D=\ht\strutbox+2\dp\strutbox)[x]
+\end{verbatim}
+\end{jquote}
+としています。\cmd{strutbox}に1行分の高さ・深さがありますので，斜線の深さを
+\begin{jquote}
+\begin{verbatim}
+\ht\strutbox+2\dp\strutbox
+\end{verbatim}
+\end{jquote}
+と指定しているのです。
+（斜線の高さはデフォルトのままでよいから，指定しません。）\\
+さらに，\cmd{smash}で2行目の高さ・深さに影響を与えないようにしています。
+%\clearpage
+
+\subsubsection{増減表(4) --- 不連続点$y$の欄には左右極限を}
+ぶち抜きではなく，$y$の欄には左右極限を入れておく，という表も便利でしょうか。
+これは列の個数を増やしてやりましょう。
+
+\begin{showEx}(1,1){左右極限}
+\[
+\begin{hyou}{c|*8{|C{2zw}}}\hline
+   x & \cdots & 0 & \cdots & \multicolumn{2}{c|}{1} & \cdots & 2 & \cdots 
+      \\\hline
+   y'&   +    & 0 &   -   
+     & \multicolumn{2}{c|}{\sya(4zw+\arrayrulewidth+2\arraycolsep)[x]}
+     &   -    & 0 &   +    \\\hline
+   y &  \NE & 極大 &  \SE & -\infty & +\infty &  \SE & 極小 & \NE \\\hline
+\end{hyou}
+\]
+\end{showEx}
+ここでは，斜線の横幅が今までと異なります。
+2列ぶち抜きですから\verb+2*2zw+すなわち\verb+4zw+必要ですが，
+それでは不十分です。列の間の罫線幅\verb+\arrayrulewidth+，
+さらにその左右の余白分\verb+2\arraycolsep+も加えたものを斜線の横幅
+と指定します。指定法は
+\begin{jquote}
+\begin{verbatim}
+正しくは
+\sya(W=4zw+\arrayrulewidth+2\arraycolsep)
+ですが，W=... 指定のみの場合はW=は省略可能としてあります。
+\sya(4zw+\arrayrulewidth+2\arraycolsep)
+\end{verbatim}
+\end{jquote}
+
+%\clearpage
+
+\subsubsection{増減表(5) --- 凹凸も}
+増減表に凹凸も含めたい，となると$y''$の行を挿入することになります。
+\begin{showEx}(1,1){凹凸も}
+\[
+\begin{hyou}{c|*7{|C{2zw}}}\hline
+   x & \cdots & 0 & \cdots & 1 & \cdots & 2 & \cdots \\\hline
+   y'&   +    & 0 &   -   
+     & \smash{\sya(D=2\ht\strutbox+3\dp\strutbox)[x]}
+     &   -    & 0 &   +    \\\cline{1-4}\cline{6-8}
+   y'' & \multicolumn{3}{c|}{-} & & \multicolumn{3}{c}{+}
+     \\\cline{1-4}\cline{6-8}
+   y &  \NEE & 極大 &  \SSE &  &  \SEE & 極小 & \NNE \\\hline
+\end{hyou}
+\]
+\end{showEx}
+
+上のリストに
+\begin{jquote}
+\begin{verbatim}
+\def\arraystretch{1.25}
+\end{verbatim}
+\end{jquote}
+を附加すると
+
+\begin{shadebox}
+\def\arraystretch{1.25}
+\[
+\begin{hyou}{c|*7{|C{2zw}}}\hline
+   x & \cdots & 0 & \cdots & 1 & \cdots & 2 & \cdots \\\hline
+   y'&   +    & 0 &   -   
+     & \smash{\sya(D=2\ht\strutbox+3\dp\strutbox)[x]}
+     &   -    & 0 &   +    \\\cline{1-4}\cline{6-8}
+   y'' & \multicolumn{3}{c|}{-} & & \multicolumn{3}{c}{+}
+     \\\cline{1-4}\cline{6-8}
+   y &  \NEE & 極大 &  \SSE &  &  \SEE & 極小 & \NNE \\\hline
+\end{hyou}
+\]
+\end{shadebox}
+行間が少しゆったりします。斜線も追随していることがおわかりいただけるでしょう。
+
+\subsection{表セルの修飾}
+表の1つのセルを修飾するコマンドが\cmd{EMcell}です。
+\subsubsection{網掛け}
+厳密には網掛けとはいえませんが，セルをグレーで塗りつぶします。
+
+\begin{showEx}{\cmd{EMcell*}}
+\begin{Hyou}{|*3{L{2zw}|}}\hline
+  甲&乙\\\hline
+  \EMcell*{l}{あ}&い\\\hline
+\end{Hyou}
+\end{showEx}
+
+\cmd{EMcell*}の引数\verb+{l}+は，
+この欄が左詰であることを指定するものです。
+\textsf{Hyou}環境で，既に指定されているのですが，
+\cmd{EMcell*}でもl, c, rのいずれかを指定する必要があります。
+
+グレーの濃度は\verb+[数値]+オプションで指定します。
+数値は0と1の間の数値で\cmd{Nuritubusi}と同じです。
+
+\begin{showEx}(.7,.24){\cmd{EMcell*}}
+\makeatletter
+\begin{Hyou}{|*3{R{2zw}|}}\hline
+  甲& 乙\\\hline
+  \EMcell*[.1]{r}{あ}&い\\\hline
+\end{Hyou}
+\end{showEx}
+
+\subsubsection{カラー塗り}
+セルに色をつけるには\texttt{[C=..]}オプションを用います。
+
+\begin{showEx}(.7,.24){\texttt{[C=..]}オプション}
+\begin{Hyou}{|*3{C{2zw}|}}\hline
+  甲&乙\\\hline
+  \EMcell*[C=yellow]{c}{あ}&い\\\hline
+\end{Hyou}
+\end{showEx}
+
+（注）Windows において dviout.exe でご覧の場合，dviout の設定によっては，
+文字「あ」が黄色で塗りつぶされて見えなくなってしまうかもしれません。
+
+\subsubsection{斜線塗り}
+セルを斜線塗りします。
+
+\begin{showEx}(.7,.24){\cmd{EMcell**}}
+\begin{Hyou}{|*3{C{2zw}|}}\hline
+  甲&乙\\\hline
+  \EMcell**{c}{あ}&い\\\hline
+\end{Hyou}
+\end{showEx}
+
+斜線の方向を変えるには\verb+[角度]+オプションを使用します。
+角度は六十分法で指定します。
+
+\begin{showEx}(.7,.24){斜線の角度}
+\begin{Hyou}{|*3{C{2zw}|}}\hline
+  甲&乙\\\hline
+  \EMcell**[-60]{c}{あ}&い\\\hline
+\end{Hyou}
+\end{showEx}
+
+斜線の間隔は\verb+<間隔>+オプションで指定します。デフォルトは\verb+<3>+です。
+
+\begin{showEx}(.7,.24){斜線の間隔}
+\begin{Hyou}{|*3{C{2zw}|}}\hline
+  甲&乙\\\hline
+  \EMcell**[-60]<5>{c}{あ}&い\\\hline
+\end{Hyou}
+\end{showEx}
+
+\subsubsection{枠線}
+罫線を引かない表で，特定のセルに枠線をつけるには，
+\verb+[wakusen=..]+オプションをつけます。
+
+\begin{showEx}(.7,.24){\texttt{[wakusen=..]}オプション}
+\begin{Hyou}{*3{C{2zw}}}
+  甲&乙\\
+  \EMcell[wakusen=\protect\hasen]{c}{あ}&い
+\end{Hyou}
+\end{showEx}
+
+右辺値には\verb+\protect+を附加しておく方が無難です。
+次の例は，枠線を実線としセル内を網掛けしています。
+
+\begin{showEx}(.7,.24){\texttt{[wakusen=..]}オプション＋網掛け}
+\begin{Hyou}{*3{C{2zw}}}
+  甲&乙\\
+  \EMcell*[wakusen=\protect\drawline]{c}{あ}&い
+\end{Hyou}
+\end{showEx}
+
+この場合，グレーの濃度も指定するには，\verb+[G=数値]+オプションを用います。
+\texttt{G}はgrayの頭文字のつもりです。
+
+\begin{showEx}(.7,.24){\texttt{[wakusen=..]}オプション＋網掛け濃度指定}
+\begin{Hyou}{*3{C{2zw}}}
+  甲&乙\\
+  \EMcell*[G=.8,wakusen=\protect\drawline]{c}{あ}&い
+\end{Hyou}
+\end{showEx}
+
+枠線と斜線塗りも可能です。
+
+\begin{showEx}(.7,.24){\texttt{[wakusen=..]}オプション＋斜線塗り}
+\begin{Hyou}{*3{C{2zw}}}
+  甲&乙\\
+  \EMcell**[wakusen=\protect\drawline]{c}{あ}&い
+\end{Hyou}
+\end{showEx}
+
+斜線の方向・間隔を変更するには，それぞれ
+\verb+[syasenkaku=角度,syasenkankaku=間隔]+オプションを用います。
+
+\begin{showEx}(.7,.24){\texttt{[wakusen=..]}オプション＋斜線方向・角度指定}
+\begin{Hyou}{*3{C{2zw}}}
+  甲&乙\\
+  \EMcell**[wakusen=\protect\drawline,%
+    syasenkaku=-45,syasenkankaku=2]{c}{あ}&い
+\end{Hyou}
+\end{showEx}
+
+\subsubsection{横幅指定}
+\hyouretuhaba=0pt%
+
+\begin{showEx}(.6,.34){横幅指定が必要な例}
+\begin{tabular}{|r|r|}\hline
+  あいうえお&甲乙\\\hline
+  \EMcell*{r}{1}&2\\\hline
+\end{tabular}
+\end{showEx}
+
+前節までのように，\textsf{Hyou, hyou}環境で列幅を指定している場合は
+よいのですが，上の例のように\textsf{tabular, array}環境で列幅が表に入るものに
+合わせて決まるような場合には，\cmd{EMcell}はそれに追随していません。
+
+このような場面で使用するためには，当該列の最長の文字列の長さを
+\cmd{EMcell}の\verb+[W=長さ]+オプションで指定する必要があります。
+
+\begin{showEx}(.6,.34){横幅指定オプション}
+\settowidth\templa{あいうえお}
+\begin{tabular}{|r|r|}\hline
+  あいうえお&甲乙\\\hline
+  \EMcell*[W=\templa]{r}{1}&2\\\hline
+\end{tabular}
+\end{showEx}
+
+なお，当該セルがその列の中で最長の場合は\verb+[W=..]+オプションは不要です。
+
+\begin{showEx}(.6,.34){最長のカラムの場合}
+\begin{tabular}{|r|r|}\hline
+  \EMcell*{r}{あいうえお}&甲乙\\\hline
+  1&2\\\hline
+\end{tabular}
+\end{showEx}
+
+\subsubsection{高さ指定}
+
+\begin{showEx}(.6,.34){高さ指定が必要な例}
+\[ 
+  \begin{array}{|r|r|}\hline
+    あいうえお&甲乙\\\hline
+    \EMcell*{r}{1}&\bunsuu12\\\hline
+  \end{array}
+\]
+\end{showEx}
+
+上の場合は，第2行に分数が登場して行高が変化しています。
+\cmd{EMcell*}はその変化に追随できません。
+対策は\cmd{vphantom}を用いるのが簡単です。
+幅指定オプションと合わせて
+
+\begin{showEx}(.6,.34){高さ指定(1)}
+\[ 
+\settowidth\templa{あいうえお}
+\begin{array}{|r|r|}\hline
+  あいうえお&甲乙\\\hline
+  \EMcell*[W=\templa]{r}%
+    {1\vphantom{\bunsuu12}}&\bunsuu12
+  \\ \hline
+\end{array}
+\]
+\end{showEx}
+
+なお，第2行に支柱を立てる場合は，当該セルで支柱を立てるのがよいでしょう。
+
+\begin{showEx}(.6,.34){高さ指定(2)}
+\[ 
+\settowidth\templa{あいうえお}
+\begin{array}{|r|r|}\hline
+  あいうえお&甲乙\\\hline
+  \EMcell*[W=\templa]{r}%
+    {1\bsityuu}&\bunsuu12\\\hline
+\end{array}
+\]
+\end{showEx}
+
+\subsubsection{セルに斜線など}
+\cmd{EMcell(*)}を使用したセルには，\textsf{picture}環境が定義されています。
+\verb+<...>+オプションで，その\textsf{picture}環境内に配置するものを
+記述可能です。次の例は，その\textsf{picture}環境の原点に$\bullet$を打ちます。
+
+\begin{showEx}(.6,.34){\textsf{picture}環境の原点}
+\[ 
+  \begin{array}{|r|r|}\hline
+    \EMcell<\Put\O(0,0)[c]{$\bullet$}>%
+      {r}{あいうえお}&甲乙\\\hline
+    1&2\\\hline
+  \end{array}
+\]
+\end{showEx}
+
+すなわち，原点の縦位置はベースライン上，横位置はセルの中央であり，
+\verb+\unitlength=1pt+となっています。
+
+
+次の例は，当該セルに×印をつけます。
+
+\begin{showEx}(.6,.34){\textsf{picture}環境内の記述}
+\[ 
+  \begin{array}{|r|r|}\hline
+    \EMcell<\Drawlines{\LT\RB;\LB\RT}>%
+      {r}{あいうえお}&甲乙\\\hline
+    1&2\\\hline
+  \end{array}
+\]
+\end{showEx}
+\clearpage
+
+\subsection{\textsf{tabular}, \textsf{array}環境でもL, C, R}
+\textsf{Hyou}, \textsf{hyou}環境で使用していた，欄指定子L, C, Rを
+\textsf{tabular}, \textsf{array}環境でも使用可能です。
+また，太罫線の使用も可能です。
+
+まずは，\textsf{tabular}環境です。
+
+\begin{showEx}(.5,.44){\textsf{tabular}環境でL, C, R}
+\begin{tabular}%
+    {IL{2zw}|C{2zw}|R{5zw}I}
+    \hlineb
+  A & a & xyz \\ \hline
+  B & b & \the\tabcolsep \\ \hlineb
+\end{tabular}
+\end{showEx}
+
+次は\textsf{array}環境です。
+
+\begin{showEx}(.5,.44){\textsf{array}環境でL, C, R}
+$\begin{array}%
+    {IL{2zw}|C{2zw}|R{5zw}I}
+    \hlineb
+  A & a & xyz \\ \hline
+  B & b & \the\arraycolsep
+    \\ \hlineb
+\end{array}$
+\end{showEx}
+
+同じ横幅を指定したのに，結果が異なる　？　ですか。
+
+それは\LaTeX の仕様で，罫線左右の空きが\textsf{tabular}, \textsf{array}では
+別の変数で制御され，その初期値は，上のそれぞれの表の
+右下欄のようになっているからです。
+この件に関しては，\textsf{emath}は無関係です。
+
+\subsection{\textsf{longtable}環境でもL, C, R}
+\textsf{longtable}環境でも可能とする試みです。
+
+\begin{longtable}{IL{2zw}|C{2zw}|R{5zw}I}\hlineb
+  A & a & 123 \\ \hline
+  B & b & 234 \\ \hline
+  C & c & 345 \\ \hline
+  D & d & 456 \\ \hline
+  E & e & 567 \\ \hline
+  F & f & 678 \\ \hline
+  G & g & 789 \\ \hline
+  H & h & 890 \\ \hline
+  I & i & 901 \\ \hline
+  J & j & 012 \\ \hline
+  K & k & 123 \\ \hline
+  L & l & 234 \\ \hline
+  M & m & 345 \\ \hline
+  N & n & 456 \\ \hline
+  O & o & 567 \\ \hline
+  Z & z & \the\tabcolsep \\ \hlineb
+\end{longtable}
+
+この表は，ページをまたぎますから\textsf{shadebox}環境に入れることができません。
+なお，ソースリストは次のとおりです。
+\begin{jquote}
+\begin{verbatim}
+\begin{longtable}{IL{2zw}|C{2zw}|R{5zw}I}\hlineb
+  A & a & 123 \\ \hline
+  B & b & 234 \\ \hline
+  C & c & 345 \\ \hline
+  D & d & 456 \\ \hline
+  E & e & 567 \\ \hline
+  F & f & 678 \\ \hline
+  G & g & 789 \\ \hline
+  H & h & 890 \\ \hline
+  I & i & 901 \\ \hline
+  J & j & 012 \\ \hline
+  K & k & 123 \\ \hline
+  L & l & 234 \\ \hline
+  M & m & 345 \\ \hline
+  N & n & 456 \\ \hline
+  O & o & 567 \\ \hline
+  Z & z & \the\tabcolsep \\ \hlineb
+\end{longtable}
+\end{verbatim}
+\end{jquote}
+%\clearpage
+
+\subsection{\textsf{tabular}, \textsf{array}環境でも\cmd{sya}}
+\textsf{tabular}環境でも，カラムに斜線を引く\cmd{sya}は有効ですが，
+横幅を指定する必要があります。
+また，斜線の左下＼右上に見出しをつけるには，
+\cmd{Hyoumidasi}を用います。
+
+\begin{showEx}(.5,.44){\textsf{tabular}環境で\cmd{sya}}
+\begin{tabular}%
+    {IL{2zw}|C{2zw}|R{5zw}I}
+    \hlineb
+  \sya(2zw)[r]<\Hyoumidasi{X}{Y}>%
+     & p & q \\ \hline
+  A & a & xyz \\ \hline
+  B & b & \the\tabcolsep \\ \hlineb
+\end{tabular}
+\end{showEx}
+
+ついで，\textsf{array}環境です。
+こちらでは，斜線の左下＼右上に見出しをつけるには，
+\cmd{hyoumidasi}を用います。
+
+\begin{showEx}(.5,.44){\textsf{array}環境で\cmd{sya}}
+$\begin{array}%
+    {IL{2zw}|C{2zw}|R{5zw}I}
+    \hlineb
+  \sya(2zw)[r]<\hyoumidasi{X}{Y}>%
+     & p & q \\ \hline
+  A & a & xyz \\ \hline
+  B & b & \the\tabcolsep \\ \hlineb
+\end{array}$
+\end{showEx}
