@@ -3,15 +3,41 @@
 %\def\tmpname{LaTeX2e}%
 %\ifx\fmtname\tmpname%
   \NeedsTeXFormat{LaTeX2e}
-  \ProvidesPackage{showexample}[2005/09/03 v0.21 TeX 対訳 ]
+  \edef\se@frame@num{0}%
+  \ProvidesPackage{showexample}[2013/02/06 v0.34 TeX 対訳 ]
   \DeclareOption{nobs2yen}{\def\no@bstoyen{}}%
+  \DeclareOption{psrectbox}{\def\se@frame@num{1}}%
+  \DeclareOption{psframed}{\def\se@frame@num{2}}%
+  \DeclareOption{pIIeframed}{\def\se@frame@num{3}}%
   \ProcessOptions\relax
 %
   \RequirePackage{ifthen}%
   \RequirePackage{verbatim}%
+  \RequirePackage{moreverb}%
+  \RequirePackage{emathC}%
   \RequirePackage{itembbox}%
-  \RequirePackage{emathC}%  2003/12/14
 %
+\@ifundefined{EM@workfiledir}{\edef\EM@workfiledir{./}}{}%
+%
+% \verbatimtabinput で，空白部で改行を許可するためのマクロ
+%         by しっぽ愛好家 Q&A #14315
+%
+\def\do@verbatimtab#1#2{%
+  \let\@vobeyspaces\@moreverb@vobeyspaces
+  \tab@size=#1
+  \def\verbatim@processline{\tab@position\tab@size
+    \toks@{}%
+    \expandafter\verbatim@tabexpand\the\verbatim@line\@nil}%
+  #2}%
+{\catcode`\ =\active%
+\gdef\@moreverb@vobeyspaces{%
+\catcode`\ \active
+\def {\ \nobreak\hskip\z@\@plus3em\allowbreak\hskip\z@\@plus-3em}}}%
+%
+%\IfFileExists{jsverb.sty}{%
+%  \RequirePackage[yen]{jsverb}%
+%  \let\verbatimsize\relax
+%}{%
   \@ifundefined{no@bstoyen}{%
     \IfFileExists{ot1jcmtt.fd}{%
 % --- from js*.cls ---
@@ -24,6 +50,7 @@
     }{}%
   }{}%
 %
+%}%
   \@ifundefined{ttyen}{\def\ttyen{{\ttfamily Y\llap=}}}{}
   \def\EMcmd#1{\ttyen{\ttfamily #1}}%
   \def\hyper@cmd#1{{\ttfamily\textbackslash #1}}% for hyperref
@@ -80,8 +107,11 @@
   \endgroup
 }}%
 %
+\def\y@koya{→}%
+\def\yokoyazirusi#1{\def\y@koya{#1}}%
+%
 % \showex コマンド -----------------------------------------------
-\def\showex{\@ifnextchar({\@showex}{\@showx(.45,.45)}}%
+\def\showex{\@ifnextchar({\@showex}{\@showex(.45,.45)}}%
 \def\@showex(#1,#2)#3#4{\@@@showexample[#3](#1)(#2){#4}}%
 %
 % \showexample コマンド ------------------------------------------
@@ -93,8 +123,8 @@
 \def\@@@showexample[#1](#2)(#3)#4{{%
   \noindent
   \begin{minipage}[c]{#2\linewidth}%
-  \ifx\empty#1\begin{screen}\verbatiminput{#4.tex}\end{screen}%
-  \else\begin{itembox}{#1}\verbatiminput{#4.tex}\end{itembox}\fi
+  \ifx\empty#1\begin{screen}\verbatimtabinput{#4.tex}\end{screen}%
+  \else\begin{itembox}{#1}\verbatimtabinput{#4.tex}\end{itembox}\fi
   \end{minipage}\@tempdima#2\linewidth\advance\@tempdima#3\linewidth
   \ifdim\@tempdima>\linewidth\par\medskip\noindent\fi
   \hfill$\longrightarrow$\hfill
@@ -114,7 +144,8 @@
 \newcounter{showExNum}
 \define@key{showEx}{label}{\def\showEx@label{#1}}%
 \define@key{showEx}{midasi}{\def\showEx@midasi{#1}}%
-\let\showEx@input\verbatiminput
+\define@key{showEx}{tate}[0pt]{\def\showEx@tate{#1}}%
+\let\showEx@input\verbatimtabinput
 \def\showEx@midasi{}%
 \def\post@showExMidasi{.~}
 \def\postshowExMidasi#1{\def\post@showExMidasi{#1}}
@@ -122,6 +153,8 @@
 \def\showEx{%
   \def\showEx@label{}%
   \@ifnextchar<{\@showEx}{\@@showEx}}
+\expandafter\def\csname showEx*\endcsname{\def\show@space{}\showEx}%
+\expandafter\def\csname endshowEx*\endcsname{\endshowEx}%
 \def\@showEx<#1>{\setkeys{showEx}{#1}\@@showEx}
 \def\@@showEx{\@ifnextchar[{\showEx@}{\showEx@[\empty]}}
 \def\showEx@[#1]{\bgroup
@@ -130,7 +163,7 @@
 \def\showEx@@{\@ifnextchar({\@@@showEx}{\@@@showEx(.45,.45)}}%
 \def\@@@showEx(#1,#2)#3{%
     \@ifundefined{MWnewpage}{}{\MWnewpage{no}}\xdef\@lsz{#1}\xdef\@rsz{#2}\showex@ttl={#3}%
-    \bgroup\immediate\openout\showex@out=showex.tmp%
+    \bgroup\immediate\openout\showex@out=\EM@workfiledir showex.tmp%
     \@bsphack\let\do\@makeother\dospecials
     \catcode`\^^M\active
     \def\verbatim@processline{%
@@ -139,30 +172,78 @@
 \def\endshowEx{\@esphack\immediate\closeout\showex@out\egroup
     \par\noindent
     \begin{minipage}{\@lsz\linewidth}
-  \ifthenelse{\equal{\the\showex@ttl}{\empty}}{%
-      \begin{screen}
-      \showEx@input{showex.tmp}
-      \end{screen}}{%
-    \ifthenelse{\equal{\showEx@midasi}{\empty}}{\def\showEx@mds{}}{%
-      \refstepcounter{showExNum}%
-      \def\showEx@mds{\showEx@midasi\theshowExNum\post@showExMidasi}%
-      \ifthenelse{\equal\showEx@label\empty}{}{\label{\showEx@label}}%
-    }%
-    \begin{itembox}{\showEx@mds\the\showex@ttl}
-      \showEx@input{showex.tmp}
-    \end{itembox}}%
+      \ifthenelse{\equal{\the\showex@ttl}{\empty}}{%
+        \begin{screen}
+        \showEx@input{\EM@workfiledir showex.tmp}
+        \end{screen}%
+      }{%
+        \ifthenelse{\equal{\showEx@midasi}{\empty}}{%
+          \def\showEx@mds{}%
+        }{%
+          \refstepcounter{showExNum}%
+          \def\showEx@mds{\showEx@midasi\theshowExNum\post@showExMidasi}%
+          \ifthenelse{\equal\showEx@label\empty}{}{\label{\showEx@label}}%
+        }%
+        \def\showExTTL{\showEx@mds\the\showex@ttl}%
+        \ifcase\se@frame@num
+          \begin{itembox}{\showExTTL}
+            \@ifundefined{show@space}{%
+              \showEx@input{\EM@workfiledir showex.tmp}%
+            }{%
+              \verbatiminput*{\EM@workfiledir showex.tmp}%
+            }%
+          \end{itembox}%
+        \or
+          \begin{EMpsrectbox}[rectboxoval=10pt,hsep=10pt,vsep=5pt,framethickness=1pt,itempos=c,item=\showExTTL]
+            \@ifundefined{show@space}{%
+              \showEx@input{\EM@workfiledir showex.tmp}%
+            }{%
+              \verbatiminput*{\EM@workfiledir showex.tmp}%
+            }%
+          \end{EMpsrectbox}
+        \or
+          \begin{EMpsframed}[rectboxoval=10pt,hsep=10pt,vsep=5pt,framethickness=1pt,itempos=c,item=\showExTTL]
+            \@ifundefined{show@space}{%
+              \showEx@input{\EM@workfiledir showex.tmp}%
+            }{%
+              \verbatiminput*{\EM@workfiledir showex.tmp}%
+            }%
+          \end{EMpsframed}
+        \or
+          \begin{EMpIIeframed}[rectboxoval=10pt,hvsep=10pt,framethickness=1pt,itempos=c,item=\showExTTL]
+            \@ifundefined{show@space}{%
+              \showEx@input{\EM@workfiledir showex.tmp}%
+            }{%
+              \verbatiminput*{\EM@workfiledir showex.tmp}%
+            }%
+          \end{EMpIIeframed}
+        \fi
+      }%
     \end{minipage}%
   \@tempdima=\@lsz pt\advance\@tempdima\@rsz pt\relax%
   \ifdim\@tempdima>.95pt\relax\vspace{2pt}\par\noindent\fi%
   \@tempdima\@rsz pt\relax\ifdim\@tempdima>.95pt\relax%
-  \hspace*{2zw}↓\par\noindent\else\hfill → \hfill\fi%
-    \begin{minipage}{\@rsz\linewidth}%
-    \begin{shadebox}%
-    \input{showex.tmp}%
+  \hspace*{2zw}↓\par\noindent\else\hfill \y@koya \hfill\fi%
+  \@ifundefined{showEx@tate}{%
+    \def\r@size{\@rsz\linewidth}%
+  }{%
+    \ifdim\showEx@tate=\z@
+      \def\r@size{\@rsz\linewidth}%
+    \else
+      \def\r@size{\showEx@tate}%
+    \fi
+  }%
+  \begin{minipage}{\r@size}%
+    \@ifundefined{showEx@tate}{%
+      \begin{shadebox}
+    }{%
+      \begin{shadebox}<t>
+    }%
+      \input{\EM@workfiledir showex.tmp}%
     \end{shadebox}%
-    \end{minipage}\smallskip%
-    \egroup
-    \par\noindent}%
+  \end{minipage}\smallskip%
+  \egroup
+\par\noindent}%
 % showpEx 環境 ------------------------------------------------------
 % 部分的 showEx 環境
 % ! で始まる行は左側（ソースリスト）に表示しない。
@@ -171,8 +252,9 @@
 
 \def\showpEx{\@ifnextchar({\@showpEx}{\@showpEx(.45,.45)}}%
 \def\@showpEx(#1,#2)#3{\xdef\@lsz{#1}\xdef\@rsz{#2}\showex@ttl={#3}%
-    \bgroup\immediate\openout\showex@out=showex.tmp%
-    \immediate\openout\showex@s@out=showexs.tmp%
+  \def\showEx@label{}%
+    \bgroup\immediate\openout\showex@out=\EM@workfiledir showex.tmp%
+      \immediate\openout\showex@s@out=\EM@workfiledir showexs.tmp%
     \@bsphack\let\do\@makeother\dospecials
     \catcode`\^^M\active
     \def\verbatim@processline{%
@@ -192,19 +274,27 @@
     \begin{minipage}{\@lsz\linewidth}
   \ifthenelse{\equal{\the\showex@ttl}{\empty}}{%
       \begin{screen}
-      \verbatiminput{showexs.tmp}
+      \verbatimtabinput{\EM@workfiledir showexs.tmp}
       \end{screen}}{%
-    \begin{itembox}{\the\showex@ttl}
-      \verbatiminput{showexs.tmp}
+    \ifthenelse{\equal{\showEx@midasi}{\empty}}{\def\showEx@mds{}}{%
+      \refstepcounter{showExNum}%
+      \def\showEx@mds{\showEx@midasi\theshowExNum\post@showExMidasi}%
+      \ifthenelse{\equal\showEx@label\empty}{}{\label{\showEx@label}}%
+    }%
+    \begin{itembox}{\showEx@mds\the\showex@ttl}
+      \verbatimtabinput{\EM@workfiledir showexs.tmp}
     \end{itembox}}%
+%    \begin{itembox}{\the\showex@ttl}
+%      \verbatimtabinput{\EM@workfiledir showexs.tmp}
+%    \end{itembox}}%
     \end{minipage}%
   \@tempdima=\@lsz pt\advance\@tempdima\@rsz pt\relax%
   \ifdim\@tempdima>.95pt\relax\vspace{2pt}\par\noindent\fi%
   \@tempdima\@rsz pt\relax\ifdim\@tempdima>.95pt\relax%
-  \hspace*{2zw}↓\par\noindent\else\hfill → \hfill\fi%
+  \hspace*{2zw}↓\par\noindent\else\hfill \y@koya \hfill\fi%
     \begin{minipage}{\@rsz\linewidth}%
     \begin{shadebox}%
-    \input{showex.tmp}%
+    \input{\EM@workfiledir showex.tmp}%
     \end{shadebox}%
     \end{minipage}\smallskip%
     \par\noindent}%
@@ -213,6 +303,117 @@
 \def\showExample{\@ifnextchar[{\@showExample}{\@showExample[\empty]}}%
 \def\@showExample[#1](#2)(#3){\showEx(#2,#3){#1}}%
 \let\endshowExample\endshowEx%
+%
+% \showExfile ---------------------------------------------------------
+\def\showExfile{\@ifnextchar[{\@showExfile}{%
+  \@showExfile[\jobname p]}}%
+\def\@showExfile[#1]{\EMedef\showEx@file{#1}%
+  \@ifnextchar({\@@showExfile}{\@@showExfile(1,.95)}}%
+\def\@@showExfile(#1,#2)#3{\bgroup
+    \xdef\@lsz{#1}\xdef\@rsz{#2}\showex@ttl={#3}\relax
+    \par\noindent
+    \begin{minipage}{\@lsz\linewidth}
+      \ifthenelse{\equal{\the\showex@ttl}{\empty}}{%
+        \begin{screen}
+        \showEx@input{\showEx@file}
+        \end{screen}%
+      }{%
+        \ifthenelse{\equal{\showEx@midasi}{\empty}}{%
+          \def\showEx@mds{}%
+        }{%
+          \refstepcounter{showExNum}%
+          \def\showEx@mds{\showEx@midasi\theshowExNum\post@showExMidasi}%
+          \ifthenelse{\equal\showEx@label\empty}{}{\label{\showEx@label}}%
+        }%
+        \def\showExTTL{\showEx@mds\the\showex@ttl}%
+        \ifcase\se@frame@num
+          \begin{itembox}{\showExTTL}
+            \@ifundefined{show@space}{%
+              \showEx@input{\showEx@file}%
+            }{%
+              \verbatiminput*{\showEx@file}%
+            }%
+          \end{itembox}%
+        \or
+          \begin{EMpsrectbox}[rectboxoval=10pt,hsep=10pt,vsep=5pt,framethickness=1pt,itempos=c,item=\showExTTL]
+            \@ifundefined{show@space}{%
+              \showEx@input{\showEx@file}%
+            }{%
+              \verbatiminput*{\showEx@file}%
+            }%
+          \end{EMpsrectbox}
+        \or
+          \begin{EMpsframed}[rectboxoval=10pt,hsep=10pt,vsep=5pt,framethickness=1pt,itempos=c,item=\showExTTL]
+            \@ifundefined{show@space}{%
+              \showEx@input{\showEx@file}%
+            }{%
+              \verbatiminput*{\showEx@file}%
+            }%
+          \end{EMpsframed}
+        \or
+          \begin{EMpIIeframed}[rectboxoval=10pt,hvsep=10pt,framethickness=1pt,itempos=c,item=\showExTTL]
+            \@ifundefined{show@space}{%
+              \showEx@input{\showEx@file}%
+            }{%
+              \verbatiminput*{\showEx@file}%
+            }%
+          \end{EMpIIeframed}
+        \fi
+      }%
+    \end{minipage}%
+  \@tempdima=\@lsz pt\advance\@tempdima\@rsz pt\relax%
+  \ifdim\@tempdima>.95pt\relax\vspace{2pt}\par\noindent\fi%
+  \@tempdima\@rsz pt\relax\ifdim\@tempdima>.95pt\relax%
+  \hspace*{2zw}↓\par\noindent\else\hfill \y@koya \hfill\fi%
+  \@ifundefined{showEx@tate}{%
+    \def\r@size{\@rsz\linewidth}%
+  }{%
+    \ifdim\showEx@tate=\z@
+      \def\r@size{\@rsz\linewidth}%
+    \else
+      \def\r@size{\showEx@tate}%
+    \fi
+  }%
+  \begin{minipage}{\r@size}%
+    \@ifundefined{showEx@tate}{%
+      \begin{shadebox}
+    }{%
+      \begin{shadebox}<t>
+    }%
+      \ReadTeXFile{\showEx@file}%
+    \end{shadebox}%
+  \end{minipage}\smallskip%
+  \egroup
+  \par\noindent
+}%
+%
+% emverbatim
+%
+\begingroup \catcode `|=0 \catcode `[= 1
+\catcode`]=2 \catcode `\{=12 \catcode `\}=12
+\catcode`\\=12 |gdef|@xemverbatim#1\end{emverbatim}[#1|end[emverbatim]]
+|gdef|@sxemverbatim#1\end{emverbatim*}[#1|end[emverbatim*]]
+|endgroup
+\def\@emverbatim{\trivlist \item\relax
+  \if@minipage\else\vskip\parskip\fi
+  \leftskip\@totalleftmargin\rightskip\z@skip
+  \parindent\z@\parfillskip\@flushglue\parskip\z@skip
+  \@@par
+  \@tempswafalse
+  \def\par{%
+    \if@tempswa
+      \leavevmode \null \@@par\penalty\interlinepenalty
+    \else
+      \@tempswatrue
+      \ifhmode\@@par\penalty\interlinepenalty\fi
+    \fi}%
+  \let\do\@makeother \dospecials
+  \obeylines \verbatim@font \@noligs
+  \hyphenchar\font\m@ne
+  \everypar \expandafter{\the\everypar \unpenalty}%
+}
+\def\emverbatim{\@emverbatim \frenchspacing\@vobeyspaces \@xemverbatim}
+\def\endemverbatim{\if@newlist \leavevmode\fi\endtrivlist}
 %
 \endinput
 % ver.0.03β 1999/08/25
@@ -256,3 +457,31 @@
 %     見出しに連番をつける機能を
 % v 0.21    2005/09/03
 %     emathMw.sty の独立に伴う修正
+% v 0.22    2006/10/23
+%     showpEx環境でも，見出しに連番を
+% v 0.23    2007/02/09
+%     ソース部で改行が入るようにする
+% v 0.24    2008/01/14
+%     \showex の定義にバグ (石原　守さんによる fix : BBS #6957)
+% v 0.25    2008/04/17
+%     showEx*環境: 半角空白を表示
+% v 0.26    2008/05/29
+%     ワークファイルを \EM@workfiledir に作成
+% v 0.27    2008/07/27
+%     v 0.26 の変更における showpEx に対する不備修正
+% v 0.28    2008/09/01
+%     \EM@workfiledir が未定義の場合への対策
+% v 0.29    2009/01/26
+%     jsverb.sty が存在する場合は，それを用いる
+%     ただし，\let\verbatimsize\relax
+% v 0.30    2009/01/27
+%     jsverb.sty 保留
+%        （moreverb.sty と併用の関係）
+% v 0.31    2010/05/31
+%     ロードオプション psrectbox, psframed, pIIeframed
+% v 0.32    2011/01/19
+%     showEx: <tate> オプション
+% v 0.33    2012/01/12
+%     \showExfile: ファイルを読み込む
+% v 0.34    2013/02/06
+%     emverbatim

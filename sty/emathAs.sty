@@ -2,7 +2,7 @@
 %%% 複数の環境に対する，解答別刷り用
 
 \NeedsTeXFormat{pLaTeX2e}
-\ProvidesPackage{emathAs}[2004/08/17 v0.01β]
+\ProvidesPackage{emathAs}[2004/08/17 v0.01beta]
 
 \newif\iftoosi@bangou\toosi@bangoufalse% rensyuu と mondai を通し番号
 \DeclareOption{toosibangou}{\toosi@bangoutrue}
@@ -107,7 +107,7 @@
 \ifdebugkai
   \newcommand{\kaimdsb}{\par\begin{small}【解】}%
   \newcommand{\kaimdse}{\end{small}}%
-  \long\def\kaitou#1{
+  \long\def\kaitou#1{%
     \if\empty#1\else%
     \ifmmode $\kaimdsb #1\kaimdse $\else\kaimdsb #1\kaimdse%
         \fi\fi}%

@@ -1,14 +1,25 @@
 % emathT.sty by tDB (emath@nifty.com)
 %
 \NeedsTeXFormat{LaTeX2e}%
-\ProvidesPackage{emathT}[2005/10/29 v0.42]%
+\ProvidesPackage{emathT}[2015/01/04 v0.82]%
+%
 %
 \@ifundefined{ifpapersize}{\newif\ifpapersize\papersizefalse}{}%
-\@ifundefined{syasen}{\def\syasen{\drawline}}{}%
+%
+  \edef\TL@arydshln{0}%
+  \edef\TL@hhline{1}%
+  \def\emTzahyou{zahyou*}
 %
   \DeclareOption{notMy}{\def\not@My{}}%
   \DeclareOption{onlyT}{\def\T@nly{}}%
   \DeclareOption{onlyP}{\def\P@nly{}}%
+  \DeclareOption{notP}{\def\not@P{}}%
+  \DeclareOption{hhline}{\def\TL@hhline{-1}}%
+  \DeclareOption{nothhline}{\def\TL@hhline{0}}%
+  \DeclareOption{hhdshln}{\def\TL@hhline{0}\edef\TL@arydshln{-1}}%
+  \DeclareOption{arydshln}{\edef\TL@arydshln{1}%
+    \@tempcnta=\TL@hhline\advance\@tempcnta\m@ne
+    \edef\TL@hhline{\the\@tempcnta}}%
   \DeclareOption{ams214}{\def\new@ams{}}%
   \DeclareOption{times}{\def\em@fonts{1}}%
   \DeclareOption{txfonts}{\def\em@fonts{2}}%
@@ -19,74 +30,137 @@
   \DeclareOption{dvips}{\def\em@grdrv{dvips}}%
   \DeclareOption{dvipdfm}{\def\em@grdrv{dvipdfm}}%
   \DeclareOption{dvipdfmx}{\def\em@grdrv{dvipdfmx}}%
+  \DeclareOption{pssyasen}{%
+    \def\emTzahyou{pszahyou*}%
+    \def\em@syasen{\linethickness{.4pt}\drawline}%
+  }%
   \DeclareOption{debug}{\def\emT@debug}%
-  \DeclareOption{papersize}{\papersizetrue}
+  \DeclareOption{papersize}{\papersizetrue}%
+  \DeclareOption{tenretu}{\def\load@tenretu{}}%
   \ProcessOptions\relax
 %
 \@ifundefined{T@nly}{%
-  \RequirePackage{array}
-  \RequirePackage{hhline}
-  \RequirePackage{emathPh}
+  \RequirePackage{array}%
+  \ifnum\TL@hhline=\z@\else
+    \RequirePackage{hhline}%
+  \fi
+  \ifnum\TL@arydshln>\z@
+      \RequirePackage{arydshln}[2004/08/31]%
+      \long\def\multicolumn#1#2#3{\multispan{#1}\begingroup \begingroup
+        \def\adl@arrayrule{\adl@mcarrayrule{#1}}%
+        \def\adl@arraydashrule{\adl@mcarraydashrule{#1}}%
+        \def\adl@argarraydashrule{\adl@mcargarraydashrule{#1}}%
+        \let\@addamp\adl@mcaddamp
+        \@mkpream{#2}\@addtopreamble\@empty
+        \global\let\adl@preamble\@preamble \endgroup
+        \let\@preamble\adl@preamble
+        \def\@sharp{#3}\let\protect\relax
+        \adl@activatepbox
+        \adl@preaminit
+        \@arstrut \@preamble\hbox{}\endgroup
+        \global\advance\adl@currentcolumn#1\ignorespaces}%
+  \else\ifnum\TL@arydshln<\z@
+      \RequirePackage{arydshln,hhdshln}%
+  \fi\fi
+  \@ifundefined{not@P}{\RequirePackage{emathPh}}{}%
 }{}%
+%
+    \@ifundefined{em@grdrv}{}{%
+      \ifthenelse{\equal{\em@grdrv}{dvipdfmx}}{%
+        \def\em@syasen{\drawline}%
+      }{}%
+    }%
+%
+\@ifundefined{em@whndl}{\newwrite\em@whndl}{}%
+\@ifundefined{pl@in}{\newread\pl@in}{}%
+%
+\newdimen\rowtotalheight
+\newdimen\rowheight
+\newdimen\rowdepth
+%
+\def\emsyasen#1{\def\em@syasen{#1}}%
+\define@key{emT}{syasen}{\def\em@syasen{#1}}%
+%\def\texsyasen(#1,#2)(#3,#4){%
+%  \Subvec{(#3,#4)}{(#1,#2)}\sya@v
+%  \Absvec\sya@v\sya@l
+%  \Argvec\sya@v\sya@arg
+%  \put(#1,#2){\rotatebox{\sya@arg}{\vrule width \sya@l\p@ height .2pt depth .2pt}}%
+%}%
+%\def\syasen{\rotateline}%
 %
 \def\agezoko{0}%
 \def\syasen@muki{r}%
 %\def\Lmidasiiti{(3pt,1pt)[lb]}%
-\def\Lmidasiiti{\if r\syasen@muki(3pt,1pt)[lb]\else(3pt,-1pt)[lt]\fi}
+\def\Lmidasiiti{\if r\syasen@muki(3pt,1pt)[lb]\else(3pt,-1pt)[lt]\fi}%
 %\def\Rmidasiiti{(-3pt,-1pt)[rt]}%
-\def\Rmidasiiti{\if r\syasen@muki(-3pt,-1pt)[rt]\else(-3pt,1pt)[rb]\fi}
+\def\Rmidasiiti{\if r\syasen@muki(-3pt,-1pt)[rt]\else(-3pt,1pt)[rb]\fi}%
 % 増減を表す矢印
-  \def\NE{{\unitlength1zw\def\Arr@wHeadSize{.45}%
-    \begin{picture}(1,0)%
+%  \def\NE{\@ifnextchar[{\@NE}{\@NE[\empty]}}%
+  \DeclareRobustCommand\NE{\@ifnextchar[{\@NE}{\@NE[\empty]}}%
+  \def\@NE[#1]{{\unitlength1zw\def\Arr@wHeadSize{.45}%
+    \begin{picture}[#1](1,0)%
       \put(0,0){\ArrowLine{(0,-0.2)}{(1,0.8)}}%
     \end{picture}}}%
-  \def\SE{{\unitlength1zw\def\Arr@wHeadSize{.45}%
-    \begin{picture}(1,0)%
+%  \def\SE{\@ifnextchar[{\@SE}{\@SE[\empty]}}%
+  \DeclareRobustCommand\SE{\@ifnextchar[{\@SE}{\@SE[\empty]}}%
+  \def\@SE[#1]{{\unitlength1zw\def\Arr@wHeadSize{.45}%
+    \begin{picture}[#1](1,0)%
       \put(0,0){\ArrowLine{(0,0.8)}{(1,-0.2)}}%
     \end{picture}}}%
-  \def\NW{{\unitlength1zw\def\Arr@wHeadSize{.45}%
-    \begin{picture}(1,0)%
+  \DeclareRobustCommand\NW{\@ifnextchar[{\@NW}{\@NW[\empty]}}%
+  \def\@NW[#1]{{\unitlength1zw\def\Arr@wHeadSize{.45}%
+    \begin{picture}[#1](1,0)%
       \put(0,0){\ArrowLine{(1,-0.2)}{(0,0.8)}}%
     \end{picture}}}%
-  \def\SW{{\unitlength1zw\def\Arr@wHeadSize{.45}%
-    \begin{picture}(1,0)%
+  \DeclareRobustCommand\SW{\@ifnextchar[{\@SW}{\@SW[\empty]}}%
+  \def\@SW[#1]{{\unitlength1zw\def\Arr@wHeadSize{.45}%
+    \begin{picture}[#1](1,0)%
       \put(0,0){\ArrowLine{(1,0.8)}{(0,-0.2)}}%
     \end{picture}}}%
-  \def\NEE{{\unitlength1zw\def\Arr@wHeadSize{.45}%
-    \begin{picture}(1,0)%
+  \DeclareRobustCommand\NEE{\@ifnextchar[{\@NEE}{\@NEE[\empty]}}%
+  \def\@NEE[#1]{{\unitlength1zw\def\Arr@wHeadSize{.45}%
+    \begin{picture}[#1](1,0)%
       \put(0,0){\qbezier(0,-0.2)(0.2,0.6)(1,0.8)%
         \put(1.075,0.825){\yaziri{(2.5,1)}}}%
     \end{picture}}}%
-  \def\NEN{{\unitlength1zw\def\Arr@wHeadSize{.45}%
-    \begin{picture}(1,0)%
-      \put(0,0){\qbezier(0,-0.2)(0.8,0)(1,0.8)%
+  \DeclareRobustCommand\NEN{\@ifnextchar[{\@NEN}{\@NEN[\empty]}}%
+  \def\@NEN[#1]{{\unitlength1zw\def\Arr@wHeadSize{.45}%
+    \begin{picture}[#1](1,0)%
+%      \put(0,0){\qbezier(0,-0.2)(0.8,0)(1,0.8)%
+      \put(0,0){\qbezier(0,-0.2)(0.8,0)(.99,.7)%
         \put(1.04,0.825){\yaziri{(1,2.5)}}}%
     \end{picture}}}%
-  \def\SES{{\unitlength1zw\def\Arr@wHeadSize{.45}%
-    \begin{picture}(1,0)%
+  \DeclareRobustCommand\SES{\@ifnextchar[{\@SES}{\@SES[\empty]}}%
+  \def\@SES[#1]{{\unitlength1zw\def\Arr@wHeadSize{.45}%
+    \begin{picture}[#1](1,0)%
       \put(0,0){\qbezier(0,0.8)(0.8,0.6)(1,-0.2)%
 %        \put(1,-0.2){\yaziri{(1,-2.5)}}}%
         \put(1.075,-0.3){\yaziri{(1,-2.5)}}}%
     \end{picture}}}%
-  \def\SEE{{\unitlength1zw\def\Arr@wHeadSize{.45}%
-    \begin{picture}(1,0)%
-      \put(0,0){\qbezier(0,0.8)(0.2,0)(1,-0.2)%
+  \DeclareRobustCommand\SEE{\@ifnextchar[{\@SEE}{\@SEE[\empty]}}%
+  \def\@SEE[#1]{{\unitlength1zw\def\Arr@wHeadSize{.45}%
+    \begin{picture}[#1](1,0)%
+      \put(0,0){\Qbezier{(0,0.8)}{(0.2,0)}{(1,-0.2)}%
         \put(1.075,-0.24){\yaziri{(2.5,-1)}}}%
     \end{picture}}}%
-  \def\EE{{\unitlength1zw\def\Arr@wHeadSize{.45}%
-    \begin{picture}(1,0)%
+  \DeclareRobustCommand\EE{\@ifnextchar[{\@EE}{\@EE[\empty]}}%
+  \def\@EE[#1]{{\unitlength1zw\def\Arr@wHeadSize{.45}%
+    \begin{picture}[#1](1,0)%
       \put(0,0.3){\ArrowLine{(0,0)}{(1,0)}}%
     \end{picture}}}%
-  \def\WW{{\unitlength1zw\def\Arr@wHeadSize{.45}%
-    \begin{picture}(1,0)%
+  \DeclareRobustCommand\WW{\@ifnextchar[{\@WW}{\@WW[\empty]}}%
+  \def\@WW[#1]{{\unitlength1zw\def\Arr@wHeadSize{.45}%
+    \begin{picture}[#1](1,0)%
       \put(0,0.3){\ArrowLine{(1,0)}{(0,0)}}%
     \end{picture}}}%
-  \def\NN{{\unitlength1zw\def\Arr@wHeadSize{.45}%
-    \begin{picture}(1,0)%
+  \DeclareRobustCommand\NN{\@ifnextchar[{\@NN}{\@NN[\empty]}}%
+  \def\@NN[#1]{{\unitlength1zw\def\Arr@wHeadSize{.45}%
+    \begin{picture}[#1](1,0)%
       \put(.5,0){\ArrowLine{(0,-.2)}{(0,.8)}}%
     \end{picture}}}%
-  \def\SS{{\unitlength1zw\def\Arr@wHeadSize{.45}%
-    \begin{picture}(1,0)%
+  \DeclareRobustCommand\SS{\@ifnextchar[{\@SS}{\@SS[\empty]}}%
+  \def\@SS[#1]{{\unitlength1zw\def\Arr@wHeadSize{.45}%
+    \begin{picture}[#1](1,0)%
       \put(.5,0){\ArrowLine{(0,.8)}{(0,-.2)}}%
     \end{picture}}}%
   \let\SSE\SES
@@ -98,7 +172,7 @@
 %       #2 : tabular, array の引数と同じ
 %             ただし，l,c,r に代えて
 %                     L,C,R を用い，長さを引数で与えることが出来る．
-%   \sya(#1)[#2][#4]<#4>
+%   \sya(#1)[#2][#3]<#4>
 %       #1 : 横幅
 %       #2 : 斜線の向き
 %         n = 右上から左下
@@ -107,6 +181,7 @@
 %         o = なし
 %       #3=高さと深さ
 %       #4 picture 環境内の記述
+%
 %
 % array.sty と amsmath.sty 2.14 を共存させるためのパッチ
 %
@@ -137,7 +212,7 @@
 %%--------------- changed by tDB ------------------------------
     \@ifundefined{math@cr}{\let\\\@arraycr}{\let\\\math@cr}%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-    \let\tabularnewline\\\let\par\@empty \@preamble}
+    \let\tabularnewline\\\let\par\@empty \@preamble}%
   \let\@@array\@array
 }%
 %
@@ -215,27 +290,162 @@
   \baselineskip \z@
   \m@th
   \let\\\@arraycr \let\tabularnewline\\\let\par\@empty \@preamble}%
-}}
+}}%
 %
 % columntype L, R, C
 %
+%\def\autobsityuu{\def\auto@bsityuu{}}%
 \let\emT@array\array
 \let\emTarray\array
 \let\endemTarray\endarray
 \def\array{%
-  \newcolumntype{L}[1]{>{\hbox to ##1\bgroup $}l<{$\hss\egroup}}%
-  \newcolumntype{R}[1]{>{\hbox to ##1\bgroup\hss $}r<{$\egroup}}%
-  \newcolumntype{C}[1]{>{\hbox to ##1\bgroup\hss $}c<{$\hss\egroup}}%
+    \@ifnextchar'{\em@array}{\em@array@}%
+}%
+\def\em@array@{%
+  \@ifundefined{@del@array}{%
+    \@ifnextchar({\em@array@@}{\em@@array}%
+  }{%
+    \em@@array
+  }%
+}%
+\def\cellsize#1{\edef\cell@size{#1}}%
+%
+\def\em@array'#1'{\setkeys{emT}{#1}\em@@array}
+\def\em@array@@(#1){\setkeys{emT}{#1}\em@@array}
+\def\em@@array{%
+  \@ifundefined{cell@size}{\em@@@array}{%
+    \strsep{\cell@size}{,}\cell@size@x\cell@size@y
+    \let\cell@size\undefined
+    \ifthenelse{\equal\empty\cell@size@y}{%
+      \rectarray(\cell@size@x,-)
+    }{%
+      \rectarray(\cell@size@x,\cell@size@y)
+    }%
+  }%
+}%
+\def\em@@@array{%
+% \@ifundefined{auto@bsityuu}{}{%
+%   \let\emT@bunsuu\bunsuu
+%   \def\bunsuu##1##2{%
+%     \EMvphantom*[2pt]{\emT@bunsuu{##1}{##2}}%
+%   }%
+% }%
+  \@ifundefined{EMarray@newcolumn}{%
+    \newcolumntype{L}[1]{>{\gyousityuu%
+      \edef\clm@lcr{L}%
+      \ifthenelse{\equal{##1}{0}}%
+        {\edef\clm@wd{\hyouretuhaba}}%
+        {\setlength{\hyouretuhaba}{##1}\edef\clm@wd{##1}}%
+      \edef\columnwd{\clm@wd}%
+      \hbox to \clm@wd\bgroup $}l<{$\hss\egroup}}%
+    \newcolumntype{R}[1]{>{\gyousityuu%
+      \edef\clm@lcr{R}%
+      \ifthenelse{\equal{##1}{0}}%
+        {\edef\clm@wd{\hyouretuhaba}}%
+        {\setlength{\hyouretuhaba}{##1}\edef\clm@wd{##1}}%
+      \edef\columnwd{\clm@wd}%
+      \hbox to \clm@wd\bgroup\hss $}r<{$\egroup}}%
+    \newcolumntype{C}[1]{>{\gyousityuu%
+      \edef\clm@lcr{C}%
+      \ifthenelse{\equal{##1}{0}}%
+        {\edef\clm@wd{\hyouretuhaba}}%
+        {\setlength{\hyouretuhaba}{##1}\edef\clm@wd{##1}}%
+      \edef\columnwd{\clm@wd}%
+      \hbox to \clm@wd\bgroup\hss $}c<{$\hss\egroup}}%
+    \def\EMarray@newcolumn{}%
+  }{}%
+  \setbox0=\hbox{\gyousityuu}%
+  \setlength{\rowheight}{\ht0}%
+  \setlength{\rowdepth}{\dp0}%
+  \@tempdima\ht0\advance\@tempdima\dp0
+  \setlength{\rowtotalheight}{\@tempdima}%
+\ht\strutbox\ht0
+\dp\strutbox\dp0
   \emT@array
-}
+}%
 \let\emT@tabular\tabular
 \let\emTtabular\tabular
 \let\endemTtabular\endtabular
-\def\tabular{%
-  \newcolumntype{L}[1]{>{\hbox to ##1\bgroup }l<{\hss\egroup}}%
-  \newcolumntype{R}[1]{>{\hbox to ##1\bgroup\hss }r<{\egroup}}%
-  \newcolumntype{C}[1]{>{\hbox to ##1\bgroup\hss }c<{\hss\egroup}}%
-  \emT@tabular
+\def\tabular{\@ifnextchar'{\em@tabular}{\em@tabular@}}%
+\def\em@tabular@{%
+  \@ifundefined{@del@array}{%
+    \@ifnextchar({\em@tabular@@}{\em@@tabular}%
+  }{%
+    \em@@tabular
+  }%
+}%
+\def\em@tabular'#1'{\setkeys{emT}{#1}\em@@tabular}
+\def\em@tabular@@(#1){\setkeys{emT}{#1}\em@@tabular}
+\def\em@@tabular{%
+  \@ifundefined{cell@size}{\em@@@tabular}{%
+    \strsep{\cell@size}{,}\cell@size@x\cell@size@y
+    \let\cell@size\undefined
+    \ifthenelse{\equal\empty\cell@size@y}{%
+      \recttabular(\cell@size@x,-)
+    }{%
+      \recttabular(\cell@size@x,\cell@size@y)
+    }%
+  }%
+}%
+\def\em@@@tabular{%
+  \@ifundefined{EMtabular@newcolumn}{%
+    \newcolumntype{L}[1]{>{\gyousityuu%
+      \edef\clm@lcr{L}%
+      \ifthenelse{\equal{##1}{0}}%
+        {\edef\clm@wd{\hyouretuhaba}}%
+        {\setlength{\hyouretuhaba}{##1}\edef\clm@wd{##1}}%
+      \edef\columnwd{\clm@wd}%
+      \hbox to \clm@wd\bgroup}l<{\hss\egroup}}%
+    \newcolumntype{R}[1]{>{\gyousityuu%
+      \edef\clm@lcr{R}%
+      \ifthenelse{\equal{##1}{0}}%
+        {\edef\clm@wd{\hyouretuhaba}}%
+        {\setlength{\hyouretuhaba}{##1}\edef\clm@wd{##1}}%
+      \edef\columnwd{\clm@wd}%
+      \hbox to \clm@wd\bgroup\hss }r<{\egroup}}%
+    \newcolumntype{C}[1]{>{\gyousityuu%
+      \edef\clm@lcr{C}%
+      \ifthenelse{\equal{##1}{0}}%
+        {\edef\clm@wd{\hyouretuhaba}}%
+        {\setlength{\hyouretuhaba}{##1}\edef\clm@wd{##1}}%
+      \edef\columnwd{\clm@wd}%
+      \hbox to \clm@wd\bgroup\hss }c<{\hss\egroup}}%
+    \def\EMtabular@newcolumn{}%
+  }{}%
+  \setbox0=\hbox{\gyousityuu}%
+  \setlength{\rowheight}{\ht0}%
+  \setlength{\rowdepth}{\dp0}%
+  \@tempdima\ht0\advance\@tempdima\dp0
+  \setlength{\rowtotalheight}{\@tempdima}%
+\ht\strutbox\ht0
+\dp\strutbox\dp0
+\emT@tabular
+}%
+%
+\newenvironment{tsubarray}[1]{%
+  \vcenter\bgroup
+  \Let@ \restore@math@cr \default@tag
+  \baselineskip\fontdimen10 \textfont\tw@
+  \advance\baselineskip\fontdimen12 \textfont\tw@
+  \lineskip\thr@@\fontdimen8 \textfont\thr@@
+  \lineskiplimit\lineskip
+  \ialign\bgroup\ifx c#1\hfil\fi
+    $\m@th\textstyle##$\hfil\crcr
+}{%
+  \crcr\egroup\egroup
+}
+\newenvironment{fsubarray}[1]{%
+\leavevmode\hbox\bgroup\footnotesize$
+  \vcenter\bgroup
+  \Let@ \restore@math@cr \default@tag
+  \baselineskip\fontdimen10 \textfont\tw@
+  \advance\baselineskip\fontdimen12 \textfont\tw@
+  \lineskip\thr@@\fontdimen8 \textfont\thr@@
+  \lineskiplimit\lineskip
+  \ialign\bgroup\ifx c#1\hfil\fi
+    $\m@th\textstyle##$\hfil\crcr
+}{%
+  \crcr\egroup\egroup$\egroup
 }
 %
 % array環境において，行の高さ・深さを得る。
@@ -246,18 +456,18 @@
 %   #3 : 高さを収納する制御綴
 %   #4 : 深さを収納する制御綴
 %
-\def\getrowHD{\@ifstar{\getrowHD@}{\@getrowHD}}
-\def\@getrowHD{\@ifnextchar[{\@@getrowHD}{\@@getrowHD[0pt]}}
+\def\getrowHD{\@ifstar{\getrowHD@}{\@getrowHD}}%
+\def\@getrowHD{\@ifnextchar[{\@@getrowHD}{\@@getrowHD[0pt]}}%
 \def\@@getrowHD[#1]#2#3#4{%
   \setbox0=\hbox{\ensuremath{#2}}%
   \@tempdima=\arraystretch\ht\strutbox\advance\@tempdima\extrarowheight
   \ifdim\ht0>\@tempdima\@tempdima\ht0\fi
     \advance\@tempdima-\extrarowheight
-    \edef#3{\strip@pt\@tempdima}\Div{#3}\arraystretch#3\edef#3{#3 pt}\relax
+    \edef#3{\strip@pt\@tempdima}\@Div{#3}\arraystretch#3\edef#3{#3 pt}\relax
   \@tempdima=\arraystretch\dp\strutbox\advance\@tempdima #1\relax
   \ifdim\dp0>\@tempdima\@tempdima\dp0\fi
-    \edef#4{\strip@pt\@tempdima}\Div{#4}\arraystretch#4\edef#4{#4 pt}\relax}
-\def\getrowHD@{\@ifnextchar[{\@getrowHD@}{\@getrowHD@[0pt]}}
+    \edef#4{\strip@pt\@tempdima}\@Div{#4}\arraystretch#4\edef#4{#4 pt}\relax}%
+\def\getrowHD@{\@ifnextchar[{\@getrowHD@}{\@getrowHD@[0pt]}}%
 \def\@getrowHD@[#1]#2#3#4{%
   \setbox0=\hbox{\ensuremath{#2}}%
   \@tempdima=\arraystretch\ht\strutbox\advance\@tempdima\extrarowheight
@@ -266,148 +476,196 @@
     \edef#3{\the\@tempdima}\relax
   \@tempdima=\arraystretch\dp\strutbox\advance\@tempdima #1\relax
   \ifdim\dp0>\@tempdima\@tempdima\dp0\fi
-    \edef#4{\the\@tempdima}\relax}
+    \edef#4{\the\@tempdima}\relax}%
 
 \newdimen\hyouretuhaba
+\setlength{\hyouretuhaba}{1zw}%
 
 % 行の高さ・深さを指定する
-\def\gyousityuu{\strut}
-%\def\gyoudaka{\@ifnextchar[{\@gyoudaka}{\@gyoudaka[\z@]}}
-\def\gyoudaka{\@testopt\@gyoudaka{\z@}}
+\def\gyousityuu{\strut}%
+%\def\gyoudaka{\@ifnextchar[{\@gyoudaka}{\@gyoudaka[\z@]}}%
+\def\gyoudaka{\@testopt\@gyoudaka{\z@}}%
 \def\@gyoudaka[#1]#2{\edef\gyou@h{#2}\edef\gyou@d{#1}%
   \ifdim #1<\dp\strutbox \edef\gyou@d{\the\dp\strutbox}\fi
   \ifdim #2<\ht\strutbox \edef\gyou@h{\the\ht\strutbox}\fi
-  \def\gyousityuu{\vrule width 0pt height \gyou@h depth \gyou@d}}
+\@warning{changed gyousityuu-command}%
+  \def\gyousityuu{\vrule width 0pt height \gyou@h depth \gyou@d}}%
 \def\Gyoudaka#1{%
-  \setbox0=\hbox{#1}\edef\gyou@h{\the\ht0}\edef\gyou@d{\the\dp0}%
-  \def\gyousityuu{\vrule width 0pt height \gyou@h depth \gyou@d}}
+  \setbox0=\hbox{{#1}}\edef\gyou@h{\the\ht0}\edef\gyou@d{\the\dp0}%
+\@warning{changed gyousityuu-command}%
+  \def\gyousityuu{\vrule width 0pt height \gyou@h depth \gyou@d}}%
 %
 % 表に斜線
 %
-\def\emTsya{\@ifnextchar({\@syasen}{\@syasen(\hyouretuhaba)}}%
+%\def\emTsya{\@ifnextchar({\@syasen}{\@syasen(\hyouretuhaba)}}%
+\DeclareRobustCommand\emTsya{\@ifnextchar({\@syasen}{\@syasen(\hyouretuhaba)}}%
 \def\@syasen(#1){\@ifnextchar[{\@@syasen(#1)}{\@@syasen(#1)[n]}}%
 \def\@@syasen(#1)[#2]{\@ifnextchar[{\@@@syasen(#1)[#2]}{%
      \@@@syasen(#1)[#2][\protect\gyousityuu]}}%
 \def\@@@syasen(#1)[#2][#3]{\@ifnextchar<{\@@@@syasen(#1)[#2][#3]}{%
     \@@@@syasen(#1)[#2][#3]<\empty>}}%
 \def\@@@@syasen(#1)[#2][#3]<#4>{{%
+    \ifmmode\edef\emTsya@mmode{1}\else\edef\emTsya@mmode{0}\fi
     \edef\syasen@muki{#2}%
-    \Strchr{#1}{=}\sya@keyopt
     \emT@r=\z@
     \emT@@d=\z@
     \emT@@h=\z@
-    \def\syanuri@iro{\empty}%
+    \edef\syanuri@iro{\empty}%
     \def\noudo@{0}%
     \def\emT@string{}%
     \emT@w=\hyouretuhaba
     \setbox0=\hbox{\ensuremath{#3}}%
       \emT@h=\ht0
       \emT@d=\dp0
+    \Strchr{#1}{=}\sya@keyopt
     \ifnum\sya@keyopt>\z@\setkeys{emT}{#1}\fi
-\setbox0=\hbox{\emT@string}%
-\ifdim\ht0>\emT@h\emT@h=\ht0\fi
-\ifdim\dp0>\emT@d\emT@d=\dp0\fi
+    \ifmmode
+      \setbox0=\hbox{\ensuremath{\displaystyle \emT@string}}%
+    \else
+      \setbox0=\hbox{\emT@string}%
+    \fi
+    \ifdim\ht0>\emT@h\emT@h=\ht0\fi
+    \ifdim\dp0>\emT@d\emT@d=\dp0\fi
     \unitlength=1\p@\relax
-\iftdir
-    \ifnum\sya@keyopt>\z@
-      \vphantom{\vrule width \z@ height \emT@h depth \emT@d}%
+    \iftdir
+      \ifnum\sya@keyopt>\z@
+        \vphantom{\vrule width \z@ height \emT@h depth \emT@d}%
+      \else
+        \setbox0=\hbox{\ensuremath{#3}}%
+      \fi
+      \@tempdima=\ht0\relax
+      \advance\@tempdima\dp0\relax
+      \@tempdima=\arraystretch\@tempdima
+      \edef\masuwd{\strip@pt\@tempdima}%
+      \Mul{7.4}{\arraystretch}\masuhukasa
+      \Add\masuhukasa{-2}\masuhukasa
+      \Sub\masuwd\masuhukasa\masutakasa
     \else
-      \setbox0=\hbox{\ensuremath{#3}}%
+      \ifnum\sya@keyopt>\z@
+        \setbox0=\hbox{\vrule width \z@ height \emT@h depth \emT@d}%
+      \else
+        \setbox0=\hbox{\ensuremath{#3}}%
+      \fi
+      \@tempdima=\ht0\relax
+      \@tempdima=\arraystretch\@tempdima
+      \advance\@tempdima\extrarowheight
+      \advance\@tempdima\emT@@h
+      \edef\masutakasa{\strip@pt\@tempdima}%
+      \@tempdima=\dp0\relax
+      \@tempdima=\arraystretch\@tempdima
+      \advance\@tempdima\emT@@d
+      \edef\masuhukasa{\strip@pt\@tempdima}%
+      \Sub\masutakasa\agezoko\masutakasa
+      \Add\masuhukasa\agezoko\masuhukasa
+      \vrule height \masutakasa pt depth \masuhukasa pt width \z@
     \fi
-    \@tempdima=\ht0\relax
-    \advance\@tempdima\dp0\relax
-    \@tempdima=\arraystretch\@tempdima
-    \edef\masuwd{\strip@pt\@tempdima}%
-    \Mul{7.4}{\arraystretch}\masuhukasa
-    \Add\masuhukasa{-2}\masuhukasa
-    \Sub\masuwd\masuhukasa\masutakasa
-\else
-    \ifnum\sya@keyopt>\z@
-      \setbox0=\hbox{\vrule width \z@ height \emT@h depth \emT@d}%
-    \else
-      \setbox0=\hbox{\ensuremath{#3}}%
-    \fi
-    \@tempdima=\ht0\relax
-    \@tempdima=\arraystretch\@tempdima
-    \advance\@tempdima\extrarowheight
-    \advance\@tempdima\emT@@h
-    \edef\masutakasa{\strip@pt\@tempdima}%
-    \@tempdima=\dp0\relax
-    \@tempdima=\arraystretch\@tempdima
-    \advance\@tempdima\emT@@d
-    \edef\masuhukasa{\strip@pt\@tempdima}%
-\Sub\masutakasa\agezoko\masutakasa
-\Add\masuhukasa\agezoko\masuhukasa
-    \vrule height \masutakasa pt depth \masuhukasa pt width \z@
-\fi
     \ifnum\sya@keyopt>\z@
       \@tempdima=\emT@w
     \else
       \setlength\@tempdima{#1}\relax
     \fi
+    \edef\masuhaba{\strip@pt\@tempdima}%
     \@tempdimb=\@tempdima
     \edef\sya@strwd{\the\@tempdima}%
     \advance\@tempdima\col@sep
     \advance\@tempdima\col@sep
-\advance\@tempdima\arrayrulewidth%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+    \advance\@tempdima\arrayrulewidth%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     \divide\@tempdima \tw@
     \edef\masuhabah{\strip@pt\@tempdima}%
-\@tempdima=.5\arrayrulewidth\relax
-\edef\hd@hosei{\strip@pt\@tempdima}%
-\Add\masutakasa\hd@hosei\masutakasa%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\Add\masuhukasa\hd@hosei\masuhukasa%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+    \@tempdima=.5\arrayrulewidth\relax
+    \edef\hd@hosei{\strip@pt\@tempdima}%
+    \Add\masutakasa\hd@hosei\masutakasa%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+    \Add\masuhukasa\hd@hosei\masuhukasa%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     \rlap{\raisebox{\emT@r}{\makebox[\@tempdimb][c]{%
-    \begin{picture}(0,0)%
-      \def\O{(0,0)}%
-      \def\LT{(-\masuhabah,\masutakasa)}%
-      \def\LB{(-\masuhabah,-\masuhukasa)}%
-      \def\RT{(\masuhabah,\masutakasa)}%
-      \def\RB{(\masuhabah,-\masuhukasa)}%
-      \ifthenelse{\equal\syanuri@iro\empty}{}{%
-        \put(0,0){\Nuritubusi[nuriiro=\syanuri@iro]{%
-          (-\masuhabah,-\masuhukasa)(\masuhabah,-\masuhukasa)%
-          (\masuhabah,\masutakasa)(-\masuhabah,\masutakasa)%
-          (-\masuhabah,-\masuhukasa)}}%
-      }%
-      \ifthenelse{\equal{\noudo@}{0}}{}{\Nuritubusi[\noudo@]{\LT\LB\RB\RT}}%
-\Strsep{#4}{;}\sya@pre\sya@post
-\sya@pre
-    \ifthenelse{\equal{#2}{n}}{%
-       \put(0,0){\syasen(-\masuhabah,-\masuhukasa)(\masuhabah,\masutakasa)}}%
-    {%
-      \ifthenelse{\equal{#2}{r}}{%
-        \put(0,0){%
-          \syasen(-\masuhabah,\masutakasa)(\masuhabah,-\masuhukasa)}%
+      \begin{picture}(0,0)%
+        \begin{\emTzahyou}[ul=1pt,haiti=o]%
+              (-\masuhabah,\masuhabah)(-\masuhukasa,\masutakasa)%
+%         \def\O{(0,0)}%
+%         \def\LT{(-\masuhabah,\masutakasa)}%
+%         \def\LB{(-\masuhabah,-\masuhukasa)}%
+%         \def\RT{(\masuhabah,\masutakasa)}%
+%         \def\RB{(\masuhabah,-\masuhukasa)}%
+          \ifthenelse{\equal\syanuri@iro\empty}{}{%
+            \put(0,0){\Nuritubusi[nuriiro=\syanuri@iro,border]{\zenheimen}}%
+          }%
+          \edef\noudo@@{\noudo@}%
+          \ifthenelse{\equal{\noudo@}{0}}{}{%
+            \Nuritubusi[\noudo@@]{\LT\LB\RB\RT}}%
+          \Strsep{#4}{;}\sya@pre\sya@post
+          \sya@pre
+          \@ifundefined{iro@}{%
+          }{%
+            \ifx\empty\iro@\else\@iro{\iro@}\fi
+          }%
+          \ifthenelse{\equal{#2}{n}}{%
+            \put(0,0){%
+              \em@syasen(-\masuhabah,-\masuhukasa)(\masuhabah,\masutakasa)}%
+          }{%
+            \ifthenelse{\equal{#2}{r}}{%
+              \put(0,0){%
+                \em@syasen(-\masuhabah,\masutakasa)(\masuhabah,-\masuhukasa)}%
 %%% 斜線位置確認(1) ------
 \@ifundefined{emT@debug}{}{{\color{red}%
    \Put{(-\masuhabah,\masutakasa)}{\Drawlines{(-1,-1)(1,1);(-1,1)(1,-1)}}%
    \Put{(\masuhabah,-\masuhukasa)}{\Drawlines{(-1,-1)(1,1);(-1,1)(1,-1)}}%
 }}%
 %%% ----------------------
+            }{%
+              \ifthenelse{\equal{#2}{x}}{%
+                \put(0,0){%
+                  \em@syasen(-\masuhabah,\masutakasa)(\masuhabah,-\masuhukasa)}%
+                \put(0,0){%
+                  \em@syasen(-\masuhabah,-\masuhukasa)(\masuhabah,\masutakasa)}%
+              }{%
+                \ifthenelse{\equal{#2}{o}}{}{%
+                  \put(0,0){\Nuritubusi[#2]{%
+                    (-\masuhabah,-\masuhukasa)(\masuhabah,-\masuhukasa)%
+                    (\masuhabah,\masutakasa)(-\masuhabah,\masutakasa)%
+                    (-\masuhabah,-\masuhukasa)}}}%
+              }%
+            }%
+          }%
+          \sya@post\relax
+        \end{\emTzahyou}
+      \end{picture}}}}%
+    \ifnum\emTsya@mmode=\z@
+      \@ifundefined{clm@lcr}{%
+        \makebox[\@tempdimb]{\hfil{\emT@string}\hfil\null}%
       }{%
-        \ifthenelse{\equal{#2}{x}}{%
-          \put(0,0){%
-            \syasen(-\masuhabah,\masutakasa)(\masuhabah,-\masuhukasa)}%
-          \put(0,0){%
-            \syasen(-\masuhabah,-\masuhukasa)(\masuhabah,\masutakasa)}%
-        }{%
-          \ifthenelse{\equal{#2}{o}}{}{%
-            \put(0,0){\Nuritubusi[#2]{%
-            (-\masuhabah,-\masuhukasa)(\masuhabah,-\masuhukasa)%
-            (\masuhabah,\masutakasa)(-\masuhabah,\masutakasa)%
-            (-\masuhabah,-\masuhukasa)}}}%
-        }%
+%      \makebox[\@tempdimb]{\hfil{\emT@string}\hfil\null}%
+        \if L\clm@lcr
+          \makebox[\@tempdimb][l]{\emT@string}%
+        \else\if R\clm@lcr
+          \makebox[\@tempdimb][r]{\emT@string}%
+        \else
+          \makebox[\@tempdimb]{\hfil{\emT@string}\hfil\null}%
+        \fi\fi
       }%
-    }%
-    \sya@post\relax
-    \end{picture}}}}%
-    \makebox[\@tempdimb]{\hfil\ensuremath{\emT@string}\hfil\null}%
+    \else
+%      \makebox[\@tempdimb]{\hfil\ensuremath{\emT@string}\hfil\null}%
+      \@ifundefined{clm@lcr}{%
+        \makebox[\@tempdimb]{\hfil\ensuremath{\emT@string}\hfil\null}%
+      }{%
+        \if L\clm@lcr
+          \makebox[\@tempdimb][l]{\ensuremath{\emT@string}}%
+        \else\if R\clm@lcr
+          \makebox[\@tempdimb][r]{\ensuremath{\emT@string}}%
+        \else
+          \makebox[\@tempdimb]{\hfil\ensuremath{\emT@string}\hfil\null}%
+        \fi\fi
+      }%
+    \fi
 }}%
-\let\sya\emTsya
+%\@ifundefined{sya}{\let\sya\emTsya}{}%
+\@ifundefined{sya}{\DeclareRobustCommand\sya{\emTsya}}{}%
 %
 % 斜線見出し(array)
 %
-  \def\hyoumidasi#1#2{%
+%  \def\hyoumidasi#1#2{%
+  \DeclareRobustCommand{\hyoumidasi}[2]{%
+    \ifnum\emTsya@mmode=\z@\Hyoumidasi{#1}{#2}\else
+    \@hyoumidasi{#1}{#2}\fi}%
+  \def\@hyoumidasi#1#2{%
       \edef\mds@tmp{{(-\masuhabah,-\masuhukasa)}\Lmidasiiti}%
       \if n\syasen@muki
         \edef\mds@tmp{{(-\masuhabah,\masutakasa)}\Lmidasiiti}%
@@ -437,17 +695,17 @@
 %
 %
 % hyou
-\def\hyou{\@ifnextchar<{\@hyou}{\@hyou<\empty>}}
+\def\hyou{\@ifnextchar<{\@hyou}{\@hyou<\empty>}}%
 \def\@hyou<#1>{%
   \hyouretuhaba=1zw%
-  \def\hyou@ty@ption{\empty}%
+  \edef\hyou@ty@ption{\empty}%
   \Strchr{#1}{=}\hyou@keyopt
   \ifnum\hyou@keyopt>\z@
     \setkeys{emT}{#1}\relax
   \else
     \def\hyou@ty@ption{#1}%
   \fi
-  \@ifnextchar[{\@@hyou<\hyou@ty@ption>}{\@@hyou<\hyou@ty@ption>[c]}}
+  \@ifnextchar[{\@@hyou<\hyou@ty@ption>}{\@@hyou<\hyou@ty@ption>[c]}}%
 \newdimen\emT@w%  width
 \newdimen\emT@h%  height
 \newdimen\emT@@h%  height （修正分）
@@ -456,7 +714,15 @@
 \newdimen\emT@r%  raise
 \define@key{emT}{S}{\def\emT@string{#1}}%
 \define@key{emT}{W}{\setlength\emT@w{#1}}%
-\define@key{emT}{w}{\setbox0=\hbox{#1}\setlength\emT@w{\wd0}}%
+\define@key{emT}{w}{\setbox0=\hbox{{#1}}\setlength\emT@w{\wd0}}%
+%\define@key{emT}{w}{%
+%  \ifmmode
+%    \setbox0=\hbox{{\ensuremath{#1}}}%
+%  \else
+%    \setbox0=\hbox{{#1}}%
+%  \fi
+%  \setlength\emT@w{\wd0}%
+%}%
 \define@key{emT}{H}{\setlength\emT@h{#1}}%
 \define@key{emT}{h}{\setlength\emT@@h{#1}}%
 \define@key{emT}{D}{\setlength\emT@d{#1}}%
@@ -466,12 +732,15 @@
 \define@key{emT}{G}{\edef\noudo@{#1}}%
 \define@key{emT}{V}{\setbox0=\hbox{\ensuremath{#1}}%
   \ifdim\ht0>\arraystretch\ht\strutbox\emT@h\ht0\fi
-  \ifdim\dp0>\arraystretch\dp\strutbox\emT@d\dp0\fi}
+  \ifdim\dp0>\arraystretch\dp\strutbox\emT@d\dp0\fi}%
+\define@key{emT}{v}{\setbox0=\hbox{\ensuremath{#1}}%
+  \ifdim\ht0>\arraystretch\ht\strutbox\emT@h\ht0\fi
+  \ifdim\dp0>\arraystretch\dp\strutbox\emT@d\dp0\fi}%
 \define@key{emT}{VDplus}{\setbox0=\hbox{\ensuremath{#1}}%
   \ifdim\ht0>\arraystretch\ht\strutbox\advance\emT@d\ht0\else
     \advance\emT@d\ht\strutbox\fi
   \ifdim\dp0>\arraystretch\dp\strutbox\advance\emT@d\dp0\else
-    \advance\emT@d\dp\strutbox\fi}
+    \advance\emT@d\dp\strutbox\fi}%
 \define@key{emT}{syasenkankaku}{\def\syanuri@kankaku{#1}}%
 \define@key{emT}{syasenKankaku}{\ukansan{#1}\syanuri@kankaku}%
 \define@key{emT}{syanurikankaku}{\def\syanuri@kankaku{#1}}%
@@ -479,7 +748,14 @@
 \define@key{emT}{syasenkaku}{\def\syanuri@kaku{#1}}%
 \define@key{emT}{syanurikaku}{\def\syanuri@kaku{#1}}%
 \define@key{emT}{wakusen}{\def\wakusen{#1}}%
-\define@key{emT}{retuhaba}{\def\hyouretuhaba{#1}\def\notcalcretuhaba{}}%
+%\define@key{emT}{retuhaba}{\def\hyouretuhaba{#1}\def\notcalcretuhaba{}}%
+\define@key{emT}{label}{\def\emT@label{#1}}%
+\define@key{emT}{gyoudaka}{\Gyoudaka{#1}}%
+\define@key{emT}{cellsize}{\edef\cell@size{#1}}%
+\define@key{emT}{usecellstrut}[1]{\edef\use@cellstrut{#1}}%
+\define@key{emT}{retuhaba}{\setlength{\hyouretuhaba}{#1}}%
+\define@key{emT}{linethickness}{\linethickness{#1}}%
+\define@key{emT}{iro}{\edef\iro@{#1}}%
 %
 \def\@@hyou<#1>[#2]#3{%
 \if0
@@ -567,25 +843,25 @@
 %  \ifx\empty#1\relax\begin{array}[#2]{#3}\else\begin{array}<#1>[#2]{#3}\fi
   \ifthenelse{\equal{#1}\empty}{%
     \begin{array}[#2]{#3}}{\begin{array}<#1>[#2]{#3}}%
-}
-\def\endhyou{\end{array}}
-\@namedef{hyou*}{\def\notcalcretuhaba{}\hyou}
-\@namedef{endhyou*}{\endhyou}
+}%
+\def\endhyou{\end{array}}%
+\@namedef{hyou*}{\def\notcalcretuhaba{}\hyou}%
+\@namedef{endhyou*}{\endhyou}%
 
 %\let\org@arraycr\@arraycr
-%\def\@arraycr{\xIncr\hyou@gyouban\org@arraycr}
+%\def\@arraycr{\xIncr\hyou@gyouban\org@arraycr}%
 
-\def\Hyou{\@ifnextchar<{\@Hyou}{\@Hyou<\empty>}}
+\def\Hyou{\@ifnextchar<{\@Hyou}{\@Hyou<\empty>}}%
 \def\@Hyou<#1>{%
   \hyouretuhaba=1zw%
-  \def\hyou@ty@ption{\empty}%
+  \edef\hyou@ty@ption{\empty}%
   \Strchr{#1}{=}\hyou@keyopt
   \ifnum\hyou@keyopt>\z@
     \setkeys{emT}{#1}\relax
   \else
     \def\hyou@ty@ption{#1}%
   \fi
-  \@ifnextchar[{\@@Hyou<\hyou@ty@ption>}{\@@Hyou<\hyou@ty@ption>[c]}}
+  \@ifnextchar[{\@@Hyou<\hyou@ty@ption>}{\@@Hyou<\hyou@ty@ption>[c]}}%
 \def\@@Hyou<#1>[#2]#3{%
   \def\agezoko{0}%
 \if0
@@ -671,28 +947,29 @@
 %  \ifx\empty#1\relax\begin{tabular}[#2]{#3}\else\begin{tabular}<#1>[#2]{#3}\fi
   \ifthenelse{\equal{#1}\empty}{\begin{tabular}[#2]{#3}}{%
     \begin{tabular}<#1>[#2]{#3}}%
-}
-\def\endHyou{\end{tabular}}
-\@namedef{Hyou*}{\def\notcalcretuhaba{}\Hyou}
-\@namedef{endHyou*}{\endHyou}
+}%
+\def\endHyou{\end{tabular}}%
+\@namedef{Hyou*}{\def\notcalcretuhaba{}\Hyou}%
+\@namedef{endHyou*}{\endHyou}%
 %
 % \EMcell
 %
   \def\EMcell{%
     \def\noudo@{0}%
     \def\syanuri@kankaku{0}%
-    \def\EMcell@mode{\empty}%
-    \def\syanuri@iro{\empty}%
-    \@ifstar{\@EMcellnuri}{\@EMcell}}
-  \def\@EMcellnuri{\@ifstar{\EMcellsya}{\@@EMcellnuri}}
-  \def\@@EMcellnuri{\@ifnextchar[{\@@@EMcellnuri}{\@@@EMcellnuri[.5]}}
+    \edef\EMcell@mode{\empty}%
+    \edef\syanuri@iro{\empty}%
+    \edef\emT@label{\empty}%
+    \@ifstar{\@EMcellnuri}{\@EMcell}}%
+  \def\@EMcellnuri{\@ifstar{\EMcellsya}{\@@EMcellnuri}}%
+  \def\@@EMcellnuri{\@ifnextchar[{\@@@EMcellnuri}{\@@@EMcellnuri[.5]}}%
   \def\@@@EMcellnuri[#1]{\def\EMcell@mode{nuri}%
     \Strchr{#1}{=}\EMcell@tmp
     \ifthenelse{\EMcell@tmp>\z@}{\def\noudo@{.5}\@@EMcell[#1]}{%
       \edef\noudo@{#1}\@EMcell}}%
   \def\EMcellsya{\def\EMcell@mode{sya}%
-    \@ifnextchar[{\@EMcellsya}{\@EMcellsya[45]}}
-  \def\@EMcellsya[#1]{\@ifnextchar<{\@@EMcellsya[#1]}{\@@EMcellsya[#1]<3>}}
+    \@ifnextchar[{\@EMcellsya}{\@EMcellsya[45]}}%
+  \def\@EMcellsya[#1]{\@ifnextchar<{\@@EMcellsya[#1]}{\@@EMcellsya[#1]<3>}}%
   \def\@@EMcellsya[#1]<#2>{%
     \def\syanuri@kankaku{#2}%
     \Strchr{#1}{=}\sya@keyopt
@@ -707,7 +984,7 @@
   \def\@EMcell{\@ifnextchar[{\@@EMcell}{\@@EMcell[\hyouretuhaba]}}%
   \def\@@EMcell[#1]{\@ifnextchar<{\@@@EMcell[#1]}{\@@@EMcell[#1]<\empty>}}%
   \def\@@@EMcell[#1]<#2>#3#4{{%
-    \def\wakusen{\empty}%
+    \edef\wakusen{\empty}%
     \Strchr{#1}{=}\sya@keyopt
     \emT@r=\z@
     \emT@@d=\z@
@@ -720,7 +997,11 @@
       \setkeys{emT}{#1}\relax
       \ifthenelse{\equal\syanuri@iro\empty}{}{\def\noudo@{0}}%
     \fi
-\setbox0=\hbox{\ensuremath{#4}}%
+\ifmmode
+  \setbox0=\hbox{{\ensuremath{#4}}}%
+\else
+  \setbox0=\hbox{{#4}}%
+\fi
 \ifdim\ht0>\emT@h\emT@h=\ht0\fi
 \ifdim\dp0>\emT@d\emT@d=\dp0\fi
 \ifdim\wd0>\emT@w\emT@w=\wd0\fi
@@ -737,12 +1018,18 @@
 \else
     \setbox0=\hbox{\vrule width \z@ height \emT@h depth \emT@d}%
     \@tempdima=\ht0\relax
-    \@tempdima=\arraystretch\@tempdima
+%    \@tempdima=\arraystretch\@tempdima
+\@tempdimb=\arraystretch\ht\strutbox
+\ifdim\@tempdimb>\@tempdima\@tempdima\@tempdimb\fi
     \advance\@tempdima\extrarowheight
     \advance\@tempdima\emT@@h
+\advance\@tempdima-.5\arrayrulewidth
+\advance\@tempdima-.02\p@
     \edef\masutakasa{\strip@pt\@tempdima}%
     \@tempdima=\dp0\relax
-    \@tempdima=\arraystretch\@tempdima
+%    \@tempdima=\arraystretch\@tempdima
+\@tempdimb=\arraystretch\dp\strutbox
+\ifdim\@tempdimb>\@tempdima\@tempdima\@tempdimb\fi
     \advance\@tempdima\emT@@d
     \edef\masuhukasa{\strip@pt\@tempdima}%
     \@ifundefined{agezoko}{}{\Sub\masutakasa\agezoko\masutakasa}%
@@ -752,37 +1039,49 @@
     \@tempdima=\emT@w
     \@tempdimb=\@tempdima
     \edef\sya@strwd{\the\@tempdima}%
+    \edef\masuhaba{\strip@pt\@tempdima}%
     \advance\@tempdima\col@sep
     \advance\@tempdima\col@sep
-%\advance\@tempdima\arrayrulewidth%%%%%%%%%%%%%%%% 05/08/12
+\advance\@tempdima.5\arrayrulewidth%%%%%%%%%%%%%%%% 05/08/12
+\advance\@tempdima-.05\p@
     \divide\@tempdima \tw@
     \edef\masuhabah{\strip@pt\@tempdima}%
 \@tempdima=.5\arrayrulewidth\relax
 \edef\hd@hosei{\strip@pt\@tempdima}%
 \Add\masutakasa\hd@hosei\masutakasa
 \Add\masuhukasa\hd@hosei\masuhukasa
+\ifx\empty\emT@label\else
+  \writeLabel{W\emT@label}{\masuhaba\p@}%
+  \writeLabel{H\emT@label}{\masutakasa\p@}%
+  \writeLabel{D\emT@label}{\masuhukasa\p@}%
+\fi
 %
     \rlap{\raisebox{\emT@r}{\makebox[\@tempdimb][c]{%
     \begin{picture}(0,0)%
       \def\O{(0,0)}%
+      \edef\xmin{-\masuhabah}%
+      \edef\xmax{\masuhabah}%
+      \edef\ymin{-\masuhukasa}%
+      \edef\ymax{\masutakasa}%
       \def\LT{(-\masuhabah,\masutakasa)}%
       \def\LB{(-\masuhabah,-\masuhukasa)}%
       \def\RT{(\masuhabah,\masutakasa)}%
       \def\RB{(\masuhabah,-\masuhukasa)}%
       \ifthenelse{\equal\syanuri@iro\empty}{}{%
-        \put(0,0){\Nuritubusi[nuriiro=\syanuri@iro]{%
+        \put(0,0){\Nuritubusi<nuriiro=\syanuri@iro,border>{%
           (-\masuhabah,-\masuhukasa)(\masuhabah,-\masuhukasa)%
           (\masuhabah,\masutakasa)(-\masuhabah,\masutakasa)%
           (-\masuhabah,-\masuhukasa)}}%
       }%
-      \ifthenelse{\equal{\noudo@}{0}}{}{\Nuritubusi[\noudo@]{\LT\LB\RB\RT}}%
+      \edef\noudo@@{\noudo@}%
+      \ifthenelse{\equal{\noudo@}{0}}{}{\Nuritubusi[\noudo@@]{\LT\LB\RB\RT}}%
       \ifthenelse{\equal{\syanuri@kankaku}{0}}{}{%
         \Nuritubusi*[\syanuri@kaku]<\syanuri@kankaku>{\LT\LB\RB\RT}}%
       \ifthenelse{\equal\wakusen\empty}{}{%
         \Drawline<sensyu=\wakusen>{\LT\LB\RB\RT\LT}}%
       #2\relax
     \end{picture}}}}{%
-      \ifmmode\setbox0=\hbox{$#4$}\else\setbox0=\hbox{#4}\fi
+      \ifmmode\setbox0=\hbox{{$#4$}}\else\setbox0=\hbox{{#4}}\fi
       \if r#3\relax
         \makebox[\@tempdimb]{\hfill \box0}%
       \else\if l#3\relax
@@ -799,21 +1098,64 @@
 %
 \newdimen\arrayrulewidthb
 \arrayrulewidthb=\p@\relax
-%\newdimen\arrayrulewidthbb
-%\def\sethutokeisenb#1{\setlength{\arrayrulewidthb}{#1}%
-%  \setlength{\arrayrulewidthbb}{\arrayrulewidth+\arrayrulewidthb}}%
-%\sethutokeisenb{.8pt}%
-\newcolumntype{I}{!{\vrule width \arrayrulewidthb}}
-%\newcolumntype{|}{!{\vrule width \arrayrulewidth}}
-\def\hlineb{%
-  \noalign{\ifnum0=`}\fi\hrule \@height \arrayrulewidthb \futurelet
-   \reserved@a\@xhlineb}
+\newdimen\arrayrulewidthc
+\arrayrulewidthc=2\p@\relax
+%%\newdimen\arrayrulewidthbb
+%%\def\sethutokeisenb#1{\setlength{\arrayrulewidthb}{#1}%
+%%  \setlength{\arrayrulewidthbb}{\arrayrulewidth+\arrayrulewidthb}}%
+%%\sethutokeisenb{.8pt}%
+\edef\NC@char{I}%
+\edef\NC@char{J}%
+\@ifundefined{NC@find@\NC@char}{%
+  \newcolumntype{I}{!{\vrule width \arrayrulewidthb}}%
+  \newcolumntype{J}{!{\vrule width \arrayrulewidthc}}%
+}{%
+}%
+%%\newcolumntype{|}{!{\vrule width \arrayrulewidth}}%
+%
+%\def\hlineb{%
+%  \noalign{\ifnum0=`}\fi\hrule \@height \arrayrulewidthb \futurelet
+%   \reserved@a\@xhlineb}%%
+%
+\@ifundefined{ifadl@zwhrule}{%
+  \def\hlineb{%
+    \noalign{\ifnum0=`}\fi\hrule \@height \arrayrulewidthb \futurelet
+    \reserved@a\@xhlineb
+  }%
+  \def\hlinec{%
+    \noalign{\ifnum0=`}\fi\hrule \@height \arrayrulewidthc \futurelet
+    \reserved@a\@xhlinec
+  }%
+}{% cf. Q&A No.50271
+  \def\hlineb{%
+        \noalign{\ifnum0=`}\fi
+        \ifadl@zwhrule \vskip-\arrayrulewidthb
+        \else \adl@hline\adl@connect\arrayrulewidthb \fi
+        \hrule\@height\arrayrulewidthb
+        \global\adl@finaldepth\z@
+        \futurelet\@tempa\adl@xhline
+  }%
+  \def\hlinec{%
+        \noalign{\ifnum0=`}\fi
+        \ifadl@zwhrule \vskip-\arrayrulewidthc
+        \else \adl@hline\adl@connect\arrayrulewidthc \fi
+        \hrule\@height\arrayrulewidthc
+        \global\adl@finaldepth\z@
+        \futurelet\@tempa\adl@xhline
+  }%
+}%
+%
 \def\@xhlineb{\ifx\reserved@a\hlineb
                \vskip\doublerulesep
                \vskip-\arrayrulewidthb
              \fi
-      \ifnum0=`{\fi}}
-\def\clineb#1{\@clineb#1\@nil}
+      \ifnum0=`{\fi}}%
+\def\@xhlinec{\ifx\reserved@a\hlinec
+               \vskip\doublerulesep
+               \vskip-\arrayrulewidthc
+             \fi
+      \ifnum0=`{\fi}}%
+\def\clineb#1{\@clineb#1\@nil}%
 \def\@clineb#1-#2\@nil{%
   \omit
   \@multicnt#1%
@@ -824,9 +1166,22 @@
   \advance\@multispan\@ne
   \leaders\hrule\@height\arrayrulewidthb\hfill
   \cr
-  \noalign{\vskip-\arrayrulewidthb}}
+  \noalign{\vskip-\arrayrulewidthb}}%
+\def\clinec#1{\@clinec#1\@nil}%
+\def\@clinec#1-#2\@nil{%
+  \omit
+  \@multicnt#1%
+  \advance\@multispan\m@ne
+  \ifnum\@multicnt=\@ne\@firstofone{&\omit}\fi
+  \@multicnt#2%
+  \advance\@multicnt-#1%
+  \advance\@multispan\@ne
+  \leaders\hrule\@height\arrayrulewidthc\hfill
+  \cr
+  \noalign{\vskip-\arrayrulewidthc}}%
 
 % \hhline の引数に太罫線指定の`I'を使用可能とするための修正
+\ifnum\TL@hhline=\z@\else
 \def\HH@loop{%
   \ifx\@tempb`\def\next##1{\the\toks@\cr}\else\let\next\HH@let
   \ifx\@tempb|\if@tempswa\HH@add{\hskip\doublerulesep}\fi\@tempswatrue
@@ -854,7 +1209,8 @@
       {\meaning\@tempb\space ignored in \noexpand\hhline argument%
        \MessageBreak}%
   \fi\fi\fi\fi\fi\fi\fi\fi\fi\fi
-  \next}
+  \next}%
+\fi
 %
 % longtable 環境で，欄指定子 L, C, R, I
 %                   \hlineb
@@ -864,56 +1220,540 @@
 \@ifundefined{longtable}{}{%
 \let\emTlongtable\longtable
 \def\longtable{%
-\def\LT@hlineb{%
-  \noalign{\ifnum0=`}\fi
-    \penalty\@M
-    \futurelet\@let@token\LT@@hlineb}%
-\def\LT@@hlineb{%
-  \ifx\@let@token\hline
-    \global\let\@gtempa\@gobble
-    \gdef\LT@sep{\penalty-\@medpenalty\vskip\doublerulesep}%
-  \else
-    \global\let\@gtempa\@empty
-    \gdef\LT@sep{\penalty-\@lowpenalty\vskip-\arrayrulewidthb}%
-  \fi
-  \ifnum0=`{\fi}%
-  \multispan\LT@cols
-     \unskip\leaders\hrule\@height\arrayrulewidthb\hfill\cr
-  \noalign{\LT@sep}%
-  \multispan\LT@cols
-     \unskip\leaders\hrule\@height\arrayrulewidthb\hfill\cr
-  \noalign{\penalty\@M}%
-  \@gtempa}%
-  \let\hlineb\LT@hlineb
-  \newcolumntype{L}[1]{>{\hbox to ##1\bgroup }l<{\hss\egroup}}%
-  \newcolumntype{R}[1]{>{\hbox to ##1\bgroup\hss }r<{\egroup}}%
-  \newcolumntype{C}[1]{>{\hbox to ##1\bgroup\hss }c<{\hss\egroup}}%
+%\def\LT@hlineb{%
+%  \noalign{\ifnum0=`}\fi
+%    \penalty\@M
+%    \futurelet\@let@token\LT@@hlineb}%
+%\def\LT@@hlineb{%
+%  \ifx\@let@token\hline
+%    \global\let\@gtempa\@gobble
+%    \gdef\LT@sep{\penalty-\@medpenalty\vskip\doublerulesep}%
+%  \else
+%    \global\let\@gtempa\@empty
+%    \gdef\LT@sep{\penalty-\@lowpenalty\vskip-\arrayrulewidthb}%
+%  \fi
+%  \ifnum0=`{\fi}%
+%  \multispan\LT@cols
+%     \unskip\leaders\hrule\@height\arrayrulewidthb\hfill\cr
+%  \noalign{\LT@sep}%
+%  \multispan\LT@cols
+%     \unskip\leaders\hrule\@height\arrayrulewidthb\hfill\cr
+%  \noalign{\penalty\@M}%
+%  \@gtempa}%
+%  \let\hlineb\LT@hlineb
+%%%% \@ifundefined{NC@find@\NC@char}{%
+  \@ifundefined{EMLT@newcolumn}{%
+    \newcolumntype{L}[1]{>{\hbox to ##1\bgroup }l<{\hss\egroup}}%
+    \newcolumntype{R}[1]{>{\hbox to ##1\bgroup\hss }r<{\egroup}}%
+    \newcolumntype{C}[1]{>{\hbox to ##1\bgroup\hss }c<{\hss\egroup}}%
+    \def\EMLT@newcolumn{}%
+  }{}%
+  \def\hlineb{%
+    \noalign{\xdef\origarrayrulewidth{\the\arrayrulewidth}%
+    \global\arrayrulewidth \arrayrulewidthb}%
+    \hline
+    \noalign{\global\arrayrulewidth\origarrayrulewidth}%
+  }%
   \emTlongtable}}%
 %
 % arydshln, hhline を併用するための臨時修正
-% \\\hhline{.....}
+% \\\hhline{.....}%
 %   に代えて
-% \hhcr\hline{....}
-
-\def\hhcr{\@ifnextchar[{\@hhcr}{\@hhcr[3.2pt]}}
-%\def\@hhcr[#1]{\vspace{-#1}\\[#1]}
-\def\@hhcr[#1]{\\[#1]\noalign{\vskip -#1}}
+% \hhcr\hline{....}%
 %
-\@ifundefined{koyaa}{}{%
-  \let\NEE\koyaa
-  \let\NEN\koyad
-  \let\SEE\koyac
-  \let\SES\koyab
-  \let\NE\nearrow
-  \let\SE\searrow
-  \let\NW\nwarrow
-  \let\SW\swarrow
-  \let\EE\rightarrow
-  \let\WW\leftarrow
-  \let\NN\uparrow
-  \let\SS\downarrow
-  \let\SSE\SES
-  \let\NNE\NEN
+\def\hhcr{\@ifnextchar[{\@hhcr}{\@hhcr[2.8\p@]}}% 2.8=\doublerulesep+2\arrayrulewidth
+%\def\@hhcr[#1]{\vspace{-#1}\\[#1]}%
+\def\@hhcr[#1]{\\[#1]\noalign{\vskip -#1}}%
+%
+% arydshln 点線罫線の形状指定
+%
+\def\setarydash#1{%
+  \@ifundefined{dashlinedash}{%
+    \errmessage{arydshln.sty がロードされていません}
+  }{%
+    \strsep{#1}{,}\setarydash@a\setarydash@b
+    \dashlinedash=\setarydash@a\relax
+    \dashlinegap=\setarydash@b\relax
+  }%
+}%
+%
+%
+\def\rowifunc#1{#1}%
+%
+\def\orikaesitabular{\@ifnextchar<{\@orikaesitabular}{%
+  \@orikaesitabular<\empty>}}
+\def\@orikaesitabular<#1>#2{%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\edef\hline@tcb{tcb}%
+\def\orikaesi@kankaku{0pt}%
+\define@key{emT}{orikaesikankaku}{\edef\orikaesi@kankaku{##1}}%
+\define@key{emT}{retuhaba}{\edef\retu@haba{##1}}%
+\define@key{emT}{columnwidth}{\edef\retu@haba{##1}}%
+\define@key{emT}{columnlcr}{\edef\column@lcr{##1}%
+  \strsep[\tmp@f]{##1}{C}\tmp@a\tmp@b
+  \ifnum\tmp@f=\z@
+    \strsep[\tmp@f]{##1}{L}\tmp@a\tmp@b
+    \ifnum\tmp@f=\z@
+      \strsep[\tmp@f]{##1}{R}\tmp@a\tmp@b
+    \fi
+  \fi
+  \ifnum\tmp@f>\z@
+    \strsep\tmp@b{|}\tmp@a\tmp@b
+    \strsep\tmp@a{<}\tmp@a\tmp@b
+    \edef\retu@haba{\tmp@a}%
+  \fi
+  \ignorespaces
+  }%
+\define@key{emT}{hline}{\edef\hline@tcb{##1}}%
+\define@key{emT}{rowstrut}{\def\row@@strut{##1}}%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\def\output@orikaesitbl{%
+  \noindent
+  \edef\tbl@@{}%
+  \Ifor\@@i{1}{\row@N}\Do{%
+    \Strchr{\hline@tcb}{c}\orikaesitbl@tmp
+    \ifnum\orikaesitbl@tmp>\z@
+      \EMedefappend\tbl@@{%
+        \csname row@\romannumeral\@@i\endcsname\noexpand\\ \noexpand\hline}%
+    \else
+      \EMedefappend\tbl@@{%
+        \csname row@\romannumeral\@@i\endcsname\noexpand\\}%
+    \fi
+  }%
+  \Strchr{\hline@tcb}{b}\orikaesitbl@tmp
+  \ifnum\orikaesitbl@tmp>\z@
+    \EMedefappend\tbl@@{%
+      \csname row@\romannumeral\@@i\endcsname\noexpand\\ \noexpand\hline}%
+  \else
+    \EMedefappend\tbl@@{%
+      \csname row@\romannumeral\@@i\endcsname\noexpand\\}%
+  \fi
+  \EMedef\tmp@arg@{{\tmp@arg}}%
+  \Strchr{\hline@tcb}{t}\orikaesitbl@tmp
+  \ifnum\orikaesitbl@tmp>\z@
+    \expandafter\tabular\tmp@arg@\hline
+  \else
+    \expandafter\tabular\tmp@arg@
+  \fi
+    \tbl@@
+  \endtabular
+}%
+\def\@dpttl{%
+  \edef\@tmpt{\empty}%
+  \edef\@flg{0}%
+  \edef\tbl@width{0pt}%
+  \edef\tmp@i{0}%
+  \expandafter\@for\expandafter\@@c\expandafter:\expandafter=\ttl@column\do{%
+    \Incr\tmp@i
+    \setbox0=\hbox{\@@c}%
+    \ifx\empty\@@c\else\edef\dp@ttl@flg{}\fi
+    \@tempdima\wd0
+    \advance\@tempdima2\tabcolsep
+    \advance\@tempdima2\arrayrulewidth
+    \ifdim\@tempdima>\tbl@width
+      \edef\tbl@width{\the\@tempdima}%
+    \fi
+    \expandafter\EMedef\csname row@\romannumeral\tmp@i\endcsname{\@@c}%
+  }%
+  \edef\row@N{\tmp@i}%
+  \edef\column@N{0}%
+%\typeout{tbl@width=\tbl@width}%
+  \@ifundefined{dp@ttl@flg}{%
+    \EMedef\tmp@arg{|>{\noexpand\row@@strut\hspace*{-\tbl@width}}l}%
+    \edef\tbl@width{0.4pt}%
+  }{%
+    \EMedef\tmp@arg{|>{\noexpand\row@@strut}l|}%
+  }%
+}%
+\def\addcolumn{\@ifnextchar[{\@addcolumn}{\@addcolumn[\empty]}}%
+\def\@addcolumn[##1]##2{%
+  \edef\@tmpa{\empty}%
+  \edef\@flg{0}%
+  \edef\clm@width{0pt}%
+  \expandafter\@for\expandafter\@@c\expandafter:\expandafter=##2\do{%
+    \ifx\empty ##1\relax
+      \ifx\empty\retu@haba
+        \setbox0=\hbox{\@@c}%
+        \@tempdima\wd0
+      \else
+        \@tempdima=\retu@haba
+      \fi
+    \else
+      \setbox0=\hbox{\@@c}%
+      \@tempdima\wd0
+    \fi
+    \advance\@tempdima2\tabcolsep
+    \advance\@tempdima\arrayrulewidth
+    \ifdim\@tempdima>\clm@width
+      \edef\clm@width{\the\@tempdima}%
+    \fi
+  }%
+  \@tempdima\clm@width
+  \advance\@tempdima\tbl@width
+  \edef\tbl@width{\the\@tempdima}%
+%\typeout{\copy0:\tbl@width/\the\linewidth}%
+  \ifdim\tbl@width>\linewidth
+%\xxx
+    \output@orikaesitbl
+%    \\[20pt]
+\ifdim\orikaesi@kankaku=\z@
+    \\
+\else
+    \\[\orikaesi@kankaku]
+\fi
+    \@dpttl
+    \@tempdima\tbl@width
+    \advance\@tempdima\clm@width
+    \edef\tbl@width{\the\@tempdima}%
+  \fi
+  \Incr\column@N
+  \edef\tmp@i{0}%
+  \ifx\empty ##1\relax
+    \EMedefappend\tmp@arg{\tmp@arg@i}%
+  \else
+    \EMedefappend\tmp@arg{##1}%
+  \fi
+  \expandafter\@for\expandafter\@@c\expandafter:\expandafter=##2\do{%
+    \Incr\tmp@i
+    \ifnum\tmp@i=\@ne
+    \expandafter\EMedefappend\csname row@\romannumeral\tmp@i\endcsname{&\rowifunc{\@@c}}%
+    \else
+    \expandafter\EMedefappend\csname row@\romannumeral\tmp@i\endcsname{&\@@c}%
+    \fi
+  }%
+%\typeout{\meaning\row@i}%
+  \ignorespaces}%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+  \noindent
+  \ignorespaces
+  \edef\retu@haba{\empty}%
+  \def\column@lcr{r|}%
+  \edef\tbl@width{0pt}%
+  \def\row@@strut{\strut}%
+  \ifx\empty #1\else\setkeys{emT}{#1}\fi
+%  \ifx\empty\retu@haba
+    \EMedef\tmp@arg@i{\column@lcr}%
+%  \else
+%    \if c\column@lcr
+%      \EMedef\tmp@arg@i{C{\retu@haba}|}%%
+%    \else\if l\column@lcr
+%      \EMedef\tmp@arg@i{L{\retu@haba}|}%%
+%    \else
+%      \EMedef\tmp@arg@i{R{\retu@haba}|}%%
+%    \fi\fi
+%  \fi
+  \def\ttl@column{#2}%
+  \@dpttl
+}%
+\def\endorikaesitabular{%
+  \output@orikaesitbl
+}%
+%\let\turntabular\orikaesitabular
+%\let\endturntabular\endorikaesitabular
+%%
+%% turntabular
+%%
+%\def\turntabular{\@ifnextchar<{\@turntabular}{\@turntabular<\empty>}}%
+\def\turntabular#1{%
+  \@ifundefined{verbatim@start}{\errmessage{turntabular needs verbatim.sty}}{}%
+  \EMedef\tbl@arg@opt{#1}%
+  \edef\xychng@flnm{\jobname.txt}%
+    \bgroup\immediate\openout\em@whndl=\EM@workfiledir \xychng@flnm
+    \@bsphack\let\do\@makeother\dospecials
+    \catcode`\^^M\active
+    \def\verbatim@processline{%
+        \immediate\write\em@whndl{\the\verbatim@line}}%
+    \verbatim@start}%
+\def\turntabular@sub{%
+  \read\pl@in to \read@ln
+%
+  \ifeof\pl@in
+  \else
+    \ifthenelse{\equal\read@ln{\par }}{}{%
+      \ifeof\pl@in
+      \else
+        \Incr\tbl@lnnum
+        \Strsep\read@ln{\\}\tmp@a\tmp@b
+%\tailchar\read@ln\tmp@a\tmp@b
+        \csvhairetu*[&]\tmp@a{\romannumeral\tbl@lnnum foo}%
+        \turntabular@sub
+      \fi
+    }%
+  \fi
+}%
+%
+\def\endturntabular{\@esphack\immediate\closeout\em@whndl\egroup
+  \par\noindent
+  \let\emg@cr=\\%
+  \let\\=\relax%
+%\typeout{endturntabular}%
+  \openin\pl@in=\EM@workfiledir \xychng@flnm%
+  \edef\tbl@lnnum{0}%
+  \turntabular@sub
+  \immediate\closein\pl@in
+%\typeout{end of turntabular@sub}%
+\let\\=\emg@cr%
+  \EMedef\tbl@arg@{\empty}%
+  \edef\i@val{1}%
+    \Ifor*\j@val{1}{\tbl@lnnum}\Do{%
+      \ifnum\j@val=\@ne
+        \EMedef\tbl@arg@{\hairetu{\romannumeral\j@val foo}{\i@val}}%
+      \else
+        \EMedefappend\tbl@arg@{,\hairetu{\romannumeral\j@val foo}{\i@val}}%
+      \fi
+    }%
+  \EMedef\tbl@arg{<\tbl@arg@opt>{\tbl@arg@}}%
+%\typeout{arg=\tbl@arg}%
+\expandafter\orikaesitabular\tbl@arg
+  \Ifor*\i@val{2}{\ifooN}\Do{%
+    \edef\buf@{}%
+    \Ifor*\j@val{1}{\tbl@lnnum}\Do{%
+      \EMedefappend[,]\buf@{\hairetu{\romannumeral\j@val foo}{\i@val}}%
+    }%
+    \addcolumn{\buf@}
+  }%
+\endorikaesitabular
+}%
+%
+%
+\def\columntorows#1#2{%
+%
+  \immediate\openout\em@whndl=#2\relax
+%
+  \Cfor{\edef\i@val{0}\strsep{#1}{;}\ctortmp@a\ctortmp@b}%
+      {\not\equal\ctortmp@a\empty}%
+      {\strsep\ctortmp@b{;}\ctortmp@a\ctortmp@b}%
+  \do{%
+      \Incr\i@val
+      \csvhairetu*{\ctortmp@a}{\romannumeral\i@val @ctor}%
+  }%
+  \edef\ctor@NC{\i@val}%
+%
+  \Ifor*\j@val{1}{\i@ctorN}\Do{%
+    \edef\tmp@a{\hairetu{i@ctor}{\j@val}}%
+    \Ifor*\i@val{2}{\ctor@NC}\Do{%
+      \def\tmp@b{\romannumeral\i@val @ctor}%
+      \edefappend\tmp@a{&\hairetu\tmp@b\j@val}%
+    }%
+    \immediate\write\em@whndl{\tmp@a}%
+  }%
+  \immediate\closeout\em@whndl
+%
+\noindent
+  outfile = #2\relax\\
+}%
+%
+\edef\arrayXrulewidth{\the\arrayrulewidth}%
+\edef\arrayYrulewidth{\the\arrayrulewidth}%
+\def\recttabular(#1,#2){\@ifnextchar[{\@recttabular(#1,#2)}{%
+  \@recttabular(#1,#2)[c]}}%
+\def\@recttabular(#1,#2)[#3]#4{%
+  \@ifundefined{perl@okikae}{%
+    \errmessage{load emathPp.sty}}{}%
+%
+  \def\hyoupszahyou{%
+    \@ifundefined{pszahyou}{%
+      \errmessage{load emathPs.sty}}{}%
+    \@ifundefined{xunitlength}{%
+      \errmessage{load emathPxy.sty}}{}%
+    \@ifnextchar[{\@hyoupszahyou}{\@hyoupszahyou[\empty]}}%
+  \def\@hyoupszahyou[##1](##2,##3)(##4,##5){%
+    \setlength{\@tempdima}{#1+\arrayXrulewidth}%
+    \edef\w@x{\strip@pt\@tempdima}%
+    \setlength{\@tempdima}{\rt@H+\arrayYrulewidth}%
+    \edef\w@y{\strip@pt\@tempdima}%
+    \setbox\rt@box=\hbox\bgroup
+      \ifx\empty ##1\relax
+        \edef\tmp{[xul=\w@x,yul=\w@y,haiti=o]}%
+      \else
+        \edef\tmp{[xul=\w@x,yul=\w@y,haiti=o,##1]}%
+      \fi
+      \expandafter\csname pszahyou*\expandafter\endcsname\tmp(##2,##3)(##4,##5)
+  }%
+  \def\endhyoupszahyou{%
+    \csname endpszahyou*\endcsname\egroup
+    \Put\LB{\box\rt@box}%
+  }%
+%
+  \def\hyouzahyou{%
+    \@ifundefined{xunitlength}{%
+      \errmessage{load emathPxy.sty}}{}%
+    \@ifnextchar[{\@hyouzahyou}{\@hyouzahyou[\empty]}}%
+  \def\@hyouzahyou[##1](##2,##3)(##4,##5){%
+    \setlength{\@tempdima}{#1+\arrayXrulewidth}%
+    \edef\w@x{\strip@pt\@tempdima}%
+    \setlength{\@tempdima}{\rt@H+\arrayYrulewidth}%
+    \edef\w@y{\strip@pt\@tempdima}%
+    \@Div\w@y\w@x\w@yx
+    \setbox\rt@box=\hbox\bgroup
+      \ifx\empty ##1\relax
+        \edef\tmp{[ul=\w@x\p@,yscale=\w@yx,haiti=o]}%
+      \else
+        \edef\tmp{[ul=\w@x\p@,yscale=\w@yx,haiti=o,##1]}%
+      \fi
+      \expandafter\csname zahyou*\expandafter\endcsname\tmp(##2,##3)(##4,##5)
+  }%
+  \def\endhyouzahyou{%
+    \csname endzahyou*\endcsname\egroup
+    \Put\LB{\box\rt@box}%
+  }%
+%
+  \@ifundefined{rt@box}{\newbox\rt@box}{}%
+% \def\em@syasen{\drawline}%
+  \setlength{\@tempdima}{#1-2\tabcolsep}%
+  \edef\rt@W{\the\@tempdima}%
+  \ifthenelse{\equal{#2}{-}}{%
+    \edef\rt@H{#1}%
+  }{%
+\ifthenelse{\equal{#2}{*}}{%
+    \edef\use@cellstrut{1}%
+    \@tempdima\ht\strutbox
+    \advance\@tempdima\dp\strutbox
+    \edef\rt@H{\the\@tempdima}%
+}{%
+    \edef\rt@H{#2}%
+}%
+  }%
+  \setlength{\@tempdima}{\rt@H}%
+  \@tempdimb=.7\@tempdima
+  \edef\cellstrut@h{\the\@tempdimb}%
+  \@tempdimb=.3\@tempdima
+  \edef\cellstrut@d{\the\@tempdimb}%
+  \EMedef\cellstrut{\vrule\@height\cellstrut@h\@depth\cellstrut@d\@width\z@}%
+  \@ifundefined{use@cellstrut}{\def\hyousityuu{\cellstrut}}{}%
+  \perl@okikae{#4}{-}{\rt@W}\rt@arg%
+  \@ifundefined{use@cellstrut}{%
+    \EMedef\rt@tmp{'gyoudaka=\hyousityuu'[#3]{\rt@arg}}%
+  }{%
+    \EMedef\rt@tmp{[#3]{\rt@arg}}%
+  }%
+  \expandafter\tabular\rt@tmp
+}
+\def\endrecttabular{\endtabular}%
+%
+\def\rectarray(#1,#2){\@ifnextchar[{\@rectarray(#1,#2)}{%
+    \@rectarray(#1,#2)[c]}}%
+\def\@rectarray(#1,#2)[#3]#4{%
+  \@ifundefined{perl@okikae}{%
+    \errmessage{load emathPp.sty}}{}%
+%
+  \def\hyoupszahyou{%
+    \@ifundefined{pszahyou}{%
+      \errmessage{load emathPs.sty}}{}%
+    \@ifundefined{xunitlength}{%
+      \errmessage{load emathPxy.sty}}{}%
+    \@ifnextchar[{\@hyoupszahyou}{\@hyoupszahyou[\empty]}}%
+  \def\@hyoupszahyou[##1](##2,##3)(##4,##5){%
+    \setlength{\@tempdima}{#1+\arrayXrulewidth}%
+    \edef\w@x{\strip@pt\@tempdima}%
+    \setlength{\@tempdima}{\rt@H+\arrayYrulewidth}%
+    \edef\w@y{\strip@pt\@tempdima}%
+    \setbox\rt@box=\hbox\bgroup
+      \ifx\empty ##1\relax
+        \edef\tmp{[xul=\w@x,yul=\w@y,haiti=o]}%
+      \else
+        \edef\tmp{[xul=\w@x,yul=\w@y,haiti=o,##1]}%
+      \fi
+      \expandafter\csname pszahyou*\expandafter\endcsname\tmp(##2,##3)(##4,##5)
+  }%
+  \def\endhyoupszahyou{%
+    \csname endpszahyou*\endcsname\egroup
+    \Put\LB{\box\rt@box}%
+  }%
+%
+%
+  \def\hyouzahyou{%
+    \@ifundefined{perl@okikae}{%
+      \errmessage{load emathPp.sty}}{}%
+    \@ifundefined{xunitlength}{%
+      \errmessage{load emathPxy.sty}}{}%
+    \@ifnextchar[{\@hyouzahyou}{\@hyouzahyou[\empty]}}%
+  \def\@hyouzahyou[##1](##2,##3)(##4,##5){%
+    \@ifundefined{perl@okikae}{%
+      \errmessage{load emathPp.sty}}{}%
+    \@ifundefined{xunitlength}{%
+      \errmessage{load emathPxy.sty}}{}%
+    \setlength{\@tempdima}{#1+\arrayXrulewidth}%
+    \edef\w@x{\strip@pt\@tempdima}%
+    \setlength{\@tempdima}{\rt@H+\arrayYrulewidth}%
+    \edef\w@y{\strip@pt\@tempdima}%
+    \setbox\rt@box=\hbox\bgroup
+      \ifx\empty ##1\relax
+        \edef\tmp{[xul=\w@x,yul=\w@y,haiti=o]}%
+      \else
+        \edef\tmp{[xul=\w@x,yul=\w@y,haiti=o,##1]}%
+      \fi
+      \expandafter\csname zahyou*\expandafter\endcsname\tmp(##2,##3)(##4,##5)
+  }%
+  \def\endhyouzahyou{%
+    \csname endzahyou*\endcsname\egroup
+    \Put\LB{\box\rt@box}%
+  }%
+%
+% \def\em@syasen{\drawline}%
+  \@ifundefined{rt@box}{\newbox\rt@box}{}%
+  \setlength{\@tempdima}{#1-2\arraycolsep}%
+  \edef\rt@W{\the\@tempdima}%
+  \ifthenelse{\equal{#2}{-}}{%
+    \edef\rt@H{#1}%
+  }{%
+\ifthenelse{\equal{#2}{*}}{%
+    \@tempdima\ht\strutbox
+    \advance\@tempdima\dp\strutbox
+    \edef\rt@H{\the\@tempdima}%
+}{%
+    \edef\rt@H{#2}%
+}%
+  }%
+  \setlength{\@tempdima}{\rt@H}%
+  \@tempdimb=.7\@tempdima
+  \edef\cellstrut@h{\the\@tempdimb}%
+  \@tempdimb=.3\@tempdima
+  \edef\cellstrut@d{\the\@tempdimb}%
+  \EMedef\cellstrut{\vrule\@height\cellstrut@h\@depth\cellstrut@d\@width\z@}%
+  \@ifundefined{use@cellstrut}{\def\hyousityuu{\cellstrut}}{}%
+  \perl@okikae{#4}{-}{\rt@W}\rt@arg%
+  \@ifundefined{use@cellstrut}{%
+    \EMedef\rt@tmp{'gyoudaka=\hyousityuu'[#3]{\rt@arg}}%
+  }{%
+    \EMedef\rt@tmp{[#3]{\rt@arg}}%
+  }%
+  \expandafter\array\rt@tmp%
+}
+\def\endrectarray{\endarray}%
+%
+\IfFileExists{zougenhyou.sty}{\RequirePackage{zougenhyou}}{}%
+\IfFileExists{outotuhyou.sty}{\RequirePackage{outotuhyou}}{}%
+%\IfFileExists{emYoungT.sty}{\RequirePackage{emYoungT}}{}%
+%\IfFileExists{kaitouwaku.sty}{\RequirePackage{kaitouwaku}}{}%
+%
+\AtBeginDocument{%
+  \@ifundefined{koyaa}{}{%
+    \let\NEE\koyaa
+    \let\NEN\koyad
+    \let\SEE\koyac
+    \let\SES\koyab
+    \let\NE\ceonearrow
+    \let\SE\ceosearrow
+    \let\NW\ceonwarrow
+    \let\SW\ceoswarrow
+    \let\EE\ceorightarrow
+    \let\WW\ceoleftarrow
+    \let\NN\ceouparrow
+    \let\SS\ceodownarrow
+    \let\SSE\SES
+    \let\NNE\NEN
+  }%
+%
+  \@ifundefined{hdashline}{}{%
+    \@ifundefined{hhline}{}{%
+      \ifnum\TL@arydshln=\z@
+        \errmessage{arydshln と hhline の併用は罫線の乱れを誘発します}%
+%      \else
+%        \@warning{arydshln と hhline の併用は罫線の乱れを誘発します}%
+      \fi
+    }%
+  }%
 }%
 %
 \endinput
@@ -1009,3 +1849,91 @@ v 0.40 2005/09/24
 v 0.41 2005/09/25
     \Hyoumidasi : [o] の場合
     \sya : <#4> を`;'で区切り，斜線を引く前後に配置可能
+v 0.42 2005/11/11
+    key に label= を追加
+v 0.44 2005/12/24
+    \EMcell で width も補助ファイルに書き出す
+v 0.45 2006/05/03
+    \EMcell : \ifmmode を使用
+v 0.46 2006/12/15
+    \newcolumntype の二重定義を回避
+v 0.47 2007/10/29
+    カラムの斜線を \vrule で引く \rotateline がデフォルト
+    （従来の tpic を使用するときは \def\em@syasen{\drawline} とする）
+v 0.48 2007/11/17
+    ロードオプション：arydshln
+                        hhline.sty をロードしない
+v 0.49 2008/03/10
+    [arydshln]の場合，\def\multicolumn に \long をかぶせる
+v 0.50 2008/03/18
+    [nothhline]: hhline.sty をロードしない
+    [hhline]: hhline.sty をロードする
+    　　　　　デフォルトであるが，[arydshln] と併用することで，両者をロードする
+    　　　　　（ただし，警告が出る）
+v 0.51 2008/04/12
+    \NE などに [xscale=..]など
+v 0.52 2008/10/04
+    \Hyoumidasi: \hyoumidasi に吸収
+v 0.53 2008/12/22
+    tabular, array の引数で L0, C0, R0 とした場合，
+    列幅は \hyouretuhaba とする。
+    onlyT オプション
+v 0.54 2008/12/26
+    列指定子 L, C, R を用いた場合，
+    その列における \hyouretuhaba を指定したことにもなる
+v 0.55 2008/12/27
+    \array: (gyoudaka=...)オプション
+v 0.56 2009/02/01
+    \emTsya: LCR オプション指定を \clm@lcr に保存
+v 0.57 2009/07/02
+    \EMcell*: 濃度指定を有効に
+v 0.58 2009/07/04
+    tsubarray環境
+v 0.59 2009/09/07
+    orikaesitabular環境
+v 0.61
+    orikaesitabular環境：仕様変更
+v 0.62 2010/04/22
+    \columntorows
+v 0.63 2010/05/09
+    \emTsya : linethickness, iro オプション使用可能
+v 0.64 2010/05/30
+    \newcounter{enumT}%
+v 0.65 2010/06/11
+    ロードオプション [hhdshln]
+v 0.66 2010/08/14
+    \EMenumTlabel
+v 0.67 2011/01/09
+    \newcounter{enumTi}%
+    \newcounter{enumTii}%
+    \newcounter{enumTiii}%
+v 0.68 2011/02/21
+    \fsubarray: \footnotesize
+v 0.69 2011/02/23
+    ロードオプション [pssyasen]
+v 0.70 2011/03/12
+    orikaesitabular: [hline=t/c/b]
+v 0.71 2011/05/03
+    recttabular環境
+v 0.72 2011/05/27
+    recttabular: tabular の [t] オプションに対応
+v 0.73 2011/06/01
+    rectarray: バグフィックス
+v 0.74 2012/01/15
+    \columnwd: 欄指定子に L/C/R を用いたときの列幅
+v 0.75 2012/06/01
+    \cellsize
+v 0.76 2012/06/29
+    \NE, \SE, \emTsya: \DeclareRobustCommand
+v 0.77 2012/07/28
+    \orikaesitabular: <orikaesikankaku=..> 縦間隔制御
+v 0.78 2012/09/24
+    zougenhyou.sty
+v 0.79 2013/01/04
+    \NEE など：\DeclareRobustCommand
+v 0.80 2013/09/27
+    \hyoumidasi: \DeclareRobustCommand (BBS #11924)
+v 0.81 2014/05/13
+    \gyoudaka: \gyousityuu の変更に対して warning を出す。(BBS #12271)
+v 0.82 2015/01/04
+    turntabular

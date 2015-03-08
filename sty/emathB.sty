@@ -2,45 +2,69 @@
 %   分数計算
 
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesPackage{emathB}[2005/03/20 v0.14]%
-
-%\RequirePackage{fp}
-\RequirePackage{emath}
-
+\ProvidesPackage{emathB}[2013/05/18 v0.37]%
+%
+\@ifpackageloaded{emath}{}{\RequirePackage{emath}}%
+%\@ifpackageloaded{keyval}{}{\RequirePackage{keyval}}%
+%
 \newif\ifsyousuu
+\newif\ifFseikei
+\Fseikeifalse
 \edef\stack@n{0}%
-
+%
 \define@key{emB}{ansstrut}[1]{\def\ans@strut{#1}}%
 \define@key{emB}{kotaegyousityuu}[1]{\def\ans@strut{#1}}%
 \define@key{emB}{gyousityuu}[1]{\def\Fsyn@strut{#1}}%
 \define@key{emB}{haiti}[1]{\def\h@iti{#1}}%
 \define@key{emB}{soroe}[1]{\def\s@r@e{#1}}%
-
+\define@key{emB}{aval}[1]{\def\aval@{#1}}%
+\define@key{emB}{clip}[1]{\def\pr@clip{#1}}%
+\define@key{emB}{setusuu}{\def\setusuu@{#1}}%
+\define@key{emB}{ketasuu}{\edef\ketasuu@{#1}}%
+\define@key{emB}{matuisyori}{\edef\matui@syori{#1}}%
+\define@key{emB}{prFoption}{\def\prF@opt{#1}}%
+\define@key{emB}{prfunc}{\def\pr@func{#1}}%
+%
+%\let\Fseikei\@gobble
+%
+\def\ybunsuu#1#2{%
+  \BYakubun{#1}{#2}\yb@a\yb@b
+  \ifnum\yb@b=\@ne\yb@a\else\bunsuu\yb@a\yb@b\fi
+}
 \def\BYakubun#1#2#3#4{%
   \ifnum#1=\z@\edef#3{0}\edef#4{1}\else
     \saidaikouyakusuu{#1}{#2}\BYakubun@tmp
     \IDiv{#1}\BYakubun@tmp#3%
-    \IDiv{#2}\BYakubun@tmp#4\fi}
-
+    \IDiv{#2}\BYakubun@tmp#4%
+    \ifnum #4<\z@
+      \IMulself #3{-1}%
+      \IMulself #4{-1}%
+    \fi
+  \fi}
+\def\FYakubun#1#2{%
+  \FtoB{#1}\FY@a\FY@b
+  \BYakubun\FY@a\FY@b\FY@a@\FY@b@
+  \edef#2{\FY@a@/\FY@b@}}%
+%
 \def\BAdd#1#2#3#4#5#6{%
   \IMul{#2}{#4}#6\IMul{#1}{#4}#5\IMul{#2}{#3}\BAdd@tmp
   \IAdd{#5}\BAdd@tmp#5%
   \BYakubun{#5}{#6}#5#6%
 }
-
+%
 \def\BSub#1#2#3#4#5#6{%
   \IMul{#2}{#4}#6\IMul{#1}{#4}#5\IMul{#2}{#3}\BAdd@tmp
   \ISub{#5}\BAdd@tmp#5\BYakubun{#5}{#6}#5#6%
 }
-
+%
 \def\BMul#1#2#3#4#5#6{%
   \IMul{#1}{#3}#5\IMul{#2}{#4}#6%
   \BYakubun{#5}{#6}#5#6%
 }
-
+%
 \def\BDiv#1#2#3#4#5#6{%
   \BMul{#1}{#2}{#4}{#3}#5#6}
-
+%
 % \StoB#1#2#3
 %   #1 : 小数表示
 %   #2 : 分子
@@ -75,11 +99,16 @@
   \StoB{#1}\StoF@a\StoF@b
   \edef#2{\StoF@a/\StoF@b}%
 }
-
-\def\issyousuu#1{\Strchr{#1}{.}\is@syousuu
+%
+\def\issyousuu#1{%
+  \EMedef\issyousuu@tmp{#1}%
+  \Strchr{\issyousuu@tmp}{.}\is@syousuu
   \ifnum\is@syousuu>\z@\syousuutrue\else\syousuufalse\fi
 }
-
+%\def\issyousuu#1{\Strchr{#1}{.}\is@syousuu
+%  \ifnum\is@syousuu>\z@\syousuutrue\else\syousuufalse\fi
+%}
+%
 % \FtoB#1#2#3
 %   #1 : 分数表示（例：3/4）
 %   #2 : 分子
@@ -151,6 +180,7 @@
   \BAdd\FAdd@bunsi\FAdd@bunbo\FAdd@@bunsi\FAdd@@bunbo\FAdd@@@bunsi
   \FAdd@@@bunbo
   \edef#3{\FAdd@@@bunsi/\FAdd@@@bunbo}%
+  \Fseikei{#3}%
 }
 
 \def\FSub#1#2#3{%
@@ -159,6 +189,7 @@
   \BSub\FSub@bunsi\FSub@bunbo\FSub@@bunsi\FSub@@bunbo\FSub@@@bunsi
   \FSub@@@bunbo
   \edef#3{\FSub@@@bunsi/\FSub@@@bunbo}%
+  \Fseikei{#3}%
 }
 
 \def\FMul#1#2#3{%
@@ -167,6 +198,7 @@
   \BMul\FMul@bunsi\FMul@bunbo\FMul@@bunsi\FMul@@bunbo
   \FMul@@@bunsi\FMul@@@bunbo
   \edef#3{\FMul@@@bunsi/\FMul@@@bunbo}%
+  \Fseikei{#3}%
 }
 
 \def\FDiv#1#2#3{%
@@ -175,6 +207,7 @@
   \BDiv\FDiv@bunsi\FDiv@bunbo\FDiv@@bunsi\FDiv@@bunbo\FDiv@@@bunsi
   \FDiv@@@bunbo
   \edef#3{\FDiv@@@bunsi/\FDiv@@@bunbo}%
+  \Fseikei{#3}%
 }
 
 \def\FPower#1#2#3{%
@@ -194,7 +227,13 @@
 \def\SAdd#1#2#3{\FPadd\@FPadd@t{#1}{#2}\Sclip\@FPadd@t#3}%
 \def\SSub#1#2#3{\FPsub\@FPadd@t{#1}{#2}\Sclip\@FPadd@t#3}%
 \def\SMul#1#2#3{\FPmul\@FPadd@t{#1}{#2}\Sclip\@FPadd@t#3}%
-\def\SDiv#1#2#3{\FPdiv\@FPadd@t{#1}{#2}\Sclip\@FPadd@t#3}%
+\def\SDiv#1#2#3{%
+  \@ifundefined{FPdiv}{%
+    \@Div{#1}{#2}#3\relax
+  }{%
+    \FPdiv\@FPadd@t{#1}{#2}\Sclip\@FPadd@t#3\relax
+  }%
+}%
 
 % 小数を丸める
 %   \Scut[#1]#2#3#4
@@ -214,11 +253,14 @@
   \else\edef\Bfrac@bunsi{#2}\fi
   \ifnum#3<\z@\IMul\Bfrac@tmp{-1}\Bfrac@tmp\IMul{#3}{-1}\Bfrac@bunbo
   \else\edef\Bfrac@bunbo{#3}\fi
-  \ifnum\Bfrac@tmp<\z@ -\fi
+  \ifnum\Bfrac@bunsi=\z@\else\ifnum\Bfrac@tmp<\z@ -\fi\fi%%%%%%%%%%%%%%% 2007/12/01
   \ifnum\Bfrac@bunbo=\@ne
     \Bfrac@bunsi
   \else
-    \csname #1bunsuu\endcsname\Bfrac@bunsi\Bfrac@bunbo
+    \headchar\Bfrac@bunsi\Bfrac@h\Bfrac@r
+    \ifthenelse{\equal\Bfrac@h{+}}{+\csname #1bunsuu\endcsname\Bfrac@r\Bfrac@bunbo}{%
+      \csname #1bunsuu\endcsname\Bfrac@bunsi\Bfrac@bunbo}%
+%   \csname #1bunsuu\endcsname\Bfrac@bunsi\Bfrac@bunbo
 %   \ifthenelse{\equal{#1}{r}}{\kern-.3em}{\relax}%
   \fi
 }
@@ -245,7 +287,8 @@
 
 \def\Ffrac#1{\FtoB{#1}\Ffrac@bunsi\Ffrac@bunbo\Bfrac\Ffrac@bunsi\Ffrac@bunbo}
 %
-\def\prF{\@ifnextchar[{\@prF}{\@prF[]}}
+%\def\prF{\@ifnextchar[{\@prF}{\@prF[]}}
+\DeclareRobustCommand\prF{\@ifnextchar[{\@prF}{\@prF[]}}
 \def\@prF[#1]#2{%
   \issyousuu{#2}%
   \ifsyousuu%   小数
@@ -253,10 +296,10 @@
     \ifnum\prF@zyunkan>\z@\prZ{#2}\else #2\fi
   \else%        分数
   \strsep{#2}{;}\prF@obi\prF@bunsuu
-  \ifthenelse{\equal\prF@bunsuu{}}%
+  \ifthenelse{\equal\prF@bunsuu\empty}%
   {%  帯なし
     \strsep\prF@obi{/}\prF@bunsi\prF@bunbo
-    \ifthenelse{\equal\prF@bunbo{}}%
+    \ifthenelse{\equal\prF@bunbo\empty}%
     {%  整数
       \prF@bunsi
     }
@@ -270,6 +313,8 @@
   }%
   \fi
 }
+%
+\def\prtF#1{\prF[t]{#1}}%
 %
 %\def\prFS#1{\issyousuu{#1}\ifsyousuu #1\else\prF{#1}\fi}%
 
@@ -372,7 +417,19 @@
 \def\ZtoS{\@ifnextchar[{\@ZtoS}{\@ZtoS[\empty]}}
 \def\@ZtoS[#1]{\@ifnextchar[{\@@ZtoS[#1]}{\@@ZtoS[#1][r]}}
 \def\@@ZtoS[#1][#2]#3#4{\ZtoB{#3}\ZtoS@a\ZtoS@b\@@BtoS[#1][#2]\ZtoS@a\ZtoS@b#4}
-
+%
+\def\ketasuu#1{\edef\ketasuu@{#1}}%
+\def\matuisyori#1{\edef\matui@syori{#1}}%
+\edef\ketasuu@{2}%
+\edef\matui@syori{r}%
+\def\prFZ#1{\FtoZ{#1}\tmp@a\prZ\tmp@a}
+\def\prFS{\@ifnextchar[{\@prFS}{\@prFS[\ketasuu@]}}%
+\def\@prFS[#1]{\@ifnextchar[{\@@prFS[#1]}{\@@prFS[#1][\matui@syori]}}%
+\def\@@prFS[#1][#2]#3{\FtoS[#1][#2]{#3}\prFS@tmp
+% \ifnum\pr@clip>\z@
+    \EMclip\prFS@tmp\prFS@tmp
+% \fi
+  \prFS@tmp}%
 \let\prZ\ZyunkanSyousuu
 \let\prB\Bfrac
 \let\prBT\Tfrac
@@ -391,8 +448,19 @@
   \ifnum\Fhugou@a>\z@\edef#2{1}\else
   \ifnum\Fhugou@a<\z@\edef#2{-1}\else
   \edef#2{0}\fi\fi
-}
-
+}%
+\def\Fsign#1#2{\FtoB{#1}\Fhugou@a\Fhugou@b
+  \ifnum\Fhugou@a=\z@\edef#2{0}\relax
+  \else\ifnum\Fhugou@a>\z@
+    \ifnum\Fhugou@b<\z@\edef#2{-}\relax
+    \else\edef#2{+}\relax
+    \fi
+  \else
+    \ifnum\Fhugou@b>\z@\edef#2{-}\relax
+    \else\edef#2{+}\relax
+    \fi
+  \fi\fi
+}%
 % F 型分数の大小比較
 %
 % \Fhikaku#1#2#3
@@ -406,7 +474,15 @@
 \def\Fhikaku#1#2#3{\FSub{#1}{#2}\Fhikaku@s\Fhugou\Fhikaku@s #3}
 
 % ---------------------------------------------- Fcalc ----------
-\def\Fcalc#1=#2{\@Fcalc{#1}\edef#2{\@koui}}
+\def\Fcalc#1=#2{%
+  \headchar{#1}\FC@h\FC@r
+  \if -\FC@h
+    \edef\FC@a{(0)#1}
+  \else
+    \edef\FC@a{#1}%
+  \fi
+  \@Fcalc\FC@a
+  \edef#2{\@koui}}%
 \def\@Fcalc#1{%
   \@parse{#1}{@kou}{@opcode}{@lvl}\nlvl
   \Cfor{\edef\max@klvl{0}\edef\@i{0}}{\@i<\nlvl}{}\do{%
@@ -448,13 +524,14 @@
 }
 
 \def\@dpstack#1#2#3#4{%
-  \Cfor{\edef\dpstack@i{0}}{\dpstack@i<#4}{}\do{%
-    \Incr\dpstack@i
+%\typeout{--- dpstack ---}%
+%  \Cfor{\edef\dpstack@i{0}}{\dpstack@i<#4}{}\do{%
+%    \Incr\dpstack@i
 %    \typeout{\csname #1\romannumeral\dpstack@i\endcsname,
 %    \csname #2\romannumeral\dpstack@i\endcsname,
 %    \csname #3\romannumeral\dpstack@i\endcsname}%
-  }%
-% \typeout{#4}%
+%  }%
+%  \typeout{#4}%
 }
 
 \def\push@parse{%
@@ -562,8 +639,11 @@
     \else\if \@t)\Decr\kakko@lvl\edef\kakko@hazime{0}%
     \else\if \@t-\ifnum\kakko@hazime>\z@\edef\exist@minus{1}\fi%
       \edef\kakko@hazime{0}%
+    \else\if \@t+\ifnum\kakko@hazime>\z@\edef\exist@minus{1}\fi%
+      \edef\kakko@hazime{0}%
     \else\edef\kakko@hazime{0}%
     \fi\fi\fi\fi\fi
+    \fi
 %(head=\@t,remain=\@remain,kakkolvl=#5)\\
     \edef#2{#2\@t}%
   }%
@@ -618,7 +698,10 @@
 %\typeout{@tmp=\@tmp}%
       \ifnum\stk@beki>\z@ ^{\@tmp}\edef\stk@beki{0}\else
         \FtoB\@tmp\@a\@b
-        \ifnum\@a<\z@\left(\prF\@tmp\right)\else
+\headchar\@tmp\@h\@r
+\if +\@h\relax\left(\prF\@tmp\right)\else
+\if -\@h\relax\left(\prF\@tmp\right)\else
+%       \ifnum\@a<\z@\left(\prF\@tmp\right)\else
           \IAdd\@i{1}\@j
           \ifthenelse{%
             \@j<#4\and\csname #2\romannumeral\@j\endcsname=5\and\not\@b=1}{%
@@ -626,7 +709,8 @@
               \ifthenelse{\equal\@tmp\dumy@X}{%
                 \framebox{　　}}{\prF\@tmp}%
             }%
-        \fi
+%       \fi
+\fi\fi
       \fi
     \else
       \ifcase\csname #3\romannumeral\@i\endcsname
@@ -657,15 +741,16 @@
       \fi
     \fi
   }%
-}
-
+}%
+%
 % 組み立て除法
-\def\Fsyndiv{\def\Fsyn@strut{}\def\ans@strut{}\def\s@r@e{c}%
+\def\Fsyndiv{\def\Fsyn@strut{}\def\ans@strut{}\edef\s@r@e{c}\def\aval@{1}%
   \@ifnextchar<{\Fsyndiv@}{\@Fsyndiv}}
 \def\Fsyndiv@<#1>{\setkeys{emB}{#1}\@Fsyndiv} 
 \def\@Fsyndiv#1#2{%
   \edef\h@iti{\s@r@e}%
   \if R\h@iti\edef\h@iti{r}\fi
+%
   \def\Fsd@sub##1{%
     \xdef\Fsd@b@i{}\xdef\Fsd@c@i{\Fsd@a@i}%
     \Cfor{\edef\i{1}}{\i<\Fsd@kousuu}{}\do{%
@@ -677,6 +762,7 @@
       \expandafter\xdef\csname Fsd@c@\romannumeral\i\endcsname{\Fsd@tmp}%
     }%
   }%
+%
   \edef\Fsd@kousuu{0}%
   \expandafter\@for\expandafter\@@c\expandafter:\expandafter=#1\do{%
     \Incr\Fsd@kousuu
@@ -685,54 +771,89 @@
   \expandafter\@for\expandafter\@@c\expandafter:\expandafter=#2\do{%
     \Incr\Fsd@dansuu
     \expandafter\edef\csname Fsd@d@\romannumeral\Fsd@dansuu\endcsname{\@@c}}%
-%  \begin{array}{l*\Fsd@kousuu{\h@iti}}
   \bgroup
-  \edef\Fsyndiv@tmp{{l*\Fsd@kousuu{\h@iti}}}
-  \expandafter\array\Fsyndiv@tmp
-    \Fsyn@strut
-    \Cfor{\xdef\j{0}}{\j<\Fsd@dansuu}{\xDecr\Fsd@kousuu}\do{%
-      \xIncr\j\prF{\csname Fsd@d@\romannumeral\j\endcsname}%
-      \vrule width0pt depth 2ex%
-      \Fsd@sub{\csname Fsd@d@\romannumeral\j\endcsname}%
-      \Cfor{\xdef\i{0}}{\i<\Fsd@kousuu}{}\do{%
-        \xIncr\i
-        \ifthenelse{\i=\@ne}{%
+    \edef\Fsyndiv@tmp{{l*\Fsd@kousuu{\h@iti}}}
+    \expandafter\array\Fsyndiv@tmp
+%      \Fsyn@strut
+      \Cfor{\xdef\j{0}}{\j<\Fsd@dansuu}{\xDecr\Fsd@kousuu}\do{%
+        \xIncr\j\Fsyn@strut\prF{\csname Fsd@d@\romannumeral\j\endcsname}%
+        \vrule width0pt depth 2ex%
+        \Fsd@sub{\csname Fsd@d@\romannumeral\j\endcsname}%
+        \Cfor{\xdef\i{0}}{\i<\Fsd@kousuu}{}\do{%
+          \xIncr\i
+          \ifthenelse{\i=\@ne}{%
+            &
+              \if c\h@iti
+                \multicolumn{1}{|c}{\prF[\s@r@e]{%
+                  \csname Fsd@a@\romannumeral\i\endcsname}}%
+              \else\if r\h@iti
+                \multicolumn{1}{|r}{\prF[\s@r@e]{%
+                  \csname Fsd@a@\romannumeral\i\endcsname}}%
+              \fi\fi
+          }{%
+           &\prF[\s@r@e]{\csname Fsd@a@\romannumeral\i\endcsname}}%
+        }%
+        \ifthenelse{\j>\@ne}{\xIncr\i%
           &
             \if c\h@iti
-              \multicolumn{1}{|c}{\prF[\s@r@e]{\csname Fsd@a@\romannumeral\i\endcsname}}%
+              \multicolumn{1}{|c}{\prF[\s@r@e]{%
+                \csname Fsd@c@\romannumeral\i\endcsname}}%
             \else\if r\h@iti
-              \multicolumn{1}{|r}{\prF[\s@r@e]{\csname Fsd@a@\romannumeral\i\endcsname}}%
+              \multicolumn{1}{|r}{\prF[\s@r@e]{%
+                \csname Fsd@c@\romannumeral\i\endcsname}}%
             \fi\fi
+            \xIncr\i\\\cline{1-1}\cline{\i-\i}%
         }{%
-         &\prF[\s@r@e]{\csname Fsd@a@\romannumeral\i\endcsname}}}%
-      \ifthenelse{\j>\@ne}{\xIncr\i%
+          \\\cline{1-1}%
+        }%
+        \Cfor{\xdef\i{0}}{\i<\Fsd@kousuu}{}\do{%
+          \xIncr\i & \prF[\s@r@e]{\csname Fsd@b@\romannumeral\i\endcsname}}%
+        \ifx\empty\Fsyn@strut\vspace{.75ex}\else \Fsyn@strut\fi
+        \xIncr\i\\\cline{1-\i}
+        \Cfor{\edef\i{0}}{\i<\Fsd@kousuu}{}\do{\Incr\i
+          \expandafter\xdef\csname Fsd@a@\romannumeral\i\endcsname{%
+            \csname Fsd@c@\romannumeral\i\endcsname}%
+        }%
+      }%
+      \ifthenelse{\equal\aval@{1}}{}{%
+        \hfill\aval@\ \hbox to \z@{\hspace{.5em}$\bigl)$\hss}}%
+      \Cfor{\xdef\i{0}}{\i<\Fsd@kousuu}{}\do{\xIncr\i
+        &
+          \prF[\s@r@e]{\csname Fsd@c@\romannumeral\i\endcsname}%
+      }\xIncr\i%
       &
         \if c\h@iti
-          \multicolumn{1}{|c}{\prF[\s@r@e]{\csname Fsd@c@\romannumeral\i\endcsname}}%
+          \multicolumn{1}{|c}{\prF[\s@r@e]{%
+            \csname Fsd@c@\romannumeral\i\endcsname}}%
         \else\if r\h@iti
-          \multicolumn{1}{|r}{\prF[\s@r@e]{\csname Fsd@c@\romannumeral\i\endcsname}}%
+          \multicolumn{1}{|r}{\prF[\s@r@e]{%
+            \csname Fsd@c@\romannumeral\i\endcsname}}%
         \fi\fi
-        \xIncr\i\\\cline{1-1}\cline{\i-\i}}{\\\cline{1-1}}%
-      \Cfor{\xdef\i{0}}{\i<\Fsd@kousuu}{}\do{%
-        \xIncr\i & \prF[\s@r@e]{\csname Fsd@b@\romannumeral\i\endcsname}}%
-      \ifx\empty\Fsyn@strut\vspace{.75ex}\else\Fsyn@strut\fi
-      \xIncr\i\\\cline{1-\i}
-      \Cfor{\edef\i{0}}{\i<\Fsd@kousuu}{}\do{\Incr\i
-        \expandafter\xdef\csname Fsd@a@\romannumeral\i\endcsname{%
-          \csname Fsd@c@\romannumeral\i\endcsname}}}%
-    \Cfor{\xdef\i{0}}{\i<\Fsd@kousuu}{}\do{\xIncr\i & 
-      \prF[\s@r@e]{\csname Fsd@c@\romannumeral\i\endcsname}}\xIncr\i%
-      &
-        \if c\h@iti
-          \multicolumn{1}{|c}{\prF[\s@r@e]{\csname Fsd@c@\romannumeral\i\endcsname}}%
-        \else\if r\h@iti
-          \multicolumn{1}{|r}{\prF[\s@r@e]{\csname Fsd@c@\romannumeral\i\endcsname}}%
-        \fi\fi
-    \Fsyn@strut\ans@strut\xIncr\i\\\cline{\i-\i}
-%  \end{array}%
+        \Fsyn@strut\ans@strut\xIncr\i
+\ifthenelse{\equal\aval@{1}}{%
+        \\\cline{\i-\i}
+}{%
+        \\\cline{2-\i}
+}%
+\ifthenelse{\equal\aval@{1}}{}{%
+      \Cfor{\xdef\i{0}}{\i<\Fsd@kousuu}{}\do{\xIncr\i
+        & 
+          \edef\Fs@tmp{\csname Fsd@c@\romannumeral\i\endcsname}%
+          \FDiv\Fs@tmp\aval@\Fs@tmp@
+          \prF[\s@r@e]{\Fs@tmp@}%
+      }\xIncr\i%
+%     &
+%       \if c\h@iti
+%         \multicolumn{1}{|c}{\prF[\s@r@e]{%
+%           \csname Fsd@c@\romannumeral\i\endcsname}}%
+%        \else\if r\h@iti
+%          \multicolumn{1}{|r}{\prF[\s@r@e]{%
+%           \csname Fsd@c@\romannumeral\i\endcsname}}%
+%       \fi\fi
+}%
     \endarray
-    \egroup
-  }
+  \egroup
+}%
 %
 \def\prFkeisanSiki#1{%
 % \edef\prFkeisanSiki@kakkolvl{0}%
@@ -740,31 +861,75 @@
 }
 \def\@prFkeisanSiki#1{%
   \@parse{#1}{@kou}{@opcode}{@lvl}\nlvl
-%\@dpstack{@kou}{@opcode}{@lvl}\nlvl
+%\@dpstack{@kou}{@opcode}{@lvl}\nlvl\xxx
   \@prstack{@kou}{@opcode}{@lvl}\nlvl
 }
 %
 % FKeisan
 %
-\newwrite\Fkeisan@hndl
+\@ifundefined{em@whndl}{\newwrite\em@whndl}{}%
 \def\dumy@X{00000}%
 \let\prfunc\prFK%   答の出力に用いるダミー関数の指定(仮分数表示を指定)
 %\let\prfunc\prFT%  答の出力に用いるダミー関数の指定(帯分数表示を指定)
-\def\Fkeisan{\@ifnextchar<{\@Fkeisan}{\@Fkeisan<M>}}
-\def\@Fkeisan<#1>#2{%
-  \if A#1\relax
-    \immediate\openout\Fkeisan@hndl=\jobname.tmp%
-    \immediate\write\Fkeisan@hndl{\string\Fkeisan{#2}}%
-    \immediate\write\Fkeisan@hndl{%
-      \string\kaitou{\string\xFcalc{#2}=\string\kotae
-      $\string\prfunc\string\kotae$}}%
-    \immediate\closeout\Fkeisan@hndl\input{\jobname.tmp}%
-  \else
-    $\prxFkeisanSiki{#2}$%
+\edef\pr@clip{0}%
+\edef\prF@opt{\empty}%
+\edef\pr@func@nm{\empty}%
+\edef\prfunc@op{\empty}%
+\def\Fkeisan{\begingroup\@ifnextchar({\@Fkeisan}{\@Fkeisan(\empty)}}%
+\def\@Fkeisan(#1){%
+  \edef\pr@clip{0}%
+  \edef\pr@func{\empty}%
+  \ifx\empty #1\else\setkeys{emB}{#1}\fi\@@Fkeisan}%
+\def\@@Fkeisan{\@ifnextchar<{\@@@Fkeisan}{\@@@Fkeisan<M>}}
+\def\@@@Fkeisan<#1>#2{%
+  \ifx\empty\pr@func\else
+    \Strsep\pr@func{[}\pr@func@nm\pr@func@pt
+    \ifx\empty\pr@func@pt
+      \edef\prF@opt{\empty}%
+    \else
+      \edef\prF@opt{[\pr@func@pt}%
+    \fi
+    \def\prfunc{\csname\pr@func@nm\endcsname}%
   \fi
+  \if A#1\relax
+    \immediate\openout\em@whndl=\jobname.tmp%
+    \immediate\write\em@whndl{\string\Fkeisan{#2}}%
+    \immediate\write\em@whndl{%
+      \string\kaitou{\string\begingroup\string\xFcalc{#2}=\string\kotae
+      \ifx\empty\pr@func@nm\else
+        \ifx\empty\pr@func@pt
+          \string\def\string\prfunc{\string\csname\space
+          \pr@func@nm\string\endcsname}%
+        \else
+          \string\def\string\prfunc{\string\csname\space
+          \pr@func@nm\string\endcsname[\pr@func@pt}%
+        \fi
+      \fi
+      $\string\prfunc\string\kotae$\string\endgroup}}%
+    \immediate\closeout\em@whndl\input{\jobname.tmp}%
+  \else\if B#1\relax
+    \immediate\openout\em@whndl=\jobname.tmp%
+    \immediate\write\em@whndl{\string\Fkeisan{#2}}%
+    \immediate\write\em@whndl{%
+      \string\kaitou{\string\xFcalc{#2}=\string\kotae
+        \string\ensuremath{\string\prFkeisanSiki{#2}=
+        \string\prfunc\string\kotae}}}%
+    \immediate\closeout\em@whndl\input{\jobname.tmp}%
+  \else\if a#1\relax
+    \xFcalc{#2}=\kotae@
+    \ifx\empty\prF@opt
+%\typeout{\meaning\prfunc}\xxx
+      \ensuremath{\prFkeisanSiki{#2}=\prfunc\kotae@}%
+    \else
+      \ensuremath{\prFkeisanSiki{#2}=\expandafter\prfunc\prF@opt\kotae@}%
+    \fi
+  \else
+    \ensuremath{\prxFkeisanSiki{#2}}%
+  \fi\fi\fi
+\endgroup
 }
 \def\xFcalc#1=#2{%
-  \Strsep{#1}{=}\sahen\uhen
+  \strsep{#1}{=}\sahen\uhen
   \ifthenelse{\equal\uhen\empty}{% 等号無し
     \Fcalc#1=#2\relax
   }{% 等号有り ax+b=c
@@ -791,7 +956,7 @@
   }%
 }
 \def\prxFkeisanSiki#1{%
-  \Strsep{#1}{=}\sahen\uhen
+  \strsep{#1}{=}\sahen\uhen
   \ifthenelse{\equal\uhen\empty}{% 等号無し
     \prFkeisanSiki{#1}%
   }{% 等号有り
@@ -813,6 +978,100 @@
     \fi
   }%
 }
+%
+\def\Fseq{\@ifnextchar<{\@Fseq}{\@Fseq<\empty>}}%
+\def\@Fseq<#1>#2#3#4{%
+% #2: 初項
+% #3: 公差
+% #4: 配列名
+  \edef\kousuu@{1000}%
+  \@ifundefined{XMAX}{%
+    \edef\YG@xl{-100}\edef\YG@xr{100}%
+  }{%
+    \edef\YG@xl{\truexmin}\edef\YG@xr{\truexmax}%
+  }%
+  \ifx\empty #1\else\setkeys{emC}{#1}\fi
+  \hairetusyokika{#4}%
+  \EMedef\Fseq@tmp{#2}%
+  \Ifor\Fseq@i{0}{\kousuu@}\Do{%
+    \hairetutuika*{#4}\Fseq@tmp
+    \FAdd\Fseq@tmp{#3}\Fseq@tmp
+    \FtoS\Fseq@tmp\Fseq@r
+    \ifdim\Fseq@r\p@>\YG@xr\p@\edef\Fseq@i{1001}\fi
+    \ifdim\Fseq@r\p@<\YG@xl\p@\edef\Fseq@i{1001}\fi
+  }%
+}%
+%
+% 循環小数を分数に直す筆算
+%
+\@ifundefined{hissankakko}{\def\hissankakko{\ensuremath{\Big )\,\,}}}{}%
+\def\zyunkansyousuu{%
+  \@ifnextchar<{\@zyunkansyousuu}{\@zyunkansyousuu<\empty>}}%
+\def\@zyunkansyousuu<#1>#2{{%
+%\typeout{@zyunkansyousuu:arg1=#1,arg2=#2}%
+  \def\setusuu@{4}%
+  \edef\ketasuu@{\empty}%
+  \arraycolsep=\z@
+  \ifx\empty #1\else\setkeys{emB}{#1}\fi
+  \Strsep{#2}{.}\zs@a\zs@tmpa
+  \Strsep{\zs@tmpa}{(}\zs@b\zs@tmp
+  \Strsep\zs@tmp{)}\zs@c\zs@d
+  \strlen\zs@a\zs@l
+  \strlen\zs@b\zs@m
+  \strlen\zs@c\zs@n
+  \ifx\empty\ketasuu@\else
+    \IDivMod\ketasuu@\zs@n\setusuu@\zs@tmp
+    \ifnum\zs@tmp>\z@\Incr\setusuu@\fi
+  \fi
+  \edef\zs@p{1}%
+  \Ifor\zs@i{0}\zs@m\Do{%
+    \edefappend\zs@p{0}%
+  }%
+  \edef\zs@q{\zs@p}%
+  \Ifor\zs@i{0}\zs@n\Do{%
+    \edefappend\zs@q{0}%
+  }%
+  \edef\zs@s{}%
+  \Ifor\zs@i{0}{\setusuu@}\Do{%
+    \edefappend\zs@s{\zs@c}%
+  }%
+  \ifx\empty\ketasuu@\else\EMsubstr\zs@s{1}{\ketasuu@}\zs@s\fi
+  \ifthenelse{\equal\zs@a{0}}{\edef\zs@A{\zs@b}}{\edef\zs@A{\zs@a\zs@b}}%
+  \edef\zs@B{\zs@A\zs@c}%
+  \ifx\empty\zs@A\edef\zs@A{0}\else\@tempcnta\zs@A\edef\zs@A{\the\@tempcnta}\fi
+  \@tempcnta\zs@B\edef\zs@B{\the\@tempcnta}%
+  \ISub\zs@q\zs@p\zs@bb
+  \ifx\empty\zs@A\edef\zs@bs{\zs@B}\else\ISub\zs@B\zs@A\zs@bs\fi
+  \IYakubun\zs@bs\zs@bb\zs@bunsi\zs@bunbo
+  \ensuremath{%
+  \begin{array}{rr@{{}={}}rcl}%
+    &\zs@q x & \zs@B &.&\zs@s\dots \\
+    -\hissankakko&\ifnum\zs@p=\@ne\else\zs@p\fi x 
+      & \ifx\empty\zs@A 0\else\zs@A\fi&.&\zs@s\dots \\\hline
+    &\zs@bb x & \zs@bs \\
+    &       x & \multicolumn{3}{l}{\bunsuu\zs@bunsi\zs@bunbo}
+  \end{array}%
+  }%
+}}%
+%
+%\def\Fseikei#1{\ifFseikei\@Fseikei{#1}\fi}%
+\DeclareRobustCommand\Fseikei[1]{\ifFseikei\@Fseikei{#1}\fi}%
+\def\@Fseikei#1{%
+  \FtoB{#1}\Fs@a\Fs@b
+  \IDivMod\Fs@a\Fs@b\Fs@q\Fs@r
+  \ifnum\Fs@r=\z@
+    \edef#1{\Fs@q}%
+  \else
+    \ifnum\Fs@b<\z@
+      \IMulself\Fs@b{-1}%
+      \IMulself\Fs@a{-1}%
+      \edef#1{\Fx@a/\Fs@b}
+    \else
+%      \edef#1{#1}%
+    \fi
+  \fi
+}%
+%
 \endinput
 %
 % 0.03  1999/12/27-28
@@ -866,3 +1125,51 @@
 %   \Fsyndiv array.sty との共存
 % 0.14 2005/03/20
 %   \xFcalc : 未知数を X として，一次方程式を解く
+% 0.15 2006/03/11
+%   \prF など：+1/2など分子に`+'がつく場合，括弧でくくる
+% 0.16 2006/03/12
+%   修正
+% 0.17 2007/04/17
+%   \strsep ---> \Strsep
+% 0.18 2007/04/21
+%   \prF : [y]オプション：約分する
+% 0.19 2007/04/24
+%   \Fsign : +,-,0を返す。
+% 0.20 2007/04/30
+%   v 0.17 の修正を戻す (BBS No.5980)
+% 0.21 2007/12/01
+%   prB : 表示が -0 となる場合があったのを修正
+% 0.22 2008/03/02
+%   \issyousuu: \EMedef で引数を展開しておく
+% 0.23 2008/08/11
+%   \SDiv: fpパッケージを読んでいないときは，\Div を用いる。
+%   \FYakubun
+% 0.24 2009/04/14
+%   \Fseq: 初項，公差が有理数の数列
+% 0.25 2009/05/10
+%   \Fsyndiv: <aval=..>: 一次の係数が1でない場合，それを指定して商を修正
+% 0.26 2009/10/16
+%   whndl の節約
+% 0.27 2010/02/24
+%   \prFZ: 小数表示
+%   \Fkeisan: <a>オプション (BBS #8645)
+% 0.28 2010/02/25
+%   単項マイナスの処理 (BBS #8653)
+% 0.29 2010/02/26
+%   \prFS: 四捨五入，切り捨て
+% 0.30 2010/02/28
+%   \Fkeisan: X を含む場合 (BBS #8678)
+% 0.31 2010/05/10
+%   \zyunkansyousuu: 循環小数を分数に直す筆算
+% 0.32 2010/05/11
+%   \zyunkansyousuu: -) の位置，サイズについて emathW.sty の筆算と揃える
+% 0.33 2010/05/12
+%   \zyunkansyousuu: setusuu=., ketasuu=. オプション
+% 0.34 2011/12/23
+%   \Fseq: zahyou環境内かどうかの判定を修正
+% 0.35 2012/02/17
+%   \Fsyndiv: 支柱の位置
+% 0.36 2012/04/23
+%   \Fseikei: デフォルトは \@gobble
+% 0.37 2013/05/18
+    \ifFseikei

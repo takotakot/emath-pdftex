@@ -1,10 +1,10 @@
 % emathPg.sty by tDB(emath@nifty.com)
 %
   \NeedsTeXFormat{LaTeX2e}
-  \ProvidesPackage{emathPg}[2005/09/07 v 0.00]%
+  \ProvidesPackage{emathPg}[2010/08/19 v 0.05]%
 %
 \@ifundefined{zahyou}{%
-	\errmessage{emathPh がロードされていません。}%
+  \errmessage{emathPh がロードされていません。}%
 }{}%
 %
 % --------------------------------------------------------------------
@@ -32,9 +32,12 @@
     \ifnum\@tempcnta=4\relax
       \ifx \empty #2\relax
         \@@@GFuncii[0]{\F@i}{\F@ii}{\F@iii}[#4]{#5}[#6]{#7}%
+      \else\ifx l#2\relax
+        \KinziOresen{#3}{#5}{#7}{#1}\@oresen
+        \yclipDrawline\@oresen\relax
       \else
         \@@@GFuncii[#2]{\F@i}{\F@ii}{\F@iii}[#4]{#5}[#6]{#7}%
-      \fi
+      \fi\fi
     \else\ifnum\@tempcnta=3\relax
       \ifx \empty #2\relax
         \@@@GFunci[l]{\F@i}{\F@ii}[#4]{#5}[#6]{#7}%
@@ -68,7 +71,12 @@
   \else\ifnum\@tempcnta=4\relax
     \ifnum\@tempcntb=3\relax
       \FiandFii{\G@i}{\G@ii}{\F@i}{\F@ii}{\F@iii}{#3}{#4}%
-    \fi
+    \else\ifnum\@tempcntb=4\relax
+      \Sub\F@i\G@i\a@val
+      \Sub\F@ii\G@ii\b@val
+      \Sub\F@iii\G@iii\c@val
+      \Eqii\a@val\b@val\c@val{#3}{#4}%
+    \fi\fi
   \fi\fi
 }%
 
@@ -79,7 +87,7 @@
   \expandafter\@for\expandafter\GurafuB@@c\expandafter:\expandafter=#3\do{%
     \strsep\GurafuB@@c{/}\GurafuB@a\GurafuB@b
     \ifx\empty\GurafuB@b\edef\@GurafuB@@c{\GurafuB@@c}\else
-      \Div\GurafuB@a\GurafuB@b\@GurafuB@@c\fi
+      \@Div\GurafuB@a\GurafuB@b\@GurafuB@@c\fi
     \ifx\@tmp\empty\edef\@tmp{\@GurafuB@@c}\else
       \edef\@tmp{\@tmp,\@GurafuB@@c}\fi}%
   \@Gurafu<#1>[#2]{\@tmp}}
@@ -216,8 +224,8 @@
   \Mul{#2}{#2}\@D\Mul{#1}{#3}\Eqii@t\Mul{4}\Eqii@t\Eqii@t\Sub\@D\Eqii@t\@D%
   \ifdim\@D pt=\z@ \else\ifdim\@D pt>\z@ \Heihoukon\@D\@D\else%
   \errmessage{虚数解}\fi\fi%
-  \Add{#2}\@D\@kai\Mul{-2}{#1}\Eqii@t\Div\@kai\Eqii@t\@kai\Mul{-1}{#2}\@@kai%
-  \Div\@@kai{#1}\@@kai\Sub\@@kai\@kai\@@kai%
+  \Add{#2}\@D\@kai\Mul{-2}{#1}\Eqii@t\@Div\@kai\Eqii@t\@kai\Mul{-1}{#2}\@@kai%
+  \@Div\@@kai{#1}\@@kai\Sub\@@kai\@kai\@@kai%
   \ifdim \@kai pt<\@@kai pt\relax\edef#4{\@kai}\edef#5{\@@kai}%
   \else \edef#4{\@@kai}\edef#5{\@kai}\fi}%
 
@@ -263,7 +271,7 @@
   \ifx y#7\InvFuncii{#2}{#3}{#4}{#8}\GFunc@xii\@tmp\else
     \ifx Y#7\InvFuncii{#2}{#3}{#4}{#8}\@tmp\GFunc@xii\else
     \edef\GFunc@xii{#8}\fi\fi%
-  \Add{\GFunc@xi}{\GFunc@xii}\GFunc@x\Div\GFunc@x{2}\GFunc@x\Mul{#2}{\GFunc@xi}\GFunc@y%
+  \Add{\GFunc@xi}{\GFunc@xii}\GFunc@x\@Div\GFunc@x{2}\GFunc@x\Mul{#2}{\GFunc@xi}\GFunc@y%
   \Mul\GFunc@y{\GFunc@xii}\GFunc@y\Mul\GFunc@x{#3}\@t\Add\GFunc@y\@t\GFunc@y\Add\GFunc@y{#4}\GFunc@y%
   \Funcii{#2}{#3}{#4}{\GFunc@xi}\GFunc@yi\Funcii{#2}{#3}{#4}{\GFunc@xii}\GFunc@yii%
   \qbezier[#1](\GFunc@xi,\GFunc@yi)(\GFunc@x,\GFunc@y)(\GFunc@xii,\GFunc@yii)}%
@@ -287,14 +295,14 @@
 \def\FiandFix#1#2#3#4#5{%
   \Sub{#4}{#2}\FiandFi@y
   \Sub{#1}{#3}\FiandFi@x
-  \Div\FiandFi@y\FiandFi@x\FiandFi@x
+  \@Div\FiandFi@y\FiandFi@x\FiandFi@x
   \edef#5{\FiandFi@x}%
 }%
 
 \def\FiandFi#1#2#3#4#5{%
   \Sub{#4}{#2}\FiandFi@y
   \Sub{#1}{#3}\FiandFi@x
-  \Div\FiandFi@y\FiandFi@x\FiandFi@x
+  \@Div\FiandFi@y\FiandFi@x\FiandFi@x
   \Mul{#1}\FiandFi@x\FiandFi@y
   \Add{#2}\FiandFi@y\FiandFi@y
   \edef#5{(\FiandFi@x,\FiandFi@y)}%
@@ -599,6 +607,87 @@
 #4{#5}\@@r\Cos{#5}\@@x\Mul\@@r\@@x\@@x\Sin{#5}\@@y\Mul\@@r\@@y\@@y
 \edef\@resen{\@resen(\@@x,\@@y)}\Hatchpolygon[#1]<#2>\@resen}%
 %
+%
+% 一般角
+%
+%\ippankaku<#1><#2>[#3](#4)#5
+%        #1 : a の倍率
+%        #2 : b の倍率
+%        #3 : 始め角（六十分法）
+%        #4 : 矢印の配置
+%          e = 終端（デフォルト）
+%          s = 始端
+%          b = 両端
+%          n = なし
+%        #5 : 終り角（六十分法）
+%
+\@ifundefined{ippankaku}{%
+  \def\rasenP#1#2{%
+      \DegRad{#1}\@kaku
+      \Mul\@kaku\@rasen@a\@rasen@r
+      \Add\@rasen@r\@rasen@b\@r
+      \Cos\@kaku\owariP@x\Mul\@r\owariP@x\owariP@x
+      \Sin\@kaku\owariP@y\Mul\@r\owariP@y\owariP@y
+      \edef#2{(\owariP@x,\owariP@y)}}%
+  \def\rasenR#1#2{\Mul{#1}\@rasen@a\@rasen@r\Add\@rasen@r\@rasen@b#2}%
+  \def\ippankaku{\@ifnextchar<{\@ippankaku}{\@ippankaku<\empty>}}%
+  \def\@ippankaku<#1>{\@ifnextchar<{\@@ippankaku<#1>}{\@@ippankaku<#1><\empty>}}%
+  \def\@@ippankaku<#1><#2>{\@ifnextchar[{\@@@ippankaku<#1><#2>}{%
+    \@@@ippankaku<#1><#2>[0]}}%
+  \def\@@@ippankaku<#1><#2>[#3]{\@ifnextchar({\@@@@ippankaku<#1><#2>[#3]}{%
+    \@@@@ippankaku<#1><#2>[#3](e)}}%
+  \def\@@@@ippankaku<#1><#2>[#3](#4)#5{%
+    \ifx#1\empty\def\@rasen@a{0.02}\else\Mul{#1}{0.02}\@rasen@a\fi%
+    \ifx#2\empty\def\@rasen@b{0.2}\else\Mul{#2}{0.2}\@rasen@b\fi%
+    \DegRad{#3}\@kaku@s
+    \DegRad{#5}\@kaku@e
+    \ifdim\@kaku@e pt>\@kaku@s pt\relax
+      \rGurafu\rasenR{\@kaku@s}{\@kaku@e}%
+    \else
+      \ifdim\@rasen@a pt>\z@\Mul{-1}\@rasen@a\@rasen@a\fi
+      \rGurafu\rasenR{\@kaku@e}{\@kaku@s}%
+    \fi
+    \ifthenelse{\equal{#4}{s}\or\equal{#4}{b}}{%
+      \rasenR\@kaku@s\@r
+      \Cos\@kaku@s\owariP@x\Mul\@r\owariP@x\owariP@x
+      \Sin\@kaku@s\owariP@y\Mul\@r\owariP@y\owariP@y
+      \@Div\ArrowHeadSize\@r\kaku@d
+      \ifdim\@kaku@e pt>\z@
+        \Add\@kaku@s\kaku@d\@kaku@rr
+      \else
+        \Sub\@kaku@s\kaku@d\@kaku@rr
+      \fi
+      \rasenR\@kaku@rr\@rr
+      \Cos\@kaku@rr\owariP@xx\Mul\@rr\owariP@xx\owariP@xx
+      \Sin\@kaku@rr\owariP@yy\Mul\@rr\owariP@yy\owariP@yy
+      \Sub\owariP@x\owariP@xx\owariP@xx
+      \Sub\owariP@y\owariP@yy\owariP@yy
+      \Put{(\owariP@x,\owariP@y)}{\yaziri{(\owariP@xx,\owariP@yy)}}%
+    }{}%
+    \ifthenelse{\equal{#4}{e}\or\equal{#4}{b}}{%
+      \rasenR\@kaku@e\@r
+      \Cos\@kaku@e\owariP@x\Mul\@r\owariP@x\owariP@x
+      \Sin\@kaku@e\owariP@y\Mul\@r\owariP@y\owariP@y
+      \@Div\ArrowHeadSize\@r\kaku@d
+      \ifdim\@kaku@e pt>\z@
+        \Sub\@kaku@e\kaku@d\@kaku@rr
+      \else
+        \Add\@kaku@e\kaku@d\@kaku@rr
+      \fi
+      \rasenR\@kaku@rr\@rr
+      \Cos\@kaku@rr\owariP@xx\Mul\@rr\owariP@xx\owariP@xx
+      \Sin\@kaku@rr\owariP@yy\Mul\@rr\owariP@yy\owariP@yy
+      \Sub\owariP@x\owariP@xx\owariP@xx
+      \Sub\owariP@y\owariP@yy\owariP@yy
+      \Put{(\owariP@x,\owariP@y)}{\yaziri{(\owariP@xx,\owariP@yy)}}%
+    }{}%
+  }%
+}{}%
+%
 \endinput
 
 v 0.00 2005/09/07 emathPh から，整関数グラフ描画関連を独立
+v 0.01 2006/07/31 \Gurafu : 二次関数の場合，[l]オプションで折れ線近似（xscale, yscale 対応）
+v 0.03 2006/08/25 \ippankaku : emathPh.sty より移管
+v 0.04 2006/08/26 \ippankaku : emathPp.sty をロード済みのときは定義しない。
+v 0.05 2010/08/19 \GKouten : 二次と二次も許容

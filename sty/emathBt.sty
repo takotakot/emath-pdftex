@@ -1,26 +1,12 @@
 % emathBt.sty by tDB (CQB00260@nifty.ne.jp)
 
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesPackage{emathBt}[2002/10/02 v 0.01β]%
-
+\ProvidesPackage{emathBt}[2008/03/28 v 0.02beta]%
+%
+\RequirePackage{EMboutyuu}
+%
 % 本文と傍注の間の罫線の太さ
 \newdimen\marginparseprule\marginparseprule=.4pt
-
-% 本文右肩に番号，傍注を付ける。
-% \boutyuu[#1]#2
-%   #1 : 傍注マーク（デフォルトは footnote 番号）
-%   #2 : 傍注
-%
-\def\boutyuu{\@ifnextchar[{\boutyuu@}{\@boutyuu}}
-\def\@boutyuu#1{\unskip\footnotemark\marginpar{\footnotesize
-  \setbox0=\hbox{${}^{\thefootnote}$~}%
-  \@tempdima\marginparwidth\advance\@tempdima-\wd0
-  \mbox{}\box0\parbox[t]{\@tempdima}{#1}}}
-\def\boutyuu@[#1]#2{\unskip\hbox{\ensuremath{{}^{#1}}}\ignorespaces
-  \marginpar{\footnotesize
-    \setbox0=\hbox{${}^{#1}$~}%
-    \@tempdima\marginparwidth\advance\@tempdima-\wd0
-    \mbox{}\box0\parbox[t]{\@tempdima}{#2}}}
 
 % \@outputpage に罫線を含める
 %
@@ -179,3 +165,5 @@ ver 0.00 2002/10/01 QandA #11368 からのスレッドで提案
 ver 0.01 2002/10/02
            傍注に \footnote と同じく，番号を附加する \boutyuu
            部分的に罫線を消す nomarginparseprule環境
+ver 0.02 2008/03/28
+           \boutyuu を EMboutyuu.sty として独立

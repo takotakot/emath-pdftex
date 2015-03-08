@@ -1,9 +1,9 @@
-% emathKs.sty 0.02  2001/08/29  by tDB(CQB00260@nifty.ne.jp)
+% emathKs.sty by tDB(emath@nifty.ne.jp)
 
 \def\tmpname{LaTeX2e}%
 \ifx\fmtname\tmpname%
   \NeedsTeXFormat{LaTeX2e}
-  \ProvidesPackage{emathKs}[2001/08/29 v 0.02]%
+  \ProvidesPackage{emathKs}[2008/09/18 v 0.03]%
 \fi
 
 % 整数の
@@ -40,7 +40,7 @@
   \expandafter\@tfor\expandafter\@@c\expandafter:\expandafter=\suuzi@retu\do{%
     \ifnum\@tempcnta=\z@ #1\@tempcnta #2\relax\fi
     \if -\@@c \ensuremath{-}\else\@@c\advance\@tempcnta\m@ne\fi}}}
-
+%
 %\def\ketakugiri{\@ifnextchar[{\@ketakugiri}{\@ketakugiri[\keta@kugirikigou]}}
 %\def\@ketakugiri[#1]{\@ifnextchar<{\@@ketakugiri[#1]}{\@@ketakugiri[#1]<3>}}
 %\def\@@ketakugiri[#1]<#2>#3{%
@@ -62,7 +62,25 @@
 %        \ketakugiri@sub
 %    }%
 %}
-
+%
+% 結果を #4 に戻す
+%
+\def\Ketakugiri{\@ifnextchar[{\@Ketakugiri}{\@Ketakugiri[\keta@kugirikigou]}}
+\def\@Ketakugiri[#1]{\@ifnextchar<{\@@Ketakugiri[#1]}{\@@Ketakugiri[#1]<3>}}
+\def\@@Ketakugiri[#1]<#2>#3#4{\begingroup\edef\kekka@{}%
+  \edef\suuzi@retu{#3}\@tempcnta=\z@
+  \expandafter\@tfor\expandafter\@@c\expandafter:\expandafter=\suuzi@retu\do{%
+    \if -\@@c\else\advance\@tempcnta\@ne\fi}%
+  \@tempcntb=\@tempcnta
+  \divide\@tempcntb #2\multiply\@tempcntb #2\advance\@tempcnta-\@tempcntb
+  \ifnum\@tempcnta=\z@\@tempcnta #2\relax\fi
+  \expandafter\@tfor\expandafter\@@c\expandafter:\expandafter=\suuzi@retu\do{%
+    \ifnum\@tempcnta=\z@ \edefappend\kekka@{#1}\@tempcnta #2\relax\fi
+    \if -\@@c \ensuremath{-}\else\edefappend\kekka@{\@@c}\advance\@tempcnta\m@ne\fi}%
+    \edef\temp@x{\def\noexpand#4{\kekka@}}%
+    \expandafter\endgroup\temp@x
+}
+%
 % ---------------------------------------------------------------------
 \edef\@Ktani{十}%
 \edef\@Ktanii{百}%
@@ -131,3 +149,5 @@
 %   \ketakugiri を emath.sty なしでも動くように修正する。
 % v 0.02  2001/08/29
 %   \edef\keta@kugirikigou{{,}}と修正（, だけではなく{,}）
+% v 0.03  2008/09/18
+%   \Ketakugiri: 結果を文字列で戻す。

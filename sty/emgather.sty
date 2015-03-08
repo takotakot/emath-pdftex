@@ -1,0 +1,405 @@
+%%% emgather.sty by tDB(emath@nifty.com)
+% 日本語
+\ProvidesPackage{emgather}[2013/01/25 v0.03alpha]%
+%
+% emgather
+%
+\def\emgather{\@ifnextchar<{\@emgather}{\@@emgather\relax}}%
+\def\@emgather<#1>{%
+  \ifx\empty #1\else\setkeys{emequation}{#1}\fi
+  \@@emgather}%
+\def\@@emgather{%
+    \bgroup\immediate\openout\em@whndl=\EM@workfiledir emgather.tmp%
+    \@bsphack\let\do\@makeother\dospecials
+    \catcode`\^^M\active
+    \def\verbatim@processline{%
+        \immediate\write\em@whndl{\the\verbatim@line}}%
+    \verbatim@start}%
+\def\endemgather{%
+  \@esphack%
+  \immediate\closeout\em@whndl\egroup
+%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%
+  \def\emgather@sub{%
+    \read\pl@in to \read@ln
+%\typeout{read:\meaning\read@ln.}%
+    \ifeof\pl@in
+    \else
+      \ifthenelse{\equal\read@ln{\par }}{}{%
+        \ifnum\ln@num>\z@\EMedef\old@inp@b{\inp@b}\fi
+%        \trim\read@ln\to\inp@ln \relax
+        \let\inp@ln\read@ln
+%\typeout{trim:\meaning\inp@ln.}%
+        \ifx\empty\inp@ln\else
+          \topchar\inp@ln\inp@h
+%\typeout{h=\meaning\inp@h}%
+          \ifthenelse{%
+% \intertext
+              \equal{\inp@h}{\intertext}\or\equal{\inp@h}{\EMintertext}}{%
+            \ifnum\ln@num>\z@
+              \EMedefappend\emg@buf{\\\old@inp@b}%
+            \fi
+            \EMedefappend\emg@buf{\inp@ln}%
+            \edef\ln@num{0}%
+          }{%
+% 一般
+            \Cfor{\emstrstr{\inp@ln}{\\}}{\equal\retval{0}}{}\do{%
+              \read\pl@in to \read@ln
+              \ifeof\pl@in\edef\retval{1}%
+              \else
+                \ifthenelse{\equal\read@ln{\par }}{\edef\retval{1}}{%
+                  \EMedefappend\inp@ln{\read@ln}%
+                  \emstrstr{\read@ln}{\\}%
+                }%
+              \fi
+            }%
+%\typeout{inp@ln=\meaning\inp@ln}%\xxx
+              \Strsep{\inp@ln}{\\}\inp@a\inp@b
+%\typeout{a=\meaning\inp@a, b=\meaning\inp@b}%\xxx%
+              \ifnum\ln@num>\z@
+                \EMedefappend\emg@buf{\\ \old@inp@b}%
+              \fi
+              \Incr\ln@num
+              \emstrstr{\inp@a}{notag}%
+              \ifnum\retval>\z@
+                \EMedefappend\emg@buf{\emstrstr@c\noexpand\notag}%
+              \else
+                \emstrstr{\inp@a}{tag}%
+                \ifnum\retval>\z@
+                  \EMedefappend\emg@buf{%
+                    \var@math{\emstrstr@c}\noexpand\tag\emstrstr@d}%
+                \else
+                    \EMedefappend\emg@buf{\var@math{\inp@a}}%
+                \fi
+              \fi
+          }%
+        \fi
+        \ifeof\pl@in
+        \else
+          \emgather@sub
+        \fi
+      }%
+    \fi
+%   \typeout{buf=\meaning\emg@buf}%
+  }%
+%%%%%%%%%%%%%%%%%%%
+\ifdim\emeq@rindent=\z@\else
+  \ifhmode\vspace{-1.6\baselineskip}\par\fi
+\fi
+  \let\emg@cr\\
+  \let\\=\relax
+  \let\emg@notag\notag
+  \let\emg@tag\tag
+  \def\notag{notag}%
+  \def\tag{tag}%
+  \let\var@math=\relax
+  \let\emg@intertext\intertext
+  \let\emg@EMintertext\EMintertext
+  \let\intertext\relax
+  \let\EMintertext\relax
+  \let\emg@EMlabel\EMlabel
+  \let\EMlabel\relax
+  \let\emg@par\par
+  \let\par\relax
+  \edef\ln@num{0}%
+  \edef\emg@buf{}%
+  \edef\old@inp@a{}%
+  \openin\pl@in=\EM@workfiledir emgather.tmp%
+  \emgather@sub
+  \immediate\closein\pl@in
+  \let\\=\emg@cr
+  \let\notag\emg@notag
+  \let\tag\emg@tag
+  \let\intertext\emg@intertext
+  \let\EMintertext\emg@EMintertext
+  \let\par\emg@par
+  \def\var@math##1{{%
+    \let\notag\relax
+    \def\EMlabel####1{\relax}%
+    \@ifundefined{hakobanpush}{}{\hakobanpush}%
+      \setbox0=\hbox{\tagform8}%
+      \edef\tag@wd{\the\wd0}%
+      \setbox0=\hbox{\postl@bel}%
+      \edef\tag@wd@{\the\wd0}%
+      \setbox0=\hbox{$\displaystyle ##1$}%
+      \edef\siki@wd{\the\wd0}%
+    \@ifundefined{hakobanpush}{}{\hakobanpop}%
+    \@tempdima\hsize
+    \advance\@tempdima-\the\@totalleftmargin
+    \@ifundefined{EMWR@zuhaba}{}{%
+      \ifdim\EMWR@zuhaba>\z@
+          \ifnum\EMWR@gyousuu>\@ne\advance\@tempdima-\EMWR@zuhaba
+            \advance\@tempdima-\@mawarikomisep
+            \advance\@tempdima-\@mawarikomisep
+          \fi
+      \fi
+    }%
+\if@fleqn
+    \advance\@tempdima-\@mathmargin
+    \advance\@tempdima-\siki@wd
+    \advance\@tempdima-\tag@wd
+    \advance\@tempdima-.5em
+    \edef\vm@w{\the\@tempdima}%
+\else
+    \advance\@tempdima-\siki@wd
+    \@tempdima=.5\@tempdima
+    \advance\@tempdima-\tag@wd
+    \advance\@tempdima-.5em
+    \edef\vm@w{\the\@tempdima}%
+\fi
+    \let\EMlabel\emg@EMlabel
+    ##1\relax
+%\typeout{vm@w=\vm@w}%
+    \@ifundefined{emeq@cdotslen}{%
+      \hbox to 0pt{\leavevmode\kern.2em\cdotpfill[\vm@w]\hss}%
+    }{%
+%\typeout{len=\vm@w/\emeq@cdotslen}%
+      \ifdim \vm@w>\emeq@cdotslen
+        \@tempdima\vm@w
+        \advance\@tempdima-\emeq@cdotslen
+        \hbox to 0pt{\leavevmode\kern.2em\hskip\@tempdima
+          \cdotpfill[\emeq@cdotslen]\hss}%
+      \else
+        \hbox to 0pt{\leavevmode\kern.2em\cdotpfill[\vm@w]\hss}%
+      \fi
+    }%
+  }}%
+  \preEqlabel{}%
+%
+%\typeout{buf=\meaning\emg@buf}%
+%
+  \let\EMlabel\emg@EMlabel
+\ifdim\emeq@rindent=\z@\else
+  \advance\hsize-\emeq@rindent
+\fi
+%\ifx\empty\postl@bel\else
+%  \ifhmode\par\vskip-\baselineskip\fi
+%  \setbox0=\hbox{\postl@bel}%
+%  \advance\hsize-\wd0
+%  \EMedef\em@postl@bel{\postl@bel}%
+%  \edef\postl@bel{}%
+%\fi
+\ifdim\emeq@rindent=\z@
+%      \setbox0=\hbox{\postl@bel}%
+%      \edef\tag@wd@{\the\wd0}%
+%      \advance\hsize\tag@wd@
+  \begin{gather}
+    \emg@buf
+  \end{gather}
+\else
+  \begin{jquote}(0pt)(\emeq@rindent)
+  \begin{gather}
+    \emg@buf
+  \end{gather}
+  \end{jquote}\vspace{-.25\baselineskip}
+\fi
+}%
+%
+%
+%
+%
+%
+\expandafter\def\csname emgather*\endcsname{\@ifnextchar<{%
+  \csname @emgather*\endcsname}{\csname @@emgather*\endcsname\relax}}%
+\expandafter\def\csname @emgather*\endcsname<#1>{%
+    \ifx\empty #1\else\setkeys{emequation}{#1}\fi
+    \csname @@emgather*\endcsname}%
+\expandafter\def\csname @@emgather*\endcsname{%
+    \bgroup\immediate\openout\em@whndl=\EM@workfiledir emgather.tmp%
+    \@bsphack\let\do\@makeother\dospecials
+    \catcode`\^^M\active
+    \def\verbatim@processline{%
+        \immediate\write\em@whndl{\the\verbatim@line}}%
+    \verbatim@start}%
+%\def\endemgather{%
+\expandafter\def\csname endemgather*\endcsname{%
+  \@esphack%
+  \immediate\closeout\em@whndl\egroup
+%%%%%%%%%%%%%%%%%%%
+  \def\emgather@sub{%
+    \read\pl@in to \read@ln
+%\typeout{read:\meaning\read@ln.}%
+    \ifeof\pl@in
+    \else
+      \ifthenelse{\equal\read@ln{\par }}{}{%
+        \ifnum\ln@num>\z@\EMedef\old@inp@b{\inp@b}\fi
+%        \trim\read@ln\to\inp@ln \relax
+        \let\inp@ln\read@ln
+%\typeout{trim:\meaning\inp@ln.}%
+        \ifx\empty\inp@ln\else
+          \topchar\inp@ln\inp@h
+%\typeout{h=\meaning\inp@h}%
+          \ifthenelse{%
+% \intertext
+              \equal{\inp@h}{\intertext}\or\equal{\inp@h}{\EMintertext}}{%
+            \ifnum\ln@num>\z@
+              \EMedefappend\emg@buf{\\\old@inp@b}%
+            \fi
+            \EMedefappend\emg@buf{\inp@ln}%
+            \edef\ln@num{0}%
+          }{%
+% 一般
+            \Cfor{\emstrstr{\inp@ln}{\\}}{\equal\retval{0}}{}\do{%
+              \read\pl@in to \read@ln
+              \ifeof\pl@in\edef\retval{1}%
+              \else
+                \ifthenelse{\equal\read@ln{\par }}{\edef\retval{1}}{%
+                  \EMedefappend\inp@ln{\read@ln}%
+                  \emstrstr{\read@ln}{\\}%
+                }%
+              \fi
+            }%
+%\typeout{inp@ln=\meaning\inp@ln}%\xxx
+              \Strsep{\inp@ln}{\\}\inp@a\inp@b
+%\typeout{a=\meaning\inp@a, b=\meaning\inp@b}%\xxx%
+              \ifnum\ln@num>\z@
+                \EMedefappend\emg@buf{\\ \old@inp@b}%
+              \fi
+              \Incr\ln@num
+              \emstrstr{\inp@a}{atag}%
+              \ifnum\retval>\z@
+                \EMedefappend\emg@buf{%
+                  \var@math{\emstrstr@c}\noexpand\atag\emstrstr@d}%
+              \else
+                \emstrstr{\inp@a}{tag}%
+                \ifnum\retval>\z@
+                  \EMedefappend\emg@buf{%
+                    \var@math{\emstrstr@c}\noexpand\tag\emstrstr@d}%
+                \else
+                    \EMedefappend\emg@buf{\inp@a}%
+                \fi
+              \fi
+          }%
+        \fi
+    \ifeof\pl@in
+    \else
+        \emgather@sub
+    \fi
+      }%
+  \fi
+%\typeout{buf=\meaning\emg@buf}%
+}%
+%%%%%%%%%%%%%%%%%%%
+\ifdim\emeq@rindent=\z@\else
+  \ifhmode\vspace{-1.5\baselineskip}\par\fi
+\fi
+  \let\emg@cr\\
+  \let\\=\relax
+  \let\emg@atag\atag
+  \let\emg@tag\tag
+  \def\atag{atag}%
+  \def\tag{tag}%
+  \let\var@math=\relax
+  \let\emg@intertext\intertext
+  \let\emg@EMintertext\EMintertext
+  \let\intertext\relax
+  \let\EMintertext\relax
+  \let\emg@EMlabel\EMlabel
+  \let\EMlabel\relax
+  \let\emg@par\par
+  \let\par\relax
+  \edef\ln@num{0}%
+  \edef\emg@buf{}%
+  \edef\old@inp@a{}%
+%
+%
+  \openin\pl@in=\EM@workfiledir emgather.tmp%
+  \emgather@sub
+  \immediate\closein\pl@in
+  \let\\=\emg@cr
+  \let\atag\emg@atag
+  \let\tag\emg@tag
+  \let\intertext\emg@intertext
+  \let\EMintertext\emg@EMintertext
+  \let\par\emg@par
+  \def\var@math##1{{%
+    \let\atag\relax
+    \def\EMlabel####1{\relax}%
+    \@ifundefined{hakobanpush}{}{\hakobanpush}%
+      \setbox0=\hbox{\tagform8\postl@bel}%
+      \edef\tag@wd{\the\wd0}%
+%      \setbox0=\hbox{$\displaystyle ##1$\tagform8\postl@bel}%
+      \setbox0=\hbox{$\displaystyle ##1$}%
+      \edef\siki@wd{\the\wd0}%
+    \@ifundefined{hakobanpush}{}{\hakobanpop}%
+    \@tempdima\hsize
+    \advance\@tempdima-\the\@totalleftmargin
+    \@ifundefined{EMWR@zuhaba}{}{%
+      \ifdim\EMWR@zuhaba>\z@
+          \ifnum\EMWR@gyousuu>\@ne\advance\@tempdima-\EMWR@zuhaba
+            \advance\@tempdima-\@mawarikomisep
+            \advance\@tempdima-\@mawarikomisep
+          \fi
+      \fi
+    }%
+\if@fleqn
+    \advance\@tempdima-\@mathmargin
+    \advance\@tempdima-\siki@wd
+    \advance\@tempdima-\tag@wd
+    \advance\@tempdima-.8em
+    \edef\vm@w{\the\@tempdima}%
+\else
+    \advance\@tempdima-\siki@wd
+    \@tempdima=.5\@tempdima
+    \advance\@tempdima-\tag@wd
+    \advance\@tempdima-.8em
+    \edef\vm@w{\the\@tempdima}%
+\fi
+%    \advance\@tempdima-\@mathmargin
+%    \advance\@tempdima-\wd0
+%    \advance\@tempdima-1em
+%    \edef\vm@w{\the\@tempdima}%
+    \let\EMlabel\emg@EMlabel
+    ##1\relax
+%    \hbox to 0pt{\leavevmode\kern.6em\cdotpfill[\vm@w]\hss}%
+    \@ifundefined{emeq@cdotslen}{%
+      \hbox to 0pt{\leavevmode\kern.2em\cdotpfill[\vm@w]\hss}%
+    }{%
+      \ifdim \vm@w>\emeq@cdotslen
+        \@tempdima\vm@w
+        \advance\@tempdima-\emeq@cdotslen
+        \hbox to 0pt{\leavevmode\kern.2em\hskip\@tempdima
+          \cdotpfill[\emeq@cdotslen]\hss}%
+      \else
+        \hbox to 0pt{\leavevmode\kern.2em\cdotpfill[\vm@w]\hss}%
+      \fi
+    }%
+  }}%
+  \preEqlabel{}%
+%
+%\typeout{buf=\meaning\emg@buf}%
+%
+  \let\EMlabel\emg@EMlabel
+\ifdim\emeq@rindent=\z@\else
+  \advance\hsize-\emeq@rindent
+\fi
+%\ifx\empty\postl@bel\else
+%  \ifhmode\par\vskip-\baselineskip\fi
+%  \setbox0=\hbox{\postl@bel}%
+%  \advance\hsize-\wd0
+%  \EMedef\em@postl@bel{\postl@bel}%
+%  \edef\postl@bel{}%
+%\fi
+\ifdim\emeq@rindent=\z@
+  \begin{gather*}
+    \emg@buf
+  \end{gather*}
+\else
+  \begin{jquote}(0pt)(\emeq@rindent)
+  \begin{gather*}
+    \emg@buf
+  \end{gather*}
+  \end{jquote}
+\fi
+}%
+%
+\let\emequation\emgather
+\let\endemequation\endemgather
+%
+\endinput
+%
+v 0.00α 2012/11/21
+v 0.01α 2012/11/28 <rightindent>
+v 0.02α 2012/12/10
+v 0.03α 2013/01/25 \emequationcdotslength
+%

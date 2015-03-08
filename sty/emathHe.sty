@@ -1,13 +1,14 @@
-% emathHe.sty ver.0.06α 2000/01/10   by tDB(CQB00260@nifty.ne.jp)
+% emathHe.sty by tDB(emath@nifty.com)
 %   平方根の計算
 %     a+b√α+c√β+d√γ+.......
 %       (a,b,c,d,...,α,β,γ,.... : 整数)
 %     の加減乗除（含：分母の有理化）
 
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesPackage{emathHe}[2000/01/10 v0.06α]%
+\ProvidesPackage{emathHe}[2005/11/26 v0.07alpha]%
 
-\RequirePackage{emath}
+%\RequirePackage{emath}
+\@ifpackageloaded{emath}{}{\RequirePackage{emath}}%
 
 \edef\stack@n{0}%
 
@@ -24,7 +25,7 @@
   \errmessage{ルート記号は1文字でなければなりません．}\fi
 }
 
-\def\Heihoukon#1#2{%
+\def\emHeHeihoukon#1#2{%
   \ifthenelse{#1=0}{\edef#2{0}}{%
   \soinsi{#1}{Heihoukon@buf}%
   \Cfor{\edef\i{0}\edef\siki{}\edef\Heihoukon@soto{1}\edef\Heihoukon@naka{1}}{%
@@ -80,7 +81,7 @@
 \def\dpbuf{%
     \Cfor{\edef\dpbuf@i{0}}{\dpbuf@i<\HtoH@bufn}{}\do{%
       \Incr\dpbuf@i
-      \typeout{\dpbuf@i:\hairetu{HtoH@bufc}{\dpbuf@i}\root@mark\hairetu{HtoH@buf}{\dpbuf@i}}%
+%      \typeout{\dpbuf@i:\hairetu{HtoH@bufc}{\dpbuf@i}\root@mark\hairetu{HtoH@buf}{\dpbuf@i}}%
     }%
 }%
 
@@ -89,7 +90,7 @@
   \headchar{\HtoHi@bunsi}\HtoHi@t\HtoHi@r
   \if -\HtoHi@t\edef\HtoHi@hugou{-}\else\edef\HtoHi@hugou{}\edef\HtoHi@r{\HtoHi@bunsi}\fi
   \seproot\HtoHi@r\HtoHi@soto\HtoHi@naka
-  \Heihoukon\HtoHi@naka\HtoHi@a
+  \emHeHeihoukon\HtoHi@naka\HtoHi@a
   \seproot\HtoHi@a\HtoHi@a\HtoHi@naka
   \IMul\HtoHi@soto\HtoHi@a\HtoHi@soto
 % \edef#2{\HtoHi@hugou\HtoHi@soto\root@mark\HtoHi@naka}%
@@ -231,7 +232,7 @@
   \seproot{#2}\HMulisubb@soto\HMulisubb@naka
   \IMul\HMulisuba@soto\HMulisubb@soto\HMulisub@soto
   \IMul\HMulisuba@naka\HMulisubb@naka\HMulisub@naka
-  \Heihoukon\HMulisub@naka\HMulisuba@soto
+  \emHeHeihoukon\HMulisub@naka\HMulisuba@soto
   \seproot\HMulisuba@soto\HMulisuba@soto\HMulisub@naka
   \IMul\HMulisub@soto\HMulisuba@soto\HMulisub@soto
   \edef#3{\HMulisub@soto \root@mark\HMulisub@naka}%
@@ -841,23 +842,25 @@
   \edef\max@klvl{\csname\romannumeral\stack@n @@maxklvl\endcsname}%
   \Decr\stack@n
 }
-
-\newwrite\Hkeisan@hndl
+%
+%\newwrite\Hkeisan@hndl
+\@ifundefined{em@whndl}{\newwrite\em@whndl}{}%
 \def\Hkeisan{\@ifnextchar<{\@Hkeisan}{\@Hkeisan<M>}}
 \def\@Hkeisan<#1>{\@ifnextchar[{\@@Hkeisan<#1>}{\@@Hkeisan<#1>[n]}}%
 \def\@@Hkeisan<#1>[#2]#3{%
   \if A#1\relax
-    \immediate\openout\Hkeisan@hndl=\jobname.tmp%
-    \immediate\write\Hkeisan@hndl{\string\Hkeisan{#3}}%
-    \immediate\write\Hkeisan@hndl{%
+    \immediate\openout\em@whndl=\jobname.tmp%
+    \immediate\write\em@whndl{\string\Hkeisan{#3}}%
+    \immediate\write\em@whndl{%
       \string\kaitou{\string\Hcalc#3=\string\kotae
       $\string\prHsort[#2]\string\kotae$}}%
-    \immediate\closeout\Hkeisan@hndl\input{\jobname.tmp}%
+    \immediate\closeout\em@whndl\input{\jobname.tmp}%
   \else
     $\prHkeisanSiki{#3}$%
   \fi
 }
-
+%
+%\@ifundefined{zahyou}{\let\Heihoukon\emHeHeihoukon}{}%
 \endinput
 
 % 0.00α 2000/01/04
@@ -879,3 +882,5 @@
 %           カッコの種類は原稿で指定 [<(`   ')>]
 %           順序をソート
 %           分離形式 [s]オプション
+% 0.07α 2005/11/26
+%           \Heihoukon ---> \emHeHeihoukon と改名（emathC.sty と同名回避）

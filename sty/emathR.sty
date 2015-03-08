@@ -1,117 +1,101 @@
-% emathR.sty by tDB (CQB00260@nifty.ne.jp)
+% emathR.sty by tDB (emath@nifty.com)
 %
-%   \ReadTeXFile{foo} で foo.tex を読み込みます．
-%   読み込むファイルの拡張子が .tex 以外のときは
-%   拡張子を明示しなければならないというのは，
-%   \input と同様です．
+\ProvidesPackage{emathR}[2014/11/03 v0.28 read source files.]%
+\RequirePackage{keyval}%
+%\RequirePackage{emathLb}%
+\RequirePackage{docmute}[2010/04/12]%
 %
-%       foo.tex の
-%           \begin{document} の次の行から
-%           \end{document} の手前の行までを読み込みます．
-%           読み込んだ部分は，いったん temp.tmp という一時ファイルに
-%           書き出され，それを \input 命令で読み込むという
-%           手間のかかる方法を採っています．
-%           一時ファイル temp.tmp は削除されません．
-%   使用上の制限
-%           \begin{document}
-%           \end{document}
-%       は単独の１行でなければなりません．
-%       行頭から記述されており，
-%       それらの後ろにはコメントもつけてはいけません．
-%       （はじめと終りに空白文字がつくことはかまいません．）
-
-\def\tmpname{LaTeX2e}%
-\ifx\fmtname\tmpname%
-  \ProvidesPackage{emathR}[2003/07/23 v0.15 read source files.]%
-  \RequirePackage{verbatim}%
-\fi
-\def\h@zimari{\begin{document} }%
-\def\@wari{\end{document} }%
-\def\k@igyou{\par }%
-\newif\ifh@nmon%
-\newread\sub@texfile%
-\newwrite\w@sub@texfile%
-\def\checkExistFile#1{%
-    \ifx\fmtname\tmpname%
-    \IfFileExists{#1}{}{%
-    \errmessage{emathR Error : File = #1 not found!}}\fi}%
-\@ifundefined{ifchg@catcode}{}{\chg@catcodefalse}%
-\long\def\verbatimR@addtoline#1{%
-  \verbatim@line\expandafter{\the\verbatim@line#1}}
-
-\def\check@begin#1{%
-  \edef\@ret{0}%
-  \headchar{#1}\@@c\@@c@
-  \headchar{\@@c@}\@@c\@@c@
-  \if b\@@c\headchar{\@@c@}\@@c\@@c@
-    \if e\@@c\headchar{\@@c@}\@@c\@@c@
-    \if g\@@c\headchar{\@@c@}\@@c\@@c@
-    \if i\@@c\headchar{\@@c@}\@@c\@@c@
-      \if n\@@c\headchar{\@@c@}\@@c\@@c@\headchar{\@@c@}\@@c\@@c@
-        \if d\@@c\headchar{\@@c@}\@@c\@@c@
-          \if o\@@c\headchar{\@@c@}\@@c\@@c@
-            \if c\@@c\headchar{\@@c@}\@@c\@@c@
-              \if u\@@c\headchar{\@@c@}\@@c\@@c@
-                \if m\@@c\headchar{\@@c@}\@@c\@@c@
-                  \if e\@@c\headchar{\@@c@}\@@c\@@c@
-                    \if n\@@c\headchar{\@@c@}\@@c\@@c@
-                      \if t\@@c\edef\@ret{1}\fi\fi\fi\fi\fi
-                        \fi\fi\fi\fi\fi\fi\fi\fi}
-\def\check@end#1{%
-  \edef\@ret{0}%
-  \headchar{#1}\@@c\@@c@
-  \headchar{\@@c@}\@@c\@@c@
-  \if e\@@c\headchar{\@@c@}\@@c\@@c@
-    \if n\@@c\headchar{\@@c@}\@@c\@@c@
-      \if d\@@c\headchar{\@@c@}\@@c\@@c@\headchar{\@@c@}\@@c\@@c@
-        \if d\@@c\headchar{\@@c@}\@@c\@@c@
-          \if o\@@c\headchar{\@@c@}\@@c\@@c@
-            \if c\@@c\headchar{\@@c@}\@@c\@@c@
-              \if u\@@c\headchar{\@@c@}\@@c\@@c@
-                \if m\@@c\headchar{\@@c@}\@@c\@@c@
-                  \if e\@@c\headchar{\@@c@}\@@c\@@c@
-                    \if n\@@c\headchar{\@@c@}\@@c\@@c@
-                      \if t\@@c\edef\@ret{1}\fi\fi\fi\fi\fi\fi\fi\fi\fi\fi\fi}
-
-\def\read@lines{%\edef\@neln{}%
-  \read\sub@texfile to\next
-  \ifeof\sub@texfile
-  \else
-    \check@end{\next}\ifnum\@ret>\z@\h@nmonfalse\fi
-\ifh@nmon
-\tailchar\next\nexti\dmy
-    \expandafter\verbatim@addtoline\expandafter{\nexti}%
-    \immediate\write\w@sub@texfile{\the\verbatim@line}%
-    \verbatim@startline
-\else
-    \check@begin{\next}\ifnum\@ret>\z@\h@nmontrue\fi
-\fi
-    \expandafter\read@lines
-  \fi
-}
-
-\def\RTF@nest{0}%
-\def\ReadTeXFile{\Incr\RTF@nest
-  \@ifnextchar[{\@ReadTeXFile}{\@ReadTeXFile[emRtmp.\RTF@nest]}}
-\def\@ReadTeXFile[#1]#2{%
-\typeout{inputfile=#2}%
-  \par
-  {\getflnode{#2}\flnm\def\jobname{\flnm}%
-  \@ifundefined{perlflnum}{}{\xdef\perlflnum{0}}%
-  \checkExistFile{#2}\@inputsubtex{#1}{#2}\input{#1}}\Decr\RTF@nest}%
-
-\def\@inputsubtex#1#2{\h@nmonfalse
-\begingroup
-\the\every@verbatim\obeylines\let\do\@makeother\dospecials
-\openin\sub@texfile=#2%
-\immediate\openout\w@sub@texfile=#1\relax
-\read@lines%{\@filef@und}%\endtrivlist
-\@doendpe
-\endgroup
-\immediate\closein\sub@texfile
-\immediate\closeout\w@sub@texfile
+\define@key{emR}{prelabel}{%
+  \edef\prelabel{#1}\edef\jobname{#1}\edef\Jobname{#1}}%
+\define@key{emR}{jobname}{%
+  \edef\prelabel{#1-}\edef\jobname{#1}\edef\Jobname{#1}}%
+\define@key{emR}{Imawarikomi}[]{%
+  \edef\R@Im{1}%
+  \def\mawarikomi{%
+    \ifthenelse{\R@Im>\z@}{%
+      \Imawarikomi
+    }{%
+      \@mawarikomi
+    }%
+  }
+  \let\R@endmawarikomi\endmawarikomi
+  \def\endmawarikomi{\xdef\R@Im{0}\R@endmawarikomi}%
 }%
+%
+\def\k@igyou{\par }%
+%
+\def\RTFnest{0}%
+\def\ReadTeXFile{\@ifnextchar<{\@ReadTeXFile}{\@ReadTeXFile<\empty>}}%
+\def\@ReadTeXFile<#1>{\Incr\RTFnest
+  \@ifnextchar[{\@@ReadTeXFile<#1>}{\@@ReadTeXFile<#1>[emRtmp.\RTFnest]}}
+\def\@@ReadTeXFile<#1>[#2]#3{%
+  \k@igyou%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 2007/10/25
+  {%
+    \getflnode{#3}\flnm\def\jobname{\flnm}%
+    \IfFileExists{#3}{}{%
+      \errmessage{emathR Error : File = #3 not found!}%
+    }%
+\edef\pszahyou@N{0}%
+    \edef\Jobname{#3}%
+    \edef\prelabel{\Jobname-}%
+    \ifx\empty #1\else\setkeys{emR}{#1}\fi
+    \@ifundefined{autoHakolabel}{}{%
+      \def\hakosyokika{\@hakosyokika\autoHakolabel{}}%
+      \autoHakolabel{}%
+    }%
+    {%
+% --- mawarikomi環境内での使用対策 BBS #7958 ------------------
+      \@ifundefined{EMWR@par}{}{\let\par\EMWR@par}% 
+% -------------------------------------------------------------
+    }%
+    \input{#3}%\par%
+  }%
+  \Decr\RTFnest
+}%
+%
+\def\pushlasteqnum{\writeLabel{\jobname-lasteqnum}{\arabic{equation}}}%
+\@ifpackageloaded{hyperref}{%
+  \def\poplasteqnum{%
+    \expandafter\ref@chk\csname r@\jobname-lasteqnum\endcsname
+    \if 1\@miteigi 0 \else
+      \edef\popln@tmp@{\ltxref{\jobname-lasteqnum}}%
+      \strip@relax\popln@tmp@\to\popln@tmp
+      \count255=\popln@tmp
+      \setcounter{equation}{\count255}%
+    \fi
+  }%
+}{%
+  \def\poplasteqnum{%
+    \@ifundefined{SK@ref}{%
+      \expandafter\ref@chk\csname r@\jobname-lasteqnum\endcsname
+      \if 1\@miteigi 0 \else
+        \edef\popln@tmp{\ref{\jobname-lasteqnum}}%
+%       \setcounter{equation}{\popln@tmp}%
+        \count255=\popln@tmp
+        \setcounter{equation}{\count255}%
+      \fi
+    }{%
+      \ifx\SK@ref\@empty
+        \expandafter\ref@chk\csname r@\jobname-lasteqnum\endcsname
+        \if 1\@miteigi 0 \else
+          \edef\popln@tmp{\ref{\jobname-lasteqnum}}%
+%     \setcounter{equation}{\popln@tmp}%
+          \count255=\popln@tmp
+          \setcounter{equation}{\count255}%
+        \fi
+      \fi
+    }%
+  }%
+}%
+%
 \endinput
+%
+% docmute.sty
+% combine.sty
+%
+%
+%
+%
 \def\verbatiminput{\begingroup
   \@ifstar{\verbatim@input\relax}%
           {\verbatim@input{\frenchspacing\@vobeyspaces}}}
@@ -150,3 +134,29 @@
 %       読み込むファイル名をログファイルに書き出す。
 % v 0.16 2005/10/03
 %       \ReadTeXFile : 冒頭で \par
+% v 0.17 2007/10/25
+%       \perlflnum : リセットのタイミング
+%       \ReadTeXFile と edaenumerate との関係 (BBS #6596)
+% v 0.18 2008/05/28
+%       作業ファイル emRtmp.1 を EMworkdir に作る。
+% v 0.19 2008/11/27
+%       emathC.sty 必須とし，スタンドアローン
+% v 0.20 2009/02/09
+%       mawarikomi環境内での使用 (BBS #7958)
+% v 0.21 2009/11/20
+%       \EMlabel, \EMref: label の重複対策
+% v 0.22 2010/03/17
+%       prelabel
+% v 0.23 2010/03/27
+%       keyval.sty をロード
+% v 0.24 2010/07/17
+%       \autoHakolabel を付加
+% v 0.25 2011/02/03
+%       hako.sty における \autoHakolabel の変更に対応
+% v 0.26 2011/06/11
+%       <Imawarikomi>
+% v 0.27 2011/08/27
+%       docmute.sty を利用する形式に変更
+% v 0.28 2014/11/03
+%       \pushlasteqnum, \poplasteqnum: emathR.sty を読み込んだときのみ有効
+%                                                         (BBS #12539)

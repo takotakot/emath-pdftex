@@ -10,7 +10,7 @@
 
 \def\tmpname{LaTeX2e}%
 \ifx\fmtname\tmpname%
-\ProvidesPackage{itembbox}[2004/08/10 v 0.19]%
+\ProvidesPackage{itembbox}[2011/01/20 v 0.21]%
 \RequirePackage{ascmac}
 \RequirePackage{keyval}
 \def\ltxoval(#1,#2){\@ifnextchar[{\ltx@oval(#1,#2)}{\ltx@oval(#1,#2)[]}}%
@@ -74,7 +74,7 @@
 % \vspace{.5\@itemh}%
   \bgroup\@scw\linewidth
   \advance\@scw -20pt\iboxpos@={#1}%
-  \setbox\scb@x=\hbox%
+  \setbox\scb@x=\hbox to\@scw
   \bgroup\begin{minipage}{\@scw}
   \tbaselineshift\@savetbaselineshift\vspace*{.5\baselineskip}%
   \parindent\EMitemboxindent}%
@@ -120,7 +120,7 @@
   \@itemh\ht\sc@itemb@x\advance\@itemh\dp\sc@itemb@x%
   \vspace{.5\@itemh}\bgroup\@scw\linewidth
   \advance\@scw -20pt
-  \setbox\scb@x=\hbox%
+  \setbox\scb@x=\hbox to\@scw
   \bgroup\begin{minipage}{\@scw}
   \tbaselineshift\@savetbaselineshift\vspace*{.5\@itemh}%
   \parindent\EMitemboxindent}%
@@ -177,7 +177,7 @@
   \advance\@itemh\dp\sc@itemb@x
   \vspace{.5\@itemh}\bgroup\@scw\linewidth
   \advance\@scw-20pt\@iboxpos={#1}%
-  \setbox\scb@x=\hbox\bgroup\begin{minipage}{\@scw}%
+  \setbox\scb@x=\hbox to\@scw\bgroup\begin{minipage}{\@scw}%
   \tbaselineshift\@savetbaselineshift% (KN:1998/02/27)
   \vspace*{.5\@itemh}%
   \parindent\EMitemboxindent}%
@@ -223,7 +223,7 @@
 \setlength{\@tempdima}{\@scw}%
 \addtolength{\@tempdima}{-20pt}%
 \@iboxpos={#1}%\@iboxstr={#2}%
-\setbox\scb@x=\hbox\bgroup\begin{minipage}{\@tempdima}
+\setbox\scb@x=\hbox to\@tempdima\bgroup\begin{minipage}{\@tempdima}
 \tbaselineshift\@savetbaselineshift\vspace*{.5\baselineskip}%
 \parindent\EMitemboxindent}%
 
@@ -268,7 +268,7 @@
 \iboxpos@={#2}%\iboxstr@={#4}%
 \setlength{\@tempdima}{\@scw}%
 \addtolength{\@tempdima}{-20pt}%
-\setbox\scb@x=\hbox\bgroup\begin{minipage}{\@tempdima}
+\setbox\scb@x=\hbox to \@tempdima\bgroup\begin{minipage}{\@tempdima}
 \tbaselineshift\@savetbaselineshift\vspace*{.75\@itemh}\parindent\EMitemboxindent}%
 \def\enditemtbsquarebox{\end{minipage}\egroup%
 \setbox\scscb@x=\hbox to\linewidth{\hfil\vbox{\offinterlineskip%
@@ -408,7 +408,7 @@
 \def\boxnote{\par\vspace{\baselineskip}
 \@savetbaselineshift\tbaselineshift\tbaselineshift\z@
 \setbox\@nbox=\hbox{\@ascgrp\vrule width1.08pt depth35pt b\hss a\hss b}
-\@whiledim \wd\@nbox<\hsize \do{
+\@whiledim \wd\@nbox<\hsize \do{%
 \setbox\@nbox=\hbox{\@ascgrp\unhbox\@nbox \hss a\hss b}}
 \setbox\@nbox=\hbox to\hsize{\@ascgrp\unhbox\@nbox \hss a\hss b%
 \vrule width1.08pt depth35pt}
@@ -423,10 +423,18 @@
 %
 % shadebox 修正
 %
-\let\asciishadebox\shadebox
-\let\endasciishadebox\endshadebox
-\def\shadebox{\par\noindent\asciishadebox}%
-\def\endshadebox{\endasciishadebox\par}%
+\def\shadebox{\par\noindent\@ifnextchar<{\@shadebox}{\@@shadebox}}%
+\def\@shadebox<#1>{\dimen0\linewidth \advance\dimen0-20pt 
+\advance\dimen0-2\fboxrule \advance\dimen0-\shaderule
+\setbox\@tempboxa=\hbox\bgroup\minipage<#1>{\dimen0}}
+\def\@@shadebox{\dimen0\linewidth \advance\dimen0-20pt 
+\advance\dimen0-2\fboxrule \advance\dimen0-\shaderule
+\setbox\@tempboxa=\hbox\bgroup\minipage{\dimen0}}
+%
+%\let\asciishadebox\shadebox
+%\let\endasciishadebox\endshadebox
+%\def\shadebox{\par\noindent\asciishadebox}%
+%\def\endshadebox{\endasciishadebox\par}%
 %
 % keytop : okumacro.sty の定義を epic, eepic との併用に向けて修正
 %
@@ -479,7 +487,7 @@
   \removept{\dimen0}{\temp@B}%
   \unitlength=1pt
   \advance \dimen1 by 2pt
-  \Div\EMkeytop@cornersize{2}\EMkeytop@@cornersize
+  \@Div\EMkeytop@cornersize{2}\EMkeytop@@cornersize
   \Add\temp@H{\EMkeytop@@cornersize}\temp@HH
   \Add\temp@D{\EMkeytop@@cornersize}\temp@DD
   \hbox{\vrule height\temp@HH\p@ depth\temp@DD\p@ width0pt}%
@@ -551,3 +559,7 @@
 %     ascmac.sty の \keytop を \asckeytop として保存
 %  v 0.19     2004/08/10
 %     \EMkeytop
+%  v 0.20     2006/07/19
+%     tascmac.sty 2006/07/18 に対応
+%  v 0.21     2011/01/20
+%     shadebox: <t>オプション

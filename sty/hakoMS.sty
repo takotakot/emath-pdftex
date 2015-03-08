@@ -1,8 +1,10 @@
 % hakoMS.sty by tDB (CQB00260@nifty.ne.jp)
 %
 \NeedsTeXFormat{LaTeX2e}%
-\ProvidesPackage{hakoMS}[2005/04/12 v0.04]%
+\ProvidesPackage{hakoMS}[2014/11/20 v0.08a]%
 %
+%\RequirePackage{emath}%
+\@ifpackageloaded{emath}{}{\RequirePackage{emath}}%
 \RequirePackage{hako}%
 \RequirePackage{emathPh}%
 %  \RequirePackage{emath}%   emath は前提
@@ -11,8 +13,10 @@
 % \EMmarksheet<key=val>[配点]'正答'{行数}{記号配列}
 %
 \newcounter{gyouban}
+\@ifundefined{ifmaskAns}{\newif\ifmaskAns\maskAnsfalse}{}%
 %
 \define@key{HMS}{syokiti}{\edef\HMS@syokiti{#1}}%
+\define@key{HMS}{pos}{\edef\HMS@pos{#1}}%
 %
 %\def\h@komozisyu{ア}
 \def\h@kosyotai{\normalfont}%
@@ -23,8 +27,10 @@
 %\def\@IROHA{い}%
 %\def\@kan{一}%
 %\def\hakomozisyu#1{\def\h@komozisyu{#1}}%
+\def\LTcolumn#1{\def\LT@column{#1}}%
+\def\LT@column{}%
 %
-\def\EMmarksheet{\def\HMS@syokiti{0}\@ifnextchar<{\EMmarksheet@}{%
+\def\EMmarksheet{\edef\HMS@pos{c}\def\HMS@syokiti{0}\@ifnextchar<{\EMmarksheet@}{%
                       \@EMmarksheet}}
 \def\EMmarksheet@<#1>{\setkeys{HMS}{#1}\@EMmarksheet}
 \def\@EMmarksheet{\@ifnextchar[{\@@EMmarksheet}{\@@EMmarksheet[\empty]}}
@@ -34,6 +40,7 @@
   \edef\gyousuu{#3}\IAdd\gyousuu\HMS@syokiti\HMS@owariti
   \Decr\HMS@owariti\edef\kigousuu{0}%
   \def\setmds{%
+\h@kosityuu% 記号欄の支柱 saloon #1011
     \def\m@ziretu{}%
     \expandafter\@tfor\expandafter\@c\expandafter:\expandafter=\h@komozisyu%
     \do {%
@@ -80,13 +87,15 @@
   \fi
   \edef\kotae@suu{0}%
   \ifx\empty #2\relax\else
+\ifmaskAns\else
     \expandafter\@for\expandafter\@@c\expandafter:\expandafter=#2\do{%
       \Incr\kotae@suu
-      \expandafter\edef\csname kotae@\kotae@suu\endcsname{\@@c}}%
+      \expandafter\EMedef\csname kotae@\kotae@suu\endcsname{\@@c}}%
+\fi
   \fi
   \expandafter\@for\expandafter\@@c\expandafter:\expandafter=#4\do{%
     \Incr\kigousuu
-    \expandafter\edef\csname kigou@\kigousuu\endcsname{\@@c}}%
+    \expandafter\EMedef\csname kigou@\kigousuu\endcsname{\@@c}}%
   \IAdd\kigousuu{1}\ransuu
   \ifnum\haiten@suu>\z@
     \ifnum\haiten@suu=#3\else\errmessage{配点と行数が不一致です}\fi
@@ -96,7 +105,8 @@
   \fi
   \ifnum\haiten@suu>\z@
     \IAdd\kigousuu{2}\Ransuu
-    \begin{tabular}{|c|*{\kigousuu}{c}|r|}\hline
+    \begin{tabular}[\HMS@pos]{|c|*{\kigousuu}{c}|r|}\hline
+\LT@column% 表の左上欄に出力 saloon #1011
       & \multicolumn{\kigousuu}{c|}{解　　　　答　　　　欄}& 配点
           \\\cline{2-\Ransuu}
       \Cfor{\xdef\i{0}}{\i<\kigousuu}{}\do{%
@@ -146,7 +156,8 @@
       \csname haiten@\HMS@lnnum\endcsname\\\hline
     \end{tabular}%
   \else
-    \begin{tabular}{|c|*{\kigousuu}{c}|}\hline
+    \begin{tabular}[\HMS@pos]{|c|*{\kigousuu}{c}|}\hline
+\LT@column% 表の左上欄に出力 saloon #1011
       & \multicolumn{\kigousuu}{c|}{解　　　　答　　　　欄} \\\cline{2-\ransuu}
       \Cfor{\xdef\i{0}}{\i<\kigousuu}{}\do{%
         &\xIncr\i\csname kigou@\i\endcsname}\\\hline
@@ -187,7 +198,8 @@
       }\\\hline
     \end{tabular}%
   \fi
-}
+}%
+%
 \endinput
 v 0.00 2004/06/20
 v 0.01 2004/06/20
@@ -199,3 +211,12 @@ v 0.03 2004/09/06
     syokiti を指定した際の，配点欄・正解欄の修正
 v 0.04 2005/04/12
     hako.sty を読み込む
+v 0.05 2007/10/29
+    \EMmarksheet <pos=.>オプション
+v 0.06 2010/06/19
+    \edef --> \EMedef
+v 0.07 2012/10/02
+    \LTcolumn: 表の左上欄への出力 (saloon #1011)
+    \hakosityuu を有効とする　　  (saloon #1011)
+v 0.08 2014/11/20
+    \maskAns を有効とする。(BBS #12557)

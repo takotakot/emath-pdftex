@@ -1,13 +1,24 @@
 % emathPs.sty by tDB (emath@nifty.com)
 %
-\NeedsTeXFormat{LaTeX2e}
-\def\Ps@version{0.94}
-\ProvidesPackage{emathPs}[2005/11/05 v \Ps@version β]%
+\NeedsTeXFormat{LaTeX2e}%
+\def\Ps@version{2.08}%
+\ProvidesPackage{emathPs}[2015/01/06 v \Ps@version ]%
 %
 \@ifundefined{ifpapersize}{\newif\ifpapersize\papersizefalse}{}%
 \def\EMcolor@type{rgb}%
+%\edef\remake@eps{1}%
+\def\remakeEPS{\remake@eps}%
 %
   \DeclareOption{notMy}{\def\not@My{}}%
+  \DeclareOption{notmyfonts}{\def\my@fonts{0}}%
+  \DeclareOption{final}{\def\remake@eps{0}}%
+  \DeclareOption{remakefalse}{\def\remake@eps{0}}%
+  \DeclareOption{noremake}{\def\remake@eps{0}}%
+  \DeclareOption{remake}{\def\remake@eps{1}}%
+  \DeclareOption{eps}{\let\by@pdf\undefined}%
+  \DeclareOption{epspdf}{\def\eps@pdf{}}%
+  \DeclareOption{pdf}{\def\by@pdf{1}}%
+  \DeclareOption{PDF}{\def\by@pdf{0}}%
   \DeclareOption{debug}{\def\ps@debug{}}%
   \DeclareOption{Pk}{\def\ps@Pk{}}%
   \DeclareOption{tpic}{\def\ps@tpic{}}%
@@ -17,32 +28,75 @@
   \DeclareOption{pxfonts}{\def\em@fonts{3}}%
   \DeclareOption{mathabx}{\def\em@fonts{4}}%
   \DeclareOption{varg}{\def\@varg{}}%
+  \DeclareOption{usenames}{\def\em@color@names{}}%
   \DeclareOption{dviout}{\def\em@grdrv{dviout}}%
   \DeclareOption{dvips}{\def\em@grdrv{dvips}}%
   \DeclareOption{dvipdfm}{\def\em@grdrv{dvipdfm}}%
   \DeclareOption{dvipdfmx}{\def\em@grdrv{dvipdfmx}}%
   \DeclareOption{cmyk}{\def\EMcolor@type{cmyk}}%
-  \DeclareOption{papersize}{\papersizetrue}
+  \DeclareOption{oldB}{\def\old@B{}}%
+  \DeclareOption{notPp}{\def\not@Pp{}}%
+  \DeclareOption{papersize}{\papersizetrue}%
+  \DeclareOption{notcheckperl}{\def\not@perl@check{}}%
+%  \DeclareOption{EMpscolornam}{\def\EMps@colornam{}}%
+  \DeclareOption{tenretu}{\def\load@tenretu{}}%
+  \ExecuteOptions{remake}%
   \ProcessOptions\relax
+%
+\@ifundefined{color}{}{\RequirePackage{EMcolor}}%
+%
+%  \@ifundefined{remake@eps}{%
+%    \@ifundefined{ps@debug}{\def\remake@eps{1}}{\def\remake@eps{0}}%
+%  }{}%
   \@ifundefined{ps@tpic}{\def\emath@Ps{}}{}%  2005/02/11
+%  \usepackage[multidot]{grffile}
   \@ifundefined{P@nly}{%
     \RequirePackage{verbatim}%
     \@ifundefined{ps@Pk}{}{\RequirePackage{emathPk}}%
     \RequirePackage{emathPxy}%
-    \RequirePackage{emathPp}%
+    \@ifundefined{not@Pp}{\RequirePackage{emathPp}}{}%
+    \RequirePackage{emathLb}%
     \RequirePackage{lastpage}%
-  }{}%
+  }{%
+    \@ifpackageloaded{EMpict2e}{%
+      \RequirePackage{verbatim}
+      \RequirePackage{emathPxy}
+      \@ifundefined{ps@Pk}{}{\RequirePackage{emathPk}}%
+      \RequirePackage{emathPp}
+      \RequirePackage{lastpage}
+    }{}%
+  }%
+%
+\@ifundefined{includegraphics}{\errmessage{emathPs.sty needs graphicx.sty}}{}%
+\@ifundefined{by@pdf}{}{%
+  \@ifdevloaded{dvipdfmx}{}{%
+    \errmessage{graphicx.sty にロードオプション [dvipdfmx] が必要です}%
+  }%
+}%
+%
+% \@ifundefined{EMps@colornam}{}{\input{EMpscolornam.def}}%
+%  \@ifundefined{ps@debug}{}{%
+%    \edef\remake@eps{0}%
+%  }%
+%
+\let\eepicdrawline\drawline
+\let\eepic@drawline\@drawline
+\let\ltxlinethickness\linethickness
 %
 \newif\ifinclude@eps\include@epstrue
 \newif\ifarrowfill\arrowfilltrue
 \newwrite\EMps@out
 \newcounter{EMps@flnm}%
+\def\everypszahyou{\relax}%
+\edef\include@origin{(0,0)}%
 %
-  \def\EMps@filedir{\@currdir}%
+  \@ifundefined{EMps@filedir}{\def\EMps@filedir{\@currdir}}{}%
   \def\EMpsFileDir#1{\edef\EMps@filedir{#1\kugirisi}}%
-\def\psdebugmode{\def\ps@debug{}}
+  \edef\EMworkfilename{\jobname}%
+\def\psdebugmode{\def\ps@debug{}}%
 \def\sensyu{\drawline}%
 \def\border@width{\z@}%
+\def\setborderwidth#1{\def\border@width{#1}}%
 \def\ltops#1#2{%
   \@tempdima #1\unitlength
   \@tempdima 10\@tempdima
@@ -52,8 +106,12 @@
 %
 \edef\EMps@newpath{1}%
 \edef\byouga@dousa{s}%
-\def\ps@continue{0}%
-\def\EMpscontinue#1{\def\ps@continue{#1}}%
+\edef\byouga@arc{arc}%
+%\def\ps@continue{0}%
+%\def\EMpscontinue#1{\def\ps@continue{#1}}%
+%
+\def\EMpscontinue{\EMpscontinuetrue\gsave}%
+\def\endEMpscontinue{\grestore}%
 %
 \def\EPStranslate@x{0}%
 \def\EPStranslate@y{0}%
@@ -62,14 +120,38 @@
   \vecXY\xytops@P\xytoEMps@@x\xytoEMps@@y
   \Sub\xytoEMps@@x\xmin\xytoEMps@@x
   \Sub\xytoEMps@@y\ymin\xytoEMps@@y
-  \@tempdima\xytoEMps@@x\xunitlength
-  \@tempdima10\@tempdima
-  \edef#2{\strip@pt\@tempdima}%
-  \Sub{#2}\EPStranslate@x#2\relax
-  \@tempdima\xytoEMps@@y\yunitlength
-  \@tempdima10\@tempdima
-  \edef#3{\strip@pt\@tempdima}%
-  \Sub{#3}\EPStranslate@y#3\relax
+  \@ifundefined{xunitlength}%
+  {%
+    \@tempdima\xytoEMps@@x\unitlength
+  }{%
+    \@tempdima\xytoEMps@@x\xunitlength
+  }%
+%  \@tempdima10\@tempdima
+%  \edef#2{\strip@pt\@tempdima}%
+%  \Sub{#2}\EPStranslate@x#2\relax
+  \ifdim\@tempdima<1638\p@\relax
+    \@tempdima10\@tempdima
+    \edef#2{\strip@pt\@tempdima}%
+    \Sub{#2}\EPStranslate@x#2\relax
+  \else
+    \calcval[f]{10*\strip@pt\@tempdima-\EPStranslate@x}#2
+  \fi
+  \@ifundefined{yunitlength}%
+  {%
+    \@tempdima\xytoEMps@@y\unitlength
+  }{%
+    \@tempdima\xytoEMps@@y\yunitlength
+  }%
+%  \@tempdima10\@tempdima
+%  \edef#3{\strip@pt\@tempdima}%
+%  \Sub{#3}\EPStranslate@y#3\relax
+  \ifdim\@tempdima<1638\p@\relax
+    \@tempdima10\@tempdima
+    \edef#3{\strip@pt\@tempdima}%
+    \Sub{#3}\EPStranslate@y#3\relax
+  \else
+    \calcval[f]{10*\strip@pt\@tempdima-\EPStranslate@x}#3
+  \fi
 }%
 \def\pureltops#1#2{%
   \@tempdima #1\unitlength
@@ -80,215 +162,131 @@
   \vecXY{#1}\xytoEMps@@x\xytoEMps@@y
   \Sub\xytoEMps@@x\xmin\xytoEMps@@x
   \Sub\xytoEMps@@y\ymin\xytoEMps@@y
-  \@tempdima\xytoEMps@@x\xunitlength
+  \@ifundefined{xunitlength}%
+  {%
+    \@tempdima\xytoEMps@@x\unitlength
+  }{%
+    \@tempdima\xytoEMps@@x\xunitlength
+  }%
   \edef#2{\strip@pt\@tempdima}%
 % \Add{#2}{0.5}#2\Seisuububun{#2}#2
-  \@tempdima\xytoEMps@@y\yunitlength
+  \@ifundefined{yunitlength}%
+  {%
+    \@tempdima\xytoEMps@@y\unitlength
+  }{%
+    \@tempdima\xytoEMps@@y\yunitlength
+  }%
   \edef#3{\strip@pt\@tempdima}%
 % \Add{#3}{0.5}#3\Seisuububun{#3}#3
 }%
 \def\default@linewidth{10}%
-\def\defaultlinewidth#1{\edef\default@linewidth{#1}}
+\def\defaultlinewidth#1{\edef\default@linewidth{#1}}%
+\def\cur@linecap{0}%
+\def\nuri@grayscale{.5}%
 %
-% 色
-%
-\def\EMpsIrositei#1{%
-  \@ifundefined{EMps@#1}{%
-    \errmessage{undefined color : #1}%
+\define@key{emPb}{pszOption}{\edef\psz@option{#1}}%
+\define@key{emPb}{debug}[]{\def\ps@debug{}}%
+\define@key{emPb}{remake}[1]{\def\remake@eps{#1}}%
+%\define@key{emPb}{linecap}{\setlinecap{#1}}%
+\define@key{emPsb}{wave}[*{2mm}{.3mm}]{\edef\rectbox@wave{#1}%
+  \Headchar\rectbox@wave\rb@w@a\rb@w@r
+  \ifthenelse{\equal\rb@w@a{*}}{%
+    \expandafter\setwavesize\rb@w@r
+    \def\Draw@rectbox{\Drawwave*}%
   }{%
-    \immediate\write\EMps@out{\csname EMps@#1\endcsname\space \EMsetcolor}%
-  }}
-%
-\edef\EMsetcolor{set\EMcolor@type color}
-\ifthenelse{\equal\EMcolor@type{rgb}}{%
-%
-% 色(RGB)
-%
-\def\EMps@black{0 0 0}%
-\def\EMps@red{1 0 0}%
-\def\EMps@green{0 1 0}%
-\def\EMps@blue{0 0 1}%
-\def\EMps@white{1 1 1}%
-\def\EMps@cyan{0 1 1}%
-\def\EMps@magenta{1 0 1}%
-\def\EMps@yellow{1 1 0}%
-%
-    \def\EMps@ivory{1.000000 1.000000 0.941176}%
-    \def\EMps@snow{1.000000 0.980392 0.980392}%
-    \def\EMps@gold{1.000000 0.843137 0.000000}%
-    \def\EMps@pink{1.000000 0.752941 0.796078}%
-    \def\EMps@orange{1.000000 0.647059 0.000000}%
-    \def\EMps@coral{1.000000 0.498039 0.313725}%
-    \def\EMps@tomato{1.000000 0.388235 0.278431}%
-    \def\EMps@linen{0.980392 0.941176 0.901961}%
-    \def\EMps@salmon{0.980392 0.501961 0.447059}%
-    \def\EMps@khaki{0.941176 0.901961 0.549020}%
-    \def\EMps@violet{0.933333 0.509804 0.933333}%
-    \def\EMps@lavender{0.901961 0.901961 0.980392}%
-    \def\EMps@plum{0.866667 0.627451 0.866667}%
-    \def\EMps@crimson{0.862745 0.078431 0.235294}%
-    \def\EMps@orchid{0.854902 0.439216 0.839216}%
-    \def\EMps@chocolate{0.823529 0.411765 0.117647}%
-    \def\EMps@silver{0.752941 0.752941 0.752941}%
-    \def\EMps@brown{0.647059 0.164706 0.164706}%
-    \def\EMps@yellowgreen{0.603922 0.803922 0.196078}%
-    \def\EMps@lightgreen{0.564706 0.933333 0.564706}%
-    \def\EMps@skyblue{0.529412 0.807843 0.921569}%
-    \def\EMps@olive{0.501961 0.501961 0.000000}%
-    \def\EMps@purple{0.501961 0.000000 0.501961}%
-    \def\EMps@maroon{0.501961 0.000000 0.000000}%
-    \def\EMps@indigo{0.294118 0.000000 0.509804}%
-    \def\EMps@royalblue{0.254902 0.411765 0.882353}%
-    \def\EMps@seagreen{0.180392 0.545098 0.341176}%
-    \def\EMps@forestgreen{0.133333 0.545098 0.133333}%
-    \def\EMps@darkcyan{0.000000 0.545098 0.545098}%
-    \def\EMps@teal{0.000000 0.501961 0.501961}%
-    \def\EMps@darkgreen{0.000000 0.392157 0.000000}%
-    \def\EMps@navy{0.000000 0.000000 0.501961}%
-%
-\def\defineEMpscolor#1#2#3#4{%
-  \expandafter\def\csname EMps@#1\endcsname{#2\space#3\space#4}}%
-}{%
-%
-% 色(CMYK)
-%
-  \def\EMps@GreenYellow{0.15 0 0.69 0}%
-  \def\EMps@Yellow{0 0 1 0}%
-  \def\EMps@Goldenrod     {0 0.10 0.84 0}%
-  \def\EMps@Dandelion     {0 0.29 0.84 0}%
-  \def\EMps@Apricot       {0 0.32 0.52 0}%
-  \def\EMps@Peach         {0 0.50 0.70 0}%
-  \def\EMps@Melon         {0 0.46 0.50 0}%
-  \def\EMps@YellowOrange  {0 0.42 1 0}%
-  \def\EMps@Orange        {0 0.61 0.87 0}%
-  \def\EMps@BurntOrange   {0 0.51 1 0}%
-  \def\EMps@Bittersweet   {0 0.75 1 0.24}%
-  \def\EMps@RedOrange     {0 0.77 0.87 0}%
-  \def\EMps@Mahogany      {0 0.85 0.87 0.35}%
-  \def\EMps@Maroon        {0 0.87 0.68 0.32}%
-  \def\EMps@BrickRed      {0 0.89 0.94 0.28}%
-  \def\EMps@Red           {0 1 1 0}%
-  \def\EMps@OrangeRed     {0 1 0.50 0}%
-  \def\EMps@RubineRed     {0 1 0.13 0}%
-  \def\EMps@WildStrawberry{0 0.96 0.39 0}%
-  \def\EMps@Salmon        {0 0.53 0.38 0}%
-  \def\EMps@CarnationPink {0 0.63 0 0}%
-  \def\EMps@Magenta       {0 1 0 0}%
-  \def\EMps@VioletRed     {0 0.81 0 0}%
-  \def\EMps@Rhodamine     {0 0.82 0 0}%
-  \def\EMps@Mulberry      {0.34 0.90 0 0.02}%
-  \def\EMps@RedViolet     {0.07 0.90 0 0.34}%
-  \def\EMps@Fuchsia       {0.47 0.91 0 0.08}%
-  \def\EMps@Lavender      {0 0.48 0 0}%
-  \def\EMps@Thistle       {0.12 0.59 0 0}%
-  \def\EMps@Orchid        {0.32 0.64 0 0}%
-  \def\EMps@DarkOrchid    {0.40 0.80 0.20 0}%
-  \def\EMps@Purple        {0.45 0.86 0 0}%
-  \def\EMps@Plum          {0.50 1 0 0}%
-  \def\EMps@Violet        {0.79 0.88 0 0}%
-  \def\EMps@RoyalPurple   {0.75 0.90 0 0}%
-  \def\EMps@BlueViolet    {0.86 0.91 0 0.04}%
-  \def\EMps@Periwinkle    {0.57 0.55 0 0}%
-  \def\EMps@CadetBlue     {0.62 0.57 0.23 0}%
-  \def\EMps@CornflowerBlue{0.65 0.13 0 0}%
-  \def\EMps@MidnightBlue  {0.98 0.13 0 0.43}%
-  \def\EMps@NavyBlue      {0.94 0.54 0 0}%
-  \def\EMps@RoyalBlue     {1 0.50 0 0}%
-  \def\EMps@Blue          {1 1 0 0}%
-  \def\EMps@Cerulean      {0.94 0.11 0 0}%
-  \def\EMps@Cyan          {1 0 0 0}%
-  \def\EMps@ProcessBlue   {0.96 0 0 0}%
-  \def\EMps@SkyBlue       {0.62 0 0.12 0}%
-  \def\EMps@Turquoise     {0.85 0 0.20 0}%
-  \def\EMps@TealBlue      {0.86 0 0.34 0.02}%
-  \def\EMps@Aquamarine    {0.82 0 0.30 0}%
-  \def\EMps@BlueGreen     {0.85 0 0.33 0}%
-  \def\EMps@Emerald       {1 0 0.50 0}%
-  \def\EMps@JungleGreen   {0.99 0 0.52 0}%
-  \def\EMps@SeaGreen      {0.69 0 0.50 0}%
-  \def\EMps@Green         {1 0 1 0}%
-  \def\EMps@ForestGreen   {0.91 0 0.88 0.12}%
-  \def\EMps@PineGreen     {0.92 0 0.59 0.25}%
-  \def\EMps@LimeGreen     {0.50 0 1 0}%
-  \def\EMps@YellowGreen   {0.44 0 0.74 0}%
-  \def\EMps@SpringGreen   {0.26 0 0.76 0}%
-  \def\EMps@OliveGreen    {0.64 0 0.95 0.40}%
-  \def\EMps@RawSienna     {0 0.72 1 0.45}%
-  \def\EMps@Sepia         {0 0.83 1 0.70}%
-  \def\EMps@Brown         {0 0.81 1 0.60}%
-  \def\EMps@Tan           {0.14 0.42 0.56 0}%
-  \def\EMps@Gray          {0 0 0 0.50}%
-  \def\EMps@Black         {0 0 0 1}%
-  \def\EMps@White         {0 0 0 0}%
-%
-  \def\EMps@PastelBlue         {0.50 0 0 0}%
-%
-  \def\EMps@桜色{0 0.16 0.05 0}%
-  \def\EMps@一斤染{0 0.13 0.08 0}%
-  \def\EMps@肌色{0 0.30 0.35 0}%
-  \def\EMps@枯色{0.08 0.28 0.42 0}%
-  \def\EMps@香色{0.05 0.17 0.42 0.10}%
-  \def\EMps@白茶{0.14 0.28 0.37 0}%
-  \def\EMps@黄蘗色{0.15 0.20 0.92 0}%
-  \def\EMps@鳥の子色{0 0.07 0.30 0}%
-  \def\EMps@練色{0 0.10 0.24 0}%
-  \def\EMps@若葉色{0.35 0 0.47 0.04}%
-  \def\EMps@柳色{0.44 0.12 0.63 0}%
-  \def\EMps@抹茶色{0.33 0.15 0.60 0}%
-  \def\EMps@浅緑{0.42 0 0.42 0}%
-  \def\EMps@白緑{0.32 0 0.25 0}%
-  \def\EMps@青磁色{0.60 0.08 0.48 0}%
-  \def\EMps@水浅葱{0.45 0.04 0.14 0}%
-  \def\EMps@水色{0.45 0 0.06 0}%
-  \def\EMps@瓶覗{0.32 0 0.14 0}%
-  \def\EMps@空色{0.50 0 0.03 0.03}%
-  \def\EMps@藤色{0.42 0.40 0 0}%
-  \def\EMps@薄色{0.20 0.30 0.10 0.30}%
-  \def\EMps@乳白色{0.03 0 0.03 0.03}%
-  \def\EMps@灰白色{0.05 0.06 0.12 0}%
-%  \def\EMps@{}%
-%
-\def\defineEMpscolor#1#2#3#4#5{%
-  \expandafter\def\csname EMps@#1\endcsname{#2\space#3\space#4\space#5}}%
+    \expandafter\setwavesize\rectbox@wave
+    \def\Draw@rectbox{\Drawwave}%
+  }%
 }%
-%\edef\GP@pushlvl{0}%
-%\def\pushGP{%
-%  \Incr\GP@pushlvl
-%  \expandafter\edef\csname linewidth@\GP@pushlvl\endcsname{\cur@linewidth}%
-%  \expandafter\edef\csname dash@\GP@pushlvl\endcsname{\cur@dash}%
-%  \expandafter\edef\csname dashoffset@\GP@pushlvl\endcsname{\cur@dashoffset}%
-%}
-%\def\popGP{%
-%  \ifnum\GP@pushlvl>\z@
-%    \setlinewidth{\csname linewidth@\GP@pushlvl\endcsname}%
-%    \setdash[\csname dashoffset@\GP@pushlvl\endcsname]{%
-%      \csname dash@\GP@pushlvl\endcsname}%
-%    \Decr\GP@pushlvl
-%  \fi
-%}
+\define@key{emPs}{setwavesize}[*{2mm}{.3mm}]{\edef\rectbox@wave{#1}%
+  \expandafter\setwavesize\rectbox@wave
+}%
 %
+\define@key{emPs}{remake}[1]{\def\remake@eps{#1}}%
 \define@key{emPs}{pszOption}{\edef\psz@option{#1}}%
 \define@key{emPs}{newpath}[1]{\edef\EMps@newpath{#1}}%
 %\define@key{emPs}{stroke}[1]{\edef\EMps@stroke{#1}}%
 \define@key{emPs}{linewidth}{\setlinewidth{#1}}%
-\define@key{emPs}{linecap}{\setlinecap{#1}}%
+\define@key{emPs}{linethickness}{\linethickness{#1}}%
+\define@key{emPs}{borderthickness}{\edef\border@width{1}\linethickness{#1}}%
+\define@key{emP}{linecap}{\edef\cur@linecap{#1}\setlinecap{#1}}%
+\define@key{emPs}{linecap}{\edef\cur@linecap{#1}\setlinecap{#1}}%
 \define@key{emPs}{linejoin}{\setlinejoin{#1}}%
+\define@key{emPs}{kuromaru}[1]{\EMedef\put@kuromaru{#1}}%
+\define@key{emPs}{siromaru}[1]{\EMedef\put@siromaru{#1}}%
+\define@key{emPs}{hosyugo}[RT]{\edef\h@syugo{#1}}%
+\define@key{emPs}{boutyou}{\def\boutyou@size{#1}}%
+\define@key{emPs}{vmark}{\def\v@mark{#1}}%
+\define@key{emPs}{perl}[1]{\def\by@perl{#1}}%
+\define@key{emPs}{weight}{\def\LandL@w{#1}}%
+\define@key{emPs}{dashLG}{\vecXY{(#1)}\dash@L\dash@G\let\sensyu\dashln}%
+\define@key{emPs}{hasenLG}{%
+  \edef\hasenLG@opt{#1}%
+  \setdash{#1}%
+  \ifthenelse{\equal{#1}{\empty}}{%
+    \let\sensyu\drawline
+  }{%
+    \let\sensyu\pshasen
+  }%
+}%
+\define@key{emPs}{sensyu}{\def\sensyu{#1}}%
+% 0 = miter 延長
+% 1 = round
+% 2 = bevel 切り欠き
+%\define@key{emPs}{dash}{%
+%  \headchar{#1}\dash@a\dash@b
+%  \ifthenelse{\equal{\dash@a}{[}}{%
+%    \edef\dash@tmp{#1}\expandafter\setdash\dash@tmp}{%
+%    \setdash{#1}}%
+%  }%
 \define@key{emPs}{dash}{%
-  \headchar{#1}\dash@a\dash@b
-  \ifthenelse{\equal{\dash@a}{[}}{%
-    \edef\dash@tmp{#1}\expandafter\setdash\dash@tmp}{%
+  \headchar{#1}\Dash@a\Dash@b
+  \ifthenelse{\equal{\Dash@a}{[}}{%
+    \edef\Dash@tmp{#1}\expandafter\setdash\Dash@tmp}{%
     \setdash{#1}}%
   }%
+\define@key{emPs}{setxyrange}[\pszahyou@N]{\edef\set@xyrange{#1}}%
+%\define@key{emPs}{setxyrange}[1]{\edef\set@xyrange{#1}}%
 \define@key{emP}{pszOption}{\edef\psz@option{#1}}%
+\define@key{emP}{includePos}{%
+  \vecXY{#1}\includepos@x\includepos@y
+  \ukansan\includepos@x\EMps@x@include
+  \ukansan\includepos@y\EMps@y@include
+}%
+\define@key{emP}{includepos}{%
+  \vecXY{#1}\includepos@x\includepos@y
+  \ukansan\includepos@x\EMps@rx@include
+  \ukansan\includepos@y\EMps@ry@include
+}%
 \define@key{emP}{newpath}[1]{\edef\EMps@newpath{#1}}%
 %\define@key{emP}{stroke}[1]{\edef\EMps@stroke{#1}}%
 \define@key{emP}{linewidth}{\setlinewidth{#1}}%
-\define@key{emP}{dash}{%
-  \headchar{#1}\dash@a\dash@b
-  \ifthenelse{\equal{\dash@a}{[}}{%
-    \edef\dash@tmp{#1}\expandafter\setdash\dash@tmp}{%
-    \setdash{#1}}%
-  }%
+\define@key{emP}{arrowsize}{%
+  \edef\arrow@@size{#1}%
+  \expandafter\setarrowsize\arrow@@size
+}%
+\define@key{emPs}{wavesize}{%
+  \edef\wave@size{#1}%
+  \expandafter\setwavesize\wave@size
+}%
+\define@key{emPs}{arrowheadsize}{\changeArrowHeadSize{#1}}%
+\define@key{emPs}{arrowsize}{%
+  \edef\arrow@size{#1}%
+  \expandafter\setarrowsize\arrow@size
+}%
+%\define@key{emP}{dash}{%
+%  \headchar{#1}\dash@a\dash@b
+%  \ifthenelse{\equal{\dash@a}{[}}{%
+%    \edef\dash@tmp{#1}\expandafter\setdash\dash@tmp}{%
+%    \setdash{#1}}%
+%  }%
+\define@key{emP}{dilutecolor}{\edef\dilute@color{#1}}%
+\define@key{emPs}{dilutecolor}{\edef\dilute@color{#1}}%
+\define@key{emP}{XYdilutecolor}{\edef\XY@dilutecolor{#1}}%
+\define@key{emP}{Fdilutecolor}{\def\Fdilutecolor{#1}}%
+\define@key{emP}{Ndilutecolor}{\edef\N@dilutecolor{#1}}%
+\define@key{emP}{Rdilutecolor}{\edef\R@dilutecolor{#1}}%
+%
 \define@key{emP}{linejoin}{\setlinejoin{#1}}%
 \define@key{emGurafu}{linewidth}{\setlinewidth{#1}}%
 \define@key{emGurafu}{dash}{%
@@ -296,14 +294,31 @@
   \ifthenelse{\equal{\dash@a}{[}}{%
     \edef\dash@tmp{#1}\expandafter\setdash\dash@tmp}{%
     \setdash{#1}}%
-  }%
+}%
 \define@key{emPs}{grayscale}{\def\nuri@grayscale{#1}}%
 \define@key{emPs}{iro}{\def\iro@{#1}}%
 \define@key{emPs}{color}{\def\iro@{#1}}%
-\define@key{emPs}{oval}{\edef\oval@r{#1}}%
+\define@key{emPs}{bordercolor}{\def\iro@{#1}}%
+\define@key{emPs}{thickness}{\def\thickness@{#1}}%
+\define@key{emPs}{nuriiro}{\edef\nuri@iro{#1}}%
+\define@key{emPs}{paintcolor}{\edef\nuri@iro{#1}}%
+\define@key{emPs}{paintoption}{\edef\paint@option{#1}}%
+\define@key{emPs}{oval}{\ukansan{#1}\oval@r}%
 \define@key{emPs}{Oval}{\ukansan{#1}\oval@r}%
-\define@key{emPs}{waku}[1]{\def\ps@drawwaku@{#1}}%
+\define@key{emPs}{waku}[1]{\def\ps@drawwaku{#1}}%
+\define@key{emPs}{frame}[1]{\def\ps@drawwaku{#1}}%
 \define@key{emPs}{yazirusi}[a]{\def\yazirusi@opt{#1}}%
+\define@key{emPs}{yazirusipos}{\def\yazirusi@pos{#1}}%
+\define@key{emPs}{idou}{%
+  \def\idou@vtmp{#1}\Headchar\idou@vtmp\idou@h\idou@dmy
+  \if r\idou@h
+    \vecXY\idou@dmy\idou@r\idou@arg\ukansan\idou@r\idou@r
+    \DegCos\idou@arg\idou@c\Mul\idou@r\idou@c\idou@x
+    \DegSin\idou@arg\idou@s\Mul\idou@r\idou@s\idou@y
+  \else
+    \vecXY\idou@vtmp\idou@x\idou@y
+  \fi
+  \uxkansan\idou@x\idou@x\uykansan\idou@y\idou@y\edef\idou@v{(\idou@x,\idou@y)}}%
 %
 % dousa = p : 0 : path を付加するのみ
 %         s : 1 : stroke 描画（デフォルト）
@@ -311,13 +326,17 @@
 %         F : 3 : fill & stroke
 %         c : 4 : close & stroke
 %
-\define@key{emPs}{path}[p]{\def\byouga@dousa{p}\def\EMps@newpath{0}}
+\define@key{emPs}{path}[p]{\def\byouga@dousa{p}\def\EMps@newpath{0}}%\def\ps@continue{1}}%
+\define@key{emPs}{clip}[l]{\def\byouga@dousa{#1}}%
 \define@key{emPs}{dousa}{\def\byouga@dousa{#1}}%
-\define@key{emP}{path}[p]{\def\byouga@dousa{p}\def\EMps@newpath{0}}
-\define@key{emP}{dousa}{\def\byouga@dousa{#1}}%
+\define@key{emP}{path}[p]{\def\byouga@dousa{p}\def\EMps@newpath{0}}%\def\ps@continue{1}}%
+\define@key{emP}{clip}[l]{\def\byouga@dousa{#1}}%
+%\define@key{emP}{dousa}{\def\byouga@dousa{#1}}%
+\define@key{emP}{arcn}[arcn]{\edef\byouga@arc{#1}}%
+%\define@key{emP}{yuuko}[arcn]{\edef\byouga@arc{#1}}%
+\define@key{emPs}{arcn}[arcn]{\edef\byouga@arc{#1}}%
+\define@key{emPs}{yuuko}[arcn]{\edef\byouga@arc{#1}}%
 \define@key{emP}{grayscale}{\def\nuri@grayscale{#1}}%
-%
-%
 %
     \def\pushGP{\relax}%
     \def\popGP{\relax}%
@@ -325,1777 +344,444 @@
     \let\grestore\popGP
 %
     \edef\psKuromaru@Hankei{1.5pt}%
-    \def\psKuromaruHankei#1{\edef\psKuromaru@Hankei{#1}}%
+    \edef\psKurosikaku@Hankei{1.5pt}%
+    \edef\psKurosankaku@Hankei{1.5pt}%
+    \edef\psSiromaru@Hankei{1.5pt}%
+    \edef\psSirosikaku@Hankei{1.5pt}%
+    \edef\psSirosankaku@Hankei{1.5pt}%
+    \def\psKuromaruHankei#1{\edef\psKuromaru@Hankei{#1}\edef\psSiromaru@Hankei{#1}}%
+    \def\psKurosikakuHankei#1{\edef\psKurosikaku@Hankei{#1}\edef\psSirosikaku@Hankei{#1}}%
+    \def\psKurosankakuHankei#1{\edef\psKurosankaku@Hankei{#1}\edef\psSirosankaku@Hankei{#1}}%
+    \def\psSiromaruHankei#1{\edef\psSiromaru@Hankei{#1}}%
+    \def\psSirosikakuHankei#1{\edef\psSirosikaku@Hankei{#1}}%
+    \def\psSirosankakuHankei#1{\edef\psSirosankaku@Hankei{#1}}%
 %
-    \def\setlinewidth#1{\edef\cur@linewidth{#1}}%
-    \def\setdash{\@ifnextchar[{\@setdash}{\@setdash[0]}}%
-    \def\@setdash[#1]#2{%
-      \ifthenelse{\equal{#2}\empty}{%
-        \edef\cur@dash{}\edef\cur@dashoffset{0}}{%
-        \edef\cur@dash{#2}\edef\cur@dashoffset{#1}%
-      }}%
-    \def\ArrowHeadPit{0}%
+%    \def\setlinewidth#1{\edef\cur@linewidth{#1}\@Div\cur@linewidth{2}\cur@halflinewidth}%
+    \DeclareRobustCommand{\setlinewidth}[1]{%
+      \upszkansan{#1}\cur@linewidth
+        \@Div\cur@linewidth{10}\cur@linewidth@
+        \@wholewidth\cur@linewidth@\p@
+        \@halfwidth=.5\@wholewidth
+      \@Div\cur@linewidth{2}\cur@halflinewidth\ignorespaces
+    }%
+%
+\def\ArrowHeadPit{0}%
+\def\Arrowhead@L{5}%
+\def\Arrowhead@W{2.5}%
+\edef\as@i{3}%
+\edef\as@ii{25}%
+\edef\as@iii{50}%
+    \def\setarrowsize{\@ifnextchar<{\@setarrowsize}{\@setarrowsize<\ArrowHeadPit>}}%
+    \def\@setarrowsize<#1>#2#3#4{%
+      \upszkansan{#2}\saSize@i
+      \upszkansan{#3}\saSize@ii
+      \upszkansan{#4}\saSize@iii
+      \setarr@wsize<#1>{\saSize@i}{\saSize@ii}{\saSize@iii}%
+    }%
+    \def\setarr@wsize{\@ifnextchar<{\@setarr@wsize}{\@setarr@wsize<\ArrowHeadPit>}}%
+    \def\@setarr@wsize<#1>#2#3#4{%
+      \ifthenelse{\equal{#2}\empty}{}{\edef\as@i{#2}}%
+      \ifthenelse{\equal{#3}\empty}{}{\edef\as@ii{#3}}%
+      \ifthenelse{\equal{#4}\empty}{}{\edef\as@iii{#4}}%
+      \edef\ArrowHeadPit{#1}%
+      \Mul\as@iii{#1}\as@hekomi
+      \@Div\as@ii{10}\Arrowhead@W
+      \@Div\as@iii{10}\Arrowhead@L
+      \def\arrow@size{\as@i\space\as@ii\space\as@iii\space\as@hekomi}%
+      }%
+%
+\def\setlinecap#1{\edef\cur@linecap{#1}\ignorespaces}%
+\def\setdash{\@ifnextchar[{\@setDash@}{\@setDash}}%
+\def\@setDash#1{%
+  \edef\setD@tmp{\empty}%
+  \ifthenelse{\equal{#1}{\empty}}{}{%
+    \expandafter\@for\expandafter\sD@@c\expandafter:\expandafter=#1\do{%
+      \ukansan{\sD@@c}\sD@a
+      \ifx\empty\setD@tmp\edef\setD@tmp{\sD@a}\else\edefappend\setD@tmp{,\sD@a}\fi
+    }%
+  }%
+  \setd@sh\setD@tmp
+}%
+\def\@setDash@[#1]#2{%
+  \edef\setD@tmp{\empty}%
+  \edef\setD@@tmp{\empty}%
+  \ifthenelse{\equal{#2}{\empty}}{}{%
+    \expandafter\@for\expandafter\sD@@c\expandafter:\expandafter=#2\do{%
+      \ukansan{\sD@@c}\sD@a
+      \ifx\empty\setD@tmp\edef\setD@tmp{\sD@a}\else\edefappend\setD@tmp{,\sD@a}\fi
+    }%
+    \ukansan{#1}\setD@@tmp
+  }%
+  \setd@sh[\setD@@tmp]\setD@tmp
+}%
 %
 % \psDrawline<#1>#2
 %   #1   :
 %          key=val
 %             linewidth=3
-%             dash=[.1]{.2,.2}
+%             dash=[.1]{.2,.2}%
 %   #2   : 点列
-\def\psDrawline{\def\iro@{\empty}\@psDrawline}%
-\def\@psDrawline{\@ifnextchar<{\@@psDrawline}{\@@psDrawline<\empty>}}
+%
+\edef\yazirusi@opt{\empty}%
+%\def\psDrawline{%
+\DeclareRobustCommand\psDrawline{%
+  \ifEMpscontinue
+    \def\byouga@dousa{p}%
+    \edef\EMps@newpath{0}%
+  \else
+    \def\byouga@dousa{s}%
+    \edef\EMps@newpath{1}%
+  \fi
+  \@psDrawline
+}%
+\def\@psDrawline{%
+  \@ifnextchar<{\@@psDrawline}{\@@psDrawline<\empty>}}%
 \def\@@psDrawline<#1>#2{%
-  \ifnum\ps@continue=\z@\gsave\bgroup\fi
-  \def\yazirusi@opt{\empty}%
+  \ifnum\EMps@mode=\z@\else\@@@psDrawline<#1>{#2}\fi}%
+\def\@@@psDrawline<#1>#2{%
+  \EMedef\psD@pt{#1}%
+  \ifEMpscontinue\else\gsave\bgroup\fi
+  \edef\idou@v{\empty}%
+  \edef\DR@BS{\empty}%
+  \edef\DR@BE{\empty}%
   \def\oval@r{0}%
-  \edef\psDrawline@tmp{#2}%
-  \def\byouga@dousa{s}%
-  \edef\EMps@newpath{1}%
-  \ifthenelse{\equal{#1}{\empty}}{%
-    \ifthenelse{\equal\iro@\empty}{%
-      \put(0,0){\expandafter\drawline\psDrawline@tmp}%
-    }{%
-      \begin{EMpscolor}{\iro@}%
-        \put(0,0){\expandafter\drawline\psDrawline@tmp}%
-      \end{EMpscolor}%
-    }%
-  }{%
-    \setkeys{emPs}{#1}%
-    \ifthenelse{\equal\iro@\empty}{%
-      \ifthenelse{\lengthtest{\oval@r\p@=\z@}}{%
-        \put(0,0){\expandafter\drawline\psDrawline@tmp}%
-      }{%
-        \@ovalDrawline\psDrawline@tmp
+  \edef\v@mark{\empty}%
+%  \edef\iro@{\empty}%%%%%%%%%%%%%%%%%%%% ここでは初期化したくない 2007/06/30
+%  \edef\yazirusi@opt{\empty}%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+  \ifx\empty #1\else\setkeys{emPs}{#1}\fi%
+  \EMedef\v@mark@Dl{\v@mark}%
+  \exfor[;]\psD@c:=#2\do{%
+    \trim\psD@c\to\psD@c
+    \ifx\empty\psD@c\else\@@@psDrawline@{\psD@c}\fi
+  }%
+  \ifEMpscontinue\else\egroup\grestore\fi
+}%
+\def\@@@psDrawline@#1{%
+  \edef\psDrawline@oresen{#1}%
+  \ifx\empty \psD@pt\else
+    \expandafter\makeTenHairetu\psDrawline@oresen
+    \ifx\empty\idou@v\else
+      \edef\psDrawline@oresen{\empty}%
+      \Cfor{\edef\DR@i{0}}{\DR@i<\TH@N}{}\do{%
+        \Incr\DR@i
+        \Addvec{\hairetu{TH@V}{\DR@i}}{\idou@v}\DR@tmpv
+        \edefappend\psDrawline@oresen{\DR@tmpv}%
       }%
-    }{%
+    \fi
+  \fi
+  \ifx\empty\set@xyrange\else
+    \edef\x@L{0}%
+    \edef\x@R{0}%
+    \edef\y@T{0}%
+    \edef\y@B{0}%
+    \Ifor*\DR@i{1}{\TH@N}\Do{%
+      \vecXY{\hairetu{TH@V}{\DR@i}}\DR@x\DR@y
+      \ifdim\DR@x\p@>\x@R\p@\edef\x@R{\DR@x}\fi
+      \ifdim\DR@x\p@<\x@L\p@\edef\x@L{\DR@x}\fi
+      \ifdim\DR@y\p@>\y@T\p@\edef\y@T{\DR@y}\fi
+      \ifdim\DR@y\p@<\y@B\p@\edef\y@B{\DR@y}\fi
+    }%
+    \EMwriteLabel{\set@xyrange-xL}{\x@L}%
+    \EMwriteLabel{\set@xyrange-xR}{\x@R}%
+    \EMwriteLabel{\set@xyrange-yT}{\y@T}%
+    \EMwriteLabel{\set@xyrange-yB}{\y@B}%
+  \fi
+%
+%\typeout{cur@dash=\cur@dash,offset=\cur@dashoffset}%
+%
+  \ifx\empty\yazirusi@opt\else
+    \expandafter\makeTenHairetu\psDrawline@oresen
+    \edef\DR@S{\hairetu{TH@V}{1}}%
+    \edef\DR@E{\hairetu{TH@V}{\TH@N}}%
+    \edef\DR@SS{\DR@S}%
+    \edef\DR@EE{\DR@E}%
+    \edef\DR@yzr{\Arrowhead@L}%
+    \Sub{1}{\ArrowHeadPit}\DR@tmp
+    \Mul\DR@tmp\DR@yzr\DR@yzr
+    \Sub\DR@yzr{0.4}\DR@yzr
+    \ifthenelse{\equal\yazirusi@opt{b}\or\equal\yazirusi@opt{r}}{%
+      \edef\DR@B{\hairetu{TH@V}{2}}%
+      \Subvec\DR@S\DR@B\DR@BS
+      \Hamidasiten\DR@B\DR@S{-\DR@yzr pt}\DR@SS
+    }{}%
+    \ifthenelse{\equal\yazirusi@opt{b}\or\equal\yazirusi@opt{a}}{%
+      \ISub\TH@N{1}\TH@Ni
+      \edef\DR@B{\hairetu{TH@V}{\TH@Ni}}%
+      \Kyori\DR@B\DR@E\DR@tmp
+      \ifdim\DR@tmp\p@<0.01\p@
+        \ISub\TH@N{2}\TH@Ni
+        \edef\DR@B{\hairetu{TH@V}{\TH@Ni}}%
+      \fi
+      \Subvec\DR@E\DR@B\DR@BE
+      \Hamidasiten\DR@B\DR@E{-\DR@yzr pt}\DR@EE
+    }{}%
+    \edef\psDrawline@oresen{\DR@SS}%
+    \Cfor{\edef\DR@i{2}}{\DR@i<\TH@N}{\Incr\DR@i}\do{%
+      \edefappend\psDrawline@oresen{\hairetu{TH@V}{\DR@i}}}%
+    \edefappend\psDrawline@oresen{\DR@EE}%
+  \fi
+  \ifthenelse{\equal\iro@\empty}{%
+      \ifthenelse{\lengthtest{\oval@r\p@=\z@}}{%
+        \put(0,0){\expandafter\sensyu\psDrawline@oresen}%
+      }{%
+        \psovalDrawline\psDrawline@oresen\oval@r
+      }%
+      \ifx\empty\DR@BS\else\Yaziri\DR@S\DR@BS\fi
+      \ifx\empty\DR@BE\else\Yaziri\DR@E\DR@BE\fi
+  }{%
       \begin{EMpscolor}{\iro@}%
         \ifthenelse{\lengthtest{\oval@r\p@=\z@}}{%
-          \put(0,0){\expandafter\drawline\psDrawline@tmp}%
+          \put(0,0){\expandafter\sensyu\psDrawline@oresen}%
         }{%
-          \@ovalDrawline\psDrawline@tmp
+          \psovalDrawline\psDrawline@oresen\oval@r
         }%
+        \ifx\empty\DR@BS\else\Yaziri\DR@S\DR@BS\fi
+        \ifx\empty\DR@BE\else\Yaziri\DR@E\DR@BE\fi
       \end{EMpscolor}%
-    }%
   }%
-  \ifnum\ps@continue=\z@\egroup\grestore\fi
+  \@ifundefined{put@kuromaru}{}{%
+    \ifnum\put@kuromaru>\z@
+      \Kuromaru\psDrawline@oresen
+    \fi
+  }%
+  \@ifundefined{put@siromaru}{}{%
+    \ifnum\put@siromaru>\z@
+      \gsave
+      \@ifundefined{Siromaru@linewidth}{}{%
+          \setlinewidth{\Siromaru@linewidth}}%
+      \Siromaru\psDrawline@oresen
+      \grestore
+    \fi
+  }%
+  \ifx\empty\v@mark@Dl\else
+    \Cfor{\edef\DR@i{0}}{\DR@i<\TH@N}{}\do{%
+      \Incr\DR@i
+      \Put{\hairetu{TH@V}{\DR@i}}[c]{\v@mark@Dl}%
+    }%
+  \fi
 }%
 %
-\def\psDrawlines{\@ifnextchar<{\@psDrawlines}{\@psDrawlines<\empty>}}
-\def\@psDrawlines<#1>#2{\gsave\ifx \empty #1\else\setkeys{emPs}{#1}\fi
-  \Cfor{\edef\psDrawlines@a{#2}}{\not\equal\psDrawlines@a\empty}{%
-    \edef\psDrawlines@a{\psDrawlines@b}}\do{%
-    \strsep\psDrawlines@a{;}\psDrawlines@a\psDrawlines@b
-    \psDrawline\psDrawlines@a}\grestore}
+\def\psDrawlines{\@ifnextchar<{\@psDrawlines}{\@psDrawlines<\empty>}}%
+\def\@psDrawlines<#1>#2{{%
+  \exfor[;]\psDrawlines@a:=#2\do{%
+    \psDrawline<#1>\psDrawlines@a}%
+}}%
 %
-\def\@@emathPut@@#1[#2]{%
-  \def\syaei@xpos{}\def\syaei@ypos{}%
-  \def\syaei@linewidth{1}%
-  \define@key{emPut}{houi}{\edef\@houi{##1}}%
-  \define@key{emPut}{xlabel}{\def\label@x{##1}}%
-  \define@key{emPut}{ylabel}{\def\label@y{##1}}%
-  \define@key{emPut}{xpos}{\def\syaei@xpos{##1}}%
-  \define@key{emPut}{ypos}{\def\syaei@ypos{##1}}%
-  \define@key{emPut}{syaei}{%
-    \expandafter\@tfor\expandafter\@@c\expandafter:\expandafter=##1\do{%
-      \if x\@@c\edef\syaei@x{1}\else
-      \if y\@@c\edef\syaei@y{1}\fi\fi}}%
-  \define@key{emPut}{syaeisensyu}{\def\syaeisensyu{##1}}
-  \define@key{emPut}{linewidth}{\def\syaei@linewidth{##1}}%
-  \define@key{emPut}{dash}{%
-    \headchar{##1}\dash@a\dash@b
-    \ifthenelse{\equal{\dash@a}{[}}{%
-      \edef\dash@tmp{##1}\expandafter\setdash\dash@tmp}{%
-      \setdash{##1}}%
-    }%
-  \Strchr{#2}{=}\emP@tmp
-  \ifthenelse{\emP@tmp>\z@}{%
-    \gsave
-    \setdash{.05,.05}%
-    \edef\syaei@x{0}%
-    \edef\syaei@y{0}%
-    \edef\@houi{\empty}%
-    \vecXY{\cPut@orgP}\@Px\@Py
-    \edef\label@x{\@Px}%
-    \edef\label@y{\@Py}%
-    \setkeys{emPut}{#2}%
-    \ifthenelse{\equal{\@Px}{0}}{\edef\syaei@y{0}}{}%
-    \ifthenelse{\equal{\@Py}{0}}{\edef\syaei@x{0}}{}%
-    \def\syaeisensyu{\default@syaeisensyu}%
-    \setlinewidth{\syaei@linewidth}%
-    {%\def\syaeisensyu{\dashline[40]{.1}}%
-      \ifnum\syaei@x>\z@\put(0,0){\syaeisensyu(\@Px,0)(\@Px,\@Py)}%
-        {\ifx\empty\syaei@xpos
-          \ifdim\@Py pt>\z@\def\syaei@xpos{[s]}\else\def\syaei@xpos{[n]}\fi
-         \fi
-         \edef\emPut@tmp{{(\@Px,0)}\syaei@xpos}%
-         \expandafter\cPut\emPut@tmp{$\label@x$}%
-        }%
-      \fi%
-      \ifnum\syaei@y>\z@\put(0,0){\syaeisensyu(\@Px,\@Py)(0,\@Py)}%
-        {\ifx\empty\syaei@ypos
-          \ifdim\@Px pt>\z@\def\syaei@ypos{[w]}\else\def\syaei@ypos{[e]}\fi
-         \fi
-         \edef\emPut@tmp{{(0,\@Py)}\syaei@ypos}%
-         \expandafter\cPut\emPut@tmp{$\label@y$}
-        }%
-      \fi
-    }%
-    \grestore
-    \ifthenelse{\equal{\@houi}{\empty}}{\emathPut{#1}}{%
-      \@@emathPut@@@{#1}[\@houi]}%
-  }{\@@emathPut@@@{#1}[#2]}}
+% \psovalDrawline
+%
+\def\psovalDrawline#1#2{%
+%    #1 : 点列
+%    #2 : 半径
+\ukansan{#2}\oval@r
+\ifnum\EMps@mode=\z@\else
+  \edef\ovalD@tmp{#1}%
+  \expandafter\makeTenHairetu\ovalD@tmp
+  \edef\ovalD@A{\hairetu{TH@V}{1}}%
+  \edef\ovalD@B{\hairetu{TH@V}{2}}%
+  \psnewpath
+  \psmoveto\ovalD@A
+  \Cfor{\edef\ovalD@i{2}}{\ovalD@i<\TH@N}{}\do{%
+    \Incr\ovalD@i
+    \edef\ovalD@O{\ovalD@A}%
+    \edef\ovalD@A{\ovalD@B}%
+    \edef\ovalD@B{\hairetu{TH@V}{\ovalD@i}}%
+    \naikaku\ovalD@O\ovalD@A\ovalD@B\tmp@arg
+    \Divself\tmp@arg{2}%
+    \DegTan\tmp@arg\tmp@v
+    \Mul\oval@r\tmp@v\oval@r@
+    \psarcto\ovalD@A\ovalD@B{\oval@r@}%
+  }%
+  \pslineto\ovalD@B
+  \@ifundefined{nuri@iro}{}{%
+    \ifx\empty\nuri@iro\else
+      \edef\nuri@iro@{\nuri@iro}%
+      \gsave
+        \psclosepath
+        \begin{EMpsIrositei}{\nuri@iro@}%
+          \psfill
+        \end{EMpsIrositei}
+      \grestore
+    \fi
+  }%
+% \psstroke
+  \byouga
+\fi
+}%
+%
+\def\@psovalPolygon#1#2{%
+  \edef\ovalD@tmp{#1}%
+  \expandafter\makeTenHairetu\ovalD@tmp
+  \edef\ovalD@A{\hairetu{TH@V}{1}}%
+  \edef\ovalD@B{\hairetu{TH@V}{\TH@N}}%
+  \Tyuuten\ovalD@A\ovalD@B\ovalD@M
+  \edef\oval@T{\ovalD@M#1\ovalD@M}%
+  \psovalDrawline\oval@T{#2}%
+}%
+%
+%
+% \psHasen
+%
+%   n(L+G)+L=AB ---> n=(AB-L)/(L+G)〜n'
+%   n'(tL+tG)+tL=AB ---> t=AB/(n'(L+G)+L)
+%
+\def\pshasen{\edef\psh@LP{\empty}%
+  \ifx\empty\cur@dash\setdash{1mm,1mm}\fi
+  \@ifnextchar({\begingroup\@pshasen}{\relax}}%
+\def\@pshasen(#1,#2){\@ifnextchar({\@@pshasen(#1,#2)}{%
+  \ifthenelse{\equal{(#1,#2)}\psh@orgP}{%
+    {\gsave
+      \setdash{}%
+      \edef\pshasen@tmp{\psh@LP\psh@orgP\psh@orgLQ}\expandafter\drawline\pshasen@tmp
+    \grestore}%
+  }{}%
+  \endgroup\relax}}%
+\def\@@pshasen(#1,#2)(#3,#4){%
+  \edef\psh@A{(#1,#2)}%
+  \edef\psh@B{(#3,#4)}%
+  \Kyori\psh@A\psh@B\psh@AB
+\ifdim\psh@AB\p@=\z@
+\else
+  \Strsep\cur@dash{,}\pshdash@L\pshdash@G
+  \Sub\psh@AB\pshdash@L\psh@a
+  \Add\pshdash@L\pshdash@G\pshdash@LG
+  \@Div\psh@a\pshdash@LG\psh@n
+  \EMround\psh@n{0}\psh@n
+  \Mul\psh@n\pshdash@LG\psh@b
+  \Add\psh@b\pshdash@L\psh@b
+  \@Div\psh@AB\psh@b\psh@t
+  \Mulself\pshdash@L\psh@t
+  \Mulself\pshdash@G\psh@t
+  \setdash{\pshdash@L,\pshdash@G}%
+  \Hamidasiten\psh@B\psh@A{-\pshdash@L\unitlength}\psh@LQ
+  \ifx\empty\psh@LP
+    \edef\psh@orgP{(#1,#2)}%
+    \edef\psh@orgLQ{\psh@LQ}%
+  \else
+    {\gsave
+      \setdash{}%
+      \edef\pshasen@tmp{\psh@LP\psh@A\psh@LQ}\expandafter\drawline\pshasen@tmp
+    \grestore}%
+  \fi
+  \edef\pshasen@tmp{\psh@A\psh@B}%
+  \expandafter\drawline\pshasen@tmp
+  \Hamidasiten\psh@A\psh@B{-\pshdash@L\unitlength}\psh@LP
+\fi
+  \@pshasen(#3,#4)}%
+\def\psHasen{\@ifstar{\psoHasen}{\@psHasen}}%
+\def\@psHasen{\@ifnextchar<{\@@psHasen}{\@@psHasen<\empty>}}%
+\def\@@psHasen<#1>#2{{\gsave
+  \ifx\empty #1\else\setkeys{emP}{#1}\fi
+%  \edef\psHasen@t{#2}\expandafter\pshasen\psHasen@t\grestore
+  \ifx\empty\cur@dash\setdash{1mm,1mm}\fi
+  \Cfor{\edef\psHasen@a{#2}}{\not\equal\psHasen@a\empty}{%
+    \edef\psHasen@a{\psHasen@b}}\do{%
+    \strsep\psHasen@a{;}\psHasen@a\psHasen@b
+    \expandafter\pshasen\psHasen@a}%
+  \grestore
+}}%
+%
+\def\psohasen{\@ifnextchar({\begingroup\@psohasen}{\relax}}%
+\def\@psohasen(#1,#2){\@ifnextchar({\@@psohasen(#1,#2)}{\endgroup\relax}}%
+\def\@@psohasen(#1,#2)(#3,#4){%
+  \edef\psh@A{(#1,#2)}%
+  \edef\psh@B{(#3,#4)}%
+  \Kyori\psh@A\psh@B\psh@AB
+  \Strsep\cur@dash{,}\pshdash@L\pshdash@G
+  \Sub\psh@AB\pshdash@G\psh@a
+  \Add\pshdash@L\pshdash@G\pshdash@LG
+  \@Div\psh@a\pshdash@LG\psh@n
+  \EMround\psh@n{0}\psh@n
+  \Mul\psh@n\pshdash@LG\psh@b
+  \Add\psh@b\pshdash@G\psh@b
+  \@Div\psh@AB\psh@b\psh@t
+  \Mulself\pshdash@L\psh@t
+  \Mulself\pshdash@G\psh@t
+  \setdash[\pshdash@L]{\pshdash@L,\pshdash@G}%
+  \Drawline{\psh@A\psh@B}%
+  \@psohasen(#3,#4)}%
+\def\psoHasen{\@ifnextchar<{\@psoHasen}{\@psoHasen<\empty>}}%
+\def\@psoHasen<#1>#2{{\gsave
+  \ifx\empty #1\else\setkeys{emP}{#1}\fi
+  \edef\psHasen@t{#2}\expandafter\psohasen\psHasen@t\grestore}}%
+%
+\def\iiipsHasen{\@ifnextchar<{\@iiipsHasen}{\@iiipsHasen<\empty>}}%
+\def\@iiipsHasen<#1>#2{{\gsave
+  \ifx\empty #1\else\setkeys{emP}{#1}\fi
+  \Cfor{\edef\psHasen@a{#2}}{\not\equal\psHasen@a\empty}{%
+    \edef\psHasen@a{\psHasen@b}}\do{%
+    \strsep\psHasen@a{;}\psHasen@a\psHasen@b
+    \Tenretuiiitoii\psHasen@a\psHasen@aa
+    \psHasen\psHasen@aa}%
+  \grestore
+}}%
+\let\iiipsHasens\iiipsHasen
+%
+% \empsdottedline
+%
+\def\psd@t{%
+  \uxkansan{.3pt}\psdot@lx
+  \uykansan{.3pt}\psdot@ly
+  \Nuritubusi[1]{(\psdot@lx,\psdot@ly)(-\psdot@lx,\psdot@ly)%
+    (-\psdot@lx,-\psdot@ly)(\psdot@lx,-\psdot@ly)}%
+}%
+%
+%\def\empsdottedline{\begingroup
+\DeclareRobustCommand\empsdottedline{\begingroup
+  \def\emDL@char{\psd@t}%
+  \@ifnextchar<{\emdottedline@}{\emdottedline@@}}%
+\def\empsDottedline{\@ifnextchar<{\@empsDottedline}{\@empsDottedline<\empty>}}%
+\def\@empsDottedline<#1>#2{{%
+  \def\emDL@char{\psd@t}%
+  \ifx\empty #1\else\setkeys{emDL}{#1}\fi
+  \exfor[;]\emD@c:=#2\do{%
+    \edef\emDL@tmp{\emD@c}%
+    \expandafter\emdottedline\emDL@tmp\relax
+  }%
+}}%
+\let\empsDottedlines\empsDottedline
+%
+\def\iiiempsdottedline{\begingroup
+  \def\emDL@char{\psd@t}%
+  \@ifnextchar<{\iiiemdottedline@}{\iiiemdottedline@@}}%
+%
+\def\iiiempsDottedline{%
+  \@ifnextchar<{\@iiiempsDottedline}{\@iiiempsDottedline<\empty>}}%
+\def\@iiiempsDottedline<#1>#2{{%
+  \def\emDL@char{\psd@t}%
+  \ifx\empty #1\else\setkeys{emDL}{#1}\fi
+  \exfor[;]\emD@c:=#2\do{%
+    \edef\emDL@tmp{\emD@c}%
+    \expandafter\iiiemdottedline\emDL@tmp\relax
+  }%
+}}%
+%
+\let\iiiempsDottedlines\iiiempsDottedline
 %
 % picture 環境
 %
 \def\EMpspicture(#1,#2){\@ifnextchar({\@EMpspicture(#1,#2)}{%
-  \@EMpspicture(#1,#2)(0,0)}}
+  \@EMpspicture(#1,#2)(0,0)}}%
 \def\@EMpspicture(#1,#2)(#3,#4){%
   \Add{#1}{#3}\pspct@x
   \Add{#2}{#4}\pspct@y
   \csname zahyou*\endcsname(#3,\pspct@x)(#4,\pspct@y)\relax
-}
-\def\endEMpspicture{\csname endzahyou*\endcsname}
-%
-% zahyou* 環境
-%
-\expandafter\def\csname pszahyou*\endcsname{\drawaxisfalse\pszahyou}
-\expandafter\def\csname endpszahyou*\endcsname{\endpszahyou\@ignoretrue}
-%
-% pszahyou 環境
-%
-\def\pszahyou{%
- \define@key{emP}{iro}{\edef\iro@{##1}}%
- \let\Drawline\psDrawline
-  \let\Sensyu\psDrawline
-  \let\Drawlines\psDrawlines
-  \let\yclipDrawline\@psDrawline
-  \let\xclipDrawline\@psDrawline
-  \let\clipDrawline\@psDrawline
-  \def\EMps@filename{}%
-  \def\ps@debug@{}%
-  \def\EMps@clip{true}%
-  \def\default@syaeisensyu{\drawline}%
-  \def\zahyou@haiti{b}%
-  \def\zahyou@haiti@hosei{}%
-  \def\ue@yohaku{0}%
-  \def\sita@yohaku{0}%
-  \def\migi@yohaku{0}%
-  \def\hidari@yohaku{0}%
-  \def\arrow@headsize{1}%
-  \pszahyou@}%
-\def\pszahyou@{\@ifnextchar[{\@pszahyou}{\@pszahyou[\yokozikukigou]}}%
-\def\@pszahyou[#1]{\@ifnextchar[{\@@pszahyou[#1]}{%
-  \@@pszahyou[#1][\tatezikukigou]}}%
-\def\@@pszahyou[#1][#2]{\@ifnextchar<{\@@@pszahyou[#1][#2]}{%
-  \@@@pszahyou[#1][#2]<\yokozikuhaiti>}}%
-\def\@@@pszahyou[#1][#2]<#3>{\@ifnextchar<{\@@@@pszahyou[#1][#2]<#3>}{%
-  \@@@@pszahyou[#1][#2]<#3><\tatezikuhaiti>}}%
-\def\@@@@pszahyou[#1][#2]<#3><#4>{%
-  \@ifnextchar<{\@@@@@pszahyou[#1][#2]<#3><#4>}{%
-    \@@@@@pszahyou[#1][#2]<#3><#4><\gentenhaiti>}}%
-\def\@@@@@pszahyou[#1][#2]<#3><#4><#5>(#6,#7)(#8,#9){%
-%  \def\zahyou@haiti{b}%
-%  \def\zahyou@haiti@hosei{}%
-%  \def\ue@yohaku{0}%
-%  \def\sita@yohaku{0}%
-%  \def\migi@yohaku{0}%
-%  \def\hidari@yohaku{0}%
-%  \def\arrow@headsize{1}%
-  \@@@@@zahyou[#1][#2]<#3><#4><#5>(#6,#7)(#8,#9)
-% \def\special#1{\@warning{pszahyou環境でspecial:#1を使おうとしています。}}%
-  \ifthenelse{\equal\EMps@filename\empty}{%
-    \refstepcounter{EMps@flnm}%
-    \edef\EMps@filename{\EMps@filedir\jobname\theEMps@flnm .eps}%
-  }{}%
-  \xdef\currentEPSfile{\EMps@filename}%
-  \IfFileExists{\EMps@filename}{\edef\EMps@mode{0}}{\edef\EMps@mode{1}}%
-  \@ifundefined{ps@debug}{}{\xdef\save@perldata{0}\edef\EMps@mode{1}}%
-  \ifthenelse{\equal\ps@debug@\empty}{}{\xdef\save@perldata{0}\edef\EMps@mode{1}}%
-%
-  \edef\Kuromaru@Hankei{\psKuromaru@Hankei}%
-  \def\psdraw{%
-    \ifthenelse{\EMps@mode=0}{%
-      \comment
-    }{%
-      \def\endcomment{\relax}}%
-    }%
-  \def\endpsdraw{\endcomment}%
-%
-% as \EMps@mode=0
-%
-  \ifthenelse{\EMps@mode=0}{%
-    \def\writeEPS##1{\relax}%
-    \def\pushGP{\relax}%
-    \def\popGP{\relax}%
-    \let\gsave\pushGP
-    \let\grestore\popGP
-    \def\setlinewidth##1{\edef\cur@linewidth{##1}}%
-    \def\setlinecap##1{\edef\cur@linecap{##1}}%
-    \def\setlinejoin##1{\edef\cur@linejoin{##1}}%
-    \def\setdash{\@ifnextchar[{\@setdash}{\@setdash[0]}}%
-    \def\@setdash[##1]##2{%
-      \ifthenelse{\equal{##2}\empty}{%
-        \edef\cur@dash{}\edef\cur@dashoffset{0}}{%
-        \edef\cur@dash{##2}\edef\cur@dashoffset{##1}%
-      }}%
-    \def\@@Ensyuu##1##2{\relax}%
-    \def\@Enban[##1]##2##3{\relax}%
-    \def\Enk@@@<##1>##2##3[##4]##5[##6]##7{\relax}%
-    \def\@Daen##1##2##3{\relax}%
-    \def\@Daen@[##1]##2##3##4{\relax}%
-    \def\@@@Daenko[##1][##2]##3##4##5##6{\relax\egroup}%
-    \def\drawline(##1,##2){%
-      \@ifnextchar({\@drawline}{\relax}%
-    }%
-    \def\@drawline(##1,##2){%
-      \@ifnextchar({\drawline}{\relax}%
-    }%
-    \def\Takakkei{\@ifnextchar<{\@Takakkei}{\@Takakkei<\empty>}}%
-    \def\@Takakkei<##1>##2{\relax}%
-    \def\setarrowsize{\@ifnextchar<{\@setarrowsize}{\@setarrowsize<\ArrowHeadPit>}}
-    \def\@setarrowsize<##1>##2##3##4{\relax}%
-    \def\@@ArrowLine<##1>[##2]##3##4{%
-      \def\put@str{\empty}\def\put@pos{.5}%
-      \ifx\empty ##1\else\setkeys{emP}{##1}\fi
-      \Subvec{##4}{##3}\miki@v
-      \ifx\empty\put@str\else
-        \Mulvec\put@pos\miki@v\put@p\Addvec{##3}\put@p\put@p
-        \expandafter\emathPut\expandafter\put@p\put@str
-      \fi}%
-    \def\drawXYaxis{%
-      \edef\zahyou@tmp{{(\truexmax,0)}\yokozikuhaiti}%
-      \expandafter\emathPut\zahyou@tmp{\yokozikukigou}%
-      \edef\zahyou@tmp{{(0,\trueymax)}\tatezikuhaiti}%
-      \expandafter\emathPut\zahyou@tmp{\tatezikukigou}%
-      \edef\zahyou@tmp{{(0,0)}\gentenhaiti}%
-      \expandafter\emathPut\zahyou@tmp{\gentenkigou}
-    }%
-%   \def\@hasen(##1,##2){\@ifnextchar({\@@hasen(##1,##2)}{\relax}}%
-%   \def\@@hasen(##1,##2)(##3,##4){\@hasen(##3,##4)}%
-    \def\@@@ougigata[##1]<##2>##3##4##5{\relax}%
-    \def\@@hatch@ougigata[##1]<##2>##3##4##5{\relax}%
-    \def\@@@yumigata[##1]<##2>##3##4##5{\relax}%
-    \def\@@hatch@yumigata[##1]<##2>##3##4##5{\relax}%
-    \def\nuritubusi{\@ifnextchar[{\@nuritubusi}{\@nuritubusi[.5]}}%
-    \def\@nuritubusi[##1]{\@@nuritubusi}%
-    \def\@@nuritubusi(##1,##2){%
-      \@ifnextchar({\@@nuritubusi}{\relax}%
-    }%
-    \def\@Nuritubusi[##1]<##2>##3{\relax}%
-    \def\@@Hatchpolygon[##1]<##2>##3{\relax}%
-%   \def\YGurafu@@@@@(##1)(##2)##3{\relax}%
-    \def\@@YGurafu(##1)(##2)##3##4##5{\relax\egroup}%
-%   \def\XGurafu@@@@@(##1)(##2)##3{\relax}%
-    \def\@@XGurafu(##1)(##2)##3##4##5{\relax}%
-%   \def\BGurafu@@@@@(##1)(##2)##3##4##5##6{\relax}%
-    \def\@B@Gurafu(##1)(##2)##3##4##5##6{\relax\egroup}%
-    \def\EMpscolor##1{\relax}%
-    \def\endEMpscolor{\relax}%
-    \def\open@nuri{\relax}%
-%
-    \let\ltxqbezier\qbezier
-    \def\qbezier{\@ifnextchar[{\@qbezier}{\@qbezier[0]}}%
-    \def\@qbezier[##1](##2,##3)(##4,##5)(##6,##7){\relax}%
-    \def\EMpsBezier{\@ifnextchar<{\@EMpsBezier}{\@EMpsBezier<\empty>}}
-    \def\@EMpsBezier<##1>##2##3##4##5{\relax}%
-    \def\EMpsRBezier{\@ifnextchar<{\@EMpsRBezier}{\@EMpsRBezier<\empty>}}
-    \def\@EMpsRBezier<##1>##2##3##4##5{\relax}%
-%
-    \def\@@@zahyouMemori[##1][##2]<##3>{{%
-      \@tempdima=\def@memori@nagasa
-      \xdef\zM@xo{0}%
-      \xdef\zM@yo{0}%
-      \xdef\zM@dx{1}%
-      \xdef\zM@dy{1}%
-      \def\zM@sensyu{\drawline}%
-      \def\zM@linethickness{.1pt}%
-      \Strchr{##3}{=}\zM@tmp
-      \ifnum\zM@tmp>\z@
-        \define@key{emPzM}{xo}{\xdef\zM@xo{####1}}%
-        \define@key{emPzM}{yo}{\xdef\zM@yo{####1}}%
-        \define@key{emPzM}{dx}{\xdef\zM@dx{####1}}%
-        \define@key{emPzM}{dy}{\xdef\zM@dy{####1}}%
-        \define@key{emPzM}{ymemoriiti}{\edef\y@memoriiti{####1}}%
-        \define@key{emPzM}{xmemoriiti}{\edef\x@memoriiti{####1}}%
-        \define@key{emPzM}{allinethickness}{\xdef\zM@linethickness{####1}}%
-        \define@key{emPzM}{sensyu}{\def\zM@sensyu{####1}}%
-        \define@key{emPzM}{linewidth}{\def\zM@linewidth{####1}}%
-        \define@key{emPzM}{dash}{%
-          \headchar{####1}\dash@a\dash@b
-          \ifthenelse{\equal{\dash@a}{[}}{%
-            \edef\dash@tmp{####1}\expandafter\setdash\dash@tmp}{%
-            \setdash{####1}}%
-          }%
-        \setkeys{emPzM}{##3}%
-      \else
-        \def\zM@dx{##3}%
-        \def\zM@dy{##3}%
-      \fi
-      \Div{\strip@pt\@tempdima}{\strip@pt\unitlength}\memori@nagasa
-      \Div\memori@nagasa\@xscale\memori@nagasax
-      \Div\memori@nagasa\@yscale\memori@nagasay
-        \Sub\xmax\zM@xo\zM@a\Sub\zM@a{.001}\zM@a
-        \Div\zM@a\zM@dx\zM@a
-        \Seisuububun\zM@a\zM@xn
-        \Sub\zM@xo\xmin\zM@a\Sub\zM@a{.001}\zM@a
-        \Div\zM@a\zM@dx\zM@a
-        \Seisuububun\zM@a\zM@a
-        \IAdd\zM@xn\zM@a\zM@xn\Incr\zM@xn
-        \Mul\zM@a\zM@dx\zM@a
-        \Sub\zM@xo\zM@a\zM@x
-        \Sub\ymax\zM@yo\zM@a\Sub\zM@a{.001}\zM@a
-        \Div\zM@a\zM@dy\zM@a
-        \Seisuububun\zM@a\zM@yn
-        \Sub\zM@yo\ymin\zM@a\Sub\zM@a{.001}\zM@a
-        \Div\zM@a\zM@dy\zM@a
-        \Seisuububun\zM@a\zM@a
-        \IAdd\zM@yn\zM@a\zM@yn\Incr\zM@yn
-        \Mul\zM@a\zM@dy\zM@a
-        \Sub\zM@yo\zM@a\zM@y
-      \if m##2\relax
-        \Strchr\zM@xo{.}\zM@tmpa
-        \Strchr\zM@dx{.}\zM@tmpb
-        \ifthenelse{\zM@tmpa=0 \and \zM@tmpb=0}{%
-          \Cfor{\def\zM@x{\zM@xo}}{\lengthtest{\zM@x pt<\xmax pt}}{%
-          \IAdd\zM@dx\zM@x\zM@x}\do{%
-            \ifnum\zM@x=\z@\else\emathPut{(\zM@x,0)}[s]{\zM@x}\fi}%
-          \Cfor{\def\zM@x{\zM@xo}\ISub\zM@x\zM@dx\zM@x}{%
-          \lengthtest{\zM@x pt>\xmin pt}}{\ISub\zM@x\zM@dx\zM@x}\do{%
-            \emathPut{(\zM@x,0)}[s]{$\zM@x$}}%
-        }{%
-          \Cfor{\def\zM@x{\zM@xo}}{\lengthtest{\zM@x pt<\xmax pt}}{%
-          \Add\zM@dx\zM@x\zM@x}\do{%
-            \emathPut{(\zM@x,0)}[s]{\zM@x}}%
-          \Cfor{\def\zM@x{\zM@xo}\Sub\zM@x\zM@dx\zM@x}{%
-          \lengthtest{\zM@x pt>\xmin pt}}{\Sub\zM@x\zM@dx\zM@x}\do{%
-            \emathPut{(\zM@x,0)}[s]{$\zM@x$}}%
-        }%
-        \Strchr\zM@yo{.}\zM@tmpa
-        \Strchr\zM@dy{.}\zM@tmpb
-        \ifthenelse{\zM@tmpa=0 \and \zM@tmpb=0}{%
-          \Cfor{\def\zM@y{\zM@yo}\ISub\zM@y\zM@dy\zM@y}{%
-          \lengthtest{\zM@y pt>\ymin pt}}{\ISub\zM@y\zM@dy\zM@y}\do{%
-            \emathPut{(0,\zM@y)}[w]{$\zM@y$}}%
-          \Cfor{\edef\zM@y{\zM@yo}}{\lengthtest{\zM@y pt<\ymax pt}}{%
-          \IAdd\zM@dy\zM@y\zM@y}\do{%
-            \ifnum\zM@y=\z@\else\emathPut{(0,\zM@y)}[w]{\zM@y}\fi}%
-        }{%
-          \Cfor{\def\zM@y{\zM@yo}\Sub\zM@y\zM@dy\zM@y}{%
-          \lengthtest{\zM@y pt>\ymin pt}}{\Sub\zM@y\zM@dy\zM@y}\do{%
-            \emathPut{(0,\zM@y)}[w]{$\zM@y$}}%
-          \Cfor{\edef\zM@y{\zM@yo}}{\lengthtest{\zM@y pt<\ymax pt}}{%
-          \Add\zM@dy\zM@y\zM@y}\do{%
-            \emathPut{(0,\zM@y)}[w]{\zM@y}}%
-        }%
-      \fi
-    }}%
-%
-    \def\EPSkaiten##1##2##3{%
-      \relax
-%      \xytops{##1}\@@x\@@y
-%      \edef\EPStranslate@x{\@@x}%
-%      \edef\EPStranslate@y{\@@y}%
-    }%
-%   \def\endEPSkaiten{\relax}%
-%
-    \def\sentaisyou##1##2##3{\relax}%
-%
-    \def\EPSkakudai##1##2##3{\relax}%
-%
-    \def\@@kaitenkigou<##1>[##2]{\relax}%
-%
-% arcto
-%
-\def\psarcto##1##2##3{\relax}%
-\def\psmoveto##1{\relax}%
-\def\pslineto##1{\relax}%
-\def\psnewpath{\relax}%
-\def\psstroke{\relax}%
-\def\psfill{\relax}%
-\def\psarcbox{\@ifundefined{nuri@grayscale}{\@psarcbox}{\psarcboxfil}}
-\def\@psarcbox##1##2##3##4##5{\relax}%
-\def\psarcboxfil##1##2##3##4##5{\relax}%
-%
-    \ifinclude@eps
-      \put(\xmin,\ymin){\includegraphics[clip=\EMps@clip]{\EMps@filename}}%
-    \fi
-  }{%
-%
-% as \EMps@mode=1
-%
-    \def\writeEPS##1{\immediate\write\EMps@out{##1}}%
-    \def\pushGP{%\bgroup%                                 2005/02/20
-        \immediate\write\EMps@out{gsave}}%
-    \def\popGP{\immediate\write\EMps@out{grestore}%
-%      \egroup
-    }%
-    \let\gsave\pushGP
-    \let\grestore\popGP
-    \def\setlinewidth##1{\edef\cur@linewidth{##1}%
-      \immediate\write\EMps@out{##1 setlinewidth}}%
-    \def\setlinecap##1{\edef\cur@linecap{##1}%
-      \immediate\write\EMps@out{##1 setlinecap}}%
-    \def\setlinejoin##1{\edef\cur@linejoin{##1}%
-      \immediate\write\EMps@out{##1 setlinejoin}}%
-    \def\byouga{%
-       \if s\byouga@dousa\immediate\write\EMps@out{stroke}\else
-       \if f\byouga@dousa
-          \ifthenelse{\equal\iro@\empty}{%
-            \immediate\write\EMps@out{\nuri@grayscale\space setgray}%
-          }{%
-          }%
-          \immediate\write\EMps@out{fill}%
-       \else
-       \if F\byouga@dousa
-          \immediate\write\EMps@out{gsave}%
-          \ifthenelse{\equal\iro@\empty}{%
-            \immediate\write\EMps@out{\nuri@grayscale\space setgray}%
-          }{%
-          }%
-          \immediate\write\EMps@out{fill\space grestore \space closepath \space stroke}%
-       \else
-       \if c\byouga@dousa
-          \immediate\write\EMps@out{closepath \space stroke}%
-       \fi\fi\fi\fi
-    }%
-    \def\@@Ensyuu##1##2{%
-      \xytops{##1}\@@x\@@y
-      \ltops{##2}\@@r
-      \immediate\write\EMps@out{newpath}%
-      \ifthenelse{\equal{\iro@}{\empty}}{%
-        \immediate\write\EMps@out{%
-          \@@x\space\@@y\space\@@r\space 0 360 arc stroke}%
-      }{%
-        \begin{EMpscolor}{\iro@}
-          \immediate\write\EMps@out{%
-            \@@x\space\@@y\space\@@r\space 0 360 arc stroke}%
-        \end{EMpscolor}%
-      }%
-    }%
-    \def\@Daen{\bgroup\gsave\@ifnextchar<{\@@psDaen}{\@psDaen}}%
-    \def\@@psDaen<##1>{\setkeys{emPs}{##1}\@psDaen}%
-    \def\@psDaen##1##2##3{%
-      \xytops{##1}\@@x\@@y
-      \ltops{##2}\@@l
-      \ltops{##3}\@@m
-      \immediate\write\EMps@out{newpath}%
-      \ifthenelse{\equal\iro@\empty}{}{%
-%          \immediate\write\EMps@out{%
-%            \csname EMps@\iro@\endcsname\space \EMsetcolor}%
-        \EMpsIrositei{\iro@}%
-      }%
-      \immediate\write\EMps@out{%
-        \@@x\space\@@y\space\@@l\space\@@m\space 0 360 ellipse stroke}%
-      \grestore\egroup
-    }%
-    \def\@Daen@[##1]##2##3##4{%
-      \edef\draw@border{\empty}%
-      \def\noudo@{.5}%
-      \def\nuri@iro{\nuri@iro@}%
-      \Strchr{##1}{=}\nuri@iro@tmp
-      \ifnum\nuri@iro@tmp>\z@\setkeys{emP}{##1}\else\edef\noudo@{##1}\fi
-      \Sub{1}\noudo@\nuri@grayscale
-      \xytops{##2}\@@x\@@y
-      \ltops{##3}\@@l
-      \ltops{##4}\@@m
-      \ifthenelse{\equal\nuri@iro\empty}{%
-        \immediate\write\EMps@out{newpath}%
-        \immediate\write\EMps@out{gsave}%
-        \ifthenelse{\equal\iro@\empty}{}{%
-          \EMpsIrositei{\iro@}%
-        }%
-        \immediate\write\EMps@out{%
-          \@@x\space\@@y\space\@@l\space\@@m\space 0 360 ellipse}%
-        \immediate\write\EMps@out{gsave}%
-        \immediate\write\EMps@out{\nuri@grayscale\space setgray}%
-        \immediate\write\EMps@out{fill}%
-        \immediate\write\EMps@out{grestore}%
-        \ifthenelse{\equal\draw@border\empty}{}{%
-          \immediate\write\EMps@out{stroke}%
-        }%
-        \immediate\write\EMps@out{grestore}%
-      }{%
-        \immediate\write\EMps@out{newpath}%
-        \ifthenelse{\equal\iro@\empty}{}{%
-          \EMpsIrositei{\iro@}%
-        }%
-        \immediate\write\EMps@out{%
-          \@@x\space\@@y\space\@@l\space\@@m\space 0 360 ellipse}%
-        \immediate\write\EMps@out{gsave}%
-        \EMpsIrositei{\nuri@iro}%
-        \immediate\write\EMps@out{gsave}%
-        \immediate\write\EMps@out{fill}%
-        \immediate\write\EMps@out{grestore}%
-        \ifthenelse{\equal\draw@border\empty}{}{%
-          \immediate\write\EMps@out{stroke}%
-        }%
-        \immediate\write\EMps@out{grestore}%
-      }%
-    }%
-%
-    \def\@@@Daenko[##1][##2]##3##4##5##6{%
-%     \edef\@tyuusin{\local@origin}%
-      \def\@tyuusin{(0,0)}%
-      \ifthenelse{\equal\iro@\empty}{}{%
-%          \immediate\write\EMps@out{%
-%            \csname EMps@\iro@\endcsname\space \EMsetcolor}%
-        \EMpsIrositei{\iro@}%
-      }%
-      \ifthenelse{\equal{##1}{\empty}}%
-      {%
-        \xytops{\@tyuusin}\@@x\@@y
-        \ltops{##3}\@@l
-        \ltops{##4}\@@m
-\def\hazime@kaku{##5}%
-\def\owari@kaku{##6}%
-\ifthenelse{\equal\yazirusi@opt{a}\or\equal\yazirusi@opt{b}}{%
-\def\Daenko@tmp{\Arrowhead@L}%
-\Mul\Daenko@tmp{9.99}\Daenko@tmp
-\Div\Daenko@tmp\@@l\Daenko@tmp
-\RadDeg\Daenko@tmp\Daenko@tmp
-\Sub\owari@kaku\Daenko@tmp\owari@kaku@
-}{\def\owari@kaku@{\owari@kaku}}%
-\ifthenelse{\equal\yazirusi@opt{b}\or\equal\yazirusi@opt{r}}{%
-\def\Daenko@tmp{\Arrowhead@L}%
-\Mul\Daenko@tmp{9.99}\Daenko@tmp
-\Div\Daenko@tmp\@@l\Daenko@tmp
-\RadDeg\Daenko@tmp\Daenko@tmp
-\Add\hazime@kaku\Daenko@tmp\hazime@kaku@
-}{\def\hazime@kaku@{\hazime@kaku}}%
-        \immediate\write\EMps@out{newpath}%
-        \immediate\write\EMps@out{%
-            \@@x\space\@@y\space\@@l\space\@@m\space
-            \hazime@kaku@\space\owari@kaku@\space ellipse stroke}%
-      }{%\else
-        \edef\@hazimekaku{##5}\edef\@owarikaku{##6}%
-        \DegRad{\@hazimekaku}{\@hazimekaku}\DegRad{\@owarikaku}{\@owarikaku}%
-        \edef\@x{##3}\edef\@y{##4}%
-        \Mul{##2}{0.18}\@dx\Mul{##1}{0.1}\@lx
-        \For\@t{\@hazimekaku}{\@owarikaku}{\@dx}\Do{\Add\@t{\@lx}\@@t%
-          \ifthenelse{\lengthtest{\@@t pt>\@owarikaku pt}}{%
-            \edef\@@t{\@owarikaku}}{}%
-          \Cos\@t\@xi\Mul\@x\@xi\@xi\Cos\@@t\@xii\Mul\@x\@xii\@xii%
-          \Sin\@t\@yi\Mul\@y\@yi\@yi\Sin\@@t\@yii\Mul\@y\@yii\@yii%
-          \drawline(\@xi,\@yi)(\@xii,\@yii)}%
-      }%
-      \ifthenelse{\equal\yazirusi@opt{a}\or\equal\yazirusi@opt{b}}{%
-        \DegCos{##6}\@@x\Mul{##3}\@@x\@@x
-        \DegSin{##6}\@@y\Mul{##4}\@@y\@@y
-        \Addvec{\@tyuusin}{(\@@x,\@@y)}\@@P
-        \Div{5}{\strip@pt\unitlength}\@@L
-        \Div\@@L{##3}\d@@theta
-        \Mul{60}\d@@theta\d@@theta
-        \Sub{##6}\d@@theta\@@angle
-        \DegCos{\@@angle}\@@x\Mul{##3}\@@x\@@x
-        \DegSin{\@@angle}\@@y\Mul{##4}\@@y\@@y
-        \Addvec{\@tyuusin}{(\@@x,\@@y)}\@@Q
-        \Subvec\@@P\@@Q\@@PQ
-        \Yaziri\@@P\@@PQ%
-      }{}%
-      \ifthenelse{\equal\yazirusi@opt{r}\or\equal\yazirusi@opt{b}}{%
-        \DegCos{##5}\@@x\Mul{##3}\@@x\@@x
-        \DegSin{##5}\@@y\Mul{##4}\@@y\@@y
-        \Addvec{\@tyuusin}{(\@@x,\@@y)}\@@P
-        \Div{5}{\strip@pt\unitlength}\@@L
-        \Div\@@L{##3}\d@@theta
-        \Mul{60}\d@@theta\d@@theta
-        \Add{##5}\d@@theta\@@angle
-        \DegCos{\@@angle}\@@x\Mul{##3}\@@x\@@x
-        \DegSin{\@@angle}\@@y\Mul{##4}\@@y\@@y
-        \Addvec{\@tyuusin}{(\@@x,\@@y)}\@@Q
-        \Subvec\@@P\@@Q\@@PQ
-        \Yaziri\@@P\@@PQ%
-      }{}%
-\egroup
-      \grestore
-    }%
-%
-    \def\setdash{\@ifnextchar[{\@setdash}{\@setdash[0]}}%
-    \def\@setdash[##1]##2{%
-      \ifthenelse{\equal{##2}\empty}{%
-        \edef\cur@dash{}\edef\cur@dashoffset{0}%
-        \immediate\write\EMps@out{[] 0 setdash}}{%
-% else
-        \edef\cur@dash{##2}\edef\cur@dashoffset{##1}%
-        \edef\setdash@tmp{}%
-        \expandafter\@for\expandafter\@@c\expandafter:\expandafter=##2\do{%
-          \ltops\@@c\@@@c
-          \ifthenelse{\equal\setdash@tmp\empty}{\edef\setdash@tmp{\@@@c}}{%
-            \edefappend\setdash@tmp{\space\@@@c}}%
-        }%
-        \ltops{##1}\setdash@offset
-        \immediate\write\EMps@out{%
-          [\setdash@tmp] \setdash@offset\space setdash}%
-      }%
-    }%
-%
-    \def\@Enban[##1]##2##3{%
-      \edef\draw@border{\empty}%
-      \def\noudo@{.5}%
-      \def\nuri@iro{\nuri@iro@}%
-      \Strchr{##1}{=}\nuri@iro@tmp
-      \ifnum\nuri@iro@tmp>\z@\setkeys{emP}{##1}\else\edef\noudo@{##1}\fi
-      \Sub{1}\noudo@\nuri@grayscale
-      \xytops{##2}\@@x\@@y
-      \ltops{##3}\@@r
-      \ifthenelse{\equal\nuri@iro\empty}{%
-        \immediate\write\EMps@out{newpath}%
-        \immediate\write\EMps@out{gsave}%
-        \ifthenelse{\equal\iro@\empty}{}{%
-          \EMpsIrositei{\iro@}%
-        }%
-        \immediate\write\EMps@out{%
-          \@@x\space\@@y\space\@@r\space 0 360 arc}%
-        \immediate\write\EMps@out{gsave}%
-        \immediate\write\EMps@out{\nuri@grayscale\space setgray}%
-        \immediate\write\EMps@out{fill}%
-        \immediate\write\EMps@out{grestore}%
-        \ifthenelse{\equal\draw@border\empty}{}{%
-          \immediate\write\EMps@out{stroke}%
-        }%
-        \immediate\write\EMps@out{grestore}%
-      }{%
-        \immediate\write\EMps@out{newpath}%
-        \ifthenelse{\equal\iro@\empty}{}{%
-          \EMpsIrositei{\iro@}%
-        }%
-        \immediate\write\EMps@out{\@@x\space\@@y\space\@@r\space 0 360 arc}%
-        \immediate\write\EMps@out{gsave}%
-        \EMpsIrositei{\nuri@iro}%
-        \immediate\write\EMps@out{gsave}%
-        \immediate\write\EMps@out{fill}%
-        \immediate\write\EMps@out{grestore}%
-        \ifthenelse{\equal\draw@border\empty}{}{%
-          \immediate\write\EMps@out{stroke}%
-        }%
-        \immediate\write\EMps@out{grestore}%
-      }%
-    }%
-%    \def\yclipDrawline##1{%
-%      \ifthenelse{\equal{##1}{\par}}{\relax}{\Drawline{##1}}}%
-%    \def\xclipDrawline##1{%
-%      \ifthenelse{\equal{##1}{\par}}{\relax}{\Drawline{##1}}}%
-%    \def\clipDrawline##1{%
-%      \ifthenelse{\equal{##1}{\par}}{\relax}{\Drawline{##1}}}%
-    \def\drawline(##1,##2){%
-      \xytops{(##1,##2)}\@@x\@@y
-      \ifnum\EMps@newpath=\z@\else
-        \immediate\write\EMps@out{newpath\space\@@x\space\@@y\space moveto}\fi
-      \@ifnextchar({\@drawline}{\drawline@}%
-    }%
-    \def\@drawline(##1,##2){%
-      \xytops{(##1,##2)}\@@x\@@y
-      \immediate\write\EMps@out{\@@x\space\@@y\space lineto}%
-      \@ifnextchar({\@drawline}{\drawline@}%
-    }%
-    \def\drawline@{%
-      \byouga
-    }%
-%    \def\Takakkei{\@ifnextchar<{\@Takakkei}{\@Takakkei<\empty>}}%
-%    \def\@Takakkei<##1>##2{{%
-%      \def\drawline@{%
-%        \immediate\write\EMps@out{closepath stroke}%
-%      }%
-%      \Drawline<##1>{##2}%
-%    }}%
-\def\Takakkei{\@ifnextchar<{\@Takakkei}{\@Takakkei<\empty>}}%
-\def\@Takakkei<##1>##2{{%
-  \def\yazirusi@opt{\empty}%
-  \edef\oval@r{0}%
-  \ifx \empty ##1\relax
-    \@@Takakkei<##1>{##2}%
-  \else
-\gsave
-    \setkeys{emP}{##1}%
-    \ifdim\oval@r\p@=\z@
-      \@@Takakkei<##1>{##2}%
-    \else
-      \@ovalPolygon{##2}%
-    \fi
-\grestore
-  \fi}}%
-\def\@@Takakkei<##1>##2{%
-      \def\drawline@{%
-        \immediate\write\EMps@out{closepath stroke}%
-      }%
-  \Drawline<##1>{##2}%
 }%
-    \let\sensyu=\drawline
-    \def\arrow@size{3 25 50 0}%
-    \def\setarrowsize{\@ifnextchar<{\@setarrowsize}{\@setarrowsize<\ArrowHeadPit>}}
-    \def\@setarrowsize<##1>##2##3##4{%
-      \ifthenelse{\equal{##2}\empty}{\def\as@i{3}}{\def\as@i{##2}}%
-      \ifthenelse{\equal{##3}\empty}{\def\as@ii{25}}{\def\as@ii{##3}}%
-      \ifthenelse{\equal{##4}\empty}{\def\as@iii{50}}{\def\as@iii{##4}}%
-      \Mul\as@iii{##1}\as@hekomi
-      \Div\as@iii{10}\Arrowhead@L%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 2005/01/25
-      \def\arrow@size{\as@i\space\as@ii\space\as@iii\space\as@hekomi}}%
-    \def\@@ArrowLine<##1>[##2]##3##4{%
-      \ifthenelse{\equal{##2}{b}}{%
-%        \Bunten{##3}{##4}11\AL@M
-%        \@@@ArrowLine<##1>[1]\AL@M{##4}%
-%        \@@@ArrowLine<##1>[1]\AL@M{##3}%
-        \@@@ArrowLine<##1>[1]{##3}{##4}%
-        \Subvec{##3}{##4}\AL@v
-        \Yaziri{##3}\AL@v
-      }{%
-        \@@@ArrowLine<##1>[##2]{##3}{##4}%
-      }}%
-    \def\@@@ArrowLine<##1>[##2]##3##4{{\gsave%
-      \def\put@str{\empty}\def\put@pos{.5}%
-      \edef\hen@i{\empty}%
-      \edef\hen@ii{\empty}%
-      \edef\iro@{\empty}%
-      \ifx\empty ##1\else\setkeys{emP}{##1}\fi
 %
-      \ifx\empty\hen@i\def\ArrowLine@A{##3}\else\Addvec{##3}{\hen@i}\ArrowLine@A\fi
-      \ifx\empty\hen@ii\def\ArrowLine@B{##4}\else\Addvec{##4}{\hen@ii}\ArrowLine@B\fi
-%
-      \ifx\empty\iro@\else\EMpsIrositei{\iro@}\fi
-      \Subvec{\ArrowLine@B}{\ArrowLine@A}\miki@v
-      \xytops{\ArrowLine@A}\@@x\@@y
-      \ifdim ##2 pt=1pt\relax
-        \def\AL@Q{\ArrowLine@B}%
-      \else
-        \Sub{1}{##2}\AL@i
-        \Bunten{\ArrowLine@A}{\ArrowLine@B}{##2}\AL@i\AL@Q
-      \fi
-      \xytops{\AL@Q}\@@xx\@@yy
-\ifdim\arrow@headsize\p@=\z@
-  \psDrawline{\ArrowLine@A\ArrowLine@B}%
-\else
-      \immediate\write\EMps@out{newpath}%
-      \immediate\write\EMps@out{%
-        \@@x\space\@@y\space\@@xx\space\@@yy\space\arrow@size\space arrow}%
-      \ifarrowfill
-        \immediate\write\EMps@out{fill}%
-      \else
-        \immediate\write\EMps@out{stroke}%
-      \fi
-\fi
-      \ifdim ##2 pt=1pt\relax\else\Drawline{\ArrowLine@A\ArrowLine@B}\fi
-      \ifx\empty\put@str\else
-        \Mulvec\put@pos\miki@v\put@p\Addvec{\ArrowLine@A}\put@p\put@p
-        \expandafter\emathPut\expandafter\put@p\put@str
-      \fi
-    \grestore}}%
-    \def\drawXYaxis{%
-      \put(0,0){\zikusensyu(\truexmin,0)(\truexmax,0)}%
-      \put(0,0){\zikusensyu(0,\trueymin)(0,\trueymax)}%
-      \edef\zahyou@tmp{{(\truexmax,0)}\yokozikuhaiti}%
-      \expandafter\emathPut\zahyou@tmp{\yokozikukigou}%
-      \edef\zahyou@tmp{{(0,\trueymax)}\tatezikuhaiti}%
-      \expandafter\emathPut\zahyou@tmp{\tatezikukigou}%
-      \edef\zahyou@tmp{{(0,0)}\gentenhaiti}%
-      \expandafter\emathPut\zahyou@tmp{\gentenkigou}
-    }%
-%    \def\@hasen(##1,##2){\@ifnextchar({%
-%        \xytops{(##1,##2)}\@@x\@@y
-%        \immediate\write\EMps@out{newpath}%
-%        \immediate\write\EMps@out{\@@x\space\@@y\space moveto}%
-%        \@@hasen(##1,##2)}{%
-%          \immediate\write\EMps@out{[] 0 setdash}
-%      }}%
-%    \def\@@hasen(##1,##2)(##3,##4){%
-%    \Kyorii{(##1,##2)}{(##3,##4)}\d@@hasen
-%    \ifdim\d@@hasen pt>0.005pt\relax
-%      \edef\hasen@S{(##1,##2)}\edef\hasen@E{(##3,##4)}%
-%      \templa=\hasen@L\Div{\strip@pt\templa}{\strip@pt\unitlength}\hasen@@L
-%      \templa=\hasen@G\Div{\strip@pt\templa}{\strip@pt\unitlength}\hasen@@G
-%      \Add\hasen@@L\hasen@@G\hasen@@LG
-%      \Subvec\hasen@E\hasen@S\hasen@v
-%      \Unitvec\hasen@v\hasen@u
-%      \Absvec\hasen@v\hasen@LL
-%      \Div\hasen@LL\hasen@@LG\hasen@tmp
-%      \Seisuububun\hasen@tmp\hasen@n
-%      \Sub\hasen@LL\hasen@@L\hasen@tmp
-%      \ifnum\hasen@n>\z@
-%        \Div\hasen@tmp\hasen@n\hasen@tmp
-%        \Sub\hasen@tmp\hasen@@L\hasen@@G
-%        \Add\hasen@@L\hasen@@G\hasen@@LG\fi
-%        \xytops{(##3,##4)}\@@x\@@y
-%        \immediate\write\EMps@out{\@@x\space\@@y\space lineto}%
-%        \ltops\hasen@@L\@@L
-%        \ltops\hasen@@G\@@G
-%        \immediate\write\EMps@out{[\@@L\space\@@G] 0 setdash}
-%        \immediate\write\EMps@out{stroke}
-%      \fi
-%      \@hasen(##3,##4)%
-%    }%
-%%
-%
-    \def\Arrowhead@L{5}
-    \def\Arrowhead@W{2.5}
-    \def\Yaziri##1##2{%
-%     \ifthenelse{\lengthtest{\arrow@headsize\p@>\z@}}{%
-        \Absvec{##2}\yz@tmp
-        \@tempdima\yz@tmp\unitlength
-        \Div\Arrowhead@L{\strip@pt\@tempdima}\yz@tmp
-        \Mulvec\yz@tmp{##2}\yz@v
-        \Subvec{##1}\yz@v\yz@s
-        \Add\cur@linewidth{2}\yz@lw
-        \Drawline<iro=white,linewidth=\yz@lw>{##1\yz@s}%
-        \ArrowLine\yz@s{##1}%
-%     }{}%
-    }%
-    \def\kYaziri##1##2{%
-      \DegCos{##2}\pskyzr@x
-      \DegSin{##2}\pskyzr@y
-      \Yaziri{##1}{(\pskyzr@x,\pskyzr@y)}%
-    }%
-    \def\yaziri##1{\Yaziri\local@origin{##1}}%
-%
-    \def\Enk@@@<##1>##2##3[##4]##5[##6]##7{%
-\ifnum\EMps@newpath=\z@\else\gsave\fi
-      \edef\ten@kosuu{}%
-      \edef\hasen@opt{\empty}%
-      \edef\hazime@kaku{##5}%
-      \edef\yazirusi@opt{}%
-      \edef\owari@kaku{##7}%
-      \edef\@tyuusin{##2}%
-      \edef\@hankei{##3}%
-      \def\byouga@dousa{s}%
-      \edef\EMps@newpath{1}%
-      \Strchr{##1}{=}\Enk@tmp\ifnum\Enk@tmp>\z@\setkeys{emP}{##1}\fi
-      \Strchr{##3}{=}\Enk@tmp\ifnum\Enk@tmp>\z@\setkeys{emP}{##3}\fi
-      \Strchr{##5}{=}\Enk@tmp\ifnum\Enk@tmp>\z@\setkeys{emP}{##5}\fi
-      \Strchr{##7}{=}\Enk@tmp\ifnum\Enk@tmp>\z@\setkeys{emP}{##7}\fi
-      \ifx\empty##4\else\edef##4{\hazime@kaku}\fi
-      \ifx\empty##6\else\edef##6{\owari@kaku}\fi
-\ifthenelse{\equal\iro@\empty}{\edef\EMpsc@set{0}}{%
-\edef\EMpsc@set{1}\begin{EMpscolor}{\iro@}}%
-      \ifthenelse{\equal\ten@kosuu\empty}{%
-        \ifthenelse{\equal\yazirusi@opt\empty}{\edef\yazirusi@opt{n}}{}%
-        \ifthenelse{\lengthtest{\arrow@headsize\p@=\z@}}{%
-          \edef\yazirusi@opt{n}}{}%
-        \ifthenelse{\equal\hasen@opt\empty}{%
-          \xytops{\@tyuusin}\@@x\@@y
-          \ltops{\@hankei}\@@r
-          \ifnum\EMps@newpath=\z@\else\immediate\write\EMps@out{newpath}\fi
-%         \ifdim\hazime@kaku pt<\owari@kaku pt\relax
-          \ifthenelse{\lengthtest{\hazime@kaku pt<\owari@kaku pt}}{%
-            \ifthenelse{\equal\yazirusi@opt{a}\or\equal\yazirusi@opt{b}}{%
-              \def\Enko@tmp{\Arrowhead@L}%
-              \Mul\Enko@tmp{9.99}\Enko@tmp
-              \Div\Enko@tmp\@@r\Enko@tmp
-              \RadDeg\Enko@tmp\Enko@tmp
-              \Sub\owari@kaku\Enko@tmp\owari@kaku@
-            }{\def\owari@kaku@{\owari@kaku}}%
-            \ifthenelse{\equal\yazirusi@opt{b}\or\equal\yazirusi@opt{r}}{%
-              \def\Enko@tmp{\Arrowhead@L}%
-              \Mul\Enko@tmp{9.99}\Enko@tmp
-              \Div\Enko@tmp\@@r\Enko@tmp
-              \RadDeg\Enko@tmp\Enko@tmp
-              \Add\hazime@kaku\Enko@tmp\hazime@kaku@
-            }{\def\hazime@kaku@{\hazime@kaku}}%
-            \immediate\write\EMps@out{\@@x\space\@@y\space\@@r\space
-              \hazime@kaku@\space\owari@kaku@\space arc}%
-          }{%
-%          \else
-            \immediate\write\EMps@out{%
-              \@@x\space\@@y\space\@@r\space\hazime@kaku\space\owari@kaku\space
-                arcn}%
-%          \fi
-          }%
-          \byouga
-          \ifthenelse{\equal\yazirusi@opt{a}\or\equal\yazirusi@opt{b}}{%
-              \DegCos{\owari@kaku}\enko@tmp\Mul\@hankei\enko@tmp\enko@x
-              \DegSin{\owari@kaku}\enko@tmp\Mul\@hankei\enko@tmp\enko@y
-              \Addvec\@tyuusin{(\enko@x,\enko@y)}\enko@T
-              \Add\owari@kaku{90}\enko@kaku
-              \Div{5}{\strip@pt\unitlength}\d@@theta
-              \Div\d@@theta\@hankei\d@@theta
-              \Div\d@@theta{2}\d@@theta
-              \Mul{57}\d@@theta\d@@theta
-              \Sub\enko@kaku\d@@theta\enko@kaku
-              \kYaziri\enko@T\enko@kaku
-          }{}%
-          \ifthenelse{\equal\yazirusi@opt{r}\or\equal\yazirusi@opt{b}}{%
-              \DegCos{\hazime@kaku}\enko@tmp\Mul\@hankei\enko@tmp\enko@x
-              \DegSin{\hazime@kaku}\enko@tmp\Mul\@hankei\enko@tmp\enko@y
-              \Addvec\@tyuusin{(\enko@x,\enko@y)}\enko@T
-              \Add\hazime@kaku{-90}\enko@kaku
-              \Div{5}{\strip@pt\unitlength}\d@@theta
-              \Div\d@@theta\@hankei\d@@theta
-              \Div\d@@theta{2}\d@@theta
-              \Mul{57}\d@@theta\d@@theta
-              \Add\enko@kaku\d@@theta\enko@kaku
-              \kYaziri\enko@T\enko@kaku
-          }{}%%
-        }{%
-          \emathPut\@tyuusin{%
-            \Yenko[\yazirusi@opt]\@hankei\hazime@kaku\owari@kaku%
-            \expandafter\Daenko\hasen@opt\@hankei\@hankei
-              \hazime@kaku\owari@kaku}%
-        }%
-     }{%
-        \ISub\ten@kosuu{1}\ten@kosuui
-        \Sub\owari@kaku\hazime@kaku\kaku@kankaku
-        \Div\kaku@kankaku\ten@kosuui\kaku@kankaku
-        \edef\@kaku{\hazime@kaku}%
-        \emathPut\@tyuusin{%
-          \Ifor\@kizami{0}{\ten@kosuui}\Do{%
-            \Rdef(\@hankei,\@kaku)\@Ten
-            \emathPut\@Ten{{\unitlength\p@\circle*{1}}}%
-            \Add\@kaku\kaku@kankaku\@kaku
-          }%
-          \Rdef(\@hankei,\owari@kaku)\@Ten
-          \emathPut\@Ten{{\unitlength\p@\circle*{1}}}%
-        }%
-      }%
-\ifthenelse{\EMpsc@set=\z@}{}{\end{EMpscolor}}%
-\if p\byouga@dousa\else\grestore\fi
-    }%
-%
-    \def\@@@ougigata[##1]<##2>##3##4##5{%
-      \edef\hazime@kaku{##4}%
-      \edef\owari@kaku{##5}%
-      \def\nuri@iro{\nuri@iro@}%
-      \Strchr{##2}{=}\Enk@tmp
-      \ifnum\Enk@tmp>\z@\setkeys{emP}{##2}\fi
-%     \edef\@tyuusin{\local@origin}%
-      \edef\@tyuusin{(0,0)}%
-      \edef\@hankei{##3}%
-      \Strchr{##3}{=}\Enk@tmp\ifnum\Enk@tmp>\z@\setkeys{emP}{##3}\fi
-      \Strchr{##4}{=}\Enk@tmp\ifnum\Enk@tmp>\z@\setkeys{emP}{##4}\fi
-      \Strchr{##5}{=}\Enk@tmp\ifnum\Enk@tmp>\z@\setkeys{emP}{##5}\fi
-      \xytops{\@tyuusin}\@@x\@@y
-      \ltops{\@hankei}\@@r
-      \immediate\write\EMps@out{newpath}%
-      \immediate\write\EMps@out{\@@x\space\@@y\space moveto}%
-      \immediate\write\EMps@out{%
-          \@@x\space\@@y\space\@@r\space\hazime@kaku\space\owari@kaku\space
-          arc closepath}%
-      \if@nuri
-%        \Sub{1}{##1}\nuri@grayscale
-%        \immediate\write\EMps@out{\nuri@grayscale\space setgray}%
-\ifthenelse{\equal\nuri@iro\empty}{%
-        \Sub{1}{##1}\nuri@grayscale
-        \immediate\write\EMps@out{\nuri@grayscale\space setgray}%
-}{%
-%       \immediate\write\EMps@out{%
-%         \csname EMps@\nuri@iro\endcsname\space \EMsetcolor}%
-        \EMpsIrositei{\nuri@iro}%
-}%
-        \immediate\write\EMps@out{fill}%
-        \immediate\write\EMps@out{0 setgray}%
-      \else
-        \immediate\write\EMps@out{stroke}%
-      \fi
-    }%
-    \def\@@hatch@ougigata[##1]<##2>##3##4##5{%
-%     \edef\@tyuusin{\local@origin}%
-      \edef\@tyuusin{(0,0)}%
-      \edef\hazime@kaku{##4}%
-      \edef\owari@kaku{##5}%
-%     \edef\@tyuusin{\local@origin}%
-      \edef\@hankei{##3}%
-      \Strchr{##3}{=}\Enk@tmp\ifnum\Enk@tmp>\z@\setkeys{emP}{##3}\fi
-      \Strchr{##4}{=}\Enk@tmp\ifnum\Enk@tmp>\z@\setkeys{emP}{##4}\fi
-      \Strchr{##5}{=}\Enk@tmp\ifnum\Enk@tmp>\z@\setkeys{emP}{##5}\fi
-      \edef\@resen{\@tyuusin}%
-      \For\@kaku{\hazime@kaku}{\owari@kaku}{5}\Do{%
-        \Rdef[\@tyuusin](\@hankei,\@kaku)\@P%
-        \edef\@resen{\@resen\@P}}\Rdef[\@tyuusin](\@hankei,\owari@kaku)\@P%
-        \edef\@resen{\@resen\@P\@tyuusin}\Hatchpolygon[##1]<##2>\@resen
-    }%
-%
-    \def\@@@yumigata[##1]<##2>##3##4##5{%
-      \edef\hazime@kaku{##4}%
-      \edef\owari@kaku{##5}%
-      \def\nuri@iro{\nuri@iro@}%
-      \Strchr{##2}{=}\Enk@tmp
-      \ifnum\Enk@tmp>\z@\setkeys{emP}{##2}\fi
-%     \edef\@tyuusin{\local@origin}%
-      \edef\@tyuusin{(0,0)}%
-      \edef\@hankei{##3}%
-      \Strchr{##3}{=}\Enk@tmp\ifnum\Enk@tmp>\z@\setkeys{emP}{##3}\fi
-      \Strchr{##4}{=}\Enk@tmp\ifnum\Enk@tmp>\z@\setkeys{emP}{##4}\fi
-      \Strchr{##5}{=}\Enk@tmp\ifnum\Enk@tmp>\z@\setkeys{emP}{##5}\fi
-      \xytops{\@tyuusin}\@@x\@@y
-      \ltops{\@hankei}\@@r
-      \immediate\write\EMps@out{newpath}%
-      \immediate\write\EMps@out{%
-          \@@x\space\@@y\space\@@r\space\hazime@kaku\space\owari@kaku\space
-          arc closepath}%
-      \if@nuri
-%        \Sub{1}{##1}\nuri@grayscale
-%        \immediate\write\EMps@out{\nuri@grayscale\space setgray}%
-\ifthenelse{\equal\nuri@iro\empty}{%
-        \Sub{1}{##1}\nuri@grayscale
-        \immediate\write\EMps@out{\nuri@grayscale\space setgray}%
-}{%
-%       \immediate\write\EMps@out{%
-%          \csname EMps@\nuri@iro\endcsname\space \EMsetcolor}%
-        \EMpsIrositei{\nuri@iro}%
-}%
-        \immediate\write\EMps@out{fill}%
-        \immediate\write\EMps@out{0 setgray}%
-      \else
-        \immediate\write\EMps@out{stroke}%
-      \fi
-    }%
-    \def\@@hatch@yumigata[##1]<##2>##3##4##5{%
-      \edef\hazime@kaku{##4}%
-      \edef\owari@kaku{##5}%
-%     \edef\@tyuusin{\local@origin}%
-      \edef\@tyuusin{(0,0)}%
-      \edef\@hankei{##3}%
-      \Strchr{##3}{=}\Enk@tmp\ifnum\Enk@tmp>\z@\setkeys{emP}{##3}\fi
-      \Strchr{##4}{=}\Enk@tmp\ifnum\Enk@tmp>\z@\setkeys{emP}{##4}\fi
-      \Strchr{##5}{=}\Enk@tmp\ifnum\Enk@tmp>\z@\setkeys{emP}{##5}\fi
-      \edef\@resen{}%
-      \For\@kaku\hazime@kaku\owari@kaku{5}\Do{%
-        \Rdef[\@tyuusin](\@hankei,\@kaku)\@P\edef\@resen{\@resen\@P}%
-      }%
-      \Rdef[\@tyuusin](\@hankei,\owari@kaku)\@P
-      \edef\@resen{\@resen\@P}\Rdef[\@tyuusin](\@hankei,\hazime@kaku)\@P
-      \edef\@resen{\@resen\@P}%
-      \Hatchpolygon[##1]<##2>\@resen
-    }%
-%
-    \def\@@@zahyouMemori[##1][##2]<##3>{{%
-      \gsave
-      \xdef\zM@xo{0}%
-      \xdef\zM@yo{0}%
-      \xdef\zM@dx{1}%
-      \xdef\zM@dy{1}%
-      \def\zM@sensyu{\drawline}%
-      \def\zM@linethickness{.1pt}%
-      \def\zM@linewidth{1}%
-      \edef\x@memoriiti{[s]}%
-      \edef\y@memoriiti{[w]}%
-      \setdash{.1,.1}%
-      \Strchr{##3}{=}\zM@tmp
-      \ifnum\zM@tmp>\z@
-        \define@key{emPzM}{xo}{\xdef\zM@xo{####1}}%
-        \define@key{emPzM}{yo}{\xdef\zM@yo{####1}}%
-        \define@key{emPzM}{dx}{\xdef\zM@dx{####1}}%
-        \define@key{emPzM}{dy}{\xdef\zM@dy{####1}}%
-        \define@key{emPzM}{ymemoriiti}{\edef\y@memoriiti{####1}}%
-        \define@key{emPzM}{xmemoriiti}{\edef\x@memoriiti{####1}}%
-        \define@key{emPzM}{allinethickness}{\xdef\zM@linethickness{####1}}%
-        \define@key{emPzM}{linewidth}{\def\zM@linewidth{####1}}%
-        \define@key{emPzM}{sensyu}{\def\zM@sensyu{####1}}%
-        \define@key{emPzM}{dash}{%
-          \headchar{####1}\dash@a\dash@b
-          \ifthenelse{\equal{\dash@a}{[}}{%
-            \edef\dash@tmp{####1}\expandafter\setdash\dash@tmp}{%
-            \setdash{####1}}%
-          }%
-        \setkeys{emPzM}{##3}%
-      \else
-        \def\zM@dx{##3}%
-        \def\zM@dy{##3}%
-      \fi
-      \setlinewidth{\zM@linewidth}%
-      \@tempdima=\def@memori@nagasa
-      \Div{\strip@pt\@tempdima}{\strip@pt\unitlength}\memori@nagasa
-      \Div\memori@nagasa\@xscale\memori@nagasax
-      \Div\memori@nagasa\@yscale\memori@nagasay
-        \Sub\truexmax\zM@xo\zM@a\Sub\zM@a{.001}\zM@a
-        \Div\zM@a\zM@dx\zM@a
-        \Seisuububun\zM@a\zM@xn
-        \Sub\zM@xo\truexmin\zM@a\Sub\zM@a{.001}\zM@a
-        \Div\zM@a\zM@dx\zM@a
-        \Seisuububun\zM@a\zM@a
-        \IAdd\zM@xn\zM@a\zM@xn\Incr\zM@xn
-        \Mul\zM@a\zM@dx\zM@a
-        \Sub\zM@xo\zM@a\zM@x
-        \Sub\trueymax\zM@yo\zM@a\Sub\zM@a{.001}\zM@a
-        \Div\zM@a\zM@dy\zM@a
-        \Seisuububun\zM@a\zM@yn
-        \Sub\zM@yo\trueymin\zM@a\Sub\zM@a{.001}\zM@a
-        \Div\zM@a\zM@dy\zM@a
-        \Seisuububun\zM@a\zM@a
-        \IAdd\zM@yn\zM@a\zM@yn\Incr\zM@yn
-        \Mul\zM@a\zM@dy\zM@a
-        \Sub\zM@yo\zM@a\zM@y
-      \if g##1\relax
-        \def\zm@@x{\zM@x}%
-        \Ifor\@@n{0}\zM@xn\Do{%
-          \zM@sensyu(\zm@@x,\trueymin)(\zm@@x,\trueymax)\relax
-          \Add\zm@@x\zM@dx\zm@@x}%
-        \def\zm@@y{\zM@y}%
-        \Ifor\@@n{0}\zM@yn\Do{%
-          \zM@sensyu(\truexmin,\zm@@y)(\truexmax,\zm@@y)\relax
-          \Add\zm@@y\zM@dy\zm@@y}%
-      \else\if +##1\relax
-        \def\zm@@x{\zM@x}%
-        \Ifor\@@nx{0}\zM@xn\Do{%
-          \def\zm@@y{\zM@y}%
-          \Sub\zm@@x\memori@nagasax\zm@@xi
-          \Add\zm@@x\memori@nagasax\zm@@xii
-          \Ifor\@@ny{0}\zM@yn\Do{%
-            \Sub\zm@@y\memori@nagasay\zm@@yi
-            \Add\zm@@y\memori@nagasay\zm@@yii
-            \zM@sensyu(\zm@@xi,\zm@@y)(\zm@@xii,\zm@@y)%
-            \zM@sensyu(\zm@@x,\zm@@yi)(\zm@@x,\zm@@yii)%
-            \Add\zm@@y\zM@dy\zm@@y
-          }%
-          \Add\zm@@x\zM@dx\zm@@x
-        }%
-      \else\if o##1\relax
-        \def\zm@@x{\zM@x}%
-        \Ifor\@@nx{0}\zM@xn\Do{%
-          \def\zm@@y{\zM@y}%
-          \Ifor\@@ny{0}\zM@yn\Do{%
-            \Kuromaru[.5pt]{(\zm@@x,\zm@@y)}%
-            \Add\zm@@y\zM@dy\zm@@y
-          }%
-          \Add\zm@@x\zM@dx\zm@@x
-        }%
-      \else\if z##1\relax
-        \def\zm@@x{\zM@x}%
-        \setdash{}%
-        \Ifor\@@n{0}\zM@xn\Do{%
-          \zM@sensyu(\zm@@x,-\memori@nagasay)(\zm@@x,\memori@nagasay)%
-          \Add\zm@@x\zM@dx\zm@@x}%
-        \def\zm@@y{\zM@y}%
-        \Ifor\@@n{0}\zM@yn\Do{%
-          \zM@sensyu(-\memori@nagasax,\zm@@y)(\memori@nagasax,\zm@@y)%
-          \Add\zm@@y\zM@dy\zm@@y}%
-      \fi\fi\fi\fi
-      \if m##2\relax
-        \Strchr\zM@xo{.}\zM@tmpa
-        \Strchr\zM@dx{.}\zM@tmpb
-        \ifthenelse{\zM@tmpa=0 \and \zM@tmpb=0}{%
-          \Cfor{\def\zM@x{\zM@xo}}{\lengthtest{\zM@x pt<\truexmax pt}}{%
-          \IAdd\zM@dx\zM@x\zM@x}\do{%
-            \ifnum\zM@x=\z@\else
-              \edef\zM@tmp{{(\zM@x,0)}\x@memoriiti{$\zM@x$}}%
-              \expandafter\emathPut\zM@tmp
-            \fi}%
-          \Cfor{\def\zM@x{\zM@xo}\ISub\zM@x\zM@dx\zM@x}{%
-          \lengthtest{\zM@x pt>\truexmin pt}}{\ISub\zM@x\zM@dx\zM@x}\do{%
-            \edef\zM@tmp{{(\zM@x,0)}\x@memoriiti{$\zM@x$}}%
-            \expandafter\emathPut\zM@tmp}%
-        }{%
-\strsep\zM@dx{.}\zM@dmya\zM@dmyb
-\Strlen\zM@dmyb\zM@syousuubu
-          \Cfor{\def\zM@x{\zM@xo}}{\lengthtest{\zM@x pt<\truexmax pt}}{%
-          \Add\zM@dx\zM@x\zM@x}\do{%
-\ifdim\zM@x pt=\z@\else
-\@ifundefined{FPround}{}{\FPround\zM@x\zM@x\zM@syousuubu}%
-            \edef\zM@tmp{{(\zM@x,0)}\x@memoriiti{$\zM@x$}}%
-            \expandafter\emathPut\zM@tmp
-\fi
-}%
-          \Cfor{\def\zM@x{\zM@xo}\Sub\zM@x\zM@dx\zM@x}{%
-          \lengthtest{\zM@x pt>\truexmin pt}}{\Sub\zM@x\zM@dx\zM@x}\do{%
-\@ifundefined{FPround}{}{\FPround\zM@x\zM@x\zM@syousuubu}%
-            \edef\zM@tmp{{(\zM@x,0)}\x@memoriiti{$\zM@x$}}%
-            \expandafter\emathPut\zM@tmp}%
-        }%
-        \Strchr\zM@yo{.}\zM@tmpa
-        \Strchr\zM@dy{.}\zM@tmpb
-        \ifthenelse{\zM@tmpa=0 \and \zM@tmpb=0}{%
-          \Cfor{\def\zM@y{\zM@yo}\ISub\zM@y\zM@dy\zM@y}{%
-          \lengthtest{\zM@y pt>\trueymin pt}}{\ISub\zM@y\zM@dy\zM@y}\do{%
-            \edef\zM@tmp{{(0,\zM@y)}\y@memoriiti{$\zM@y$}}%
-            \expandafter\emathPut\zM@tmp}%
-          \Cfor{\edef\zM@y{\zM@yo}}{\lengthtest{\zM@y pt<\trueymax pt}}{%
-          \IAdd\zM@dy\zM@y\zM@y}\do{%
-            \ifnum\zM@y=\z@\else
-            \edef\zM@tmp{{(0,\zM@y)}\y@memoriiti{$\zM@y$}}%
-            \expandafter\emathPut\zM@tmp%
-            \fi}%
-        }{%
-\strsep\zM@dy{.}\zM@dmya\zM@dmyb
-\Strlen\zM@dmyb\zM@syousuubu
-          \Cfor{\def\zM@y{\zM@yo}\Sub\zM@y\zM@dy\zM@y}{%
-          \lengthtest{\zM@y pt>\trueymin pt}}{\Sub\zM@y\zM@dy\zM@y}\do{%
-\@ifundefined{FPround}{}{\FPround\zM@y\zM@y\zM@syousuubu}%
-            \edef\zM@tmp{{(0,\zM@y)}\y@memoriiti{$\zM@y$}}%
-            \expandafter\emathPut\zM@tmp
-}%
-          \Cfor{\edef\zM@y{\zM@yo}}{\lengthtest{\zM@y pt<\trueymax pt}}{%
-          \Add\zM@dy\zM@y\zM@y}\do{%
-\ifdim\zM@y pt=\z@\else
-\@ifundefined{FPround}{}{\FPround\zM@y\zM@y\zM@syousuubu}%
-            \edef\zM@tmp{{(0,\zM@y)}\y@memoriiti{$\zM@y$}}%
-            \expandafter\emathPut\zM@tmp
-\fi
-}%
-        }%
-      \fi
-      \grestore
-    }}%
-%
-    \let\ltxqbezier\qbezier
-    \def\qbezier{\@ifnextchar[{\@qbezier}{\@qbezier[0]}}%
-    \def\@qbezier[##1](##2,##3)(##4,##5)(##6,##7){%
-      \tenretu*{psqbz@A(##2,##3);psqbz@B(##4,##5);psqbz@C(##6,##7)}%
-      \immediate\write\EMps@out{gsave}%
-      \immediate\write\EMps@out{newpath}%
-      \Bunten\psqbz@A\psqbz@B21\psqbz@AB
-      \Bunten\psqbz@B\psqbz@C12\psqbz@BC
-      \xytops\psqbz@A\psqbz@Ax\psqbz@Ay
-      \xytops\psqbz@C\psqbz@Cx\psqbz@Cy
-      \xytops\psqbz@AB\psqbz@ABx\psqbz@ABy
-      \xytops\psqbz@BC\psqbz@BCx\psqbz@BCy
-      \ifnum ##1>\z@
-        \Kyori\psqbz@A\psqbz@B\psqbz@lAB
-        \Div\psqbz@lAB{##1}\psqbz@tmp
-        \ltops\psqbz@tmp\psqbz@tmp
-        \immediate\write\EMps@out{[\psqbz@tmp\space\psqbz@tmp] 0 setdash}
-      \fi
-      \immediate\write\EMps@out{\psqbz@Ax\space\psqbz@Ay\space moveto}%
-      \immediate\write\EMps@out{\psqbz@ABx\space\psqbz@ABy\space
-        \psqbz@BCx\space\psqbz@BCy\space\psqbz@Cx\space\psqbz@Cy\space
-        curveto}%
-      \immediate\write\EMps@out{stroke}%
-%     \immediate\write\EMps@out{[] 0 setdash}%
-      \immediate\write\EMps@out{grestore}%
-    }%
+\def\endEMpspicture{\csname endzahyou*\endcsname}%
 %
 %
-% Bezier 3次曲線
 %
-% \EMpsBezier<##1>##2##3##4##5
-%   <##1> : key=val
-%           linewidth=
-%           dash=
-%           yazirusi=a/r
-%           waku
-%    ##2  : 端点1
-%    ##3  : 制御点1
-%    ##4  : 制御点2
-%    ##5  : 端点2
+\RequirePackage{pszahyou}%
 %
-\def\ps@drawwaku@{0}%
-\def\psdrawwaku##1{\def\ps@drawwaku@{##1}}%
-\def\EMpsBezier{\@ifnextchar<{\@EMpsBezier}{\@EMpsBezier<\empty>}}
-\def\@EMpsBezier<##1>##2##3##4##5{%
-  \ifnum\ps@continue=\z@\gsave\fi
-  \def\ps@drawwaku{\ps@drawwaku@}%
-  \def\nuri@grayscale{.5}%
-  \def\iro@{\empty}%
-  \ifnum\ps@continue=\z@
-    \def\byouga@dousa{s}%
-  \else
-    \def\byouga@dousa{p}%
+%
+%
+\def\inputcurrentEPSfile{%
+  \ifnum\EMps@mode=0\relax
+%    \put(\xmin,\ymin){\includegraphics[clip=\EMps@clip]{\EMps@filename}}%
+%\typeout{inputcurrentEPSfile：includegraphics:\EMps@filename}%
+    \put(\EMps@x@include,\EMps@y@include){\includegraphics[clip=\EMps@clip]{\EMps@filename}}%
+%    \include@epsfalse
   \fi
-  \def\yazirusi@opt{\empty}%
-  \ifx \empty ##1\else\setkeys{emPs}{##1}\fi
-   \ifnum\ps@continue=\z@\immediate\write\EMps@out{newpath}\fi%
-   \xytops{##2}\@@x\@@y
-   \ifnum\ps@continue=\z@
-      \immediate\write\EMps@out{\@@x\space\@@y\space moveto}%
-   \fi
-   \xytops{##3}\@@xi\@@yi
-   \xytops{##4}\@@xii\@@yii
-   \xytops{##5}\@@xiii\@@yiii
-   \immediate\write\EMps@out{%
-    \@@xi\space\@@yi\space\@@xii\space\@@yii\space\@@xiii\space\@@yiii\space
-    curveto}%
-  \ifnum\ps@drawwaku>\z@
-    \psDrawline<linewidth=1>{##2##3##4##5}%
-  \fi
-  \byouga
-  \ifx\empty\yazirusi@opt\else
-    \if a\yazirusi@opt\Subvec{##5}{##4}\ya@vec\Yaziri{##5}\ya@vec\else
-    \if r\yazirusi@opt\Subvec{##2}{##3}\ya@vec\Yaziri{##2}\ya@vec
-    \fi\fi
-  \fi
-  \ifnum\ps@continue=\z@\grestore\fi
-}
-%
-% \EMpsRBezier<##1>##2##3##4##5
-%   <##1> : key=val
-%           linewidth=
-%           dash=
-%           waku
-%    ##2  : 端点1
-%    ##3  : 端点1を始点とする補助点1の極座標
-%    ##4  : 端点2
-%    ##5  : 端点2を始点とする補助点2の極座標
-%
-\def\EMpsRBezier{\@ifnextchar<{\@EMpsRBezier}{\@EMpsRBezier<\empty>}}
-\def\@EMpsRBezier<##1>##2##3##4##5{%
-  \vecXY{##3}\psrB@a\psrB@b\Rdef[##2](\psrB@a,\psrB@b)\psrB@P
-  \vecXY{##5}\psrB@a\psrB@b\Rdef[##4](\psrB@a,\psrB@b)\psrB@Q
-  \@EMpsBezier<##1>{##2}\psrB@P\psrB@Q{##4}}
-%
-%
-    \def\nuritubusi{\@ifnextchar[{\@nuritubusi}{\@nuritubusi[.5]}}%
-    \def\@nuritubusi[##1]{\Sub{1}{##1}\nuri@grayscale\@@nuritubusi}%
-    \def\@@nuritubusi(##1,##2){%
-      \immediate\write\EMps@out{newpath}%
-      \xytops{(##1,##2)}\@@x\@@y
-      \immediate\write\EMps@out{\@@x\space\@@y\space moveto}%
-      \@ifnextchar({\@@@nuritubusi}{\nuritubusi@}%
-    }%
-    \def\@@@nuritubusi(##1,##2){%
-      \xytops{(##1,##2)}\@@x\@@y
-      \immediate\write\EMps@out{\@@x\space\@@y\space lineto}%
-      \@ifnextchar({\@@@nuritubusi}{\nuritubusi@}%
-    }%
-    \def\nuritubusi@{%
-      \immediate\write\EMps@out{closepath}%
-      \immediate\write\EMps@out{gsave}%
-\ifthenelse{\equal\nuri@iro\empty}{%
-      \immediate\write\EMps@out{\nuri@grayscale\space setgray}%
-}{%
-      \EMpsIrositei{\nuri@iro}%
-%  \@ifundefined{EMps@\nuri@iro}{\errmessage{undefined color : \nuri@iro}}{%
-%      \immediate\write\EMps@out{%
-%        \csname EMps@\nuri@iro\endcsname\space \EMsetcolor}%
-%}
-}%
-      \immediate\write\EMps@out{fill}%
-      \immediate\write\EMps@out{grestore}%
-      \ifthenelse{\equal\draw@border\empty}{}{%
-        \immediate\write\EMps@out{stroke}}%
-    }%
-    \def\@Nuritubusi[##1]<##2>##3{%
-    \ifthenelse{\equal{##3}\empty}{}{%
-      \edef\Nuritubusi@takakkei{##3}%
-      \edef\draw@border{\empty}%
-%      \ifthenelse{\equal\nuri@iro@\empty}{}{\def\nuri@iro{\nuri@iro@}}%
-\def\nuri@iro{\nuri@iro@}%
-      \Strchr{##2}{=}\Hatchpoly@tmp
-      \ifnum\Hatchpoly@tmp>\z@\setkeys{emP}{##2}\fi
-%     \IFempty{\draw@border}{}{\Drawline{\Nuritubusi@takakkei}}%
-%     \def\nuri@iro{\nuri@iro@}%
-      \Strchr{##1}{=}\nuri@iro@tmp
-      \ifnum\nuri@iro@tmp>\z@\setkeys{emP}{##1}
-      \else
-        \Sub{1}{##1}\nuri@grayscale
-      \fi
-%     \ifthenelse{\equal\nuri@iro\empty}{}{\EMpsIrositei{\nuri@iro}}%
-      \put(0,0){\@@Nuritubusi{\Nuritubusi@takakkei}}%
-    }}%
-    \def\@@Nuritubusi##1{\edef\@tmp{##1}\expandafter\@@nuritubusi\@tmp}
-    \def\open@nuri{%
-        \@tempdima=\syasen@tanmatu
-        \@tempdima=10\@tempdima
-        \begin{EMpscolor}{white}%
-          \setlinewidth{\strip@pt\@tempdima}%
-          \Drawline\Nuritubusi@takakkei
-        \end{EMpscolor}%
-    }%
-%
-% \EPSkaiten#1#2#3
-%   #1 : 回転の中心
-%   #2 : 回転角（六十分法）
-%   #3 : 回転する対象
-%
-    \def\EPSkaiten##1##2##3{%
-      \bgroup
-      \xytops{##1}\@@x\@@y
-      \edef\EPStranslate@x{\@@x}%
-      \edef\EPStranslate@y{\@@y}%
-      \immediate\write\EMps@out{gsave}%
-      \immediate\write\EMps@out{%
-        \EPStranslate@x\space\EPStranslate@y\space translate}%
-      \immediate\write\EMps@out{##2\space rotate}%
-      ##3\relax
-      \immediate\write\EMps@out{grestore}%
-      \egroup
-    }%
-%    \def\endEPSkaiten{%
-%      \immediate\write\EMps@out{grestore}%
-%    }%
-%
-% 点#1を通り，方向角#2の直線に関して#3を線対称に動かす。
-%
-\def\sentaisyou##1##2##3{
-      \bgroup
-      \Mul{2}{##2}\rflct@arg
-      \DegCos\rflct@arg\c@rflct
-      \Mul{-1}\c@rflct\mc@rflct
-      \DegSin\rflct@arg\s@rflct
-      \xytops{##1}\@@x\@@y
-      \edef\EPStranslate@x{\@@x}%
-      \edef\EPStranslate@y{\@@y}%
-      \immediate\write\EMps@out{gsave}%
-      \immediate\write\EMps@out{%
-        \EPStranslate@x\space\EPStranslate@y\space translate}%
-      \immediate\write\EMps@out{%
-       [\c@rflct\space\s@rflct\space\s@rflct\space\mc@rflct\space 0 0] concat}%
-      ##3\relax
-      \immediate\write\EMps@out{grestore}%
-      \egroup
-}
-%\def\sentaisyou##1##2##3{
-%      \bgroup
-%      \Mul{2}{##2}\rflct@arg
-%      \DegCos\rflct@arg\c@rflct
-%      \Mul{-1}\c@rflct\mc@rflct
-%      \DegSin\rflct@arg\s@rflct
-%      \xytops{##1}\@@x\@@y
-%      \edef\EPSrflctlate@x{\@@x}%
-%      \edef\EPSrflctlate@y{\@@y}%
-%      \immediate\write\EMps@out{gsave}%
-%      \immediate\write\EMps@out{%
-%         [\c@rflct\space\s@rflct\space\s@rflct\space\mc@rflct\space
-%         \EPSrflctlate@x\space\EPSrflctlate@y] concat}%
-%\Subvec\LB{##1}\rflct@P
-%      \Put\rflct@P{##3}\relax
-%      \immediate\write\EMps@out{grestore}%
-%      \egroup
-%}
-%
-% \EPSkakudai##1##2##3
-%   ##1 : 相似拡大の中心
-%   ##2 : 拡大率
-%   ##3 : 拡大する対象
-%
-    \def\EPSkakudai##1##2##3{%
-      \bgroup
-      \xytops{##1}\@@x\@@y
-      \edef\EPStranslate@x{\@@x}%
-      \edef\EPStranslate@y{\@@y}%
-      \immediate\write\EMps@out{gsave}%
-      \immediate\write\EMps@out{%
-        \EPStranslate@x\space\EPStranslate@y\space translate}%
-      \immediate\write\EMps@out{[##2\space 0 0 ##2\space 0 0] concat}%
-%     \immediate\write\EMps@out{##2\space rotate}%
-      \Div\cur@linewidth{##2}\cur@linewidth
-      \immediate\write\EMps@out{\cur@linewidth\space setlinewidth}%
-      ##3\relax
-      \immediate\write\EMps@out{grestore}%
-      \egroup
-    }%
-%
-% \kaitenkigou
-%
-\def\@@kaitenkigou<##1>[##2]{{%
-  \def\@bairitu{1}%
-  \def\@hazimekaku{15}%
-  \def\@owarikaku{345}%
-  \def\@tyouhankei{3mm}%
-  \def\@tanhankei{1.5mm}%
-  \def\@muki{n}%
-  \Strchr{##1}{=}\kaitenkigou@tmp
-  \ifnum\kaitenkigou@tmp>\z@
-    \setkeys{emP}{##1}%
-  \else
-    \def\@bairitu{##1}%
-  \fi
-  \ifthenelse{\equal\@muki{n}}{\def\@muki{\empty}}{}%
-  \@tempdima=\@tanhankei
-  \@tempdima=\@bairitu\@tempdima
-  \Div{\strip@pt\@tempdima}{\strip@pt\unitlength}\rotmark@x
-  \@tempdima=\@tyouhankei
-  \@tempdima=\@bairitu\@tempdima
-  \Div{\strip@pt\@tempdima}{\strip@pt\unitlength}\rotmark@y
-%  \Mul\rotmark@x{2}\rotmark@y
-    \ifthenelse{\equal{##2}{0}}{%
-      \Dayenko[\@muki]\rotmark@x\rotmark@y{\@hazimekaku}{\@owarikaku}%
-    }{%
-      \EPSkaiten\O@@{##2}{%
-        \Dayenko[\@muki]\rotmark@x\rotmark@y{\@hazimekaku}{\@owarikaku}}%
-    }%
-}}
-%
-% EMpscolor
-%
-    \def\EMpscolor##1{%
-      \gsave
-\def\nuri@iro@{##1}%
-      \EMpsIrositei{##1}%
-%      \immediate\write\EMps@out{\csname EMps@##1\endcsname\space \EMsetcolor}%
-    }%
-    \def\endEMpscolor{\grestore}%
-%
-%
-% arcto
-%
-\def\psarcto##1##2##3{%
-  \xytops{##1}\@@x\@@y
-  \xytops{##2}\@@@x\@@@y
-  \ltops{##3}\@@r
-  \immediate\write\EMps@out{\@@x\space\@@y\space\@@@x\space\@@@y\space\@@r\space arcto}%
-}%
-\def\psmoveto##1{%
-  \xytops{##1}\@@x\@@y
-  \immediate\write\EMps@out{\@@x\space\@@y\space moveto}%
-}%
-\def\pslineto##1{%
-  \xytops{##1}\@@x\@@y
-  \immediate\write\EMps@out{\@@x\space\@@y\space lineto}%
-}%
-\def\psnewpath{%
-  \immediate\write\EMps@out{newpath}%
-}%
-\def\psstroke{%
-  \immediate\write\EMps@out{stroke}%
-}%
-\def\psfill{%
-  \immediate\write\EMps@out{fill}%
-}%
-\def\psarcbox{\@ifundefined{nuri@grayscale}{%
-                \@ifundefined{nuri@iro}{\@psarcbox}{\psarcboxfil}%
-              }{\psarcboxfil}}
-\def\@psarcbox##1##2##3##4##5{%
-  \Tyuuten{##1}{##2}\psarcbox@s
-  \psnewpath
-  \psmoveto\psarcbox@s
-  \psarcto{##2}{##3}{##5}
-  \psarcto{##3}{##4}{##5}
-  \psarcto{##4}{##1}{##5}
-  \psarcto{##1}{##2}{##5}
-  \pslineto\psarcbox@s
-  \psstroke
-}%
-\def\psarcboxfil##1##2##3##4##5{%
-  \Tyuuten{##1}{##2}\psarcbox@s
-  \psnewpath
-  \psmoveto\psarcbox@s
-  \psarcto{##2}{##3}{##5}
-  \psarcto{##3}{##4}{##5}
-  \psarcto{##4}{##1}{##5}
-  \psarcto{##1}{##2}{##5}
-  \pslineto\psarcbox@s
-  \immediate\write\EMps@out{gsave}%
-  \ifthenelse{\equal\nuri@iro\empty}{%
-    \immediate\write\EMps@out{\nuri@grayscale\space setgray}%
-  }{%
-%    \immediate\write\EMps@out{%
-%      \csname EMps@\nuri@iro\endcsname\space \EMsetcolor}%
-    \EMpsIrositei{\nuri@iro}%
-  }%
-  \immediate\write\EMps@out{fill}%
-  \immediate\write\EMps@out{grestore}%
-  \ifthenelse{\equal\draw@border\empty}{}{%
-      \ifthenelse{\equal\iro@\empty}{%
-        \immediate\write\EMps@out{stroke}%
-      }{%
-        \begin{EMpscolor}{\iro@}%
-          \immediate\write\EMps@out{stroke}%
-        \end{EMpscolor}%
-      }%
-  }%
-}%
-%
-%
-%   \immediate\openout \EMps@out \currentEPSfile
-    \immediate\openout \EMps@out \EMps@filename
-    \purexytops{(\xmax,\ymax)}\@@xmax\@@ymax
-    \Seisuububun\@@xmax\@@xmax@
-    \ifdim\@@xmax pt>\@@xmax@ pt\relax\Incr\@@xmax@\fi
-    \Seisuububun\@@ymax\@@ymax@
-    \ifdim\@@ymax pt>\@@ymax@ pt\relax\Incr\@@ymax@\fi
-%    \purexytops{(\xmin,\ymin)}\@@xmin\@@ymin
-%    \Seisuububun\@@xmin\@@xmin\Incr\@@xmin
-%    \Seisuububun\@@ymin\@@ymin\Incr\@@ymin
-    \immediate\write\EMps@out{\@percent !PS-Adobe-3.0 EPSF-3.0}%
-    \immediate\write\EMps@out{%
-      \@percent\@percent Creator: emathPs \Ps@version\space%
-      tDB (CQB00260@nifty.ne.jp)}%
-    \immediate\write\EMps@out{%
-      \@percent\@percent BoundingBox: 0 0 \@@xmax@\space \@@ymax@}%
-    \immediate\write\EMps@out{%
-      \@percent\@percent HiResBoundingBox: 0 0 \@@xmax\space \@@ymax}%
-    \immediate\write\EMps@out{/emathsave save def}%
-%   \immediate\write\EMps@out{initgraphics}%
-%   \immediate\write\EMps@out{10 setlinewidth}%
-    \ifthenelse{\equal\EMcolor@type{rgb}}{%
-      \immediate\write\EMps@out{  0 0 0 setrgbcolor}%
-    }{%
-      \immediate\write\EMps@out{  0 0 0 1 setcmykcolor}%
-    }%
-\immediate\write\EMps@out{0.1 0.1 scale}%
-%
-    \immediate\write\EMps@out{/arrowdict 16 dict def}%
-    \immediate\write\EMps@out{arrowdict begin}%
-    \immediate\write\EMps@out{/mtrx matrix def}%
-    \immediate\write\EMps@out{end}%
-    \immediate\write\EMps@out{/arrow}%
-    \immediate\write\EMps@out{ \@lbrace\space arrowdict begin}%
-    \immediate\write\EMps@out{ /hekomi exch def}%
-    \immediate\write\EMps@out{ /headlength exch def}%
-    \immediate\write\EMps@out{ /halfheadthickness exch 2 div def}%
-    \immediate\write\EMps@out{ /halfthickness exch 2 div def}%
-    \immediate\write\EMps@out{ /tipy exch def /tipx exch def}%
-    \immediate\write\EMps@out{ /taily exch def /tailx exch def}%
-    \immediate\write\EMps@out{ /dx tipx tailx sub def}%
-    \immediate\write\EMps@out{ /dy tipy taily sub def}%
-    \immediate\write\EMps@out{ /arrowlength dx dx mul dy dy mul add sqrt def}%
-    \immediate\write\EMps@out{ /angle dy dx atan def}%
-    \immediate\write\EMps@out{ /base arrowlength headlength sub def}%
-    \immediate\write\EMps@out{ /hekomibase base hekomi add def}%
-    \immediate\write\EMps@out{ /savematrix mtrx currentmatrix def}%
-    \immediate\write\EMps@out{ tailx taily translate}%
-    \immediate\write\EMps@out{ angle rotate}%
-    \immediate\write\EMps@out{ 0 halfthickness neg moveto}%
-    \immediate\write\EMps@out{ hekomibase halfthickness neg lineto}%
-    \immediate\write\EMps@out{ base halfheadthickness neg lineto}%
-    \immediate\write\EMps@out{ arrowlength 0 lineto}%
-    \immediate\write\EMps@out{ base halfheadthickness lineto}%
-    \immediate\write\EMps@out{ hekomibase halfthickness lineto}%
-    \immediate\write\EMps@out{ 0 halfthickness lineto}%
-    \immediate\write\EMps@out{ closepath}%
-    \immediate\write\EMps@out{ savematrix setmatrix}%
-    \immediate\write\EMps@out{end}%
-    \immediate\write\EMps@out{\@rbrace\space def}%
-%
-    \immediate\write\EMps@out{/ellipsedict 8 dict def}%
-    \immediate\write\EMps@out{ellipsedict /mtrx matrix put}%
-    \immediate\write\EMps@out{/ellipse}%
-    \immediate\write\EMps@out{\@lbrace\space ellipsedict begin}%
-    \immediate\write\EMps@out{  /endangle exch def}%
-    \immediate\write\EMps@out{  /startangle exch def}%
-    \immediate\write\EMps@out{  /yrad exch def}%
-    \immediate\write\EMps@out{  /xrad exch def}%
-    \immediate\write\EMps@out{  /y exch def}%
-    \immediate\write\EMps@out{  /x exch def}%
-    \immediate\write\EMps@out{  /savematrix mtrx currentmatrix def}%
-    \immediate\write\EMps@out{  x y translate}%
-    \immediate\write\EMps@out{  xrad yrad scale}%
-    \immediate\write\EMps@out{  0 0 1 startangle endangle arc}%
-    \immediate\write\EMps@out{  savematrix setmatrix}%
-    \immediate\write\EMps@out{  end}%
-    \immediate\write\EMps@out{\@rbrace\space def}%
-  }%
-  \setlinewidth{\default@linewidth}%
-  \setdash{}%
-  \setarrowsize{}{}{}%
-%  \ifthenelse{\equal{\nuri@iro@}{\empty}}{}{\begin{EMpscolor}\nuri@iro@}
-  \ifthenelse{\equal{\nuri@iro@}{\empty}}{}{\EMpscolor\nuri@iro@}}
-\def\endpszahyou{%
-  \ifdrawaxis\drawXYaxis\fi
-  \ifthenelse{\equal{\nuri@iro@}{\empty}}{}{\endEMpscolor}%
-  \ifnum\EMps@mode=\@ne
-    \immediate\write\EMps@out{showpage}%
-    \immediate\write\EMps@out{emathsave restore}%
-    \immediate\write\EMps@out{\@percent\@percent EOF}%
-    \immediate\closeout\EMps@out
-    \ifinclude@eps
-      \put(\xmin,\ymin){\includegraphics[clip=\EMps@clip]{\EMps@filename}}%
-    \fi
-  \fi
-  \endltxpicture
-  \egroup
-  \@ignoretrue
-}
-%
-% 空間
-%
-\@ifundefined{iiiDrawline}{}{%
-%
-% \iiiDrawline<#1>#2
-%   #1   :
-%          key=val
-%             linewidth=3
-%             dash=[.1]{.2,.2}
-%   #2   : 点列
-%\let\PkDrawline\iiiDrawline
-%\def\iiiDrawline{\@ifnextchar<{\@psiiiDrawline}{\@psiiiDrawline<\empty>}}%
-%\def\@psiiiDrawline<#1>#2{%
-%    \ifx \empty #1\relax
-%      \PkDrawline{#2}%
-%    \else
-%      \gsave\setkeys{emPs}{#1}\PkDrawline{#2}\grestore
-%    \fi
-%}%
-%
-%\let\PkDrawlines\iiiDrawlines
-%\def\iiiDrawlines{\@ifnextchar<{\@psiiiDrawlines}{\@psiiiDrawlines<\empty>}}%
-%\def\@psiiiDrawlines<#1>#2{%
-%    \ifx \empty #1\relax
-%      \PkDrawlines{#2}%
-%    \else
-%      \gsave\setkeys{emPs}{#1}\PkDrawlines<#1>{#2}\grestore
-%    \fi
-%}%
-%
-\def\psZahyou{\@ifnextchar[{\@psZahyou}{\@psZahyou[]}}%
-\def\@psZahyou[#1]{\@ifnextchar[{\@@psZahyou[#1]}{\@@psZahyou[#1][][]}}%
-\def\@@psZahyou[#1][#2][#3](#4,#5)(#6,#7)(#8,#9){%
-%
-  \def\zahyou@haiti{b}%
-  \def\zahyou@haiti@hosei{}%
-  \def\ue@yohaku{0}%
-  \def\sita@yohaku{0}%
-  \def\migi@yohaku{0}%
-  \def\hidari@yohaku{0}%
-  \def\arrow@headsize{1}%
-%
-\define@key{emP}{Ex}{%
-  \headchar{##1}\Ex@@@h\Ex@@@o
-  \ifthenelse{\equal\Ex@@@h{r}}{\expandafter\Rdef\Ex@@@o\@@@Ex}{\def\@@@Ex{##1}}}%
-\define@key{emP}{Ey}{%
-  \headchar{##1}\Ey@@@h\Ey@@@o
-  \ifthenelse{\equal\Ey@@@h{r}}{\expandafter\Rdef\Ey@@@o\@@@Ey}{\def\@@@Ey{##1}}}%
-\define@key{emP}{Ez}{%
-  \headchar{##1}\Ez@@@h\Ez@@@o
-  \ifthenelse{\equal\Ez@@@h{r}}{\expandafter\Rdef\Ez@@@o\@@@Ez}{\def\@@@Ez{##1}}}%
-%
-  \def\EMps@filename{}%
-  \def\ps@debug@{}%
-  \def\EMps@clip{true}%
-  \edef\Ex@Org{\empty}%
-  \edef\Ex@R{.9}%
-  \def\@@@Ey{(1,0)}%             y軸正方向の単位ベクトル
-  \def\@@@Ez{(0,1)}%             z軸正方向の単位ベクトル
-  \Rdef(.667,-138)\@@@Ex%  x軸正方向の単位ベクトル
-  \Strchr{#1}{=}\zahyou@tmp
-  \ifnum\zahyou@tmp>\z@
-    \setkeys{emP}{#1}%
-  \else
-    \ifthenelse{\equal{#1}\empty}{}{\edef\@@@Ex{#1}}%
-    \ifthenelse{\equal{#2}\empty}{}{\edef\@@@Ey{#2}}%
-    \ifthenelse{\equal{#3}\empty}{}{\edef\@@@Ez{#3}}%
-  \fi
-  \edef\Xmin{#4}\edef\Xmax{#5}%
-  \edef\Ymin{#6}\edef\Ymax{#7}%
-  \edef\Zmin{#8}\edef\Zmax{#9}%
-  \Piiitoii{(\Xmin,\Ymin,\Zmin)}\Zh@tmp\vecXY\Zh@tmp\X@mmm\Y@mmm
-  \Piiitoii{(\Xmin,\Ymin,\Zmax)}\Zh@tmp\vecXY\Zh@tmp\X@mmM\Y@mmM
-  \Piiitoii{(\Xmin,\Ymax,\Zmin)}\Zh@tmp\vecXY\Zh@tmp\X@mMm\Y@mMm
-  \Piiitoii{(\Xmin,\Ymax,\Zmax)}\Zh@tmp\vecXY\Zh@tmp\X@mMM\Y@mMM
-  \Piiitoii{(\Xmax,\Ymin,\Zmin)}\Zh@tmp\vecXY\Zh@tmp\X@Mmm\Y@Mmm
-  \Piiitoii{(\Xmax,\Ymin,\Zmax)}\Zh@tmp\vecXY\Zh@tmp\X@MmM\Y@MmM
-  \Piiitoii{(\Xmax,\Ymax,\Zmin)}\Zh@tmp\vecXY\Zh@tmp\X@MMm\Y@MMm
-  \Piiitoii{(\Xmax,\Ymax,\Zmax)}\Zh@tmp\vecXY\Zh@tmp\X@MMM\Y@MMM
-  \Max{\X@mmm,\X@mmM,\X@mMm,\X@mMM,\X@Mmm,\X@MmM,\X@MMm,\X@MMM}\xmax
-  \Min{\X@mmm,\X@mmM,\X@mMm,\X@mMM,\X@Mmm,\X@MmM,\X@MMm,\X@MMM}\xmin
-  \Max{\Y@mmm,\Y@mmM,\Y@mMm,\Y@mMM,\Y@Mmm,\Y@MmM,\Y@MMm,\Y@MMM}\ymax
-  \Min{\Y@mmm,\Y@mmM,\Y@mMm,\Y@mMM,\Y@Mmm,\Y@MmM,\Y@MMm,\Y@MMM}\ymin
-%
-%   emathPs.sty の \borderwidth への対応
-\edef\truexmin{\xmin}%
-\edef\trueymin{\ymin}%
-\edef\truexmax{\xmax}%
-\edef\trueymax{\ymax}%
-\ifdim\border@width>\z@
-  \@tempdima\border@width\Div{\strip@pt\@tempdima}{\strip@pt\unitlength}\x@bd
-  \Sub\xmin\x@bd\xmin\Add\xmax\x@bd\xmax
-  \@tempdima\border@width\Div{\strip@pt\@tempdima}{\strip@pt\unitlength}\y@bd
-  \Sub\ymin\y@bd\ymin\Add\ymax\y@bd\ymax
-\fi
-  \drawaxisfalse
-%
- \let\Drawline\psDrawline
-  \let\Sensyu\psDrawline
-  \let\Drawlines\psDrawlines
-  \let\yclipDrawline\@psDrawline
-  \let\xclipDrawline\@psDrawline
-  \let\clipDrawline\@psDrawline
-%
-  \pszahyou@(\xmin,\xmax)(\ymin,\ymax)%
-  \def\O{(0,0,0)}%
-  \def\O@@@{(0,0,0)}%
-  \def\iiiXMAX{(\Xmax,0,0)}%
-  \def\iiiYMAX{(0,\Ymax,0)}%
-  \def\iiiZMAX{(0,0,\Zmax)}%
-  \ifDrawaxis
-    \iiiArrowLine{(0,0,0)}{(\Xmax,0,0)}%
-    \iiiArrowLine{(0,0,0)}{(0,\Ymax,0)}%
-    \iiiArrowLine{(0,0,0)}{(0,0,\Zmax)}%
-  \fi
-}%
-\def\endpsZahyou{%
-  \endpszahyou
-  \@ignoretrue
-}%
-%
-% 座標軸を描画しない psZahyou* 環境
-\expandafter\def\csname psZahyou*\endcsname{\Drawaxisfalse\psZahyou}
-\expandafter\def\csname endpsZahyou*\endcsname{\endpsZahyou}
 }%
 %
 % 一般の四角形を表す記号
@@ -2103,7 +789,7 @@
 \def\Sikakkei{%
       \begin{pszahyou*}[ul=.11ex,EPSclip=false](0,17)(0,13)
         \@tempdima.8ex\relax
-        \setlinewidth{\strip@pt\@tempdima}
+        \setlinewidth{\strip@pt\@tempdima}%
         \Takakkei{(1,2)(5,9)(12,12)(16,2)}%
       \end{pszahyou*}\ignorespaces}%
 %
@@ -2111,27 +797,33 @@
 %
 \define@key{emPs}{ovalradius}{\def\EMpsoval@R{#1}}%
 \define@key{emPs}{ovalsep}{\def\EMpsoval@sep{#1}}%
-\def\EMpsovalbox{\@ifstar{\EMpsovalboxfil}{\@EMpsovalbox}}%
+\define@key{emPs}{debug}[]{\def\ps@debug{}}%
+\define@key{emPs}{border}[1]{\edef\draw@border{#1}}%
+\define@key{emPs}{drawborder}[1]{\edef\draw@border{#1}}%
+\def\EMpsovalbox{\@ifstar{\EMpsovalboxfil}{\edef\fill@sw{0}\@EMpsovalbox}}%
 \def\EMpsovalboxfil{\@ifnextchar[{\@EMpsovalboxfil}{\@EMpsovalboxfil[.5]}}%
 \def\@EMpsovalboxfil[#1]{%
+      \edef\fill@sw{1}%
       \edef\draw@border{\empty}%
+      \edef\noudo@{.5}%
+      \edef\nuri@iro{\empty}%
       \Strchr{#1}{=}\nuri@iro@tmp
       \ifnum\nuri@iro@tmp>\z@
         \setkeys{emP}{#1}%
         \def\EMpsovalboxfil@opt{#1}%
+        \Sub{1}{\noudo@}\nuri@grayscale
         \@ifundefined{iro@}{}{\edef\EMpsoval@iro{\iro@}}%
       \else
-        \def\nuri@iro{\empty}%
         \Sub{1}{#1}\nuri@grayscale
       \fi
   \@EMpsovalbox
 }%
-\def\@EMpsovalbox{\@ifnextchar<{\@@EMpsovalbox}{\@@EMpsovalbox<\empty>}}
+\def\@EMpsovalbox{\@ifnextchar<{\@@EMpsovalbox}{\@@EMpsovalbox<\empty>}}%
 \def\@@EMpsovalbox<#1>#2{{%
   \def\EMpsoval@R{2pt}%
   \def\EMpsoval@sep{\the\fboxsep}%
   \ifx\empty #1\else\setkeys{emPs}{#1}\fi
-  \setbox0=\hbox{#2}%
+  \setbox0=\hbox{{#2}}%
   \@tempdima=\EMpsoval@R\edef\EMpsoval@r{\strip@pt\@tempdima}%
   \@tempdima\wd0\advance\@tempdima \EMpsoval@sep\relax
     \edef\EMpsoval@xmax{\strip@pt\@tempdima}%
@@ -2142,28 +834,35 @@
   \@tempdima \EMpsoval@sep\relax\edef\EMpsoval@xmin{\strip@pt\@tempdima}%
   \ifx\empty #1\else\setkeys{emPs}{#1}\fi
   \unitlength=\p@
+  \leavevmode
   \begin{picture}(0,0)%
     \put(-5,0){%
     \begin{pszahyou*}[EPSclip=false,haiti=x,borderwidth=10pt]%
         (-\EMpsoval@xmin,\EMpsoval@xmax)(-\EMpsoval@ymin,\EMpsoval@ymax)%
       \setlinewidth{4}%
       \def\iro@{}%
+\ifnum\fill@sw=\z@\let\nuri@grayscale\undefined\fi
       \ifx\empty #1\else\setkeys{emPs}{#1}\fi
       \ifthenelse{\equal\iro@\empty}{%
         \@ifundefined{EMpsoval@iro}{}{\def\iro@{\EMpsoval@iro}}}{}%
       \ifthenelse{\equal\iro@\empty}{%
         \psarcbox\trueLB\trueRB\trueRT\trueLT\EMpsoval@r
       }{%
-        \begin{EMpscolor}{\iro@}
+        \begin{EMpscolor}{\iro@}%
           \psarcbox\trueLB\trueRB\trueRT\trueLT\EMpsoval@r
-        \end{EMpscolor}
+        \end{EMpscolor}%
       }%
     \end{pszahyou*}}%
   \end{picture}%
   \hspace*{\EMpsoval@sep}%
   \vrule height \EMpsoval@ymax\p@ depth \EMpsoval@ymin\p@ width \z@%
-  \box0\hspace{\EMpsoval@sep}}\ignorespaces}
+  \box0\hspace{\EMpsoval@sep}}\ignorespaces}%
 \@ifundefined{pst@dima}{\let\psovalbox\EMpsovalbox}{}%
+%
+\def\empsMaruKaku#1{{%
+  \fboxsep=2\p@\EMpsovalbox{\vrule height.5zw depth .05zw width\z@
+  \makebox[.475zw][c]{\ensuremath{\smash{\scriptstyle\text{#1}}}}}}}%
+%
 %
 % 下線
 %
@@ -2172,20 +871,28 @@
 \define@key{emPs}{kasenFunc}{\kasenFunc{#1}}%
 \define@key{emPs}{kasenUehosei}{\def\namikasen@uehosei{#1}}%
 \define@key{emPs}{kasenSitahosei}{\def\namikasen@sitahosei{#1}}%
+\def\kasen@func{\YGurafu*{sin(X)}}%
+\def\kasenFunc#1{\def\kasen@func{#1}}%
+\edef\namikasen@uehosei{\z@}%
+\edef\namikasen@sitahosei{\z@}%
+\edef\namikasen@thickness{.4\p@}%
+\def\namikasenUehosei#1{\edef\namikasen@uehosei{#1}}%
+\def\namikasenSitahosei#1{\edef\namikasen@sitahosei{#1}}%
+\def\namikasenthickness#1{\edef\namikasen@thickness{#1}}%
 %
 \let\kasenUehosei\namikasenUehosei
 \let\kasenSitahosei\namikasenSitahosei
-\def\pskasen{\@ifnextchar<{\@pskasen}{\@pskasen<\empty>}}
+\def\pskasen{\@ifnextchar<{\@pskasen}{\@pskasen<\empty>}}%
 \def\@pskasen<#1>{\@ifnextchar[{\@@pskasen<#1>}{%
-  \@@pskasen<#1>[\empty]}}
+  \@@pskasen<#1>[\empty]}}%
 \def\@@pskasen<#1>[#2]{\@ifnextchar'{\@@@pskasen<#1>[#2]}{%
-  \@@@pskasen<#1>[#2]'\relax'}}
+  \@@@pskasen<#1>[#2]'\relax'}}%
 \def\@@@pskasen<#1>[#2]'#3'#4{\relax
   \def\pskasen@inner{1}%
   \ifmmode
     \ifinner\else\def\pskasen@inner{0}\fi
     \@@@@pskasen<#1>[#2]'#3'{#4}%
-  \else $\@@@@pskasen<#1>[#2]'#3'{\mbox{#4}}\m@th$\relax\fi}
+  \else $\@@@@pskasen<#1>[#2]'#3'{\mbox{#4}}\m@th$\relax\fi}%
 \def\@@@@pskasen<#1>[#2]'#3'#4{%
   {%
   \ifnum\pskasen@inner=\z@
@@ -2211,37 +918,34 @@
   \begin{picture}(0,0)\relax
   \raisebox{\d@nami}{%
     \begin{pszahyou*}[ul=1pt,haiti=t](0,\w@nami)(-10,10)\relax
-      \setlinewidth{4}
+      \linethickness{\namikasen@thickness}%
       \def\iro@{}%
       \ifx\empty #1\else\setkeys{emPs}{#1}\fi
       \ifthenelse{\equal\iro@\empty}{%
         \Drawline{\XMIN\XMAX}%
         \ifthenelse{\equal{#2}\empty}{}{\put(0,-#2){\Drawline{\XMIN\XMAX}}}%
       }{%
-        \begin{EMpscolor}{\iro@}
+        \begin{EMpscolor}{\iro@}%
           \Drawline{\XMIN\XMAX}%
           \ifthenelse{\equal{#2}\empty}{}{\put(0,-#2){\Drawline{\XMIN\XMAX}}}%
-        \end{EMpscolor}
+        \end{EMpscolor}%
       }%
       #3\relax
     \end{pszahyou*}}%
   \end{picture}%
   \box0}}%
 %
-\def\kasen@func{\YGurafu*{sin(X)}}
-\def\kasenFunc#1{\def\kasen@func{#1}}
-%
-\def\psnamikasen{\@ifnextchar<{\@psnamikasen}{\@psnamikasen<\empty>}}
+\def\psnamikasen{\@ifnextchar<{\@psnamikasen}{\@psnamikasen<\empty>}}%
 \def\@psnamikasen<#1>{\@ifnextchar[{\@@psnamikasen<#1>}{%
-  \@@psnamikasen<#1>[\empty]}}
+  \@@psnamikasen<#1>[\empty]}}%
 \def\@@psnamikasen<#1>[#2]{\@ifnextchar'{\@@@psnamikasen<#1>[#2]}{%
-  \@@@psnamikasen<#1>[#2]'\relax'}}
+  \@@@psnamikasen<#1>[#2]'\relax'}}%
 \def\@@@psnamikasen<#1>[#2]'#3'#4{\relax
   \def\pskasen@inner{1}%
   \ifmmode
     \ifinner\else\def\pskasen@inner{0}\fi
     \@@@@psnamikasen<#1>[#2]'#3'{#4}%
-  \else $\@@@@psnamikasen<#1>[#2]'#3'{\mbox{#4}}\m@th$\relax\fi}
+  \else $\@@@@psnamikasen<#1>[#2]'#3'{\mbox{#4}}\m@th$\relax\fi}%
 \def\@@@@psnamikasen<#1>[#2]'#3'#4{{%
   \ifnum\pskasen@inner=\z@
     \setbox0=\hbox{$\displaystyle #4$}%
@@ -2266,46 +970,46 @@
   \begin{picture}(0,0)\relax
   \raisebox{\d@nami}{%
     \begin{pszahyou*}[ul=1pt,haiti=t](0,\w@nami)(-10,10)\relax
-      \setlinewidth{4}
+      \linethickness{\namikasen@thickness}%
       \def\iro@{}%
       \ifx\empty #1\else\setkeys{emPs}{#1}\fi
       \ifthenelse{\equal\iro@\empty}{%
         \kasen@func
         \ifthenelse{\equal{#2}\empty}{}{\put(0,-#2){\kasen@func}}%
       }{%
-        \begin{EMpscolor}{\iro@}
+        \begin{EMpscolor}{\iro@}%
           \kasen@func
           \ifthenelse{\equal{#2}\empty}{}{\put(0,-#2){\kasen@func}}%
-        \end{EMpscolor}
+        \end{EMpscolor}%
       }%
       #3\relax
     \end{pszahyou*}}%
   \end{picture}%
   \box0}}%
 %
-%\def\psnamikasen{\@ifnextchar<{\@psnamikasen}{\@psnamikasen<\empty>}}
+%\def\psnamikasen{\@ifnextchar<{\@psnamikasen}{\@psnamikasen<\empty>}}%
 %\def\@psnamikasen<#1>#2{%
 %  \ifvmode\leavevmode\else\,\fi
 %  {%
-%  \setbox0=\hbox{#2}\edef\w@nami{\strip@pt\wd0}%
+%  \setbox0=\hbox{{#2}}\edef\w@nami{\strip@pt\wd0}%
 % \@tempdima-\dp0\advance\@tempdima-4\p@\edef\d@nami{\the\@tempdima}%
 %  \vrule depth -\@tempdima width \z@
 % \begin{picture}(0,0)\relax
 %  \raisebox{\d@nami}{%
 %    \begin{pszahyou*}[ul=1pt](0,\w@nami)(-2,2)\relax
-%      \setlinewidth{4}
+%      \setlinewidth{4}%
 %      \def\iro@{}%
 %      \ifx\empty #1\else\setkeys{emPs}{#1}\fi
 %      \ifx\empty\iro@
 %        \YGurafu*{1*sin(X)}%
 %      \else
-%        \begin{EMpscolor}{\iro@}
+%        \begin{EMpscolor}{\iro@}%
 %          \YGurafu*{1*sin(X)}%
-%        \end{EMpscolor}
+%        \end{EMpscolor}%
 %      \fi
 %    \end{pszahyou*}}%
 %  \end{picture}%
-%  \box0}}
+%  \box0}}%
 %%
 % \emathPut の方位指定
 %
@@ -2315,143 +1019,1272 @@
     \if n\@@c\IAdd\h@ukou{7}\h@ukou\else
     \if s\@@c\IAdd\h@ukou{4}\h@ukou\else
     \if e\@@c\IAdd\h@ukou{1}\h@ukou\else
-    \if w\@@c\IAdd\h@ukou{-1}\h@ukou\fi\fi\fi\fi
+    \if w\@@c\IAdd\h@ukou{-1}\h@ukou\else
+    \if c\@@c\IAdd\h@ukou{100}\h@ukou\else
+    \if [\@@c\else
+    \if ]\@@c\else
+\edef\h@ukou{1000}%
+%      \errmessage{emathPut : 方位の指定が異常です:[#2]}%
+    \fi\fi\fi\fi\fi\fi\fi
   }%
-  \ifnum\h@ukou=\m@ne\edef\h@ukou{2}\fi
-  \ifcase\h@ukou
-    \@@emathPut{#1}(0,2pt)[c]{#3}%
-  \or%  1 東
-    \@@emathPut{#1}(3pt,0)[l]{#3}%
-  \or%  2 西
-    \@@emathPut{#1}(-3pt,0)[r]{#3}%
-  \or%  3 南西
-    \@@emathPut{#1}(-2pt,-2pt)[rt]{#3}%
-  \or%  4 南
-    \@@emathPut{#1}(0,-3pt)[ct]{#3}%
-  \or%  5 南東
-    \@@emathPut{#1}(2pt,-2pt)[lt]{#3}%
-  \or%  6 北西
-    \@@emathPut{#1}(-2pt,2pt)[rb]{#3}%
-  \or%  7 北
-    \@@emathPut{#1}(0,3pt)[cb]{#3}%
-  \or%  8 北東
-    \@@emathPut{#1}(2pt,2pt)[lb]{#3}%
-  \fi%
-}
+\ifnum\h@ukou=1000\relax
+  \EMedef\emp@tmp{{#1}#2{#3}}%
+%\typeout{goto emathPut: arg=\emp@tmp}%
+  \expandafter\@@emathPut\emp@tmp
+\else
+  \ifnum\h@ukou=100\relax
+    \@@emathPut{#1}(0,0)[c]{#3}%
+  \else
+    \ifnum\h@ukou=\m@ne\edef\h@ukou{2}\fi
+    \ifcase\h@ukou
+      \@@emathPut{#1}(0,2pt)[c]{#3}%
+    \or%  1 東
+      \@@emathPut{#1}(3pt,0)[l]{#3}%
+    \or%  2 西
+      \@@emathPut{#1}(-3pt,0)[r]{#3}%
+    \or%  3 南西
+      \@@emathPut{#1}(-2pt,-2pt)[rt]{#3}%
+    \or%  4 南
+      \@@emathPut{#1}(0,-3pt)[ct]{#3}%
+    \or%  5 南東
+      \@@emathPut{#1}(2pt,-2pt)[lt]{#3}%
+    \or%  6 北西
+      \@@emathPut{#1}(-2pt,2pt)[rb]{#3}%
+    \or%  7 北
+      \@@emathPut{#1}(0,3pt)[cb]{#3}%
+    \or%  8 北東
+      \@@emathPut{#1}(2pt,2pt)[lb]{#3}%
+    \else
+      \errmessage{emathPut : 方位の指定が異常です:[#2]}%
+    \fi%
+  \fi
+% \ifnum\put@kuromaru>\z@\Kuromaru{#1}\edef\put@kuromaru{0}\fi
+\fi
+}%
 %
 % TeX と PS の単位長の調整
 %     1pt = 1/72 inch : PostScript
 %     1pt = 1/72.27 inch : TeX
-\def\cPut#1{%
-  \edef\cPut@orgP{#1}%
-  \vecXY{#1}\cPut@x\cPut@y
-  \Sub\cPut@x\xmin\cPut@x
-  \Sub\cPut@y\ymin\cPut@y
-  \Mul\cPut@x{1.00375}\cPut@x
-  \Mul\cPut@y{1.00375}\cPut@y
-  \Add\cPut@x\xmin\cPut@x
-  \Add\cPut@y\ymin\cPut@y
-  \emath@Put{(\cPut@x,\cPut@y)}}
+%\def\cPut#1{%
+%  \edef\cPut@orgP{#1}%
+%  \Addvec{#1}\include@origin\cPut@P
+%  \vecXY\cPut@P\cPut@x\cPut@y
+%  \Sub\cPut@x\xmin\cPut@x
+%  \Sub\cPut@y\ymin\cPut@y
+%  \Mul\cPut@x{1.00375}\cPut@x
+%  \Mul\cPut@y{1.00375}\cPut@y
+%  \Add\cPut@x\xmin\cPut@x
+%  \Add\cPut@y\ymin\cPut@y
+%  \emath@Put{(\cPut@x,\cPut@y)}}%
+\let\cPut\emathPut
 %
-% rectbox の ps 版 （使用例：sizuoka03.tex）
+% 波線
 %
-\def\prerectbox{\relax}%
-\def\EMpsrectbox{\def\rectbox@item{\empty}\def\rectbox@item@pos{l}\def\@pos{c}%
-  \def\rectbox@oval{0pt}%
-  \def\rectbox@width{}\def\h@sep{\empty}\def\v@sep{\empty}%
-  \def\psz@option{\empty}%
-  \def\rectbox@parindent{0pt}%
-  \@ifnextchar[{\EMpsrectbox@}{\@EMpsrectbox}}%
-\def\EMpsrectbox@[#1]{\setkeys{emPb}{#1}\@EMpsrectbox}%
-\def\@EMpsrectbox{\@ifnextchar<{\@@EMpsrectbox}{\@@EMpsrectbox<\empty>}}%
-\def\@@EMpsrectbox<#1>{%
-  \def\prerectbox{#1}%
-%  \vspace{.5\baselineskip}%
-  \ifthenelse{\equal\h@sep\empty}{%
-    \ifthenelse{\lengthtest{\rectbox@oval=\z@}}{%
-      \edef\h@sep{\the\fboxsep}}{\edef\h@sep{\rectbox@oval}}}{}%
-  \ifthenelse{\equal\v@sep\empty}{%
-    \ifthenelse{\lengthtest{\rectbox@oval=\z@}}{%
-      \edef\v@sep{\the\fboxsep}}{\edef\v@sep{\rectbox@oval}}}{}%
-  \ifthenelse{\equal\rectbox@width\empty}{%
-    \edef\rectbox@width{\the\linewidth}%
-  }{%
-    \setlength\@tempdima\rectbox@width
-    \advance\@tempdima\h@sep
-    \advance\@tempdima\h@sep
-    \edef\rectbox@width{\the\@tempdima}%
-  }%
-  \ifthenelse{\equal\rectbox@item\empty}{\def\item@ht{0pt}}{%
-    \setbox0=\hbox{\rectbox@item}%
-    \@tempdima=\ht0\advance\@tempdima\dp0\relax
-    \divide\@tempdima\tw@
-    \vspace\@tempdima
-    \edef\item@ht{\the\@tempdima}%
-  }%
-  \setbox\rectb@x=\hbox\bgroup\begin{minipage}[\@pos]{\rectbox@width}%
-  \ifdim\item@ht>\z@\vskip\item@ht\fi
-% \vskip\v@sep
-  \setlength{\parindent}{\rectbox@parindent}%
-  \jquotation(\h@sep)(\h@sep)}%
-\def\endEMpsrectbox{%
-% \vspace\v@sep
-  \endjquotation
-  \end{minipage}\egroup%\par
-%
-\@tempdima\ht\rectb@x\advance\@tempdima\v@sep
-\ht\rectb@x=\@tempdima
-\@tempdima\dp\rectb@x\advance\@tempdima\v@sep
-\dp\rectb@x=\@tempdima
-%
-  \noindent
-  \bgroup
-      \@tempdima\ht\rectb@x\edef\hasenbox@h{\strip@pt\@tempdima}%
-      \@tempdimb-\dp\rectb@x\edef\hasenbox@d{\strip@pt\@tempdimb}%
-\@tempdimc\rectbox@oval\edef\hasenbox@l{\strip@pt\@tempdimc}
-      \setlength{\@tempdimc}{\rectbox@width}%
-\@ifundefined{EMWR@zuhaba}{}{%
-\ifdim\EMWR@zuhaba>\z@%%%%%%%%%%%% add 2005/08/01
-      \ifnum\EMWR@gyousuu>\@ne\setlength{\@tempdimc}{\EMWRlinewidth}\fi
-\fi}%
-      \edef\hasenbox@w{\strip@pt\@tempdimc}%
-  \ifthenelse{\equal\psz@option\empty}{%
-    \edef\tmp{[ul=1pt,haiti=\@pos,EPSclip=false]}%
-  }{%
-    \edef\tmp{[\psz@option,ul=1pt,haiti=\@pos,EPSclip=false]}%
-  }%
-  \expandafter\pszahyou\tmp(0,\hasenbox@w)(\hasenbox@d,\hasenbox@h)%
-      \drawaxisfalse
-      \prerectbox
-      \ifdim\rectbox@oval>\z@
-        \Bunten\LB\RB11\RB@O
-        \psnewpath
-        \psmoveto\RB@O
-        \psarcto\RB\RT\hasenbox@l
-        \psarcto\RT\LT\hasenbox@l
-        \psarcto\LT\LB\hasenbox@l
-        \psarcto\LB\RB\hasenbox@l
-        \writeEPS{closepath stroke}
-      \else
-        \Takakkei{\LB\RB\RT\LT}%
-      \fi
-      \ifthenelse{\equal\rectbox@item\empty}{}{%
-        \if c\rectbox@item@pos
-          \Mul{.5}\hasenbox@w\item@xpos
-        \else\if r\rectbox@item@pos
-          \Sub\hasenbox@w{10}\item@xpos
-        \else
-          \def\item@xpos{10}%
-        \fi\fi
-        \Put{(\item@xpos,\hasenbox@h)}(0,0)[\rectbox@item@pos c]{{%
-          \fboxsep=\z@\colorbox{white}{\rectbox@item}}}%
-      }%
-      \put(0,0){\box\rectb@x}%
-  \endpszahyou%
-  \egroup
-  \@ignoretrue
+\edef\iipi{6.283185307179586476925286766559}%
+\edef\wave@period{1}%
+\@Div\wave@period\iipi\wave@h
+\def\waveheight#1{\ukansan{#1}\wave@h}%
+\def\waveperiod#1{\ukansan{#1}\wave@period}%
+\def\setwavesize#1#2{%
+  \ifx\empty #1\else\ukansan{#1}\wave@period\fi
+  \ifx\empty #2\else\ukansan{#2}\wave@h\fi
 }%
+\def\EMpsdrawwave(#1,#2)(#3,#4){%
+  \edef\iwave@A{(#1,#2)}%
+  \edef\iwave@C{(#3,#4)}%
+  \Tyuuten\iwave@A\iwave@C\iwave@B
+  \Kyori\iwave@A\iwave@C\iwave@w
+  \Subvec\iwave@C\iwave@A\iwave@AC
+  \Argvec\iwave@AC\iwave@arg
+  \Rdef(1.9,45)\iwave@v
+  \vecXY\iwave@v\iwave@dx\iwave@dy
+  \Mulself\iwave@dy\wave@h
+  \Mul\iwave@w{0.5}\iwave@wh
+  \@Div\iwave@w\iipi\iwave@@w
+  \Mulself\iwave@dx\iwave@@w
+  \Rotvec{(\iwave@dx,\iwave@dy)}\iwave@arg\iwave@AP
+  \Rotvec{(-\iwave@dx,\iwave@dy)}\iwave@arg\iwave@BQ
+    \Addvec\iwave@A\iwave@AP\iwave@P
+    \Addvec\iwave@B\iwave@BQ\iwave@Q
+    \EMpsBezier\iwave@A\iwave@P\iwave@Q\iwave@B
+  \Rotvec{(\iwave@dx,-\iwave@dy)}\iwave@arg\iwave@BP
+  \Rotvec{(-\iwave@dx,-\iwave@dy)}\iwave@arg\iwave@CQ
+    \Addvec\iwave@B\iwave@BP\iwave@P
+    \Addvec\iwave@C\iwave@CQ\iwave@Q
+    \EMpsBezier\iwave@B\iwave@P\iwave@Q\iwave@C
+}%
+\def\@EMpsDrawwave@sub#1#2{\Kyori{#1}{#2}\wave@L
+  \ifdim\wave@L\p@=\z@\else
+  \@Div\wave@L\wave@period\wave@N@
+  \EMround\wave@N@{0}\wave@N
+  \Cfor{\edef\wave@i{1}}{\wave@i<\wave@N}{\Incr\wave@i}\do{%
+    \Sub\wave@N\wave@i\wave@j
+    \Bunten{#1}{#2}\wave@i\wave@j\wave@P
+    \expandafter\edef\csname wave@P@\romannumeral\wave@i\endcsname{\wave@P}%
+  }%
+  \expandafter\edef\csname wave@P@\romannumeral\wave@N\endcsname{#2}%
+  \edef\DW@tmp{#1\wave@P@i}%
+  \expandafter\EMpsdrawwave\DW@tmp
+  \Cfor{\edef\wave@i{1}}{\wave@i<\wave@N}{}\do{%
+    \IAdd\wave@i{1}\wave@j
+    \edef\DW@tmp{\csname wave@P@\romannumeral\wave@i\endcsname\csname wave@P@\romannumeral\wave@j\endcsname}%
+    \expandafter\EMpsdrawwave\DW@tmp
+    \Incr\wave@i
+  }%
+  \fi
+}%
+\def\EMpsDrawwave{\begingroup\@ifstar{\EMpsDrawhwave}{\@EMpsDrawwave}}%
+\def\@EMpsDrawwave{\@ifnextchar<{\@EMpsDrawwave@}{\@@EMpsDrawwave}}%
+\def\@EMpsDrawwave@<#1>{\setkeys{emPs}{#1}\@@EMpsDrawwave}%
+\def\@@EMpsDrawwave#1{%
+  \edef\DW@tmp{#1}%
+  \expandafter\makeTenHairetu\DW@tmp
+  \edef\DW@S{\hairetu{TH@V}{1}}%
+  \Cfor{\edef\DW@i{1}}{\DW@i<\TH@N}{\edef\DW@S{\DW@E}}\do{%
+      \Incr\DW@i
+      \edef\DW@E{\hairetu{TH@V}{\DW@i}}%
+      \@EMpsDrawwave@sub\DW@S\DW@E
+  }%
+  \endgroup
+}%
+\def\EMpsdrawhwave(#1,#2)(#3,#4){%
+  \edef\iwave@A{(#1,#2)}%
+  \edef\iwave@B{(#3,#4)}%
+  \Kyori\iwave@A\iwave@B\iwave@w
+  \Mulself\iwave@w{2}%
+  \Subvec\iwave@B\iwave@A\iwave@AB
+  \Argvec\iwave@AB\iwave@arg
+  \Rdef(1.9,45)\iwave@v
+  \vecXY\iwave@v\iwave@dx\iwave@dy
+  \Mulself\iwave@dy\wave@h
+  \Mul\iwave@w{0.5}\iwave@wh
+  \@Div\iwave@w\iipi\iwave@@w
+  \Mulself\iwave@dx\iwave@@w
+  \Rotvec{(\iwave@dx,\iwave@dy)}\iwave@arg\iwave@AP
+  \Rotvec{(-\iwave@dx,\iwave@dy)}\iwave@arg\iwave@BQ
+    \Addvec\iwave@A\iwave@AP\iwave@P
+    \Addvec\iwave@B\iwave@BQ\iwave@Q
+    \EMpsBezier\iwave@A\iwave@P\iwave@Q\iwave@B
+}%
+\def\@EMpsDrawhwave@sub#1#2{\Kyori{#1}{#2}\wave@L
+  \ifdim\wave@L\p@=\z@\else
+  \@Div\wave@L\wave@period\wave@N@
+  \Subself\wave@N@{.5}%
+  \EMround\wave@N@{0}\wave@n
+  \IMul\wave@n{2}\wave@N
+  \Incr\wave@N%%%%%%%%%%%%%%%%%%%%%% (N=2n+1)
+  \Cfor{\edef\wave@i{0}}{\wave@i<\wave@n}{}\do{%
+    \Incr\wave@i
+    \IMul\wave@i{2}\wave@ii
+    \Sub\wave@N\wave@ii\wave@j
+    \Bunten{#1}{#2}\wave@ii\wave@j\wave@P
+    \expandafter\edef\csname wave@P@\romannumeral\wave@i\endcsname{\wave@P}%
+  }%
+  \edef\DW@tmp{#1\wave@P@i}%
+  \expandafter\EMpsdrawwave\DW@tmp
+  \Cfor{\edef\wave@i{1}}{\wave@i<\wave@n}{}\do{%
+    \IAdd\wave@i{1}\wave@j
+    \edef\DW@tmp{\csname wave@P@\romannumeral\wave@i\endcsname\csname wave@P@\romannumeral\wave@j\endcsname}%
+    \expandafter\EMpsdrawwave\DW@tmp
+    \Incr\wave@i
+  }%
+  \edef\DW@tmp{\csname wave@P@\romannumeral\wave@j\endcsname#2}%
+  \expandafter\EMpsdrawhwave\DW@tmp
+  \fi
+}%
+\def\EMpsDrawhwave{\@ifnextchar<{\@EMpsDrawhwave@}{\@@EMpsDrawhwave}}%
+\def\@EMpsDrawhwave@<#1>{\setkeys{emPs}{#1}\@@EMpsDrawhwave}%
+\def\@@EMpsDrawhwave#1{%
+  \edef\DW@tmp{#1}%
+  \expandafter\makeTenHairetu\DW@tmp
+  \edef\DW@S{\hairetu{TH@V}{1}}%
+  \Cfor{\edef\DW@i{1}}{\DW@i<\TH@N}{\edef\DW@S{\DW@E}}\do{%
+      \Incr\DW@i
+      \edef\DW@E{\hairetu{TH@V}{\DW@i}}%
+      \@EMpsDrawhwave@sub\DW@S\DW@E
+  }%
+  \endgroup
+}%
+%\let\Drawwave\EMpsDrawwave
+%
+%
+\def\picsquare{\hskip -0.5\@wholewidth%
+\vrule height \@halfwidth depth \@halfwidth width \@wholewidth}%
+%
+% \nagamaru の ps版
+%
+\def\psNagamaru@file{0}%
+\def\remakeNagamarufile{\gdef\psNagamaru@file{0}}%
+\def\psNagamaru{\@ifstar{\psNagaNmaru@}{\@psNagamaru}}%
+\def\psNagaNmaru@{\@ifnextchar[{\@@psNagamaru}{\@@psNagamaru[.5]}}%
+\def\@psNagamaru{\@ifnextchar[{\@@psNagamaru}{\@@psNagamaru[\empty]}}%
+\def\@@psNagamaru[#1]#2{{%
+  \ukansan\Nmaru@yokokei\Nmaru@x
+  \@Div\Nmaru@x{2}\Nmaru@a
+  \ukansan\Nmaru@tatekei\Nmaru@y
+  \@Div\Nmaru@y{2}\Nmaru@b
+  \Mul\Nmaru@y{.75}\Nmaru@h
+  \Sub\Nmaru@y\Nmaru@h\Nmaru@d
+  \Sub\Nmaru@h\Nmaru@d\Nmaru@cy
+  \Divself\Nmaru@cy{2}%
+  \edef\Nmaru@cx{\Nmaru@a}%
+  \@ifundefined{@xscale}{}{%
+    \Divself\Nmaru@cy\@yscale
+    \Divself\Nmaru@cx\@xscale
+  }%
+  \Add\Nmaru@cx\Nmaru@a\Nmaru@xmax
+  \Sub\Nmaru@cx\Nmaru@a\Nmaru@xmin
+  \Add\Nmaru@cy\Nmaru@b\Nmaru@ymax
+  \Sub\Nmaru@cy\Nmaru@b\Nmaru@ymin
+  \mbox{%
+    \begin{picture}(0,0)\relax
+%    \ifnum\psNagamaru@file=\z@
+%      \begin{pszahyou*}[ul=1pt,borderwidth=1pt,EPSfilename=Nagamaru.eps,
+%          ,haiti=o](\Nmaru@xmin,\Nmaru@xmax)(\Nmaru@ymin,\Nmaru@ymax)%
+      \begin{pszahyou*}[ul=1pt,borderwidth=1pt,,haiti=o]%
+            (\Nmaru@xmin,\Nmaru@xmax)(\Nmaru@ymin,\Nmaru@ymax)%
+        \ifx\empty #1\relax
+          \linethickness{.6pt}%
+          \Daen{(\Nmaru@cx,\Nmaru@cy)}\Nmaru@a\Nmaru@b
+        \else
+          \Daen*[#1]{(\Nmaru@cx,\Nmaru@cy)}\Nmaru@a\Nmaru@b
+        \fi
+      \end{pszahyou*}%
+%      \gdef\psNagamaru@file{1}%
+%    \else
+%      \begin{pszahyou*}[ul=1pt,borderwidth=1pt,EPSfilename=Nagamaru.eps,%
+%        haiti=o,remakefalse](\Nmaru@xmin,\Nmaru@xmax)(\Nmaru@ymin,\Nmaru@ymax)%%
+%      \end{pszahyou*}%
+%    \fi
+    \end{picture}%
+    \@ifundefined{yunitlength}{%
+      \makebox[\Nmaru@x\unitlength][c]{#2}%
+      \vrule height\Nmaru@h\unitlength depth\Nmaru@d\unitlength width\z@
+    }{%
+      \makebox[\Nmaru@x\xunitlength][c]{#2}%
+      \vrule height\Nmaru@h\yunitlength depth\Nmaru@d\yunitlength width\z@
+    }%
+  }%\,\relax
+}}%
+%
+\@ifundefined{ps@NMbox}{\newbox\ps@NMbox}{}%
+\@ifundefined{ps@bNMbox}{\newbox\ps@bNMbox}{}%
+%\def\psnagamaru{\@ifnextchar<{\@@psnagamaru}{\@@psnagamaru<\empty>}}%
+%\def\@@psnagamaru<#1>#2{{%
+%\fontfamily{phv}%
+%\begin{chgfontsizeratio}{.9}%
+%  \@ifundefined{ps@nagamaru@eps}{%
+%    \global\setbox\ps@NMbox=\hbox{%
+%      \setbox0=\hbox{9}%
+%      \begin{pszahyou*}[ul=1pt,haiti=o,borderwidth=2.5pt]%
+%            (0,\strip@pt\wd0)(-\strip@pt\dp0,\strip@pt\ht0)%
+%        \@tempdima=.2zw\edef\w@x{\strip@pt\@tempdima}%
+%        \@tempdima=.3zw\edef\w@y{\strip@pt\@tempdima}%
+%        \Tyuuten\trueLT\trueRT\T@@\Addvecself\T@@{(0,2)}%
+%        \Tyuuten\trueLT\trueLB\L@@\Addvecself\L@@{(-1.2,0)}%
+%        \Tyuuten\trueLB\trueRB\B@@\Addvecself\B@@{(0,-2)}%
+%        \Tyuuten\trueRT\trueRB\R@@\Addvecself\R@@{(1.2,0)}%
+%        \linethickness{.4pt}%
+%        \@tempdima=.275em\edef\w@x{\strip@pt\@tempdima}%
+%        \@tempdima=.3em\edef\w@y{\strip@pt\@tempdima}%
+%%        \emRbezier<dousa=a>\T@@\L@@{(\w@x,180);(\w@y,90)}%
+%%        \emRbezierto<dousa=c>\B@@{(\w@y,-90);(\w@x,180)}%
+%%        \emRbezierto<dousa=c>\R@@{(\w@x,0);(\w@y,-90)}%
+%%        \emRbezierto<dousa=F>\T@@{(\w@y,90);(\w@x,0)}%
+%        \psmoveto\T@@
+%          \Rdef[\T@@](\w@x,180)\T@@@
+%          \Rdef[\L@@](\w@y,90)\T@@@@
+%        \pscurveto\T@@@\T@@@@\L@@
+%          \Rdef[\L@@](\w@y,-90)\T@@@
+%          \Rdef[\B@@](\w@x,180)\T@@@@
+%        \pscurveto\T@@@\T@@@@\B@@
+%          \Rdef[\B@@](\w@x,0)\T@@@
+%          \Rdef[\R@@](\w@y,-90)\T@@@@
+%        \pscurveto\T@@@\T@@@@\R@@
+%          \Rdef[\R@@](\w@y,90)\T@@@
+%          \Rdef[\T@@](\w@x,0)\T@@@@
+%        \pscurveto\T@@@\T@@@@\T@@
+%%        \gsave
+%%        \psfill[.8]
+%%        \grestore
+%        \psstroke
+%      \end{pszahyou*}%
+%    }%
+%  }{}%
+%  \leavevmode \hspace{1.5pt}\hbox to \z@{\copy\ps@NMbox\hss}{#2}\hspace{1.5pt}%%
+%\end{chgfontsizeratio}%
+%}\xdef\ps@nagamaru@eps{}%
+%}%
+%\def\resetpsnagamaru{\global\let\ps@nagamaru@eps\undefined}%
+%\def\resetpsbnagamaru{\global\let\ps@bnagamaru@eps\undefined}%
+%%
+%\def\psbnagamaru{\@ifnextchar<{\@@psbnagamaru}{\@@psbnagamaru<\empty>}}%
+%\def\@@psbnagamaru<#1>#2{{%
+%\fontfamily{phv}%
+%\begin{chgfontsizeratio}{.9}%
+%  \@ifundefined{ps@bnagamaru@eps}{%
+%    \global\setbox\ps@bNMbox=\hbox{%
+%      \setbox0=\hbox{9}%
+%      \begin{pszahyou*}[ul=1pt,haiti=o,borderwidth=2.5pt]%
+%            (0,\strip@pt\wd0)(-\strip@pt\dp0,\strip@pt\ht0)%
+%        \@tempdima=.2zw\edef\w@x{\strip@pt\@tempdima}%
+%        \@tempdima=.3zw\edef\w@y{\strip@pt\@tempdima}%
+%        \Tyuuten\trueLT\trueRT\T@@\Addvecself\T@@{(0,2)}%
+%        \Tyuuten\trueLT\trueLB\L@@\Addvecself\L@@{(-1.5,0)}%
+%        \Tyuuten\trueLB\trueRB\B@@\Addvecself\B@@{(0,-2)}%
+%        \Tyuuten\trueRT\trueRB\R@@\Addvecself\R@@{(1.5,0)}%
+%        \linethickness{.8pt}%
+%        \@tempdima=.275em\edef\w@x{\strip@pt\@tempdima}%
+%        \@tempdima=.3em\edef\w@y{\strip@pt\@tempdima}%
+%%        \emRbezier<dousa=a>\T@@\L@@{(\w@x,180);(\w@y,90)}%
+%%        \emRbezierto<dousa=c>\B@@{(\w@y,-90);(\w@x,180)}%
+%%        \emRbezierto<dousa=c>\R@@{(\w@x,0);(\w@y,-90)}%
+%%        \emRbezierto<dousa=F>\T@@{(\w@y,90);(\w@x,0)}%
+%        \psmoveto\T@@
+%          \Rdef[\T@@](\w@x,180)\T@@@
+%          \Rdef[\L@@](\w@y,90)\T@@@@
+%        \pscurveto\T@@@\T@@@@\L@@
+%          \Rdef[\L@@](\w@y,-90)\T@@@
+%          \Rdef[\B@@](\w@x,180)\T@@@@
+%        \pscurveto\T@@@\T@@@@\B@@
+%          \Rdef[\B@@](\w@x,0)\T@@@
+%          \Rdef[\R@@](\w@y,-90)\T@@@@
+%        \pscurveto\T@@@\T@@@@\R@@
+%          \Rdef[\R@@](\w@y,90)\T@@@
+%          \Rdef[\T@@](\w@x,0)\T@@@@
+%        \pscurveto\T@@@\T@@@@\T@@
+%%        \gsave
+%%        \psfill[.8]
+%%        \grestore
+%        \psstroke
+%      \end{pszahyou*}%
+%    }%
+%  }{}%
+%  \leavevmode \hspace{2pt}\hbox to \z@{\hspace{0pt}\copy\ps@bNMbox\hss}{\bfseri%es #2}\hspace{2pt}%
+%\end{chgfontsizeratio}%
+%}\xdef\ps@bnagamaru@eps{}%
+%}%
+%%
+\def\useNagamaruBox#1{%
+  \strip@cmd{#1}\NagamaruBoxNM
+  \@ifundefined{\NagamaruBoxNM}{\makeNagamaruBox{#1}}{}%
+  \let\ps@NMbox #1\relax
+}%
+\def\usebNagamaruBox#1{%
+  \strip@cmd{#1}\NagamaruBoxNM
+  \@ifundefined{\NagamaruBoxNM}{\makebNagamaruBox{#1}}{}%
+  \let\ps@bNMbox #1\relax
+}%
+%
+\def\makeNagamaruBox#1{{%
+  \strip@cmd{#1}\NagamaruBoxNM
+  \@ifundefined{\NagamaruBoxNM}{\newbox #1}{}%
+  \fontfamily{phv}%
+  \begin{chgfontsizeratio}{.9}%
+    \global\setbox #1=\hbox{%
+      \setbox0=\hbox{9}%
+      \begin{pszahyou*}[ul=1pt,haiti=o,borderwidth=2.5pt]%
+            (0,\strip@pt\wd0)(-\strip@pt\dp0,\strip@pt\ht0)%
+        \@tempdima=.2zw\edef\w@x{\strip@pt\@tempdima}%
+        \@tempdima=.3zw\edef\w@y{\strip@pt\@tempdima}%
+        \Tyuuten\trueLT\trueRT\T@@\Addvecself\T@@{(0,2)}%
+        \Tyuuten\trueLT\trueLB\L@@\Addvecself\L@@{(-1.2,0)}%
+        \Tyuuten\trueLB\trueRB\B@@\Addvecself\B@@{(0,-2)}%
+        \Tyuuten\trueRT\trueRB\R@@\Addvecself\R@@{(1.2,0)}%
+        \linethickness{.4pt}%
+        \@tempdima=.275em\edef\w@x{\strip@pt\@tempdima}%
+        \@tempdima=.3em\edef\w@y{\strip@pt\@tempdima}%
+%        \emRbezier<dousa=a>\T@@\L@@{(\w@x,180);(\w@y,90)}%
+%        \emRbezierto<dousa=c>\B@@{(\w@y,-90);(\w@x,180)}%
+%        \emRbezierto<dousa=c>\R@@{(\w@x,0);(\w@y,-90)}%
+%        \emRbezierto<dousa=F>\T@@{(\w@y,90);(\w@x,0)}%
+        \psmoveto\T@@
+          \Rdef[\T@@](\w@x,180)\T@@@
+          \Rdef[\L@@](\w@y,90)\T@@@@
+        \pscurveto\T@@@\T@@@@\L@@
+          \Rdef[\L@@](\w@y,-90)\T@@@
+          \Rdef[\B@@](\w@x,180)\T@@@@
+        \pscurveto\T@@@\T@@@@\B@@
+          \Rdef[\B@@](\w@x,0)\T@@@
+          \Rdef[\R@@](\w@y,-90)\T@@@@
+        \pscurveto\T@@@\T@@@@\R@@
+          \Rdef[\R@@](\w@y,90)\T@@@
+          \Rdef[\T@@](\w@x,0)\T@@@@
+        \pscurveto\T@@@\T@@@@\T@@
+%        \gsave
+%        \psfill[.8]
+%        \grestore
+        \psstroke
+      \end{pszahyou*}%
+    }%
+    \let\ps@NMbox #1\relax
+  \end{chgfontsizeratio}%
+  \xdef\nagamarubox@done{}%
+}}%
+%
+\def\psnagamaru{\@ifnextchar<{\@@psnagamaru}{\@@psnagamaru<\empty>}}%
+\def\@@psnagamaru<#1>#2{{%
+  \@ifundefined{nagamarubox@done}{%
+    \errmessage{Do makeNagamaruBox-cmd}}{}%
+  \fontfamily{phv}%
+  \begin{chgfontsizeratio}{.9}%
+  \leavevmode\hspace{1.5pt}\hbox to\z@{\copy\ps@NMbox\hss}{\hbox{#2}}\hspace{1.5pt}%
+  \end{chgfontsizeratio}%
+}}%
+%
+\def\makebNagamaruBox#1{{%
+  \strip@cmd{#1}\NagamaruBoxNM
+  \@ifundefined{\NagamaruBoxNM}{\newbox #1}{}%
+  \fontfamily{phv}%
+  \begin{chgfontsizeratio}{.9}%
+    \global\setbox #1=\hbox{%
+      \setbox0=\hbox{9}%
+      \begin{pszahyou*}[ul=1pt,haiti=o,borderwidth=2.5pt]%
+            (0,\strip@pt\wd0)(-\strip@pt\dp0,\strip@pt\ht0)%
+        \@tempdima=.2zw\edef\w@x{\strip@pt\@tempdima}%
+        \@tempdima=.3zw\edef\w@y{\strip@pt\@tempdima}%
+        \Tyuuten\trueLT\trueRT\T@@\Addvecself\T@@{(0,2)}%
+        \Tyuuten\trueLT\trueLB\L@@\Addvecself\L@@{(-1.5,0)}%
+        \Tyuuten\trueLB\trueRB\B@@\Addvecself\B@@{(0,-2)}%
+        \Tyuuten\trueRT\trueRB\R@@\Addvecself\R@@{(1.5,0)}%
+        \linethickness{.8pt}%
+        \@tempdima=.275em\edef\w@x{\strip@pt\@tempdima}%
+        \@tempdima=.3em\edef\w@y{\strip@pt\@tempdima}%
+%        \emRbezier<dousa=a>\T@@\L@@{(\w@x,180);(\w@y,90)}%
+%        \emRbezierto<dousa=c>\B@@{(\w@y,-90);(\w@x,180)}%
+%        \emRbezierto<dousa=c>\R@@{(\w@x,0);(\w@y,-90)}%
+%        \emRbezierto<dousa=F>\T@@{(\w@y,90);(\w@x,0)}%
+        \psmoveto\T@@
+          \Rdef[\T@@](\w@x,180)\T@@@
+          \Rdef[\L@@](\w@y,90)\T@@@@
+        \pscurveto\T@@@\T@@@@\L@@
+          \Rdef[\L@@](\w@y,-90)\T@@@
+          \Rdef[\B@@](\w@x,180)\T@@@@
+        \pscurveto\T@@@\T@@@@\B@@
+          \Rdef[\B@@](\w@x,0)\T@@@
+          \Rdef[\R@@](\w@y,-90)\T@@@@
+        \pscurveto\T@@@\T@@@@\R@@
+          \Rdef[\R@@](\w@y,90)\T@@@
+          \Rdef[\T@@](\w@x,0)\T@@@@
+        \pscurveto\T@@@\T@@@@\T@@
+%        \gsave
+%        \psfill[.8]
+%        \grestore
+        \psstroke
+      \end{pszahyou*}%
+    }%
+  \let\ps@bNMbox #1\relax
+  \end{chgfontsizeratio}%
+  \xdef\bnagamarubox@done{}%
+}}%
+\def\psbnagamaru{\@ifnextchar<{\@@psbnagamaru}{\@@psbnagamaru<\empty>}}%
+\def\@@psbnagamaru<#1>#2{{%
+  \@ifundefined{bnagamarubox@done}{%
+    \errmessage{Do makebNagamaruBox-cmd}}{}%
+  \fontfamily{phv}%
+  \begin{chgfontsizeratio}{.9}%
+  \leavevmode\hspace{2pt}\hbox to\z@{\copy\ps@bNMbox\hss}{\hbox{\bfseries #2}}\hspace{2pt}%
+  \end{chgfontsizeratio}%
+}}%
+%%
+% 影つき球
+% \kagetukiKyuu[#1]#2#3#4
+%   #1 : key=val
+%          noudo=0〜1 （デフォルト0.8）
+%          bunkatu=..  （デフォルト 40）
+%          nuriiro=.. （デフォルト black）
+%   #2 : 球の半径
+%   #3 : 光をあてる中心（球の中心を局所原点とする極座標）
+%   #4 : 光があたる部分の半径
+%
+\def\kagetukiKyuu{\@ifnextchar[{\@kagetukiKyuu}{\@kagetukiKyuu[noudo=.5]}}%
+\def\@kagetukiKyuu[#1]#2#3#4{%
+\ifnum\EMps@mode>\z@
+  \begingroup\gsave
+  \define@key{emP}{bunkatu}{\edef\kK@bunkatu{##1}}%
+  \def\nuri@iro{black}%
+  \edef\kK@bunkatu{40}%
+  \setkeys{emP}{#1}%
+  \edef\kage@iro{\nuri@iro}%
+  \Rdef#3\OO
+  \En\O{#2}%
+  \begin{clipEn}\O{#2}%
+    \EMdilutecolor*{\kage@iro}{0}{kagec}%
+    \En*[nuriiro=kagec]\O{#2}%
+    \@Div{#4}{\kK@bunkatu}\kage@dr
+    \edef\kage@r{#4}%
+    \Ifor*\kage@n{1}{\kK@bunkatu}\Do{%
+      \@Div\kage@n{\kK@bunkatu}\kage@rc
+      \EMdilutecolor*{\kage@iro}\kage@rc{kagec}%
+      \En*[nuriiro=kagec]\OO\kage@r
+      \En<iro=kagec>\OO\kage@r
+      \Subself\kage@r\kage@dr
+    }%
+  \end{clipEn}%
+  \grestore\endgroup
+\fi
+}%
+%
+% 影つき楕円
+% \kagetukiDaen[#1]#2#3#4#5
+%   #1 : key=val
+%          noudo=0〜1 （デフォルト0.8）
+%          bunkatu=..  （デフォルト 40）
+%          nuriiro=.. （デフォルト black）
+%   #2,#3 : 楕円の長半径，短半径
+%   #4 : 光をあてる中心（球の中心を局所原点とする極座標）
+%   #5 : 光があたる部分の半径比率
+%
+\def\kagetukiDaen{\@ifnextchar[{\@kagetukiDaen}{\@kagetukiDaen[noudo=.5]}}%
+\def\@kagetukiDaen[#1]#2#3#4#5{%
+\ifnum\EMps@mode>\z@
+  \begingroup\gsave
+  \define@key{emP}{bunkatu}{\edef\kK@bunkatu{##1}}%
+  \def\nuri@iro{black}%
+  \edef\kK@bunkatu{40}%
+  \setkeys{emP}{#1}%
+  \edef\kage@iro{\nuri@iro}%
+  \Rdef#4\OO
+%  \Daen\O{#2}{#3}%
+  \begin{clipDaen}\O{#2}{#3}%
+    \EMdilutecolor*{\kage@iro}{0}{kagec}%
+    \Daen*[nuriiro=kagec]\O{#2}{#3}%
+    \Mul{#2}{#5}\aaval@
+    \Mul{#3}{#5}\bbval@
+    \@Div{\aaval@}{\kK@bunkatu}\kage@dra
+    \@Div{\bbval@}{\kK@bunkatu}\kage@drb
+%    \edef\kage@r{#4}%
+    \Ifor*\kage@n{1}{\kK@bunkatu}\Do{%
+      \@Div\kage@n{\kK@bunkatu}\kage@rc
+      \EMdilutecolor*{\kage@iro}\kage@rc{kagec}%
+%      \En*[nuriiro=kagec]\OO\kage@r
+%      \En<iro=kagec>\OO\kage@r
+      \Daen*[nuriiro=kagec]\OO\aaval@\bbval@
+      \Daen<iro=kagec>\OO\aaval@\bbval@
+%      \Subself\kage@r\kage@dr
+      \Subself\aaval@\kage@dra
+      \Subself\bbval@\kage@drb
+    }%
+  \end{clipDaen}%
+  \Daen\O{#2}{#3}%
+  \grestore\endgroup
+\fi
+}%
+%
+%\def\enkanNuri{\@ifnextchar[{\@enkanNuri}{\@enkanNuri[.5]}}%
+%\def\@enkanNuri[#1]#2#3{%
+%  \Strchr{#1}=\enkanNuri@tmp
+%  \ifnum\enkanNuri@tmp>\z@\setkeys{emP}{#1}\else\edef\noudo@{#1}\fi
+%  \BKinziOresen{#2*cos(T)}{#2*sin(T)}{-.02}{$pi+.02}{.02}\oreseni
+%  \BKinziOresen{#3*cos(T)}{#3*sin(T)}{$pi+.02}{-.02}{-.02}\oresenii
+%  \Nuritubusi[\noudo@]{\oreseni\oresenii}%
+%  \BKinziOresen{#2*cos(T)}{#2*sin(T)}{$pi-.02}{2*$pi+.02}{.02}\oreseni
+%  \BKinziOresen{#3*cos(T)}{#3*sin(T)}{2*$pi+.02}{$pi-.02}{-.02}\oresenii
+%  \Nuritubusi[\noudo@]{\oreseni\oresenii}%
+%}%
+%\def\kagetukiKyuu{%
+%  \begingroup
+%  \gsave
+%  \edef\noudo@{\empty}%
+%  \edef\nuri@iro{black}%
+%  \@ifnextchar[{\@kagetukiKyuu}{\@@kagetukiKyuu}}%
+%\def\@kagetukiKyuu[#1]{\setkeys{emP}{#1}\@@kagetukiKyuu}%
+%\def\@@kagetukiKyuu#1#2#3{%
+%  \ifthenelse{\equal\noudo@\empty}{%
+%  }{%
+%    \edef\nuri@iro{\empty}%
+%  }%
+%  \ifthenelse{\equal\nuri@iro\empty}{%
+%    \edef\kage@noudo{\noudo@}%
+%    \En*[\kage@noudo]{(0,0)}{#1}%
+%  }{%
+%    \edef\kage@noudo{\empty}%
+%    \edef\kK@iro{\nuri@iro}%
+%    \En*[nuriiro=\kK@iro]{(0,0)}{#1}%
+%  }%
+%  \vecXY{#2}\kK@d\kK@dmy
+%  \Rdef#2\@O@
+%  \@Div{#3}{25}\kK@dr
+%  \Cfor{\edef\kK@r@{#3}}{\lengthtest{\kK@r@ pt>0pt}}{\Addself\kK@r@{-\kK@dr}}\do{%
+%%   \ifx\empty\kage@noudo
+%    \ifthenelse{\not\equal\kage@noudo\empty}{%
+%      \calcval{\kage@noudo*exp(2*(\kK@r@-#3))}\kage@noudo@
+%      \Add\kK@d\kK@r@\kK@tmp
+%      \ifdim\kK@tmp\p@>#1\p@
+%        \CandC*\O@@{#1}\@O@\kK@r@\kK@P\kK@Q
+%        \KinziEnko\O@@{#1}{hazimeten=\kK@P}{owariten=\kK@Q}\kK@orei
+%        \KinziEnko\@O@\kK@r@{hazimeten=\kK@Q}{owariten=\kK@P}\kK@oreii
+%        \Nuritubusi[\kage@noudo@]{\kK@orei\kK@oreii}%
+%      \else
+%        \En*[\kage@noudo@]{\@O@}\kK@r@
+%      \fi
+%%   \else
+%    }{%
+%      \edef\kK@tmp{\csname EMps@\kK@iro\endcsname}%
+%      \rgbbunkai\kK@tmp\kKiro@r\kKiro@g\kKiro@b
+%%      \calcval{(-((1-\kKiro@r)*\kK@r@/#3))+1}\kK@rval
+%%      \calcval{(-((1-\kKiro@g)*\kK@r@/#3))+1}\kK@gval
+%%      \calcval{(-((1-\kKiro@b)*\kK@r@/#3))+1}\kK@bval
+%      \calcval{1-(1-\kKiro@r)*(\kK@r@/#3)**1.5}\kK@rval
+%      \calcval{1-(1-\kKiro@b)*(\kK@r@/#3)**1.5}\kK@bval
+%      \calcval{1-(1-\kKiro@g)*(\kK@r@/#3)**1.5}\kK@gval
+%%      \calcval{1-(1-\kKiro@r)*(exp(\kK@r@/#3)-1)/($Napier-1)}\kK@rval
+%%      \calcval{1-(1-\kKiro@g)*(exp(\kK@r@/#3)-1)/($Napier-1)}\kK@gval
+%%      \calcval{1-(1-\kKiro@b)*(exp(\kK@r@/#3)-1)/($Napier-1)}\kK@bval
+%      \defineEMpscolor{kK@color}{\kK@rval}{\kK@gval}{\kK@bval}%
+%      \Add\kK@d\kK@r@\kK@tmp
+%      \ifdim\kK@tmp\p@>#1\p@
+%        \CandC*\O@@{#1}\@O@\kK@r@\kK@P\kK@Q
+%        \KinziEnko\O@@{#1}{hazimeten=\kK@P}{owariten=\kK@Q}\kK@orei
+%        \KinziEnko\@O@\kK@r@{hazimeten=\kK@Q}{owariten=\kK@P}\kK@oreii
+%        \Nuritubusi[nuriiro=kK@color]{\kK@orei\kK@oreii}%
+%      \else
+%        \En*[nuriiro=kK@color]{\@O@}\kK@r@
+%      \fi
+%%   \fi
+%    }%
+%  }%
+%  \En\O{#1}%
+%  \grestore
+%  \endgroup
+%}%
+%
+\DeclareRobustCommand\psSEE{%
+  \@ifundefined{psSEE@box}{%
+    \newbox\psSEE@box
+    \global\setbox\psSEE@box=\hbox{%
+      \begin{pszahyou*}[ul=1em,borderwidth=1pt,haiti=x](0,1)(-.4,.8)
+        \setlinewidth{.4pt}%
+        \Enko<yazirusi=a>{(1,.7)}{1}{-180}{-90}
+      \end{pszahyou*}%
+    }%
+  }{}%
+  \leavevmode\copy\psSEE@box
+}%
+\DeclareRobustCommand\psNEN{%
+  \@ifundefined{psNEN@box}{%
+    \newbox\psNEN@box
+    \global\setbox\psNEN@box=\hbox{%
+      \begin{pszahyou*}[ul=1em,borderwidth=1pt,haiti=x](0,1)(-.4,.8)
+        \setlinewidth{.4pt}%
+        \Enko<yazirusi=a>{(0,.7)}{1}{-90}{0}
+      \end{pszahyou*}%
+    }%
+  }{}%
+  \leavevmode\copy\psNEN@box
+}%
+\DeclareRobustCommand\psNEE{%
+  \@ifundefined{psNEE@box}{%
+    \newbox\psNEE@box
+    \global\setbox\psNEE@box=\hbox{%
+      \begin{pszahyou*}[ul=1em,borderwidth=1pt,haiti=x](0,1)(-.4,.8)
+        \setlinewidth{.4pt}%
+        \Enko<yazirusi=r>{(1,-.3)}{1}{90}{180}
+      \end{pszahyou*}%
+    }%
+  }{}%
+  \leavevmode \copy\psNEE@box
+}%
+\DeclareRobustCommand\psSES{%
+  \@ifundefined{psSES@box}{%
+    \newbox\psSES@box
+    \global\setbox\psSES@box=\hbox{%
+      \begin{pszahyou*}[ul=1em,borderwidth=1pt,haiti=x](0,1)(-.4,.8)
+        \setlinewidth{.4pt}%
+        \Enko<yazirusi=r>{(0,-.3)}{1}{0}{90}
+      \end{pszahyou*}%
+    }%
+  }{}%
+  \leavevmode\copy\psSES@box
+}%
+\let\psSSE\psSES
+\let\psNNE\psNEN
+%
+\long\def\Gread@find@bb#1:#2#3\\{%
+  \def\@tempa{#1}%
+  \ifx\@tempa\Gread@BBox
+\xdef\EMBBox{#2#3}%
+    \Gread@test@atend#2#3()\\%
+  \fi}%
+%
+%
+\def\resetsensyu{%
+  \setdash{}%
+  \edef\hasenLG@{\empty}%
+  \let\sensyu\drawline
+}%
+%
+\edef\pscirc@linethickness{.3pt}%
+\edef\pscirc@thickness{1}%
+\edef\pscirc@radius{2pt}%
+\def\pscircradius#1{\edef\pscirc@radius{#1}}%
+%
+\DeclareRobustCommand\pscirc{%
+  \@ifstar{\def\ps@circ@paint{1}\@pscirc}{\def\ps@circ@paint{0}\@pscirc}}%
+\def\@pscirc{\@ifnextchar<{\@@pscirc}{\@@pscirc<\empty>}}%
+\def\@@pscirc<#1>{{\gsave
+  \edef\pha@@ex{(1,0)}%
+  \edef\pha@@ey{(0,1)}%
+  \define@key{emP}{size}{\def\size@{##1}}%
+  \define@key{emP}{kaiten}{\relax}%
+  \define@key{emP}{thickness}{\def\pscirc@thickness{##1}}%
+  \define@key{emP}{linethickness}{\def\pscirc@linethickness{##1}}%
+  \edef\pscirc@thickness{1}%
+  \edef\size@{\pscirc@radius}%
+  \resetsensyu
+  \ifx\empty #1\else\setkeys{emP}{#1}\fi
+  \setlinewidth{\pscirc@linethickness}%
+  \edef\nuri@iro@{\nuri@iro}%
+  \ukansan\size@\r@val
+  \ifnum\ps@circ@paint>\z@
+    {\ifx\empty\nuri@iro@
+      \En*[\pscirc@thickness]\O@@\r@val
+    \else
+      \En*<nuriiro=\nuri@iro@>\O@@\r@val
+    \fi}%
+    \ifx\empty\draw@border\else\Ensyuu\O@@\r@val\fi
+  \else
+    \Ensyuu\O@@\r@val
+  \fi
+  \grestore
+}}%
+%
+%
+%
+\DeclareRobustCommand\pssquare{%
+  \@ifstar{\def\ps@square@paint{1}\@pssquare}{\def\ps@square@paint{0}\@pssquare}}%
+\def\@pssquare{\@ifnextchar<{\@@pssquare}{\@@pssquare<\empty>}}%
+\def\@@pssquare<#1>{{\gsave
+  \edef\pha@@ex{(1,0)}%
+  \edef\pha@@ey{(0,1)}%
+  \define@key{emP}{size}{\def\size@{##1}}%
+  \define@key{emP}{kaiten}{\def\kaiten@{##1}}%
+  \define@key{emP}{slash}[1]{\def\slash@{##1}}%
+  \define@key{emP}{backslash}[2]{\def\slash@{##1}}%
+  \define@key{emP}{times}[3]{\def\slash@{##1}}%
+  \define@key{emP}{circ}[0]{\def\circ@{##1}}%
+  \edef\kaiten@{0}%
+  \edef\size@{\pscirc@radius}%
+  \setlinewidth{\pscirc@linethickness}%
+  \resetsensyu
+  \ifx\empty #1\else\setkeys{emP}{#1}\fi
+  \edef\nuri@iro@{\nuri@iro}%
+  \ukansan\size@\r@val
+  \def\xy@hosei{}%
+  \Addself\kaiten@{45}\Rdef(\r@val,\kaiten@)\KM@P
+  \Addself\kaiten@{90}\Rdef(\r@val,\kaiten@)\KM@Q
+  \Addself\kaiten@{90}\Rdef(\r@val,\kaiten@)\KM@R
+  \Addself\kaiten@{90}\Rdef(\r@val,\kaiten@)\KM@S
+  \edef\KM@oresen{\KM@P\KM@Q\KM@R\KM@S}%
+  \ifnum\ps@square@paint>\z@
+    {\ifx\empty\nuri@iro@
+      \Nuritubusi[1]\KM@oresen
+    \else
+      \Nuritubusi\KM@oresen
+    \fi}%
+    \ifx\empty\draw@border\else\Takakkei\KM@oresen\fi
+  \else
+    \Takakkei\KM@oresen%
+    \@ifundefined{slash@}{}{%
+      \ifcase\slash@
+      \or
+        \Drawline{\KM@P\KM@R}%
+      \or
+        \Drawline{\KM@Q\KM@S}%
+      \or
+        \Drawlines{\KM@P\KM@R;\KM@Q\KM@S}%
+      \fi
+    }%
+    \@ifundefined{circ@}{}{%
+      \ifthenelse{\equal\circ@{0}}{}{%
+        \ifthenelse{\equal\circ@{in}}{%
+          \Divself\r@val{1.41421356}%
+        }{%
+          \ukansan\circ@\r@val
+        }%
+      }%
+      \En\O@@\r@val
+    }%
+  \fi
+  \grestore
+}}%
+%
+\DeclareRobustCommand\pstriangle{%
+  \@ifstar{\def\ps@triangle@paint{1}\@pstriangle}{\def\ps@triangle@paint{0}\@pstriangle}}%
+\def\@pstriangle{\@ifnextchar<{\@@pstriangle}{\@@pstriangle<\empty>}}%
+\def\@@pstriangle<#1>{{\gsave
+  \edef\pha@@ex{(1,0)}%
+  \edef\pha@@ey{(0,1)}%
+  \def\xy@hosei{}%
+  \define@key{emP}{size}{\def\size@{##1}}%
+  \define@key{emP}{kaiten}{\def\kaiten@{##1}}%
+  \define@key{emP}{thickness}{\def\pstriangle@thickness{##1}}%
+  \edef\kaiten@{0}%
+  \edef\size@{\pscirc@radius}%
+  \edef\pstriangle@thickness{1}%
+  \setlinewidth{\pscirc@linethickness}%
+  \resetsensyu
+  \ifx\empty #1\else\setkeys{emP}{#1}\fi
+  \edef\nuri@iro@{\nuri@iro}%
+  \ukansan\size@\r@val
+  \Addself\kaiten@{-30}\Rdef(\r@val,\kaiten@)\KM@P
+  \Addself\kaiten@{120}\Rdef(\r@val,\kaiten@)\KM@Q
+  \Addself\kaiten@{120}\Rdef(\r@val,\kaiten@)\KM@R
+  \edef\KM@oresen{\KM@P\KM@Q\KM@R}%
+  \ifnum\ps@triangle@paint>\z@
+    {\ifx\empty\nuri@iro@
+%\typeout{goto Nuritubusi:thickness=\pstriangle@thickness}%\xxx
+      \Nuritubusi[\pstriangle@thickness]\KM@oresen
+    \else
+      \Nuritubusi\KM@oresen
+    \fi}%
+    \ifx\empty\draw@border\else\Takakkei\KM@oresen\fi
+  \else
+    \Takakkei\KM@oresen%
+  \fi
+  \grestore
+}}%
+%
+\DeclareRobustCommand\pstimes{%
+  \@ifstar{\def\ps@times@paint{1}\@pstimes}{\def\ps@times@paint{0}\@pstimes}}%
+\def\@pstimes{\@ifnextchar<{\@@pstimes}{\@@pstimes<\empty>}}%
+\def\@@pstimes<#1>{{\gsave
+  \edef\pha@@ex{(1,0)}%
+  \edef\pha@@ey{(0,1)}%
+  \define@key{emP}{size}{\def\size@{##1}}%
+  \define@key{emP}{kaiten}{\def\kaiten@{##1}}%
+  \edef\kaiten@{0}%
+  \edef\size@{\pscirc@radius}%
+  \setlinewidth{\pscirc@linethickness}%
+  \resetsensyu
+  \ifx\empty #1\else\setkeys{emP}{#1}\fi
+  \edef\nuri@iro@{\nuri@iro}%
+  \ukansan\size@\r@val
+  \Addself\kaiten@{45}\Rdef(\r@val,\kaiten@)\KM@P
+  \Addself\kaiten@{90}\Rdef(\r@val,\kaiten@)\KM@Q
+  \Addself\kaiten@{90}\Rdef(\r@val,\kaiten@)\KM@R
+  \Addself\kaiten@{90}\Rdef(\r@val,\kaiten@)\KM@S
+  \edef\KM@oresen{\KM@P\KM@R;\KM@Q\KM@S}%
+  \Drawlines\KM@oresen%
+  \grestore
+}}%
+%
+\DeclareRobustCommand\psotimes{%
+  \@ifstar{\def\ps@otimes@paint{1}\@psotimes}{\def\ps@otimes@paint{0}\@psotimes}}%
+\def\@psotimes{\@ifnextchar<{\@@psotimes}{\@@psotimes<\empty>}}%
+\def\@@psotimes<#1>{{\gsave
+  \edef\pha@@ex{(1,0)}%
+  \edef\pha@@ey{(0,1)}%
+  \define@key{emP}{size}{\def\size@{##1}}%
+  \define@key{emP}{kaiten}{\def\kaiten@{##1}}%
+  \edef\kaiten@{0}%
+  \edef\size@{\pscirc@radius}%
+  \setlinewidth{\pscirc@linethickness}%
+  \resetsensyu
+  \ifx\empty #1\else\setkeys{emP}{#1}\fi
+  \edef\nuri@iro@{\nuri@iro}%
+  \ukansan\size@\r@val
+  \Addself\kaiten@{45}\Rdef(\r@val,\kaiten@)\KM@P
+  \Addself\kaiten@{90}\Rdef(\r@val,\kaiten@)\KM@Q
+  \Addself\kaiten@{90}\Rdef(\r@val,\kaiten@)\KM@R
+  \Addself\kaiten@{90}\Rdef(\r@val,\kaiten@)\KM@S
+  \edef\KM@oresen{\KM@P\KM@R;\KM@Q\KM@S}%
+  \Drawlines\KM@oresen%
+  \En\O@@\r@val
+  \grestore
+}}%
+%
+\DeclareRobustCommand\psstar{%
+  \@ifstar{\def\ps@star@paint{1}\@psstar}{\def\ps@star@paint{0}\@psstar}}%
+\def\@psstar{\@ifnextchar<{\@@psstar}{\@@psstar<\empty>}}%
+\def\@@psstar<#1>{{\gsave
+  \edef\pha@@ex{(1,0)}%
+  \edef\pha@@ey{(0,1)}%
+%
+  \define@key{emP}{size}{\def\size@{##1}}%
+  \define@key{emP}{kaiten}{\def\kaiten@{##1}}%
+  \define@key{emP}{slash}[1]{\def\slash@{##1}}%
+  \define@key{emP}{backslash}[2]{\def\slash@{##1}}%
+  \define@key{emP}{times}[3]{\def\slash@{##1}}%
+  \define@key{emP}{circ}[0]{\def\circ@{##1}}%
+  \edef\kaiten@{0}%
+  \edef\size@{\pscirc@radius}%
+  \setlinewidth{\pscirc@linethickness}%
+  \resetsensyu
+  \ifx\empty #1\else\setkeys{emP}{#1}\fi
+  \edef\nuri@iro@{\nuri@iro}%
+  \ukansan\size@\r@val
+  \def\xy@hosei{}%
+  \Addself\kaiten@{90}\Rdef(\r@val,\kaiten@)\KM@A
+  \Addself\kaiten@{72}\Rdef(\r@val,\kaiten@)\KM@B
+  \Addself\kaiten@{72}\Rdef(\r@val,\kaiten@)\KM@C
+  \Addself\kaiten@{72}\Rdef(\r@val,\kaiten@)\KM@D
+  \Addself\kaiten@{72}\Rdef(\r@val,\kaiten@)\KM@E
+  \LandL\KM@A\KM@C\KM@B\KM@E\KM@P
+  \LandL\KM@B\KM@D\KM@C\KM@A\KM@Q
+  \LandL\KM@C\KM@E\KM@D\KM@B\KM@R
+  \LandL\KM@D\KM@A\KM@E\KM@C\KM@S
+  \LandL\KM@E\KM@B\KM@A\KM@D\KM@T
+  \edef\KM@oresen{\KM@A\KM@P\KM@B\KM@Q\KM@C\KM@R\KM@D\KM@S\KM@E\KM@T}%
+  \ifnum\ps@star@paint>\z@
+    {\ifx\empty\nuri@iro@
+      \Nuritubusi[1]\KM@oresen
+    \else
+      \Nuritubusi\KM@oresen
+    \fi}%
+    \ifx\empty\draw@border\else\Takakkei\KM@oresen\fi
+  \else
+    \Takakkei\KM@oresen%
+    \@ifundefined{slash@}{}{%
+      \ifcase\slash@
+      \or
+        \Drawline{\KM@P\KM@R}%
+      \or
+        \Drawline{\KM@Q\KM@S}%
+      \or
+        \Drawlines{\KM@P\KM@R;\KM@Q\KM@S}%
+      \fi
+    }%
+    \@ifundefined{circ@}{}{%
+      \ifthenelse{\equal\circ@{0}}{}{%
+        \ifthenelse{\equal\circ@{in}}{%
+          \Divself\r@val{1.41421356}%
+        }{%
+          \ukansan\circ@\r@val
+        }%
+      }%
+      \En\O@@\r@val
+    }%
+  \fi
+  \grestore
+}}%
+%
+%
+%   \pstatebou<#1>
+%     #1 : key=val
+%
+%\def\pstatebou{\@ifnextchar<{\@pstatebou}{%
+\DeclareRobustCommand\pstatebou{\@ifnextchar<{\@pstatebou}{%
+    \@pstatebou<\empty>}}%
+\def\@pstatebou<#1>{{\gsave
+  \define@key{emPs}{size}{\def\size@{##1}}%
+  \define@key{emPs}{kosuu}{\relax}%
+  \define@key{emPs}{kaiten}{\def\kaiten@{##1}}%
+%  \edef\size@{\pscirc@radius}%
+  \edef\size@{3\p@}%
+  \edef\kaiten@{0}%
+  \resetsensyu
+  \ifx\empty #1\else\setkeys{emPs}{#1}\fi
+  \ukansan\size@\size@@
+  \def\psTk@mark{\Drawline{(0,-\size@@)(0,\size@@)}}%
+%  \Argvec{#2}\@a
+  \ifx\empty\iro@\else\EMpsIrositei{\iro@}\fi
+  \ifthenelse{\equal\kaiten@{0}}{\psTk@mark}{%
+    \EPSkaiten\O@@{\kaiten@}{\psTk@mark}%
+  }%
+  \grestore
+}}%
+%
+\def\lpstatebou{\@ifnextchar<{\@lpstatebou}{\@lpstatebou<\empty>}}%
+\def\@lpstatebou<#1>#2#3{%
+    \Argvec{#2}\lt@a
+    \ifx\empty #1\EMedef\lps@opt{<kaiten=\lt@a>}%
+      \else\EMedef\lps@opt{<kaiten=\lt@a,#1>}\fi
+    \exfor[;]\lt@P:=#3\do{%
+      \emathPut{\lt@P}{\expandafter\pstatebou\lps@opt}%
+    }%
+}%
+\def\gpstatebou{\@ifnextchar<{\@gpstatebou}{\@gpstatebou<\empty>}}%
+\def\@gpstatebou<#1>#2#3{%
+    \Argvec{(1,#2)}\lt@a
+    \ifx\empty #1\EMedef\gps@opt{<kaiten=\lt@a>}%
+      \else\EMedef\gps@opt{<kaiten=\lt@a,#1>}\fi
+    \exfor[;]\lt@P:=#3\do{%
+      \emathPut{\lt@P}{\expandafter\pstatebou\gps@opt}%
+    }%
+}%
+%
+\def\Lpstatebou{\@ifnextchar<{\@Lpstatebou}{\@Lpstatebou<\empty>}}%
+\def\@Lpstatebou<#1>#2#3{%
+  \Subvec{#3}{#2}\Lps@v
+  \lpstatebou<#1>\Lps@v
+}%
+%
+% 等辺記号
+%   \psTouhenkigou<#1>(#2)#3#4
+%     #1 : key=val
+%
+%\def\psTouhenkigouthickness#1{\edef\Tk@thickness{#1}}%
+\def\psTouhenkigousize#1{\edef\Tk@size{#1}}%
+%\psTouhenkigouthickness{.3pt}%
+\psTouhenkigousize{3pt}%
+%\def\psTouhenkigou{\@ifnextchar<{\@psTouhenkigou}{%
+\DeclareRobustCommand\psTouhenkigou{\@ifnextchar<{\@psTouhenkigou}{%
+    \@psTouhenkigou<\empty>}}%
+\def\@psTouhenkigou<#1>{\@ifnextchar({\@@psTouhenkigou<#1>}{%
+    \@@psTouhenkigou<#1>(.5)}}%
+\def\@@psTouhenkigou<#1>(#2)#3#4{{\gsave
+% --------------------------------------------
+  \define@key{emPs}{size}{\edef\Tk@size{##1}}%
+  \define@key{emPs}{kosuu}{\edef\Tk@kosuu{##1}}%
+  \define@key{emPs}{kigou}{\def\Tk@kigou{##1}}%
+  \define@key{emPs}{kigouopt}{\def\Tk@kigou@opt{##1}}%
+  \define@key{emPs}{kankaku}{\EMedef\Tk@kankaku{##1}}%
+  \define@key{emPs}{henkoopt}{\EMedef\Tk@henko@opt{##1}}%
+% --------------------------------------------
+  \edef\Tk@kosuu{1}%
+  \edef\Tk@kankaku{2pt}%
+%  \edef\Tk@size{3pt}%
+%  \def\put@pos{.5}%
+  \edef\put@pos{#2}%
+  \def\Tk@kigou{\pstatebou}%
+  \edef\Tk@kigou@opt{\empty}%
+  \ifx\empty #1\else\setkeys{emPs}{#1}\fi
+  \@@@psTouhenkigou{#3}{#4}%
+  \grestore
+}}
+\def\@@@psTouhenkigou#1#2{%
+  \Subvec{#2}{#1}\@v\Argvec\@v\pp@a
+  \setlinecap{1}%
+  \exfor[;]\pp@c:=\put@pos\do{%
+    \Bunten{#1}{#2}\pp@c{*}\T@m
+    \ifthenelse{\equal\Tk@kigou\pstatebou}{%
+      \EMedef\Tk@kigou@opt@{kaiten=\pp@a,size=\Tk@size,}%
+    }{%
+      \EMedef\Tk@kigou@opt@{kaiten=0,size=\Tk@size}%
+    }%
+    \ifx\empty\Tk@kigou@opt
+      \EMedef\Tk@kigou@opt@@{<\Tk@kigou@opt@>}%
+    \else
+      \EMedef\Tk@kigou@opt@@{<\Tk@kigou@opt@,\Tk@kigou@opt>}%
+    \fi
+    \ifcase\Tk@kosuu\relax
+    \or
+      \emathPut\T@m{\expandafter\Tk@kigou\Tk@kigou@opt@@}%
+    \or
+      \@tempdima\Tk@kankaku
+      \@tempdima=.5\@tempdima
+      \ukansan\@tempdima\tmp@
+      \Mulvec*\tmp@\@v\@v@
+      \Addvec\T@m\@v@\T@mi
+      \Subvec\T@m\@v@\T@mii
+      \emathPut\T@mi{\expandafter\Tk@kigou\Tk@kigou@opt@@}%
+      \emathPut\T@mii{\expandafter\Tk@kigou\Tk@kigou@opt@@}%
+    \or
+      \ukansan\Tk@kankaku\tmp@
+      \Mulvec*\tmp@\@v\@v@
+      \Addvec\T@m\@v@\T@mi
+      \Subvec\T@m\@v@\T@mii
+      \emathPut\T@m{\expandafter\Tk@kigou\Tk@kigou@opt@@}%
+      \emathPut\T@mi{\expandafter\Tk@kigou\Tk@kigou@opt@@}%
+      \emathPut\T@mii{\expandafter\Tk@kigou\Tk@kigou@opt@@}%
+    \fi
+  }%
+}%
+%
+%\def\pstouhenkigou{\@ifnextchar<{\@pstouhenkigou}{%
+\DeclareRobustCommand\pstouhenkigou{\@ifnextchar<{\@pstouhenkigou}{%
+    \@pstouhenkigou<\empty>}}%
+\def\@pstouhenkigou<#1>#2{%
+    \def\pstouhenkigou@sub(##1,##2)(##3,##4){%
+      \edef\pstouhenkigou@a{(##1,##2)}%
+      \edef\pstouhenkigou@b{(##3,##4)}}%
+  \argsep{#2}{;}{pstouhenkigou@tmp}\pstouhenkigou@n
+  \Cfor{\edef\pstouhenkigou@i{0}}{\pstouhenkigou@i<\pstouhenkigou@n}{}\do{%
+    \Incr\pstouhenkigou@i
+    \edef\pstouhenkigou@arg{%
+      \csname pstouhenkigou@tmp\romannumeral\pstouhenkigou@i\endcsname}%
+    \expandafter\pstouhenkigou@sub\pstouhenkigou@arg
+    \psTouhenkigou<#1>\pstouhenkigou@a\pstouhenkigou@b
+  }%
+}%
+%
+%% \pstouHenKo
+%%
+%%   psTouhenko<touhenkigou のオプション>[HenKo のオプション]
+%%
+%\def\psTouhenko{\@ifnextchar<{\@psTouhenko}{\@psTouhenko<\empty>}}%
+%\def\@psTouhenko<#1>{\@ifnextchar[{%
+%  \@@psTouhenko<#1>}{\@@psTouhenko<#1>[\empty]}}%
+%\def\@@psTouhenko<#1>[#2](#3,#4)(#5,#6){%
+%%% --------------------------------------------
+%%  \define@key{emPs}{size}{\edef\Tk@size{##1}}%
+%%  \define@key{emPs}{kosuu}{\edef\Tk@kosuu{##1}}%
+%%  \define@key{emPs}{kigou}{\EMedef\Tk@kigou{##1}}%
+%%  \define@key{emPs}{kankaku}{\EMedef\Tk@kankaku{##1}}%
+%%  \define@key{emPs}{kigouopt}{\EMedef\Tk@kigou@opt{##1}}%
+%%  \define@key{emPs}{henkoopt}{\EMedef\Tk@henko@opt{##1}}%
+%%% --------------------------------------------
+%  \ifx\empty #1\else\setkeys{emPs}{#1}\fi
+%  \edef\psTH@A{(#3,#4)}%
+%  \edef\psTH@B{(#5,#6)}%
+%  \ifx\empty #2\relax
+%    \EMedef\THK@tmp{<henkomozikaiten=1,sironuki=false>}%
+%  \else
+%    \EMedef\THK@tmp{<henkomozikaiten=1,sironuki=false,#2>}%
+%  \fi
+%  \expandafter\HenKo\THK@tmp\psTH@A\psTH@B{}%
+%  \Suisen\HenKoP\psTH@A\psTH@B\psTH@H
+%  \Subvec\HenKoP\psTH@H\psTH@HP
+%  \Addvecself\psTH@A\psTH@HP
+%  \Addvecself\psTH@B\psTH@HP
+%  \psTouhenkigou<#1>\psTH@A\psTH@B
+%}%
+%%
+%\def\pstouHenKo{\@ifnextchar<{\@pstouHenKo}{\@pstouHenKo<\empty>}}%
+%\def\@pstouHenKo<#1>{\@ifnextchar[{%
+%  \@@pstouHenKo<#1>}{\@@pstouHenKo<#1>[\empty]}}%
+%\def\@@pstouHenKo<#1>[#2]#3{%
+%  \exfor[;]\tHK@c:=#3\do{%
+%    \EMedef\tHK@tmp{<#1>[#2]\tHK@c}%
+%    \expandafter\psTouhenko\tHK@tmp
+%  }%
+%}%
+%%
+%\let\pstouhenkokigou\pstouHenKo
+%
+\def\pstouhenkokigou{%
+  \@ifnextchar<{\@pstouhenkokigou}{\@pstouhenkokigou<\empty>}%
+}%
+\def\@pstouhenkokigou<#1>#2{{\gsave
+% --------------------------------------------
+  \define@key{emPs}{size}{\edef\Tk@size{##1}}%
+  \define@key{emPs}{kosuu}{\edef\Tk@kosuu{##1}}%
+  \define@key{emPs}{kigou}{\EMedef\Tk@kigou{##1}}%
+  \define@key{emPs}{kankaku}{\EMedef\Tk@kankaku{##1}}%
+  \define@key{emPs}{kigouopt}{\EMedef\Tk@kigou@opt{##1}}%
+  \define@key{emPs}{henkoopt}{\EMedef\Tk@henko@opt{##1}}%
+% --------------------------------------------
+  \def\pstouhenkokigou@sub{\@ifnextchar({\pst@sub@}{\@pst@sub}}%
+  \def\pst@sub@(##1){\@pst@sub{(##1)}}%
+  \def\@pst@sub##1##2\@nil{%
+    \edef\psTH@A{##1}%
+    \edef\psTH@B{##2}%
+    \expandafter\HenKo\THK@tmp{##1}{##2}{}%
+    \Suisen\HenKoP\psTH@A\psTH@B\psTH@H
+    \Subvec\HenKoP\psTH@H\psTH@HP
+    \Addvecself\psTH@A\psTH@HP
+    \Addvecself\psTH@B\psTH@HP
+    \@@@psTouhenkigou\psTH@A\psTH@B
+  }%
+% --------------------------------------------
+  \edef\Tk@kosuu{1}%
+  \edef\Tk@kankaku{2pt}%
+%  \edef\Tk@size{3pt}%
+  \def\put@pos{.5}%
+  \def\Tk@kigou{\pstatebou}%
+  \edef\Tk@kigou@opt{\empty}%
+  \edef\Tk@henko@opt{\empty}%
+  \ifx\empty #1\else\setkeys{emPs}{#1}\fi
+  \ifx\empty\Tk@henko@opt\relax
+    \EMedef\THK@tmp{<henkomozikaiten=1,sironuki=false>}%
+  \else
+    \EMedef\THK@tmp{<henkomozikaiten=1,sironuki=false,\Tk@henko@opt>}%
+  \fi
+  \exfor[;]\tHK@c:=#2\do{%
+    \expandafter\pstouhenkokigou@sub\tHK@c\@nil
+  }%
+\grestore}}%
+%
+\def\iiipstouHenKo{\@ifnextchar<{\@iiipstouHenKo}{\@iiipstouHenKo<\empty>}}%
+%\def\@iiipstouHenKo<#1>{\@ifnextchar[{%
+%  \@@iiipstouHenKo<#1>}{\@@iiipstouHenKo<#1>[\empty]}}%
+%\def\@@iiipstouHenKo<#1>[#2]#3{%
+%  \exfor[;]\tHK@c:=#3\do{%
+%    \Tenretuiiitoii{\tHK@c}\tHK@c@
+%    \EMedef\tHK@tmp{<#1>[#2]\tHK@c@}%
+%%    \expandafter\psTouhenko\tHK@tmp
+%    \expandafter\pstouhenkokigou\tHK@tmp
+%  }%
+%}%
+%
+%\def\@iiipstouHenKo<#1>#2{%
+%  \exfor[;]\tHK@c:=#2\do{%
+%    \Tenretuiiitoii{\tHK@c}\tHK@c@
+%    \EMedef\tHK@tmp{<#1>{\tHK@c@}}%
+%    \expandafter\pstouhenkokigou\tHK@tmp
+%  }%
+%}%
+%
+\def\@iiipstouHenKo<#1>#2{%
+  \edef\tHK@P{}%
+  \exfor[;]\tHK@c:=#2\do{%
+    \Tenretuiiitoii{\tHK@c}\tHK@c@
+    \edefappend[;]\tHK@P{\tHK@c@}%
+  }%
+  \EMedef\tHK@tmp{<#1>{\tHK@P}}%
+  \expandafter\pstouhenkokigou\tHK@tmp
+}%
+%
+\let\iiipstouhenkokigou\iiipstouHenKo
+%
+\def\fc@eps@pdf#1#2{%
+% 1: eps ファイルがない
+% 2: pdf ファイルがない
+% 3: pdf ファイルが古い
+  \CalcVal{%
+  my $ret=-1;
+  my $mtimeeps=0;
+  my $mtimepdf=0;
+  my $mtimexbb=0;
+  ($mtimeeps) = (stat("#1.eps"))[9];
+  if ($mtimeeps==""){$ret=1;}
+  else {
+    ($mtimepdf) = (stat("#1.pdf"))[9];
+    ($mtimexbb) = (stat("#1.xbb"))[9];
+    if ($mtimepdf==""){
+      $ret=2;
+    }
+    elsif ($mtimepdf<$mtimeeps) {%
+      $ret=3;
+    }%
+    if ($mtimexbb!="" && $mtimexbb<$mtimeeps) {
+      unlink("#1.xbb");
+    }
+  }
+  printf FHNDL "\EMpercentchar s\string\n", $ret;
+  }#2}%
+%
+% 相似記号
+%
+\def\pssouzi{\mathrel{\hbox{%
+  \begin{pszahyou*}[ul=.9zw,borderwidth=2.5pt,haiti=x](0,1)(-.4,.6)%
+    \setlength\@tempdima{.04zw}%
+    \linethickness{\@tempdima}%
+    \setlinecap{1}%
+    \emRbezier{(.25,.56)}{(0,.3)}{(.2,170);(.1,90)}%
+    \emRbezierto{(0.2,.04)}{*;(.2,180)}%
+    \emRbezierto{(.8,.56)}{*;(.2,180)}%
+    \emRbezierto{(1,.3)}{*;(.1,90)}%
+    \emRbezierto{(.75,.04)}{*;(.2,-10)}%
+  \end{pszahyou*}}}%
+}%
+%\def\pssouzi{%
+%  \mathrel{\hbox{\begin{pszahyou*}[ul=.9zw,borderwidth=2.5pt,haiti=x]%
+%    (0,1)(-.4,.6)
+%    \linethickness{.4pt}
+%    \emRbezier{(.25,.6)}{(.2,0)}{(.5,180);(.5,180)}
+%    \emRbezier{(.2,0)}{(.8,.6)}{(.3,0);(.3,180)}
+%    \emRbezier{(.8,.6)}{(.75,0)}{(.5,0);(.5,0)}
+%  \end{pszahyou*}}}%
+%}%
+%
+%\def\remakeEPS{%
+%  \ifnum\remake@eps>\z@
+%   \immediate\write18{del /Q eps}%
+%    \edef\remake@eps{0}\relax
+% \fi
+%}%
+%\remakeEPS
+%
+%\def\remakeEPS{\relax}%
+%\AtBeginDocument{%
+%\@ifundefined{includegraphics}{\errmessage{emathPs.sty needs graphicx.sty}}{}%
+%}%
+%%\AtBeginDocument{\remakeEPS}%
+%\AtBeginDocument{\let\em@syasen\drawline}%
 \endinput
-
+%
 v 0.05 2003/01/11
         \qbezier ---> \ltxqbezier
         EMpspicture 環境
@@ -2586,3 +2419,182 @@ v 0.91  2005/10/09 pszahyou(*)環境の初期化で \setarrowsize を実行
 v 0.92  2005/10/10 EMpsrectbox環境:[rectboxparindent=..]を有効に
 v 0.93  2005/10/15 Daen* : 境界の色
 v 0.94  2005/11/05 \ArrowLine : iro=.. を有効に
+v 0.95  2005/11/11 \Daen : \EMps@mode=0 の場合について修正
+v 0.96  2005/11/23 \setlinewidth : \DeclareRobustCommand
+v 0.97  2005/12/02 \setdash : \protect 付加した際のバグ修正
+v 0.98  2005/12/04 \emDottedline を使用するため，\picsquare の定義を epic.sty から
+v 0.99  2006/01/20 [oldB]ロードオプション
+v 1.00  2006/01/27 \setdash の定義を emathPh.sty に移管
+v 1.01  2006/02/03 \ougigata* : <border=1>オプションを有効に
+v 1.02  2006/03/30 \EMpsrectbox : [framecolor=..,framelinewidth=..]オプションを有効に
+v 1.03  2006/04/19 \psovalbox : [noudo=..]を有効に
+v 1.04  2006/04/24 \EMpsRectbox : 新設
+v 1.05  2006/07/06 \EMpsrectbox : \frame@color を初期化
+v 1.06  2006/08/26 \yaziri : 始点を(0,0)に変更
+v 1.07  2006/09/13 \setborderwidth
+v 1.08  2006/10/02 \Empsrectbox に <debug,rectboxoct=..,borderwidth=..> オプション
+                   \cur@halflinewidth
+v 1.09  2006/10/03 EMpsrectbox : backgroundcolor=.. にバグ
+                                 bitem, bitempos を有効に
+v 1.10  2006/10/19-28
+                                 下見出しをつけるときの下辺罫線を修正
+                   EMpsitemrectbox環境
+                   EMpsrectbox : [LRonly], [dash=..] オプション
+                   2-nd pass で，\kYaziri が未定義となるバグ修正
+v 1.11 2006/10/31  \Drawline : <yazirusi=.>オプションを有効
+                   \psovalDrawline
+v 1.12 2006/11/28  \Drawline : \Yaziri* を用いる
+                   key : arrowsize={}{}{}%
+                   \Enko<arrowsize=...>
+                   \ArrowLine[b]
+v 1.13 2006/12/04  \setdash, dash=.. : 単位つきも可
+                   \setarrowsize, arrowsize=.. : 単位つきも可
+v 1.14 2006/12/08  \Drawline : <yazirusi=..> の整備（白塗りしないで先端を鋭利に）
+                   Oval=.., oval=.. : 同一
+v 1.15 2006/12/12  \setarrowsize : pszahyou環境の外でも有効
+                   \everypszahyou
+                   linewidth=.. : 単位つきも可
+v 1.16 2006/12/28  \FPround--\EMround
+       2007/01/04  \Enko <ten=..,iro=..>を併用可能
+       2007/01/12  \setarrowsize : \def\as@i ---> \edef\as@i
+v 1.17 2007/01/18  \inputcurrentEPSfile
+v 1.18α1 2007/02/01 \kagetukiKyuu
+v 1.18α2 2007/02/02 \kagetukiKyuu : カラー塗り
+v 1.18α3 2007/02/04 \EMpsovalbox* : noudo=.. オプションを有効に
+                   ロードオプション [remake]
+v 1.19 2007/02/10  \EMworkfilename : 作成する EPSファイルのベース名を 
+　　　　　　　　　　　　　　　　　　　\jobname から指定した名前に変更
+v 1.20 2007/02/12  \Put で，[syaei=..] オプションを付した際，
+　　　　　　　　　　　　　　垂線の足を \syaeiX, \syaeiY に保存
+v 1.21 2007/02/17  \EMpscolor : \def\nuri@iro@ ---> \edef\nuri@iro@
+v 1.22 2007/02/25  \@Enban : [0] の場合，nuriiro=white とする
+v 1.23 2007/03/01  \sentaisyou : \calcval を使用
+v 1.24 2007/03/17  \EMbane : ばね
+v 1.25 2007/03/21  \EPSkaiten : オプションで，拡大・縮小
+v 1.26 2007/04/02  [remake] オプション
+                   \Takakkei : oval=.. と iro=.. の併用
+v 1.27 2007/04/30  \Drawline : <idou=..>オプションで平行移動
+                   \psclip : clip-path の設定
+                   clipTakakkei環境
+v 1.28 2007/05/23  \SiromaruHankei
+                   \zahyouMemori : <iro=..> を有効に
+                   \EMpsKinziC : 指定された点列を通過する近似曲線
+v 1.29 2007/05/27  \EMpsKinziB
+                   \Enko : <arcn> オプション
+v 1.30 2007/05/29  v 1.29 の修正によるバグフィックス (BBS #6097)
+v 1.31 2007/06/07  \psLineto
+                   \Enko : hamidasikaku=.. を有効に (BBS #6129)
+v 1.32 2007/06/09  \Ensyuu : tuukaten=.. を有効に
+                   \newif\ifEMpscontinue\EMpscontinuefalse
+                   EMpscontinue環境
+v 1.33 2007/06/14  EMpscontinue環境調整
+                   \EMpsrectbox : \rectbox@parindent@ rectbox環境に合わせる
+v 1.34 2007/06/21  [remake] の場合，初めと終りで画像サイズを比較
+v 1.35 2007/06/29  \EMpsBezier : typo
+v 1.36 2007/07/02  \iro@ : \psDrawline 内では初期化しない
+                   \Yaziri : \yaziru@@@M を定義し，emathPh.sty との整合を図る
+                   \psovalbox : \nuri@iro の扱い
+v 1.36a 2007/08/20 空白の混入対策 (\EMps@mode=\z@ の場合)
+v 1.37 2007/07/13  \EMpsDrawWave
+       2007/07/17  \EMpsDrawWave*
+       2007/07/19  EMpsrectbox に [wave] オプション
+       2007/07/22  \defineEMpscolor
+                     CMYK の色定義を EMpscolornam.def に分離
+       2007/08/10  cmyk, rgb で，\EM@white を区別
+       2007/08/20  \EMdilutecolor
+       2007/08/30  \psDrawline : \EMps@mode の確認
+v 1.38 2007/10/04  \@Enban : \gsave, \grestore のタイミング修正
+                   \psHasen 
+                   zahyou, pszahyou どちらでも，線の太さを linethickness で
+                   \Yaziri : \EMps@mode=0 のとき，\yaziri@@@M のダミー定義
+                   \EMpsovalbox : 調整
+                   MEpsrectbox環境：半角空白の混入除去
+v 1.39 2007/10/13  linethickness=.. オプションが zahyou環境でも有効となるように (BBS #6576)
+v 1.40 2007/11/08  \xunitlength が未定義の場合への対策
+                   [notPp] ロードオプション
+                   \iiipsHasen(s)
+                   EMpsrectbox : tate オプション，\sikirisen
+                   \psHasen : dash の初期値 = 1mm,1mm
+v 1.41 2007/11/21  EMpsrectbox : ベースライン調整
+                   \sikirisen ----> \rectboxhrule
+                   Empsrectbox環境：先頭行と末尾に \strut
+v 1.42 2007/12/06  上記 \strut 保留
+                   emathPut : 方位指定文字のチェック
+v 1.43 2007/12/15             [c] は，(0,0)[c] の省略形とみなす
+v 1.44 2008/01/04  emathPut : syaei=.. を指定したとき，linewidth=.. が効かなくなっていたバグ修正
+                              (BBS #6925)
+v 1.45 2008/02/16  <syaeiiro=..>: 射影線に色をつける
+v 1.46 2008/03/16  \psovalbox: <border> を有効
+v 1.47 2008/03/24  EMpsrectbox: 先頭に \item@ht 有効とする
+                   pszahyou: includePos=.., includepos=..
+v 1.48 2008/04/27  \psDrawline: <hasenLG=..>オプション
+                   \kagetukiKyuu: 改定
+                   \Fdilutecolor
+v 1.49 2008/05/03  \EMpsRectbox: [XYdilutecolor=..,Ndilutecolor=..,Fdilutecolor=..]
+v 1.50 2008/05/06  EMpsrectbox: framelinewidth と borderwidth との調整
+v 1.51 2008/05/13  EMpsrectbox: dvipdfmx にも対応すべく borderwidth の自動化
+v 1.52 2008/07/05  underfull 対策 (BBS #7352)
+v 1.53 2008/08/26  EMpsrectbox: linewidth も有効に (BBS #7458)
+                                横幅調整（\linewidth 内に納める）
+v 1.54 2008/09/09  EMpsrectbox: width を制限した場合
+v 1.55 2008/09/13  EMpsitemrectbox: framethickness による制御（未完）
+v 1.56 2008/09/23  \zahyouMemori: <linethickness=..>
+v 1.57 2008/10/31  \psZahyou: 座標軸描画タイミング修正
+v 1.58 2008/12/11  zahyou: <frame>オプション
+v 1.59 2008/12/19  \psNEE など
+v 1.60 2008/12/23  \psNagamaru
+v 1.61 2009/01/16  \psSEE など修正
+                   pszahyou(*)環境で作成される epsファイル名を変更
+                      \jobname.e1.eps, \jobname.e2.eps,......
+v 1.62 2009/01/26  \Irositei: [gray]0.9 などを許容
+v 1.63 2009/02/06  \EMps@filename を旧に戻す (BBS #7909)
+v 1.64 2009/02/06  dviout.def が \jobname.e1.eps などを 
+　　　　　　　　　eps-file と認識しないことに対応
+v 1.65 2009/02/18  \@@@Enko: hasenLG=.. オプション
+v 1.66 2009/02/25  \@@@zahyouMemori: <memorinagasa=..>オプションを有効に
+v 1.68 2009/06/18  \empsdottedline
+                   pt 単位の違いを吸収 ---> cPut: お役ご免
+v 1.69 2009/06/24  \pscirc, \pssquare, \pstriangle, \pstimes, \psotimes
+                   \@@Ensyuu: iro=.. 指定が無効となっていた。
+v 1.71 2009/12/02  \emathPut: [syaei]オプション使用時に [dash=..] が無効に
+                   (BBS #8461)
+v 1.72 2009/12/09  \psd@t: xscale, yscale に対応 (BBS #8468)
+v 1.73 2010/03/05  \yumigata: <border=1>オプションを有効に
+v 1.74 2010/03/06  上の修正のバグフィックス
+v 1.75 2010/03/07  [remake] をデフォルトとする
+v 1.76 2010/03/16  \zahyouMemori: 整備
+v 1.77 2010/03/24  pszahyou環境に対する memorinagasa=.. オプション (BBS #8730)
+v 1.78 2010/04/24  \EMmixedcolor
+v 1.79 2010/04/28  ロードオプション pdf (BBS #8805)
+v 1.80 2010/04/30  [final]-->[remakefalse] (BBS #8831)
+v 1.81 2010/05/02  ロードオプション PDF, pszahyou(*)環境に対して [pdf]
+v 1.82 2010/05/06  pszahyou(*)環境に対して [epspdf]
+                   \clipDaen
+v 1.83 2010/05/08  clipLline 環境
+v 1.84 2010/05/11  \Enko: hazimeT, owariT オプション (BBS #8846)
+v 1.85 2010/05/15  ロードオプション [pdf] or [PDF] を付したとき，
+                   graphicx.sty に [dvipdfmx] をつけてあるかどうかをチェック
+v 1.86 2010/05/16  pszahyou環境の定義部を pszahyou.sty として独立
+v 1.87 2010/07/26  psZahyou環境も pszahyou.sty に移管
+                   color 関連を EMcolor.sty として独立
+v 1.88 2010/12/09  syaeisensyu について，zahyou環境との混用に配慮
+v 1.90 2011/03/05  \kagetukiDaen
+v 1.91 2011/03/10  \kagetukiDaen: 周の描画法
+v 1.92 2011/05/05  \@psovalPolygon
+v 1.93 2011/07/16  \iiiempsDottedline (BBS #10057)
+v 1.94 2011/09/04  \psovalDrawline: コーナー修正
+v 1.95 2012/01/07  \psDrawline: <vmark=..> オプション
+v 1.96 2012/09/29  \empsDottedlines
+v 1.97 2012/10/29  \xytops: Dimension too large に対応 (BBS #11170)
+v 1.98 2012/11/09  \psDrawline: 初期化タイミング (BBS #11226)
+v 1.99 2012/12/15  \pshasen: １点に退化する場合
+v 2.00 2013/01/26  \psstar
+v 2.01 2013/02/07  \EMpict2e を読み込んでいる場合，emathPp も読み込む
+v 2.02 2013/02/18  \pstouhenkigou
+                   \psnamikasen: 修正
+v 2.03 2013/04/06  \iiiEnko: <yuuko> オプション
+v 2.04 2013/08/30  \EMpsovalbox: *が付かない場合，塗らない
+v 2.05 2013/10/29  \pstouhenkokigou
+v 2.06 2014/01/13  <paintoption> を emPs にも追加 (BBS #12149)
+v 2.07 2014/07/12  \pssouzi (BBS #12379)
+v 2.08 2015/01/06  \pstriangle: デフォルトを実線描画とする (BBS #12586)

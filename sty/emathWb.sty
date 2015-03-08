@@ -1,7 +1,7 @@
 % emathWb.sty ver.0.01 αテスト版 2000/09/01
 
 \NeedsTeXFormat{LaTeX2e}%
-\ProvidesPackage{emathWb}[2000/09/01 v0.01]%
+\ProvidesPackage{emathWb}[2013/05/18 v0.03]%
 \RequirePackage{emathB}
 
 %(1) 有理数係数整式の乗法
@@ -41,9 +41,10 @@
 
 \newif\ifprFdivcalc
 \newif\ifFzyo@not@align\Fzyo@not@alignfalse
-
-\newwrite\zyo@hndl
-
+%
+%\@ifundefined{zyo@hndl}{\newwrite\zyo@hndl}{}%
+\@ifundefined{em@whndl}{\newwrite\em@whndl}{}%
+%
 \def\@mozi{x}%
 
 \def\dphairetu#1#2{%
@@ -64,8 +65,8 @@
 \expandafter\edef\csname #1\romannumeral\@tempcnta\endcsname{\@c}%
 \advance\@tempcnta\@ne}}%
 
-\def\@Fseikei{\@ifnextchar[{\@@Fseikei}{\@@Fseikei[0]}}%
-\def\@@Fseikei[#1]#2#3{%
+\def\emWb@Fseikei{\@ifnextchar[{\@emWb@Fseikei}{\@emWb@Fseikei[0]}}%
+\def\@emWb@Fseikei[#1]#2#3{%
     \def\@Fnecheck{%
     \ifnum\zyo@amari=\zyo@ca\let\next\relax
     \else\edef\@n{#2\romannumeral\zyo@amari}%
@@ -139,7 +140,7 @@
 \expandafter\xdef\csname zyo@a\romannumeral\@tmpb\endcsname{\@Fdivcalc@tmp}%
 \xIncr\@tmpb}%
 \ifprFdivcalc
-      \@hidari\@Fseikei[\@kaisuu]{zyo@c}{\zyo@cb}\\[.5ex]
+      \@hidari\emWb@Fseikei[\@kaisuu]{zyo@c}{\zyo@cb}\\[.5ex]
       \cline{\hidari@p-\migi@p}
       \edef\emW@tempb{\@kaisuu}\Incr[2]\emW@tempb
       \edef\@n{zyo@a\romannumeral\emW@tempb}%
@@ -149,7 +150,7 @@
           \xIncr[-2]\zyo@beki
           \xIncr\@kaisuu
           \@hidari
-          \@Fseikei[\@kaisuu]{zyo@a}{\zyo@cb}\\
+          \emWb@Fseikei[\@kaisuu]{zyo@a}{\zyo@cb}\\
 \else
       \Incr\@kaisuu
 \fi}%
@@ -164,14 +165,14 @@
     \@Fkeisuu{zyo@b}{#4}\edef\zyo@cb{\the\@tempcnta}\Decr\zyo@cb
       \edef\zyo@beki{\zyo@ca}\xDecr\zyo@beki
       {\Fzyo@not@aligntrue
-      \left(\@Fseikei{zyo@a}{\zyo@ca}\right)}%
+      \left(\emWb@Fseikei{zyo@a}{\zyo@ca}\right)}%
       \edef\zyo@beki{\zyo@cb}\xDecr\zyo@beki
       {\Fzyo@not@aligntrue
-      \left(\@Fseikei{zyo@b}{\zyo@cb}\right)}%
-      \immediate\openout\zyo@hndl=zyo.tmp%
-      \immediate\write\zyo@hndl{%
+      \left(\emWb@Fseikei{zyo@b}{\zyo@cb}\right)}%
+      \immediate\openout\em@whndl=zyo.tmp%
+      \immediate\write\em@whndl{%
         $\string\kaitou {\string\fzyouhou [#1]{#3}{#4}}$ }%
-      \immediate\closeout\zyo@hndl%
+      \immediate\closeout\em@whndl%
       \input{zyo.tmp}
   \else\@@fzyouhou[#1]{#3}{#4}
   \fi}%
@@ -189,9 +190,9 @@
 \leavevmode
 \begin{array}[t]{l*{\zyo@cq}{@{\,}r}}
 \edef\zyo@beki{\zyo@ca}\xDecr\zyo@beki
-&\@Fseikei{zyo@a}{\zyo@ca}\\
+&\emWb@Fseikei{zyo@a}{\zyo@ca}\\
 \edef\zyo@beki{\zyo@cb}\xDecr\zyo@beki
-\times\Big)&\@Fseikei{zyo@b}{\zyo@cb}\\[.5ex]\hline
+\times\Big)&\emWb@Fseikei{zyo@b}{\zyo@cb}\\[.5ex]\hline
 \Cfor{\xdef\emW@temp{0}}{\emW@temp<\zyo@cb}{}\do{%
   \xIncr\emW@temp
   \edef\zyo@beki{\zyo@ca}\IAdd\zyo@beki\zyo@cb\zyo@beki
@@ -218,14 +219,14 @@
       \fzyouhou@tmp}%
   }
   \Fzyo@tab\emW@temp
-  \@hidari\@Fseikei{zyo@c}{\zyo@ca}%
+  \@hidari\emWb@Fseikei{zyo@c}{\zyo@ca}%
   \\[.5ex]
 }%
   \ifnum\emW@temp=\zyo@cb\hline\fi
 }
 \xdef\zyo@ca{\zyo@cq}
 \edef\zyo@beki{\zyo@cq}\xDecr\zyo@beki
-&\@Fseikei{zyo@q}{\zyo@cq}
+&\emWb@Fseikei{zyo@q}{\zyo@cq}
 \end{array}}
 }
 
@@ -238,14 +239,14 @@
     \@Fkeisuu{zyo@b}{#4}\edef\zyo@cb{\the\@tempcnta}\Decr\zyo@cb
       \edef\zyo@beki{\zyo@ca}\xDecr\zyo@beki
       {\Fzyo@not@aligntrue
-      \left(\@Fseikei{zyo@a}{\zyo@ca}\right)\div}%
+      \left(\emWb@Fseikei{zyo@a}{\zyo@ca}\right)\div}%
       \edef\zyo@beki{\zyo@cb}\xDecr\zyo@beki
       {\Fzyo@not@aligntrue
-      \left(\@Fseikei{zyo@b}{\zyo@cb}\right)}%
-      \immediate\openout\zyo@hndl=zyo.tmp%
-      \immediate\write\zyo@hndl{%
+      \left(\emWb@Fseikei{zyo@b}{\zyo@cb}\right)}%
+      \immediate\openout\em@whndl=zyo.tmp%
+      \immediate\write\em@whndl{%
         $\string\kaitou {\string\fzyohou [#1]{#3}{#4}}$ }%
-      \immediate\closeout\zyo@hndl%
+      \immediate\closeout\em@whndl%
       \input{zyo.tmp}
   \else\@@fzyohou[#1]{#3}{#4}
   \fi}%
@@ -260,17 +261,17 @@
 \@tempcnta\z@\def\@hidari{}\@whilenum\@tempcnta<\zyo@cb
 \do{\advance\@tempcnta\@ne\edef\@hidari{\@hidari &}}
 \edef\@hidari{\@hidari &}
-{\def\arraystretch{1.25}%
+{%\def\arraystretch{1.25}%
 \leavevmode
-\begin{array}[t]{*{\zyo@cb}{@{\,}r}@{\,}l*{\zyo@ca}{@{\,}r}}%
+\begin{array}[t]{*{\zyo@cb}{@{\,}>{\bsityuu[2pt][1pt]}r}@{\,}l*{\zyo@ca}{@{\,}r}}%
 \Cfor{\xdef\emW@temp{0}}{\emW@temp<\zyo@cq}{\xIncr\emW@temp}\do{\@Fdivcalc}
 \edef\zyo@beki{\zyo@cq}\xDecr\zyo@beki
-\@hidari\@Fseikei{zyo@q}{\zyo@cq}\\[.5ex]\cline{\hidari@p-\migi@p}%
+\@hidari\emWb@Fseikei{zyo@q}{\zyo@cq}\\[.5ex]\cline{\hidari@p-\migi@p}%
 \edef\zyo@beki{\zyo@cb}\xDecr\zyo@beki
-\@Fseikei{zyo@b}{\zyo@cb} & \Bigl) & 
+\emWb@Fseikei{zyo@b}{\zyo@cb} & \Bigl) & 
 \edef\zyo@beki{\zyo@ca}\xDecr\zyo@beki
 \@Fkeisuu{zyo@a}{#2}
-\@Fseikei{zyo@a}{\zyo@ca}\\
+\emWb@Fseikei{zyo@a}{\zyo@ca}\\
 \xIncr\hidari@p
 \global\prFdivcalctrue
 \edef\@kaisuu{0}%
@@ -291,14 +292,14 @@
     \@Fkeisuu{zyo@b}{#4}\edef\zyo@cb{\the\@tempcnta}\Decr\zyo@cb
       \edef\zyo@beki{\zyo@ca}\xDecr\zyo@beki
       {\Fzyo@not@aligntrue
-      \left(\@Fseikei{zyo@a}{\zyo@ca}\right)+}%
+      \left(\emWb@Fseikei{zyo@a}{\zyo@ca}\right)+}%
       \edef\zyo@beki{\zyo@cb}\xDecr\zyo@beki
       {\Fzyo@not@aligntrue
-      \left(\@Fseikei{zyo@b}{\zyo@cb}\right)}%
-      \immediate\openout\zyo@hndl=zyo.tmp%
-      \immediate\write\zyo@hndl{%
+      \left(\emWb@Fseikei{zyo@b}{\zyo@cb}\right)}%
+      \immediate\openout\em@whndl=zyo.tmp%
+      \immediate\write\em@whndl{%
         $\string\kaitou {\string\fkahou [#1]{#3}{#4}}$ }%
-      \immediate\closeout\zyo@hndl%
+      \immediate\closeout\em@whndl%
       \input{zyo.tmp}
   \else\@@fkahou[#1]{#3}{#4}
   \fi}
@@ -324,15 +325,15 @@
   \leavevmode
   \begin{array}[t]{l*{\zyo@cq}{@{\,}r}}
     \xdef\zyo@beki{\zyo@ca}\xDecr\zyo@beki
-    &\@Fseikei{zyo@a}{\zyo@ca}\\
+    &\emWb@Fseikei{zyo@a}{\zyo@ca}\\
     \@tempcntb\zyo@ca\advance\@tempcntb-\zyo@cb
     \@tempcnta\z@\def\@hidari{}
         \@whilenum\@tempcnta<\@tempcntb
         \do{\advance\@tempcnta\@ne\edef\@hidari{\@hidari &}}
     \edef\zyo@beki{\zyo@cb}\xDecr\zyo@beki
-    +\Big)\@hidari&\@Fseikei{zyo@b}{\zyo@cb}\\[.5ex]\hline
+    +\Big)\@hidari&\emWb@Fseikei{zyo@b}{\zyo@cb}\\[.5ex]\hline
     \edef\zyo@beki{\zyo@cq}\xDecr\zyo@beki
-    &\@Fseikei{zyo@q}{\zyo@cq}
+    &\emWb@Fseikei{zyo@q}{\zyo@cq}
   \end{array}}%
 \else
   \edef\zyo@cq{\zyo@cb}%
@@ -357,13 +358,13 @@
         \@whilenum\@tempcnta<\@tempcntb
         \do{\advance\@tempcnta\@ne\edef\@hidari{\@hidari &}}
     \edef\zyo@beki{\zyo@ca}\xDecr\zyo@beki
-    \@hidari&\@Fseikei{zyo@a}{\zyo@ca}\\
+    \@hidari&\emWb@Fseikei{zyo@a}{\zyo@ca}\\
     \xdef\zyo@ca{\zyo@cb}%
     \edef\zyo@beki{\zyo@cb}\xDecr\zyo@beki
-    +\Big)&\@Fseikei{zyo@b}{\zyo@cb}\\\hline
+    +\Big)&\emWb@Fseikei{zyo@b}{\zyo@cb}\\\hline
     \edef\zyo@ca{\zyo@cb}%
     \edef\zyo@beki{\zyo@cq}\xDecr\zyo@beki
-    &\@Fseikei{zyo@q}{\zyo@cq}
+    &\emWb@Fseikei{zyo@q}{\zyo@cq}
   \end{array}}%
 \fi}
 
@@ -377,14 +378,14 @@
     \@Fkeisuu{zyo@b}{#4}\edef\zyo@cb{\the\@tempcnta}\Decr\zyo@cb
       \edef\zyo@beki{\zyo@ca}\xDecr\zyo@beki
       {\Fzyo@not@aligntrue
-      \left(\@Fseikei{zyo@a}{\zyo@ca}\right)-}%
+      \left(\emWb@Fseikei{zyo@a}{\zyo@ca}\right)-}%
       \edef\zyo@beki{\zyo@cb}\xDecr\zyo@beki
       {\Fzyo@not@aligntrue
-      \left(\@Fseikei{zyo@b}{\zyo@cb}\right)}%
-      \immediate\openout\zyo@hndl=zyo.tmp%
-      \immediate\write\zyo@hndl{%
+      \left(\emWb@Fseikei{zyo@b}{\zyo@cb}\right)}%
+      \immediate\openout\em@whndl=zyo.tmp%
+      \immediate\write\em@whndl{%
         $\string\kaitou {\string\fgenpou [#1]{#3}{#4}}$ }%
-      \immediate\closeout\zyo@hndl%
+      \immediate\closeout\em@whndl%
       \input{zyo.tmp}
   \else\@@fgenpou[#1]{#3}{#4}
   \fi}
@@ -409,15 +410,15 @@
   \leavevmode
   \begin{array}[t]{l*{\zyo@cq}{@{\,}r}}
     \xdef\zyo@beki{\zyo@ca}\xDecr\zyo@beki
-    &\@Fseikei{zyo@a}{\zyo@ca}\\
+    &\emWb@Fseikei{zyo@a}{\zyo@ca}\\
     \@tempcntb\zyo@ca\advance\@tempcntb-\zyo@cb
     \@tempcnta\z@\def\@hidari{}
         \@whilenum\@tempcnta<\@tempcntb
         \do{\advance\@tempcnta\@ne\edef\@hidari{\@hidari &}}
     \xdef\zyo@beki{\zyo@cb}\xDecr\zyo@beki
-    -\Big)\@hidari&\@Fseikei{zyo@b}{\zyo@cb}\\[.5ex]\hline
+    -\Big)\@hidari&\emWb@Fseikei{zyo@b}{\zyo@cb}\\[.5ex]\hline
     \edef\zyo@beki{\zyo@cq}\xDecr\zyo@beki
-    &\@Fseikei{zyo@q}{\zyo@cq}
+    &\emWb@Fseikei{zyo@q}{\zyo@cq}
   \end{array}}%
 \else
   \edef\zyo@cq{\zyo@cb}%
@@ -440,24 +441,134 @@
         \@whilenum\@tempcnta<\@tempcntb
         \do{\advance\@tempcnta\@ne\edef\@hidari{\@hidari &}}
     \edef\zyo@beki{\zyo@ca}\xDecr\zyo@beki
-    \@hidari&\@Fseikei{zyo@a}{\zyo@ca}\\
+    \@hidari&\emWb@Fseikei{zyo@a}{\zyo@ca}\\
     \xdef\zyo@ca{\zyo@cb}
     \edef\zyo@beki{\zyo@cb}\xDecr\zyo@beki
-    -\Big)&\@Fseikei{zyo@b}{\zyo@cb}\\[.5ex]\hline
+    -\Big)&\emWb@Fseikei{zyo@b}{\zyo@cb}\\[.5ex]\hline
     \edef\zyo@ca{\zyo@cb}%
     \edef\zyo@beki{\zyo@cq}\xDecr\zyo@beki
-    &\@Fseikei{zyo@q}{\zyo@cq}
+    &\emWb@Fseikei{zyo@q}{\zyo@cq}
   \end{array}}%
 \fi}
-
+%
+% 二次多項式にによる組立除法（分数係数）
+%
 \def\Fzyo@tab#1{{%
   \@tempcnta#1\relax\gdef\@hidari{}%
   \@whilenum\@tempcnta>\z@\do{\xdef\@hidari{\@hidari &}%
   \advance\@tempcnta\m@ne}%
 }}%
+%
+%\def\fiisyndiv{\@ifnextchar<{\@fiisyndiv}{\@fiisyndiv<\empty>}}%
+\DeclareRobustCommand\fiisyndiv{%
+  \@ifnextchar<{\@fiisyndiv}{\@fiisyndiv<\empty>}}%
+\def\@fiisyndiv<#1>#2#3{{%
+% -----------------------------------------------
+\def\showP##1{%
+  \prF{##1}%
+}%
+% -----------------------------------------------
+  \Fseikeitrue
+  \ifx\empty #1\else\setkeys{takousiki}{#1}\fi
+  \csvhairetu*{#2}{P@a}%
+  \csvhairetu*{#3}{P@b}%
+  \ifnum\P@bN=3\relax\else\errmessage{not 2ji}\fi
+  \edef\bunbo@{\hairetu{P@b}{1}}%
+  \edef\tmp@@{\hairetu{P@b}{2}}\fPMul\tmp@@{-1/\bunbo@}\l@val
+  \edef\tmp@@{\hairetu{P@b}{3}}\fPMul\tmp@@{-1/\bunbo@}\m@val
+% 1
+  \edef\a@val{\hairetu{P@a}{1}}%
+  \edef\q@val{\a@val}%
+  \edef\@buf{&\a@val}%
+  \edef\m@buf{\noexpand\multicolumn{1}{r|}{\noexpand\showP{\m@val}}&}%
+  \edef\l@buf{\noexpand\multicolumn{1}{r|}{\noexpand\showP{\l@val}}&}%
+  \ifthenelse{\equal{\bunbo@}{1}}{%
+    \edef\q@buf{&\q@val}%
+  }{%
+    \fPMul\q@val{1/\bunbo@}\qq@val
+    \edef\q@buf{\bunbo@\hbox to \z@{\hskip\arraycolsep $\Bigr)$\hss}%
+        \hskip\tw@\p@\null&\noexpand\showP{\q@val}}%
+    \edef\qq@buf{&\noexpand\bsityuu\noexpand\showP{\qq@val}}%
+  }%
+% 2
+  \edef\a@val{\hairetu{P@a}{2}}%
+  \edef\old@q@val{\q@val}%
+  \fPMul\old@q@val\l@val\ql@val
+    \fPAdd\ql@val\a@val\q@val
+  \@orderedfP\q@val
+  \EMedefappend\@buf{&\a@val}%
+  \EMedefappend\m@buf{&}%
+  \EMedefappend\l@buf{&\noexpand\showP{\ql@val}}%
+  \EMedefappend\q@buf{&\noexpand\showP{\q@val}}%
+  \ifthenelse{\equal{\bunbo@}{1}}{}{%
+    \fPMul\q@val{1/\bunbo@}\qq@val
+    \EMedefappend\qq@buf{&\noexpand\showP{\qq@val}}%
+  }%
+% 3 --- P@aN-1
+  \ISub\P@aN{1}\P@aNmi
+  \Ifor\syndiv@i{3}{\P@aN}\Do{%
+    \edef\a@val{\hairetu{P@a}{\syndiv@i}}%
+    \edef\oldold@q@val{\old@q@val}%
+    \edef\old@q@val{\q@val}%
+    \fPMul\oldold@q@val\m@val\qm@val
+    \fPMul\old@q@val\l@val\ql@val
+      \fPAdd\qm@val\a@val\q@val
+      \fPAdd\q@val\ql@val\q@val
+      \@orderedfP\q@val
+    \EMedefappend\@buf{&\a@val}%
+    \EMedefappend\m@buf{&\noexpand\showP{\qm@val}}%
+    \EMedefappend\l@buf{&\noexpand\showP{\ql@val}}%
+    \ifnum\syndiv@i=\P@aNmi
+      \EMedefappend\q@buf{&\noexpand\multicolumn{1}{|\s@r@e}{\noexpand\showP{\q@val}}}%
+    \else
+      \EMedefappend\q@buf{&\noexpand\showP{\q@val}}%
+      \ifthenelse{\equal{\bunbo@}{1}}{}{%
+        \fPMul\q@val{1/\bunbo@}\qq@val
+        \EMedefappend\qq@buf{&\noexpand\showP{\qq@val}}%
+      }%
+    \fi
+  }%
+% P@aN
+  \edef\a@val{\hairetu{P@a}{\P@aN}}%
+  \edef\oldold@q@val{\old@q@val}%
+  \fPMul\old@q@val\m@val\qm@val
+    \fPAdd\qm@val\a@val\q@val
+    \@orderedfP\q@val
+  \EMedefappend\@buf{&\a@val}%
+  \EMedefappend\m@buf{&\noexpand\showP{\qm@val}\bsityuu}%
+  \EMedefappend\l@buf{&\bsityuu}%
+  \EMedefappend\q@buf{&\noexpand\showP{\q@val}\bsityuu}%
+%
+  \ifthenelse{\equal{\bunbo@}{1}}{%
+  \ensuremath{%
+    \begin{EMarray}{r*{\P@aN}{\s@r@e}}%
+      \@buf \\
+      \m@buf \\
+      \l@buf \\\hline
+      \q@buf 
+    \end{EMarray}%
+  }%
+  }{%
+  \ensuremath{%
+    \begin{EMarray}{r*{\P@aN}{\s@r@e}}%
+      \@buf \\
+      \m@buf \\
+      \l@buf \\\hline
+      \q@buf \\\cline{2-\P@aNmi}
+      \qq@buf
+    \end{EMarray}%
+  }%
+  }%
+}}%
+%
+%
 \endinput
 
 % v0.00   2000/08/27 
 %   αテスト版
 % v0.01   2000/09/01
 %   emathW.sty (v0.11 以降) との併用を考慮
+% v 0.02  2012/06/27
+%   \fzyohou: \bsityuu をたてる
+% v 0.03  2013/05/18
+    \@Fseikei --> emWb@Fseikei emathB と衝突

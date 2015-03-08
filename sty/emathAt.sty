@@ -1,13 +1,15 @@
 % emathAt.sty by tDB (CQB00260@nifty.ne.jp)
-
+%
   \NeedsTeXFormat{LaTeX2e}
-  \ProvidesPackage{emathAt}[2002/08/09 v 0.03β]%
+  \ProvidesPackage{emathAt}[2010/02/11 v 0.04beta]%
   \RequirePackage{verbatim}%
-  \RequirePackage{emath}%
-
+%  \RequirePackage{emath}%
+\@ifpackageloaded{emath}{}{\RequirePackage{emath}}%
+%
 \newif\iftyuukeisen\tyuukeisentrue
 \newif\ifhidarityuukeisen\hidarityuukeisenfalse
-\newwrite\tyuukai@out%
+%\newwrite\tyuukai@out%
+\@ifundefined{em@whndl}{\newwrite\em@whndl}{}%
 \newdimen\tyuuhaba
 \newdimen\hidari@hskip
 \tyuuhaba=0.3\textwidth
@@ -72,18 +74,20 @@
   }%
   \@tempdima\tyuuhaba\relax
   \advance\@tempdima\marginparsep
+%  \EMchangeLRskip(0pt)(\@tempdima)%\noindent
   \jquotation(0pt)(\@tempdima)%\noindent
 %   \edef\noindentflg{0}%
-    \edef\@cureqn{\theequation}%
-    \bgroup\immediate\openout\tyuukai@out=tyuukai.tmp%
+%    \edef\@cureqn{\theequation}%
+    \edef\@cureqn{\arabic{equation}}%
+    \bgroup\immediate\openout\em@whndl=tyuukai.tmp%
     \@bsphack\let\do\@makeother\dospecials
     \catcode`\^^M\active
     \def\verbatim@processline{%
-        \immediate\write\tyuukai@out{\the\verbatim@line}}%
+        \immediate\write\em@whndl{\the\verbatim@line}}%
     \verbatim@start
 }
 \def\endtyuukai{%
-  \@esphack\immediate\closeout\tyuukai@out\egroup
+  \@esphack\immediate\closeout\em@whndl\egroup
   \iftyuukeisen
     {\def\@tyuu<##1>##2{}%
      \def\hidarityuu##1{}%
@@ -112,10 +116,13 @@
   \fi
   \setcounter{equation}{\@cureqn}%
   \input{tyuukai.tmp}%
+%  \endEMchangeLRskip
   \endjquotation
 %  \ifthenelse{\equal\aftertyuukai\empty}{}{%
 %  \mbox{}\vspace{\aftertyuukai}\par}%
   }
+\let\Attyuukai\tyuukai
+\let\endAttyuukai\endtyuukai
 \endinput
 ver 0.00 2002/03/02
 ver 0.01 2002/03/03
@@ -126,3 +133,5 @@ ver 0.02 2002/03/06
       jquote ---> jquotation
 ver 0.03 2002/08/09
       Enumerate* 環境で番号が飛ぶバグを修正
+ver 0.04 2010/02/11
+      equation の保存法 (BBS #8599)

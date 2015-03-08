@@ -1,0 +1,494 @@
+%%% emalign.sty by tDB(emath@nifty.com)
+% 
+\ProvidesPackage{emalign}[2013/04/18 v0.02alpha]%
+%
+% emalign
+%
+%\def\emalign{%
+\def\emalign{\@ifnextchar<{\@emalign}{\@@emalign\relax}}%
+\def\@emalign<#1>{%
+    \ifx\empty #1\else\setkeys{emequation}{#1}\fi
+    \@@emalign}%
+\def\@@emalign{%
+    \bgroup\immediate\openout\em@whndl=\EM@workfiledir emalign.tmp%
+    \@bsphack\let\do\@makeother\dospecials
+    \catcode`\^^M\active
+    \def\verbatim@processline{%
+        \immediate\write\em@whndl{\the\verbatim@line}}%
+    \verbatim@start}%
+\def\endemalign{\@esphack%
+  \immediate\closeout\em@whndl\egroup
+%%%%%%%%%%%%%%%%%%%
+  \def\emalign@sub{%
+    \read\pl@in to \read@ln
+    \ifeof\pl@in
+    \else
+%\typeout{read@ln=\meaning\read@ln}%
+      \ifthenelse{\equal\read@ln{\par }}{}{%
+%\typeout{not par}%
+        \ifnum\ln@num>\z@\EMedef\old@inp@b{\inp@b}\fi
+%        \trim\read@ln\to\inp@ln
+        \let\inp@ln\read@ln
+        \ifx\empty\inp@ln\else
+          \topchar\inp@ln\inp@h
+          \ifthenelse{%
+              \equal{\inp@h}{\intertext}\or\equal{\inp@h}{\EMintertext}}{%
+% \intertext
+            \ifnum\ln@num>\z@
+              \EMedefappend\emg@buf{\\\old@inp@b}%
+            \fi
+            \EMedefappend\emg@buf{\inp@ln}%
+            \edef\ln@num{0}%
+          }{%
+% 
+%\typeout{general case}%
+            \Cfor{\emstrstr{\inp@ln}{\\}}{\equal\retval{0}}{}\do{%
+              \ifeof\pl@in\edef\retval{1}%
+              \else
+%\typeout{goto read}
+                \read\pl@in to \read@ln
+%\typeout{nocr:next readln:\meaning\read@ln.}%
+                \emstrstr\read@ln\par
+                \ifnum\retval=\z@
+                  \EMedefappend\inp@ln{\read@ln}%
+                  \emstrstr{\read@ln}{\\}%
+                \fi
+              \fi
+            }%
+%\typeout{1line=\inp@ln}%
+              \Strsep{\inp@ln}{\\}\inp@a\inp@b
+%\typeout{a=\meaning\inp@a, b=\meaning\inp@b}%\xxx%
+              \Strsep\inp@a{&}\inp@aL\inp@aR
+\@ifundefined{hakobanpush}{}{\hakobanpush}%
+              \setbox0=\hbox{$\displaystyle \inp@aL$}%
+\@ifundefined{hakobanpush}{}{\hakobanpop}%
+              \ifdim\wd0>\emg@Lwd \edef\emg@Lwd{\the\wd0}\fi
+              \ifnum\ln@num>\z@
+                \EMedefappend\emg@buf{\\\old@inp@b}%
+              \fi
+              \Incr\ln@num
+              \emstrstr{\inp@a}{notag}%
+              \ifnum\retval>\z@
+                \EMedefappend\emg@buf{\emstrstr@c\noexpand\notag}%
+                \Strsep{\emstrstr@c}{&}\em@a\em@b
+\@ifundefined{hakobanpush}{}{\hakobanpush}%
+                \setbox0=\hbox{${}\displaystyle\em@b$}%
+\@ifundefined{hakobanpush}{}{\hakobanpop}%
+                \ifdim\wd0>\emg@Rwd \edef\emg@Rwd{\the\wd0}\fi
+              \else
+                \emstrstr{\inp@a}{tag}%
+%\typeout{c=\meaning\emstrstr@c, d=\meaning\emstrstr@d}%
+                \ifnum\retval>\z@
+                  \Strsep\emstrstr@c{&}\inp@aL\inp@aR
+                  \EMedefappend\emg@buf{%
+                    \inp@aL &\var@math{\inp@aR}\noexpand\tag\emstrstr@d}%
+%\typeout{\meaning\emg@buf}%
+\@ifundefined{hakobanpush}{}{\hakobanpush}%
+                  \setbox0=\hbox{${}\displaystyle\inp@aR$}%
+\@ifundefined{hakobanpush}{}{\hakobanpop}%
+                  \ifdim\wd0>\emg@Rwd \edef\emg@Rwd{\the\wd0}\fi
+                \else
+                  \EMedefappend\emg@buf{\inp@aL &\var@math{\inp@aR}}%
+                  \Strsep{\inp@aR}{\EMlabel}\em@a\em@b
+\@ifundefined{hakobanpush}{}{\hakobanpush}%
+                  \setbox0=\hbox{${}\displaystyle\em@a$}%
+\@ifundefined{hakobanpush}{}{\hakobanpop}%
+                  \ifdim\wd0>\emg@Rwd \edef\emg@Rwd{\the\wd0}\fi
+                \fi
+              \fi
+          }%
+        \fi
+        \ifeof\pl@in
+        \else
+          \emalign@sub
+        \fi
+      }%
+    \fi
+  }%
+%%%%%%%%%%%%%%%%%%%
+\ifdim\emeq@rindent=\z@\else
+  \ifhmode\vspace{-1.6\baselineskip}\par\fi
+\fi
+  \let\emg@cr\\
+  \let\\=\relax
+  \let\emg@notag\notag
+  \let\emg@tag\tag
+  \def\notag{notag}%
+  \def\tag{tag}%
+  \let\var@math=\relax
+  \let\emg@intertext\intertext
+  \let\emg@EMintertext\EMintertext
+  \let\intertext\relax
+  \let\EMintertext\relax
+  \let\emg@EMlabel\EMlabel
+  \let\EMlabel\relax
+%    \def\EMlabel##1{\relax}%
+  \let\emg@par\par
+  \let\par\relax
+  \edef\ln@num{0}%
+  \edef\emg@buf{}%
+  \edef\emg@Lwd{0pt}%
+  \edef\emg@Rwd{0pt}%
+  \openin\pl@in=\EM@workfiledir emalign.tmp%
+  \emalign@sub
+  \immediate\closein\pl@in
+  \let\\=\emg@cr
+  \let\notag\emg@notag
+  \let\tag\emg@tag
+  \let\intertext\emg@intertext
+  \let\EMintertext\emg@EMintertext
+  \let\par\emg@par
+  \def\var@math##1{{%
+    \let\notag\relax
+    \def\EMlabel####1{\relax}%
+    \@ifundefined{hakobanpush}{}{\hakobanpush}%
+%      \setbox0=\hbox{$\displaystyle {}##1$\tagform8}%
+%      \edef\tag@wd{\the\wd0}%
+      \setbox0=\hbox{$\displaystyle {}##1$}%
+      \edef\siki@wd{\the\wd0}%
+      \setbox0=\hbox{\tagform8\postl@bel}%
+      \edef\tag@wd{\the\wd0}%
+    \@ifundefined{hakobanpush}{}{\hakobanpop}%
+    \@tempdima\hsize
+    \advance\@tempdima-\the\@totalleftmargin
+    \@ifundefined{EMWR@zuhaba}{}{%
+      \ifdim\EMWR@zuhaba>\z@
+          \ifnum\EMWR@gyousuu>\@ne\advance\@tempdima-\EMWR@zuhaba
+            \advance\@tempdima-\@mawarikomisep
+            \advance\@tempdima-\@mawarikomisep
+          \fi
+      \fi
+    }%
+\if@fleqn
+    \advance\@tempdima-\@mathmargin
+    \advance\@tempdima-\tag@wd
+    \advance\@tempdima-\siki@wd
+    \advance\@tempdima-\emg@Lwd
+    \advance\@tempdima-1em
+    \edef\vm@w{\the\@tempdima}%
+\else
+    \advance\@tempdima-\emg@Lwd
+    \advance\@tempdima+\emg@Rwd
+    \@tempdima=.5\@tempdima
+    \advance\@tempdima-\tag@wd
+%\typeout{wd=\the\@tempdima}%
+    \advance\@tempdima-\siki@wd
+    \advance\@tempdima-1em\relax
+    \edef\vm@w{\the\@tempdima}%
+\fi
+    \let\EMlabel\emg@EMlabel
+    {}##1\relax
+    \hbox to 0pt{\leavevmode\kern.7em\cdotpfill[\vm@w]\hss}%
+  }}%
+  \preEqlabel{}%
+%
+%\typeout{buf=\meaning\emg@buf}%
+%
+  \let\EMlabel\emg@EMlabel
+\ifdim\emeq@rindent=\z@\else
+  \advance\hsize-\emeq@rindent
+\fi
+%\ifx\empty\postl@bel\else
+%  \ifhmode\par\vskip-\baselineskip\fi
+%  \setbox0=\hbox{\postl@bel}%
+%  \advance\hsize-\wd0
+%  \EMedef\em@postl@bel{\postl@bel}%
+%  \edef\postl@bel{}%
+%\fi
+%\typeout{L=\emg@Lwd, R=\emg@Rwd/\the\linewidth}%
+\ifdim\emeq@rindent=\z@
+  \begin{align}
+    \emg@buf
+  \end{align}
+\else
+  \begin{jquote}(0pt)(\emeq@rindent)
+  \begin{align}
+    \emg@buf
+  \end{align}
+  \end{jquote}\vspace{-.25\baselineskip}
+\fi
+}%
+%
+%
+%
+%\def\emalign{%
+%\expandafter\def\csname emalign*\endcsname{%
+\expandafter\def\csname emalign*\endcsname{\@ifnextchar<{%
+  \csname @emalign*\endcsname}{\csname @@emalign*\endcsname\relax}}%
+\expandafter\def\csname @emalign*\endcsname<#1>{%
+%\if@fleqn\else\errmessage{emalign must be used with fleqn-option}\fi
+    \csname @@emalign*\endcsname}%
+\expandafter\def\csname @@emalign*\endcsname{%
+    \bgroup\immediate\openout\em@whndl=\EM@workfiledir emalign.tmp%
+    \@bsphack\let\do\@makeother\dospecials
+    \catcode`\^^M\active
+    \def\verbatim@processline{%
+        \immediate\write\em@whndl{\the\verbatim@line}}%
+    \verbatim@start}%
+%
+%\def\endemalign{\@esphack%
+\expandafter\def\csname endemalign*\endcsname{%
+  \immediate\closeout\em@whndl\egroup
+%%%%%%%%%%%%%%%%%%%
+  \def\emalign@sub{%
+    \read\pl@in to \read@ln
+    \ifeof\pl@in
+    \else
+%\typeout{read@ln=\meaning\read@ln}%
+      \ifthenelse{\equal\read@ln{\par }}{}{%
+%\typeout{not par}%
+        \ifnum\ln@num>\z@\EMedef\old@inp@b{\inp@b}\fi
+%        \trim\read@ln\to\inp@ln
+        \let\inp@ln\read@ln
+        \ifx\empty\inp@ln\else
+          \topchar\inp@ln\inp@h
+          \ifthenelse{%
+              \equal{\inp@h}{\intertext}\or\equal{\inp@h}{\EMintertext}}{%
+% \intertext
+            \ifnum\ln@num>\z@
+              \EMedefappend\emg@buf{\\\old@inp@b}%
+            \fi
+            \EMedefappend\emg@buf{\inp@ln}%
+            \edef\ln@num{0}%
+          }{%
+% 
+%\typeout{general case}%
+            \Cfor{\emstrstr{\inp@ln}{\\}}{\equal\retval{0}}{}\do{%
+              \ifeof\pl@in\edef\retval{1}%
+              \else
+%\typeout{goto read}
+                \read\pl@in to \read@ln
+%\typeout{nocr:next readln:\meaning\read@ln.}%
+                \emstrstr\read@ln\par
+                \ifnum\retval=\z@
+                  \EMedefappend\inp@ln{\read@ln}%
+                  \emstrstr{\read@ln}{\\}%
+                \fi
+              \fi
+            }%
+%\typeout{1line=\inp@ln}%
+              \Strsep{\inp@ln}{\\}\inp@a\inp@b
+%\typeout{a=\meaning\inp@a, b=\meaning\inp@b}%\xxx%
+              \Strsep\inp@a{&}\inp@aL\inp@aR
+%\typeout{L=\inp@aL,R=\inp@aR}%
+\@ifundefined{hakobanpush}{}{\hakobanpush}%
+              \setbox0=\hbox{$\displaystyle \inp@aL$}%
+\@ifundefined{hakobanpush}{}{\hakobanpop}%
+              \ifdim\wd0>\emg@Lwd \edef\emg@Lwd{\the\wd0}\fi
+              \ifnum\ln@num>\z@
+                \EMedefappend\emg@buf{\\\old@inp@b}%
+              \fi
+              \Incr\ln@num
+              \emstrstr{\inp@aR}{atag}%
+              \ifnum\retval>\z@
+                \EMedefappend\emg@buf{%
+                  \inp@aL &\var@math{\emstrstr@c}\noexpand\atag\emstrstr@d}%
+\@ifundefined{hakobanpush}{}{\hakobanpush}%
+                  \setbox0=\hbox{${}\displaystyle\emstrstr@c$}%
+\@ifundefined{hakobanpush}{}{\hakobanpop}%
+                  \ifdim\wd0>\emg@Rwd \edef\emg@Rwd{\the\wd0}\fi
+              \else
+                \emstrstr{\inp@a}{tag}%
+                \ifnum\retval>\z@
+                  \Strsep\emstrstr@c{&}\inp@aL\inp@aR
+                  \EMedefappend\emg@buf{%
+                    \inp@aL &\var@math{\inp@aR}\noexpand\tag\emstrstr@d}%
+\@ifundefined{hakobanpush}{}{\hakobanpush}%
+                  \setbox0=\hbox{${}\displaystyle\inp@aR$}%
+\@ifundefined{hakobanpush}{}{\hakobanpop}%
+                  \ifdim\wd0>\emg@Rwd \edef\emg@Rwd{\the\wd0}\fi
+                \else
+                  \EMedefappend\emg@buf{\emstrstr@c}%
+                  \Strsep\emstrstr@c{&}\inp@aL\inp@aR
+\@ifundefined{hakobanpush}{}{\hakobanpush}%
+                  \setbox0=\hbox{${}\displaystyle\inp@aR$}%
+\@ifundefined{hakobanpush}{}{\hakobanpop}%
+                  \ifdim\wd0>\emg@Rwd \edef\emg@Rwd{\the\wd0}\fi
+                \fi
+              \fi
+          }%
+        \fi
+        \ifeof\pl@in
+        \else
+          \emalign@sub
+        \fi
+      }%
+    \fi
+  }%
+%%%%%%%%%%%%%%%%%%%
+\ifdim\emeq@rindent=\z@\else
+  \ifhmode\vspace{-1.5\baselineskip}\par\fi
+\fi
+  \let\emg@cr\\
+  \let\\=\relax
+  \let\emg@atag\atag
+  \let\emg@tag\tag
+  \def\atag{atag}%
+  \def\tag{tag}%
+  \let\var@math=\relax
+  \let\emg@intertext\intertext
+  \let\emg@EMintertext\EMintertext
+  \let\intertext\relax
+  \let\EMintertext\relax
+  \let\emg@EMlabel\EMlabel
+  \let\EMlabel\relax
+  \let\emg@par\par
+  \let\par\relax
+  \edef\ln@num{0}%
+  \edef\emg@buf{}%
+  \edef\emg@Lwd{0pt}%
+  \edef\emg@Rwd{0pt}%
+  \openin\pl@in=\EM@workfiledir emalign.tmp%
+  \emalign@sub
+  \immediate\closein\pl@in
+  \let\\=\emg@cr
+  \let\atag\emg@atag
+  \let\tag\emg@tag
+  \let\intertext\emg@intertext
+  \let\EMintertext\emg@EMintertext
+  \let\par\emg@par
+  \def\var@math##1{{%
+    \let\atag\relax
+    \def\EMlabel####1{\relax}%
+    \@ifundefined{hakobanpush}{}{\hakobanpush}%
+      \setbox0=\hbox{$\displaystyle {}##1$}%
+      \edef\siki@wd{\the\wd0}%
+      \setbox0=\hbox{\tagform8\postl@bel}%
+      \edef\tag@wd{\the\wd0}%
+    \@ifundefined{hakobanpush}{}{\hakobanpop}%
+    \@tempdima\hsize
+    \advance\@tempdima-\the\@totalleftmargin
+    \@ifundefined{EMWR@zuhaba}{}{%
+      \ifdim\EMWR@zuhaba>\z@
+          \ifnum\EMWR@gyousuu>\@ne\advance\@tempdima-\EMWR@zuhaba
+            \advance\@tempdima-\@mawarikomisep
+            \advance\@tempdima-\@mawarikomisep
+          \fi
+      \fi
+    }%
+%    \advance\@tempdima-\@mathmargin
+%    \advance\@tempdima-\wd0
+%    \advance\@tempdima-\emg@Lwd
+%    \advance\@tempdima-1em
+%    \edef\vm@w{\the\@tempdima}%
+\if@fleqn
+    \advance\@tempdima-\@mathmargin
+    \advance\@tempdima-\siki@wd
+    \advance\@tempdima-\tag@wd
+    \advance\@tempdima-\emg@Lwd
+    \advance\@tempdima-1em
+    \edef\vm@w{\the\@tempdima}%
+\else
+    \advance\@tempdima-\emg@Lwd
+    \advance\@tempdima+\emg@Rwd
+    \@tempdima=.5\@tempdima
+    \advance\@tempdima-\siki@wd
+    \advance\@tempdima-\tag@wd
+    \advance\@tempdima-.75em\relax
+    \edef\vm@w{\the\@tempdima}%
+\fi
+    \let\EMlabel\emg@EMlabel
+    {}##1\relax
+    \hbox to 0pt{\leavevmode\kern.6em\cdotpfill[\vm@w]\hss}%
+  }}%
+  \preEqlabel{}%
+%
+%\typeout{buf=\meaning\emg@buf}%
+%
+  \let\EMlabel\emg@EMlabel
+\ifdim\emeq@rindent=\z@
+  \begin{align*}
+    \emg@buf
+  \end{align*}
+\else
+  \advance\hsize-\emeq@rindent
+  \begin{jquote}(0pt)(\emeq@rindent)
+  \begin{align*}
+    \emg@buf
+  \end{align*}
+  \end{jquote}
+\fi
+}%
+%
+\def\emAmeasure#1#2#3#4{{%
+% #1:
+% #2:レ履
+% #3:
+% #4:
+  \setbox0=\hbox{$\displaystyle #1$}%
+  \edef\em@L{\the\wd0}%
+  \setbox0=\hbox{$\displaystyle #3$}%
+  \edef\em@R{\the\wd0}%
+  \setbox0=\hbox{$\displaystyle {}#2{}$}%
+  \edef\em@rel{\the\wd0}%
+  \@tempdima\hsize
+  \advance\@tempdima-\the\@totalleftmargin
+  \if@fleqn
+    \advance\@tempdima-\@mathmargin
+    \advance\@tempdima-\em@L
+    \advance\@tempdima-\em@rel
+  \else
+    \advance\@tempdima-\em@L
+    \advance\@tempdima+\em@R
+    \advance\@tempdima-\em@rel
+    \@tempdima=.5\@tempdima
+  \fi
+  \writeLabel{#4Rwd}{\the\@tempdima}%
+  \writeLabel{#4L}{\em@L}%
+  \writeLabel{#4R}{\em@R}%
+  \writeLabel{#4rel}{\em@rel}%
+}}%
+%
+%\def\emAcases#1#2#3{%
+%  \def\label##1{\writeLabel{##1}{\theequation}}%
+%  \def\EMlabel##1{\writeLabel{##1}{\theequation}}%
+%  \dimenref{#1R}\u@hen
+%  \dimenref{#1Rwd}\R@wd
+%  \setbox0=\hbox{$#2$}%
+%  \edef\sa@hen{\the\wd0}%
+%  \setbox0=\hbox{${}#3{}$}%
+%  \@tempdima\R@wd
+%  \advance\@tempdima\wd0
+%  \setbox\EM@boxa=\hbox to \u@hen\bgroup
+%    \begin{minipage}{\@tempdima}%
+%    \begin{fleqnon}[\z@]\relax
+%    \begin{numcases}{#2#3}%
+%}%
+%\def\endemAcases{%
+%    \end{numcases}
+%    \end{fleqnon}
+%    \end{minipage}\hss
+%  \egroup
+%  \mbox{}\hspace{-\sa@hen}%
+%  \box\EM@boxa
+%  \notag
+%}%
+%
+\def\emAcases#1{%
+  \let\h@uteisiki\houteisiki
+  \let\preHl@bel\prel@bel
+  \dimenref{#1R}\u@hen
+  \dimenref{#1Rwd}\R@wd
+  \setbox\EM@boxa=\hbox to \u@hen\bgroup
+    \begin{minipage}{\R@wd}%
+      \begin{EMleftbrace}%
+\let\ltx@cr\\%
+\def\\{\hfill\h@uteisiki{}\ltx@cr[\jot]%
+  \let\h@uteisiki\houteisiki\ignorespaces%
+}%
+\def\label##1{\def\h@uteisiki####1{\houteisiki(label=##1){####1}}}%
+\def\EMlabel##1{\def\h@uteisiki####1{\houteisiki(EMlabel=##1){####1}}}%
+}%
+\def\endemAcases{%
+\hfill\h@uteisiki{}%
+      \end{EMleftbrace}%
+    \end{minipage}\hss
+  \egroup
+  \box\EM@boxa
+  \notag
+}%
+%
+\endinput
+
+v0.02 2013/04/18 \emAmeasure, \emAcases
+

@@ -1,0 +1,42 @@
+%%% emequation.sty by tDB(emath@nifty.com)
+% 
+\ProvidesPackage{emequation}[2013/01/25 v0.01alpha]%
+%
+\RequirePackage{emathLb}%
+\RequirePackage{verbatim}%
+%
+\@ifundefined{em@whndl}{\newwrite\em@whndl}{}%
+\@ifundefined{pl@in}{\newread\pl@in}{}%
+%
+\define@key{emequation}{rightindent}{\edef\emeq@rindent{#1}}%
+%
+\def\emeqRindent{\@ifnextchar[{\@emeq@Rindent}{\@emeq@Rindent[\empty]}}%
+\def\@emeq@Rindent[#1]#2{
+  \ifthenelse{\equal{#1}{-}}{%
+    \@tempdima\linewidth
+    \@tempdimb=#2\relax
+    \advance\@tempdima-\@tempdimb
+    \edef\emeq@rindent{\the\@tempdima}%
+  }{%
+    \edef\emeq@rindent{#2}%
+  }%
+}%
+\def\emeq@rindent{\z@}%
+%
+\def\emequationcdotslength#1{%
+  \def\prel@bel{\makebox[0pt][r]{\cdotpfill[#1]~}}%
+  \edef\emeq@cdotslen{#1}%
+}%
+%
+%\def\emkotae{\protect\colorbox{white}{\jkakkokukuri{}}}
+\def\emkotae{%
+  \@ifundefined{colorbox}{\errmessage{emkotae needs color.sty}}{}%
+  \tag*{\protect\colorbox{white}{\hbox to 0pt{\hss}}}}%
+%
+\IfFileExists{emgather.sty}{\RequirePackage{emgather}}{}%
+\IfFileExists{emalign.sty}{\RequirePackage{emalign}}{}%
+\IfFileExists{emnumcases.sty}{\RequirePackage{emnumcases}}{}%
+%
+\endinput
+% v 0.00 2012/12/09
+% v 0.01 2013/01/25 \emequationcdotslength
