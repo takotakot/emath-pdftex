@@ -84,6 +84,9 @@
 \define@key{EMframed}{enlarge}[1]{\def\enlarge@p{#1}\enlargethispage*{#1\baselineskip}}%
 \define@key{emPb}{enlarge}[1]{\def\enlarge@p{#1}\enlargethispage*{#1\baselineskip}}%
 \define@key{emPsb}{enlarge}[1]{\def\enlarge@p{#1}\enlargethispage*{#1\baselineskip}}%
+\define@key{EMframed}{enlargesplit}[1]{\def\enlarge@split{#1}}%
+\define@key{emPb}{enlargesplit}[1]{\def\enlarge@split{#1}}%
+\define@key{emPsb}{enlargesplit}[1]{\def\enlarge@split{#1}}%
 %
 %\define@key{EMframed}{brace}{\def\LB@lbrace{#1}%
 %  \if (#1\def\LB@rbrace{)}%
@@ -363,6 +366,7 @@
            \unvbox\@tempboxa}%
         \edef\fb@resto@set{\boxmaxdepth\the\boxmaxdepth \splittopskip\the\splittopskip}%
         \boxmaxdepth\z@ \splittopskip\z@
+\@ifundefined{enlarge@split}{}{\advance\dimen@ \enlarge@split}%
         \setbox\tw@\vsplit\@tempboxa to\dimen@
         \setbox\tw@\vbox{\unvbox\tw@}% natural-sized
 |       \message{Box of size \the\ht\@tempboxa\space split to \the\dimen@. 

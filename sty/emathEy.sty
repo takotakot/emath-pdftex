@@ -1,7 +1,7 @@
 % emathEy.sty by tDB (emath@nifty.com)
 
 \NeedsTeXFormat{LaTeX2e}%
-\ProvidesPackage{emathEy}[2013/08/04 v0.36 横並び enumerate]%
+\ProvidesPackage{emathEy}[2015/04/01 v0.37 横並び enumerate]%
 %
 \@ifpackageloaded{emath}{}{\RequirePackage{emath}}%
 \RequirePackage{emathEc}%
@@ -258,6 +258,11 @@
   \def\eda@@item{%
     \@ifnextchar<{\@edaitem}{\@edaitem<\theedamon@suu>}}%
   \def\@edaitem<##1>{%
+        \edaenum@wdth=\edaenum@wdth@%
+        \addtolength{\edaenum@wdth}{\post@edasep}%
+        \divide\edaenum@wdth by \theedamon@suu%
+        \addtolength{\edaenum@wdth}{-\pre@edasep}%
+        \addtolength{\edaenum@wdth}{-\post@edasep}%
     \@ifnextchar({\@@edaitem<##1>}{%
         \edef\save@edamonsuu{\theedamon@suu}%
         \edef\edaitem@indent{\the\edaitemindent}%
@@ -284,9 +289,20 @@
       \EMedef\beta@item@argiii{##3}%
       \beta@item
     \else
+\isnumber{##2}{%
+    \@tempdimb\edaenum@wdth
+    \advance\@tempdimb\pre@edasep
+    \advance\@tempdimb\post@edasep
+    \@tempdima=##2\@tempdimb
+%\typeout{arg2=##2, enum@wdht=\the\edaenum@wdth, dimb=\the\@tempdimb, dima=\the\@tempdima}%
+    \advance\@tempdima-\pre@edasep
+    \advance\@tempdima-\post@edasep
+}{%
       \setlength{\@tempdima}{##2}%
+}%
       \global\setbox\eda@box=\hbox\bgroup%
       \ifeda@sikiri\advance\@tempdima-.5\columnsep\fi
+%\typeout{@@@edaitem:<##1>(##2)[##3] @tempdima=\the\@tempdima}%
       \begin{minipage}[t]{\@tempdima}%
       \ifthenelse{\equal\eda@firstindent\empty}{%
         \setlength{\itemindent}{\edaitem@indent}%
@@ -730,3 +746,4 @@ v 0.33 2012/08/29 edaenumerate: \vfill の扱い (BBS #11042)
 v 0.34 2012/10/16 edaenumerate: 上部 enumerate \item の直後 (BBS #11143)
 v 0.35 2013/02/08 edaenumerate: \edaLmargin コマンド (BBS #11552)
 v 0.36 2013/08/04 <edaTsep, edaBsep, edaTBsep>
+v 0.37 2015/04/01 \edaitem(..): .. が数値の場合は，..個の項目を連結

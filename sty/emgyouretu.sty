@@ -1,6 +1,6 @@
 %%% emgyouretu.sty by tDB(emath@nifty.com)
 % 日本語
-\ProvidesPackage{emgyouretu}[2014/01/13 v0.02]%
+\ProvidesPackage{emgyouretu}[2015/08/16 v0.03]%
 %
 %\RequirePackage{emath}%
 \@ifpackageloaded{emath}{}{\RequirePackage{emath}}%
@@ -227,51 +227,44 @@
 %   ex. \pgyouretu{1,2,3;4,5,6}
 %
 %\def\pgyouretu{%
-\DeclareRobustCommand\pgyouretu{%
+\DeclareRobustCommand\pgyouretu{\begingroup
     \edef\gyouretu@gyoukan{\gyouretu@gyoukan@}%
     \@ifnextchar<{\@pgyouretu@}{\@pgyouretu}}%
 \def\@pgyouretu@<#1>{\setkeys{emath}{#1}\@pgyouretu}%
 \def\@pgyouretu{\@ifnextchar[{\@@pgyouretu}{\@@pgyouretu[\gyouretu@haiti]}}
-\def\@@pgyouretu[#1]#2{{\let\EMdef\gdef
-  \def\gyouretu@haiti@{#1}\ensuremath{%
-  \begin{pmatrix}
-  \Cfor%
-    {\Strsep{#2}{;}\pM@tempa\pM@tempb}%
-    {\not\equal\pM@tempa\empty}%
-    {\Strsep\pM@tempb{;}\pM@tempa\pM@tempb}%
-  \do{%
-    \edef\pM@tmp{}%
-    \expandafter\@for\expandafter\pM@c\expandafter:\expandafter=\pM@tempa\do{%
-      \ifx\empty\pM@tmp
-        \EMedef\pM@tmp{\pM@c}%
-      \else
-        \EMedefappend\pM@tmp{&\pM@c}%
-      \fi
-    }%
-    \pM@tmp
-%      \Cfor%
-%        {\xdef\lntop{0}\Strsep\pM@tempa{,}\pM@tempc\pM@tempd
-%        }%
-%        {\not\equal\pM@tempc\empty}%
-%        {\Strsep\pM@tempd,\pM@tempc\pM@tempd
-%        }%
-%        \do{%
-%          \ifthenelse{\lntop=\z@}{%
-%            \xdef\lntop{1}\pM@tempc
-%          }{%
-%             &\pM@tempc
-%          }%
-%        }
-      \ifthenelse{\equal\pM@tempb\empty}{}{%
-        \ifx\empty\gyouretu@gyoukan
-        \else
-          \vspace{\gyouretu@gyoukan}%
-        \fi
-        \\
+\def\@@pgyouretu[#1]#2{%\let\EMdef\gdef
+  \def\gyouretu@haiti@{#1}%
+  \ensuremath{%
+    \begin{pmatrix}
+      \edef\pM@tmp{}%
+      \Cfor%
+        {\Strsep{#2}{;}\pM@tempa\pM@tempb}%
+        {\not\equal\pM@tempa\empty}%
+        {\Strsep\pM@tempb{;}\pM@tempa\pM@tempb}%
+      \do{%
+        \edef\pM@i{0}%
+        \expandafter\@for\expandafter\pM@c\expandafter:\expandafter=\pM@tempa
+        \do{%
+          \ifnum\pM@i=\z@
+            \EMedefappend\pM@tmp{\pM@c}%
+          \else
+            \EMedefappend\pM@tmp{&\pM@c}%
+          \fi
+          \Incr\pM@i
+        }%
+        \ifthenelse{\equal\pM@tempb\empty}{}{%
+          \ifx\empty\gyouretu@gyoukan
+          \else
+            \EMedefappend\pM@tmp{\noexpand\vspace{\gyouretu@gyoukan}}%
+          \fi
+          \EMedefappend\pM@tmp{\noexpand\\}%
+        }%
       }%
-    }%
-  \end{pmatrix}
-}}}%
+      \pM@tmp
+    \end{pmatrix}%
+  }%
+  \endgroup
+}%
 %
 \def\bgyouretu{\@ifnextchar[{\@bgyouretu}{\@bgyouretu[\gyouretu@haiti]}}
 \def\@bgyouretu[#1]#2{{\let\EMdef\gdef
@@ -779,3 +772,4 @@
 v 0.01 2013/05/11 二次正方行列の和・積・逆行列
                   \iigenizihuteikai: 二元一次不定方程式の特殊解
 v 0.02 2014/01/13 \fmtname による分岐を追放
+v 0.03 2015/08/16 \pgyouretu: ネスト (BBS #12759)

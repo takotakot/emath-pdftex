@@ -1,7 +1,7 @@
 % emathC.sty by tDB (emath@nifty.com)
 %
 \NeedsTeXFormat{LaTeX2e}%
-\ProvidesPackage{emathC}[2015/02/26 v1.15]%
+\ProvidesPackage{emathC}[2015/05/03 v1.16]%
 %
 \RequirePackage{calc}%
 \RequirePackage{keyval}%
@@ -155,10 +155,10 @@
 \def\@Ifor#1#2#3{\@ifnextchar[{\@@Ifor{#1}{#2}{#3}}{%
   \@@Ifor{#1}{#2}{#3}[1]}}%
 \def\@@Ifor#1#2#3[#4]#5\Do#6{%\@killglue
-  \setcounter{tempcnta}{#2}%
-  \edef\Ifor@start{\thetempcnta}%
-  \setcounter{tempcnta}{#3}%
-  \edef\Ifor@end{\thetempcnta}%
+  \isnumber{#2}{\setcounter{tempcnta}{#2}\edef\Ifor@start{\thetempcnta}}{%
+    \fpcalcval{#2}\Ifor@start}%
+  \isnumber{#3}{\setcounter{tempcnta}{#3}\edef\Ifor@end{\thetempcnta}}{%
+    \fpcalcval{#3}\Ifor@end}%
   \ifnum\Ifor@last>\z@
     \ifnum #4>\z@\Incr\Ifor@end\else\Decr\Ifor@end\fi
   \fi
@@ -1947,7 +1947,7 @@
   \CalculateCos{\TRIG@c}\edef#2{\UseCos{\TRIG@c}}}%
 \def\Tan#1#2{\Mul{180}{#1}\TRIG@t\@Div\TRIG@t\Pie@\TRIG@t
   \CalculateTan{\TRIG@t}\edef#2{\UseTan{\TRIG@t}}}%
-\@ifundefined{foreach}{\let\foreach\EMforeach}{}%
+%\@ifundefined{foreach}{\let\foreach\EMforeach}{}%
 }%
 %
 % 逆三角関数
@@ -2549,6 +2549,7 @@
       \if *\itiketu@l
         \edef\ik@ast{1}%
       \else
+        \isnumber{\itiketu@l}{}{\fpcalcval{\itiketu@l}\itiketu@l}%
         \ifx\empty\ik@bunbo\else\Divself\itiketu@l\ik@bunbo\fi
         \ifx\empty\ik@frac\else\FtoS\itiketu@l\itiketu@l\fi
         \ifx\empty\ik@perl\else\calcval[f]{\itiketu@l}\itiketu@l\fi
@@ -2776,6 +2777,20 @@
   \edef#2{\LR@cmd}%
 }%
 %
+% 括弧除去
+%
+\def\strip@kakko#1#2{%
+  \expandafter\headchar{#1}\stripkakko@dmy\stripkakko@nokori
+  \if (\stripkakko@dmy
+    \tailchar\stripkakko@nokori #2\stripkakko@dmy
+  \else\if [\stripkakko@dmy
+    \tailchar\stripkakko@nokori #2\stripkakko@dmy
+  \else\if <\stripkakko@dmy
+    \tailchar\stripkakko@nokori #2\stripkakko@dmy
+  \else\if `\stripkakko@dmy
+    \tailchar\stripkakko@nokori #2\stripkakko@dmy
+  \else\edef#2{#1}\fi\fi\fi\fi
+}%
 %
 % 現ページ残り高さ
 % （ただし，段落の冒頭で使用）
@@ -2999,3 +3014,4 @@ v 1.13 2014/12/06 \teisuuretu: 右辺に計算式（fp 方式）を許容
 v 1.14 2015/01/02 \AddvecOresen
                   \Addvecs: 仕様変更
 v 1.15 2015/02/26 \foreach --> \EMforeach
+v 1.16 2015/05/03 \Ifor: 初期値，終値に計算式を許容

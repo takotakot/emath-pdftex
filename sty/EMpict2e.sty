@@ -303,7 +303,8 @@
   \@@pIIeNagamaru<nuriiro={[gray]{\Nm@thickness}},border>}%
 \def\@pIIeNagamaru{\@ifnextchar<{\@@pIIeNagamaru}{\@@pIIeNagamaru<\empty>}}%
 \def\@@pIIeNagamaru<#1>#2{\begingroup%
-  \ifnum\the\kcatcode`#2=17\gtfamily\else\fontfamily{phv}\fi
+%  \ifnum\the\kcatcode`#2=17\gtfamily\else\fontfamily{phv}\fi
+    \fontfamily{phv}%
   \@ifundefined{bf@switch}{}{%
     \def\nagamaru@thickness{1pt}%
     \bfseries%
@@ -363,7 +364,8 @@
 %\Add\Nmaru@b\Nmaru@cy\tmp@x
 %\Sub\Nmaru@b\Nmaru@cy\tmp@y
 %\vrule height\tmp@x\yunitlength depth\tmp@y\yunitlength width\p@}%
-\endgroup\let\bf@switch\undefined}%
+\endgroup\let\bf@switch\undefined
+}%
 %
 \DeclareRobustCommand\pIIebNagamaru{%
   \def\bf@switch{1}\pIIeNagamaru}%

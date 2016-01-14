@@ -1,0 +1,50 @@
+% splitPDF.sty by tDB (emath@nifty.com)
+%
+\NeedsTeXFormat{LaTeX2e}%
+\def\Ps@version{0.00alpha}%
+\ProvidesPackage{splitPDF}[2015/10/12 v \Ps@version ]%
+%
+  \def\splitPDF{\@ifnextchar[{\@splitPDF}{\@splitPDF[\z@]}}%
+  \def\@splitPDF[#1]#2{%
+    \setbox0=\hbox{\includegraphics{#2}}%
+    \edef\split@x{\strip@pt\wd0}%
+    \edef\split@y{\strip@pt\ht0}%
+    \EMround\split@x{0}\split@x
+    \EMround\split@y{0}\split@y
+    \nokoritakasa\nokori@y
+    \@tempdima\nokori@y
+    \advance\@tempdima-\baselineskip
+    \ifdim #1=\z@\else\@tempdimb=#1\advance\@tempdima-\@tempdimb\fi
+    \edef\nokori@y{\strip@pt\@tempdima}%
+    \EMround\nokori@y{0}\nokori@y
+    \ifnum\nokori@y<\split@y
+      \ISub\split@y\nokori@y\split@yy
+      \EMedef\bb@arg{*[bb=0\space\split@yy\space\split@x\space\split@y]}%
+      \expandafter\includegraphics\bb@arg{#2}\\
+      \EMedef\bb@arg{*[bb=0\space0\space\split@x\space\split@yy]}%
+      \expandafter\includegraphics\bb@arg{#2}%
+    \else
+      \EMedef\bb@arg{*[bb=0\space 0\space \split@x\space \split@y]}
+      \expandafter\includegraphics\bb@arg{#2}
+    \fi
+  }%
+%
+\def\makecropPDF#1{%
+  \edef\cropPDFflnm{#1}%
+    \bgroup\immediate\openout\em@whndl=#1.tex
+%    \immediate\write\em@whndl{\string\documentclass{jarticle}}%
+%    \immediate\write\em@whndl{\string\pagestyle{empty}}%
+    \@bsphack\let\do\@makeother\dospecials
+    \catcode`\^^M\active
+    \def\verbatim@processline{%
+        \immediate\write\em@whndl{\the\verbatim@line}}%
+    \verbatim@start}%
+\def\endmakecropPDF{\@esphack%
+  \immediate\closeout\em@whndl\egroup
+  \immediate\EM@system{platex \cropPDFflnm}%
+  \immediate\EM@system{dvipdfmx \cropPDFflnm}%
+  \immediate\EM@system{pdfcrop \cropPDFflnm.pdf}%
+}%
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\endinput

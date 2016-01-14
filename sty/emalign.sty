@@ -1,6 +1,6 @@
 %%% emalign.sty by tDB(emath@nifty.com)
 % 
-\ProvidesPackage{emalign}[2013/04/18 v0.02alpha]%
+\ProvidesPackage{emalign}[2015/09/30 v0.03alpha]%
 %
 % emalign
 %
@@ -216,6 +216,7 @@
 \expandafter\def\csname emalign*\endcsname{\@ifnextchar<{%
   \csname @emalign*\endcsname}{\csname @@emalign*\endcsname\relax}}%
 \expandafter\def\csname @emalign*\endcsname<#1>{%
+    \ifx\empty #1\else\setkeys{emequation}{#1}\fi
 %\if@fleqn\else\errmessage{emalign must be used with fleqn-option}\fi
     \csname @@emalign*\endcsname}%
 \expandafter\def\csname @@emalign*\endcsname{%
@@ -491,4 +492,4 @@
 \endinput
 
 v0.02 2013/04/18 \emAmeasure, \emAcases
-
+v0.03 2015/09/30 \emalign*: <#1> 

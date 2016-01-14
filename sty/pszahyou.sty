@@ -1,6 +1,6 @@
 % pszahyou.sty  by tDB (emath@nifty.com)
 %
-\ProvidesPackage{pszahyou}[2014/10/18 v 2.37]%
+\ProvidesPackage{pszahyou}[2015/10/17 v 2.39]%
 %
 % pszahyou 環境
 %
@@ -430,6 +430,8 @@
     \def\sentaisyou##1##2##3{\relax}%
 %
     \def\EPSkakudai##1##2##3{\relax}%
+%
+    \def\EPShenkan##1##2##3##4##5##6{\relax}%
 %
     \def\@@kaitenkigou<##1>[##2]{\relax}%
 %
@@ -2313,10 +2315,9 @@
       \edef\hasen@opt{\empty}%
       \edef\hasenLG@opt{\empty}%
       \edef\yazirusi@pos{-1}%
-%      \edef\iro@{\empty}%
-      \edef\hazime@kaku{##5}%
+%      \edef\hazime@kaku{##5}%
       \edef\yazirusi@opt{}%
-      \edef\owari@kaku{##7}%
+%      \edef\owari@kaku{##7}%
       \edef\@tyuusin{##2}%
       \edef\@hankei{##3}%
       \edef\hamidasi@kaku{0}%
@@ -2333,8 +2334,12 @@
       \fi
       \ifx\empty ##1\else\setkeys{emPs}{##1}\fi
       \Strchr{##3}{=}\Enk@tmp\ifnum\Enk@tmp>\z@\setkeys{emP}{##3}\fi
-      \Strchr{##5}{=}\Enk@tmp\ifnum\Enk@tmp>\z@\setkeys{emP}{##5}\fi
-      \Strchr{##7}{=}\Enk@tmp\ifnum\Enk@tmp>\z@\setkeys{emP}{##7}\fi
+      \Strchr{##5}{=}\Enk@tmp\ifnum\Enk@tmp>\z@\setkeys{emP}{##5}\else
+        \isnumber{##5}{\edef\hazime@kaku{##5}}{\fpcalcval{##5}\hazime@kaku}%
+      \fi
+      \Strchr{##7}{=}\Enk@tmp\ifnum\Enk@tmp>\z@\setkeys{emP}{##7}\else
+        \isnumber{##7}{\edef\owari@kaku{##7}}{\fpcalcval{##7}\owari@kaku}%
+      \fi
 %
       \ifx\empty\hasenLG@opt
       \else
@@ -3471,6 +3476,26 @@
       \egroup
     }%
 %
+% \EPShenkan##1##2##3##4##5##6
+%   ##1 : 基準点
+%   ##2,##3,##4,##5 : a, b, c, d
+%   ##6 : 対象
+%
+    \def\EPShenkan##1##2##3##4##5##6{%
+      \bgroup
+      \xytops{##1}\@@x\@@y
+      \edef\EPStranslate@x{\@@x}%
+      \edef\EPStranslate@y{\@@y}%
+      \immediate\write\EMps@out{gsave}%
+      \immediate\write\EMps@out{%
+        \EPStranslate@x\space\EPStranslate@y\space translate}%
+      \immediate\write\EMps@out{[##2\space ##3\space ##4\space ##5\space 0 0] concat}%
+      \immediate\write\EMps@out{\cur@linewidth\space setlinewidth}%
+      ##6\relax
+      \immediate\write\EMps@out{grestore}%
+      \egroup
+    }%
+%
 % \kaitenkigou
 %
 \def\Dayenko{%
@@ -3883,10 +3908,26 @@
 \def\@emSankaku{\@ifnextchar<{\@@emSankaku}{\@@emSankaku<\empty>}}%
 \def\@@emSankaku<##1>##2{%
   \define@key{emPs}{size}{\edef\emS@size{####1}}%
-  \edef\emS@size{.7zw}%
-  \ifx\empty ##1\else\setkeys{emPs}{##1}\fi
+  \ifx\empty##1
+    \edef\emS@size{0.8zw}%
+  \else
+    \setkeys{emPs}{##1}%
+  \fi
+  \ifx\empty##1
+  \else
+    \ifthenelse{\equal\emS@size{*}}{%
+    \setbox0=\hbox{$\scriptstyle\text{##2}$}%
+    \@tempdima=0.9\wd0
+    \edef\emS@size{\the\@tempdima}%
+%\typeout{emSankaku: size=\emS@size}%\ssss
+    }{}%
+  \fi
   \pstriangle*<dash=,nuriiro=white,border,size=\emS@size>\relax
-  \Put\O@@[c]{$\scriptstyle\text{##2}$}\relax
+  \ifx\empty##1
+    \Put\O@@(0,0)[c]{$\scriptstyle\text{##2}$}\relax
+  \else
+    \Put\O@@(0,0)[t]{$\scriptstyle\text{##2}$}\relax
+  \fi
 }%
 %\def\emGyakuSankaku##1{%
 \DeclareRobustCommand\emGyakuSankaku[1]{%
@@ -4442,3 +4483,5 @@
 2014/09/01 v 2.35 \psZahyou の定義に \AtBeginDocument をかぶせる。(BBS #12470)
 2014/10/06 v 2.36 \clipSoukyokusen
 2014/10/18 v 2.37 \Yaziri: <fill=0/1> オプション
+2015/04/26 v 2.38 \emSankaku: emathPh.sty の定義との互換
+2015/10/17 v 2.39 \EPShenkan

@@ -180,7 +180,7 @@
     \begin{picture}(\frame@w,0)%   top line
       \Add\ln@ht\frame@hw\ln@ht@ps
 % 背景色
-      \begin{pszahyou*}[ul=1pt,haiti=o](0,\ln@wd)(-\ln@dp,\ln@ht@ps)%
+      \begin{pszahyou*}[ul=1pt,haiti=o](0,\ln@wd)(-(\ln@dp),\ln@ht@ps)%
         \setlinewidth{\frame@linewidth}%
         \Sub\ln@wd@\r@@\x@@
         \Sub\ln@ht\r@@\y@@
@@ -360,7 +360,7 @@
       \edef\ln@wd{\strip@pt\linewidth}%
       \begin{picture}(\frame@w,0)\relax
         \@ifundefined{side@vrule}{%
-          \begin{pszahyou*}[ul=1pt,haiti=o](0,\ln@wd)(-\ln@dp,\ln@ht)%
+          \begin{pszahyou*}[ul=1pt,haiti=o](0,\ln@wd)(-(\ln@dp),\ln@ht)%
             \ifx\empty\background@color\else
 % 背景色
               \Nuritubusi<nuriiro=\background@color>{%
@@ -523,7 +523,7 @@
       \edef\ln@dp{\strip@pt\dp\bk@bxa}%
       \begin{picture}(\frame@w,0)\relax
         \Add\ln@dp\frame@hw\ln@dp@
-        \begin{pszahyou*}[ul=1pt,haiti=o](0,\ln@wd)(-\ln@dp@,\ln@ht)%
+        \begin{pszahyou*}[ul=1pt,haiti=o](0,\ln@wd)(-(\ln@dp@),\ln@ht)%
           \setlinewidth{\frame@linewidth}%
 % 背景色
           \ifx\empty\background@color

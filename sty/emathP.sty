@@ -4,7 +4,7 @@
 \@ifundefined{ifpapersize}{\newif\ifpapersize\papersizefalse}{}%
 %
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesPackage{emathP}[2014/09/02 v 0.78]%
+\ProvidesPackage{emathP}[2014/08/27 v 0.79]%
   \DeclareOption{onlyP}{\def\P@nly{}}%
   \DeclareOption{notMy}{\def\not@My{}}%
   \DeclareOption{notPp}{\def\not@Pp{}}%
@@ -43,7 +43,7 @@
 \@ifpackageloaded{okumacro}{}{%
   \IfFileExists{okuruby.sty}{\RequirePackage{okuruby}}{}%
 }%
-\IfFileExists{emkasen.sty}{\RequirePackage{emkasen}}{}%
+\IfFileExists{uline--.sty}{\RequirePackage{emkasen}}{}%
 \IfFileExists{emgyouretu.sty}{\RequirePackage{emgyouretu}}{}%
 \IfFileExists{emequation.sty}{\RequirePackage{emequation}}{}%
 \RequirePackage{emathW}%
@@ -52,7 +52,7 @@
 \RequirePackage{emathZ}%
 \RequirePackage{emathN}%
 \RequirePackage{emathEy}%
-\RequirePackage{emathPg}%
+%\RequirePackage{emathPg}%
 \RequirePackage{emathPk}%
 \RequirePackage{emathPb}%
 \RequirePackage{emathPs}%
@@ -140,3 +140,5 @@ v 0.75 2011/04/25
     [notcheckperl] オプション (saloon #909)
 v 0.76 2012/12/16
     読み込むファイルを増やす。
+v 0.79 2015/08/27
+    emathPg.sty を分離

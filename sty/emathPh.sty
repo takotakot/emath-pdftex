@@ -4,7 +4,7 @@
 %
 %\def\em@grdrv{dvips}
   \NeedsTeXFormat{LaTeX2e}%
-  \ProvidesPackage{emathPh}[2014/11/19 v 4.85]%
+  \ProvidesPackage{emathPh}[2015/08/08 v 4.86]%
   \DeclareOption{notMy}{\def\not@My{}}%
   \DeclareOption{onlyP}{\def\P@nly{}}%
 % \DeclareOption{times}{\def\@times{}}%
@@ -119,6 +119,7 @@
 \def\by@perl{0}%
 \def\by@perl@retu{\by@perl@}%
 \def\byperl#1{\def\by@perl@{#1}}%
+\def\by@fpcalc{0}%
 %
 \define@key{emP}{includeEPS}{\csname include@eps#1\endcsname}%
 \define@key{emP}{debug}[1]{\def\ps@debug@{#1}}%
@@ -384,7 +385,8 @@
 \define@key{emP}{tyouhankei}{\def\@tyouhankei{#1}}%
 \define@key{emP}{tanhankei}{\def\@tanhankei{#1}}%
 \define@key{emP}{perl}[1]{\def\by@perl{#1}}%
-\define@key{emP}{fp}[1]{\let\retu@calcval\fpcalcval\def\by@perl{#1}}%
+\define@key{emP}{fp}[1]{\let\retu@calcval\fpcalcval
+  \def\by@perl{#1}\def\by@fpcalc{#1}}%
 \define@key{emP}{skip}[0]{\def\save@perldata{#1}}%
 \define@key{emP}{oresen}{\def\oresen@name{#1}}%
 \define@key{emP}{hairetu}{\def\hairetu@name{#1}}%
@@ -3345,6 +3347,7 @@
 \def\Kurosikaku{\begingroup
 %
 %
+  \def\xy@hosei{}%
   \edef\size@{\Kurosikaku@Hankei}%
   \edef\kaiten@{0}%
   \edef\nuri@iro{\empty}%
@@ -3388,6 +3391,7 @@
 }%
 %
 \def\Sirosikaku{\begingroup
+  \def\xy@hosei{}%
   \edef\size@{\Sirosikaku@Hankei}%
   \edef\kaiten@{0}%
   \edef\next@opt{\empty}%
@@ -3421,6 +3425,7 @@
 }%
 \def\Kurosankaku{\begingroup
 %
+  \def\xy@hosei{}%
   \edef\size@{\Kurosankaku@Hankei}%
   \edef\kaiten@{0}%
   \edef\nuri@iro{\empty}%
@@ -3463,6 +3468,7 @@
 %
 \def\Sirosankaku{\begingroup
 %
+  \def\xy@hosei{}%
   \edef\size@{\Sirosankaku@Hankei}%
   \edef\kaiten@{0}%
   \edef\next@opt{\empty}%
@@ -3893,7 +3899,9 @@
     \edef\@resen{\@resen(\@xi,\@yi)}%
     \Cos\@hazimekaku\@xi\Mul\@x\@xi\@xi\Sin\@hazimekaku\@yi\Mul\@y\@yi\@yi
     \edef\@resen{\@resen(\@xi,\@yi)}%
-    \Nuritubusi[#1]\@resen}%
+\emPaint<thickness=#1>\@resen
+%    \Nuritubusi[#1]\@resen
+}%
 \def\Hatch@Daenko{\@ifnextchar[{\@Hatch@Daenko}{\@Hatch@Daenko[45]}}%
 \def\@Hatch@Daenko[#1]{\@ifnextchar<{\@@Hatch@Daenko[#1]}{%
   \@@Hatch@Daenko[#1]<\empty>}}%
@@ -5016,6 +5024,9 @@
 \define@key{emPs}{putpos}{\def\put@pos{#1}}%
 %
 \edef\yazirusi@opt{\empty}%
+\edef\put@kuromaru{0}%
+\edef\put@tatebou{0}%
+\edef\put@pstatebou{\empty}%
 \def\yazirusiopt#1{\edef\yazirusi@opt{#1}}%
 %
 \def\ArrowLine{\@ifnextchar<{\@ArrowLine}{\@ArrowLine<\empty>}}%
@@ -5482,6 +5493,7 @@
   \ifnum\EMps@mode=\@ne\gsave\fi
 \begin{clipTakakkei}{\truezenheimen}%
   \@ifundefined{@xscale}{\edef\@xscale{1}\edef\@yscale{1}}{}%
+  \ifx\empty\iro@\else\EMpsIrositei\iro@\fi
   \Sub\truexmax\truexmin\HP@w
     \Mul\HP@w\@xscale\HP@w@
   \Sub\trueymax\trueymin\HP@h
@@ -6021,6 +6033,11 @@
 %
 %\def\Bunten{%
 \DeclareRobustCommand\Bunten{%
+  \define@key{emP}{tatebou}[1]{\edef\put@tatebou{##1}}%
+  \define@key{emP}{pstatebou}[1]{\edef\put@pstatebou{##1}}%
+  \edef\put@kuromaru{0}%
+  \edef\put@tatebou{0}%
+  \edef\put@pstatebou{\empty}%
   \edef\by@perl{\by@perl@}%
   \@ifnextchar<{\Bunten@}{\Bunten@@}}%
 \def\Bunten@<#1>{\setkeys{emP}{#1}\Bunten@@}%
@@ -6054,6 +6071,16 @@
     \ItiziKetugou\BT@a{#1}\BT@b{#2}{#5}\relax
   \else
     \perlBunten{#1}{#2}{#3}{#4}{#5}%
+  \fi
+  \ifnum\put@kuromaru>\z@\Kuromaru{#5}\fi
+  \ifnum\put@tatebou>\z@\Ltatebou{#1}{#2}{#5}\fi
+  \ifx\empty\put@pstatebou\else
+    \ifthenelse{\equal\put@pstatebou{1}}{%
+      \Lpstatebou{#1}{#2}{#5}%
+    }{%
+      \edef\Bt@tmp{<\put@pstatebou>}%
+      \expandafter\Lpstatebou\Bt@tmp{#1}{#2}{#5}%
+    }%
   \fi
   \edef\by@perl{\by@perl@}%
 }%
@@ -6129,7 +6156,8 @@
     \fi
   }%
   \ifnum\put@kuromaru<\z@\Kuromaru{#2#3}%
-  \else\ifnum\put@tatebou<\z@
+  \else
+    \ifnum\put@tatebou<\z@
     \@ifundefined{EMps@filename}{%
       \Touhenkigou<putpos=0>{#2}{#3}%
       \Touhenkigou<putpos=1>{#2}{#3}%
@@ -6238,8 +6266,10 @@
   \edef\oresen@tmp{}%
   \edef\put@kuromaru{0}%
   \edef\show@label{\empty}%
-  \let\put@tatebou\undefined
+%  \let\put@tatebou\undefined
   \let\put@ptatebou\undefined
+  \edef\put@tatebou{0}%
+%  \edef\put@ptatebou{0}%
   \let\byouga@enko\undefined
   \ifx\empty #1\else\setkeys{emP}{#1}\fi
   \Strchr{#3}{=}\Enk@tmp\ifnum\Enk@tmp>\z@\setkeys{emP}{#3}\fi
@@ -6278,7 +6308,8 @@
       \Rdef[#2](\@hankei,\ET@arg)\ET@P
       \edefappend\oresen@tmp{\ET@P}%
       \ifnum\put@kuromaru>\z@\Kuromaru\ET@P\fi
-      \@ifundefined{put@tatebou}{%
+%      \@ifundefined{put@tatebou}{%
+      \ifnum\put@tatebou=\z@
         \@ifundefined{put@ptatebou}{%
         }{%
           \ifnum\ET@i>\z@
@@ -6287,13 +6318,13 @@
             \fi
           \fi
         }%
-      }{%
+      \else
         \ifnum\ET@i>\z@
           \ifnum\ET@i<#6\relax
             \nLtatebou{#2}\ET@P\ET@P
           \fi
         \fi
-      }%
+      \fi
 %\typeout{ET@QN=\ET@QN}%\pause
       \ifnum\ET@QN>\@ne
         \ISub\ET@QN{1}\ET@QN@
@@ -6334,15 +6365,16 @@
       \Rdef[#2](\@hankei,\ET@arg)\ET@P
       \edefappend\oresen@tmp{\ET@P}%
       \ifnum\put@kuromaru>\z@\Kuromaru\ET@P\fi
-      \@ifundefined{put@tatebou}{%
-        \@ifundefined{put@ptatebou}{%
-        }{%
+%      \@ifundefined{put@tatebou}{%
+%         \@ifundefined{put@ptatebou}{%
+%         }{%
+      \ifnum\put@tatebou=\z@
+        \@ifundefined{put@ptatebou}{}{%
           \expandafter\hamidasisenbun\pt@opt\@tyuusin\ET@P\pt@in\pt@out
         }%
-%      \@ifundefined{put@tatebou}{}{\nLtatebou{#2}\ET@P\ET@P}%
-      }{%
+      \else
         \nLtatebou{#2}\ET@P\ET@P
-      }%
+      \fi
       \ifnum\ET@QN>\@ne
         \ifnum\ET@QN=#6\relax
           \else\errmessage{EnkoToubun:arg7 doesn't much arg6}\fi
@@ -6713,6 +6745,9 @@
   \Heihoukon\yogen@tmp\yogen@tmp
   \Mul\yogen@m\yogen@tmp\yogen@tmp
   \edef#4{\yogen@tmp}}%
+\def\FPyogen#1#2#3#4{%
+  \fpcalcval{sqrt((#1)^2+(#2)^2-2*(#1)*(#2)*Degcos(#3))}#4\relax
+}%
 %
 \def\yogenT#1#2#3#4#5{%
   \calcval{-RadDeg(atan2((#2)*Degsin(#3),#1-(#2)*Degcos(#3)))}\arg@A
@@ -7001,7 +7036,12 @@
 \ifnum\by@perl@retu>\z@
   \calcval[s]{\xPut@sub@P}\xPut@x
 \else
-  \edef\xPut@x{\xPut@sub@P}%
+  \strip@kakko\xPut@sub@P\xPut@sub@P@
+  \isnumber{\xPut@sub@P@}{%
+    \edef\xPut@x{\xPut@sub@P@}%
+  }{%
+    \fpcalcval{\xPut@sub@P}\xPut@x
+  }%
 \fi
     \ifx\empty\xPut@sub@opt
       \ifx\empty #1\relax
@@ -7096,7 +7136,12 @@
 \ifnum\by@perl@retu>\z@
   \calcval[s]{\yPut@sub@P}\yPut@y
 \else
-  \edef\yPut@y{\yPut@sub@P}%
+  \strip@kakko\yPut@sub@P\yPut@sub@P@
+  \isnumber{\yPut@sub@P@}{%
+    \edef\yPut@y{\yPut@sub@P@}%
+  }{%
+    \fpcalcval\yPut@sub@P\yPut@y
+  }%
 \fi
     \ifx\empty\yPut@sub@opt
       \ifx\empty #1\relax
@@ -9498,7 +9543,11 @@
   \edef\by@perl@retu{\by@perl}\edef\by@perl{\by@perl@}%
   \@lrtenretu}%
 \def\@lrtenretu{\@ifnextchar[{\lrtenretu@}{\lrtenretu@[(0,0)]}}%
-\def\lrtenretu@[#1]{\edef\lrtenretu@O{#1}\@@lrtenretu}%
+\def\lrtenretu@[#1]{%
+  \Headchar{#1}\lrt@a\lrt@b
+  \if r\lrt@a\expandafter\Rdef\lrt@b\lrtenretu@O
+  \else\edef\lrtenretu@O{#1}\fi
+  \@@lrtenretu}%
 \def\@@lrtenretu#1{%
 % -----------------------------------------------------
 % subroutine
@@ -9603,7 +9652,12 @@
   \EMedef\by@perl@retu{\by@perl}\EMedef\by@perl{\by@perl@}%
   \@nrtenretu}%
 \def\@nrtenretu{\@ifnextchar[{\nrtenretu@}{\nrtenretu@[(0,0)]}}%
-\def\nrtenretu@[#1]{\EMedef\nrtenretu@O{#1}\@@nrtenretu}%
+\def\nrtenretu@[#1]{%
+% \EMedef\nrtenretu@O{#1}%
+  \Headchar{#1}\lrt@a\lrt@b
+  \if r\lrt@a\expandafter\Rdef\lrt@b\nrtenretu@O
+  \else\edef\nrtenretu@O{#1}\fi
+  \@@nrtenretu}%
 \def\@@nrtenretu#1{%
 % -----------------------------------------------------
 % subroutine
@@ -9740,11 +9794,17 @@
   \ifnum\put@kuromaru>\z@\@nahudaKuromaru{\@nameuse{\tenNahuda@sub@P}}\fi
   \ifnum\show@label=\z@\edef\tenNahuda@l{}\fi
   \expandafter\@nahudaPut\tenNahuda@tmp{\modify@str{\tenNahuda@l}}%
+  \@ifundefined{syaeiX}{}{%
+    \expandafter\xdef\csname \tenNahuda@sub@P syaeiX\endcsname{\syaeiX}%
+    \expandafter\xdef\csname \tenNahuda@sub@P syaeix\endcsname{\syaeix}}%
+  \@ifundefined{syaeiY}{}{%
+    \expandafter\xdef\csname \tenNahuda@sub@P syaeiY\endcsname{\syaeiY}%
+    \expandafter\xdef\csname \tenNahuda@sub@P syaeiy\endcsname{\syaeiy}}%
 }%
 \def\tenNahuda{\begingroup\@ifstar{\ten@Nahuda}{%
   \edef\show@label{1}\ten@Nahuda}}%
 \def\ten@Nahuda{%\begingroup
-% \typeout{tenNahuda:showlabel=\show@label}%
+% \typeout{tenNahuda:showlabel=\show@label}\xxxx%
 % \edef\put@kuromaru{0}%
   \ifnum\EMps@mode=\@ne
     \let\@nahudaPut\cPut
@@ -10100,8 +10160,9 @@
 %  \Mulvec\@n\@uu\@uu\edef#5{\@uu}%
   \Mulvec\@n\@uu{#5}%
 }%
-\def\Naisetuen#1#2#3{\Naisin{#1}{#2}{#3}\vNaisin% 内接円描画，半径は \lr
-  \En\vNaisin\lr}%
+\def\Naisetuen{\@ifnextchar<{\@Naisetuen}{\@Naisetuen<\empty>}}%
+\def\@Naisetuen<#1>#2#3#4{\Naisin{#2}{#3}{#4}\vNaisin% 内接円描画，半径は \lr
+  \En<#1>\vNaisin\lr}%
 %  \Mul\lr{2}\@R\emathPut\vNaisin{\circle{\@R}}}% 内心は \vNaisin
 %
 %
@@ -10195,7 +10256,7 @@
 \define@key{emP}{hsep}{\def\h@sep{#1}}%
 \define@key{emP}{lsep}{\def\l@sep{#1}}%
 \define@key{emP}{rsep}{\def\r@sep{#1}}%
-\define@key{emP}{tsep}{\def\t@sep{#1}}%
+\define@key{emP}{tsep}{\setlength{\@tempdima}{#1}\edef\t@sep{\the\@tempdima}}%
 \define@key{emP}{bsep}{\def\b@sep{#1}}%
 \define@key{emP}{vsep}{\def\v@sep{#1}}%
 \define@key{emP}{hvsep}{\def\h@sep{#1}\def\v@sep{#1}}%
@@ -10912,6 +10973,7 @@
 %
 \define@key{emGurafu}{HlineT}[HlineT]{\def\YG@migiT{#1}}%
 \define@key{emGurafu}{HlineM}{\def\YG@migiM{#1}}%
+\define@key{emGurafu}{arrowheadsize}{\changeArrowHeadSize{#1}}%
 % 始点と途中点を与えて半直線
 \def\LHline{\@ifnextchar<{\@LHline}{\@LHline<\empty>}}%
 \def\@LHline<#1>#2#3{%
@@ -11780,6 +11842,8 @@
   }%
 }%
 %
+% 楕円上の点
+%
 \def\ETen{\@ifnextchar<{\@ETen}{\@ETen<\empty>}}%
 \def\@ETen<#1>#2#3#4#5#6{\begingroup
   \ifx\empty #1\else\setkeys{emP}{#1}\fi
@@ -11945,13 +12009,15 @@ printf FHNDL "\EMpercentchar s,\EMpercentchar s \string\n",$xi-$tmp,$xi+$tmp;
   \EandL{#1}{#2}{#3}{#4}\Eandl@P{#6}{#7}}%
 \def\Eandk#1#2#3#4#5#6#7{%
 % #5 : 直線の方向角（六十分法）
-  \DegCos{#5}\Eandk@x
-  \DegSin{#5}\Eandk@y
+  \isnumber{#5}{\edef\Eandk@arg{#5}}{\fpcalcval{#5}\Eandk@arg}%
+  \DegCos{\Eandk@arg}\Eandk@x
+  \DegSin{\Eandk@arg}\Eandk@y
   \Addvec{#4}{(\Eandk@x,\Eandk@y)}\Eandl@P
   \EandL{#1}{#2}{#3}{#4}\Eandl@P{#6}{#7}}%
 \def\Eandg#1#2#3#4#5#6#7{%
 % #5 : 直線の傾き
-  \Addvec{#4}{(1,#5)}\Eandg@P
+  \isnumber{#5}{\edef\Eandg@v{#5}}{\fpcalcval{#5}\Eandg@v}%
+  \Addvec{#4}{(1,\Eandg@v)}\Eandg@P
   \EandL{#1}{#2}{#3}{#4}\Eandg@P{#6}{#7}}%
 \def\Eandn#1#2#3#4#5#6#7{%
 % #5 : 法線ベクトル
@@ -11961,6 +12027,29 @@ printf FHNDL "\EMpercentchar s,\EMpercentchar s \string\n",$xi-$tmp,$xi+$tmp;
 % #5 : 法線の傾き
   \Addvec{#4}{(#5,-1)}\Eandng@P
   \EandL{#1}{#2}{#3}{#4}\Eandng@P{#6}{#7}}%
+%
+% 
+%
+\def\HTen{\@ifnextchar<{\@HTen}{\@HTen<\empty>}}%
+\def\@HTen<#1>#2#3#4#5#6{\begingroup
+  \ifx\empty #1\else\setkeys{emP}{#1}\fi
+    \vecXY{#2}\HTen@@x\HTen@@y
+    \ifnum\Rdef@rad>\z@
+      \CalcVal{%
+        printf FHNDL "(\EMpercentchar s,\EMpercentchar s)\string\n",
+            #3/cos(#5)+(\HTen@@x),#4*tan(#5)+(\HTen@@y);
+      }\HTen@ans
+    \else
+      \CalcVal{%
+        printf FHNDL "(\EMpercentchar s,\EMpercentchar s)\string\n",
+            #3/cos(#5*$pi/180)+(\HTen@@x),#4*tan(#5*$pi/180)+(\HTen@@y);
+      }\HTen@ans
+    \fi
+  \edef\temp@x{\def\noexpand\Eten@P{\HTen@ans}}%
+  \expandafter\endgroup\temp@x
+  \Put@nil\Eten@P #6\@nil
+}%
+\let\HPoint\HTen
 %
 % 二次関数のグラフと直線との交点
 %
@@ -13904,18 +13993,39 @@ printf FHNDL "\EMpercentchar s,\EMpercentchar s \string\n",$xi-$tmp,$xi+$tmp;
   \makebox[1.05zw][c]{$\scriptstyle\text{#1}$}% size を ul と揃える
   \hskip.02em\relax
 }%
-\def\emSankaku#1{%
-  \hskip.02em\relax
+\def\emSankaku{\@ifnextchar<{\@emSankaku}{\@emSankaku<\empty>}}%
+\def\@emSankaku<#1>#2{{%
+  \define@key{emP}{size}{\edef\emS@size{##1}}%
+  \ifx\empty#1
+    \edef\emS@size{1.05zw}%
+  \else
+    \setkeys{emP}{#1}%
+  \fi
+  \ifx\empty#1
+  \else
+    \ifthenelse{\equal\emS@size{*}}{%
+    \setbox0=\hbox{$\scriptstyle\text{#2}$}%
+    \@tempdima=1.5\wd0
+    \edef\emS@size{\the\@tempdima}%
+    \vrule height .85\@tempdima depth .15\@tempdima width\z@
+%\typeout{emSankaku: size=\emS@size}%\ssss
+    }{%
+    \@tempdima\emS@size
+    \vrule height .85\@tempdima depth .15\@tempdima width\z@
+    }%
+  \fi
   \begin{picture}(0,0)\relax
-  \begin{zahyou*}[ul=1.05zw,haiti=o](0,1)(-.15,.85)%
-    \Strlen{#1}\emSankaku@n
+  \hskip.02em\relax
+  \begin{zahyou*}[ul=\emS@size,haiti=o](0,1)(-.15,.85)%
+%    \Strlen{#1}\emSankaku@n
     \emPaint<nuriiro=white,border>{(0,-.15)(1,-.15)(.5,.85)}%
   \end{zahyou*}%
   \end{picture}%
 \@ifundefined{setdash}{}{\setdash{}}%
-  \makebox[1.05zw][c]{$\scriptstyle\text{#1}$}% size を ul と揃える
+  \makebox[\emS@size][c]{$\scriptstyle\text{#2}$}% size を ul と揃える
   \hskip.02em\relax
-}%
+}}%
+%
 \def\emMaruSankaku#1{%
   \hskip.02em\relax
   \begin{zahyou*}[ul=1zw](0,1)(0,1)
@@ -14083,6 +14193,7 @@ printf FHNDL "\EMpercentchar s,\EMpercentchar s \string\n",$xi-$tmp,$xi+$tmp;
     \IfFileExists{Rtenretu.sty}{\RequirePackage{Rtenretu}}{}%
   }%
 }%
+%
 \endinput
 %
 %

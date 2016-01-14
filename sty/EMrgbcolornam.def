@@ -83,6 +83,7 @@
     \def\EMps@lightlightgray{0.88 0.88 0.88}%
     \def\EMps@lightgray{0.827540 0.827540 0.827540}%
     \def\EMps@gray{0.500000 0.500000 0.500000}%
-    \def\EMps@darkgray{0.662745 0.662745 0.662745}%
-    \def\EMps@timgray{0.411 0.411 0.411}%
+%    \def\EMps@darkgray{0.662745 0.662745 0.662745}%
+    \def\EMps@darkgray{0.337255 0.337255 0.337255}%
+%    \def\EMps@timgray{0.411 0.411 0.411}%
 \endinput

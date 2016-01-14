@@ -5,6 +5,7 @@
 %
       \RequirePackage{emathT}
       \RequirePackage{emathLb}%
+      \RequirePackage{emfpcalc}%
       \RequirePackage{verbatim}%
 %
 % 式各項のセンターのx座標 (\sikixposi, \skixposii, \sikixposiii，...)
@@ -337,7 +338,7 @@
     \ISub{\Q@N}{1}\y@tmp
     \Mulself\y@tmp\GS@gyoukan
     \Addself\y@tmp{6}%
-    \begin{pszahyou*}[ul=1pt,borderwidth=2pt](\xmin,\xmax)(-\y@tmp,\ymax)
+    \begin{pszahyou*}[ul=1pt,borderwidth=2pt](\xmin,\xmax)(-(\y@tmp),\ymax)
       \linethickness{.4pt}%
 \ifnum\Q@N>\@ne
       \tenretu*{Ai(\sikixlposiii,\sikiydposiii);

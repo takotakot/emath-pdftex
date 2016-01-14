@@ -3,7 +3,7 @@
 %
 \@ifundefined{ifpapersize}{\newif\ifpapersize\papersizefalse}{}%
 %
-\ProvidesPackage{emathPk}[2014/07/01 v 1.50]%
+\ProvidesPackage{emathPk}[2015/08/29 v 1.52]%
   \DeclareOption{times}{\def\em@fonts{1}}%
   \DeclareOption{times}{\def\em@fonts{1}}%
   \DeclareOption{txfonts}{\def\em@fonts{2}}%
@@ -1811,6 +1811,8 @@
       }{%
         \edef\BT@m{#3}%
         \edef\BT@n{#4}%
+        \isnumber{\BT@m}{}{\fpcalcval{\BT@m}\BT@m}%
+        \isnumber{\BT@n}{}{\fpcalcval{\BT@n}\BT@n}%
       }%
     }%
   \Add{\BT@m}{\BT@n}\Bunten@c
@@ -1882,6 +1884,16 @@
   \iiiKyori{#4}{#1}\lR
 }%
 %
+\def\iiiNitoubunsen{\@ifnextchar[{\@iiiNitoubunsen}{\@iiiNitoubunsen[\empty]}}%
+\def\@iiiNitoubunsen[#1]#2#3#4#5{%
+  \iiiKyori{#2}{#3}\a@iiiNitoubunsen
+  \iiiKyori{#4}{#3}\b@iiiNitoubunsen
+  \iiiBunten{#2}{#4}\a@iiiNitoubunsen\b@iiiNitoubunsen{#5}\relax
+  \ifx\empty#1\relax\else
+    \iiiBunten{#2}{#4}\a@iiiNitoubunsen{-\b@iiiNitoubunsen}{#1}\relax
+  \fi
+}%
+%
 \def\iiiHenToubun{\@ifnextchar<{\@iiiHenToubun}{\@iiiHenToubun<\empty>}}%
 \def\@iiiHenToubun<#1>#2#3#4#5{%
 % #1: key=val
@@ -1898,9 +1910,9 @@
   \Ifor\HT@i{1}{#4}\Do{%
     \ISub{#4}\HT@i\HT@j
     \iiiBunten{#2}{#3}{\HT@i}{\HT@j}\HT@P
+    \ifnum\put@siromaru>\z@\iiiSiromaru\HT@P\else
+    \ifnum\put@kuromaru>\z@\iiiKuromaru\HT@P\fi\fi
     \ifnum\HT@QN>\@ne
-      \ifnum\put@siromaru>\z@\iiiSiromaru\HT@P\else
-      \ifnum\put@kuromaru>\z@\iiiKuromaru\HT@P\fi\fi
       \IAdd\HT@QN{1}\TH@tmp
       \ifnum\TH@tmp=#4\relax
         \else\errmessage{iiiHenToubun:arg4 doesn't much arg3}\fi
@@ -3027,9 +3039,25 @@
     \fi
   }%
   \ifnum\tenretu@k>\z@\errmessage{iiitenretu : syntax error !}\fi
-  \calcval[s]\tenretu@x\tenretu@x
-  \calcval[s]\tenretu@y\tenretu@y
-  \calcval[s]\tenretu@z\tenretu@z
+%  \calcval[s]\tenretu@x\tenretu@x
+%  \calcval[s]\tenretu@y\tenretu@y
+%  \calcval[s]\tenretu@z\tenretu@z
+\ifnum\by@perl@retu=\z@
+  \isnumber{\tenretu@x}{}{%
+    \Okikae\tenretu@x{OLDX}\old@x\tenretu@x
+    \fpcalcval{\tenretu@x}\tenretu@x}%
+  \isnumber{\tenretu@y}{}{%
+    \Okikae\tenretu@y{OLDY}\old@y\tenretu@y
+    \fpcalcval{\tenretu@y}\tenretu@y}%
+  \isnumber{\tenretu@z}{}{%
+    \Okikae\tenretu@y{OLDY}\old@z\tenretu@z
+    \fpcalcval{\tenretu@z}\tenretu@z}%
+\else
+  \let\retu@calcval\calcval
+  \retu@calcval[s]{(\tenretu@x)}\tenretu@x
+  \retu@calcval[s]{(\tenretu@y)}\tenretu@y
+  \retu@calcval[s]{(\tenretu@z)}\tenretu@z
+\fi
 }%
 %
 \def\@iiictenretu@seppara{%
@@ -3139,12 +3167,12 @@
   \Cfor{\def\@OresenVs{#1}}{\not\equal\@OresenVs\empty}{}\do{%
     \Strsep\@OresenVs{;}\@OresenV\@OresenVs
     \trim\@OresenVs\to\@OresenVs
-    \ifnum\by@perl@retu=\z@
-    \else
+%    \ifnum\by@perl@retu=\z@
+%    \else
       \expandafter\@iiitenretu@seppara\@OresenV\@nil
       \edef\@OresenV{\the\namae@opt
         \the\tenretu@namae(\tenretu@x,\tenretu@y,\tenretu@z)\tenretu@n}%
-    \fi
+%    \fi
     \expandafter\@iiitenretu@sub\@OresenV\@nil
     \edef\@OresenV@old{\@OresenV}}%
 \def\by@perl{\by@perl@}%
@@ -3163,6 +3191,7 @@
   \edef\by@perl@retu{\by@perl}\edef\by@perl{\by@perl@}%
   \@@iiintenretu}
 \def\@@iiintenretu#1{%
+%\typeout{@@iiintenretu:arg=#1}%
 % -----------------------------------------------------
 % subroutine
 \def\@iiitenretu@sub{\@ifnextchar[{\@@iiitenretu@sub}{%
@@ -3182,14 +3211,14 @@
   \@@iiitenretusub@std[##1]##2(##3,##4,##5)\@nil}%
 \def\@@iiitenretusub@std[##1]##2(##3,##4,##5)##6\@nil{%
 %  \edef\@OresenV{(##3,##4,##5)}%
-  \ifnum\by@perl@retu=\z@
+%  \ifnum\by@perl@retu=\z@
     \edef\@OresenV{(##3,##4,##5)}%
-  \else
-    \calcval[s]{##3}\t@x
-    \calcval[s]{##4}\t@y
-    \calcval[s]{##5}\t@z
-    \edef\@OresenV{(\t@x,\t@y,\t@z)}%
-  \fi
+%  \else
+%    \calcval[s]{##3}\t@x
+%    \calcval[s]{##4}\t@y
+%    \calcval[s]{##5}\t@z
+%    \edef\@OresenV{(\t@x,\t@y,\t@z)}%
+%  \fi
   \ifnum\iiitenretu@soutaizahyou>\z@\Addvec\@OresenV@old\@OresenV\@OresenV\fi
   \expandafter\edef\csname ##2\endcsname{\@OresenV}%
   \ifnum\put@siromaru>\z@\iiiSiromaru{\@OresenV}\else
@@ -3198,8 +3227,13 @@
 % -----------------------------------------------------
   \Cfor{\def\@OresenVs{#1}}{\not\equal\@OresenVs\empty}{}\do{%
     \Strsep\@OresenVs{;}\@OresenV\@OresenVs
+%    \expandafter\@iiitenretu@sub\@OresenV\@nil
+%    \EMedef\@OresenV@old{\@OresenV}}\def\by@perl{\by@perl@}%
+      \expandafter\@iiitenretu@seppara\@OresenV\@nil
+      \edef\@OresenV{\the\namae@opt
+        \the\tenretu@namae(\tenretu@x,\tenretu@y,\tenretu@z)\tenretu@n}%
     \expandafter\@iiitenretu@sub\@OresenV\@nil
-    \EMedef\@OresenV@old{\@OresenV}}\def\by@perl{\by@perl@}%
+    \edef\@OresenV@old{\@OresenV}}%
 \def\by@perl{\by@perl@}%
 \edef\put@kuromaru{0}%
 \edef\put@siromaru{0}%

@@ -5,7 +5,7 @@
   }{}%
 %
 \def\tmpname{LaTeX2e}%
-\ProvidesPackage{emathThm}[2015/01/22 v0.22]%
+\ProvidesPackage{emathThm}[2015/06/08 v0.23]%
 \RequirePackage{theorem}%
 %\RequirePackage{emath}%
 \@ifpackageloaded{emath}{}{\RequirePackage{emath}}%
@@ -21,6 +21,7 @@
 \gdef\th@nonumberbreak{\@input@{EMthnnb.sty}}
 \gdef\th@boxed{\@input@{EMthbx.sty}}
 \gdef\th@boxednonumber{\@input@{EMthbxnn.sty}}
+\gdef\th@breaknum{\@input@{EMthbn.sty}}
 %
 \let\ltxnewtheorem\newtheorem
 \define@key{EMthm}{itemindent}{\edef\EMthm@@itemindent{#1}}%
@@ -266,6 +267,7 @@
   \fi}%
 %
 \def\EMthmlabel#1{{\let\@currentlabel\EM@currentlabel
+  \let\apnitem\@gobble
   \label{\prelabel #1}}}%
 %
 \gdef\@thm#1{\@ifnextchar[{\@thm@{#1}}{\@thm@{#1}[#1]}}
@@ -386,3 +388,5 @@ v 0.21 2015/01/15
     \@thm@ で，arg1 と arg2 を取り違えていた。（普通の使用では，arg1=arg2）
 v 0.22 2015/01/22
     \EMthmlabel: 環境名を含めた相互参照
+v 0.23 2015/06/08
+    \theoremstyle{breaknum}

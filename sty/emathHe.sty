@@ -797,20 +797,20 @@
   \IAdd{#5}\exist@minus#5%
   \edef#3{\@remain}%
 }
-
-\def\strip@kakko#1#2{%
-  \expandafter\headchar{#1}\stripkakko@dmy\stripkakko@nokori
-  \if (\stripkakko@dmy
-    \tailchar\stripkakko@nokori #2\stripkakko@dmy
-  \else\if [\stripkakko@dmy
-    \tailchar\stripkakko@nokori #2\stripkakko@dmy
-  \else\if <\stripkakko@dmy
-    \tailchar\stripkakko@nokori #2\stripkakko@dmy
-  \else\if `\stripkakko@dmy
-    \tailchar\stripkakko@nokori #2\stripkakko@dmy
-  \else\edef#2{#1}\fi\fi\fi\fi
-}%
-
+%
+%\def\strip@kakko#1#2{%
+%  \expandafter\headchar{#1}\stripkakko@dmy\stripkakko@nokori
+%  \if (\stripkakko@dmy
+%    \tailchar\stripkakko@nokori #2\stripkakko@dmy
+%  \else\if [\stripkakko@dmy
+%    \tailchar\stripkakko@nokori #2\stripkakko@dmy
+%  \else\if <\stripkakko@dmy
+%    \tailchar\stripkakko@nokori #2\stripkakko@dmy
+%  \else\if `\stripkakko@dmy
+%    \tailchar\stripkakko@nokori #2\stripkakko@dmy
+%  \else\edef#2{#1}\fi\fi\fi\fi
+%}%
+%
 \def\push@parse{%
   \Incr\stack@n
   \Cfor{\edef\push@i{0}}{\push@i<\nlvl}{}\do{%

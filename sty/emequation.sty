@@ -30,8 +30,13 @@
 %
 %\def\emkotae{\protect\colorbox{white}{\jkakkokukuri{}}}
 \def\emkotae{%
-  \@ifundefined{colorbox}{\errmessage{emkotae needs color.sty}}{}%
-  \tag*{\protect\colorbox{white}{\hbox to 0pt{\hss}}}}%
+  \@ifundefined{ajLig}{%
+    \@ifundefined{colorbox}{\errmessage{emkotae needs color.sty}}{}%
+    \tag*{\protect\colorbox{white}{\hbox to 0pt{\hss}}}%
+  }{%
+    \tag*{\ajLig{()}}%
+  }}%
+\let\emeqAns\emkotae
 %
 \IfFileExists{emgather.sty}{\RequirePackage{emgather}}{}%
 \IfFileExists{emalign.sty}{\RequirePackage{emalign}}{}%

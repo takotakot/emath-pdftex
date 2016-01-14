@@ -9,6 +9,8 @@
 %
 \newdimen\marginparseprule\marginparseprule=.4pt
 \newif\ifshowlayout\showlayouttrue
+\edef\pr@row@init{0}%
+\def\rowinit#1{\edef\pr@row@init{#1}}%
 %
 % \@outputpage に罫線を含める
 %
@@ -133,6 +135,7 @@
             \@tempdimc\ht\strutbox\advance\@tempdimc\dp\strutbox
             \edef\EMprl@v{\strip@pt\@tempdimc}%
             \edef\EMprl@tmp{\strip@pt\textheight}%
+\Sub{\EMprl@tmp}{\pr@row@init}\EMprl@tmp
             \Sub{\EMprl@tmp}{\EMprl@v}\EMprl@tmp
 \edef\tmp@w{\strip@pt\textwidth}%
 \edef\tmp@n{0}%
@@ -328,6 +331,32 @@
 %
 \def\pre@EMshowlayout{\relax}%
 \def\preEMshowlayout#1{\def\pre@EMshowlayout{#1}}%
+\@ifundefined{Sub}{%
+  \def\Sub#1#2#3{\begingroup
+    \@tempdima=#1\p@
+    \@tempdimb=#2\p@
+    \advance\@tempdima-\@tempdimb
+    \edef#3{\strip@pt\@tempdima}%
+    \Strsep{#3}{.}\Add@a\Add@b
+    \@tempdima=.\Add@b\p@
+    \ifdim\@tempdima=\z@\edef#3{\Add@a}\fi
+    \edef\temp@x{\def\noexpand#3{#3}}%
+    \expandafter\endgroup\temp@x
+  }%
+}{}%
+\@ifundefined{Strsep}{%
+  \let\EMdef\def%   必要に応じて \let\EMdef\gdef とする。
+  \long\def\Strsep#1#2#3#4{%
+    \long\def\@@Strsep##1#2\@@nil{\EMdef#4{##1}}%
+    \long\def\@Strsep##1#2##2\@nil{\EMdef#3{##1}%
+      \ifthenelse{\equal{##2}\empty}{\EMdef#4{##2}}{%
+        \expandafter\@@Strsep##2\@@nil
+      }%
+    }%
+    \expandafter\@Strsep#1#2\@nil
+  }%
+}{}%
+\@ifpackageloaded{ifthen}{}{\RequirePackage{ifthen}}%
 \endinput
 
 ver 0.00 2002/10/01 QandA #11368 からのスレッドで提案

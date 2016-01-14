@@ -1,8 +1,8 @@
 % emathPsb.sty by tDB (emath@nifty.com)
 %
 \NeedsTeXFormat{LaTeX2e}%
-\def\Psb@version{0.45beta}%
-\ProvidesPackage{emathPsb}[2013/12/28 v \Psb@version ]%
+\def\Psb@version{0.48}%
+\ProvidesPackage{emathPsb}[2015/11/29 v \Psb@version ]%
 %
 % rectbox の ps 版 （使用例：sizuoka03.tex）
 %
@@ -278,8 +278,6 @@
   }%
   \def\Draw@rectbox{\Drawline}%
 %
-%  \edef\shade@rule{0pt}%
-%
   \@ifnextchar[{\EMpsrectbox@}{\@EMpsrectbox}%
 }%
 %
@@ -287,9 +285,9 @@
 \def\@EMpsrectbox{\@ifnextchar<{\@@EMpsrectbox}{\@@EMpsrectbox<\empty>}}%
 \def\@@EMpsrectbox<#1>{%
 \ifdim\shade@rule>\z@
-  \ifdim\rectbox@oval>\z@
-    \errmessage{shade オプションと併用できないオプション(rectboxoval or rectboxrect)を用いています}%
-  \fi
+%  \ifdim\rectbox@oval>\z@
+%    \errmessage{shade オプションと併用できないオプション(rectboxoval or rectboxrect)を用いています}%
+%  \fi
   \ifx\empty\rectbox@bitem\else
     \errmessage{shade オプションと併用できないオプション(bitem)を用いています}%
   \fi
@@ -458,18 +456,48 @@
   \Addvecself\trueRT{(-\shade@w,0)}%
   \Addvecself\trueRB{(-\shade@w,\shade@w)}%
   \Addvecself\trueLB{(0,\shade@w)}%
-\ifdim\rectbox@oval=\z@{%
-  \gsave
-  \ifx\empty\shade@color\else\EMpsIrositei{\shade@color}\fi
-  \@tempdima\shade@rule
-  \edef\shade@w{\strip@pt\@tempdima}%
-  \@Div\shade@w{2}\shade@hw
-  \Addvecself\trueRT{(\shade@hw,-\shade@w)}%
-  \Addvecself\trueRB{(\shade@hw,-\shade@hw)}%
-  \Addvecself\trueLB{(\shade@w,-\shade@hw)}%
-  \Drawline<linewidth=\shade@rule>{\trueLB\trueRB\trueRT}%
-  \grestore
-}\fi
+  \ifdim\rectbox@oval=\z@
+    \bgroup\gsave
+    \ifx\empty\shade@color\else\EMpsIrositei{\shade@color}\fi
+    \@tempdima\shade@rule
+    \edef\shade@w{\strip@pt\@tempdima}%
+    \@Div\shade@w{2}\shade@hw
+    \Addvecself\trueRT{(\shade@hw,-\shade@w)}%
+    \Addvecself\trueRB{(\shade@hw,-\shade@hw)}%
+    \Addvecself\trueLB{(\shade@w,-\shade@hw)}%
+    \Drawline<linewidth=\shade@rule>{\trueLB\trueRB\trueRT}%
+    \grestore\egroup
+  \else
+    \bgroup\gsave
+    \ukansan\rectbox@oval\tmp@c
+    \@tempdima\shade@rule
+    \divide\@tempdima\tw@
+    \advance\@tempdima\rectbox@oval
+    \ukansan\@tempdima\tmp@R
+    \Addvec\trueRB{(-\tmp@c,\tmp@c)}\tmp@C
+    \ifx\empty\shade@color\else\EMpsIrositei{\shade@color}\fi
+    \@tempdima\shade@rule
+    \edef\shade@w{\strip@pt\@tempdima}%
+    \@Div\shade@w{2}\shade@hw
+    \ifdim\shade@rule<\rectbox@oval
+      \ukansan\rectbox@oval\tmp@w
+      \Addvecself\trueRT{(\shade@hw,-\tmp@w)}%
+      \Addvecself\trueLB{(\tmp@w,-\shade@hw)}%
+    \else
+      \Addvecself\trueRT{(\shade@hw,-\shade@w)}%
+      \Addvecself\trueLB{(\shade@w,-\shade@hw)}%
+    \fi
+    \psnewpath
+    \linethickness\shade@rule
+    \Addvec\tmp@C{(0,-\tmp@R)}\trueRB@i%
+    \Addvec\tmp@C{(\tmp@R,0)}\trueRB@ii
+    \psmoveto\trueLB
+    \Addvecself\trueRB{(\shade@hw,-\shade@hw)}%
+    \psarcto\trueRB\trueRT\tmp@R
+    \pslineto\trueRT
+    \psstroke
+    \grestore\egroup
+  \fi
 \fi
 % 見出し処理
         \Tyuuten\trueLT\trueRT\rectbox@C
@@ -1437,6 +1465,7 @@
   \edef\r@sep{\empty}%
   \edef\t@sep{\empty}%
   \edef\b@sep{\empty}%
+  \edef\shade@rule{0pt}%
   \edef\rectbox@Width{\empty}%
   \edef\rectbox@item{\empty}%
   \edef\rectbox@preitem{\empty}%
@@ -1637,9 +1666,9 @@
     \Add\fb@W\shade@w\fb@W@
     \Add\fb@D\shade@w\fb@D@
     \ifthenelse{\equal\psz@option\empty}{%
-      \edef\fb@tmp{[haiti=o](0,\fb@W@)(-\fb@D@,\fb@H)}%
+      \edef\fb@tmp{[haiti=o](0,\fb@W@)(-(\fb@D@),\fb@H)}%
     }{%
-      \edef\fb@tmp{[\psz@option,haiti=o](0,\fb@W@)(-\fb@D@,\fb@H)}%
+      \edef\fb@tmp{[\psz@option,haiti=o](0,\fb@W@)(-(\fb@D@),\fb@H)}%
     }%
     \expandafter\pszahyou\fb@tmp
       \drawaxisfalse
@@ -1685,6 +1714,43 @@
           }%
         }%
 \grestore\egroup
+  \else
+    \gsave\bgroup
+%            \Addvec\fb@RT{(\shade@hw,-\shade@w)}\fb@RT@
+%            \Addvecself\fb@RT@{(\fb@xl,-\fb@xl)}%
+%            \Addvec\fb@RB{(\shade@hw,-\shade@hw)}\fb@RB@
+%            \Addvecself\fb@RB@{(\fb@xl,-\fb@xl)}%
+%            \Addvec\fb@LB{(\shade@w,-\shade@hw)}\fb@LB@
+%            \Addvecself\fb@LB@{(\fb@xl,-\fb@xl)}%
+%%           \Drawline<linethickness=\shade@rule>{\fb@LB@\fb@RB@\fb@RT@}%
+    \ukansan\rectbox@oval\tmp@c
+    \@tempdima\shade@rule
+    \divide\@tempdima\tw@
+    \advance\@tempdima\rectbox@oval
+    \ukansan\@tempdima\tmp@R
+    \Addvec\fb@RB{(-\tmp@c,\tmp@c)}\tmp@C
+    \ifx\empty\shade@color\else\EMpsIrositei{\shade@color}\fi
+    \@tempdima\shade@rule
+    \edef\shade@w{\strip@pt\@tempdima}%
+    \@Div\shade@w{2}\shade@hw
+    \ifdim\shade@rule<\rectbox@oval
+      \ukansan\rectbox@oval\tmp@w
+      \Addvecself\fb@RT{(\shade@hw,-\tmp@w)}%
+      \Addvecself\fb@LB{(\tmp@w,-\shade@hw)}%
+    \else
+      \Addvecself\fb@RT{(\shade@hw,-\shade@w)}%
+      \Addvecself\fb@LB{(\shade@w,-\shade@hw)}%
+    \fi
+    \psnewpath
+    \linethickness\shade@rule
+    \Addvec\tmp@C{(0,-\tmp@R)}\fb@RB@i%
+    \Addvec\tmp@C{(\tmp@R,0)}\fb@RB@ii
+    \psmoveto\fb@LB
+    \Addvecself\fb@RB{(\shade@hw,-\shade@hw)}%
+    \psarcto\fb@RB\fb@RT\tmp@R
+    \pslineto\fb@RT
+    \psstroke
+    \grestore\egroup
 \fi
 \fi
 %
@@ -1845,7 +1911,19 @@
                     \Addvec\fb@LT{(\kagi@x,0)}\fb@LT@@
                     \Addvec\fb@LB{(0,\kagi@y)}\fb@LB@
                     \Addvec\fb@LB{(\kagi@x,0)}\fb@LB@@
-                    \Drawline{\fb@LT@@\fb@LT@\fb@LB@\fb@LB@@}%
+                    \@ifundefined{not@B}{%
+                      \@ifundefined{not@T}{% 上あり，下あり
+                        \Drawline{\fb@LT@@\fb@LT@\fb@LB@\fb@LB@@}%
+                      }{% 上なし，下あり
+                        \Drawline{\fb@LT\fb@LB@\fb@LB@@}%
+                      }%
+                    }{%
+                      \@ifundefined{not@T}{% 上あり，下なし
+                        \Drawline{\fb@LT@@\fb@LT@\fb@LB}%
+                      }{% 上なし，下なし
+                        \Drawline{\fb@LT\fb@LB}%
+                      }%
+                    }%
           }%
         \else
           \Tyuuten\fb@LT\fb@LB\fb@LM
@@ -1881,13 +1959,25 @@
           \@ifundefined{rectbox@kagi}{%
             \Drawline{\fb@RT\fb@RB}%
           }{%
-                    \Rdef(\kagi@l,\kagi@a)\kagi@tmp
-                    \vecXY\kagi@tmp\kagi@x\kagi@y
-                    \Addvec\fb@RT{(0,-\kagi@y)}\fb@RT@
-                    \Addvec\fb@RT{(-\kagi@x,0)}\fb@RT@@
-                    \Addvec\fb@RB{(0,\kagi@y)}\fb@RB@
-                    \Addvec\fb@RB{(-\kagi@x,0)}\fb@RB@@
-                    \Drawline{\fb@RT@@\fb@RT@\fb@RB@\fb@RB@@}%
+            \Rdef(\kagi@l,\kagi@a)\kagi@tmp
+            \vecXY\kagi@tmp\kagi@x\kagi@y
+            \Addvec\fb@RT{(0,-\kagi@y)}\fb@RT@
+            \Addvec\fb@RT{(-\kagi@x,0)}\fb@RT@@
+            \Addvec\fb@RB{(0,\kagi@y)}\fb@RB@
+            \Addvec\fb@RB{(-\kagi@x,0)}\fb@RB@@
+            \@ifundefined{not@B}{%
+              \@ifundefined{not@T}{% 上あり，下あり
+                \Drawline{\fb@RT@@\fb@RT@\fb@RB@\fb@RB@@}%
+              }{% 上なし，下あり
+                \Drawline{\fb@RT\fb@RB@\fb@RB@@}%
+              }%
+            }{%
+              \@ifundefined{not@T}{% 上あり，下なし
+                \Drawline{\fb@RT@@\fb@RT@\fb@RB}%
+              }{% 上なし，下なし
+                \Drawline{\fb@RT\fb@RB}%
+              }%
+            }%
           }%
         \else
           \Tyuuten\fb@RT\fb@RB\fb@RM
@@ -1929,12 +2019,26 @@
                     \Addvec\fb@LT{(\kagi@x,0)}\fb@LT@@
                     \Addvec\fb@LB{(0,\kagi@y)}\fb@LB@
                     \Addvec\fb@LB{(\kagi@x,0)}\fb@LB@@
-                    \Drawline{\fb@LT@@\fb@LT@\fb@LB@\fb@LB@@}%
                     \Addvec\fb@RT{(0,-\kagi@y)}\fb@RT@
                     \Addvec\fb@RT{(-\kagi@x,0)}\fb@RT@@
                     \Addvec\fb@RB{(0,\kagi@y)}\fb@RB@
                     \Addvec\fb@RB{(-\kagi@x,0)}\fb@RB@@
-                    \Drawline{\fb@RT@@\fb@RT@\fb@RB@\fb@RB@@}%
+                    \@ifundefined{not@B}{%
+                      \@ifundefined{not@T}{% 上あり，下あり
+                        \Drawline{\fb@RT@@\fb@RT@\fb@RB@\fb@RB@@}%
+                        \Drawline{\fb@LT@@\fb@LT@\fb@LB@\fb@LB@@}%
+                      }{% 上なし，下あり
+                        \Drawline{\fb@RT\fb@RB@\fb@RB@@}%
+                        \Drawline{\fb@LT\fb@LB@\fb@LB@@}%
+                      }%
+                    }{%
+                      \@ifundefined{not@T}{% 上あり，下なし
+                        \Drawline{\fb@RT@@\fb@RT@\fb@RB}%
+                        \Drawline{\fb@LT@@\fb@LT@\fb@LB}%
+                      }{% 上なし，下なし
+                        \Drawlines{\fb@LT\fb@LB;\fb@RT\fb@RB}%
+                      }%
+                    }%
           }%
         \else
           \Tyuuten\fb@LT\fb@LB\fb@LM
@@ -2068,7 +2172,10 @@
     \@tempdima=\wd\ps@box
     \advance\@tempdima\shade@rule
     \wd\ps@box\@tempdima
-    \@ifundefined{not@B}{\vspace{\shade@rule}}{}%
+    \@tempdima\dp\ps@box
+    \advance\@tempdima\shade@rule
+    \@ifundefined{not@B}{\dp\ps@box\@tempdima}{}%
+%    \@ifundefined{not@B}{\vspace{\shade@rule}}{}%
   \fi
   \hskip\frame@linewidth\hskip\l@sep
   \box\ps@box\relax
@@ -2925,6 +3032,7 @@
   \expandafter\Put\pszfbox@tmp{%
     \hspace{\l@sep}\box\ps@box\hspace{\r@sep}}%
   \grestore
+  \grestore
 }}%
 %
 \def\EMpszboxed{\@ifnextchar<{\@EMpszboxed}{\@EMpszboxed<\empty>}}%
@@ -3397,3 +3505,6 @@ v 0.42 2013/01/18 kokuban環境：チョーク
 v 0.43 2013/01/19 \showchalk など
 v 0.44 2013/05/03 \ifrectbox@prepar
 v 0.45 2013/12/28 \EMpsfbox: not@T の補正保留
+v 0.46 2015/04/26 \EMpsfbox: gsave と grestore の対応を修正
+v 0.47 2015/10/10            [kagi] オプション修正
+v 0.48 2015/11/29 EMpsrectbox, \EMpsfbox: oval, shade オプションの併用

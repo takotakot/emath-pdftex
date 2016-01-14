@@ -17,7 +17,9 @@
   \DeclareOption{pxfonts}{\def\em@fonts{3}}%
   \DeclareOption{mathabx}{\def\em@fonts{4}}%
   \DeclareOption{ceo}{\def\em@fonts{5}}%
+  \DeclareOption{ceosty}{\def\ceo@sty{}}%
   \DeclareOption{varceo}{\def\var@ceo{}\def\em@fonts{5}}%
+  \DeclareOption{varceosty}{\def\var@ceo{}\def\ceo@sty{}}%
   \DeclareOption{varg}{\def\@varg{}}%
   \DeclareOption{mtp2lite}{\def\var@mtp2{l}\def\em@fonts{6}}%
   \DeclareOption{newtx}{\def\em@fonts{7}}%
@@ -54,7 +56,7 @@
     \def\tmpname{LaTeX2e}%
 %    \ifx\fmtname\tmpname%
       \NeedsTeXFormat{LaTeX2e}
-\ProvidesPackage{emath}[2014/10/22 2.74]
+\ProvidesPackage{emath}[2015/09/05 2.76]
 %
 \newif\if@jsclasses \@jsclassesfalse
 \@ifclassloaded{jsarticle}{\@jsclassestrue}{}
@@ -102,7 +104,28 @@
 \def\EM@system#1{\immediate\write18{#1}}%
 %
 %
-  \@ifundefined{notAMS}{\RequirePackage{amsmath}}{}%
+  \@ifundefined{notAMS}{\RequirePackage{amsmath}}{%
+\@ifundefined{genfrac}{%
+    \@ifundefined{iftagsleft@}{%
+      \newif\iftagsleft@
+      \tagsleft@false
+    }{}%
+    \let\@xp=\expandafter
+    \let\@nx=\noexpand
+    \def\@mathstyle#1{%
+      \ifx\@empty#1\@empty\relax
+      \else\ifcase#1\displaystyle % case 0
+        \or\textstyle\or\scriptstyle\else\scriptscriptstyle\fi\fi}
+    \DeclareRobustCommand{\genfrac}[4]{%
+      \def\@tempa{#1#2}%
+      \edef\@tempb{\@nx\@genfrac\@mathstyle{#4}%
+        \csname @@\ifx @#3@over\else above\fi
+        \ifx\@tempa\@empty \else withdelims\fi\endcsname}
+      \@tempb{#1#2#3}}
+    \def\@genfrac#1#2#3#4#5{{#1{\begingroup#4\endgroup#2#3\relax#5}}}
+    \newcommand{\dfrac}{\genfrac{}{}{}0}
+}{}%
+  }%
 \@ifundefined{@nly}{%
   \@ifundefined{em@schlmath}{}{%
     \let\tmp@cr\\
@@ -132,7 +155,10 @@
         \RequirePackage{mathabx}%
         \def\bekutoru@sityuu{\vrule height .75zh width \z@}%
       \or % 5
-        \IfFileExists{EMceo.sty}{\RequirePackage{EMceo}}{}%
+        \IfFileExists{EMceo.sty}{%
+          \RequirePackage{EMceo}%
+          \def\dfrac{\genfrac{}{}{}0}
+        }{}%
       \or % 6=[lite]mtpro2
         \RequirePackage{amssymb}%
         \RequirePackage[lite]{mtpro2}%
@@ -143,8 +169,7 @@
         \RequirePackage{newtxmath}%
       \fi
   }%
-\@ifundefined{emC@fp}{}{\RequirePackage{emfpcalc}}%
-\IfFileExists{makerobust.sty}{\RequirePackage{makerobust}}{}%
+%\IfFileExists{makerobust.sty}{\RequirePackage{makerobust}}{}%
 \IfFileExists{emathC.sty}{\RequirePackage{emathC}}{}%
 \IfFileExists{emathE.sty}{\RequirePackage{emathE}}{}%
 %\IfFileExists{emgyouretu.sty}{\RequirePackage{emgyouretu}}{}%
@@ -251,6 +276,7 @@
   }%
 }{}%
 \RequirePackage{keyval}%
+\define@key{emath}{syuugousityuu}{\def\syuugou@sityuu{#1}}%
 \define@key{emath}{kotae}{\def\@kotae{#1}}%
 \define@key{emath}{pos}{\def\@pos{#1}}%
 \define@key{emath}{arrayarg}{\EMedef\array@arg{#1}}%
@@ -264,7 +290,8 @@
 %
 % amsmath で \@ifnextchar が再定義されることへの対策
 %
-\let\ltx@ifnextchar\@ifnextchar
+%\let\ltx@ifnextchar\@ifnextchar
+\let\em@ifnextchar\@ifnextchar% http://oku.edu.mie-u.ac.jp/tex/mod/forum/discuss.php?d=1651
 \def\ProvidesFile#1{%
   \begingroup
     \catcode`\ 10 %
@@ -275,7 +302,8 @@
     \fi
     \@makeother\/%
     \@makeother\&%
-    \ltx@ifnextchar[{\@providesfile{#1}}{\@providesfile{#1}[]}}
+%    \ltx@ifnextchar[{\@providesfile{#1}}{\@providesfile{#1}[]}}
+    \em@ifnextchar[{\@providesfile{#1}}{\@providesfile{#1}[]}}
 %
 %
 %------------------------
@@ -413,7 +441,7 @@
 \let\cbunsuu\bunsuu
 %
 \@ifundefined{@nly}{%
-\renewcommand{\cfrac}[3][c]{{\EMresetstrutbox
+  \providecommand{\cfrac}[3][c]{{\EMresetstrutbox
   \dfrac{%
   \strut
   \ifx r#1\hfill\fi#2\ifx l#1\hfill\fi}{#3}}%
@@ -1409,11 +1437,16 @@
 \def\syuugou@sityuu{\protect\vphantom{$\bunsuu12$}}%
 \def\syuugousityuu#1{\def\syuugou@sityuu{#1}}%
 %
+\EMedef\left@str@{\lbrace}%
+\EMedef\right@str@{\rbrace}%
+\def\leftstr#1{\EMedef\left@str@{#1}}%
+\def\rightstr#1{\EMedef\right@str@{#1}}%
+%
 %\def\syuugou{\begingroup
 \newcommand{\relmiddle}[1]{\mathrel{}\middle#1\mathrel{}}
 \DeclareRobustCommand\syuugou{\begingroup
-  \EMedef\left@str{\lbrace}%
-  \EMedef\right@str{\rbrace}%
+  \EMedef\left@str{\left@str@}%
+  \EMedef\right@str{\right@str@}%
   \@ifnextchar<{\syuugou@}{\@syuugou}}%
 \def\syuugou@<#1>{\setkeys{emath}{#1}\@syuugou}%
 \def\@syuugou{\@ifnextchar[{\@@syuugou}{\@@syuugou@}}%
@@ -1686,7 +1719,7 @@
   \hskip2zw\hbox{}\nobreak\hfil #1\parfillskip=\z@\finalhyphendemerits=0}
 %
 % 行末にマーク
-\DeclareRobustCommand{\kotae}{\@ifstar{\emathKotae@}{\emathKotae}}
+\DeclareRobustCommand{\EMkotae}{\@ifstar{\emathKotae@}{\emathKotae}}
 \def\emathKotae{\@ifnextchar[{\emath@kotae}{\emath@kotae[2]}}
 \def\emath@kotae[#1]{\@ifnextchar<{\emath@@kotae[#1]}{%
   \emath@@kotae[#1]<0pt>}}
@@ -1714,6 +1747,7 @@
   \fi
   \emathOwari*[\kotae@kigou]}
 \newcommand{\kotaekigou}{\inhibitglue （答）\inhibitglue}
+\let\kotae\EMkotae
 %
 %\let\kotae\emathKotae
 %\def\kotae{\@ifstar{\emathKotae@}{\emathKotae}}%
@@ -1901,6 +1935,8 @@
     \newcommand{\postEqlabel}[1]{}%
     \newcommand{\tagform}[1]{}%
 \fi%
+%\preEqlabel{}%
+%\postEqlabel{}%
 %
 % 式番号形式の初期化
 %
@@ -2187,55 +2223,64 @@
   }{%
     \ensuremath{\text{\eqref{#2}}^{#1}}%
   }%
+%  \ifthenelse{\isodd{0#11}}{%
+%    \def\dsh@mrk{$\ifcase#1\or'\or''\or'''\or''''\fi$}%
+%  }{%
+%    \def\dsh@mrk{${}^{#1}$}%
+%  }%
+%      \ifnum\dash@pos=\z@
+%        \def\tagform@##1{%
+%          \maketag@@@{\ignorespaces\protect\prel@bel\tagform{##1}%
+%          \protect\postl@bel\unskip\@@italiccorr\dsh@mrk}}%
+%      \else
+%        \def\tagform@##1{%
+%          \maketag@@@{\ignorespaces\protect\prel@bel\tagform{##1}%
+%          \dsh@mrk\protect\postl@bel\unskip\@@italiccorr}}%
+%      \fi
+%    \ensuremath{\text{\amseqref{#2}}}%
 }%
 % \dashtag(ダッシュの個数){元番号のラベル}
+\def\dash@pos{0}%
+\def\dashpos#1{\def\dash@pos{#1}}%
 \def\dashtag{\@ifstar{\edef\DT@new{1}\@dashtag}{\edef\DT@new{0}\@dashtag}}%
 \def\@dashtag{\@ifnextchar({\@@dashtag}{\@@dashtag(1)}}%
-\def\@@dashtag(#1)#2{%
-%\typeout{measure@type=\measure@type,arg2=#2,DT@new=\DT@new}%
-  \ifx\empty\measure@type
-    \ifnum\DT@new>\z@
-%     \refstepcounter{equation}%
-      \writeLabel{#2}{\theequation}%
-      \refstepcounter{equation}%
-    \fi
-    \if@fleqn
-      \ifthenelse{\isodd{0#11}}{%
-        \tag*{\prel@bel\eqref{#2}\makebox[0pt][l]{\ensuremath{\lefteqn{%
-          \ifcase#1\or'\or''\or'''\or''''\fi}}}}\postl@bel
-      }{%
-        \tag*{\prel@bel\eqref{#2}\ensuremath{\lefteqn{^{#1}}}}\postl@bel
-      }%
-    \else
-      \EMedef\dashtag@tmp{\amseqref{#2}}%
-      \ifthenelse{\isodd{0#11}}{%
-        \tag*{\dashtag@tmp\makebox[0pt][l]{\ensuremath{\lefteqn{%
-          \ifcase#1\or'\or''\or'''\or''''\fi}}}}\postl@bel
-      }{%
-        \tag*{\dashtag@tmp\ensuremath{\lefteqn{^{#1}}}}\postl@bel
-      }%
-    \fi
-  \else
-    \ifnum\DT@new>\z@
-      \refstepcounter{equation}%
-      \writeLabel{#2}{\theequation}%
-    \fi
-    \ifthenelse{\isodd{0#11}}{%
-      \ifx\empty\postl@bel
-        \tag*{\prel@bel\eqref{#2}\smash{\raisebox{.5ex}{\makebox[0pt][l]{%
-          \ensuremath{\lefteqn{\ifcase#1\or'\or''\or'''\or''''\fi}}}}}%
-        }%
+\def\@@dashtag(#1)#2{{%
+  \ifthenelse{\isodd{0#11}}{%
+    \def\dsh@mrk{$\ifcase#1\or'\or''\or'''\or''''\fi$}%
+  }{%
+    \def\dsh@mrk{${}^{#1}$}%
+  }%
+    \@ifundefined{in@empheq}{%
+      \ifnum\dash@pos=\z@
+        \def\tagform@##1{%
+          \maketag@@@{\ignorespaces\protect\prel@bel\tagform{##1}%
+          \protect\postl@bel\unskip\@@italiccorr\hbox to \z@{\dsh@mrk\hss}}}%
       \else
-        \tag*{\prel@bel\eqref{#2}\ensuremath{\lefteqn{\!\smash{%
-          \raisebox{.5ex}{$\ifcase#1\or'\or''\or'''\or''''\fi$\,}}}}%
-          \postl@bel
-        }%
+        \def\tagform@##1{%
+          \maketag@@@{\ignorespaces\protect\prel@bel\tagform{##1}%
+          \dsh@mrk\protect\postl@bel\unskip\@@italiccorr}}%
       \fi
     }{%
-      \tag*{\prel@bel\eqref{#2}\ensuremath{\lefteqn{^{#1}}}\postl@bel}%
+      \ifnum\dash@pos=\z@
+        \def\amseqref##1{\textup{\protect\prel@bel\amstagform@{\ref{##1}}%
+          \protect\postl@bel\hbox to \z@{\dsh@mrk\hss}}}%
+      \else
+        \def\amseqref##1{\textup{\protect\prel@bel\amstagform@{\ref{##1}}%
+          \dsh@mrk\protect\postl@bel}}%
+      \fi
     }%
+  \ifnum\DT@new>\z@
+      \writeLabel{#2}{\theequation}%
+      \refstepcounter{equation}%
   \fi
-}%
+  \EMxdef\dashtag@tmp{\amseqref{#2}}%
+%  \ifthenelse{\isodd{0#11}}{%
+        \tag*{\dashtag@tmp}%\hbox to\z@{%
+%  }{%
+%        \tag*{\dashtag@tmp\ensuremath{\lefteqn{^{#1}}}}%
+%  }%
+% \def\postl@bel{\DLpostl@bel}%
+}}%
 %
 %\newcommand{\marudashref}[1]{\ensuremath{\text{\maru{\ref{#1}}}'}}%
 \def\marudashref{\@ifnextchar({\@marudashref}{\@marudashref(1)}}%
@@ -2254,10 +2299,11 @@
         \ifcase#1\or'\or''\or'''\or''''\fi}}}%
     \else
       \tag*{\protect\prel@bel\maru{\ref{#2}}\ensuremath{\!\lefteqn{%
-        \ifcase#1\or'\or''\or'''\or''''\fi}\,}\postl@bel}%
+        \ifcase#1\or'\or''\or'''\or''''\fi}\,}\protect\postl@bel}%
     \fi
   }{%
-    \tag*{\prel@bel\maru{\ref{#2}}\ensuremath{\lefteqn{^{#1}}}\postl@bel}%
+    \tag*{\protect\prel@bel\maru{\ref{#2}}\ensuremath{\lefteqn{^{#1}}}%
+      \protect\postl@bel}%
   }%
 }%
 %\let\marudashref\dashref
@@ -2666,7 +2712,7 @@
       \setlength{\templa}{\emath@W}%
     \else
       \setbox1=\hbox{$#4$}\templa=\wd1%
-      \setbox0=\hbox{{\prel@bel}}%
+      \setbox0=\hbox{{\protect\prel@bel}}%
       \addtolength{\templa}{\wd0}\addtolength{\templa}{1.75zw}%
       \addtolength{\templa}{\ltxhouteisiki@Y}%
     \fi
@@ -2700,11 +2746,11 @@
     \def\ltxhouteisiki@Y{#1}%
   \fi
   \ifx\empty#3\else
-    \def\@marudashtag(##1)##2{\tag*{\prel@bel\maru{\ref{##2}}%
-        \ensuremath{\ifcase##1\or'\or''\or'''\or''''\fi}\postl@bel}}%
+    \def\@marudashtag(##1)##2{\tag*{\protect\prel@bel\maru{\ref{##2}}%
+        \ensuremath{\ifcase##1\or'\or''\or'''\or''''\fi}\protect\postl@bel}}%
 %    \def\dashtag{\@ifnextchar({\@dashtag}{\@dashtag(1)}}%
-%    \def\@dashtag(##1)##2{\tag*{\prel@bel\eqref{##2}%
-%        \ensuremath{\ifcase##1\or'\or''\or'''\or''''\fi}\postl@bel}}%
+%    \def\@dashtag(##1)##2{\tag*{\protect\prel@bel\eqref{##2}%
+%        \ensuremath{\ifcase##1\or'\or''\or'''\or''''\fi}\protect\postl@bel}}%
   \fi%
   \@fleqntrue%
   \preEqlabel{\preHl@bel}%
@@ -2713,7 +2759,7 @@
       \setlength{\templa}{\emath@W}%
   \else
       \setbox1=\hbox{{\def\@marudashtag(##1)##2{\relax}\def\@@dashtag(##1)##2{\relax}$#4$}}\templa=\wd1%
-      \setbox0=\hbox{{\prel@bel}}%
+      \setbox0=\hbox{{\protect\prel@bel}}%
       \addtolength{\templa}{\wd0}\addtolength{\templa}{1.75zw}%
       \addtolength{\templa}{\ltxhouteisiki@Y}%
       \ifx \empty #3\else\addtolength{\templa}{.9zw}\fi%
@@ -3412,6 +3458,8 @@
   \closein\fileophndl\delfile{\@flnm}%
   \strsep\gettimestamp@a{,}#2#3}
 %
+\edef\EMworkfilename{lrep}%
+%\edef\EMworkfilename{\jobname}%
 %
 %\IfFileExists{emathO.sty}{\usepackage{emathO}}{}%
 %
@@ -3554,6 +3602,9 @@
     \let\remreset\@removefromreset
     \let\removefromreset\@removefromreset
   }%
+  \@ifundefined{textgtbf}{%
+    \def\textgtbf#1{{\gtfamily #1}}%
+  }{}%
   \@ifundefined{Fld@menulength}{%
   }{%
     \@latex@warning{emath と hyperref との併用は，原則としてできません。
@@ -3640,7 +3691,9 @@
   \@ifpackageloaded{empheq}{%
     \let\empheqorg\empheq
     \def\empheq{%
-      \def\amseqref##1{\textup{\amstagform@{\ref{##1}}}}%
+      \def\in@empheq{}%
+      \def\amseqref##1{\textup{\protect\prel@bel
+        \amstagform@{\ref{##1}}\protect\postl@bel}}%
       \def\amstagform@##1{\amsmaketag@@@{%
         (\ignorespaces##1\unskip\@@italiccorr)}}%
       \def\amstagform@##1{\amsmaketag@@@{%
@@ -3672,6 +3725,7 @@
   \@ifundefined{coloneqq}{%
     \def\coloneqq{\mathrel{\mathop:}=}%
   }{}%
+  \@ifundefined{emC@fp}{}{\RequirePackage{emfpcalc}}%
 }%
 %
 \long\def \emgobble #1{}
@@ -3740,6 +3794,21 @@
 }}
 %
 %
+\@ifundefined{ceo@sty}{}{%
+  \let\nagamaru\undefined
+  \let\Maru\undefined
+  \RequirePackage{ceo}%
+  \@ifundefined{var@ceo}{%
+    \DeclareMathSymbol{\varx}{\mathalpha}{letters}{"D1}
+    \DeclareMathSymbol{\vary}{\mathalpha}{letters}{"D2}
+  }{%
+    \DeclareMathSymbol{x}{\mathalpha}{letters}{"D1}
+    \DeclareMathSymbol{y}{\mathalpha}{letters}{"D2}
+    \DeclareMathSymbol{\varx}{\mathalpha}{letters}{"78}
+    \DeclareMathSymbol{\vary}{\mathalpha}{letters}{"79}
+  }%
+  \def\dfrac{\genfrac{}{}{}0}%
+}%
 %
 \endinput
 %%% end of emath.sty

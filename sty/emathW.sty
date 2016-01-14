@@ -1,7 +1,7 @@
 % emathW.sty by tDB(emath@nifty.com)
 %
 \NeedsTeXFormat{LaTeX2e}%
-\ProvidesPackage{emathW}[2014/04/27 v0.39]%
+\ProvidesPackage{emathW}[2015/03/11 v0.40]%
 %
 \@ifpackageloaded{emath}{}{\RequirePackage{emath}}%
 \RequirePackage{emathQf}
@@ -601,10 +601,14 @@
     \@tempcnta\z@\def\EMw@t{}%
     \@whilenum\@tempcnta<#2\do{%
       \advance\@tempcnta\@ne\edef\n@{#1\romannumeral\@tempcnta}%
+\EMedef\@seikei@tmp{\@nameuse{\n@}}%
+\if -\@seikei@tmp\EMedef\@seikei@tmp{\hbox to \z@{\hss $-$}}\fi
       \ifnum\@tempcnta=\@ne
-        \xdef\EMw@t{\@nameuse{\n@}}%
+%        \EMxdef\EMw@t{\@nameuse{\n@}}%
+        \EMxdef\EMw@t{\@seikei@tmp}%
       \else
-        \xdef\EMw@t{\EMw@t&\@nameuse{\n@}}%
+%        \EMxdef\EMw@t{\EMw@t&\@nameuse{\n@}}%
+        \EMxdef\EMw@t{\EMw@t&\@seikei@tmp}%
       \fi
     }%
 }}%
@@ -987,14 +991,19 @@
   \@keisuu@{zyo@a}{\@hizyosuu}\edef\zyo@ca{\the\@tempcnta}\Decr\zyo@ca
   \@keisuu@{zyo@b}{\@zyosuu}\edef\zyo@cb{\the\@tempcnta}\Decr\zyo@cb
   \@keisuu@{zyo@q}{\@syou}\edef\zyo@cq{\the\@tempcnta}\Decr\zyo@cq
+\edef\tbl@c{\zyo@ca}%
+\ifnum\zyo@cb>\tbl@c\edef\tbl@c{\zyo@cb}\fi
+\ifnum\zyo@cq>\tbl@c\edef\tbl@c{\zyo@cq}\fi
   \leavevmode
-  \begin{array}[t]{@{\hskip\hissan@keta@sep}r*{\zyo@ca}{@{\hskip\hissan@keta@sep}r}}
+  \begin{array}[t]{@{\hskip\hissan@keta@sep}r*{\tbl@c}{@{\hskip\hissan@keta@sep}r}}%
+    \@tempcnta\tbl@c\advance\@tempcnta-\zyo@ca%\advance\@tempcnta\@ne
+    \zyo@tab{\@tempcnta}\@hidari
     \@seikei@{zyo@a}{\zyo@ca}&\EMw@t\\
-    \@tempcnta\zyo@ca\advance\@tempcnta-\zyo@cb
+    \@tempcnta\tbl@c\advance\@tempcnta-\zyo@cb
     \zyo@tab{\@tempcnta}-\hissankakko&\@hidari
     \@seikei@{zyo@b}{\zyo@cb}\EMw@t\\\hline
     \ifx #1M\else
-      \@tempcnta\zyo@ca\advance\@tempcnta-\zyo@cq
+      \@tempcnta\tbl@c\advance\@tempcnta-\zyo@cq
       \zyo@tab{\@tempcnta}\@hidari
       \@seikei@{zyo@q}{\zyo@cq}&\EMw@t
     \fi%
@@ -1982,3 +1991,5 @@
 %   \zyohou: 旧スタイル削除 (BBS #11866)
 % 0.39 2014/04/27
 %   \tasizan, \hikizan, \kakezan, \warizan: 整数・有限小数共通
+% 0.40 2015/03/11
+%   \Ihikizan a<b の場合 (BBS #12634)

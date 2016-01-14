@@ -786,8 +786,7 @@
         \fi
       \else
         \immediate\write\em@whndl{%
-          for($x=\YG@xl;$x<\YG@xr;){%
-            $x+=\YG@unit;%
+          for($x=\YG@xl;$x<\YG@xr;$x+=\YG@unit){%
             if ($x>\YG@xr) {$x=\YG@xr}%
             $y=\YGurafu@siki;%
             while (abs($y-$oldy)>$orgdx){%
@@ -965,8 +964,7 @@
         }%
 \ifthenelse{\equal{#1}{*}}{%
         \immediate\write\em@whndl{%
-          for($x=\YG@xl;$x<\YG@xr;){%
-            $x+=\YG@unit;%
+          for($x=\YG@xl;$x<\YG@xr;$x+=\YG@unit){%
             if ($x>\YG@xr) {$x=\YG@xr}%
             $y=\YGurafu@siki;%
             while (abs($y-$oldy)>$orgdx){%
@@ -2854,8 +2852,7 @@ elsif ($xxi==$xxii)
         }%
       \else
         \immediate\write\em@whndl{%
-          for($x=\YG@xl;$x<\YG@xr;){%
-            $x+=\YG@unit;%
+          for($x=\YG@xl;$x<\YG@xr;$x+=\YG@unit){%
             if ($x>\YG@xr) {$x=\YG@xr}%
             $y=\YGurafu@siki;%
             while (abs($y-$oldy)>$orgdx){%
@@ -3275,8 +3272,7 @@ elsif ($xxi==$xxii)
         }%
       \else
         \immediate\write\em@whndl{%
-          for($x=\YG@xl;$x<\YG@xr;){%
-            $x+=\YG@unit;%
+          for($x=\YG@xl;$x<\YG@xr;$x+=\YG@unit){%
             if ($x>\YG@xr) {$x=\YG@xr}%
             $y=\YGurafu@siki;%
             while (abs($y-$oldy)>$orgdx){%
@@ -3986,8 +3982,7 @@ elsif ($xxi==$xxii)
         \fi
       \else
         \immediate\write\em@whndl{%
-          for($x=\YG@xl;$x<\YG@xr;){%
-            $x+=\YG@unit;%
+          for($x=\YG@xl;$x<\YG@xr;$x+=\YG@unit){%
             if ($x>\YG@xr) {$x=\YG@xr}%
             $y=\YGurafu@siki;%
             while (abs($y-$oldy)>$orgdx){%
@@ -5442,6 +5437,14 @@ elsif ($xxi==$xxii)
 \define@key{emP}{zenkinsen}[1]{\def\Soukyokusen@zenkinsen{#1}}%
 \define@key{emP}{zenkinsenOpt}{\def\Soukyokusen@zenkinsen{1}%
   \EMedef\zenkinsen@pt{<#1>}\EMedef\mouthpiece@pt{<#1>}}%
+\define@key{emP}{zltP}[zltP]{\def\Soukyokusen@zenkinsen{1}\EMedef\YG@zltP{#1}}%
+\define@key{emP}{zlbP}[zlbP]{\def\Soukyokusen@zenkinsen{1}\EMedef\YG@zlbP{#1}}%
+\define@key{emP}{zrtP}[zrtP]{\def\Soukyokusen@zenkinsen{1}\EMedef\YG@zrtP{#1}}%
+\define@key{emP}{zrbP}[zrbP]{\def\Soukyokusen@zenkinsen{1}\EMedef\YG@zrbP{#1}}%
+\define@key{emP}{zltM}[zltM]{\def\Soukyokusen@zenkinsen{1}\EMedef\YG@zltM{#1}}%
+\define@key{emP}{zlbM}[zlbM]{\def\Soukyokusen@zenkinsen{1}\EMedef\YG@zlbM{#1}}%
+\define@key{emP}{zrtM}[zrtM]{\def\Soukyokusen@zenkinsen{1}\EMedef\YG@zrtM{#1}}%
+\define@key{emP}{zrbM}[zrbM]{\def\Soukyokusen@zenkinsen{1}\EMedef\YG@zrbM{#1}}%
 \define@key{emP}{mouthpiece}[1]{\def\mouth@piece{#1}}%
 \define@key{emP}{mouthpieceOpt}{%
   \def\mouth@piece{1}\def\mouthpiece@pt{<#1>}}%
@@ -5467,6 +5470,14 @@ elsif ($xxi==$xxii)
   \edef\YG@lbM{\empty}%
   \edef\YG@rtM{\empty}%
   \edef\YG@rbM{\empty}%
+  \edef\YG@zltP{\empty}%
+  \edef\YG@zlbP{\empty}%
+  \edef\YG@zrtP{\empty}%
+  \edef\YG@zrbP{\empty}%
+  \edef\YG@zltM{\empty}%
+  \edef\YG@zlbM{\empty}%
+  \edef\YG@zrtM{\empty}%
+  \edef\YG@zrbM{\empty}%
   \vecXY{#2}\S@x\S@y
   \ifx\empty #1\else\setkeys{emP}{#1}\fi
   \def\Fy@Soukyoku{\S@x+(#3)*sqrt((#4)**2+(Y-(\S@y))**2)/(#4)}%
@@ -5484,11 +5495,15 @@ elsif ($xxi==$xxii)
       \@ifundefined{zenkinsen@thickness}{}{%
         \linethickness{\zenkinsen@thickness}}%
       \ifx\empty\zenkinsen@iro
-        \mTyokusen{#2}{(#3,#4)}{}{}%
-        \mTyokusen{#2}{(#3,-#4)}{}{}%
+%        \mTyokusen<migiT=zrtP,hidariT=zrbP>{#2}{(#3,#4)}{}{}%
+        \lline<migiT=zrtP,hidariT=zlbP>{#2}{(#3,#4)}%
+%        \mTyokusen{#2}{(#3,-#4)}{}{}%
+        \lline<migiT=zrbP,hidariT=zltP>{#2}{(#3,-#4)}%
       \else
-        \mTyokusen<iro=\zenkinsen@iro>{#2}{(#3,#4)}{}{}%
-        \mTyokusen<iro=\zenkinsen@iro>{#2}{(#3,-#4)}{}{}%
+%        \mTyokusen<iro=\zenkinsen@iro>{#2}{(#3,#4)}{}{}%
+        \lline<migiT=zrtP,hidariT=zlbP,iro=\zenkinsen@iro>{#2}{(#3,#4)}%
+%        \mTyokusen<iro=\zenkinsen@iro>{#2}{(#3,-#4)}{}{}%
+        \lline<migiT=zrbP,hidariT=zltP,iro=\zenkinsen@iro>{#2}{(#3,-#4)}%
       \fi
     }{%
       \expandafter\Lline\zenkinsen@pt\mp@LT\mp@RB
@@ -5517,6 +5532,16 @@ elsif ($xxi==$xxii)
                \def\noexpand\YG@lbP{\YG@lbP}%
                \def\noexpand\YG@rtP{\YG@rtP}%
                \def\noexpand\YG@rbP{\YG@rbP}%
+\@ifundefined{Soukyokusen@zenkinsen}{}{%
+               \def\noexpand\zltP{\zltP}%
+               \def\noexpand\zlbP{\zlbP}%
+               \def\noexpand\zrtP{\zrtP}%
+               \def\noexpand\zrbP{\zrbP}%
+               \def\noexpand\YG@zltP{\YG@zltP}%
+               \def\noexpand\YG@zlbP{\YG@zlbP}%
+               \def\noexpand\YG@zrtP{\YG@zrtP}%
+               \def\noexpand\YG@zrbP{\YG@zrbP}%
+}%
                }%
   \expandafter\endgroup\temp@x
   \ifx\empty\YG@ltP\else
@@ -5527,6 +5552,16 @@ elsif ($xxi==$xxii)
     \expandafter\edef\csname\YG@rtP\endcsname{\rtP}\fi
   \ifx\empty\YG@rbP\else
     \expandafter\edef\csname\YG@rbP\endcsname{\rbP}\fi
+\@ifundefined{Soukyokusen@zenkinsen}{}{%
+  \ifx\empty\YG@zltP\else
+    \expandafter\edef\csname\YG@zltP\endcsname{\zltP}\fi
+  \ifx\empty\YG@zlbP\else
+    \expandafter\edef\csname\YG@zlbP\endcsname{\zlbP}\fi
+  \ifx\empty\YG@zrtP\else
+    \expandafter\edef\csname\YG@zrtP\endcsname{\zrtP}\fi
+  \ifx\empty\YG@zrbP\else
+    \expandafter\edef\csname\YG@zrbP\endcsname{\zrbP}\fi
+}%
 }%
 %
 \def\ySoukyokusen{\@ifnextchar<{\@ySoukyokusen}{\@ySoukyokusen<\empty>}}%
@@ -5859,7 +5894,24 @@ elsif ($xxi==$xxii)
   \calcval{#3*tan(\SK@tii)}\SK@yy
   \Addvec{#1}{(\SK@xx,\SK@yy)}{#6}%
 \else\ifdim\SKni@D\p@=\z@
-  \edef#5{\empty}\edef#6{\empty}%
+  \YIntersection<xval=SK@ti,infx=-3*$pi/2,supx=-$pi/2>\Fx@\Gx@\@dmy
+  \calcval{#2/cos(\SK@ti)}\SK@xx
+  \calcval{#3*tan(\SK@ti)}\SK@yy
+  \Abs\SKni@x\SKni@x@
+  \Abs\SK@xx\SK@xx@
+  \ifdim\SK@xx@\p@<\SKni@x@\p@
+    \Addvec{#1}{(\SK@xx,\SK@yy)}#5%
+%\typeout{arg5=#5}%
+    \edef#6{\empty}%
+  \else
+    \YIntersection<xval=SK@tii,infx=-$pi/2,supx=$pi/2>\Fx@\Gx@\@dmy
+    \calcval{#2/cos(\SK@tii)}\SK@xx
+    \calcval{#3*tan(\SK@tii)}\SK@yy
+    \Addvec{#1}{(\SK@xx,\SK@yy)}{#5}%
+%\typeout{argv=#5}%
+    \edef#6{\empty}%
+%  \edef#5{\empty}\edef#6{\empty}%
+  \fi
 \else\ifdim\SKni@D\p@<\p@
   \ifdim\SKni@x\p@>\z@
     \YIntersection<xval=SK@ti,infx=-$pi/2,supx=0>\Fx@\Gx@\@dmy

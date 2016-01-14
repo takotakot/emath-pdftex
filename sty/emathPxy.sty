@@ -3,6 +3,7 @@
 \NeedsTeXFormat{LaTeX2e}%
 \ProvidesPackage{emathPxy}[2013/05/19 v 0.59]%
 \RequirePackage{emathPh}%
+\RequirePackage{emfpcalc}%
 
 \newdimen\xunitlength \xunitlength =1pt
 \newdimen\yunitlength \yunitlength =1pt
@@ -188,21 +189,15 @@
     \ifthenelse{\equal{#5}\empty}{}{\edef\gentenhaiti{#5}}%
   \fi
 %\typeout{xmin=\meaning\xmin,xmax=\meaning\xmax}%
-%  \@ifundefined{fpcalcval}{%
+%  \ifnum\by@fpcalc=\z@
 %    \edef\xmin{#6}\edef\xmax{#7}%
 %    \edef\ymin{#8}\edef\ymax{#9}%
-%  }{%
-%    \fpcalcval{(#6)}\xmin
-%    \fpcalcval{(#7)}\xmax
-%    \fpcalcval{(#8)}\ymin
-%    \fpcalcval{(#9)}\ymax
-%  }%
-%  \edef\xmin{#6}\edef\xmax{#7}%
-%  \edef\ymin{#8}\edef\ymax{#9}%
-  \isnumber{#6}{\edef\xmin{#6}}{\fpcalcval{#6}\xmin}%
-  \isnumber{#7}{\edef\xmax{#7}}{\fpcalcval{#7}\xmax}%
-  \isnumber{#8}{\edef\ymin{#8}}{\fpcalcval{#8}\ymin}%
-  \isnumber{#9}{\edef\ymax{#9}}{\fpcalcval{#9}\ymax}%
+%  \else
+    \isnumber{#6}{\edef\xmin{#6}}{\fpcalcval{#6}\xmin}%
+    \isnumber{#7}{\edef\xmax{#7}}{\fpcalcval{#7}\xmax}%
+    \isnumber{#8}{\edef\ymin{#8}}{\fpcalcval{#8}\ymin}%
+    \isnumber{#9}{\edef\ymax{#9}}{\fpcalcval{#9}\ymax}%
+%  \fi
   \xunitlength\@xscale\unitlength
   \yunitlength\@yscale\unitlength
 %  \ifx\empty\t@sep\edef\t@sep{\v@sep}\fi

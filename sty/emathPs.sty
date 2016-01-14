@@ -1,8 +1,8 @@
 % emathPs.sty by tDB (emath@nifty.com)
 %
 \NeedsTeXFormat{LaTeX2e}%
-\def\Ps@version{2.08}%
-\ProvidesPackage{emathPs}[2015/01/06 v \Ps@version ]%
+\def\Ps@version{2.09}%
+\ProvidesPackage{emathPs}[2015/05/16 v \Ps@version ]%
 %
 \@ifundefined{ifpapersize}{\newif\ifpapersize\papersizefalse}{}%
 \def\EMcolor@type{rgb}%
@@ -40,6 +40,7 @@
   \DeclareOption{notcheckperl}{\def\not@perl@check{}}%
 %  \DeclareOption{EMpscolornam}{\def\EMps@colornam{}}%
   \DeclareOption{tenretu}{\def\load@tenretu{}}%
+  \DeclareOption{fp}{\def\emC@fp{1}}%
   \ExecuteOptions{remake}%
   \ProcessOptions\relax
 %
@@ -92,7 +93,7 @@
 %
   \@ifundefined{EMps@filedir}{\def\EMps@filedir{\@currdir}}{}%
   \def\EMpsFileDir#1{\edef\EMps@filedir{#1\kugirisi}}%
-  \edef\EMworkfilename{\jobname}%
+%  \edef\EMworkfilename{\jobname}%
 \def\psdebugmode{\def\ps@debug{}}%
 \def\sensyu{\drawline}%
 \def\border@width{\z@}%
@@ -1763,7 +1764,10 @@
   \define@key{emP}{backslash}[2]{\def\slash@{##1}}%
   \define@key{emP}{times}[3]{\def\slash@{##1}}%
   \define@key{emP}{circ}[0]{\def\circ@{##1}}%
+  \define@key{emP}{thickness}{\def\pssquare@thickness{##1}}%
   \edef\kaiten@{0}%
+  \edef\pssquare@thickness{1}%
+  \edef\nuri@iro@{\nuri@iro}%
   \edef\size@{\pscirc@radius}%
   \setlinewidth{\pscirc@linethickness}%
   \resetsensyu
@@ -1778,9 +1782,9 @@
   \edef\KM@oresen{\KM@P\KM@Q\KM@R\KM@S}%
   \ifnum\ps@square@paint>\z@
     {\ifx\empty\nuri@iro@
-      \Nuritubusi[1]\KM@oresen
+      \Nuritubusi[\pssquare@thickness]\KM@oresen
     \else
-      \Nuritubusi\KM@oresen
+      \emPaint<nuriiro=\nuri@iro@>\KM@oresen
     \fi}%
     \ifx\empty\draw@border\else\Takakkei\KM@oresen\fi
   \else
@@ -2598,3 +2602,4 @@ v 2.05 2013/10/29  \pstouhenkokigou
 v 2.06 2014/01/13  <paintoption> を emPs にも追加 (BBS #12149)
 v 2.07 2014/07/12  \pssouzi (BBS #12379)
 v 2.08 2015/01/06  \pstriangle: デフォルトを実線描画とする (BBS #12586)
+v 2.09 2015/05/16  \pssquare*: 塗りを \pscirc* と揃える

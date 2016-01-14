@@ -1,7 +1,7 @@
 % emathE.sty by tDB (emath@nifty.com)
 %
 \NeedsTeXFormat{LaTeX2e}%
-\ProvidesPackage{emathE}[2013/11/21 v1.15 extended enumerate]%
+\ProvidesPackage{emathE}[2015/04/05 v1.15 extended enumerate]%
 \@ifundefined{edaenumerate}{}{%
     \errmessage{emathEy.sty よりも前に emath.sty を読み込みまねばなりません。}%
 }%
@@ -240,13 +240,18 @@
          {\string\newlabel{#1}{{\@currentlabel}{\thepage}}}%
   \@esphack}
 %
+\def\apn@enum@{\relax}%
+\def\apnenum#1{%
+  \def\apn@enum@{#1}%
+}%
+%
 \def\EMenumerate{%
 %%  \let\EMlabel\EMenumlabel
   \@ifnextchar<{\EM@enumerate}{\EM@enumerate<\empty>}}%
 \def\EM@enumerate<#1>{%
   \kizami@ti=\@ne
   \@ifundefined{syoki@ti@}{\syoki@ti=\z@}{\syoki@ti=\syoki@ti@\let\syoki@ti@\undefined}%
-  \def\apn@enum{\relax}%
+  \def\apn@enum{\apn@enum@}%
   \ifx\empty #1\relax\else\setkeys{emE}{#1}\fi
   \ifnum \@enumdepth >3 \@toodeep\else
       \advance\@enumdepth \@ne
@@ -342,7 +347,7 @@
 %\typeout{now! EM@Enumerate}%
   \kizami@ti=\@ne
   \syoki@ti=\z@
-  \def\apn@enum{\relax}%
+  \def\apn@enum{\apn@enum@}%
   \@ifnextchar'{\EM@Enumerate@<#1>}{\EM@@Enumerate<#1>}}%
 \def\EM@Enumerate@<#1>'#2'{\labelenum{#2}\EM@@Enumerate<#1>}%
 \def\EM@@Enumerate<#1>{\@ifnextchar[{\Enumerate@<#1>}{\@Enumerate<#1>}}%
@@ -1058,3 +1063,5 @@ aaa
 % v 1.13 2013/01/21 \emRoman: \DeclareRobustCommand
 % v 1.14 2013/08/29 \Ofiliv
 % v 1.15 2013/11/21 \itemtopmath: itemtopmath.sty として独立
+% v 1.16 2015/04/19 \apnitem: 引数をラベルに書き出さない
+                    \apnenum: \apn@enum の大域的定義

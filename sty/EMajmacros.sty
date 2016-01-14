@@ -198,7 +198,8 @@
 %
 \def\ajMaruKataIroha#1{\ajMaruKata{\irohanum{#1}}}%
 \def\ajMaruHiraIroha#1{\ajMaruHira{\irohanum{#1}}}%
-\def\ajKakkoIroha#1{\ajKakkoKata{\irohanum{#1}}}%
+%\def\ajKakkoIroha#1{\ajKakkoKata{\irohanum{#1}}}%
+\DeclareRobustCommand\ajKakkoIroha[1]{\ajKakkoKata{\irohanum{#1}}}%
 \def\ajMaruKataAkasa#1{\ajMaruKata{\akasa{#1}}}%
 \def\ajMaruHiraAkasa#1{\ajMaruHira{\akasa{#1}}}%
 %
@@ -209,6 +210,13 @@
 %\let\maruKata\ajMaruKata
 \def\ajoplus{\mbox{\CID{12188}}}%
 \def\ajominus{\mbox{\CID{12186}}}%
+%
+\@ifundefined{if@deluxe}{}{%
+  \if@deluxe
+    \def\textgtbf#1{{\gtfamily\bfseries #1}}%
+  \fi
+}%
+%
 %
 % \maru --> \ajMaru
 %

@@ -14,7 +14,7 @@
 %       #3   : 被除数（実数）
 %       #4   : 除数（整数）
 %
-  \ProvidesPackage{emathWs}[2014/04/27 v 0.10 beta]%
+  \ProvidesPackage{emathWs}[2015/03/11 v 0.11]%
 %
 \RequirePackage{fp-basic}
 \RequirePackage{fp-snap}
@@ -97,7 +97,7 @@
   \IAdd\len@seisubu\len@syosubu\@ketasu
   \ifnum\len@syosubu>\z@\Incr\@ketasu\fi\IAdd\@ketasu{1}\@ransu
   \ensuremath{%
-  \begin{array}[t]{*{\@ransu}{@{\,}l}}
+  \begin{array}[t]{*{\@ransu}{@{\,}r}}
     \emW@dpiline{#2}\\
     -\hissankakko\emW@dpiline{#3}\\\hline
   \ifthenelse{\equal{#1}{M}}{}{\emW@dpiline{\@ans}}
@@ -112,7 +112,10 @@
       \Strlen\@syosubu\l@syosu\xdef\l@syosu{\l@syosu}%
       \Cfor{\xdef\@i{\len@seisubu}}{\@i>\z@}{\xDecr\@i}\do{%
         &\ifnum\@i>\l@seisu\else
-          \xheadchar\@seisubu\@h\@seisubu\@h\fi
+          \xheadchar\@seisubu\@h\@seisubu
+          \if -\@h\EMedef\@h{\hbox to\z@{\hss $-$}}\fi
+          {\@h}%
+         \fi
       }%
       &\ifnum\l@syosu>\z@ .\fi
       \Cfor{\xdef\@i{0}}{\@i<\len@syosubu}{}\do{%
@@ -521,3 +524,5 @@ v 0.06β 2007/05/02
 %     <D> オプション
 % 0.10 2014/04/27
 %   \tasizan, \hikizan, \kakezan, \warizan: 整数・有限小数共通
+% 0.11 2015/03/11
+%   \Rhikizan: a<b の場合 (BBS #12634)

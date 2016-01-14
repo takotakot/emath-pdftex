@@ -1,7 +1,7 @@
 % EMhairetu.sty by tDB (emath@nifty.com)
 %
 \NeedsTeXFormat{LaTeX2e}%
-\ProvidesPackage{EMhairetu}[2014/03/17 v0.04beta]%
+\ProvidesPackage{EMhairetu}[2015/10/23 v0.05]%
 %
 \define@key{EMhairetu}{transposed}[1]{\edef\trans@posed{#1}}%
 \define@key{EMhairetu}{dimen}{%
@@ -201,16 +201,19 @@
       \edefhairetu{#2}{\@i}{\hairetu@syokiti}%
     }%
   \fi
+  \ignorespaces
 }%
 \def\iihairetusyokika#1{%
   \expandafter\edef\csname #1Ni\endcsname{0}%
   \expandafter\edef\csname #1Nj\endcsname{0}%
+  \ignorespaces
 }%
 \def\hairetutuika{\@ifstar{\hairetutuika@}{\@hairetutuika}}%
 \def\hairetutuika@#1#2{%
   \edef\HT@n{\csname #1N\endcsname}\Incr\HT@n
   \edefhairetu{#1}{\HT@n}{#2}%
   \expandafter\edef\csname #1N\endcsname{\HT@n}%
+  \ignorespaces
 }%
 \def\@hairetutuika#1#2{%
   \edef\HT@n{\csname #1N\endcsname}%
@@ -222,6 +225,7 @@
     \Incr\HT@n
   \fi
   \expandafter\xdef\csname #1N\endcsname{\HT@n}%
+  \ignorespaces
 }%
 \def\hairetukakunin#1#2#3{%
 % #1:リスト配列名
@@ -308,6 +312,7 @@
 %  \ifnum\hairetu@baseN=\z@\else\Incr #3\fi
   \ISubself #3\hairetu@baseN
   \expandafter\edef\csname #2N\endcsname{#3}%
+  \ignorespaces
 }%
 %
 \def\hairetucsv#1#2{%
@@ -325,6 +330,7 @@
     }%
     \edef#2{\hc@ret}%
   \fi
+  \ignorespaces
 }%
 %
 \def\srchhairetu#1#2#3{%
@@ -423,3 +429,4 @@ v 0.01 2012/01/16 \kousigyouretu
 v 0.02 2012/04/16 \hairetusyokika: dimen=.. syokiti=..
 v 0.03 2012/09/28 \typeouthairetu
 v 0.04 2014/03/17 \csvhairetu: 引数が空の場合にも対応
+v 0.05 2015/10/23 \hairetusyokika:   \ignorespaces を追加 (BBS #12826)

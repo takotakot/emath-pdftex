@@ -139,9 +139,10 @@
 %
 \edef\prelabel{\empty}%
 %\def\EMlabel#1{%
-\DeclareRobustCommand\EMlabel[1]{%
+\DeclareRobustCommand\EMlabel[1]{{%
+  \let\apnitem\@gobble
   \label{\prelabel #1}%
-}%
+}}%
 %
 \AtBeginDocument{%
   \hairetusyokika{eqrefL@List}%
@@ -175,9 +176,10 @@
 %  \edef\EMeqlabel@o{#1}%
   \eqlabel{\prelabel #1}%
 }%
-\def\EMenumlabel#1{%
+\def\EMenumlabel#1{{%
+  \let\apnitem\@gobble
   \enumlabel{\prelabel #1}%
-}%
+}}%
 %\def\EMref#1{\leavevmode
 %  {\ref{\prelabel #1}}%
 %}%
