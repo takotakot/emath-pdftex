@@ -1,7 +1,7 @@
 % emathT.sty by tDB (emath@nifty.com)
 %
 \NeedsTeXFormat{LaTeX2e}%
-\ProvidesPackage{emathT}[2015/06/02 v0.83]%
+\ProvidesPackage{emathT}[2016/03/15 v0.84]%
 %
 %
 \@ifundefined{ifpapersize}{\newif\ifpapersize\papersizefalse}{}%
@@ -9,6 +9,7 @@
   \edef\TL@arydshln{0}%
   \edef\TL@hhline{1}%
   \def\emTzahyou{zahyou*}
+  \newbox\emT@box
 %
   \DeclareOption{notMy}{\def\not@My{}}%
   \DeclareOption{onlyT}{\def\T@nly{}}%
@@ -354,13 +355,13 @@
       \hbox to \clm@wd\bgroup\hss $}c<{$\hss\egroup}}%
     \def\EMarray@newcolumn{}%
   }{}%
-  \setbox0=\hbox{\gyousityuu}%
-  \setlength{\rowheight}{\ht0}%
-  \setlength{\rowdepth}{\dp0}%
-  \@tempdima\ht0\advance\@tempdima\dp0
+  \setbox\emT@box=\hbox{\gyousityuu}%
+  \setlength{\rowheight}{\ht\emT@box}%
+  \setlength{\rowdepth}{\dp\emT@box}%
+  \@tempdima\ht\emT@box\advance\@tempdima\dp\emT@box
   \setlength{\rowtotalheight}{\@tempdima}%
-\ht\strutbox\ht0
-\dp\strutbox\dp0
+\ht\strutbox\ht\emT@box
+\dp\strutbox\dp\emT@box
   \emT@array
 }%
 \let\emT@tabular\tabular
@@ -412,13 +413,13 @@
       \hbox to \clm@wd\bgroup\hss }c<{\hss\egroup}}%
     \def\EMtabular@newcolumn{}%
   }{}%
-  \setbox0=\hbox{\gyousityuu}%
-  \setlength{\rowheight}{\ht0}%
-  \setlength{\rowdepth}{\dp0}%
-  \@tempdima\ht0\advance\@tempdima\dp0
+  \setbox\emT@box=\hbox{\gyousityuu}%
+  \setlength{\rowheight}{\ht\emT@box}%
+  \setlength{\rowdepth}{\dp\emT@box}%
+  \@tempdima\ht\emT@box\advance\@tempdima\dp\emT@box
   \setlength{\rowtotalheight}{\@tempdima}%
-\ht\strutbox\ht0
-\dp\strutbox\dp0
+\ht\strutbox\ht\emT@box
+\dp\strutbox\dp\emT@box
 \emT@tabular
 }%
 %
@@ -459,25 +460,25 @@
 \def\getrowHD{\@ifstar{\getrowHD@}{\@getrowHD}}%
 \def\@getrowHD{\@ifnextchar[{\@@getrowHD}{\@@getrowHD[0pt]}}%
 \def\@@getrowHD[#1]#2#3#4{%
-  \setbox0=\hbox{\ensuremath{#2}}%
+  \setbox\emT@box=\hbox{\ensuremath{#2}}%
   \@tempdima=\arraystretch\ht\strutbox\advance\@tempdima\extrarowheight
-  \ifdim\ht0>\@tempdima\@tempdima\ht0\fi
+  \ifdim\ht\emT@box>\@tempdima\@tempdima\ht\emT@box\fi
     \advance\@tempdima-\extrarowheight
     \edef#3{\strip@pt\@tempdima}\@Div{#3}\arraystretch#3\edef#3{#3 pt}\relax
   \@tempdima=\arraystretch\dp\strutbox\advance\@tempdima #1\relax
-  \ifdim\dp0>\@tempdima\@tempdima\dp0\fi
+  \ifdim\dp\emT@box>\@tempdima\@tempdima\dp\emT@box\fi
     \edef#4{\strip@pt\@tempdima}\@Div{#4}\arraystretch#4\edef#4{#4 pt}\relax}%
 \def\getrowHD@{\@ifnextchar[{\@getrowHD@}{\@getrowHD@[0pt]}}%
 \def\@getrowHD@[#1]#2#3#4{%
-  \setbox0=\hbox{\ensuremath{#2}}%
+  \setbox\emT@box=\hbox{\ensuremath{#2}}%
   \@tempdima=\arraystretch\ht\strutbox\advance\@tempdima\extrarowheight
-  \ifdim\ht0>\@tempdima\@tempdima\ht0\fi
+  \ifdim\ht\emT@box>\@tempdima\@tempdima\ht\emT@box\fi
     \advance\@tempdima-\extrarowheight
     \edef#3{\the\@tempdima}\relax
   \@tempdima=\arraystretch\dp\strutbox\advance\@tempdima #1\relax
-  \ifdim\dp0>\@tempdima\@tempdima\dp0\fi
+  \ifdim\dp\emT@box>\@tempdima\@tempdima\dp\emT@box\fi
     \edef#4{\the\@tempdima}\relax}%
-
+%
 \newdimen\hyouretuhaba
 \setlength{\hyouretuhaba}{1zw}%
 
@@ -491,7 +492,7 @@
 \@warning{changed gyousityuu-command}%
   \def\gyousityuu{\vrule width 0pt height \gyou@h depth \gyou@d}}%
 \def\Gyoudaka#1{%
-  \setbox0=\hbox{{#1}}\edef\gyou@h{\the\ht0}\edef\gyou@d{\the\dp0}%
+  \setbox\emT@box=\hbox{{#1}}\edef\gyou@h{\the\ht\emT@box}\edef\gyou@d{\the\dp\emT@box}%
 \@warning{changed gyousityuu-command}%
   \def\gyousityuu{\vrule width 0pt height \gyou@h depth \gyou@d}}%
 %
@@ -505,7 +506,7 @@
 \def\@@@syasen(#1)[#2][#3]{\@ifnextchar<{\@@@@syasen(#1)[#2][#3]}{%
     \@@@@syasen(#1)[#2][#3]<\empty>}}%
 \def\@@@@syasen(#1)[#2][#3]<#4>{{%
-    \ifmmode\edef\emTsya@mmode{1}\else\edef\emTsya@mmode{0}\fi
+    \ifmmode\edef\emTsya@mmode{1}\else\edef\emTsya@mmode{\emT@box}\fi
     \edef\syasen@muki{#2}%
     \emT@r=\z@
     \emT@@d=\z@
@@ -514,27 +515,27 @@
     \def\noudo@{0}%
     \def\emT@string{}%
     \emT@w=\hyouretuhaba
-    \setbox0=\hbox{\ensuremath{#3}}%
-      \emT@h=\ht0
-      \emT@d=\dp0
+    \setbox\emT@box=\hbox{\ensuremath{#3}}%
+      \emT@h=\ht\emT@box
+      \emT@d=\dp\emT@box
     \Strchr{#1}{=}\sya@keyopt
     \ifnum\sya@keyopt>\z@\setkeys{emT}{#1}\fi
     \ifmmode
-      \setbox0=\hbox{\ensuremath{\displaystyle \emT@string}}%
+      \setbox\emT@box=\hbox{\ensuremath{\displaystyle \emT@string}}%
     \else
-      \setbox0=\hbox{\emT@string}%
+      \setbox\emT@box=\hbox{\emT@string}%
     \fi
-    \ifdim\ht0>\emT@h\emT@h=\ht0\fi
-    \ifdim\dp0>\emT@d\emT@d=\dp0\fi
+    \ifdim\ht\emT@box>\emT@h\emT@h=\ht\emT@box\fi
+    \ifdim\dp\emT@box>\emT@d\emT@d=\dp\emT@box\fi
     \unitlength=1\p@\relax
     \iftdir
       \ifnum\sya@keyopt>\z@
         \vphantom{\vrule width \z@ height \emT@h depth \emT@d}%
       \else
-        \setbox0=\hbox{\ensuremath{#3}}%
+        \setbox\emT@box=\hbox{\ensuremath{#3}}%
       \fi
-      \@tempdima=\ht0\relax
-      \advance\@tempdima\dp0\relax
+      \@tempdima=\ht\emT@box\relax
+      \advance\@tempdima\dp\emT@box\relax
       \@tempdima=\arraystretch\@tempdima
       \edef\masuwd{\strip@pt\@tempdima}%
       \Mul{7.4}{\arraystretch}\masuhukasa
@@ -542,16 +543,16 @@
       \Sub\masuwd\masuhukasa\masutakasa
     \else
       \ifnum\sya@keyopt>\z@
-        \setbox0=\hbox{\vrule width \z@ height \emT@h depth \emT@d}%
+        \setbox\emT@box=\hbox{\vrule width \z@ height \emT@h depth \emT@d}%
       \else
-        \setbox0=\hbox{\ensuremath{#3}}%
+        \setbox\emT@box=\hbox{\ensuremath{#3}}%
       \fi
-      \@tempdima=\ht0\relax
+      \@tempdima=\ht\emT@box\relax
       \@tempdima=\arraystretch\@tempdima
       \advance\@tempdima\extrarowheight
       \advance\@tempdima\emT@@h
       \edef\masutakasa{\strip@pt\@tempdima}%
-      \@tempdima=\dp0\relax
+      \@tempdima=\dp\emT@box\relax
       \@tempdima=\arraystretch\@tempdima
       \advance\@tempdima\emT@@d
       \edef\masuhukasa{\strip@pt\@tempdima}%
@@ -714,7 +715,7 @@
 \newdimen\emT@r%  raise
 \define@key{emT}{S}{\def\emT@string{#1}}%
 \define@key{emT}{W}{\setlength\emT@w{#1}}%
-\define@key{emT}{w}{\setbox0=\hbox{{#1}}\setlength\emT@w{\wd0}}%
+\define@key{emT}{w}{\setbox\emT@box=\hbox{{#1}}\setlength\emT@w{\wd\emT@box}}%
 %\define@key{emT}{w}{%
 %  \ifmmode
 %    \setbox0=\hbox{{\ensuremath{#1}}}%
@@ -730,16 +731,16 @@
 \define@key{emT}{R}{\setlength\emT@r{#1}}%
 \define@key{emT}{C}{\edef\syanuri@iro{#1}}%
 \define@key{emT}{G}{\edef\noudo@{#1}}%
-\define@key{emT}{V}{\setbox0=\hbox{\ensuremath{#1}}%
-  \ifdim\ht0>\arraystretch\ht\strutbox\emT@h\ht0\fi
-  \ifdim\dp0>\arraystretch\dp\strutbox\emT@d\dp0\fi}%
-\define@key{emT}{v}{\setbox0=\hbox{\ensuremath{#1}}%
-  \ifdim\ht0>\arraystretch\ht\strutbox\emT@h\ht0\fi
-  \ifdim\dp0>\arraystretch\dp\strutbox\emT@d\dp0\fi}%
-\define@key{emT}{VDplus}{\setbox0=\hbox{\ensuremath{#1}}%
-  \ifdim\ht0>\arraystretch\ht\strutbox\advance\emT@d\ht0\else
+\define@key{emT}{V}{\setbox\emT@box=\hbox{\ensuremath{#1}}%
+  \ifdim\ht\emT@box>\arraystretch\ht\strutbox\emT@h\ht\emT@box\fi
+  \ifdim\dp\emT@box>\arraystretch\dp\strutbox\emT@d\dp\emT@box\fi}%
+\define@key{emT}{v}{\setbox\emT@box=\hbox{\ensuremath{#1}}%
+  \ifdim\ht\emT@box>\arraystretch\ht\strutbox\emT@h\ht\emT@box\fi
+  \ifdim\dp\emT@box>\arraystretch\dp\strutbox\emT@d\dp\emT@box\fi}%
+\define@key{emT}{VDplus}{\setbox\emT@box=\hbox{\ensuremath{#1}}%
+  \ifdim\ht\emT@box>\arraystretch\ht\strutbox\advance\emT@d\ht\emT@box\else
     \advance\emT@d\ht\strutbox\fi
-  \ifdim\dp0>\arraystretch\dp\strutbox\advance\emT@d\dp0\else
+  \ifdim\dp\emT@box>\arraystretch\dp\strutbox\advance\emT@d\dp\emT@box\else
     \advance\emT@d\dp\strutbox\fi}%
 \define@key{emT}{syasenkankaku}{\def\syanuri@kankaku{#1}}%
 \define@key{emT}{syasenKankaku}{\ukansan{#1}\syanuri@kankaku}%
@@ -990,34 +991,34 @@
     \emT@@d=\z@
     \emT@@h=\z@
     \emT@w=\hyouretuhaba
-    \setbox0=\hbox{\gyousityuu}%
-    \emT@h=\ht0
-    \emT@d=\dp0
+    \setbox\emT@box=\hbox{\gyousityuu}%
+    \emT@h=\ht\emT@box
+    \emT@d=\dp\emT@box
     \ifnum\sya@keyopt>\z@
       \setkeys{emT}{#1}\relax
       \ifthenelse{\equal\syanuri@iro\empty}{}{\def\noudo@{0}}%
     \fi
 \ifmmode
-  \setbox0=\hbox{{\ensuremath{#4}}}%
+  \setbox\emT@box=\hbox{{\ensuremath{#4}}}%
 \else
-  \setbox0=\hbox{{#4}}%
+  \setbox\emT@box=\hbox{{#4}}%
 \fi
-\ifdim\ht0>\emT@h\emT@h=\ht0\fi
-\ifdim\dp0>\emT@d\emT@d=\dp0\fi
-\ifdim\wd0>\emT@w\emT@w=\wd0\fi
+\ifdim\ht\emT@box>\emT@h\emT@h=\ht\emT@box\fi
+\ifdim\dp\emT@box>\emT@d\emT@d=\dp\emT@box\fi
+\ifdim\wd\emT@box>\emT@w\emT@w=\wd\emT@box\fi
     \unitlength=1pt\relax
 \iftdir
     \vphantom{\vrule width \z@ height \emT@h depth \emT@d}%
-    \@tempdima=\ht0\relax
-    \advance\@tempdima\dp0\relax
+    \@tempdima=\ht\emT@box\relax
+    \advance\@tempdima\dp\emT@box\relax
     \@tempdima=\arraystretch\@tempdima
     \edef\masuwd{\strip@pt\@tempdima}%
     \Mul{7.4}{\arraystretch}\masuhukasa
     \Add\masuhukasa{-2}\masuhukasa
     \Sub\masuwd\masuhukasa\masutakasa
 \else
-    \setbox0=\hbox{\vrule width \z@ height \emT@h depth \emT@d}%
-    \@tempdima=\ht0\relax
+    \setbox\emT@box=\hbox{\vrule width \z@ height \emT@h depth \emT@d}%
+    \@tempdima=\ht\emT@box\relax
 %    \@tempdima=\arraystretch\@tempdima
 \@tempdimb=\arraystretch\ht\strutbox
 \ifdim\@tempdimb>\@tempdima\@tempdima\@tempdimb\fi
@@ -1026,7 +1027,7 @@
 \advance\@tempdima-.5\arrayrulewidth
 \advance\@tempdima-.02\p@
     \edef\masutakasa{\strip@pt\@tempdima}%
-    \@tempdima=\dp0\relax
+    \@tempdima=\dp\emT@box\relax
 %    \@tempdima=\arraystretch\@tempdima
 \@tempdimb=\arraystretch\dp\strutbox
 \ifdim\@tempdimb>\@tempdima\@tempdima\@tempdimb\fi
@@ -1081,13 +1082,13 @@
         \Drawline<sensyu=\wakusen>{\LT\LB\RB\RT\LT}}%
       #2\relax
     \end{picture}}}}{%
-      \ifmmode\setbox0=\hbox{{$#4$}}\else\setbox0=\hbox{{#4}}\fi
+      \ifmmode\setbox\emT@box=\hbox{{$#4$}}\else\setbox\emT@box=\hbox{{#4}}\fi
       \if r#3\relax
-        \makebox[\@tempdimb]{\hfill \box0}%
+        \makebox[\@tempdimb]{\hfill \box\emT@box}%
       \else\if l#3\relax
-        \makebox[\@tempdimb]{\box0\hfill\null}%
+        \makebox[\@tempdimb]{\box\emT@box\hfill\null}%
       \else\if c#3\relax
-        \makebox[\@tempdimb]{\hfill \box0\hfill\null}%
+        \makebox[\@tempdimb]{\hfill \box\emT@box\hfill\null}%
       \else
         \errmessage{EMcell の配置指定(lcr)が異常です。}%
       \fi\fi\fi
@@ -1675,3 +1676,5 @@ v 0.82 2015/01/04
     turntabular
 v 0.83 2015/06/02
     orikaesitabular, turntabular: orikaesitabular.sty として独立
+v 0.84 2016/03/15
+    \box  0 --> \emT@box (BBS #12961)

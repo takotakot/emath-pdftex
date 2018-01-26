@@ -269,11 +269,13 @@
 }
 %
 \@ifundefined{emFx@ceo}{}{%
-  \IfFileExists{ceo.sty}{%
+%	\@ifpackageloaded{emFxceo}{}{\RequirePackage{emFxceo}}%
+  \IfFileExists{emFxceo.sty}{%
     \RequirePackage{emFxceo}%
   }{%
-    \errmessage{ceo ???}%
-}}%
+%    \errmessage{ceo ???}%
+  }
+}%
 %
 \@ifundefined{emFx@Relbar}{}{%
 % -- \Relbar は cmr17 を用いず，cmr10 とする。--------- begin

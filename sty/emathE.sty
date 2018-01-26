@@ -235,10 +235,10 @@
 }%
 %
 %
-\def\ltxlabel#1{\@bsphack
-  \protected@write\@auxout{}%
-         {\string\newlabel{#1}{{\@currentlabel}{\thepage}}}%
-  \@esphack}
+%\def\ltxlabel#1{\@bsphack
+%  \protected@write\@auxout{}%
+%         {\string\newlabel{#1}{{\@currentlabel}{\thepage}}}%
+%  \@esphack}
 %
 \def\apn@enum@{\relax}%
 \def\apnenum#1{%
@@ -415,12 +415,14 @@
 }%
 %
 %\def\enumlabel#1{{\leavevmode
-\DeclareRobustCommand\enumlabel[1]{{\leavevmode
+\DeclareRobustCommand\enumlabel[1]{{%\leavevmode
   \def\el@tmp{\csname labelenum\romannumeral\@enumdepth\endcsname}%
   \EMedef\@currentlabel{\el@tmp}%
   \label{#1}%
 %  \writeLabel{#1}{{\el@tmp}}%
 }}%
+%
+\let\enumlbl\enumlabel
 %
 %\let\enumref\ref
 \def\enumref#1{%
@@ -607,12 +609,12 @@
     \else
       \vspace*{-\baselineskip}%
     \fi
-  \else
+%  \else
 %\typeout{endedaenumerate:topsep=\the\topsep}%
-    \ifdim\topsep>\z@%%%%%%%  2010/10/23
-%      \vspace*{-4\p@}%%%%%%%%  2005/12/15
-      \vspace*{-.45\topsep}%%%%%%%%  2010/10/23
-    \fi
+%    \ifdim\topsep>\z@%%%%%%%  2010/10/23
+%%      \vspace*{-4\p@}%%%%%%%%  2005/12/15
+%      \vspace*{-.45\topsep}%%%%%%%%  2010/10/23
+%    \fi
   \fi%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     \endlist

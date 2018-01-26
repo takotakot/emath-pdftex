@@ -1,7 +1,7 @@
 % EMfbox.sty by tDB(emath@nifty.com)
 %
   \NeedsTeXFormat{LaTeX2e}%
-  \ProvidesPackage{EMfbox}[2014/11/08 v 0.74]%
+  \ProvidesPackage{EMfbox}[2016/10/13 v 0.75]%
 %
 %\RequirePackage{emath}%
 \@ifpackageloaded{emath}{}{\RequirePackage{emath}}%
@@ -52,8 +52,8 @@
 \define@key{emPb}{TBonly}[v]{\def\rectbox@LR{#1}}%
 \define@key{emPb}{notT}[]{\def\not@T{#1}}%
 \define@key{emPb}{notB}[]{\def\not@B{#1}}%
-\define@key{emPb}{notL}[]{\def\not@L{#1}}%
-\define@key{emPb}{notR}[]{\def\not@R{#1}}%
+\define@key{emPb}{notL}[]{\edef\l@sep{0pt}\def\not@L{#1}}%
+\define@key{emPb}{notR}[]{\edef\r@sep{0pt}\def\not@R{#1}}%
 \define@key{emPb}{closed}[1]{\def\cl@sed{#1}}%
 \define@key{emPb}{tpic}[0]{\edef\by@vrule{0}}%
 \define@key{emPb}{rectboxtopsep}{\edef\rectbox@topsep{#1}}%
@@ -357,8 +357,8 @@
       \edef\l@sep{0pt}%
     \fi\fi
 %%  }{}%
-  \@ifundefined{not@L}{}{\edef\l@sep{0pt}}%
-  \@ifundefined{not@R}{}{\edef\r@sep{0pt}}%
+%  \@ifundefined{not@L}{}{\edef\l@sep{0pt}}%
+%  \@ifundefined{not@R}{}{\edef\r@sep{0pt}}%
   \ifx\empty\rectbox@Width\else
     \@tempdima\rectbox@Width
     \advance\@tempdima-\frame@linewidth
@@ -1171,6 +1171,14 @@
     \edef\R@sep{\the\@tempdima}%
   \fi
 %
+%\typeout{linewidth=\the\linewidth, rectbox@wholewidth=\rectbox@wholewidth}%
+%	\edef\rectbox@@wholewidth{\rectbox@wholewidth}%
+  \@ifundefined{EMWR@zuhaba}{}{%
+    \ifdim\EMWR@zuhaba>\z@%%%%%%%%%%%% add 2005/08/01
+			\setlength{\@tempdima}{\rectbox@wholewidth-\EMWR@zuhaba-\@mawarikomisep-\@mawarikomisep}%
+			\edef\rectbox@wholewidth{\the\@tempdima}%
+		\fi
+	}%
   \setbox\rectb@x=\hbox to \rectbox@wholewidth\bgroup
     \ifx\empty\rectbox@tate
       \begin{minipage}[\@pos]{\rectbox@wholewidth}%
@@ -2065,3 +2073,4 @@ v 0.71 2014/04/12 \EMparboxed, \EMparbboxed
 v 0.72 2014/05/06 \EMparbboxed: 修正
 v 0.73 2014/05/22 \rectbox: [TBonly,kagi] を有効とする
 v 0.74 2014/11/08 \LRbrace
+v 0.75 2016/10/13 \rectbox: mawarikomi環境内での使用 (BBS #13136)

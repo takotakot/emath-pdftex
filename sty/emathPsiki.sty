@@ -1,12 +1,14 @@
 % emathPsiki.sty by tDB(emath@nifty.com)
 %
   \NeedsTeXFormat{LaTeX2e}
-  \ProvidesPackage{emathPsiki}[2013/12/17 v 0.11beta]%
+  \ProvidesPackage{emathPsiki}[2017/11/03 v 0.14]%
 %
       \RequirePackage{emathT}
       \RequirePackage{emathLb}%
       \RequirePackage{emfpcalc}%
       \RequirePackage{verbatim}%
+%
+\@ifpackageloaded{emathPsb}{}{\usepackage{emathPsb}}%
 %
 % 式各項のセンターのx座標 (\sikixposi, \skixposii, \sikixposiii，...)
 % 式全体の高さ(\sikiyh)，深さを求める(\sikiyd)。
@@ -244,6 +246,11 @@
 %
 \edef\GS@framethickness{0pt}%
 \edef\GS@oval{0pt}%
+\edef\GS@type{s}%
+\edef\GS@huteikai{0}%
+\def\GozyohouSuiiKata#1{\edef\GS@type{#1}}%
+\let\GS@label\undefined
+\newif\ifshowlastremainder\showlastremaindertrue
 %
 \define@key{emPsiki}{framethickness}{\edef\GS@framethickness{#1}}%
 \define@key{emPsiki}{oval}{\edef\GS@oval{#1}}%
@@ -259,6 +266,12 @@
 %\define@key{emPsiki}{showlastline}{\edef\show@lstln{#1}}%
 \define@key{emPsiki}{showlastline}{\edef\last@rem{0}}%
 \define@key{emPsiki}{lastremainder}{\edef\last@rem{#1}}%
+\define@key{emPsiki}{type}{\edef\GS@type{#1}}%
+\define@key{emPsiki}{huteikai}[1]{\edef\last@rem{1}\edef\GS@huteikai{#1}}%
+\define@key{emPsiki}{label}{\edef\GS@siki@ban{\empty}\edef\GS@label{#1}}%
+\define@key{emPsiki}{EMlabel}{\edef\GS@siki@ban{\empty}\edef\GS@label{#1}}%
+\define@key{emPsiki}{sikiban}[\empty]{\edef\GS@siki@ban{#1}}%
+\define@key{emPsiki}{nextopt}{\EMedef\next@opt{#1}}%
 %
 \def\GSbox{%
   \EMedef\GSbox@opt{oval=\GS@oval,framethickness=\GS@framethickness}%
@@ -287,11 +300,14 @@
 }%
 \let\org@GS@arrow\GS@arrow
 %
+  \edef\last@rem{0}%
+	\def\lastremainder#1{\def\last@rem{#1}}%
+%
 \def\GozyohouSuii{\@ifnextchar<{\@GozyohouSuii}{\@GozyohouSuii<\empty>}}%
 \def\@GozyohouSuii<#1>#2#3{%
   \uptkansan{1.5\baselineskip}\GS@gyoukan
 %  \edef\show@lstln{1}%
-  \edef\last@rem{0}%
+%  \edef\last@rem{0}%
   \edef\GS@a{#2}%
   \edef\GS@b{#3}%
 %  \ifnum\GS@a<\GS@b\swap\GS@a\GS@b\fi
@@ -325,6 +341,87 @@
   \ifx\empty #1\else\setkeys{emPsiki}{#1}\fi
   \ifnum\last@rem>\z@\Decr\Q@N\fi
 %\typeout{GS@framethickness=\GS@framethickness}%
+  \if s\GS@type \s@GozyohouSuii
+  \else\if w\GS@type\w@GozyohouSuii
+  \fi\fi
+}%
+\def\w@GozyohouSuii{%
+  \begin{sikipicture*}%
+    {%
+      \hbox to \GS@boxwd{\mathstrut\hss},
+      \div,
+      \hbox to \GS@boxwd{\mathstrut\hss},
+      {}={},
+      \Q@max,
+      ~~余り,
+      \hbox to \GS@boxwd{\mathstrut\hss},
+    }%
+    \ISub{\Q@N}{1}\y@tmp
+    \Mulself\y@tmp\GS@gyoukan
+    \Addself\y@tmp{6}%
+    \begin{pszahyou*}[ul=1pt,borderwidth=2pt](\xmin,\xmax)(-(\y@tmp),\ymax)
+      \linethickness{.4pt}%
+\ifnum\Q@N>\@ne
+      \tenretu*{Ai(\sikixlposiii,\sikiydposiii);
+                Aii(\sikixlposvii,\sikiydposiii)}%
+      \Addvec{(\sikixrposi,\sikiyhposiii)}{(0,-\GS@gyoukan)}\Bi
+      \Addvec{(\sikixrposiii,\sikiyhposiii)}{(0,-\GS@gyoukan)}\Bii
+%      \Drawlines<yazirusi=a>{\Ai\Bi;\Aii\Bii}%
+      \GS@arrow{2}{\Ai\Bi}
+      \GS@arrow{3}{\Aii\Bii}
+      \put(0,0){\hbox to \GS@boxwd{\hfil \GS@a\hfil}}
+      \put(\sikixlposii,0){$\ \div$}%
+      \Put{(\sikixlposiii,\y@)}{\GS@box{2}}%
+      \Put{(\sikixlposiv,0)}{${}={}$}%
+      \Put{(\sikixlposv,0)}{\hbox to \Q@wd{\hss\hairetu{Q@}{1}}}%
+      \Put{(\sikixlposvi,0)}{~~余り}%
+      \Put{(\sikixlposvii,\y@)}{\GS@box{3}}%
+\fi
+      \edef\y@pos{0}%
+      \Ifor\i@val{2}\Q@N\Do{%
+        \IAdd\i@val{1}\i@val@i
+        \IAdd\i@val{2}\i@val@ii
+        \Subself\y@pos{\GS@gyoukan}%
+        \Put{(0,\y@pos)}{%
+%          \Drawlines<yazirusi=a>{\Ai\Bi;\Aii\Bii}%
+          \Put{(\sikixlposi,\y@)}{\GS@box{\i@val}}%
+          \put(\sikixlposii,0){$\ \div$}%
+          \Put{(\sikixlposiii,\y@)}{\GS@box{\i@val@i}}%
+            \GS@arrow{\i@val@i}{\Ai\Bi}%
+          \Put{(\sikixlposiv,0)}{${}={}$}%
+          \Put{(\sikixlposv,0)}{\hbox to \Q@wd{\hss\hairetu{Q@}{\i@val}}}%
+          \Put{(\sikixlposvi,0)}{~~余り}%
+          \Put{(\sikixlposvii,\y@)}{\GS@box{\i@val@ii}}%
+            \GS@arrow{\i@val@ii}{\Aii\Bii}%
+        }%
+      }%
+%     \IAdd\i@val{1}\i@val@i
+%     \IAdd\i@val{2}\i@val@ii
+      \edef\i@val{\Q@N}%
+      \IAdd\Q@N{1}\i@val@i
+      \IAdd\Q@N{2}\i@val@ii
+      \Subself\y@pos{\GS@gyoukan}%
+      \Put{(0,\y@pos)}{%
+          \Put{(\sikixlposi,\y@)}{\GS@box{\i@val}}%
+          \put(\sikixlposii,0){$\ \div$}%
+          \Put{(\sikixlposiii,\y@)}{\GS@box{\i@val@i}}%
+          \Put{(\sikixlposiv,0)}{${}={}$}%
+          \Put{(\sikixlposv,0)}{\hbox to \Q@wd{\hss\hairetu{Q@}{\i@val}}}%
+          \Put{(\sikixlposvi,0)}{~~余り}%
+%         \Put{(\sikixlposvii,0)}{\hairetu{A@}{\i@val@ii}}%
+%         \Put{(\sikixlposvii,0)}{\hbox to\GS@wd{\hss\hairetu{A@}{\i@val@ii}}}%
+          \Put{(\sikixlposvii,\y@)}{\GS@box{\i@val@ii}}%
+      }%
+    \end{pszahyou*}%
+  \end{sikipicture*}\vspace{-6pt}%
+  \let\GS@arrow\org@GS@arrow
+  \ignorespaces
+}%
+\def\s@GozyohouSuii{%
+	\ifnum\GS@huteikai>\z@
+		ユークリッドの互除法を用いて，$a=\GS@a$, $b=\GS@b$の最大公約数を求める。
+		\begin{jquote}
+	\fi
   \begin{sikipicture*}%
     {%
       \hbox to \GS@boxwd{\mathstrut\hss},
@@ -338,7 +435,8 @@
     \ISub{\Q@N}{1}\y@tmp
     \Mulself\y@tmp\GS@gyoukan
     \Addself\y@tmp{6}%
-    \begin{pszahyou*}[ul=1pt,borderwidth=2pt](\xmin,\xmax)(-(\y@tmp),\ymax)
+    \begin{pszahyou*}[ul=1pt,borderwidth=2pt]%
+    			(\xmin,\xmax)(-(\y@tmp),\ymax)
       \linethickness{.4pt}%
 \ifnum\Q@N>\@ne
       \tenretu*{Ai(\sikixlposiii,\sikiydposiii);
@@ -374,8 +472,6 @@
             \GS@arrow{\i@val@ii}{\Aii\Bii}%
         }%
       }%
-%     \IAdd\i@val{1}\i@val@i
-%     \IAdd\i@val{2}\i@val@ii
       \edef\i@val{\Q@N}%
       \IAdd\Q@N{1}\i@val@i
       \IAdd\Q@N{2}\i@val@ii
@@ -386,14 +482,76 @@
           \Put{(\sikixlposiii,\y@)}{\GS@box{\i@val@i}}%
           \Put{(\sikixlposiv,0)}{${}\times{}$}%
           \Put{(\sikixlposv,0)}{\hbox to \Q@wd{\hss\hairetu{Q@}{\i@val}}}%
-          \Put{(\sikixlposvi,0)}{${}+{}$}%
-%         \Put{(\sikixlposvii,0)}{\hairetu{A@}{\i@val@ii}}%
-%         \Put{(\sikixlposvii,0)}{\hbox to\GS@wd{\hss\hairetu{A@}{\i@val@ii}}}%
-          \Put{(\sikixlposvii,\y@)}{\GS@box{\i@val@ii}}%
+					\edef\r@val{\hairetu{A@}{\i@val@ii}}%
+					\ifshowlastremainder
+	          \Put{(\sikixlposvi,0)}{${}+{}$}%
+  	        \Put{(\sikixlposvii,\y@)}{\GS@box{\i@val@ii}}%
+					\else
+						\ifnum\r@val>\z@
+		          \Put{(\sikixlposvi,0)}{${}+{}$}%
+    		      \Put{(\sikixlposvii,\y@)}{\GS@box{\i@val@ii}}%
+						\fi
+					\fi
       }%
     \end{pszahyou*}%
-  \end{sikipicture*}\vspace{-6pt}%
+  \end{sikipicture*}%\vspace{-1.6em}%
   \let\GS@arrow\org@GS@arrow
+%
+\ifnum\GS@huteikai>\z@
+\vspace{-.6em}
+\end{jquote}%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\def\beku@to@seibun##1##2{%
+  \vecXY{##1}\@p\@q
+  \ifnum\@q<\z@
+    \edef##2{\@p\cdot a\@q\cdot b}%
+  \else
+    \edef##2{\@p\cdot a+\@q\cdot b}%
+  \fi
+}%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\tenretu*{A@@iii(1,-\Q@i)}%
+\itiziketugou{1,{(0,1)};-\Q@ii,\A@@iii}\A@@iv\beku@to@seibun\A@@iv\B@iv
+\Ifor*\i@val{3}{\Q@N}\Do{%
+  \IAdd\i@val{1}\ii@val
+  \IAdd\i@val{2}\iii@val
+  \itiziketugou{1,\hairetu{A@@}{\i@val};%
+      -\hairetu{Q@}{\i@val},\hairetu{A@@}{\ii@val}}\@tmp
+  \edefhairetu{A@@}{\iii@val}{\@tmp}%
+  \beku@to@seibun\@tmp\@@tmp\edefhairetu{B@}{\iii@val}{\@@tmp}%
+}%
+%\itiziketugou{1,\A@@iii;-\Q@iii,\A@@iv}\A@@v\beku@to@seibun\A@@v\B@v
+%\itiziketugou{1,\A@@iv;-\Q@iv,\A@@v}\A@@vi\beku@to@seibun\A@@vi\B@vi
+\edefhairetu{B@}{3}{a-\Q@i\cdot b}%
+%\par
+\noindent これらを変形して
+
+\begingroup
+\@ifundefined{next@opt}{\jquote}{%
+	\EMedef\@tmp{<\next@opt>}\expandafter\jquote\@tmp}%
+$\A@iii=a-\Q@i\cdot b$\\
+$\A@iv=b-\A@iii\times\Q@ii=b-(a-\Q@i\cdot b)\times\Q@ii=\B@iv$%\\
+%$\A@v=\A@iii-\A@iv\times\Q@iii=(a-\Q@i b)-(\B@iv)\times\Q@iii=\B@v$
+\Ifor*\i@val{3}{\Q@N}\Do{%
+  \IAdd\i@val{1}\ii@val
+  \IAdd\i@val{2}\iii@val
+  \\$\hairetu{A@}{\iii@val}
+    =\hairetu{A@}{\i@val}-\hairetu{A@}{\ii@val}\times\hairetu{Q@}{\i@val}
+    =(\hairetu{B@}{\i@val})-(\hairetu{B@}{\ii@val})\times\hairetu{Q@}{\i@val}
+    =\hairetu{B@}{\iii@val}$
+%$\A@vi=\A@iv-\A@v\times\Q@iv=(\B@iv)-(\B@v)\times\Q@iv=\B@vi$
+}%
+\@ifundefined{GS@siki@ban}{}{%
+	\ifx\empty\GS@siki@ban
+		\hfill
+		\@ifundefined{GS@label}{\houteisiki{}}{\houteisiki(EMlabel=\GS@label){}}%
+	\else
+		\hfill{\GS@siki@ban}%
+	\fi
+}%
+\endjquote
+\endgroup
+\fi
   \ignorespaces
 }%
 %
@@ -424,3 +582,7 @@ v 0.10 2013/08/12
         <lastremainder=1>
 v 0.11 2013/12/17
         \GozyohouSuii : 調整 (BBS #12082)
+v 0.13 2017/01/23
+				\GozyohouSuii : <huteikai> オプション
+v 0.14 2017/11/03
+        \ifshowlastremainder (BBS #13417)

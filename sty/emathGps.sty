@@ -3,7 +3,7 @@
 \@ifundefined{ifpapersize}{\newif\ifpapersize\papersizefalse}{}%
 %
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesPackage{emathGps}[2014/11/05 v 0.33]%
+\ProvidesPackage{emathGps}[2017/09/16 v 0.34]%
   \DeclareOption{debug}{\def\ps@debug{}}%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
   \DeclareOption{onlyG}{\def\G@nly{}}%
   \DeclareOption{onlyP}{\def\P@nly{}}%
@@ -736,14 +736,21 @@
 % #1: 資料（csv 列）
 % [#2](#3,#4)(#5,#6): pszahyou*環境に引き渡すオプション
 %
-\def\EMhistogram#1{%
+\def\EMhistogram{\@ifnextchar<{\EM@histogram}{\EM@histogram<\empty>}}%
+\def\EM@histogram<#1>#2{%
+%	\def\pr@Dosuu{\relax}%
+	\def\pr@Dosuu{\emgobble}%
+	\ifx\empty #1\else\setkeys{emG}{#1}\fi
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
   \def\showhistogram{\@ifnextchar<{\@showhistogram}{\@showhistogram<\empty>}}%
   \def\@showhistogram<##1>{%
+    \@ifundefined{nuribox}{%
+    	\errmessage{EMhistogram は emathPsb.sty を必要とします．}}{}%
     \def\i@val{0}%
-    \expandafter\@for\expandafter\tmp@c\expandafter:\expandafter=#1\do{%
+    \expandafter\@for\expandafter\tmp@c\expandafter:\expandafter=#2\do{%
       \Put{(\i@val,0)}{\nuribox<##1>{1}{\tmp@c}}%
 %      \Put{(\i@val,0)}{\nuribox{1}{\tmp@c}}%
+      \Put{(\i@val,\tmp@c)}(0.5,4pt)[b]{\pr@Dosuu\tmp@c}%
       \Incr\i@val
     }%
   }%
@@ -751,7 +758,7 @@
   \def\@showlinegraph<##1>{%
     \def\i@val{0}%
     \def\LG@{}%
-    \expandafter\@for\expandafter\tmp@c\expandafter:\expandafter=#1\do{%
+    \expandafter\@for\expandafter\tmp@c\expandafter:\expandafter=#2\do{%
       \Add\i@val{.5}\x@val
       \edefappend\LG@{(\x@val,\tmp@c)}%
       \Incr\i@val
@@ -953,9 +960,9 @@
   \define@key{emG}{higeopt}{\EMedef\hige@opt{##1}}%
   \define@key{emG}{hazureopt}{\EMedef\hazure@opt{##1}}%
   \define@key{emG}{TBopt}{\EMedef\TB@opt{##1}}%
-  \define@key{emG}{width}{\uxkansan{##1}\hb@wd}%
-  \define@key{emG}{mwidth}{\uxkansan{##1}\m@wd}%
-  \define@key{emG}{TBwidth}{\uxkansan{##1}\tb@wd}%
+  \define@key{emG}{width}{\uxkansan{##1}\hb@wd\Divself\hb@wd{2}}%
+  \define@key{emG}{mwidth}{\uxkansan{##1}\m@wd\Divself\m@wd{2}}%
+  \define@key{emG}{TBwidth}{\uxkansan{##1}\tb@wd\Divself\tb@wd{2}}%
   \define@key{emG}{Tmark}{\edef\T@mark{##1}}%
   \define@key{emG}{medianmark}{\edef\Med@mark{##1}}%
   \define@key{emG}{meanmark}{\edef\Mean@mark{##1}}%
@@ -1527,3 +1534,5 @@ v 0.32a 2014/06/16
     訂補 (BBS #12331)
 v 0.33 2014/11/05
     \EnGurafu: emathG.sty と同様に，[apncmd] オプションを使用可能に(BBS #12542)
+v 0.34 2017/09/16
+    \EMhistogram: <prDosuu=\relax> オプション (2148201707.tex)

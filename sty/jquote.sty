@@ -14,9 +14,12 @@
 %%%     #2 : 右インデント（デフォルト値 0zw）
 %%%     #3 : \topsep
 %
-  \define@key{jquote}{tsep}{\edef\t@sep{#1}}%
-  \define@key{jquote}{bsep}{\edef\b@sep{#1}}%
-  \define@key{jquote}{vsep}{\edef\t@sep{#1}\edef\b@sep{#1}}%
+%  \define@key{jquote}{tsep}{\edef\t@sep{#1}}%
+  \define@key{jquote}{tsep}{\@tempdima=#1\advance\@tempdima-\topsep\edef\t@sep{\the\@tempdima}}%
+%  \define@key{jquote}{bsep}{\edef\b@sep{#1}}%
+  \define@key{jquote}{bsep}{\@tempdima=#1\advance\@tempdima-\topsep\edef\b@sep{\the\@tempdima}}%
+%  \define@key{jquote}{vsep}{\edef\t@sep{#1}\edef\b@sep{#1}}%
+  \define@key{jquote}{vsep}{\@tempdima=#1\advance\@tempdima-\topsep\edef\t@sep{\the\@tempdima}\edef\b@sep{\t@sep}}%
 %
 \def\jquote{%
   \def\t@sep{0pt}\def\b@sep{0pt}%

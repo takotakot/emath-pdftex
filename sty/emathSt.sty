@@ -269,7 +269,7 @@
   \calcval{50+10*(#2-\hs@m)/\hs@ss}#3\relax
 }%
 %
-% 
+% 相関係数
 %
 \def\EMcorrel{\@ifnextchar<{\@EMcorrel}{\@EMcorrel<\empty>}}%
 \def\@EMcorrel<#1>{%
@@ -388,7 +388,7 @@
 }%
 \let\soukankeisuu\EMcorrel
 %
-% 
+% 度数分布
 %
 \define@key{EMst}{varmax}[1]{\edef\DB@xmax{#1}}%
 \define@key{EMst}{varsup}[1]{\edef\DB@xsup{#1}\edef\DB@xmax{#1}}%
@@ -469,22 +469,22 @@
     \edef\DB@tmp{}%
     \edef\DB@v{\DB@xmin}%
     \begin{tabular}{|r|r|}\hline
-      &\\\hline
+      階級&度数\\\hline
       \edef\DB@tmp{}%
       \Ifor\DB@i{1}{\csname\DB@freq N\endcsname}\Do{%
-        \EMedefappend\DB@tmp{\DB@v\ &\hairetu{\DB@freq}{\DB@i}\noexpand\\
+        \EMedefappend\DB@tmp{\DB@v\ 〜&\hairetu{\DB@freq}{\DB@i}\noexpand\\
           \noexpand\hline}%
         \Addself\DB@v\DB@dx
       }%
       \ifx\empty\DB@xsup
-        \EMedefappend\DB@tmp{\DB@v\ &\hairetu{\DB@freq}{\DB@i}\noexpand\\
+        \EMedefappend\DB@tmp{\DB@v\ 　&\hairetu{\DB@freq}{\DB@i}\noexpand\\
           \noexpand\hline}%
       \else
-        \EMedefappend\DB@tmp{\DB@v\ &\hairetu{\DB@freq}{\DB@i}\noexpand\\
+        \EMedefappend\DB@tmp{\DB@v\ 〜&\hairetu{\DB@freq}{\DB@i}\noexpand\\
           \noexpand\hline}%
       \fi
       \DB@tmp
-      &\csname\EMst@kosuu\endcsname\\\hline
+      計&\csname\EMst@kosuu\endcsname\\\hline
     \end{tabular}
   \fi
 }%
@@ -493,7 +493,8 @@
 v 0.00 2011/05/22
 v 0.01 2011/05/26 \toukeiryou<median>
 v 0.02 2011/06/03 \dosuubunpu
-v 0.03 2011/06/24 byfile ョv 0.04 2011/12/17  
-v 0.05 2011/12/25 
-v 0.06 2012/01/14 \EMcorrel: csv  
-v 0.07 2012/06/02  : 
+v 0.03 2011/06/24 byfile ファイル形式修正
+v 0.04 2011/12/17 四分位数
+v 0.05 2011/12/25 ヒンジ
+v 0.06 2012/01/14 \EMcorrel: csv ファイルからの取り込み
+v 0.07 2012/06/02 四分位数: 高校の教科書の方式に合わせる

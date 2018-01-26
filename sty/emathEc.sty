@@ -1,7 +1,7 @@
 % emathEc.sty by tDB (emath@nifty.com)
 
 \NeedsTeXFormat{LaTeX2e}%
-\ProvidesPackage{emathEc}[2014/09/27 v0.22]%
+\ProvidesPackage{emathEc}[2016/03/09 v0.23]%
 %\RequirePackage{emathC}%
 \RequirePackage{emathK}%
 %\RequirePackage{emathLb}%
@@ -142,36 +142,56 @@
 \def\@itemT<#1>{%
   \let\emE@label\undefined
   \ifx\empty #1\else\setkeys{emE}{#1}\fi
-  \refstepcounter{enumT}\labelenumT
+  \refstepcounter{enumT}%
+  \ifmmode
+    \mbox{\labelenumT}%
+  \else
+    \labelenumT%
+  \fi
   \@ifundefined{emE@label}{}{%
-    \writeLabel{\emE@label}{\labelenumT}%
+    \EMwriteLabel{\emE@label}{\labelenumT}%
   }%
 }%
 \DeclareRobustCommand\itemTi{\@ifnextchar<{\@itemTi}{\@itemTi<\empty>}}%
 \def\@itemTi<#1>{%
   \let\emE@label\undefined
   \ifx\empty #1\else\setkeys{emE}{#1}\fi
-  \refstepcounter{enumTi}\labelenumTi
+  \refstepcounter{enumTi}%
+  \ifmmode
+    \mbox{\labelenumTi}%
+  \else
+    \labelenumTi
+  \fi
   \@ifundefined{emE@label}{}{%
-    \writeLabel{\emE@label}{\labelenumTi}%
+    \EMwriteLabel{\emE@label}{\labelenumTi}%
   }%
 }%
 \DeclareRobustCommand\itemTii{\@ifnextchar<{\@itemTii}{\@itemTii<\empty>}}%
 \def\@itemTii<#1>{%
   \let\emE@label\undefined
   \ifx\empty #1\else\setkeys{emE}{#1}\fi
-  \refstepcounter{enumTii}\labelenumTii
+  \refstepcounter{enumTii}%
+  \ifmmode
+    \mbox{\labelenumTii}%
+  \else
+    \labelenumTii
+  \fi
   \@ifundefined{emE@label}{}{%
-    \writeLabel{\emE@label}{\labelenumTii}%
+    \EMwriteLabel{\emE@label}{\labelenumTii}%
   }%
 }%
 \DeclareRobustCommand\itemTiii{\@ifnextchar<{\@itemTiii}{\@itemTiii<\empty>}}%
 \def\@itemTiii<#1>{%
   \let\emE@label\undefined
   \ifx\empty #1\else\setkeys{emE}{#1}\fi
-  \refstepcounter{enumTiii}\labelenumTiii
+  \refstepcounter{enumTiii}%
+  \ifmmode
+    \mbox{\labelenumTiii}%
+  \else
+    \labelenumTiii
+  \fi
   \@ifundefined{emE@label}{}{%
-    \writeLabel{\emE@label}{\labelenumTiii}%
+    \EMwriteLabel{\emE@label}{\labelenumTiii}%
   }%
 }%
 \def\enumTlabel#1{{%
@@ -272,3 +292,4 @@ v 0.19 2012/10/19 \save@label@box
 v 0.21 2013/11/04 \mfitem (\item: アンダーラインなど)
                   jquote を独立させる(jquote.sty)。
 v 0.22 2014/09/27 preitem=.. 
+v 0.23 2016/03/09 \itemT: 数式モード内の使用対策

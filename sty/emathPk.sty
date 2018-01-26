@@ -3,7 +3,7 @@
 %
 \@ifundefined{ifpapersize}{\newif\ifpapersize\papersizefalse}{}%
 %
-\ProvidesPackage{emathPk}[2015/08/29 v 1.52]%
+\ProvidesPackage{emathPk}[2016/10/01 v 1.53]%
   \DeclareOption{times}{\def\em@fonts{1}}%
   \DeclareOption{times}{\def\em@fonts{1}}%
   \DeclareOption{txfonts}{\def\em@fonts{2}}%
@@ -2576,10 +2576,10 @@
 \def\iiiemPaint{\@ifstar{\iiiemPaint@}{\@iiiemPaint}}%
 \def\iiiemPaint@{\@ifnextchar<{\iiiemPaint@@}{\iiiemPaint@@<\empty>}}%
 \def\iiiemPaint@@<#1>#2{\Tenretuiiitoii{#2}\iiiemPaint@tmp
-  \expandafter\emPaint@@<#1>\iiiemPaint@tmp}%
+  \expandafter\emPaint@<#1>\iiiemPaint@tmp}%
 \def\@iiiemPaint{\@ifnextchar<{\@@iiiemPaint}{\@@iiiemPaint<\empty>}}%
 \def\@@iiiemPaint<#1>#2{\Tenretuiiitoii{#2}\iiiemPaint@tmp
-  \expandafter\@@emPaint<#1>\iiiemPaint@tmp}%
+  \expandafter\emPaint<#1>\iiiemPaint@tmp}%
 %
 \let\iiiPaint\iiiemPaint
 %
@@ -2858,7 +2858,7 @@
   \begingroup
   \edef\YG@unit{\dx@default}%
   \def\YG@xl{0}%
-  \def\YG@xr{2*$pi}%
+  \def\YG@xr{6.2831853}%
   \edef\next@opt{\empty}%
   \ifnum\EMps@mode=\@ne\gsave\fi
   \ifx\empty #1\else\setkeys{emGurafu}{#1}\fi
@@ -3242,7 +3242,7 @@
 %
 % 点に名札
 %
-\def\iiitenNahuda{\edef\put@kuromaru{0}\edef\show@label{1}%
+\def\iiitenNahuda{\begingroup\edef\put@kuromaru{0}\edef\show@label{1}%
   \@ifnextchar<{\iiitenNahuda@}{\@iiitenNahuda}}%
 \def\iiitenNahuda@<#1>{\setkeys{emP}{#1}\@iiitenNahuda}%
 \def\@iiitenNahuda#1{%
@@ -3255,6 +3255,7 @@
     \do{%
       \expandafter\tenNahuda@sub\tenNahuda@a\@nil
     }%
+	\endgroup
 }%
 %
 % 極座標（球面座標）
@@ -3742,7 +3743,7 @@
   \begingroup
   \ifnum\EMps@mode=\@ne\gsave\fi
   \def\YG@xl{0}%
-  \def\YG@xr{2*$pi}%
+  \def\YG@xr{6.2831853}%
   \edef\YG@unit{\dt@default}%
 %  \edef\kaiten@kaku{0}%
 %  \edef\tyuusin@{(0,0)}%

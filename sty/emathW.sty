@@ -1,7 +1,7 @@
 % emathW.sty by tDB(emath@nifty.com)
 %
 \NeedsTeXFormat{LaTeX2e}%
-\ProvidesPackage{emathW}[2015/03/11 v0.40]%
+\ProvidesPackage{emathW}[2017/01/21 v0.41]%
 %
 \@ifpackageloaded{emath}{}{\RequirePackage{emath}}%
 \RequirePackage{emathQf}
@@ -927,6 +927,8 @@
   \end{array}%
 }}%
 %
+\def\keta@agari{1}%
+\def\ketaagari#1{\def\keta@agari{#1}}%
 \def\Itasizan{\@ifnextchar<{\Itasizan@}{\@Itasizan<\empty>}}%
 \def\Itasizan@<#1>#2#3{%
     \ifx #1A\relax
@@ -953,15 +955,31 @@
   \@keisuu@{zyo@a}{\@hizyosuu}\edef\zyo@ca{\the\@tempcnta}\Decr\zyo@ca
   \@keisuu@{zyo@b}{\@zyosuu}\edef\zyo@cb{\the\@tempcnta}\Decr\zyo@cb
   \@keisuu@{zyo@q}{\@syou}\edef\zyo@cq{\the\@tempcnta}\Decr\zyo@cq
+\IMax{\zyo@ca,\zyo@cb}\zyo@cab
+\ifnum\keta@agari=\z@\edef\zyo@cqq{\zyo@cab}\else\edef\zyo@cqq{\zyo@cq}\fi
   \leavevmode
-  \begin{array}[t]{@{\hskip\hissan@keta@sep}r*{\zyo@cq}{@{\hskip\hissan@keta@sep}r}}
-    \@tempcnta\zyo@cq\advance\@tempcnta-\zyo@ca\advance\@tempcnta\@ne
+  \begin{array}[t]{@{\hskip\hissan@keta@sep}r*{\zyo@cqq}{@{\hskip\hissan@keta@sep}r}}
+    \@tempcnta\zyo@cqq\advance\@tempcnta-\zyo@ca\advance\@tempcnta\@ne
     \zyo@tab{\@tempcnta}\@hidari
     \@seikei@{zyo@a}{\zyo@ca}\EMw@t\\
-    \@tempcnta\zyo@cq\advance\@tempcnta-\zyo@cb
+    \@tempcnta\zyo@cqq\advance\@tempcnta-\zyo@cb
     \zyo@tab{\@tempcnta}+\hissankakko&\@hidari
     \@seikei@{zyo@b}{\zyo@cb}\EMw@t\\\hline
-    \ifx #1M\else\@seikei@{zyo@q}{\zyo@cq}&\EMw@t\fi%
+    \ifx #1M\else
+	    \ifthenelse{\keta@agari=\z@}{%
+	    	\ifthenelse{\zyo@cq>\zyo@cab}{%
+  	  		\headchar\@syou\@syou@h\@syou@r
+    			\xdef\@syou@h{\@syou@h}%
+				  \@keisuu@{zyo@q}{\@syou@r}\edef\zyo@cq{\the\@tempcnta}\Decr\zyo@cq
+	    		\@seikei@{zyo@q}{\zyo@cq}&\hbox to\z@{\hss\@syou@h
+	    			\hskip\hissan@keta@sep\null}\EMw@t
+	    	}{%
+		    	\@seikei@{zyo@q}{\zyo@cq}&\EMw@t
+  			}%
+  		}{%
+				\@seikei@{zyo@q}{\zyo@cq}&\EMw@t
+  		}%
+    \fi
   \end{array}%
 }}%
 %
@@ -993,7 +1011,6 @@
   \@keisuu@{zyo@q}{\@syou}\edef\zyo@cq{\the\@tempcnta}\Decr\zyo@cq
 \edef\tbl@c{\zyo@ca}%
 \ifnum\zyo@cb>\tbl@c\edef\tbl@c{\zyo@cb}\fi
-\ifnum\zyo@cq>\tbl@c\edef\tbl@c{\zyo@cq}\fi
   \leavevmode
   \begin{array}[t]{@{\hskip\hissan@keta@sep}r*{\tbl@c}{@{\hskip\hissan@keta@sep}r}}%
     \@tempcnta\tbl@c\advance\@tempcnta-\zyo@ca%\advance\@tempcnta\@ne
@@ -1126,10 +1143,12 @@
       \edef\hslcm@tmp{\hairetu{hslcm@dt}{\k@val}}%
       \EMedefappend\hsgcm@buf{&\hslcm@tmp}%
     }%
+\ensuremath{%
     \begin{array}'gyoudaka=\vphantom{\warikakko}'[t]{%
         @{}L{-2\arraycolsep}R{\HGCM@wd@}@{}l*{\hslcm@dtN}{R{\HGCM@wd@}}}%
       \hsgcm@buf
     \end{array}%
+}%
 }}%
 %
 \let\sudarezan\HissanGCM
@@ -1993,3 +2012,5 @@
 %   \tasizan, \hikizan, \kakezan, \warizan: 整数・有限小数共通
 % 0.40 2015/03/11
 %   \Ihikizan a<b の場合 (BBS #12634)
+% 0.41 2017/01/20
+%   \Itasizan: 繰り上がりのある場合 (BBS #13240)

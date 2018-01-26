@@ -69,7 +69,9 @@
 \IfFileExists{kaitouwaku.sty}{\RequirePackage{kaitouwaku}}{}%
 \IfFileExists{emYoungT.sty}{\RequirePackage{emYoungT}}{}%
 \IfFileExists{EMminipages.sty}{\RequirePackage{EMminipages}}{}%
-\IfFileExists{EMproof.sty}{\RequirePackage{EMproof}}{}%
+\@ifundefined{endproof}{%
+	\IfFileExists{EMproof.sty}{\RequirePackage{EMproof}}{}%
+}{}%
 \IfFileExists{itemtopmath.sty}{\RequirePackage{itemtopmath}}{}%
 \IfFileExists{emaligned.sty}{\RequirePackage{emaligned}}{}%
 \IfFileExists{emfpcalc.sty}{\RequirePackage{emfpcalc}}{}%

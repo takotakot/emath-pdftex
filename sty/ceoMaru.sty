@@ -1,16 +1,27 @@
 % ceoMaru.sty by tDB (emath@nifty.com)
 %
 \NeedsTeXFormat{LaTeX2e}%
-\ProvidesPackage{ceoMaru}[2010/03/25 v0.01]%
+\ProvidesPackage{ceoMaru}[2011/11/12 v0.02]%
 %
+\newcounter{ceo@counter}%
 \def\ceo@ref#1{%
-  \edefstrlen{#1}\aj@Roman@tmp
-  \ifnum\aj@Roman@tmp<4\relax
-    \strsep{#1}{\hbox}\tmp@a\tmp@b
-  \else
-    \edef\tmp@a{0}%
-  \fi
-  \count255=0\tmp@a\relax\edef\ceo@tmp{\the\count255}%
+	\begingroup
+	\let\string\relax
+	\let\@setref@\relax
+  \topchar{#1}\ceo@tmp
+  \ifthenelse{\equal\ceo@tmp\protect}{%
+    \edef\ceo@tmp{0}%
+  }{%
+    \@ifundefined{Hy@VersionCheck}{%
+      \setcounter{ceo@counter}{#1}%
+    }{%
+      \strsep{#1}{\hbox}\aj@ref@a\aj@ref@b
+      \setcounter{ceo@counter}{\aj@ref@a}%
+    }%
+    \edef\ceo@tmp{\the\c@ceo@counter}%
+  }%
+	\edef\temp@x{\def\noexpand\ceo@tmp{\ceo@tmp}}%
+	\expandafter\endgroup\temp@x
 }%
 \DeclareRobustCommand\ceoMaru[1]{\ceo@ref{#1}%
   \ifnum\ceo@tmp>100\errmessage{ceoMaru:counter too large:#1}\fi
@@ -93,3 +104,5 @@
 v 0.00 2010/03/22 丸付き数字
 v 0.01 2010/03/25
          \ceoKuroMaru
+v 0.02 2017/11/12
+				 \@setref@ 対応

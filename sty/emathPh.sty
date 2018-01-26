@@ -4,7 +4,7 @@
 %
 %\def\em@grdrv{dvips}
   \NeedsTeXFormat{LaTeX2e}%
-  \ProvidesPackage{emathPh}[2015/08/08 v 4.86]%
+  \ProvidesPackage{emathPh}[2016/11/16 v 4.89]%
   \DeclareOption{notMy}{\def\not@My{}}%
   \DeclareOption{onlyP}{\def\P@nly{}}%
 % \DeclareOption{times}{\def\@times{}}%
@@ -351,6 +351,7 @@
 \define@key{emP}{iro}{\edef\iro@{#1}}%
 \define@key{emP}{color}{\edef\iro@{#1}}%
 \define@key{emP}{bordercolor}{\edef\draw@border{1}\edef\iro@{#1}}%
+\define@key{emP}{framecolor}{\edef\draw@border{1}\edef\iro@{#1}}%
 \define@key{emP}{slashcolor}{\edef\slash@color{#1}}%
 \define@key{emP}{kuromaru}[1]{\edef\put@kuromaru{#1}}%
 \define@key{emP}{siromaru}[1]{\let\@nahudaKuromaru\Siromaru
@@ -442,7 +443,7 @@
 %      }}%
 %
 %
-\def\zM@linethickness@{.1pt}%
+\def\zM@linethickness@{.2pt}%
 \def\gridlinethickness#1{\edef\zM@linethickness@{#1}}%
 %\define@key{emPzM}{xo}{\edef\zM@xo{#1}}%
 %\define@key{emPzM}{yo}{\edef\zM@yo{#1}}%
@@ -593,10 +594,14 @@
 \define@key{emGurafu}{tinf}{\edef\YG@xl{#1+\YG@unit}}%
 \define@key{emGurafu}{supt}{\edef\YG@xr{#1-\YG@unit}}%
 \define@key{emGurafu}{tsup}{\edef\YG@xr{#1-\YG@unit}}%
-\define@key{emGurafu}{tmin}{\def\YG@xl{#1}}%
-\define@key{emGurafu}{mint}{\def\YG@xl{#1}}%
-\define@key{emGurafu}{tmax}{\def\YG@xr{#1}}%
-\define@key{emGurafu}{maxt}{\def\YG@xr{#1}}%
+\define@key{emGurafu}{tmin}{\isnumber{#1}{\def\YG@xl{#1}}{%
+	\calcval{#1}\YG@xl}}%
+\define@key{emGurafu}{mint}{\isnumber{#1}{\def\YG@xl{#1}}{%
+	\calcval{#1}\YG@xl}}%
+\define@key{emGurafu}{tmax}{\isnumber{#1}{\def\YG@xr{#1}}{%
+	\calcval{#1}\YG@xr}}%
+\define@key{emGurafu}{maxt}{\isnumber{#1}{\def\YG@xr{#1}}{%
+	\calcval{#1}\YG@xr}}%
 \define@key{emGurafu}{kukan}{\EMedef\YG@kukan{#1}}%
 \define@key{emGurafu}{kiretto}{\EMedef\YG@gap{#1}}%
 \define@key{emGurafu}{dt}{%
@@ -3902,6 +3907,23 @@
 \emPaint<thickness=#1>\@resen
 %    \Nuritubusi[#1]\@resen
 }%
+%
+\def\KinziDaenko{\@ifnextchar[{\@KinziDaenko}{\@KinziDaenko[\empty]}}%
+\def\@KinziDaenko[#1]#2#3#4#5#6#7{%
+  \edef\Rdef@rad{0}%
+	\ifx #1\empty\else\setkeys{emP}{#1}\fi
+	\vecXY{#2}\c@x\c@y
+	\def\X@t{\c@x+{#3}*cos(T)}%
+	\def\Y@t{\c@x+{#4}*sin(T)}%
+	\ifnum\Rdef@rad=\z@
+		\DegRad{#5}\ts@val
+		\DegRad{#6}\te@val
+		\ParamLC<mint=\ts@val,maxt=\te@val>\X@t\Y@t#7\relax
+	\else
+		\ParamLC<mint=#5,maxt=#6>\X@t\Y@t#7\relax
+	\fi
+}%
+%
 \def\Hatch@Daenko{\@ifnextchar[{\@Hatch@Daenko}{\@Hatch@Daenko[45]}}%
 \def\@Hatch@Daenko[#1]{\@ifnextchar<{\@@Hatch@Daenko[#1]}{%
   \@@Hatch@Daenko[#1]<\empty>}}%
@@ -4597,9 +4619,11 @@
         \if f\ArrowHeadType\else\edef\yenko@da{0}\fi
         \ifthenelse{\equal{\yenko@yazirusi}{a} \or \equal{\yenko@yazirusi}{b} \or \equal{\yenko@yazirusi}{\empty}}{%
         \Sub{#4}{\yenko@da}\yenko@e
+        \ifdim\yenko@e\p@<#3\p@\edef\yenko@e{#3}\fi
         }{}%
         \ifthenelse{\equal{\yenko@yazirusi}{b} \or \equal{\yenko@yazirusi}{r}}{%
           \Add{#3}{\yenko@da}\yenko@s
+          \ifdim\yenko@s\p@>#4\p@\edef\yenkos{#4}\fi
         }{}%
       }%
     }%
@@ -5418,14 +5442,17 @@
 \define@key{emP}{slash_angle}{\def\slash@angle{#1}}%
 \define@key{emP}{slashthickness}{\def\slash@thickness{#1}}%
 \def\emPaint{\@ifstar{\emPaint@}{\@emPaint}}%
-\def\@emPaint{\@ifnextchar<{\@@emPaint}{\@@emPaint<\empty>}}%
-\def\@@emPaint<#1>#2{%
+\def\@emPaint{\@ifnextchar[{\@emPaint@}{%
+	\def\thickness@{.5}\@@emPaint}}%
+\def\@emPaint@[#1]{\def\thickness@{#1}\@@emPaint}%
+\def\@@emPaint{\@ifnextchar<{\@@@emPaint}{\@@@emPaint<\empty>}}%
+\def\@@@emPaint<#1>#2{%
   \ifx\empty #2\else
     \begingroup
     \edef\draw@border{\empty}%
     \edef\nuri@iro{\nuri@iro@}%
     \ifnum\EMps@mode=\@ne\gsave\fi
-    \def\thickness@{.5}%
+%    \def\thickness@{.5}%
     \ifx\empty #1\else\setkeys{emP}{#1}\fi
 %    \ifx\empty\iro@\else\edef\draw@border{1}\fi%削除 2012/12/17 周の描画は別途
     \@ifundefined{dilute@color}{}{%
@@ -5450,14 +5477,16 @@
 \def\syanuri@kankaku@{3pt}%
 \def\syanuriKankaku#1{\def\syanuri@kankaku@{#1}}%
 \def\slash@thickness{.3pt}%
-\def\emPaint@{\@ifnextchar<{\emPaint@@}{\emPaint@@<\empty>}}
-\def\emPaint@@<#1>#2{%
+\def\emPaint@{\@ifnextchar[{\emPaint@@}{\def\slash@angle{45}\emPaint@@@}}%
+\def\emPaint@@[#1]{\def\slash@angle{#1}\emPaint@@@}%
+\def\emPaint@@@{\@ifnextchar<{\emPaint@@@@}{\emPaint@@@@<\empty>}}
+\def\emPaint@@@@<#1>#2{%
   \ifx\empty #2\else
     \begingroup
     \ifnum\EMps@mode=\@ne\gsave\fi
     \edef\draw@border{\empty}%
     \def\slash@thickness{.3pt}%
-    \def\slash@angle{45}%
+%    \def\slash@angle{45}%
     \edef\slash@color{\empty}%
 %    \uykansan{3pt}\syanuri@kankaku
 %    \ukansan{3pt}\syanuri@kankaku
@@ -6035,6 +6064,9 @@
 \DeclareRobustCommand\Bunten{%
   \define@key{emP}{tatebou}[1]{\edef\put@tatebou{##1}}%
   \define@key{emP}{pstatebou}[1]{\edef\put@pstatebou{##1}}%
+  \edef\save@put@kuromaru{\put@kuromaru}%
+  \edef\save@put@tatebou{\put@tatebou}%
+  \edef\save@put@pstatebou{\put@pstatebou}%
   \edef\put@kuromaru{0}%
   \edef\put@tatebou{0}%
   \edef\put@pstatebou{\empty}%
@@ -6061,6 +6093,9 @@
   \else
     \perlBunten{#1}{#2}{#3}{#4}#5\relax
   \fi
+  \edef\put@kuromaru{\save@put@kuromaru}%
+  \edef\put@tatebou{\save@put@tatebou}%
+  \edef\put@pstatebou{\save@put@pstatebou}%
   \edef\by@perl{\by@perl@}%
 }%
 \def\@Bunten#1#2#3#4#5{%
@@ -6082,6 +6117,11 @@
       \expandafter\Lpstatebou\Bt@tmp{#1}{#2}{#5}%
     }%
   \fi
+%  \@ifundefined{save@put@kuromau}{}{%
+%    \edef\put@kuromaru{\save@put@kuromaru}%
+%    \edef\put@tatebou{\save@put@tatebou}%
+%    \edef\put@pstatebou{\save@put@pstatebou}%
+%  }%
   \edef\by@perl{\by@perl@}%
 }%
 %
@@ -8871,6 +8911,7 @@
   \edef\put@kuromaru{0}%
 %
   \def\@kousinuri##1(##2,##3){%
+%\typeout{@kousinuri:arg=##1(##2,##3)}%
     \Mul{##2}{#2}\kousinuri@x\Add\kousinuri@x{#2}\kousinuri@xx
     \Mul{##3}{#3}\kousinuri@y\Add\kousinuri@y{#3}\kousinuri@yy
     \edef\kousinuri@tmp{%
@@ -10373,7 +10414,8 @@
 \def\kline{\@ifstar{\edef\Rdef@rad{1}\@kline}{\edef\Rdef@rad{0}\@kline}}%
 \def\@kline{\@ifnextchar<{\@@kline}{\@@kline<\empty>}}%
 \def\@@kline<#1>#2#3{%
-  \edef\kl@a{#3}%
+%  \edef\kl@a{#3}%
+  \isnumber{#3}{\edef\kl@a{#3}}{\fpcalcval{#3}\kl@a}%
   \ifnum\Rdef@rad>\z@
     \RadDeg{\kl@a}\kl@a
   \fi
@@ -11680,21 +11722,23 @@
 \def\CandC{\def\CandC@sign{0}\@ifstar{\CandC@}{\@CandC}}%
 \def\CandC@{\def\CandC@sign{1}\@CandC}%
 \def\@CandC#1#2#3#4#5#6{%
+  \isnumber{#2}{\edef\ri@val{#2}}{\fpcalcval{#2}\ri@val}%
+  \isnumber{#4}{\edef\rii@val{#4}}{\fpcalcval{#4}\rii@val}%
   \Kyori{#1}{#3}\@c
 \ifdim\@c\p@=\z@
   \edef\CC@Pi{#1}\edef\CC@Pii{#3}%
-\else\ifdim #2\p@=\z@
+\else\ifdim \ri@val\p@=\z@
   \edef\CC@Pi{#1}\edef\CC@Pii{#3}%
-\else\ifdim #4\p@=\z@
+\else\ifdim \rii@val\p@=\z@
   \edef\CC@Pi{#1}\edef\CC@Pii{#3}%
 \else
  \ifnum\by@perl@=\z@
-  \Subvec{#3}{#1}\@@AB\Yogen{#4}{#2}{\@c}\@A%
+  \Subvec{#3}{#1}\@@AB\Yogen{\rii@val}{\ri@val}{\@c}\@A%
   \acos\@A\@A
-  \Rotvec[#2]\@@AB\@A\@AB
+  \Rotvec[\ri@val]\@@AB\@A\@AB
   \Addvec{#1}\@AB\@AB
   \Mul{-1}\@A\@A%
-  \Rotvec[#2]\@@AB\@A\@AB@
+  \Rotvec[\ri@val]\@@AB\@A\@AB@
   \Addvec{#1}\@AB@\@AB@
 %
   \ifnum\CandC@sign>\z@
@@ -13315,13 +13359,22 @@ printf FHNDL "\EMpercentchar s,\EMpercentchar s \string\n",$xi-$tmp,$xi+$tmp;
     }%
   \fi
   \edef\hasen@opt{\empty}%
-  \edef\hazime@kaku{#4}%
-  \edef\owari@kaku{#5}%
+%  \edef\hazime@kaku{#4}%
+%  \edef\owari@kaku{#5}%
   \edef\@tyuusin{#2}%
-  \edef\@hankei{#3}%
-  \Strchr{#3}{=}\KinziEnk@tmp\ifnum\KinziEnk@tmp>\z@\setkeys{emP}{#3}\fi
-  \Strchr{#4}{=}\KinziEnk@tmp\ifnum\KinziEnk@tmp>\z@\setkeys{emP}{#4}\fi
-  \Strchr{#5}{=}\KinziEnk@tmp\ifnum\KinziEnk@tmp>\z@\setkeys{emP}{#5}\fi
+%  \edef\@hankei{#3}%
+  \Strchr{#3}{=}\KinziEnk@tmp
+  \ifnum\KinziEnk@tmp>\z@\setkeys{emP}{#3}\else
+    \isnumber{#3}{\edef\@hankei{#3}}{\fpcalcval{#3}\@hankei}
+  \fi
+  \Strchr{#4}{=}\KinziEnk@tmp
+  \ifnum\KinziEnk@tmp>\z@\setkeys{emP}{#4}\else
+    \isnumber{#4}{\edef\hazime@kaku{#4}}{\fpcalcval{#4}\hazime@kaku}%
+  \fi
+  \Strchr{#5}{=}\KinziEnk@tmp
+  \ifnum\KinziEnk@tmp>\z@\setkeys{emP}{#5}\else
+    \isnumber{#5}{\edef\owari@kaku{#5}}{\fpcalcval{#5}\owari@kaku}%
+  \fi
   \DegRad\hazime@kaku\kaku@s\DegRad\owari@kaku\kaku@e\def\@resen{}%
 \ifdim\hazime@kaku\p@>\owari@kaku\p@
   \ifdim\YG@unit\p@>\z@

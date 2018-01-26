@@ -60,7 +60,7 @@
     \if 1\@miteigi 0 \else
       \edef\popln@tmp@{\ltxref{\jobname-lasteqnum}}%
       \strip@relax\popln@tmp@\to\popln@tmp
-      \count255=\popln@tmp
+      \leavevmode\count255=\popln@tmp
       \setcounter{equation}{\count255}%
     \fi
   }%
@@ -71,7 +71,7 @@
       \if 1\@miteigi 0 \else
         \edef\popln@tmp{\ref{\jobname-lasteqnum}}%
 %       \setcounter{equation}{\popln@tmp}%
-        \count255=\popln@tmp
+        \leavevmode\count255=\popln@tmp
         \setcounter{equation}{\count255}%
       \fi
     }{%
@@ -81,7 +81,7 @@
           \edef\popln@tmp{\ref{\jobname-lasteqnum}}%
 %     \setcounter{equation}{\popln@tmp}%
           \count255=\popln@tmp
-          \setcounter{equation}{\count255}%
+          \leavevmode\setcounter{equation}{\count255}%
         \fi
       \fi
     }%

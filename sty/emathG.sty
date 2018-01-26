@@ -3,7 +3,7 @@
 \@ifundefined{ifpapersize}{\newif\ifpapersize\papersizefalse}{}%
 %
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesPackage{emathG}[2013/11/18 v 0.20]%
+\ProvidesPackage{emathG}[2016/03/27 v 0.21]%
   \DeclareOption{onlyG}{\def\G@nly{}}%
   \DeclareOption{onlyP}{\def\P@nly{}}%
   \DeclareOption{notMy}{\def\not@My{}}%
@@ -901,6 +901,15 @@
     \def\zM@yo{\ymin}%
     \def\zM@dy{1}%
 %  \Drawline{(\xmax,\ymin)(\xmin,\ymin)(\xmin,\ymax)}
+    \edef\zahyou@tmp{{(\truexmax,\trueymin)}\yokozikuhaiti}%
+    \expandafter\emathPut\zahyou@tmp{\yokozikukigou}%
+    \edef\zahyou@tmp{{(\truexmin,\trueymax)}\tatezikuhaiti}%
+    \expandafter\emathPut\zahyou@tmp{\tatezikukigou}%
+    \edef\zahyou@tmp{{(\truexmin,\trueymin)}\gentenhaiti}%
+    \expandafter\emathPut\zahyou@tmp{\gentenkigou}
+}
+\def\endsanpuzu{%
+  \ifdrawaxis
     \put(0,\trueymin){\zikusensyu(\truexmin,0)(\truexmax,0)}%
     \put(\truexmin,0){\zikusensyu(0,\trueymin)(0,\trueymax)}%
     \edef\zahyou@tmp{{(\truexmax,\trueymin)}\yokozikuhaiti}%
@@ -909,8 +918,9 @@
     \expandafter\emathPut\zahyou@tmp{\tatezikukigou}%
     \edef\zahyou@tmp{{(\truexmin,\trueymin)}\gentenhaiti}%
     \expandafter\emathPut\zahyou@tmp{\gentenkigou}
-}
-\def\endsanpuzu{\end{zahyou*}}
+    \drawaxisfalse
+  \fi
+\end{zahyou*}}
 %
 \def\Putmarks@byfile{%
   \@ifnextchar[{\@Putmarks@byfile}{\@Putmarks@byfile[$\bullet$]}}%
@@ -978,3 +988,5 @@ v 0.19β 2012/01/14
     \Putmarks: <byfile> オプション時，拡張子が csv の場合を修正
 v 0.20 2013/11/18
     \EnGurafu: 10刻みのメモリ位置修正 (BBS #12023)
+v 0.21 2016/03/27
+  \sanpuzu: emathGps.sty と揃える (BBS #12958)

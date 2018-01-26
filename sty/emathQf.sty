@@ -1,7 +1,7 @@
 % emathQf.sty by tDB(CQB00260@nifty.ne.jp)
 %
   \NeedsTeXFormat{LaTeX2e}
-  \ProvidesPackage{emathQf}[2013/05/05 v 0.15alpha]%
+  \ProvidesPackage{emathQf}[2017/05/31 v 0.18]%
 %
   \RequirePackage{emathHe}
   \RequirePackage{emathB}
@@ -17,13 +17,15 @@
   \def\bunbo@@{1}%
   \edef\range@F{\empty}%
   \edef\range@T{\empty}%
-  \edef\mitis@@{x}%
+  \EMedef\mitis@@{x}%
+	\def\pr@mitisuu{0}%
+	\def\prmitisuu#1{\def\pr@mitisuu{#1}}%
 %
 \edef\kai@type{\empty}%
 \define@key{emQf}{kaitype}{\def\kai@type{#1}}%
 \define@key{emQf}{hutougou}[1]{\def\hutougou{#1}}%
-\define@key{emQf}{mitisuu}[1]{\edef\mitis@@{#1}}%
-\define@key{emQf}{mozi}[1]{\edef\mitis@@{#1}}%
+\define@key{emQf}{mitisuu}[1]{\EMedef\mitis@@{#1}}%
+\define@key{emQf}{mozi}[1]{\EMedef\mitis@@{#1}}%
 \define@key{emQf}{A}[1]{\def\pr@ans{#1}}%
 \define@key{emQf}{bunbo}[0]{\edef\bunbo@@{#1}\edef\bunbo@@min{\bunbo@min}\edef\bunbo@@max{\bunbo@max}}%
 \define@key{emQf}{bunbomax}{\edef\bunbo@@{0}\edef\bunbo@@max{#1}}%
@@ -37,6 +39,7 @@
 \define@key{emQf}{zisuu}{\edef\rndPf@deg@{#1}}%
 \define@key{emQf}{kukan}[0,0]{\Strsep{#1}{,}\range@F\range@T}%
 \define@key{emQf}{sityuu}{\EMedef\tbl@sityuu{#1}}%
+\define@key{emQf}{prmitisuu}[1]{\def\pr@mitisuu{#1}}%
 %
 \def\Pf@deg{3}%
 \def\aii@max{6}%
@@ -54,7 +57,7 @@
 \def\bunbomax#1{\edef\bunbo@max{#1}}%
 \def\bunbomin#1{\edef\bunbo@min{#1}}%
 %
-\def\mitisuu#1{\edef\mitis@@{#1}}%
+\def\mitisuu#1{\EMedef\mitis@@{#1}}%
 \edef\hutougou{=}%
 %
 % 乱数による不等号の決定
@@ -293,6 +296,17 @@
     \iPAdd\iPMul@ans{\iP@tmp}\iPMul@ans\relax
   }%
   \edef#3{\iPMul@ans}%
+}%
+%
+% (#1)^(#2)=(#3)
+%
+\def\iPPow{\@ifstar{\let\iP@Pow\iF@PMul\@iPPow}{\let\iP@Pow\@iPMul\@iPPow}}%
+\def\@iPPow#1#2#3{%
+	\edef\iPPow@ans{#1}%
+	\Ifor\p@val{1}{#2}\Do{%
+		\iP@Pow\iPPow@ans{#1}\iPPow@ans
+	}%
+	\edef#3{\iPPow@ans}%
 }%
 %
 \def\iPDivMod{\@ifstar{\iF@PDivMod}{\@iPDivMod}}%
@@ -558,7 +572,7 @@
 % #4 : 右辺 (csv)
   \def\bunbo@@{\bunbo@}%
   \edef\pr@ans{\empty}%
-  \edef\mitis@@{x}%
+  \EMedef\mitis@@{x}%
   \ifx\empty #1\else\setkeys{emQf}{#1}\fi
   \ifnum\bunbo@@=\z@
     \Ransuu[d]{Int((\bunbo@@max-\bunbo@@min+1)*X/\ran@sup+\bunbo@@min)}\bunbo@@
@@ -634,6 +648,7 @@
     \IMulself\prQ@b{-1}%
   \fi
   \ensuremath{%
+\ifnum\pr@mitisuu>\z@\mitis@@=\fi%
     \ifnum\prQ@D=\z@
         \Hcalc{(\prQ@b)/(\prQ@a)}=\prQ@tmp
           \prHsort[s]\prQ@tmp
@@ -884,6 +899,7 @@
   \edef\prLeqAns@a{#1}%
   \edef\prLeqAns@b{#2}%
   \ensuremath{%
+\ifnum\pr@mitisuu>\z@\mitis@@=\fi%
     \ifnum\prLeqAns@a<\z@
       \IMul{#1}{-1}\prLeqAns@a
     \else
@@ -1012,7 +1028,7 @@
 \def\prQQ{\@ifnextchar<{\@prQQ}{\@prQQ<\empty>}}
 \def\@prQQ<#1>#2{%
   \edef\pr@ans{\empty}%
-  \edef\mitis@@{x}%
+  \EMedef\mitis@@{x}%
   \edef\bunbo@@{\bunbo@}%
   \ifx\empty #1\else\setkeys{emQf}{#1}\fi
   \ifnum\bunbo@@=\z@
@@ -1068,7 +1084,7 @@
 \def\prQMinMax{\@ifnextchar<{\@prQMinMax}{\@prQMinMax<\empty>}}
 \def\@prQMinMax<#1>#2{%
   \edef\pr@ans{\empty}%
-  \edef\mitis@@{x}%
+  \EMedef\mitis@@{x}%
   \edef\bunbo@@{\bunbo@}%
   \edef\range@F{\empty}%
   \edef\range@T{\empty}%
@@ -1590,3 +1606,9 @@ v 0.14α 2009/09/26
            <syoubeki=*> で，引数は降べき順で，表示は昇べき順
 v 0.15 2013/05/05
           %\let\PAdd\iPAdd
+v 0.16 2017/05/25
+          mitis@@: \EMedef (BBS #13320)
+v 0.17 2017/05/26
+          \iPPow
+v 0.18 2017/05/31
+          \prPeq: \prmitisuu{1}で，答えに "x=" を付加 (BBS #13329)

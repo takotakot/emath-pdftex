@@ -1,7 +1,7 @@
 % emathOtf.sty by tDB(emath@nifty.com)
 %
   \NeedsTeXFormat{LaTeX2e}
-  \ProvidesPackage{emathOtf}[2014/08/06 v 0.14]%
+  \ProvidesPackage{emathOtf}[2017/12/12 v 0.15]%
 %
 %  \RequirePackage{emath}%
 \@ifpackageloaded{emath}{}{\RequirePackage{emath}}%
@@ -25,6 +25,7 @@
   \EMedefappend\otf@opt{,uplatex}\fi}
 \DeclareOption{jis2004}{\ifx\empty\otf@opt\EMedef\otf@opt{jis2004}\else
   \EMedefappend\otf@opt{,jis2004}\fi}
+\DeclareOption{ref}{\def\ref@flg{}}%
 \ProcessOptions\relax
 %
 \@ifundefined{forcecjktoken}{%
@@ -64,3 +65,5 @@ v 0.11 2011/12/04 EMajmacos を分離
 v 0.12 2012/12/04 \if と \fi の対応
 v 0.13 2013/03/17 ロードオプション jis2004
 v 0.14 2014/08/06 uplatex 対応
+v 0.15 2017/12/12 ロードオプション ref
+								（platex の \@setref 変更に対する対応）

@@ -1,14 +1,17 @@
 % EMframed.sty by tDB (emath@nifty.com)
 %
 \NeedsTeXFormat{LaTeX2e}%
-\def\Ps@version{0.11alpha}%
-\ProvidesPackage{EMframed}[2012/10/27 v \Ps@version ]%
+\def\Ps@version{0.12alpha}%
+\ProvidesPackage{EMframed}[2016/12/01 v \Ps@version ]%
 %
 %\RequirePackage{emathC}
 %\@ifpackageloaded{emathPh}{}{\RequirePackage[notpic]{emathPh}}%
 %\RequirePackage{emathPb}%
+  \RequirePackage{EMfbox}%
   \RequirePackage{keyval}%
 %
+\define@key{EMframed}{apnzahyou}{\def\apn@zahyou{#1}}%
+\define@key{EMframed}{apnzahyouafter}{\def\apn@zahyou@after{#1}}%
 \define@key{EMframed}{LRonly}[B]{\def\rectbox@LR{#1}}%
 \define@key{EMframed}{Lonly}[L]{\def\rectbox@LR{#1}}%
 \define@key{EMframed}{Ronly}[R]{\def\rectbox@LR{#1}}%
@@ -200,10 +203,11 @@
 %
   \@ifundefined{frame@cmd}{%
     \@ifundefined{emFrameCommand}{%
-      \edef\emFrameCommand@opt{<hsep=\h@sep,vsep=\v@sep}%
-      \ifx\empty #1\else\EMedefappend\emFrameCommand@opt{,#1}\fi
-      \EMedefappend\emFrameCommand@opt{>}%
-      \def\emFrameCommand{\expandafter\EMfbox\emFrameCommand@opt}%
+%      \edef\emFrameCommand@opt{<hsep=\h@sep,vsep=\v@sep}%
+%      \ifx\empty #1\else\EMedefappend\emFrameCommand@opt{,#1}\fi
+%      \EMedefappend\emFrameCommand@opt{>}%
+%      \def\emFrameCommand{\expandafter\EMfbox\emFrameCommand@opt}%
+      \def\emFrameCommand{\EMfbox<#1>}%
     }{}%
   }{%
     \frame@cmd
@@ -495,3 +499,4 @@ v 0.08α 2010/11/21 emathPs がロードされているときは，emathPb を�
 v 0.09α 2011/03/31 [notT], [notB] オプション
 v 0.10α 2011/12/02 EMframed: [item=..] オプション処理を edef --> EMedef
 v 0.11α 2012/10/27 [closed]オプション (BBS #11164)
+v 0.12α 2016/12/01 \EMframed: <apnzahyou=..> を有効とする。(BBS #13193)

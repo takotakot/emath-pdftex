@@ -68,7 +68,10 @@
     }{}%
   }%
 %
-\@ifundefined{includegraphics}{\errmessage{emathPs.sty needs graphicx.sty}}{}%
+%\@ifundefined{includegraphics}{\errmessage{emathPs.sty needs graphicx.sty}}{}%
+%\@ifpackageloaded{graphicx}{}{\errmessage{emathPs.sty needs graphicx.sty}}%
+\@ifpackageloaded{graphicx}{}{\usepackage{graphicx}}%
+\@ifpackageloaded{color}{}{\usepackage{color}}%
 \@ifundefined{by@pdf}{}{%
   \@ifdevloaded{dvipdfmx}{}{%
     \errmessage{graphicx.sty にロードオプション [dvipdfmx] が必要です}%
@@ -2283,7 +2286,7 @@
 %
 %\def\remakeEPS{\relax}%
 %\AtBeginDocument{%
-%\@ifundefined{includegraphics}{\errmessage{emathPs.sty needs graphicx.sty}}{}%
+%\@ifpackageloaded{graphicx}{}{\errmessage{emathPs.sty needs graphicx.sty}}%
 %}%
 %%\AtBeginDocument{\remakeEPS}%
 %\AtBeginDocument{\let\em@syasen\drawline}%

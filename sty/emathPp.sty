@@ -3,7 +3,7 @@
 \@ifundefined{ifpapersize}{\newif\ifpapersize\papersizefalse}{}%
 %
   \NeedsTeXFormat{LaTeX2e}%
-  \ProvidesPackage{emathPp}[2014/12/06 v 1.20]%
+  \ProvidesPackage{emathPp}[2016/09/26 v 1.21]%
   \DeclareOption{notMy}{\def\not@My{}}%
   \DeclareOption{onlyP}{\def\P@nly{}}%
   \DeclareOption{notcheckperl}{\def\not@perl@check{}}%
@@ -1623,6 +1623,7 @@ elsif ($xxi==$xxii)
     for($i=0;$i<$kousuu;++$i){
       $x=$syokou+$i*$kousa;
       $y=\funcval@siki;
+      if(abs($y)<0.0001){$y=0;}
       if($x>\YG@xr||$x<\YG@xl){
         $i=$kousuu;
       }else{
@@ -3364,7 +3365,7 @@ elsif ($xxi==$xxii)
   \begingroup
   \ifnum\EMps@mode=\@ne\gsave\fi
   \def\YG@xl{0}%
-  \def\YG@xr{2*$pi}%
+  \def\YG@xr{6.2831853}%
   \edef\YG@unit{\dt@default}%
   \edef\kaiten@kaku{0}%
   \edef\tyuusin@{(0,0)}%
@@ -3389,11 +3390,19 @@ elsif ($xxi==$xxii)
       \immediate\write\em@whndl{open(FHNDL,">\perl@datafilename");}%
 \@requirePerlLib
       \ifdim \YG@unit pt>\z@
-        \immediate\write\em@whndl{%
-        for($x=\YG@xl;$x<\YG@xr;$x+=\YG@unit)%
-          {printf FHNDL"(\@percent f,\@percent f)",\x@perl@siki,\y@perl@siki};%
-          $x=\YG@xr;printf FHNDL"(\@percent f,\@percent f)",%
-          \x@perl@siki,\y@perl@siki;}%
+				\ifdim \YG@xl\p@<\YG@xr\p@
+	        \immediate\write\em@whndl{%
+  	      for($x=\YG@xl;$x<\YG@xr;$x+=\YG@unit)%
+    	      {printf FHNDL"(\@percent f,\@percent f)",\x@perl@siki,\y@perl@siki};%
+      	    $x=\YG@xr;printf FHNDL"(\@percent f,\@percent f)",%
+        	  \x@perl@siki,\y@perl@siki;}%
+      	\else
+	        \immediate\write\em@whndl{%
+  	      for($x=\YG@xl;$x>\YG@xr;$x-=\YG@unit)%
+    	      {printf FHNDL"(\@percent f,\@percent f)",\x@perl@siki,\y@perl@siki};%
+      	    $x=\YG@xr;printf FHNDL"(\@percent f,\@percent f)",%
+        	  \x@perl@siki,\y@perl@siki;}%
+				\fi
       \else
         \immediate\write\em@whndl{%
         for($x=\YG@xl;$x>\YG@xr;$x+=\YG@unit)%
@@ -4491,7 +4500,7 @@ elsif ($xxi==$xxii)
   \edef\hidarit{\empty}%
   \edef\migit{\empty}%
   \def\YG@xl{0}%
-  \def\YG@xr{2*$pi}%
+  \def\YG@xr{6.2831853}%
   \edef\next@opt{\empty}%
   \edef\oresen@name{\empty}%
   \uykansan{50cm}\YG@ymax
@@ -6832,3 +6841,5 @@ v 1.19 2014/10/05
     \perlCandg
 v 1.20 2014/12/06
     \SKniSessen: 中心が原点でない場合のバグ修正
+v 1.21 2016/09/26
+    \ParamLC: xs>xe の場合

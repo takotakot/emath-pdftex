@@ -1,7 +1,7 @@
 % emathC.sty by tDB (emath@nifty.com)
 %
 \NeedsTeXFormat{LaTeX2e}%
-\ProvidesPackage{emathC}[2015/05/03 v1.16]%
+\ProvidesPackage{emathC}[2017/11/19 v1.18]%
 %
 \RequirePackage{calc}%
 \RequirePackage{keyval}%
@@ -1088,7 +1088,15 @@
   \advance\@tempcnta #2\relax
   \edef\temp@x{\def\noexpand#3{\the\@tempcnta}}%
   \expandafter\endgroup\temp@x
-}%
+}
+%\def\IAdd#1#2#3{\begingroup
+%  \isnumber{#1}{\edef\IAdd@i{#1}}{\fpcalcval{#1}\IAdd@i}%
+%  \isnumber{#2}{\edef\IAdd@ii{#2}}{\fpcalcval{#2}\IAdd@ii}%
+%  \@tempcnta=\IAdd@i
+%  \advance\@tempcnta \IAdd@ii\relax
+%  \edef\temp@x{\def\noexpand#3{\the\@tempcnta}}%
+%  \expandafter\endgroup\temp@x
+%}%
 \def\ISub#1#2#3{\begingroup
   \@tempcnta=#1\relax
   \@tempcntb=#2\relax
@@ -1108,20 +1116,45 @@
   \edef\temp@x{\def\noexpand#3{\the\@tempcnta}}%
   \expandafter\endgroup\temp@x
 }%
+%\def\IMod#1#2#3{\begingroup
+%%  \@tempcnta=#1\relax
+%  \isnumber{#1}{\edef\IMod@i{#1}}{\fpcalcval{#1}\IMod@i}%
+%  \@tempcnta=\IMod@i
+%  \divide\@tempcnta #2\relax
+%  \multiply\@tempcnta #2\relax
+%  \@tempcntb=\IMod@i\relax\advance\@tempcntb-\@tempcnta
+%  \edef\temp@x{\def\noexpand#3{\the\@tempcntb}}%
+%  \expandafter\endgroup\temp@x
+%}%
 \def\IMod#1#2#3{\begingroup
   \@tempcnta=#1\relax
   \divide\@tempcnta #2\relax
   \multiply\@tempcnta #2\relax
   \@tempcntb=#1\relax\advance\@tempcntb-\@tempcnta
+%	\ifnum\@tempcntb<\z@
+%		\ifnum #2>\z@
+%			\advance\@tempcntb #2\relax
+%		\else
+%			\IAbs{#2}\@bval@\advance\@tempcntb\@bval@
+%		\fi
+%	\fi
   \edef\temp@x{\def\noexpand#3{\the\@tempcntb}}%
   \expandafter\endgroup\temp@x
 }%
+%
 \def\IDivMod#1#2#3#4{\begingroup
   \@tempcnta=#1\relax
   \divide\@tempcnta #2\relax
   \edef\IDM@d{\the\@tempcnta}%
   \multiply\@tempcnta #2\relax
   \@tempcntb=#1\relax\advance\@tempcntb-\@tempcnta
+	\ifnum\@tempcntb<\z@
+		\ifnum #2>\z@
+			\Decr\IDM@d\advance\@tempcntb #2\relax
+		\else
+			\Incr\IDM@d\IAbs{#2}\@bval@\advance\@tempcntb\@bval@
+		\fi
+	\fi
   \edef\temp@x{\def\noexpand#3{\IDM@d}\def\noexpand#4{\the\@tempcntb}}%
   \expandafter\endgroup\temp@x
 }%
@@ -2485,6 +2518,26 @@
   \edef\tmp@v{(\a@x,\a@y)}%
   \Put@nil\tmp@v #3\@nil
 }%
+%
+\def\Mulvecs{\@ifnextchar<{\@Mulvecs}{\@Mulvecs<\empty>}}%
+\def\@Mulvecs<#1>#2#3#4{%
+  \edef\z@val{0}%
+  \ifthenelse{\equal{#4}\empty}{%
+    \edef\ret@P{#2}%
+  }{%
+    \edef\ret@P{#4}%
+  }%
+  \ifx\empty #1\else\setkeys{emC}{#1}\fi
+  \csvhairetu*[;]{#2}{org@P}%
+  \csvhairetu*[;]{\ret@P}{ret@P}%
+  \Ifor*\i@val{1}\org@PN\Do{%
+    \edef\tmp@P{\hairetu{org@P}{\i@val}}%
+    \Mulvec{#3}{\@nameuse{\tmp@P}}\atmp@P
+    \edef\temp@a{\csname ret@P\romannumeral\i@val\endcsname}%
+    \expandafter\edef\csname\temp@a\endcsname{\atmp@P}%
+  }%
+}%
+%
 \def\Addvecself#1#2{\Addvec{#1}{#2}{#1}}%
 \def\Subvecself#1#2{\Subvec{#1}{#2}{#1}}%
 \def\Mulvecself#1#2{\Mulvec{#1}{#2}{#2}}%
@@ -2549,7 +2602,13 @@
       \if *\itiketu@l
         \edef\ik@ast{1}%
       \else
-        \isnumber{\itiketu@l}{}{\fpcalcval{\itiketu@l}\itiketu@l}%
+        \isnumber{\itiketu@l}{}{%
+        	\ifx\empty\ik@perl
+	        	\fpcalcval{\itiketu@l}\itiketu@l
+					\else
+	        	\calcval{\itiketu@l}\itiketu@l
+        	\fi
+        }%
         \ifx\empty\ik@bunbo\else\Divself\itiketu@l\ik@bunbo\fi
         \ifx\empty\ik@frac\else\FtoS\itiketu@l\itiketu@l\fi
         \ifx\empty\ik@perl\else\calcval[f]{\itiketu@l}\itiketu@l\fi
@@ -3015,3 +3074,5 @@ v 1.14 2015/01/02 \AddvecOresen
                   \Addvecs: 仕様変更
 v 1.15 2015/02/26 \foreach --> \EMforeach
 v 1.16 2015/05/03 \Ifor: 初期値，終値に計算式を許容
+v 1.17 2016/09/25 \Mulvecs
+v 1.18 2017/11/19 \IDivMod: 被除数，除数が負の場合

@@ -763,7 +763,8 @@
     \IMulself{#4}{\iHH@c}%
     \IMulself{#5}{\iHH@c}%
     \IMod{#4}{\iHH@b}#4\relax
-    \calcval[s]{(\iHH@c-(\iHH@a)*(#4))/(\iHH@b)}#5\relax
+%    \calcval[s]{(\iHH@c-(\iHH@a)*(#4))/(\iHH@b)}#5\relax
+    \fpcalcval{(\iHH@c-(\iHH@a)*(#4))/(\iHH@b)}#5\relax
     \ifnum#5<\z@\IAddself{#5}{\iHH@a}\ISubself{#4}{\iHH@b}\fi
   \fi
 }%

@@ -3,7 +3,7 @@
 \@ifundefined{ifpapersize}{\newif\ifpapersize\papersizefalse}{}%
 %
   \NeedsTeXFormat{LaTeX2e}
-  \ProvidesPackage{arhako}[2013/06/07 v1.20]%
+  \ProvidesPackage{arhako}[2017/10/22 v1.21]%
   \DeclareOption{tpic}{\def\renhako@tpic{}}%
   \DeclareOption{notMy}{\def\not@My{}}%
   \DeclareOption{papersize}{\papersizetrue}
@@ -16,11 +16,12 @@
 \def\amiHako{\h@ko網掛true\Hako}
 \def\refamiHako{\h@ko網掛true\refHako}
 %
-\edef\hako@nuri@iro{lightgray}
-\def\HakoNuriIro#1{\edef\hako@nuri@iro{#1}}
+\edef\hako@nuri@iro{lightgray}%
+\def\HakoNuriIro#1{\edef\hako@nuri@iro{#1}}%
 \newif\ifh@konuri%
-\def\nuriHako{\h@konuritrue\Hako}
-\def\refnuriHako{\h@konuritrue\refHako}
+\def\nuriHako{\h@konuritrue\Hako}%
+%\def\refnuriHako{\h@konuritrue\refHako}
+\DeclareRobustCommand\refnuriHako{\h@konuritrue\refHako}%
 %
 \newif\ifren@hako%
 %
@@ -609,3 +610,5 @@ v 1.19 2013/04/16
     \refnurirenHako: \DeclareRobustCommand
 v 1.20 2013/06/07
     \Hako@kotae: 定義のタイミング (BBS #12315)
+v 1.21 2016/10/22
+    \refNuriHako: \DeclareRobustCommand

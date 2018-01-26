@@ -14,7 +14,7 @@
 %
 \@ifundefined{ifpapersize}{\newif\ifpapersize\papersizefalse}{}%
 %
-  \ProvidesPackage{hako}[2014/06/06 v1.80]%
+  \ProvidesPackage{hako}[2017/06/15 v1.81]%
   \DeclareOption{notMy}{\def\not@My{}}%
   \DeclareOption{papersize}{\papersizetrue}%
   \ProcessOptions\relax
@@ -22,7 +22,6 @@
   \RequirePackage{verbatim}%
 %  \RequirePackage{emath}%
 \@ifpackageloaded{emath}{}{\RequirePackage{emath}}%
-%  \RequirePackage{EMhairetu}%
   \RequirePackage{emathLb}%
 %  \RequirePackage{emathK}%
 %
@@ -118,7 +117,8 @@
 \def\@everymaskHako[#1]#2{%
   \def\everymaskHako@b{#2}%
   \def\everymaskHako@e{#1}}%
-\def\maskHako{\@ifnextchar({\@maskHako}{\@maskHako(\empty)}}%
+%\def\maskHako{\@ifnextchar({\@maskHako}{\@maskHako(\empty)}}%
+\DeclareRobustCommand\maskHako{\@ifnextchar({\@maskHako}{\@maskHako(\empty)}}%
 \def\@maskHako(#1){\@ifnextchar[{\@@maskHako(#1)}{\@@maskHako(#1)[0pt]}}%
 \def\@@maskHako(#1)[#2]{\@ifnextchar[{\@@@maskHako(#1)[#2]}{%
   \@@@maskHako(#1)[#2][0pt]}}%
@@ -665,6 +665,7 @@
 %    \long\def\hak@tmp{#7}%
 %%    \ifx\m@@ziretu\empty
     \IFempty{\m@@ziretu}{%
+%\typeout{\hako@moziretu,#7}%
     \expandafter\verbatimR@addtoline\expandafter{\hako@moziretu,#7}%
     \immediate\write\hako@kai@hndl{\the\verbatim@line}%
     \verbatim@startline
@@ -901,7 +902,7 @@
     \fi
     \protect\refstepcounter{equation}%
     \ifx\empty #1\else
-      \writeLabel{#1}{\the\value{equation}}%
+      \writeLabel{\prelabel #1}{\the\value{equation}}%
     \fi
     \gdef\pre@str{\tagform@{\the\value{equation}}\quad}}%
   \define@key{emH}{posttag}[]{%
@@ -910,7 +911,7 @@
     \fi
     \protect\refstepcounter{equation}%
     \ifx\empty #1\else
-      \writeLabel{#1}{\the\value{equation}}%
+      \writeLabel{prelabel #1}{\the\value{equation}}%
     \fi
     \gdef\post@str{\quad\tagform@{\the\value{equation}}}}%
 %
@@ -1361,6 +1362,7 @@
   \@@openHakoKaiFile
 }%
 \def\@@openHakoKaiFile{%
+  \ifkai@mode\closeHakoKaiFile\fi
   \global\kai@modetrue
   \@ifundefined{c@kaitou@syorihou}{}{%
     \ifnum \thekaitou@syorihou=\z@\xdef\input@mode{0}\fi}%
@@ -1942,3 +1944,5 @@
 % v 1.80 2014/06/06
 %   \Hako@kotae: 定義のタイミング (BBS #12315)
 %   \ifmaskHakoKai
+% v 1.81 2017/06/15
+%   \maskHako: \DeclareRobustCommand (BBS #13342)

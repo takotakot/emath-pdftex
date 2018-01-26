@@ -32,10 +32,10 @@
   \fi
   \srchhairetu{emCtype@}{\parts@type}\emC@type
   \ifnum\emC@type=\z@
-    \errmessage{\parts@type }%
+    \errmessage{パーツの名前：\parts@type は未定義です}%
   \fi
   \Decr\emC@type
-  \ifnum\emC@type=13\relax\edef\emC@type{1}\fi% bresistor -> resistor 
+  \ifnum\emC@type=13\relax\edef\emC@type{1}\fi% bresistor -> resistor 読み替え
 }%
 \endinput
-v 0.02 2011/08/10 bresistor = resistor (BBS #10104)
+v 0.02 2011/08/10 bresistor = resistor とする(BBS #10104)

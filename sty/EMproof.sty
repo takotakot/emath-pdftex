@@ -1,7 +1,7 @@
 %%% EMproof.sty by tDB(emath@nifty.com)
 % 日本語
 %
-\ProvidesPackage{EMproof}[2012/12/02 v0.00]%
+\ProvidesPackage{EMproof}[2016/01/24 v0.01]%
 %
   \@ifundefined{endproof}{}{%
     \errmessage{EMproof は AMS の proof と併用出来ません。}}%
@@ -155,7 +155,7 @@
 \if\@tempa
   \renewcommand{\math@qedhere}{\quad\hbox{\qedsymbol}}%
 \fi
-\newcommand{\openbox}{\leavevmode
+\newcommand{\EMopenbox}{\leavevmode
   \hbox to.77778em{%
   \hfil\vrule
   \vbox to.675em{\hrule width.6em\vfil\hrule}%
@@ -163,7 +163,8 @@
 \DeclareRobustCommand{\textsquare}{%
   \begingroup \usefont{U}{msa}{m}{n}\thr@@\endgroup
 }
-\providecommand{\qedsymbol}{\openbox}
+\@ifundefined{openbox}{\let\openbox\EMopenbox}{}%
+\providecommand{\qedsymbol}{\EMopenbox}
 \def\EMproofLmargin{\z@}%
 \def\EMproof{\@ifnextchar[{\@EMproof}{\@EMproof[\proofname]}}%
 \def\@EMproof[#1]{\@ifnextchar<{\@@EMproof[#1]}{\@@EMproof[#1]<\empty>}}%
@@ -194,3 +195,6 @@
 }%
 %
 \endinput
+%
+v0.00 2012/12/02
+v0.01 2016/01/24 \openbox --> \EMopenbox (BBS #13244)

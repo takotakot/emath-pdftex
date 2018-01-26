@@ -1,6 +1,6 @@
 % pszahyou.sty  by tDB (emath@nifty.com)
 %
-\ProvidesPackage{pszahyou}[2015/10/17 v 2.39]%
+\ProvidesPackage{pszahyou}[2017/08/20 v 2.40a]%
 %
 % pszahyou 環境
 %
@@ -2680,6 +2680,8 @@
       \edef\y@memoriiti{[w]}%
       \edef\size@{.5pt}%
       \setdash{.1,.1}%
+		  \let\zMx@func\relax
+		  \let\zMy@func\relax
 %      \@tempdima=\def@memori@nagasa
   \Strsep{\def@memori@nagasa}{,}\memori@nagasai\memori@nagasaii
   \uxkansan\memori@nagasai\memori@nagasaxi
@@ -2695,6 +2697,8 @@
   \fi
       \Strchr{##3}{=}\zM@tmp
       \ifnum\zM@tmp>\z@
+		    \define@key{emPzM}{xfunc}{\def\zMx@func{####1}}%
+    		\define@key{emPzM}{yfunc}{\def\zMy@func{####1}}%
         \define@key{emPzM}{size}{\def\size@{####1}}%
         \define@key{emPzM}{only}{\def\zM@only{####1}}%
         \define@key{emPzM}{iro}{\def\iro@{####1}}%
@@ -2814,12 +2818,12 @@
             \Cfor{\def\zM@x{\zM@xo}}{\lengthtest{\zM@x pt<\truexmax pt}}{%
             \IAdd\zM@dx\zM@x\zM@x}\do{%
               \ifnum\zM@x=\z@\else
-                \edef\zM@tmp{{(\zM@x,\memori@nagasayi)}\x@memoriiti{$\zM@x$}}%
+                \EMedef\zM@tmp{{(\zM@x,\memori@nagasayi)}\x@memoriiti{$\protect\zMx@func{\zM@x}$}}%
                 \expandafter\cPut\zM@tmp
               \fi}%
             \Cfor{\def\zM@x{\zM@xo}\ISub\zM@x\zM@dx\zM@x}{%
               \lengthtest{\zM@x pt>\truexmin pt}}{\ISub\zM@x\zM@dx\zM@x}\do{%
-              \edef\zM@tmp{{(\zM@x,\memori@nagasayi)}\x@memoriiti{$\zM@x$}}%
+              \EMedef\zM@tmp{{(\zM@x,\memori@nagasayi)}\x@memoriiti{$\protect\zMx@func{\zM@x}$}}%
               \expandafter\cPut\zM@tmp}%
           }{%
             \strsep\zM@dx{.}\zM@dmya\zM@dmyb
@@ -2828,13 +2832,14 @@
               \Add\zM@dx\zM@x\zM@x}\do{%
               \ifdim\zM@x pt=\z@\else
                 \EMround\zM@x\zM@syousuubu\zM@x
-                \edef\zM@tmp{{(\zM@x,\memori@nagasayi)}\x@memoriiti{$\zM@x$}}%
+                \EMedef\zM@tmp{{(\zM@x,\memori@nagasayi)}\x@memoriiti{$\protect\zMx@func{\zM@x}$}}%
+	              \expandafter\cPut\zM@tmp
               \fi
             }%
             \Cfor{\def\zM@x{\zM@xo}\Sub\zM@x\zM@dx\zM@x}{%
               \lengthtest{\zM@x pt>\truexmin pt}}{\Sub\zM@x\zM@dx\zM@x}\do{%
               \EMround\zM@x\zM@syousuubu\zM@x
-              \edef\zM@tmp{{(\zM@x,\memori@nagasayi)}\x@memoriiti{$\zM@x$}}%
+              \EMedef\zM@tmp{{(\zM@x,\memori@nagasayi)}\x@memoriiti{$\protect\zMx@func{\zM@x$}}}%
               \expandafter\cPut\zM@tmp
             }%
           }%
@@ -2845,13 +2850,13 @@
           \ifthenelse{\zM@tmpa=0 \and \zM@tmpb=0}{%
             \Cfor{\def\zM@y{\zM@yo}\ISub\zM@y\zM@dy\zM@y}{%
               \lengthtest{\zM@y pt>\trueymin pt}}{\ISub\zM@y\zM@dy\zM@y}\do{%
-                \edef\zM@tmp{{(\memori@nagasaxi,\zM@y)}\y@memoriiti{$\zM@y$}}%
+                \EMedef\zM@tmp{{(\memori@nagasaxi,\zM@y)}\y@memoriiti{$\protect\zMy@func{\zM@y}$}}%
               \expandafter\cPut\zM@tmp
             }%
             \Cfor{\edef\zM@y{\zM@yo}}{\lengthtest{\zM@y pt<\trueymax pt}}{%
               \IAdd\zM@dy\zM@y\zM@y}\do{%
               \ifnum\zM@y=\z@\else
-                \edef\zM@tmp{{(\memori@nagasaxi,\zM@y)}\y@memoriiti{$\zM@y$}}%
+                \EMedef\zM@tmp{{(\memori@nagasaxi,\zM@y)}\y@memoriiti{$\protect\zMy@func{\zM@y}$}}%
                 \expandafter\cPut\zM@tmp%
               \fi
             }%
@@ -2861,14 +2866,14 @@
             \Cfor{\def\zM@y{\zM@yo}\Sub\zM@y\zM@dy\zM@y}{%
                 \lengthtest{\zM@y pt>\trueymin pt}}{\Sub\zM@y\zM@dy\zM@y}\do{%
               \EMround\zM@y\zM@syousuubu\zM@y
-              \edef\zM@tmp{{(\memori@nagasaxi,\zM@y)}\y@memoriiti{$\zM@y$}}%
+              \EMedef\zM@tmp{{(\memori@nagasaxi,\zM@y)}\y@memoriiti{$\protect[\zMy@func{\zM@y}$}}%
               \expandafter\cPut\zM@tmp
             }%
             \Cfor{\edef\zM@y{\zM@yo}}{\lengthtest{\zM@y pt<\trueymax pt}}{%
               \Add\zM@dy\zM@y\zM@y}\do{%
               \ifdim\zM@y pt=\z@\else
                 \EMround\zM@y\zM@syousuubu\zM@y
-                \edef\zM@tmp{{(\memori@nagasaxi,\zM@y)}\y@memoriiti{$\zM@y$}}%
+                \EMedef\zM@tmp{{(\memori@nagasaxi,\zM@y)}\y@memoriiti{$\protect\zMy@func{\zM@y}$}}%
                 \expandafter\cPut\zM@tmp
               \fi
             }%
@@ -3505,10 +3510,15 @@
   \edef\yenko@s{##4}\edef\yenko@e{##5}%
 %  \Add{##2}{##3}\@DaYenko@r\@Div\@DaYenko@r{2}\@DaYenko@r
 %  \@Div\Arr@wHeadSize{\@DaYenko@r}\d@theta
-  \ifdim ##2\p@>##3\p@
-    \@Div\Arr@wHeadSize{##3}\d@theta
+\@Div ##2\@yscale\yoko@hankei
+\@Div ##3\@xscale\tate@hankei
+%  \ifdim ##2\p@>##3\p@
+%    \@Div\Arr@wHeadSize{##3}\d@theta
+	\ifdim\yoko@hankei\p@>\tate@hankei\p@
+		\calcval{##2/(\@yscale*\@yscale)}\d@theta
   \else
-    \@Div\Arr@wHeadSize{##2}\d@theta
+%    \@Div\Arr@wHeadSize{##2}\d@theta
+		\calcval{##3/(\@xscale*\@xscale)}\d@theta
   \fi
 \@Div\d@theta{##2}\d@theta
 \Mul\d@theta{##3}\d@theta
@@ -3555,6 +3565,7 @@
       }%
       \DegRad\yenko@s\yenko@s@
       \DegRad\yenko@e\yenko@e@
+%\typeout{goto ParamC: (##2,##3)(\yenko@s@,\yenko@e@), d@theta=\d@theta}%
       \ParamC<mint=\yenko@s@,maxt=\yenko@e@>{(##2)*cos(T)}{(##3)*sin(T)}%
   \fi
 }}%
@@ -4485,3 +4496,4 @@
 2014/10/18 v 2.37 \Yaziri: <fill=0/1> オプション
 2015/04/26 v 2.38 \emSankaku: emathPh.sty の定義との互換
 2015/10/17 v 2.39 \EPShenkan
+2017/08/20 v 2.40 \Dayenko: xscale, yscale 指定の場合 (BBS #13366)

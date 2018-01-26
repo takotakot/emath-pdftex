@@ -1,12 +1,12 @@
 % emNisinhou.sty by tDB (emath@nifty.com)
 
 \NeedsTeXFormat{LaTeX2e}%
-\ProvidesPackage{emNsinhou}[2012/11/16 v0.05alpha]%
+\ProvidesPackage{emNsinhou}[2016/06/24 v0.06]%
 %
 %\RequirePackage{emath}%
 \@ifpackageloaded{emath}{}{\RequirePackage{emath}}%
 %
-% i n
+% 十進表記を n進表記に変換
 %
   \define@key{Nsinsuu}{endshowq}{\edef\show@end@q{#1}}%
   \def\endshowq#1{\edef\show@end@q{#1}}%
@@ -27,22 +27,29 @@
   \EMedef\dectoNprompt@i{#1}%
   \EMedef\dectoNprompt@ii{#2}%
 }%
-\dectoNprompt{\\}{F\\}%
+\dectoNprompt{整数部分：\\}{小数部分：\\}%
+\def\Aasw{A}%
 \def\dectoN{\def\use@hbox{1}\@ifstar{\def\use@hbox{0}\@dectoN}{\@dectoN}}%
 \def\@dectoN{\@ifnextchar<{\@@dectoN}{\@@dectoN<\empty>}}%
 \def\@@dectoN<#1>_#2#3#4{%
 % #1: key=val
-%     show: レョヲ
+%     show: 途中経過を筆算形式で示します。
 % #2: n
-% #3: i
-% #4: n
+% #3: 十進表記
+% #4: n進表記
 %---------------------------------------------------
   \def\ihex##1##2{%
     \ifnum##1<10\relax
       \edef\r@char{##1}%
     \else
-      \setcounter{tempcnta}{55+##1}%
-      \edef\r@char{\char\the\c@tempcnta}%
+%      \setcounter{tempcnta}{55+##1}%
+%      \edef\r@char{\char\the\c@tempcnta}%
+      \setcounter{tempcnta}{##1-9}%
+      \if A\Aasw
+        \edef\r@char{\Alph{tempcnta}}%
+      \else
+        \edef\r@char{\alph{tempcnta}}%
+      \fi
     \fi
 %   \EMedef##2{\r@char{}}%
     \EMedef##2{\r@char}%
@@ -179,7 +186,7 @@
     \def\show@s@dectoN{%
       \ensuremath{%
         \begin{array}{@{}r@{}r@{}r@{}l}
-% マ ------------------- BBS #11127
+% 三択 ------------------- BBS #11127
           &&&.\@sssi\\
 %         &&0&.\@sssi\\
 %         &&\EMfbox<notL,notT>{0}&.\@sssi\\
@@ -266,7 +273,7 @@
   \fi
 }%
 %
-% ni
+% n進表記を十進表記に変換
 %
 \expandafter\def\csname t@dec0\endcsname{0}%
 \expandafter\def\csname t@dec1\endcsname{1}%
@@ -324,7 +331,6 @@
   }%
 }%
 \def\s@Ntodec#1#2#3{%
-%\typeout{s@Ntodec#1,#2}%
   \i@Ntodec{#1}{#2}\Nto@bunsi
   \Strlen{#2}\Nto@l
   \IPower{#1}{\Nto@l}\Nto@bunbo
@@ -337,6 +343,8 @@
 %
 v 0.00 2011/12/31 \dectoN
 v 0.01 2012/01/02 \Ntodec
-v 0.02 2012/01/03 iv 0.03 2012/02/05 \dectoN : レヲ (BBS #10531)
+v 0.02 2012/01/03 十進有限小数→p進小数
+v 0.03 2012/02/05 \dectoN : 筆算の表示法 (BBS #10531)
 v 0.04 2012/07/07 \dectoN : \leavevmode  (BBS #10975)
-v 0.05 2012/11/16 \dectoN : endshowq=.. \dectoN レヲ^
+v 0.05 2012/11/16 \dectoN : endshowq=.. \dectoN の筆算表示終了のタイミング
+v 0.06 2016/06/26 \ihex (BBS #13031)

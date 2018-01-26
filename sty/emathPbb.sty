@@ -1,7 +1,7 @@
 % emathPbb.sty by tDB(emath@nifty.com)
 %
   \NeedsTeXFormat{LaTeX2e}%
-  \ProvidesPackage{emathPbb}[2011/12/02 v 0.17alpha]%
+  \ProvidesPackage{emathPbb}[2016/04/06 v 0.18alpha]%
 %
 \RequirePackage{emathBk}%
 %
@@ -26,6 +26,8 @@
 %\define@key{emPbb}{rectboxwidth}[0pt]{\setlength{\@tempdima}{#1}\edef\rectbox@width{\the\@tempdima}}%
 %\define@key{emPbb}{rectboxWidth}[0pt]{\setlength{\@tempdima}{#1}\edef\rectbox@Width{\the\@tempdima}}%
 \define@key{emPbb}{fboxsep}{\setlength\fboxsep{#1}}%
+\define@key{emPbb}{lsep}{\def\l@sep{#1}}%
+\define@key{emPbb}{rsep}{\def\r@sep{#1}}%
 \define@key{emPbb}{hsep}{\def\h@sep{#1}}%
 \define@key{emPbb}{vsep}{\def\v@sep{#1}}%
 \define@key{emPbb}{hvsep}{\def\h@sep{#1}\def\v@sep{#1}}%
@@ -45,6 +47,10 @@
 \define@key{emPbb}{backgroundcolor}{\edef\background@color{#1}}%
 \define@key{emPbb}{bgcolor}{\edef\background@color{#1}}%
 \define@key{emPbb}{liningcolor}{\def\lining@color{#1}}%
+%
+\define@key{emPbb}{apnzahyou}{\def\apn@zahyou{#1}}%
+\define@key{emPbb}{apnzahyouafter}{\def\apn@zahyou@after{#1}}%
+%
 %\define@key{emPbb}{henvi}{\def\hen@i{#1}}%
 %\define@key{emPbb}{Henvi}{\vecXY{#1}\henv@x\henv@y\ukansan\henv@x\henv@x\ukansan\henv@y\henv@y
 %                        \edef\hen@i{(\henv@x,\henv@y)}}%
@@ -98,9 +104,12 @@
   \edef\background@color{\empty}\edef\midasi@background@color{\empty}%
   \edef\background@color{\empty}%
   \edef\frame@color{\empty}%
+  \edef\apn@zahyou{\empty}%
+  \edef\apn@zahyou@after{\empty}%
   \@ifnextchar[{\EMbreakrectbox@}{\@EMbreakrectbox}}%
 %
-\def\EMbreakrectbox@[#1]{\EMedef\bkrb@opt{[#1]}\setkeys{emPbb}{#1}\@EMbreakrectbox}%
+%\def\EMbreakrectbox@[#1]{\EMedef\bkrb@opt{[#1]}\setkeys{emPbb}{#1}\@EMbreakrectbox}%
+\def\EMbreakrectbox@[#1]{\def\bkrb@opt{[#1]}\setkeys{emPbb}{#1}\@EMbreakrectbox}%
 \def\@EMbreakrectbox{%
   \edef\ln@wd{\strip@pt\linewidth}%
   \@tempdima=\frame@linewidth
@@ -130,8 +139,10 @@
       \edef\v@sep{\rectbox@oval}%
     }%
   }{}%
-  \edef\h@Lsep{\h@sep}%
-  \edef\h@Rsep{\h@sep}%
+  \ifx\empty\l@sep\edef\l@sep{\h@sep}\fi
+  \ifx\empty\r@sep\edef\r@sep{\h@sep}\fi
+  \edef\h@Lsep{\l@sep}%
+  \edef\h@Rsep{\r@sep}%
   \@ifundefined{rectbox@LR}{}{%
     \ifthenelse{\equal\rectbox@LR{L}}{\edef\h@Rsep{0pt}}{}%
     \ifthenelse{\equal\rectbox@LR{R}}{\edef\h@Lsep{0pt}}{}%
@@ -241,6 +252,17 @@
             }%
           \fi\fi
         \fi
+%
+        \ifx\empty\apn@zahyou\else
+          {%
+\edef\LT{(\frame@hw,\ln@ht)}%
+\edef\LB{(\frame@hw,-\ln@dp)}%
+\edef\RT{(\ln@wd@,\ln@ht)}%
+\edef\RB{(\ln@wd@,-\ln@dp)}%
+            \apn@zahyou
+          }%
+        \fi
+%
 % 上見出し
         \setbox\rectbox@item@box=\hbox{{\rectbox@item}}%
         \ukansan{\wd\rectbox@item@box}\wd@rectbox@item@box
@@ -440,6 +462,21 @@
             (\frame@hw,\ln@ht)%
           }%
         \fi
+%
+        \ifx\empty\apn@zahyou\else
+          {%
+\edef\LT{(\frame@hw,\ln@ht)}%
+\edef\LB{(\frame@hw,-\ln@dp)}%
+\edef\RT{(\ln@wd@,\ln@ht)}%
+\edef\RB{(\ln@wd@,-\ln@dp)}%
+%\Addvecself\LT{(0,1)}%
+%\Addvecself\RT{(0,1)}%
+%\Addvecself\LB{(0,-1)}%
+%\Addvecself\RB{(0,-1)}%
+            \apn@zahyou
+          }%
+        \fi
+%
 % 左右の罫線
 \ifnum\by@vrule>\z@
   \edef\tmp@h{\the\ht\bk@bxa}%
@@ -527,6 +564,17 @@
             }%
           \fi\fi
         \fi
+%
+        \ifx\empty\apn@zahyou\else
+          {%
+\edef\LT{(\frame@hw,\ln@ht)}%
+\edef\LB{(\frame@hw,-\ln@dp)}%
+\edef\RT{(\ln@wd@,\ln@ht)}%
+\edef\RB{(\ln@wd@,-\ln@dp)}%
+            \apn@zahyou
+          }%
+        \fi
+%
 % 下見出し
         \setbox\rectbox@bitem@box=\hbox{\rectbox@bitem}%
         \ukansan{\wd\rectbox@bitem@box}\wd@rectbox@bitem@box
@@ -830,3 +878,4 @@ v 0.13α 2010/08/24 itembreakrectbox環境
 v 0.14α 2010/10/03 \rectboxparindent
 v 0.15α 2011/04/30 \endbreakrectbox: 末尾に\hskip\z@ を付加
 v 0.16α 2011/07/30 上記修正がネストする場合余分な空白を発生 (BBS #10083)
+v 0.18α 2016/04/06 EMbreakrectbox環境；apnzahyou

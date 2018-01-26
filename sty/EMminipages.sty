@@ -1,6 +1,6 @@
 % EMminipages.sty by tDB (emath@nifty.com)
 %
-\ProvidesPackage{EMminipages}[2013/02/10 v0.07]%
+\ProvidesPackage{EMminipages}[2016/11/19 v0.08]%
 %
 \RequirePackage{keyval}%
 %
@@ -241,6 +241,21 @@
 \def\EMminipagesdotgap#1{\EMminipagesruledash{0pt,#1}}%
 \def\EMminipagescolor#1{\edef\EM@mp@iro@{#1}}%
 %
+\def\Lminipage#1{%
+	\setbox0=\hbox{#1}%
+	\@tempdima\linewidth
+	\advance\@tempdima-\wd0
+	\edef\Lm@wd{\the\@tempdima}%
+%
+	\ifvmode\else\par\fi
+	\noindent\box0
+	\begin{minipage}{\Lm@wd}%
+  \ifhmode\unskip \par\fi
+  \ignorespaces
+  \@ignoretrue
+}%
+\def\endLminipage{\end{minipage}\ifhmode\unskip \par\fi}%
+%
 \endinput
 %
 v 0.00α 2007/07/23
@@ -258,3 +273,4 @@ v 0.05   2011/05/29
 v 0.06   2013/01/22
          段間罫線を点線・破線で (saloon #1106)
 v 0.07   2013/02/10 \EMminipagescolor など
+v 0.08   2016/11/19 \Lminipage: minipage の左に文字列を配置

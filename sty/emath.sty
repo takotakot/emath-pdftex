@@ -56,7 +56,7 @@
     \def\tmpname{LaTeX2e}%
 %    \ifx\fmtname\tmpname%
       \NeedsTeXFormat{LaTeX2e}
-\ProvidesPackage{emath}[2015/09/05 2.76]
+\ProvidesPackage{emath}[2018/01/21 2.81]
 %
 \newif\if@jsclasses \@jsclassesfalse
 \@ifclassloaded{jsarticle}{\@jsclassestrue}{}
@@ -64,6 +64,7 @@
 \if@jsclasses\def\EM@normallineskip{}\fi
 %\@ifundefined{emathiie}{\edef\emathiie{emath2e.sty}}{}%
 %
+\def\EMWR@gyousuu{0}%
 %
 %\let\ltxitem\item
 %
@@ -811,6 +812,11 @@
 \let\syousuubu\agauss
 \newcommand{\bgauss}[1]{\ensuremath{\left\{\mkern1mu #1\mkern1mu\right\}}}%
 \def\emgauss#1{\zettaiti<kagi>[2pt]{#1}}
+%\newcommand{\Agauss}[1]{%
+%%  \@ifundefined{lAngle}{\errmessage{Agauss needs nath.sty}}{%
+%    \ensuremath{\langle\!\langle #1 \rangle\!\rangle}%
+%%  }%
+%}% needs nath.sty
 %
 % 閉区間記号
 \def\lheikukan{\lbrack}
@@ -1009,10 +1015,10 @@
 \def\bekutoru@t#1{{%
   \@ifundefined{bm@style}{%
     \ensuremath{\displaystyle
-      \overrightarrow{\text{#1}\bekutoru@sityuu}}%
+      \overrightarrow{\mbox{#1}\bekutoru@sityuu}}%
   }{%
     \ensuremath{\displaystyle
-      \overrightarrow{\text{\textbf{#1}}\bekutoru@sityuu}}%
+      \overrightarrow{\mbox{\textbf{#1}}\bekutoru@sityuu}}%
   }%
 }}%
 \def\bekutoru@m{\@ifnextchar[{\bekutoru@@m}{\bekutoru@@m[\empty]}}
@@ -1860,6 +1866,34 @@
         \maketag@@@{\ignorespaces%
         \protect\prel@bel\tagform{#1}\protect\postl@bel\unskip\@@italiccorr}}%
 \let\amseqref\eqref
+%
+\@ifundefined{@setref@}{%
+  \def\@setref@{\ifhmode\spacefactor\@m\fi}%
+}{}%
+%
+\def\em@setref#1#2#3{%
+  \ifx#1\relax
+   \protect\G@refundefinedtrue
+   \nfss@text{\reset@font\bfseries ??}%
+   \@latex@warning{Reference `#3' on page \thepage \space
+             undefined}%
+  \else
+   \expandafter#2#1%\null
+  \fi}
+\def\em@ref#1{\expandafter\em@setref\csname r@#1\endcsname\@firstoftwo{#1}}
+%\let\pureref\em@ref
+\newcommand{\fref}[2]{%
+        \expandafter\ref@chk\csname r@#2\endcsname
+        \if 1\@miteigi
+          \protect\G@refundefinedtrue
+          \nfss@text{\reset@font\bfseries ??}%
+          \@latex@warning{Reference `#2' on page \thepage \space
+               undefined}%
+        \else
+          \mbox{#1{\em@ref{#2}}}\@setref@{}%
+        \fi
+}%
+%
   \def\ref@chk#1{\ifx#1\relax\edef\@miteigi{1}\else\edef\@miteigi{0}\fi}%
   \@ifpackageloaded{hyperref}{%
     \def\eqref#1{\leavevmode%\typeout{hyper}%
@@ -1872,7 +1906,9 @@
       \else
         {%
         \EMedef\eqref@tmp{\ltxref{#1}}%
-        \strip@relax\eqref@tmp\to\eqref@a
+%        \strip@relax\eqref@tmp\to\eqref@a
+				\strsep\eqref@tmp{\hbox}\eqref@a\eqref@b
+%\typeout{tmp=\meaning\eqref@tmp,a=\meaning\eqref@a}%
         \preEqlabel{}\postEqlabel{}\textup{\tagform@{\eqref@a}}%
         }%
       \fi
@@ -1891,15 +1927,18 @@
         \else
           {%
             \preEqlabel{}%
-            \amseqref{#1}%
+%            \amseqref{#1}%
 %            \EMedef\eqref@tmp{\ref{#1}}\relax
 %            \strip@relax\eqref@tmp\to\eqref@a
 %            \preEqlabel{}\postEqlabel{}\textup{\tagform@{\eqref@a}}%
+		        \EMedef\eqref@tmp{\ltxref{#1}}%
+						\strsep\eqref@tmp{\hbox}\eqref@a\eqref@b
+		        \preEqlabel{}\postEqlabel{}\textup{\tagform@{\eqref@a}}%
           }%
         \fi
       }%
     }{%
-      \def\eqref#1{\leavevmode%
+      \def\eqref#1{\leavevmode
         \expandafter\ref@chk\csname r@#1\endcsname
         \if 1\@miteigi
           \protect\G@refundefinedtrue
@@ -1908,10 +1947,8 @@
                undefined}%
         \else
           {%
-            \EMedef\eqref@tmp{\ref{#1}}\relax
-            \EMedef\eqref@a{\ref{#1}}\relax
-            \strip@relax\eqref@tmp\to\eqref@a
-            \preEqlabel{}\postEqlabel{}\textup{\tagform@{\eqref@a}}%
+	           \preEqlabel{}\postEqlabel{}%
+	           \textup{\tagform@{\em@ref{#1}}\@setref@{}}%
           }%
         \fi
       }%
@@ -1922,6 +1959,13 @@
 \let\pushlasteqnum\relax
 \let\poplasteqnum\relax
 %
+\def\eqlbl#1{{%
+	\ifx\label\label@in@display
+	  \advance\c@equation\@ne%
+  \fi
+  \EMedef\@currentlabel{\tagform{\arabic{equation}}}%
+  \ltx@label{#1}%
+}}%
 %
 % リーダー罫の長さの調整(リーダー罫なしも含めて)
 %   \newcommand{\preEqlabel}[1]{\def\prel@bel{\makebox[0pt][r]{#1}}}%
@@ -1949,13 +1993,18 @@
 %
 % 式番号の強制附加
 \edef\atag@ed{0}%
-\def\atag{\refstepcounter{equation}%
-  \tag{\number\c@equation}\edef\atag@ed{1}}%\let\label\ltxlabel}%
-\def\ltxlabel#1{%
-  \@bsphack
-  \protected@write\@auxout{}%
+\@ifpackageloaded{hyperref}{%
+	\def\atag{\refstepcounter{equation}%
+  	\tag{\number\c@equation}\edef\atag@ed{1}\let\label\ltx@label}%
+}{%
+	\def\atag{\refstepcounter{equation}%
+  	\tag{\number\c@equation}\edef\atag@ed{1}\let\label\ltxlabel}%
+	\def\ltxlabel#1{%
+  	\@bsphack
+	  \protected@write\@auxout{}%
          {\string\newlabel{#1}{{\@currentlabel}{\thepage}}}%%% 
-  \@esphack}
+  	\@esphack}
+}%
 %
 \def\emKakko#1{(#1)}%
 \let\Kakko\emKakko
@@ -2133,7 +2182,7 @@
           \@latex@warning{Reference `#1' on page \thepage \space
                undefined}%
         \else
-          \maru{\ref{#1}}%
+          \mbox{\maru{\em@ref{#1}}}\@setref@{}%
         \fi
 }%
 \def\marusuuref#1{%
@@ -2144,7 +2193,13 @@
       \@latex@warning{Reference `#1' on page \thepage \space
              undefined}%
     \else
-      {\count255=\ref{#1}\maru{\number\count255}}%
+      {%
+%            \EMedef\eqref@tmp{\ref{#1}}\relax
+%            \strip@relax\eqref@tmp\to\eqref@a
+%%      \leavevmode\count255=\ref{#1}\maru{\number\count255}%
+% 						\maru{\eqref@a}%
+          \mbox{\maru{\em@ref{#1}}}\@setref@{}%
+ 			}%
     \fi
 }
 %
@@ -2223,28 +2278,14 @@
   }{%
     \ensuremath{\text{\eqref{#2}}^{#1}}%
   }%
-%  \ifthenelse{\isodd{0#11}}{%
-%    \def\dsh@mrk{$\ifcase#1\or'\or''\or'''\or''''\fi$}%
-%  }{%
-%    \def\dsh@mrk{${}^{#1}$}%
-%  }%
-%      \ifnum\dash@pos=\z@
-%        \def\tagform@##1{%
-%          \maketag@@@{\ignorespaces\protect\prel@bel\tagform{##1}%
-%          \protect\postl@bel\unskip\@@italiccorr\dsh@mrk}}%
-%      \else
-%        \def\tagform@##1{%
-%          \maketag@@@{\ignorespaces\protect\prel@bel\tagform{##1}%
-%          \dsh@mrk\protect\postl@bel\unskip\@@italiccorr}}%
-%      \fi
-%    \ensuremath{\text{\amseqref{#2}}}%
+	\hbox{}%
 }%
 % \dashtag(ダッシュの個数){元番号のラベル}
 \def\dash@pos{0}%
 \def\dashpos#1{\def\dash@pos{#1}}%
 \def\dashtag{\@ifstar{\edef\DT@new{1}\@dashtag}{\edef\DT@new{0}\@dashtag}}%
 \def\@dashtag{\@ifnextchar({\@@dashtag}{\@@dashtag(1)}}%
-\def\@@dashtag(#1)#2{{%
+\def\@@dashtag(#1)#2{%
   \ifthenelse{\isodd{0#11}}{%
     \def\dsh@mrk{$\ifcase#1\or'\or''\or'''\or''''\fi$}%
   }{%
@@ -2253,7 +2294,7 @@
     \@ifundefined{in@empheq}{%
       \ifnum\dash@pos=\z@
         \def\tagform@##1{%
-          \maketag@@@{\ignorespaces\protect\prel@bel\tagform{##1}%
+          \maketag@@@{\ignorespaces\protect\prel@bel\tagform@{\em@ref{##1}\null}%
           \protect\postl@bel\unskip\@@italiccorr\hbox to \z@{\dsh@mrk\hss}}}%
       \else
         \def\tagform@##1{%
@@ -2269,26 +2310,22 @@
           \dsh@mrk\protect\postl@bel}}%
       \fi
     }%
+	\xdef\dsh@mrk{\dsh@mrk}%
   \ifnum\DT@new>\z@
       \writeLabel{#2}{\theequation}%
       \refstepcounter{equation}%
   \fi
-  \EMxdef\dashtag@tmp{\amseqref{#2}}%
-%  \ifthenelse{\isodd{0#11}}{%
-        \tag*{\dashtag@tmp}%\hbox to\z@{%
-%  }{%
-%        \tag*{\dashtag@tmp\ensuremath{\lefteqn{^{#1}}}}%
-%  }%
-% \def\postl@bel{\DLpostl@bel}%
-}}%
+%  \EMxdef\dashtag@tmp{\amseqref{#2}}%
+  \tag*{\protect\prel@bel\eqref{#2}\null\hbox to \z@{\dsh@mrk\hss}}%
+}%
 %
 %\newcommand{\marudashref}[1]{\ensuremath{\text{\maru{\ref{#1}}}'}}%
 \def\marudashref{\@ifnextchar({\@marudashref}{\@marudashref(1)}}%
 \def\@marudashref(#1)#2{%
   \ifthenelse{\isodd{0#11}}{%
-    \ensuremath{\text{\maru{\ref{#2}}}\ifcase#1\or'\or''\or'''\or''''\fi}%
+    \ensuremath{\text{\maru{\ref{#2}}}\ifcase#1\or'\or''\or'''\or''''\fi}\null%
   }{%
-    \ensuremath{\text{\maru{\ref{#2}}}^{#1}}%
+    \ensuremath{\text{\maru{\ref{#2}}}^{#1}}\null
   }%
 }%
 \def\marudashtag{\@ifnextchar({\@marudashtag}{\@marudashtag(1)}}%
@@ -2323,6 +2360,11 @@
 \def\resetcounter#1{\@ifnextchar[{\resetcounter@{#1}}{\@resetcounter{#1}}}%
 \def\resetcounter@#1[#2]{\@addtoreset{#1}{#2}}%
 \def\@resetcounter#1{\setcounter{#1}{0}}%
+%
+\def\setcounterlocal#1#2{%
+  \@ifundefined{c@#1}%
+    {\@nocounterr{#1}}%
+    {\csname c@#1\endcsname#2\relax}}
 %
 % fleqn のオン・オフ (cf. nccmath.sty)
 \def\fleqnoff{\@fleqnfalse\@mathmargin\@centering\ignorespaces}%
@@ -3130,6 +3172,8 @@
 %\def\Tasukimozihaiti#1{\edef\tasukimozihaiti{{#1}}}
 \def\tasuki{\@ifnextchar[{\@tasuki}{\@tasuki[\empty]}}%
 \def\@tasuki[#1]#2#3#4#5{{%
+\ifthenelse{\tasukikata>9}{\ISubself\tasukikata{10}\def\tasuki@plus{}%
+  \def\tasukimozihaiti{rrrcrc@{}l}}{}%
 \unitlength\baselineskip
 \ifx l#1\@@tasuki{#2}{#3}{#4}{#5}\else
 \@tasuki@{#2}{#3}{#4}{#5}\fi}}%
@@ -3148,8 +3192,12 @@
 \IMul{#1}{#2}\@hidari%  added
 \IMul{#3}{#4}\@migi%    added
 \IAdd\@ue\@sita\@tasukiwa
-\ifnum\tasukikata=\z@\def\tasuki@line{\cline{5-5}}\else
-\def\tasuki@line{\hline}\fi
+\@ifundefined{tasuki@plus}{%
+  \ifnum\tasukikata=\z@\def\tasuki@line{\cline{5-5}}\else
+  \def\tasuki@line{\hline}\fi}{%
+    \ifnum\tasukikata=\z@\def\tasuki@line{\cline{5-6}}\else
+    \def\tasuki@line{\hline}\fi
+  }%
 %\expandafter\array\tasukimozihaiti
 \begin{EMarray}[\tasuki@pos]{\tasukimozihaiti}
 #1 & & #3 & \longrightarrow & \@ue\\
@@ -3157,7 +3205,9 @@
         \put(0,0){\line(2,1){2}}%
         \put(0,1){\line(2,-1){2}}%
         \end{picture}%
-        & #4 & \longrightarrow & \@sita\\\tasuki@line
+        & #4 & \longrightarrow & \@sita 
+        \@ifundefined{tasuki@plus}{}{& \smash[b]{\Big(}&\,+}%
+        \\[1pt]\tasuki@line
 \ifnum\tasukikata=\tw@\@hidari\fi&& \ifnum\tasukikata=\tw@\@migi\fi
 && \@tasukiwa
 \end{EMarray}}%
@@ -3165,6 +3215,8 @@
 % 短いたすき
 \def\stasuki{\@ifnextchar[{\@stasuki}{\@stasuki[\empty]}}%
 \def\@stasuki[#1]#2#3#4#5{{%
+\ifthenelse{\tasukikata>9}{\ISubself\tasukikata{10}\def\tasuki@plus{}%
+  \def\tasukimozihaiti{rrrcrc@{}l}}{}%
 \unitlength\baselineskip
 \ifx l#1\@@stasuki{#2}{#3}{#4}{#5}\else
 \@stasuki@{#2}{#3}{#4}{#5}\fi}}%
@@ -3183,8 +3235,12 @@
 \IMul{#1}{#2}\@hidari%  added
 \IMul{#3}{#4}\@migi%    added
 \IAdd\@ue\@sita\@stasukiwa
-\ifnum\tasukikata=\z@\def\stasuki@line{\cline{5-5}}\else
-\def\stasuki@line{\hline}\fi
+\@ifundefined{tasuki@plus}{%
+  \ifnum\tasukikata=\z@\def\tasuki@line{\cline{5-5}}\else
+  \def\tasuki@line{\hline}\fi}{%
+    \ifnum\tasukikata=\z@\def\tasuki@line{\cline{5-6}}\else
+    \def\tasuki@line{\hline}\fi
+  }%
 %\expandafter\array\tasukimozihaiti
 \begin{EMarray}[\tasuki@pos]{\tasukimozihaiti}
 #1 & & #3 & \longrightarrow & \@ue\\
@@ -3192,7 +3248,9 @@
         \put(0,0){\line(1,1){1}}%
         \put(0,1){\line(1,-1){1}}%
         \end{picture}%
-        & #4 & \longrightarrow & \@sita\\\stasuki@line
+        & #4 & \longrightarrow & \@sita
+        \@ifundefined{tasuki@plus}{}{& \smash[b]{\Big(}&\,+}%
+        \\[1pt]\tasuki@line
 \ifnum\tasukikata=\tw@\@hidari\fi&& \ifnum\tasukikata=\tw@\@migi\fi
 && \@stasukiwa
 \end{EMarray}}%
@@ -3348,7 +3406,7 @@
 \DeclareRobustCommand\EMparbox{\@ifnextchar<{\@EMparbox}{\@EMparbox<\empty>}}
 \def\@EMparbox<#1>{\@ifnextchar[{\@@EMparbox<#1>}{\@@EMparbox<#1>[c]}}
 \long\def\@@EMparbox<#1>[#2]#3{%
-  \@ifundefined{varwidth}{\errmessage{EMparbox needs varwidth.sty}}{}%
+  \@ifundefined{varwidth}{\errmessage{EMparbox は varwidth.sty を必要とします。}}{}%
   \define@key{emath}{width}{%
     \headchar{##1}\tmp@h\tmp@r
     \if\tmp@h -
@@ -3725,6 +3783,7 @@
   \@ifundefined{coloneqq}{%
     \def\coloneqq{\mathrel{\mathop:}=}%
   }{}%
+% \def\eqqcolon{=\mathrel{\mathop:}}%
   \@ifundefined{emC@fp}{}{\RequirePackage{emfpcalc}}%
 }%
 %

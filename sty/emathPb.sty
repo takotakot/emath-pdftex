@@ -1,7 +1,7 @@
 % emathPb.sty by tDB(emath@nifty.com)
 %
   \NeedsTeXFormat{LaTeX2e}%
-  \ProvidesPackage{emathPb}[2011/12/19 v 0.60beta]%
+  \ProvidesPackage{emathPb}[2017/11/08 v 0.61]%
 %
   \RequirePackage{emathPh}%
   \RequirePackage{EMfbox}%
@@ -584,7 +584,9 @@
   \setbox\rectb@x=\hbox to \rectbox@width\bgroup
     \begin{minipage}[\@pos]{\rectbox@width}%
   \vskip\v@sep
-  \jquote(\h@sep)(\h@sep)[\z@]\relax}%
+  \jquote(\h@sep)(\h@sep)[\z@]\relax
+  \ifnum\EMWR@gyousuu>\@ne\parshape 1 \@totalleftmargin \linewidth\fi
+}%
 \def\endhukidasibox{%
   \vspace\v@sep
   \endjquote
@@ -1191,3 +1193,4 @@ v 0.58 2011/07/05 \rectboxitemmargin, [itemmargin=..]
 v 0.59 2011/07/09 prebitem,postbitem: 有効に
                   \rectboxlabelsep#1 など
 v 0.60 2011/12/19 item= の右辺値を box に入れる (BBS #10432)
+v 0.61 2017/11/08 \hukidasi: mawarikomi環境内における補正 (BBS #13440)
