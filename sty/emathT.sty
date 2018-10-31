@@ -66,11 +66,13 @@
   \@ifundefined{not@P}{\RequirePackage{emathPh}}{}%
 }{}%
 %
-    \@ifundefined{em@grdrv}{}{%
-      \ifthenelse{\equal{\em@grdrv}{dvipdfmx}}{%
-        \def\em@syasen{\drawline}%
-      }{}%
-    }%
+%    \@ifundefined{em@grdrv}{%
+%        \def\em@syasen{\drawline}%
+%		}{%
+%      \ifthenelse{\equal{\em@grdrv}{dvipdfmx}}{}{%
+%        \def\em@syasen{\drawline}%
+%      }%
+%    }%
 %
 \@ifundefined{em@whndl}{\newwrite\em@whndl}{}%
 \@ifundefined{pl@in}{\newread\pl@in}{}%
@@ -1184,7 +1186,7 @@
 % \hhline の引数に太罫線指定の`I'を使用可能とするための修正
 \ifnum\TL@hhline=\z@\else
 \def\HH@loop{%
-  \ifx\@tempb`\def\next##1{\the\toks@\cr}\else\let\next\HH@let
+  \ifx\@tempb`\def\next@HH##1{\the\toks@\cr}\else\let\next@HH\HH@let
   \ifx\@tempb|\if@tempswa\HH@add{\hskip\doublerulesep}\fi\@tempswatrue
           \HH@add{\@tempc\vrule width\arrayrulewidth\@tempc}\else
 % 次の2行を付加
@@ -1210,7 +1212,7 @@
       {\meaning\@tempb\space ignored in \noexpand\hhline argument%
        \MessageBreak}%
   \fi\fi\fi\fi\fi\fi\fi\fi\fi\fi
-  \next}%
+  \next@HH}%
 \fi
 %
 % longtable 環境で，欄指定子 L, C, R, I

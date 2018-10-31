@@ -1,6 +1,6 @@
 % EMxymatrix.sty by tDB(CQB00260@nifty.ne.jp)
 %
-  \ProvidesPackage{EMxymatrix}[2014/10/23 v0.06]%
+  \ProvidesPackage{EMxymatrix}[2018/06/10 v0.07]%
 %
   \DeclareOption{tpic}{\def\EMxy@tpic{1}}%
   \DeclareOption{pict2e}{\def\EMxy@tpic{0}\def\EMxy@pIIe{}}%
@@ -63,6 +63,7 @@
 %  }%
 %
   \edef\EMxy@pos{t}%
+	\edef\ya@sen{1}%
   \yunitlength=2\baselineskip
   \setlength\@tempdima{1em+\arraycolsep}\edef\EMxy@ws{\the\@tempdima}%
   \def\EMxy@wa{3em}%
@@ -235,11 +236,12 @@
   }%
 %
   \unskip\begin{zahyou*}[ul=10mm,xul=\xunitlength,yul=\yunitlength](0,0)(0,0)\relax
-  \ifnum\EMxy@tpic>\z@
+  \ifnum\EMxy@tpic=\z@
       \OriginalPictureCmds
+	\else
       \let\sensyu\drawline
       \let\Sensyu\Drawline
-      \edef\ya@sen{1}%
+%      \edef\ya@sen{1}%
   \fi
 %\typeout{\meaning\drawline}%
     \uxkansan\EMxy@ws\EMxy@@ws
@@ -291,3 +293,4 @@ v 0.03 2012/07/23 \ar[rc or lc] で，動かないことを示す円を描画
 v 0.04 2013/06/12 \ar[dc]
 v 0.05 2013/12/27 \trim 使用，\mathpallet を使わない簡易版 \smash
 v 0.06 2014/10/23 \ar : 円弧に対しても <drawlineoption=..> を有効に
+v 0.07 2018/06/10 pict2e 対応 (BBS #13547)

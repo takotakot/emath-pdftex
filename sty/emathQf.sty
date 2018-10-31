@@ -1,7 +1,7 @@
 % emathQf.sty by tDB(CQB00260@nifty.ne.jp)
 %
   \NeedsTeXFormat{LaTeX2e}
-  \ProvidesPackage{emathQf}[2017/05/31 v 0.18]%
+  \ProvidesPackage{emathQf}[2018/05/16 v 0.19]%
 %
   \RequirePackage{emathHe}
   \RequirePackage{emathB}
@@ -1398,6 +1398,14 @@
   \@ifnextchar<{\prF@Polynomial@}{\@prF@Polynomial}}%
 \def\prF@Polynomial@<#1>{\setkeys{emQf}{#1}\@prF@Polynomial}%
 \def\@prF@Polynomial#1{%
+  \ifx\empty\beki@zyun
+    \@@@prFPolynomial{#1}%
+  \else
+    \@@@@prFPolynomial{#1}%
+  \fi
+}%
+%
+\def\@@@prFPolynomial#1{%
   \edef\prPnom@{#1}%
   \F@cut\prPnom@
   \def\pr@keisuu##1{%
@@ -1440,6 +1448,61 @@
           \mitis@@
         \fi\fi
       \fi
+    }%
+  }%
+\endgroup
+}%
+%
+\def\@@@@prFPolynomial#1{%
+  \edef\prPnom@{#1}%
+%  \F@cut\prPnom@
+  \def\pr@keisuu##1{%
+    \prF{##1}%
+  }%
+	\if *\beki@zyun
+	  \reversecsv{\prPnom@}\prPoly@csv
+  	\csvhairetu\prPoly@csv{keisuu@}\dim@
+  \else
+  	\csvhairetu\prPnom@{keisuu@}\dim@
+  \fi
+  \edef\prP@n{\dim@}%
+  \ensuremath{%
+		\edef\pr@flg{0}%
+    \Cfor{\edef\prP@i{0}}{\prP@i<\prP@n}{}\do{%
+      \IAdd\prP@i{1}\prP@ii
+      \edef\prP@c{\hairetu{keisuu@}{\prP@ii}}% 係数
+      \Fhikaku\prP@c{0}\prP@c@sign
+      \ifnum\prP@i>\z@
+        \ifnum\prP@c@sign>0\relax + \fi
+      \fi
+%      \Decr\prP@i% 次数
+      \ifnum\prP@i>\z@
+        \Fhikaku\prP@c{0}\prP@c@sign
+        \Fhikaku\prP@c{-1}\prP@c@mone
+        \ifnum \prP@c@mone=\z@
+          -
+        \else\ifnum\prP@c@sign=0\relax
+        \else
+          \Fhikaku\prP@c{1}\prP@c@one
+          \ifnum\prP@c@one=\z@\else
+            \pr@keisuu{\prP@c}%
+          \fi
+        \fi\fi
+      \else
+        \ifnum\prP@n>\@ne
+          \ifnum\prP@c@sign=\z@\else\pr@keisuu{\prP@c}\fi
+        \else
+          \pr@keisuu{\prP@c}%
+        \fi
+      \fi
+      \ifnum\prP@c@sign=\z@\else
+        \ifnum\prP@i>\@ne
+         {\mitis@@}^{\prP@i}
+        \else\ifnum\prP@i>\z@
+          \mitis@@
+        \fi\fi
+      \fi
+ 			\Incr\prP@i% 次数
     }%
   }%
 \endgroup
@@ -1612,3 +1675,5 @@ v 0.17 2017/05/26
           \iPPow
 v 0.18 2017/05/31
           \prPeq: \prmitisuu{1}で，答えに "x=" を付加 (BBS #13329)
+v 0.19 2018/05/16
+          \prPolynomial*: <syoubeki> オプションを有効に (BBS #13538)

@@ -3,7 +3,7 @@
 \@ifundefined{ifpapersize}{\newif\ifpapersize\papersizefalse}{}%
 %
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesPackage{emathGps}[2017/09/16 v 0.34]%
+\ProvidesPackage{emathGps}[2018/02/21 v 0.35]%
   \DeclareOption{debug}{\def\ps@debug{}}%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
   \DeclareOption{onlyG}{\def\G@nly{}}%
   \DeclareOption{onlyP}{\def\P@nly{}}%
@@ -784,7 +784,8 @@
   \define@key{emG}{TBopt}{\EMedef\TB@opt{##1}}
   \define@key{emG}{width}{\uxkansan{##1}\hb@wd}
   \define@key{emG}{mwidth}{\uxkansan{##1}\m@wd}
-  \define@key{emG}{TBwidth}{\uxkansan{##1}\tb@wd}
+%  \define@key{emG}{TBwidth}{\uxkansan{##1}\tb@wd}
+  \define@key{emG}{TBwidth}{\uxkansan{##1}\tb@wd\Divself\tb@wd{2}}%
   \define@key{emG}{Tmark}{\edef\T@mark{##1}}
   \define@key{emG}{medianmark}{\edef\Med@mark{##1}}
   \define@key{emG}{meanmark}{\edef\Mean@mark{##1}}
@@ -960,9 +961,9 @@
   \define@key{emG}{higeopt}{\EMedef\hige@opt{##1}}%
   \define@key{emG}{hazureopt}{\EMedef\hazure@opt{##1}}%
   \define@key{emG}{TBopt}{\EMedef\TB@opt{##1}}%
-  \define@key{emG}{width}{\uxkansan{##1}\hb@wd\Divself\hb@wd{2}}%
-  \define@key{emG}{mwidth}{\uxkansan{##1}\m@wd\Divself\m@wd{2}}%
-  \define@key{emG}{TBwidth}{\uxkansan{##1}\tb@wd\Divself\tb@wd{2}}%
+  \define@key{emG}{width}{\uykansan{##1}\hb@wd\Divself\hb@wd{2}}%
+  \define@key{emG}{mwidth}{\uykansan{##1}\m@wd\Divself\m@wd{2}}%
+  \define@key{emG}{TBwidth}{\uykansan{##1}\tb@wd\Divself\tb@wd{2}}%
   \define@key{emG}{Tmark}{\edef\T@mark{##1}}%
   \define@key{emG}{medianmark}{\edef\Med@mark{##1}}%
   \define@key{emG}{meanmark}{\edef\Mean@mark{##1}}%
@@ -1536,3 +1537,5 @@ v 0.33 2014/11/05
     \EnGurafu: emathG.sty と同様に，[apncmd] オプションを使用可能に(BBS #12542)
 v 0.34 2017/09/16
     \EMhistogram: <prDosuu=\relax> オプション (2148201707.tex)
+v 0.35 2018/02/21
+    TBwidth=..: 縦と横で同一に (BBS #13482)

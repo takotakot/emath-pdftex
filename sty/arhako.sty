@@ -29,7 +29,7 @@
 %
 \def\renhakosikiri#1{\def\renhako@sikiri##1{#1}}%
 %
-\def\sikirisen@haba{0.2pt}%
+\def\sikirisen@haba{0.4pt}%
 \@ifundefined{renhako@tpic}{%
   \def\renhako@sikiri#1{%
     \if m\h@komozisyu
@@ -45,7 +45,7 @@
 %   #1 : 仕切り線を引く描画関数
 %         ex: \empty(=\vrule:default), \drawline,
 %             \hasen, \hasen[L=2pt,G=1pt],....
-%   #2 : 横幅(default=0.2pt)
+%   #2 : 横幅(default=0.4pt)
 %   #3 : ハコに入る，最大の高さを持つ文字
 %
   \def\sikirisen#1#2#3{%
@@ -70,9 +70,9 @@
   }%
   \newbox\sikiri@box
   \if m\h@komozisyu
-    \sikirisen{\empty}{.2pt}{\maru1}
+    \sikirisen{\empty}{.4pt}{\maru1}
   \else
-    \sikirisen{\empty}{.2pt}{あ}
+    \sikirisen{\empty}{.4pt}{あ}
   \fi
   \def\renhako@sikiri#1{{%
     \if m\h@komozisyu
@@ -97,9 +97,15 @@
 %
 % 枠線の細い\refrenHako*
 %
-\def\RefrenHako{\@ifnextchar({\@RefrenHako}{\@RefrenHako(\h@koxyohaku)}}
-\def\@RefrenHako(#1)#2{{%
-  \hakosyotai{\mcfamily}\hakosenhaba{0.4pt}\refrenHako*(#1){#2}}}
+\DeclareRobustCommand\RefrenHako{%
+  \@ifnextchar({\@RefrenHako}{\@RefrenHako(\h@koxyohaku)}}%
+%\def\RefrenHako{\@ifnextchar({\@RefrenHako}{\@RefrenHako(\h@koxyohaku)}}%
+\def\@RefrenHako(#1)#2{{\leavevmode\RefHako@Opt\refrenHako*(#1){#2}}}%
+%
+%\def\RefrenHako{\@ifnextchar({\@RefrenHako}{\@RefrenHako(\h@koxyohaku)}}
+%\def\@RefrenHako(#1)#2{{\leavevmode\RefHako@Opt\refrenHako*(#1){#2}}}
+%
+%\def\@RefHako(#1)#2{{\leavevmode\RefHako@Opt\refHako*(#1){#2}}}%
 %
 %\def\renHako{%
 \DeclareRobustCommand\renHako{%
@@ -516,6 +522,7 @@
         \hak@(#1)(#2){1}%
     \else
       \protected@edef\tmp@@{\protect\ref{\Hlbl@nm}}%
+%\typeout{goto hak@:(#1)(#2)\tmp@@}%
       \hak@(#1)(#2)\tmp@@
     \fi
   \fi

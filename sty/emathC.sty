@@ -1,7 +1,7 @@
 % emathC.sty by tDB (emath@nifty.com)
 %
 \NeedsTeXFormat{LaTeX2e}%
-\ProvidesPackage{emathC}[2017/11/19 v1.18]%
+\ProvidesPackage{emathC}[2018/04/23 v1.19]%
 %
 \RequirePackage{calc}%
 \RequirePackage{keyval}%
@@ -390,6 +390,15 @@
   \edef\save@tempdima{\the\@tempdima}%
   \setlength{\@tempdima}{#2}\edef#1{\the\@tempdima}%
   \@tempdima=\save@tempdima
+}%
+%
+\def\AppendOption#1#2#3{%
+  \ifx\empty #1
+  	\EMedef#3{#2}%
+  \else
+    \tailchar{#1}\AO@a\AO@tail
+    \EMedef#3{\AO@a#2\AO@tail}%
+	\fi
 }%
 %
 % 引数などが空であるか否か
@@ -3076,3 +3085,4 @@ v 1.15 2015/02/26 \foreach --> \EMforeach
 v 1.16 2015/05/03 \Ifor: 初期値，終値に計算式を許容
 v 1.17 2016/09/25 \Mulvecs
 v 1.18 2017/11/19 \IDivMod: 被除数，除数が負の場合
+v 1.19 2018/04/23 \AppendOption

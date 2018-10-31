@@ -171,17 +171,19 @@
 \gdef\@aj@Roman#1{\aj@ref{#1}%
   \ifnum\aj@tmp=4 \CID{9883}\else\aj@Roman{\aj@tmp}\fi}
 \DeclareRobustCommand{\ajroman}[1]{\aj@ref{#1}%
+\mbox{%
   \ifnum\aj@tmp<11 \shift@CID{\aj@tmp}{8091}%
   \else\shift@CID{\aj@tmp}{8287}%
-  \fi}
+  \fi
+}}%
 \gdef\ajPeriod#1{\aj@ref{#1}%
   \ifnum\aj@tmp<10 \shift@CID{\aj@tmp}{8061}\else\shift@CID{\aj@tmp}{20577}\fi}%
 \DeclareRobustCommand{\ajKakkoroman}[1]{%
   \aj@ref{#1}%
-  \shift@CID{\aj@tmp}{9973}}
+  \mbox{\shift@CID{\aj@tmp}{9973}}}%
 \DeclareRobustCommand{\ajKakkoRoman}[1]{%
   \aj@ref{#1}%
-  \shift@CID{\aj@tmp}{9988}}
+  \mbox{\shift@CID{\aj@tmp}{9988}}}%
 \DeclareRobustCommand{\ajKakkoHira}[1]{\aj@ref{#1}%
   \shift@CID{\aj@tmp}{10029}}
 \DeclareRobustCommand{\ajKakkoKata}[1]{\aj@ref{#1}%

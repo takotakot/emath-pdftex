@@ -3,7 +3,7 @@
 \@ifundefined{ifpapersize}{\newif\ifpapersize\papersizefalse}{}%
 %
   \NeedsTeXFormat{LaTeX2e}%
-  \ProvidesPackage{emathPp}[2016/09/26 v 1.21]%
+  \ProvidesPackage{emathPp}[2018/06/06 v 1.23]%
   \DeclareOption{notMy}{\def\not@My{}}%
   \DeclareOption{onlyP}{\def\P@nly{}}%
   \DeclareOption{notcheckperl}{\def\not@perl@check{}}%
@@ -274,7 +274,7 @@
         $trueymax=\trueymax;$trueymin=\trueymin;%
         for($x=($xr+$xl)/2;$xr-$xl>\emLlim;$x=($xr+$xl)/2){%
           $y=\perl@siki;
-          if ($y<$trueymax && $y>$trueymin){$xl=$x;}%
+          if ($y<=$trueymax && $y>=$trueymin){$xl=$x;}%
           else {$xr=$x;}}%
         printf FHNDL"\@percent f\string\n",$xl;
         $x=$xl;$y=\perl@siki;
@@ -303,7 +303,7 @@
         $trueymax=\trueymax;$trueymin=\trueymin;%
         for($x=($xr+$xl)/2;$xr-$xl>\emLlim;$x=($xr+$xl)/2){%
           $y=\perl@siki;
-          if ($y<$trueymax && $y>$trueymin){$xl=$x;}%
+          if ($y<=$trueymax && $y>=$trueymin){$xl=$x;}%
           else {$xr=$x;}}%
         printf FHNDL"\@percent f\string\n",$xl;
         $x=$xl;$y=\perl@siki;
@@ -344,7 +344,7 @@
         $trueymax=\trueymax;$trueymin=\trueymin;%
         for($x=($xr+$xl)/2;$xr-$xl>\emLlim;$x=($xr+$xl)/2){%
             $y=\perl@siki;
-            if ($y<$trueymax && $y>$trueymin){$xr=$x;}%
+            if ($y<=$trueymax && $y>=$trueymin){$xr=$x;}%
             else {$xl=$x;}};
         printf FHNDL"\@percent f\string\n",$xr;
         $x=$xr;$y=\perl@siki;
@@ -374,7 +374,7 @@
         $trueymax=\trueymax;$trueymin=\trueymin;%
         for($x=($xr+$xl)/2;$xr-$xl>\emLlim;$x=($xr+$xl)/2){%
           $y=\perl@siki;
-          if ($y<$trueymax && $y>$trueymin){$xr=$x;}%
+          if ($y<=$trueymax && $y>=$trueymin){$xr=$x;}%
           else {$xl=$x;}}%
         printf FHNDL"\@percent f\string\n",$xr;
         $x=$xr;$y=\perl@siki;
@@ -4239,7 +4239,7 @@ elsif ($xxi==$xxii)
         for($x=($xr+$xl)/2;$xr-$xl>\emLlim;$x=($xr+$xl)/2){%
           $X=\perl@xsiki;
           $Y=\perl@ysiki;
-          if ($Y<$trueymax && $Y>$trueymin && $X<$truexmax && $X>$truexmin){$xl=$x;}%
+          if ($Y<=$trueymax && $Y>=$trueymin && $X<$truexmax && $X>$truexmin){$xl=$x;}%
           else {$xr=$x;}}%
         printf FHNDL"\@percent f\string\n",$xl;
         $x=$xl;
@@ -4268,7 +4268,7 @@ elsif ($xxi==$xxii)
         for($x=($xr+$xl)/2;$xr-$xl>\emLlim;$x=($xr+$xl)/2){%
           $X=\perl@xsiki;
           $Y=\perl@ysiki;
-          if ($Y<$trueymax && $Y>$trueymin && $X<$truexmax && $X>$truexmin){$xl=$x;}%
+          if ($Y<=$trueymax && $Y>=$trueymin && $X<=$truexmax && $X>=$truexmin){$xl=$x;}%
           else {$xr=$x;}}%
         printf FHNDL"\@percent f\string\n",$xl;
         $x=$xl;
@@ -4310,7 +4310,7 @@ elsif ($xxi==$xxii)
         for($x=($xr+$xl)/2;$xr-$xl>\emLlim;$x=($xr+$xl)/2){%
           $X=\perl@xsiki;
           $Y=\perl@ysiki;
-          if ($Y<$trueymax && $Y>$trueymin && $X<$truexmax && $X>$truexmin){$xr=$x;}%
+          if ($Y<=$trueymax && $Y>=$trueymin && $X<=$truexmax && $X>=$truexmin){$xr=$x;}%
           else {$xl=$x;}}%
         printf FHNDL"\@percent f\string\n",$xr;
         $x=$xr;
@@ -4339,7 +4339,7 @@ elsif ($xxi==$xxii)
         for($x=($xr+$xl)/2;$xr-$xl>\emLlim;$x=($xr+$xl)/2){%
           $X=\perl@xsiki;
           $Y=\perl@ysiki;
-          if ($Y<$trueymax && $Y>$trueymin && $X<$truexmax && $X>$truexmin){$xr=$x;}%
+          if ($Y<=$trueymax && $Y>=$trueymin && $X<=$truexmax && $X>=$truexmin){$xr=$x;}%
           else {$xl=$x;}}%
         printf FHNDL"\@percent f\string\n",$xr;
         $x=$xr;
@@ -4779,7 +4779,7 @@ elsif ($xxi==$xxii)
           $R=\perl@xsiki;
           $X=$R*cos($x);
           $Y=$R*sin($x);
-          if ($Y<$trueymax && $Y>$trueymin && $X<$truexmax && $X>$truexmin){$xr=$x;}%
+          if ($Y<=$trueymax && $Y>=$trueymin && $X<=$truexmax && $X>=$truexmin){$xr=$x;}%
           else {$xl=$x;}}%
         printf FHNDL"\@percent f\string\n",$xr;
         $x=$xr;
@@ -4810,7 +4810,7 @@ elsif ($xxi==$xxii)
           $R=\perl@xsiki;
           $X=$R*cos($x);
           $Y=$R*sin($x);
-          if ($Y<$trueymax && $Y>$trueymin && $X<$truexmax && $X>$truexmin){$xr=$x;}%
+          if ($Y<=$trueymax && $Y>=$trueymin && $X<=$truexmax && $X>=$truexmin){$xr=$x;}%
           else {$xl=$x;}}%
         printf FHNDL"\@percent f\string\n",$xr;
         $x=$xr;
@@ -4847,7 +4847,7 @@ elsif ($xxi==$xxii)
           $R=\perl@xsiki;
           $X=$R*cos($x);
           $Y=$R*sin($x);
-          if ($Y<$trueymax && $Y>$trueymin && $X<$truexmax && $X>$truexmin){$xl=$x;}%
+          if ($Y<=$trueymax && $Y>=$trueymin && $X<=$truexmax && $X>=$truexmin){$xl=$x;}%
           else {$xr=$x;}}%
         printf FHNDL"\@percent f\string\n",$xl;
         $x=$xl;
@@ -4878,7 +4878,7 @@ elsif ($xxi==$xxii)
           $R=\perl@xsiki;
           $X=$R*cos($x);
           $Y=$R*sin($x);
-          if ($Y<$trueymax && $Y>$trueymin && $X<$truexmax && $X>$truexmin){$xl=$x;}%
+          if ($Y<=$trueymax && $Y>=$trueymin && $X<=$truexmax && $X>=$truexmin){$xl=$x;}%
           else {$xr=$x;}}%
         printf FHNDL"\@percent f\string\n",$xl;
         $x=$xl;
@@ -5515,8 +5515,10 @@ elsif ($xxi==$xxii)
         \lline<migiT=zrbP,hidariT=zltP,iro=\zenkinsen@iro>{#2}{(#3,-#4)}%
       \fi
     }{%
-      \expandafter\Lline\zenkinsen@pt\mp@LT\mp@RB
-      \expandafter\Lline\zenkinsen@pt\mp@LB\mp@RT
+			\AppendOption\zenkinsen@pt{,migiT=zrtP,hidariT=zlbP}\zenkinsen@pt@a
+      \expandafter\Lline\zenkinsen@pt@a\mp@LB\mp@RT
+			\AppendOption\zenkinsen@pt{,migiT=zrbP,hidariT=zltP}\zenkinsen@pt@b
+			\expandafter\Lline\zenkinsen@pt@b\mp@LT\mp@RB
     }%
   }%
   \@ifundefined{mouth@piece}{}{%
@@ -6843,3 +6845,9 @@ v 1.20 2014/12/06
     \SKniSessen: 中心が原点でない場合のバグ修正
 v 1.21 2016/09/26
     \ParamLC: xs>xe の場合
+v 1.22 2018/04/23
+		<zenkinsenOpt=..> を指定した場合の左右端点 (BBS #12535)
+v 1.23 2018/06/06
+    \YGraph: <rightP> オプション：「範囲内」の判定 
+    		"f(x)>=ymin" などとあるべきところが "f(x)>ymin" 
+    		などとなっていたのを修正 (BBS #13541)

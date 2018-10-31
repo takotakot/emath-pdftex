@@ -1,11 +1,15 @@
 % EMceo.sty by tDB (emath@nifty.com)
 %
 \NeedsTeXFormat{LaTeX2e}%
-\ProvidesPackage{EMceo}[2014/04/20 v0.03]%
+\ProvidesPackage{EMceo}[2018/02/04 v0.04]%
+%
+\RequirePackage{textcomp}%
 %
 \let\ltxsqrt\sqrt
 %
+\let\preceo@itemize\itemize
 \RequirePackage{ceo}%
+\let\itemize\preceo@itemize
 %
 \@ifundefined{var@ceo}{%
   \DeclareMathSymbol{\varx}{\mathalpha}{letters}{"D1}
@@ -64,3 +68,5 @@ v 0.00 2010/03/22
 v 0.01 2011/03/14 \kinzi: \yaku に切り替え (BBS #9721)
 v 0.02 2012/12/09 [varceo]
 v 0.03 2014/04/20 \varx, \vary
+v 0.04 2018/02/04 \itemize: textcomp.sty を読み込む
+		 (https://oku.edu.mie-u.ac.jp/tex/mod/forum/discuss.php?d=2359

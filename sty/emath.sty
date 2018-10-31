@@ -1378,7 +1378,7 @@
   \end{picture}}%
 \fi%
 }{}%
-% ⊿記号
+% デルタ記号
 \@ifundefined{Deruta}{%
 \def\Deruta{\unitlength=.11ex%
 \begin{picture}(17,17)%
@@ -1866,6 +1866,17 @@
         \maketag@@@{\ignorespaces%
         \protect\prel@bel\tagform{#1}\protect\postl@bel\unskip\@@italiccorr}}%
 \let\amseqref\eqref
+%
+\def\oldref#1{\expandafter\@oldsetref\csname r@#1\endcsname\@firstoftwo{#1}}
+\def\@oldsetref#1#2#3{%
+  \ifx#1\relax
+    \protect\G@refundefinedtrue
+    \nfss@text{\reset@font\bfseries ??}%
+    \@latex@warning{Reference `#3' on page \thepage \space
+              undefined}%
+  \else
+    \expandafter#2#1\relax
+  \fi}%
 %
 \@ifundefined{@setref@}{%
   \def\@setref@{\ifhmode\spacefactor\@m\fi}%
@@ -3836,7 +3847,7 @@
   \fi\fi\fi\fi\fi\fi\fi\fi\fi\fi
 }%
 \DeclareRobustCommand\jLkakkokukuri[1]{\inhibitglue ［#1］\inhibitglue}
-\def\−−{—\kern-.5zw—\kern-.5zw—}
+\def\－－{―\kern-.5zw―\kern-.5zw―}
 \def\「{\inhibitglue「}
 \def\」{」\inhibitglue}
 %

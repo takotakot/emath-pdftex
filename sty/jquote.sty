@@ -20,12 +20,17 @@
   \define@key{jquote}{bsep}{\@tempdima=#1\advance\@tempdima-\topsep\edef\b@sep{\the\@tempdima}}%
 %  \define@key{jquote}{vsep}{\edef\t@sep{#1}\edef\b@sep{#1}}%
   \define@key{jquote}{vsep}{\@tempdima=#1\advance\@tempdima-\topsep\edef\t@sep{\the\@tempdima}\edef\b@sep{\t@sep}}%
+  \define@key{jquote}{prestr}{\EMedef\pre@str{#1}}%
 %
 \def\jquote{%
-  \def\t@sep{0pt}\def\b@sep{0pt}%
+  \def\t@sep{0pt}\def\b@sep{0pt}\let\pre@str\undefined\edef\jquote@lsep{2zw}%
   \@ifnextchar<{\jquote@}{\@jquote}}%
-\def\jquote@<#1>{\setkeys{jquote}{#1}\@jquote}%
-\def\@jquote{\@ifnextchar({\@@jquote}{\@@jquote(2zw)}}%
+\def\jquote@<#1>{\setkeys{jquote}{#1}%
+	\@ifundefined{pre@str}{}{%
+		\setbox0=\hbox{\pre@str}\edef\jquote@lsep{\the\wd0}%
+	}%
+	\@jquote}%
+\def\@jquote{\@ifnextchar({\@@jquote}{\@@jquote(\jquote@lsep)}}%
 \def\@@jquote(#1){%
   \@ifnextchar({\@@@jquote(#1)}{\@@@jquote(#1)(\z@)}}%
 \def\@@@jquote(#1)(#2){%
@@ -36,7 +41,7 @@
   \list{}{\setlength{\leftmargin}{#1}\setlength{\rightmargin}{#2}%
     \parsep\z@ plus\p@\setlength{\topsep}{#3}}%
   \@ifundefined{EMWR@list}{\ltxitem\relax}{\item\relax}%
-%  \hsize=\linewidth%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% for framed
+  \@ifundefined{pre@str}{}{\leavevmode\hbox to \z@{\hss\pre@str\null}}%
   \ignorespaces%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 2008/03/07
 }%
 \def\endjquote{\endlist

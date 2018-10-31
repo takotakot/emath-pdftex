@@ -68,7 +68,7 @@
 \def\emWb@Fseikei{\@ifnextchar[{\@emWb@Fseikei}{\@emWb@Fseikei[0]}}%
 \def\@emWb@Fseikei[#1]#2#3{%
     \def\@Fnecheck{%
-    \ifnum\zyo@amari=\zyo@ca\let\next\relax
+    \ifnum\zyo@amari=\zyo@ca\let\next@Wb\relax
     \else\edef\@n{#2\romannumeral\zyo@amari}%
     \ifnum\@nameuse{\@n}=0\relax
       \xIncr\@kaisuu\xDecr\zyo@beki
@@ -76,9 +76,9 @@
       \xIncr\hidari@p
       \xIncr\emW@temp
       \xIncr\zyo@amari
-      \let\next\@Fnecheck
-    \else\let\next\relax
-    \fi\fi\next}
+      \let\next@Wb\@Fnecheck
+    \else\let\next@Wb\relax
+    \fi\fi\next@Wb}
 \xdef\not@zero{0}%
 \xdef\zyo@amari{#1}\xIncr\zyo@amari
 %\@Fnecheck

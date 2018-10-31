@@ -14,7 +14,7 @@
 %
 \@ifundefined{ifpapersize}{\newif\ifpapersize\papersizefalse}{}%
 %
-  \ProvidesPackage{hako}[2017/06/15 v1.81]%
+  \ProvidesPackage{hako}[2018/09/23 v1.83]%
   \DeclareOption{notMy}{\def\not@My{}}%
   \DeclareOption{papersize}{\papersizetrue}%
   \ProcessOptions\relax
@@ -360,7 +360,23 @@
 \xdef\input@mode{0}%
 \long\def\verbatimR@addtoline#1{%
   \verbatim@line\expandafter{\the\verbatim@line#1}}%
-
+%
+\def\sHakoOpt#1{\def\sHako@Opt{#1}}%
+\def\sHako{\@ifnextchar[{\s@Hako}{\s@Hako[\empty]}}%
+\def\s@Hako[#1]{\@ifnextchar'{\s@@Hako@[#1]}{\s@@Hako[#1]}}%%
+\def\s@@Hako@[#1]'#2'{%
+  \begingroup
+	\sHako@Opt
+  \Hako[#1]'#2'\relax
+  \endgroup
+}%
+\def\s@@Hako[#1]{%
+  \begingroup
+	\sHako@Opt
+  \Hako[#1]\relax
+  \endgroup
+}%
+%
 %%% 以下の定義は Waver さんから頂いたものを少し修正させていただきました．
 %
 %\newcommand{\hakomozisyu}[1]{%
@@ -368,9 +384,9 @@
   \def\h@komozisyu{#1}%
   \@ifundefined{sikirisen}{}{%
     \if m\h@komozisyu
-      \sikirisen{\empty}{.2pt}{\maru1}%
+      \sikirisen{\empty}{.4pt}{\maru1}%
     \else
-      \sikirisen{\empty}{.2pt}{#1}%
+      \sikirisen{\empty}{.4pt}{#1}%
     \fi
   }%
   \ifkai@mode
@@ -758,11 +774,13 @@
 %
 % 枠線の細い\refHako*
 %
+\def\RefHakoOpt#1{\def\RefHako@Opt{#1}}%
+\RefHakoOpt{\hakosyotai{\mcfamily}\hakosenhaba{0.4pt}}%
 \DeclareRobustCommand\RefHako{%
   \@ifnextchar({\@RefHako}{\@RefHako(\h@koxyohaku)}}%
 %\def\RefHako{\@ifnextchar({\@RefHako}{\@RefHako(\h@koxyohaku)}}%
-\def\@RefHako(#1)#2{{\leavevmode%\vphantom{\refHako*{#2}}%
-  \hakosyotai{\mcfamily}\hakosenhaba{0.4pt}\refHako*(#1){#2}}}%
+\def\@RefHako(#1)#2{{\leavevmode\RefHako@Opt\refHako*(#1){#2}}}%
+%
 %
 \def\hako@out#1{%
   {\text{\h@kosityuu\h@kosyotai{#1}}\ignorespaces}\ignorespaces}%
@@ -783,14 +801,20 @@
         \do{%
           \ifthenelse{\equal{\@@c}{\relax }}{}{%
             \ifthenelse{\equal{\@@c}{\protect }}{}{%
-              \Incr\hak@tmp
-            }%
+	            \ifthenelse{\equal{\@@c}{\spacefactor }}{}{%
+		            \ifthenelse{\equal{\@@c}{\@m }}{}{%
+		            	\ifthenelse{\equal{\@@c}{\empty }}{}{%
+  	            		\Incr\hak@tmp
+	    						}%
+    						}%
+            	}%
+          	}%
           }%
         }%
         \ifnum\hak@tmp=1\relax
 %          \hako@skipa=2zw plus .5zw minus .05zw\relax
           \hako@skipa=1.5zw plus .5zw minus .05zw\relax
-        \fi
+				\fi
       \fi
     \fi
     \divide\hako@skipa 2\relax
@@ -1300,7 +1324,7 @@
     \setcounter{hakobankan}{0}%
   \centermodefalse
   \@ifundefined{sikirisen}{}{%
-    \sikirisen{\empty}{.2pt}{あ}%
+    \sikirisen{\empty}{.4pt}{あ}%
   }%
   \def\vphantomHako{\hakobanpush\vphantom{\Hako}\hakobanpop}%
   \def\hakokai@kugiri{}%
@@ -1946,3 +1970,8 @@
 %   \ifmaskHakoKai
 % v 1.81 2017/06/15
 %   \maskHako: \DeclareRobustCommand (BBS #13342)
+% v 1.82 2018/02/16
+%   \RefHako: \RefHakoOpt で形状など修正 （2018 慶応・商 の出題に対応）
+%   \sHako: 2種の文字種使用
+% v 1.83 2018/09/23
+%   \hak@: centermodetrue の場合，\ref{..} についての補正 (BBS #13578)

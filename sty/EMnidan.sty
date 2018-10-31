@@ -15,14 +15,14 @@
 \newsavebox{\nidan@boxii}%
 \@ifundefined{EMWR@box}{\newbox\EMWR@box}{}%
 
-\def\nidan{\@ifnextchar<{\nidan@}{\nidan@<r>}}%
-\def\nidan@<#1>{\@ifnextchar<{\nidan@@<#1>}{\nidan@@<#1><\z@>}}%
-\def\nidan@@<#1><#2>{\@ifnextchar({\@nidan<#1><#2>}{\@nidan<#1><#2>(\empty)}}%
-\def\@nidan<#1><#2>(#3){\@ifnextchar[{\@@nidan<#1><#2>(#3)}{%
-  \@@nidan<#1><#2>(#3)[t]}}%
-\def\@@nidan<#1><#2>(#3)[#4]{\@ifnextchar[{\@@@nidan<#1><#2>(#3)[#4]}{%
-  \@@@nidan<#1><#2>(#3)[#4][t]}}%
-\long\def\@@@nidan<#1><#2>(#3)[#4][#5]#6#7{%
+\def\EMnidan{\@ifnextchar<{\EMnidan@}{\EMnidan@<r>}}%
+\def\EMnidan@<#1>{\@ifnextchar<{\EMnidan@@<#1>}{\EMnidan@@<#1><\z@>}}%
+\def\EMnidan@@<#1><#2>{\@ifnextchar({\@EMnidan<#1><#2>}{\@EMnidan<#1><#2>(\empty)}}%
+\def\@EMnidan<#1><#2>(#3){\@ifnextchar[{\@@EMnidan<#1><#2>(#3)}{%
+  \@@EMnidan<#1><#2>(#3)[t]}}%
+\def\@@EMnidan<#1><#2>(#3)[#4]{\@ifnextchar[{\@@@EMnidan<#1><#2>(#3)[#4]}{%
+  \@@@EMnidan<#1><#2>(#3)[#4][t]}}%
+\long\def\@@@EMnidan<#1><#2>(#3)[#4][#5]#6#7{%
 %   #1 : l|r 図の位置 t|y|z 右段の縦組/横組指定（デフォルトは r）
 %   #2 : #1=t の場合の minipage のサイズ
 %   #3 : そのまま実行します．
@@ -70,8 +70,8 @@
 }%
   \global\setbox\nidan@boxi=\hbox\bgroup%
   \begin{minipage}[#4]{\templa}\setlength{\parindent}{1zw}}%
-
-\def\endnidan{\end{minipage}\egroup\noindent
+%
+\def\endEMnidan{\end{minipage}\egroup\noindent
   \if r\fig@placement
     \leavevmode\box\nidan@boxi
   \else
@@ -81,6 +81,11 @@
   \if r\fig@placement\raisebox{.5\baselineskip}{\box\nidan@boxii}\else
     \box\nidan@boxi\fi
   \vskip\topsep\vskip\parskip\endtrivlist}%
+%
+\@ifundefined{nidan}{%
+	\let\nidan\EMnidan
+	\let\endnidan\endEMnidan
+}{}%
 \endinput
 
 v 0.01 \nidansep: \mawarikomikankaku と揃える。

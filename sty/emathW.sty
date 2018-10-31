@@ -110,7 +110,7 @@
 \def\@@@seikei<#1>[#2]#3#4{{%
 %
     \def\necheck{%
-     \ifnum\zyo@amari=\zyo@ca\let\next\relax
+     \ifnum\zyo@amari=\zyo@ca\let\next@ch\relax
      \else\edef\@n{#3\romannumeral\zyo@amari}%
      \ifnum\@nameuse{\@n}=0\relax
        \xIncr\@kaisuu\xDecr\zyo@beki
@@ -118,9 +118,9 @@
        \xIncr\hidari@p
        \xIncr\emW@temp
        \xIncr\zyo@amari
-       \let\next\necheck
-     \else\let\next\relax
-     \fi\fi\next}%
+       \let\next@ch\necheck
+     \else\let\next@ch\relax
+     \fi\fi\next@ch}%
 %
   \xdef\not@zero{0}%
   \xdef\zyo@amari{#2}\xIncr\zyo@amari
@@ -728,10 +728,10 @@
       \@seikei@{zyo@a}{\@tempcntb}\@hidari\EMw@t\\
     \fi
     \ifnum\@hizyosuu<\@zyosuu
-      \let\next\relax
+      \let\next@w\relax
     \else
-      \let\next\wari@sub
-    \fi\next
+      \let\next@w\wari@sub
+    \fi\next@w
   }%
 %
   \edef\@hizyosuu{#2}\edef\@zyosuu{#3}\edef\@syou{#2}%
