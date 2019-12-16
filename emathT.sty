@@ -100,69 +100,69 @@
 % 増減を表す矢印
 %  \def\NE{\@ifnextchar[{\@NE}{\@NE[\empty]}}%
   \DeclareRobustCommand\NE{\@ifnextchar[{\@NE}{\@NE[\empty]}}%
-  \def\@NE[#1]{{\unitlength1zw\def\Arr@wHeadSize{.45}%
+  \def\@NE[#1]{{\unitlength1\zw\def\Arr@wHeadSize{.45}%
     \begin{picture}[#1](1,0)%
       \put(0,0){\ArrowLine{(0,-0.2)}{(1,0.8)}}%
     \end{picture}}}%
 %  \def\SE{\@ifnextchar[{\@SE}{\@SE[\empty]}}%
   \DeclareRobustCommand\SE{\@ifnextchar[{\@SE}{\@SE[\empty]}}%
-  \def\@SE[#1]{{\unitlength1zw\def\Arr@wHeadSize{.45}%
+  \def\@SE[#1]{{\unitlength1\zw\def\Arr@wHeadSize{.45}%
     \begin{picture}[#1](1,0)%
       \put(0,0){\ArrowLine{(0,0.8)}{(1,-0.2)}}%
     \end{picture}}}%
   \DeclareRobustCommand\NW{\@ifnextchar[{\@NW}{\@NW[\empty]}}%
-  \def\@NW[#1]{{\unitlength1zw\def\Arr@wHeadSize{.45}%
+  \def\@NW[#1]{{\unitlength1\zw\def\Arr@wHeadSize{.45}%
     \begin{picture}[#1](1,0)%
       \put(0,0){\ArrowLine{(1,-0.2)}{(0,0.8)}}%
     \end{picture}}}%
   \DeclareRobustCommand\SW{\@ifnextchar[{\@SW}{\@SW[\empty]}}%
-  \def\@SW[#1]{{\unitlength1zw\def\Arr@wHeadSize{.45}%
+  \def\@SW[#1]{{\unitlength1\zw\def\Arr@wHeadSize{.45}%
     \begin{picture}[#1](1,0)%
       \put(0,0){\ArrowLine{(1,0.8)}{(0,-0.2)}}%
     \end{picture}}}%
   \DeclareRobustCommand\NEE{\@ifnextchar[{\@NEE}{\@NEE[\empty]}}%
-  \def\@NEE[#1]{{\unitlength1zw\def\Arr@wHeadSize{.45}%
+  \def\@NEE[#1]{{\unitlength1\zw\def\Arr@wHeadSize{.45}%
     \begin{picture}[#1](1,0)%
       \put(0,0){\qbezier(0,-0.2)(0.2,0.6)(1,0.8)%
         \put(1.075,0.825){\yaziri{(2.5,1)}}}%
     \end{picture}}}%
   \DeclareRobustCommand\NEN{\@ifnextchar[{\@NEN}{\@NEN[\empty]}}%
-  \def\@NEN[#1]{{\unitlength1zw\def\Arr@wHeadSize{.45}%
+  \def\@NEN[#1]{{\unitlength1\zw\def\Arr@wHeadSize{.45}%
     \begin{picture}[#1](1,0)%
 %      \put(0,0){\qbezier(0,-0.2)(0.8,0)(1,0.8)%
       \put(0,0){\qbezier(0,-0.2)(0.8,0)(.99,.7)%
         \put(1.04,0.825){\yaziri{(1,2.5)}}}%
     \end{picture}}}%
   \DeclareRobustCommand\SES{\@ifnextchar[{\@SES}{\@SES[\empty]}}%
-  \def\@SES[#1]{{\unitlength1zw\def\Arr@wHeadSize{.45}%
+  \def\@SES[#1]{{\unitlength1\zw\def\Arr@wHeadSize{.45}%
     \begin{picture}[#1](1,0)%
       \put(0,0){\qbezier(0,0.8)(0.8,0.6)(1,-0.2)%
 %        \put(1,-0.2){\yaziri{(1,-2.5)}}}%
         \put(1.075,-0.3){\yaziri{(1,-2.5)}}}%
     \end{picture}}}%
   \DeclareRobustCommand\SEE{\@ifnextchar[{\@SEE}{\@SEE[\empty]}}%
-  \def\@SEE[#1]{{\unitlength1zw\def\Arr@wHeadSize{.45}%
+  \def\@SEE[#1]{{\unitlength1\zw\def\Arr@wHeadSize{.45}%
     \begin{picture}[#1](1,0)%
       \put(0,0){\Qbezier{(0,0.8)}{(0.2,0)}{(1,-0.2)}%
         \put(1.075,-0.24){\yaziri{(2.5,-1)}}}%
     \end{picture}}}%
   \DeclareRobustCommand\EE{\@ifnextchar[{\@EE}{\@EE[\empty]}}%
-  \def\@EE[#1]{{\unitlength1zw\def\Arr@wHeadSize{.45}%
+  \def\@EE[#1]{{\unitlength1\zw\def\Arr@wHeadSize{.45}%
     \begin{picture}[#1](1,0)%
       \put(0,0.3){\ArrowLine{(0,0)}{(1,0)}}%
     \end{picture}}}%
   \DeclareRobustCommand\WW{\@ifnextchar[{\@WW}{\@WW[\empty]}}%
-  \def\@WW[#1]{{\unitlength1zw\def\Arr@wHeadSize{.45}%
+  \def\@WW[#1]{{\unitlength1\zw\def\Arr@wHeadSize{.45}%
     \begin{picture}[#1](1,0)%
       \put(0,0.3){\ArrowLine{(1,0)}{(0,0)}}%
     \end{picture}}}%
   \DeclareRobustCommand\NN{\@ifnextchar[{\@NN}{\@NN[\empty]}}%
-  \def\@NN[#1]{{\unitlength1zw\def\Arr@wHeadSize{.45}%
+  \def\@NN[#1]{{\unitlength1\zw\def\Arr@wHeadSize{.45}%
     \begin{picture}[#1](1,0)%
       \put(.5,0){\ArrowLine{(0,-.2)}{(0,.8)}}%
     \end{picture}}}%
   \DeclareRobustCommand\SS{\@ifnextchar[{\@SS}{\@SS[\empty]}}%
-  \def\@SS[#1]{{\unitlength1zw\def\Arr@wHeadSize{.45}%
+  \def\@SS[#1]{{\unitlength1\zw\def\Arr@wHeadSize{.45}%
     \begin{picture}[#1](1,0)%
       \put(.5,0){\ArrowLine{(0,.8)}{(0,-.2)}}%
     \end{picture}}}%
@@ -482,7 +482,7 @@
     \edef#4{\the\@tempdima}\relax}%
 %
 \newdimen\hyouretuhaba
-\setlength{\hyouretuhaba}{1zw}%
+\setlength{\hyouretuhaba}{1\zw}%
 
 % 行の高さ・深さを指定する
 \def\gyousityuu{\strut}%
@@ -700,7 +700,7 @@
 % hyou
 \def\hyou{\@ifnextchar<{\@hyou}{\@hyou<\empty>}}%
 \def\@hyou<#1>{%
-  \hyouretuhaba=1zw%
+  \hyouretuhaba=1\zw%
   \edef\hyou@ty@ption{\empty}%
   \Strchr{#1}{=}\hyou@keyopt
   \ifnum\hyou@keyopt>\z@
@@ -762,38 +762,38 @@
 %
 \def\@@hyou<#1>[#2]#3{%
 \if0
-  \def\NE{{\unitlength1zw\def\Arr@wHeadSize{.45}%
+  \def\NE{{\unitlength1\zw\def\Arr@wHeadSize{.45}%
     \begin{picture}(1,0)%
       \put(0,0){\ArrowLine{(0,-0.2)}{(1,0.8)}}%
     \end{picture}}}%
-  \def\SE{{\unitlength1zw\def\Arr@wHeadSize{.45}%
+  \def\SE{{\unitlength1\zw\def\Arr@wHeadSize{.45}%
     \begin{picture}(1,0)%
       \put(0,0){\ArrowLine{(0,0.8)}{(1,-0.2)}}%
     \end{picture}}}%
-  \def\NW{{\unitlength1zw\def\Arr@wHeadSize{.45}%
+  \def\NW{{\unitlength1\zw\def\Arr@wHeadSize{.45}%
     \begin{picture}(1,0)%
       \put(0,0){\ArrowLine{(1,-0.2)}{(0,0.8)}}%
     \end{picture}}}%
-  \def\SW{{\unitlength1zw\def\Arr@wHeadSize{.45}%
+  \def\SW{{\unitlength1\zw\def\Arr@wHeadSize{.45}%
     \begin{picture}(1,0)%
       \put(0,0){\ArrowLine{(1,0.8)}{(0,-0.2)}}%
     \end{picture}}}%
-  \def\NEE{{\unitlength1zw\def\Arr@wHeadSize{.45}%
+  \def\NEE{{\unitlength1\zw\def\Arr@wHeadSize{.45}%
     \begin{picture}(1,0)%
       \put(0,0){\qbezier(0,-0.2)(0.2,0.6)(1,0.8)%
         \put(1.075,0.825){\yaziri{(2.5,1)}}}%
     \end{picture}}}%
-  \def\NEN{{\unitlength1zw\def\Arr@wHeadSize{.45}%
+  \def\NEN{{\unitlength1\zw\def\Arr@wHeadSize{.45}%
     \begin{picture}(1,0)%
       \put(0,0){\qbezier(0,-0.2)(0.8,0)(1,0.8)%
         \put(1.04,0.825){\yaziri{(1,2.5)}}}%
     \end{picture}}}%
-  \def\SES{{\unitlength1zw\def\Arr@wHeadSize{.45}%
+  \def\SES{{\unitlength1\zw\def\Arr@wHeadSize{.45}%
     \begin{picture}(1,0)%
       \put(0,0){\qbezier(0,0.8)(0.8,0.6)(1,-0.2)%
         \put(1.075,-0.3){\yaziri{(1,-2.5)}}}%
     \end{picture}}}%
-  \def\SEE{{\unitlength1zw\def\Arr@wHeadSize{.45}%
+  \def\SEE{{\unitlength1\zw\def\Arr@wHeadSize{.45}%
     \begin{picture}(1,0)%
       \put(0,0){\qbezier(0,0.8)(0.2,0)(1,-0.2)%
         \put(1.075,-0.24){\yaziri{(2.5,-1)}}}%
@@ -811,7 +811,7 @@
 %\newcolumntype{R}[1]{>{\hbox to ##1\bgroup\hss $}r<{$\egroup}}%
 %\newcolumntype{C}[1]{>{\hbox to ##1\bgroup\hss $}c<{$\hss\egroup}}%
 %
-%  \hyouretuhaba=1zw%
+%  \hyouretuhaba=1\zw%
 %  \Cfor{\headchar{#3}\hyou@c\hyou@@c}{\not\equal\hyou@@c\empty}{%
 %   \headchar\hyou@@c\hyou@c\hyou@@c}\do{%
 %    \ifthenelse{\equal{*}\hyou@c}{%
@@ -856,7 +856,7 @@
 
 \def\Hyou{\@ifnextchar<{\@Hyou}{\@Hyou<\empty>}}%
 \def\@Hyou<#1>{%
-  \hyouretuhaba=1zw%
+  \hyouretuhaba=1\zw%
   \edef\hyou@ty@ption{\empty}%
   \Strchr{#1}{=}\hyou@keyopt
   \ifnum\hyou@keyopt>\z@
@@ -868,38 +868,38 @@
 \def\@@Hyou<#1>[#2]#3{%
   \def\agezoko{0}%
 \if0
-  \def\NE{{\unitlength1zw\def\Arr@wHeadSize{.45}%
+  \def\NE{{\unitlength1\zw\def\Arr@wHeadSize{.45}%
     \begin{picture}(1,0)%
       \put(0,0){\ArrowLine{(0,-0.2)}{(1,0.8)}}%
     \end{picture}}}%
-  \def\SE{{\unitlength1zw\def\Arr@wHeadSize{.45}%
+  \def\SE{{\unitlength1\zw\def\Arr@wHeadSize{.45}%
     \begin{picture}(1,0)%
       \put(0,0){\ArrowLine{(0,0.8)}{(1,-0.2)}}%
     \end{picture}}}%
-  \def\NW{{\unitlength1zw\def\Arr@wHeadSize{.45}%
+  \def\NW{{\unitlength1\zw\def\Arr@wHeadSize{.45}%
     \begin{picture}(1,0)%
       \put(0,0){\ArrowLine{(1,-0.2)}{(0,0.8)}}%
     \end{picture}}}%
-  \def\SW{{\unitlength1zw\def\Arr@wHeadSize{.45}%
+  \def\SW{{\unitlength1\zw\def\Arr@wHeadSize{.45}%
     \begin{picture}(1,0)%
       \put(0,0){\ArrowLine{(1,0.8)}{(0,-0.2)}}%
     \end{picture}}}%
-  \def\NEE{{\unitlength1zw\def\Arr@wHeadSize{.45}%
+  \def\NEE{{\unitlength1\zw\def\Arr@wHeadSize{.45}%
     \begin{picture}(1,0)%
       \put(0,0){\qbezier(0,-0.2)(0.2,0.6)(1,0.8)%
         \put(1,0.8){\yaziri{(2.5,1)}}}%
     \end{picture}}}%
-  \def\NEN{{\unitlength1zw\def\Arr@wHeadSize{.45}%
+  \def\NEN{{\unitlength1\zw\def\Arr@wHeadSize{.45}%
     \begin{picture}(1,0)%
       \put(0,0){\qbezier(0,-0.2)(0.8,0)(1,0.8)%
         \put(1,0.8){\yaziri{(1,2.5)}}}%
     \end{picture}}}%
-  \def\SES{{\unitlength1zw\def\Arr@wHeadSize{.45}%
+  \def\SES{{\unitlength1\zw\def\Arr@wHeadSize{.45}%
     \begin{picture}(1,0)%
       \put(0,0){\qbezier(0,0.8)(0.8,0.6)(1,-0.2)%
         \put(1,-0.2){\yaziri{(1,-2.5)}}}%
     \end{picture}}}%
-  \def\SEE{{\unitlength1zw\def\Arr@wHeadSize{.45}%
+  \def\SEE{{\unitlength1\zw\def\Arr@wHeadSize{.45}%
     \begin{picture}(1,0)%
       \put(0,0){\qbezier(0,0.8)(0.2,0)(1,-0.2)%
         \put(1,-0.2){\yaziri{(2.5,-1)}}}%
@@ -915,7 +915,7 @@
 %\newcolumntype{R}[1]{>{\hbox to ##1\bgroup\hss }r<{\egroup}}%
 %\newcolumntype{C}[1]{>{\hbox to ##1\bgroup\hss }c<{\hss\egroup}}%
 %
-% \hyouretuhaba=1zw%
+% \hyouretuhaba=1\zw%
 \@ifundefined{notcalcretuhaba}{%
 {\def\columncolor{\relax}%
   \Cfor{\headchar{#3}\Hyou@c\Hyou@@c}{\not\equal\Hyou@@c\empty}{%

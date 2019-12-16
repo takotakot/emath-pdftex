@@ -80,18 +80,18 @@
 \def\emRomanIInum#1{\emRomanII{\@Roman{0#1}}}
 \def\emromanzwnum#1{\count255=0#1\relax
   \setbox0=\hbox{\@roman{\the\count255}}%
-  \ifdim \wd0>1zw\relax
-    \resizebox{1zw}{\height}{\@roman{\the\count255}}%
+  \ifdim \wd0>1\zw\relax
+    \resizebox{1\zw}{\height}{\@roman{\the\count255}}%
   \else
-    \makebox[1zw][c]{\@roman{\the\count255}}%
+    \makebox[1\zw][c]{\@roman{\the\count255}}%
   \fi
   }%
 \def\emRomanzwnum#1{\count255=0#1\relax
   \setbox0=\hbox{\@Roman{\the\count255}}%
-  \ifdim \wd0>1zw\relax
-    \resizebox{1zw}{\height}{\@Roman{\the\count255}}%
+  \ifdim \wd0>1\zw\relax
+    \resizebox{1\zw}{\height}{\@Roman{\the\count255}}%
   \else
-    \makebox[1zw][c]{\@Roman{\the\count255}}%
+    \makebox[1\zw][c]{\@Roman{\the\count255}}%
   \fi
   }%
 \def\emRomannum{\@ifstar{\emRomanzwnum}{\@emRomannum}}%
@@ -134,7 +134,7 @@
 %\def\emalph#1{{\IAdd{96}{#1}\emAlph@i\normalfont\char\emAlph@i}}
 %
 % (番号)を全角1文字幅
-\def\emnumzw#1{\resizebox{1zw}{\height}{(#1)}}
+\def\emnumzw#1{\resizebox{1\zw}{\height}{(#1)}}
 %
 % 全角数字によるナンバリング
 \def\zarabic#1{\@zarabic{\@nameuse{c@#1}}}%
@@ -575,7 +575,7 @@
 %   \iftdir
 %     \leftmargin\leftskip \advance\leftmargin3\Cwd
 %     \rightmargin\rightskip
-%     \labelsep=1zw \itemsep\z@
+%     \labelsep=1\zw \itemsep\z@
 %     \listparindent\z@ \topsep\z@ \parsep\z@ \partopsep\z@
 %   \fi
 %           \let\makelabel\jdescriptionlabel}}{\endlist}

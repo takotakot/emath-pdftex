@@ -516,7 +516,7 @@
    \box\em@label@box
 %    \leavevmode\hbox to \z@{\hss\box\em@label@box}%
 \else
-  \leavevmode\hbox to 0zw{\hspace{-\EMWR@zuhaba}%
+  \leavevmode\hbox to 0\zw{\hspace{-\EMWR@zuhaba}%
     \hspace{-\the\@mawarikomisep}\hspace{-\the\@mawarikomisep}%
     \box\em@label@box\hss}%
 \fi
@@ -698,7 +698,7 @@
 %
 %\newdimen\eitemindent
 \newskip\eitemindent
-\setlength{\eitemindent}{-.75zw}%
+\setlength{\eitemindent}{-.75\zw}%
 \def\eitem{\@ifnextchar({\@eitem}{\@eitem(\eitemindent)}}%
 \def\@eitem(#1){\@ifnextchar[{\@@eitem@(#1)}{\@@eitem(#1)}}%
 \long\def\@@eitem(#1)#2{\vspace{\parsep}%
@@ -718,7 +718,7 @@
 %
 \def\zu{\@ifnextchar<{\@@@zu}{\@@@zu<r>}}
 \def\@@@zu<#1>{\edef\fig@placement{#1}\@@zu}
-\def\@@zu{\@ifnextchar({\z@u}{\z@u(1zw)}}%  インデント量
+\def\@@zu{\@ifnextchar({\z@u}{\z@u(1\zw)}}%  インデント量
 \def\z@u(#1){%
   \@ifundefined{c@WF@wrappedlines}{}{%
     \leavevmode\vspace{-1.85\baselineskip}\par}%
@@ -763,7 +763,7 @@
   \def\@@haiti[##1](##2,##3)##4{%
     \setbox0=\hbox{{##4}}%
     \@tempdima\ht0\advance\@tempdima\dp0\relax
-    \ifdim\zuhaiti@Y=\z@\advance\@tempdima-1zw\fi
+    \ifdim\zuhaiti@Y=\z@\advance\@tempdima-1\zw\fi
     \@tempdimc\@tempdima
     \advance\@tempdima\zuhaiti@Y
     \edef\zuhaiti@Y{\the\@tempdimc}%

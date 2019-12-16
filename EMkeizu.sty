@@ -232,9 +232,9 @@
  \dimen3=\ht2 \divide\dimen3 by2
  \dimen4=\dimen3
  \advance\dimen3 by\twarichu@tbaselineshift
- \advance\dimen3 by-.1zw
+ \advance\dimen3 by-.1\zw
  \advance\dimen4 by-\twarichu@tbaselineshift
- \advance\dimen4 by.1zw
+ \advance\dimen4 by.1\zw
  \dp2=\dimen4\ht2=\dimen3\box2}%
 \endinput
 % ----------------------------------------------------
@@ -251,7 +251,7 @@
 2000/12/30 v 0.02
   (1) node@i@j の定義を \xdef から \gdef に変更
   (2) 系図の罫線長を
-         \begin{keizu}[hkeisen=2zw]
+         \begin{keizu}[hkeisen=2\zw]
       などとオプション指定を可能とする。（デフォルト値=40pt)
   (3) ルビを振ったとき，罫線と人名との位置関係がずれるのを修正
       （ただし，横組だと更に修正が必要 --- 今回は見送り）

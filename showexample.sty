@@ -137,7 +137,7 @@
 \newwrite\showex@out%
 \newtoks\showex@ttl
 \@ifundefined{listinglabel}{}{%
-  \def\listingoffset{.5zw}%
+  \def\listingoffset{.5\zw}%
   \def\listinglabel#1{\llap{\small\the#1}:\hskip\listingoffset\relax}}%
 %
 % showEx 環境 ------------------------------------------------------
@@ -223,7 +223,7 @@
   \@tempdima=\@lsz pt\advance\@tempdima\@rsz pt\relax%
   \ifdim\@tempdima>.95pt\relax\vspace{2pt}\par\noindent\fi%
   \@tempdima\@rsz pt\relax\ifdim\@tempdima>.95pt\relax%
-  \hspace*{2zw}↓\par\noindent\else\hfill \y@koya \hfill\fi%
+  \hspace*{2\zw}↓\par\noindent\else\hfill \y@koya \hfill\fi%
   \@ifundefined{showEx@tate}{%
     \def\r@size{\@rsz\linewidth}%
   }{%
@@ -291,7 +291,7 @@
   \@tempdima=\@lsz pt\advance\@tempdima\@rsz pt\relax%
   \ifdim\@tempdima>.95pt\relax\vspace{2pt}\par\noindent\fi%
   \@tempdima\@rsz pt\relax\ifdim\@tempdima>.95pt\relax%
-  \hspace*{2zw}↓\par\noindent\else\hfill \y@koya \hfill\fi%
+  \hspace*{2\zw}↓\par\noindent\else\hfill \y@koya \hfill\fi%
     \begin{minipage}{\@rsz\linewidth}%
     \begin{shadebox}%
     \input{\EM@workfiledir showex.tmp}%
@@ -364,7 +364,7 @@
   \@tempdima=\@lsz pt\advance\@tempdima\@rsz pt\relax%
   \ifdim\@tempdima>.95pt\relax\vspace{2pt}\par\noindent\fi%
   \@tempdima\@rsz pt\relax\ifdim\@tempdima>.95pt\relax%
-  \hspace*{2zw}↓\par\noindent\else\hfill \y@koya \hfill\fi%
+  \hspace*{2\zw}↓\par\noindent\else\hfill \y@koya \hfill\fi%
   \@ifundefined{showEx@tate}{%
     \def\r@size{\@rsz\linewidth}%
   }{%

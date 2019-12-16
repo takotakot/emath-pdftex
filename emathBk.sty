@@ -83,7 +83,7 @@
   \edef\fboxrule@G{2pt}%
   \@ifnextchar[{\@bkdblbox}{\@@bkdblbox}}
 \def\@bkdblbox[#1]{\setkeys{emBk}{#1}\@@bkdblbox}
-\def\@@bkdblbox{\def\breakboxparindent{1zw}%
+\def\@@bkdblbox{\def\breakboxparindent{1\zw}%
   \vskip\breakboxskip\relax
   \setbox\bk@bxb\vbox\bgroup
   \setlength{\linewidth}{\linewidth-\fboxrule@G*2}
@@ -340,7 +340,7 @@
 %
 \def\bkdblovalbox{\def\bkbox@sensyu{\drawline}%
   \edef\bkbox@item{\empty}%
-  \def\h@sep{1zw}%
+  \def\h@sep{1\zw}%
   \def\v@sep{1zh}%
 % \edef\fboxrule@A{\the\fboxrule}%
   \edef\fboxrule@A{2pt}%
@@ -348,7 +348,7 @@
   \edef\fboxrule@G{2pt}%
   \@ifnextchar[{\@bkdblovalbox}{\@@bkdblovalbox}}
 \def\@bkdblovalbox[#1]{\setkeys{emBk}{#1}\@@bkdblovalbox}
-\def\@@bkdblovalbox{\def\breakboxparindent{1zw}%
+\def\@@bkdblovalbox{\def\breakboxparindent{1\zw}%
   \vskip\breakboxskip\relax
   \setbox\bk@bxb\vbox\bgroup
   \setlength{\linewidth}{\linewidth-\fboxrule@G*2}
@@ -647,7 +647,7 @@
   \edef\bkbox@item{\empty}%
   \@ifnextchar[{\@breakDbox}{\@@breakDbox}}
 \def\@breakDbox[#1]{\setkeys{emBk}{#1}\@@breakDbox}
-\def\@@breakDbox{\def\breakboxparindent{1zw}\breakbox}
+\def\@@breakDbox{\def\breakboxparindent{1\zw}\breakbox}
 \def\endbreakDbox{%
   \ifvmode \vskip-\lastskip \fi%%% added
 \egroup
@@ -741,7 +741,7 @@
   \ifthenelse{\equal{#1}\empty}{}{\setkeys{emBk}{#1}}%
   \@@breakLRline}
 \def\@@breakLRline{%
-  \def\breakboxparindent{1zw}%
+  \def\breakboxparindent{1\zw}%
   \def\bk@addfsepht{%
 %     \setbox\bk@bxa\vbox{\vskip4pt\box\bk@bxa}%
     \relax
@@ -848,7 +848,7 @@
   \ifthenelse{\equal{#1}{\empty}}{}{\setkeys{emBk}{#1}}%
   \@@breakRline}%
 \def\@@breakRline{%
-  \def\breakboxparindent{1zw}%
+  \def\breakboxparindent{1\zw}%
   \def\bk@addfsepht{\relax}%
   \def\bk@addfsepdp{\relax}%
 \setbox\bk@bxb\vbox\bgroup
@@ -941,7 +941,7 @@
 %     linesep=..   (default: \fboxsep)
 %     linepos=..   (default: 0pt)
 %     fboxsep=..   (default: 0pt)
-%     parindent=.. (default: 1zw)
+%     parindent=.. (default: 1\zw)
 %     headline=..  (default: 0 右辺値を省略した場合 1)
 %
 \def\breakLline{%
@@ -958,7 +958,7 @@
     \expandafter\gdef\csname ftnt@txt@\romannumeral\ftnt@txt@num\endcsname{##1}%
     \ignorespaces
   }%
-  \def\breakboxparindent{1zw}%
+  \def\breakboxparindent{1\zw}%
 %  \def\bkbox@sensyu{\drawline}\relax
   \edef\bkbox@sensyu{\empty}\relax
   \tyuulinesep=\fboxsep
@@ -1084,7 +1084,7 @@
   \edef\bkbox@item{\empty}%
   \@ifnextchar[{\@bkshadebox}{\@@bkshadebox}}
 \def\@bkshadebox[#1]{\setkeys{emBk}{#1}\@@bkshadebox}
-\def\@@bkshadebox{\def\breakboxparindent{1zw}
+\def\@@bkshadebox{\def\breakboxparindent{1\zw}
   \vskip\breakboxskip\relax
   \setbox\bk@bxb\vbox\bgroup
   \advance\linewidth -2\fboxrule
@@ -1528,7 +1528,7 @@
    \par}%
    \vskip\breakboxskip\relax}
 \def\EMbreakbox{%
-  \def\breakboxparindent{1zw}%
+  \def\breakboxparindent{1\zw}%
   \edef\h@sep{\the\fboxsep}%
   \edef\v@sep{\the\fboxsep}%
   \edef\background@color{\empty}%

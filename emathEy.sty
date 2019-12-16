@@ -92,9 +92,9 @@
 \edef\leftmargin@org@s@{0pt}%
 \def\edaLmargin#1{\edef\leftmargin@org@s@{#1}}%
 \newdimen\pre@edasep
-\setlength{\pre@edasep}{1.75zw}%
+\setlength{\pre@edasep}{1.75\zw}%
 \newdimen\post@edasep
-\setlength{\post@edasep}{.75zw}%
+\setlength{\post@edasep}{.75\zw}%
 \newdimen\preedaenumskip
 \def\edaitem@indent{0pt}%
 \setlength{\preedaenumskip}{0ex}%
@@ -120,7 +120,7 @@
   \def\ed@beta{1}%
   \@ifundefined{beta@linewidth}{\newdimen\beta@linewidth}{}%
   \setlength{\beta@linewidth}{\z@}%
-  \setlength{\post@edasep}{1.75zw}%
+  \setlength{\post@edasep}{1.75\zw}%
   \edaenumerate
 }%
 \def\endbetaenumerate{%
@@ -376,7 +376,7 @@
             \ifbetaraggedlines\else \hfill\fi%%%%%%%%%%%% \hfill ---> \hfil
           \fi
         \fi\fi
-\ifnum\kmk@su=\z@\leavevmode\hbox to 0zw{\hss\box\em@label@box}\fi
+\ifnum\kmk@su=\z@\leavevmode\hbox to 0\zw{\hss\box\em@label@box}\fi
 \Incr\kmk@su
         \hspace*{\pre@edasep}%
         \begin{minipage}[t]{\wd\ed@beta@box}%
@@ -439,7 +439,7 @@
         \addtolength{\eda@linewidth}{\post@edasep}%
       \fi\fi
       \def\eda@firstindent{}%
-\ifnum\kmk@su=\z@\leavevmode\hbox to 0zw{\hss\box\em@label@box}\fi
+\ifnum\kmk@su=\z@\leavevmode\hbox to 0\zw{\hss\box\em@label@box}\fi
 \Incr\kmk@su
       \hspace*{\pre@edasep}%
       \ifnum\eda@frame>\z@
@@ -543,7 +543,7 @@
 % ----------------------------------------------------------------
 }%
 \def\endyokoenumerate{\yenum@owari
-  \@tempdima=2.4zw
+  \@tempdima=2.4\zw
   \edef\yokoenum@tmp{\strip@pt\@tempdima}%
   \advance\yokoenum@wd \yokoenum@tmp truept\relax
   \advance\yokoenum@wd\yokoenum@sep%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
