@@ -4,6 +4,8 @@
 \ProvidesPackage{emathEy}[2017/05/08 v0.37a 横並び enumerate]%
 %
 \@ifpackageloaded{emath}{}{\RequirePackage{emath}}%
+\@ifpackageloaded{ifthen}{}{\RequirePackage{ifthen}}%
+\@ifpackageloaded{ifluatex}{}{\RequirePackage{ifluatex}}%
 \RequirePackage{emathEc}%
 %
 \newif\ifedaenum@math%
@@ -461,7 +463,7 @@
 %
   \@ifundefined{tate}{\def\ren@suji##1{##1}}{%
     \ifrenzi
-      \ifydir\def\ren@suji##1{##1}\else\def\ren@suji##1{\rensuji{##1}}\fi%
+      \ifthenelse{\boolean{luatex}}{\ifnum\ltjgetparameter{direction}=4\def\ren@suji##1{##1}\else\def\ren@suji##1{\rensuji{##1}}\fi}{\ifydir\def\ren@suji##1{##1}\else\def\ren@suji##1{\rensuji{##1}}\fi}%
     \else
       \def\ren@suji##1{##1}
     \fi

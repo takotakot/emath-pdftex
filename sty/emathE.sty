@@ -6,6 +6,8 @@
     \errmessage{emathEy.sty よりも前に emath.sty を読み込みまねばなりません。}%
 }%
 %\RequirePackage{enumerate}%
+\@ifpackageloaded{ifthen}{}{\RequirePackage{ifthen}}%
+\@ifpackageloaded{ifluatex}{}{\RequirePackage{ifluatex}}%
 \RequirePackage{emathEc}%
 \RequirePackage{jquote}%
 %\@ifundefined{カタカナ}{\input emathK.sty}{}%
@@ -195,7 +197,7 @@
     \def\ren@suji##1{##1}%
   }{%
     \ifrenzi
-      \ifydir\def\ren@suji##1{##1}\else\def\ren@suji##1{\rensuji{##1}}\fi%
+      \ifthenelse{\boolean{luatex}}{\ifnum\ltjgetparameter{direction}=4\def\ren@suji##1{##1}\else\def\ren@suji##1{\rensuji{##1}}\fi}{\ifydir\def\ren@suji##1{##1}\else\def\ren@suji##1{\rensuji{##1}}\fi}%
     \else
       \def\ren@suji##1{##1}%
     \fi
