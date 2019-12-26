@@ -6,8 +6,8 @@
     \errmessage{emathEy.sty よりも前に emath.sty を読み込みまねばなりません。}%
 }%
 %\RequirePackage{enumerate}%
-\@ifpackageloaded{ifthen}{}{\RequirePackage{ifthen}}%
-\@ifpackageloaded{ifluatex}{}{\RequirePackage{ifluatex}}%
+\RequirePackage{ifthen}%
+\RequirePackage{ifluatex}%
 \RequirePackage{emathEc}%
 \RequirePackage{jquote}%
 %\@ifundefined{カタカナ}{\input emathK.sty}{}%
