@@ -63,37 +63,37 @@
   \fi
   \Decr\vec@type
   \ifcase\vec@type% vec@type=0 (cm)
-    \bekutorusityuu{\vrule height .9zh width \z@}%
+    \bekutorusityuu{\vrule height .9\zh width \z@}%
     \let\bekutoru@relbar\relbar\let\bekutoru@rightarrow\rightarrow
     \let\bekutoru\cmbekutoru
   \or% vec@type=1 (eu)
-    \bekutorusityuu{\vrule height .85zh width \z@}%
+    \bekutorusityuu{\vrule height .85\zh width \z@}%
     \let\bekutoru@relbar\relbar\let\bekutoru@rightarrow\eurightarrow
     \let\bekutoru\cmbekutoru%
   \or% vec@type=2 (tx)
-    \bekutorusityuu{\vrule height .75zh width \z@}%
+    \bekutorusityuu{\vrule height .75\zh width \z@}%
     \let\bekutoru@relbar\txrelbar\let\bekutoru@rightarrow\txrightarrow
     \let\bekutoru\cmbekutoru
   \or% vec@type=3 (xy)
     \@ifundefined{xybekutoru}{}{%
 %    \let\bekutoru@relbar\relbar\let\bekutoru@rightarrow\xyrightarrow
-      \bekutorusityuu{\vrule height .9zh width \z@}%
+      \bekutorusityuu{\vrule height .9\zh width \z@}%
       \let\bekutoru\xybekutoru
     }%
   \or% vec@type=4 (px)
-    \bekutorusityuu{\vrule height .75zh width \z@}%
+    \bekutorusityuu{\vrule height .75\zh width \z@}%
     \let\bekutoru@relbar\pxrelbar\let\bekutoru@rightarrow\pxrightarrow
     \let\bekutoru\cmbekutoru
   \or% vec@type=5 (abx)
-    \bekutorusityuu{\vrule height .75zh width \z@}%
+    \bekutorusityuu{\vrule height .75\zh width \z@}%
     \let\bekutoru@relbar\abxrelbar
     \let\bekutoru@rightarrow\abxrightarrow
     \let\bekutoru\cmbekutoru
   \or% vec@type=6 (fill)
-    \bekutorusityuu{\vrule height .9zh width \z@}%
+    \bekutorusityuu{\vrule height .9\zh width \z@}%
     \def\bekutoru@t##1{{%
       \@ifundefined{EMps@filename}{%
-                  \@tempdima=1zh\relax
+                  \@tempdima=1\zh\relax
                   \edef\BK@hi{\strip@pt\@tempdima}%
                   \@Div\BK@hi{9.16443}\BK@hi
                   \Mul{0.5}\BK@hi\BK@thickness
@@ -120,7 +120,7 @@
       }{{%
         \gsave
                   \@ifundefined{houi@opt}{\edef\houi@opt{lb}}{}%
-                  \@tempdima=1zh\relax
+                  \@tempdima=1\zh\relax
                   \edef\BK@hi{\strip@pt\@tempdima}%
                   \@Div\BK@hi{9.16443}\BK@hi
                   \Mul{0.5}\BK@hi\BK@thickness
@@ -134,7 +134,7 @@
                     \edef\bekutoru@xl{-\bekutoru@wh}%
                     \edef\bekutoru@xr{\bekutoru@wh}%
                     \@Div\bekutoru@hd{2}\bekutoru@y
-                    \ifdim\bekutoru@y\p@<.6zw\ukansan{.6zw}\bekutoru@y\fi
+                    \ifdim\bekutoru@y\p@<.6\zw\ukansan{.6\zw}\bekutoru@y\fi
                   \Strchr{\houi@opt}{l}\bk@tmp
                   \ifnum\bk@tmp>\z@
                     \edef\bekutoru@xl{0}%
@@ -148,12 +148,12 @@
                   \Strchr{\houi@opt}{b}\bk@tmp
                   \ifnum\bk@tmp>\z@
                     \edef\bekutoru@y{\bekutoru@hd}%
-                    \ifdim\bekutoru@y\p@<1zw\ukansan{1zw}\bekutoru@y\fi
+                    \ifdim\bekutoru@y\p@<1\zw\ukansan{1\zw}\bekutoru@y\fi
                   \fi
                   \Strchr{\houi@opt}{t}\bk@tmp
                   \ifnum\bk@tmp>\z@
-                    \ifdim\bekutoru@hd\yunitlength<1zw\relax
-                      \setlength{\@tempdima}{1zw-\bekutoru@hd\unitlength}%
+                    \ifdim\bekutoru@hd\yunitlength<1\zw\relax
+                      \setlength{\@tempdima}{1\zw-\bekutoru@hd\unitlength}%
                       \uykansan{\the\@tempdima}\bekutoru@y
                     \fi
                   \fi
@@ -171,7 +171,7 @@
     }}%
     \def\bekutoru@m##1{{%
       \@ifundefined{EMps@filename}{%
-                  \@tempdima=1zh\relax
+                  \@tempdima=1\zh\relax
                   \edef\BK@hi{\strip@pt\@tempdima}%
                   \@Div\BK@hi{9.16443}\BK@hi
                   \Mul{0.5}\BK@hi\BK@thickness
@@ -199,7 +199,7 @@
       }{{%
         \gsave
                   \@ifundefined{houi@opt}{\edef\houi@opt{lb}}{}%
-                  \@tempdima=1zh\relax
+                  \@tempdima=1\zh\relax
                   \edef\BK@hi{\strip@pt\@tempdima}%
                   \@Div\BK@hi{9.16443}\BK@hi
                   \Mul{0.5}\BK@hi\BK@thickness
@@ -213,7 +213,7 @@
                     \edef\bekutoru@xl{-\bekutoru@wh}%
                     \edef\bekutoru@xr{\bekutoru@wh}%
                     \@Div\bekutoru@hd{2}\bekutoru@y
-                    \ifdim\bekutoru@y\p@<.6zw\ukansan{.6zw}\bekutoru@y\fi
+                    \ifdim\bekutoru@y\p@<.6\zw\ukansan{.6\zw}\bekutoru@y\fi
                   \Strchr{\houi@opt}{l}\bk@tmp
                   \ifnum\bk@tmp>\z@
                     \edef\bekutoru@xl{0}%
@@ -227,12 +227,12 @@
                   \Strchr{\houi@opt}{b}\bk@tmp
                   \ifnum\bk@tmp>\z@
                     \edef\bekutoru@y{\bekutoru@hd}%
-                    \ifdim\bekutoru@y\p@<1zw\ukansan{1zw}\bekutoru@y\fi
+                    \ifdim\bekutoru@y\p@<1\zw\ukansan{1\zw}\bekutoru@y\fi
                   \fi
                   \Strchr{\houi@opt}{t}\bk@tmp
                   \ifnum\bk@tmp>\z@
-                    \ifdim\bekutoru@hd\yunitlength<1zw\relax
-                      \setlength{\@tempdima}{1zw-\bekutoru@hd\unitlength}%
+                    \ifdim\bekutoru@hd\yunitlength<1\zw\relax
+                      \setlength{\@tempdima}{1\zw-\bekutoru@hd\unitlength}%
                       \uykansan{\the\@tempdima}\bekutoru@y
                     \fi
                   \fi
@@ -283,7 +283,7 @@
     \let\bekutoru@rightarrow\fldr
     \let\overrightarrow\vv
   \or% vec@type=9 (latex)
-    \bekutorusityuu{\vrule height .9zh width \z@}%
+    \bekutorusityuu{\vrule height .9\zh width \z@}%
     \let\bekutoru@relbar\relbar\let\bekutoru@rightarrow\rightarrow
     \let\bekutoru\ltxbekutoru
   \fi

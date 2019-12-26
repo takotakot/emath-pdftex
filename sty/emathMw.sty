@@ -344,7 +344,7 @@
   \ifx \EMWR@@gyousuu\empty
     \@tempdimb\ht\EMWR@box\advance\@tempdimb\dp\EMWR@box\relax
     \xdef\EMWR@zu@gyousuu{0}%
-    \@whiledim\@tempdimb>1zh\do{\advance\@tempdimb-\baselineskip
+    \@whiledim\@tempdimb>1\zh\do{\advance\@tempdimb-\baselineskip
       \xIncr\EMWR@zu@gyousuu}%
     \xIAdd\EMWR@zu@gyousuu\EMWR@tyouseigyou\EMWR@zu@gyousuu
     \xIncr[2]\EMWR@zu@gyousuu
@@ -358,7 +358,7 @@
   \unitlength1pt%
   \@tempdimb\ht\EMWR@box\advance\@tempdimb\dp\EMWR@box\advance\@tempdimb\parsep
   \advance\@tempdimb\EMWR@overhanglines\baselineskip%
-% \advance\@tempdimb-1zh\relax
+% \advance\@tempdimb-1\zh\relax
   \@tempdima\pagegoal\advance\@tempdima-\pagetotal
 % 12/26
   \ifthenelse{\lengthtest{\@tempdima<\@tempdimb}\and{\mawarikomi@newpagesw=1}\and\not\equal{\EMWR@arg@i}\empty}{%
@@ -403,7 +403,7 @@
 %\typeout{a=\the\@tempdima, b=\the\@tempdimb}%
   \ifdim\@tempdima<\@tempdimb%    2000/12/14
      \if@mawarikomi@newpage\newpage\fi
-%    \vrule height 1zh depth\@tempdimb width\z@
+%    \vrule height 1\zh depth\@tempdimb width\z@
 %    {\advance\@tempdimb-.5\baselineskip
 %     \vspace{-\@tempdimb}%
 %    }%
@@ -412,7 +412,7 @@
     \ifthenelse{\Mw@old=\z@}{%
       \@tempdimc=\z@
       \ifthenelse{\equal{#3}{0}}{}{\advance\@tempdimc#3}%
-      \@tempdimb.8485zh\relax
+      \@tempdimb.8485\zh\relax
       \ifnum\mawarikomi@here@sw=\z@
         \advance\@tempdimb-\EMWR@overhanglines\baselineskip
       \fi
@@ -456,7 +456,7 @@
     \ifthenelse{\Mw@old=\z@}{%
       \@tempdimc=\z@
       \ifthenelse{\equal{#3}{0}}{}{\advance\@tempdimc#3}%
-      \@tempdimb.8485zh\relax
+      \@tempdimb.8485\zh\relax
       \ifnum\mawarikomi@here@sw=\z@
         \advance\@tempdimb-\EMWR@overhanglines\baselineskip
       \fi
@@ -520,7 +520,7 @@
    \box\em@label@box
 %    \leavevmode\hbox to \z@{\hss\box\em@label@box}%
 \else
-  \leavevmode\hbox to 0zw{\hspace{-\EMWR@zuhaba}%
+  \leavevmode\hbox to 0\zw{\hspace{-\EMWR@zuhaba}%
     \hspace{-\the\@mawarikomisep}\hspace{-\the\@mawarikomisep}%
     \box\em@label@box\hss}%
 \fi
@@ -702,7 +702,7 @@
 %
 %\newdimen\eitemindent
 \newskip\eitemindent
-\setlength{\eitemindent}{-.75zw}%
+\setlength{\eitemindent}{-.75\zw}%
 \def\eitem{\@ifnextchar({\@eitem}{\@eitem(\eitemindent)}}%
 \def\@eitem(#1){\@ifnextchar[{\@@eitem@(#1)}{\@@eitem(#1)}}%
 \long\def\@@eitem(#1)#2{\vspace{\parsep}%
@@ -722,7 +722,7 @@
 %
 \def\zu{\@ifnextchar<{\@@@zu}{\@@@zu<r>}}
 \def\@@@zu<#1>{\edef\fig@placement{#1}\@@zu}
-\def\@@zu{\@ifnextchar({\z@u}{\z@u(1zw)}}%  インデント量
+\def\@@zu{\@ifnextchar({\z@u}{\z@u(1\zw)}}%  インデント量
 \def\z@u(#1){%
   \@ifundefined{c@WF@wrappedlines}{}{%
     \leavevmode\vspace{-1.85\baselineskip}\par}%
@@ -767,7 +767,7 @@
   \def\@@haiti[##1](##2,##3)##4{%
     \setbox0=\hbox{{##4}}%
     \@tempdima\ht0\advance\@tempdima\dp0\relax
-    \ifdim\zuhaiti@Y=\z@\advance\@tempdima-1zw\fi
+    \ifdim\zuhaiti@Y=\z@\advance\@tempdima-1\zw\fi
     \@tempdimc\@tempdima
     \advance\@tempdima\zuhaiti@Y
     \edef\zuhaiti@Y{\the\@tempdimc}%

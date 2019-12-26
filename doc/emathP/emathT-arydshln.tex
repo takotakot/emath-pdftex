@@ -80,7 +80,7 @@ A&B&C\hhcr\hhline{|=|=:=|}
 \subsection{\textsf{emathT}の太罫線との併用}
 \textsf{emathT}の太罫線との併用を見ておきます。
 \begin{showEx}(.6,.34){太罫線との併用}
-\begin{Hyou}{IC{1zw}|C{1zw}:C{1zw}I}\hlineb
+\begin{Hyou}{IC{1\zw}|C{1\zw}:C{1\zw}I}\hlineb
 A&B&C\hhcr\hhline{I=|=:=I}
 1&2&3\\\hdashline
 4&5&6\\\hlineb
@@ -92,7 +92,7 @@ A&B&C\hhcr\hhline{I=|=:=I}
 ならないようです。
 
 \begin{showEx}(.6,.34){太罫線との併用--修正}
-\begin{Hyou}{IC{1zw}|C{1zw}:C{1zw}I}\hlineb
+\begin{Hyou}{IC{1\zw}|C{1\zw}:C{1\zw}I}\hlineb
 A&B&C\hhcr[4.4pt]\hhline{I=|=:=I}
 1&2&3\\\hdashline
 4&5&6\\\hlineb
@@ -108,7 +108,7 @@ A&B&C\hhcr[4.4pt]\hhline{I=|=:=I}
 
 \begin{showEx}(.6,.34){\cmd{arraystretch}の変更}
 \def\arraystretch{2}
-\begin{Hyou}{IC{1zw}|C{1zw}:C{1zw}I}\hlineb
+\begin{Hyou}{IC{1\zw}|C{1\zw}:C{1\zw}I}\hlineb
 A&B&C\hhcr[4.4pt]\hhline{I=|=:=I}
 1&2&3\\\hdashline
 4&5&6\\\hlineb
@@ -119,7 +119,7 @@ A&B&C\hhcr[4.4pt]\hhline{I=|=:=I}
 
 \begin{showEx}(.6,.34){\cmd{extrarowheight}の指定}
 \extrarowheight=20pt\relax
-\begin{Hyou}{IC{1zw}|C{1zw}:C{1zw}I}\hlineb
+\begin{Hyou}{IC{1\zw}|C{1\zw}:C{1\zw}I}\hlineb
 A&B&C\hhcr[4.4pt]\hhline{I=|=:=I}
 1&2&3\\\hdashline
 4&5&6\\\hlineb
@@ -132,7 +132,7 @@ A&B&C\hhcr[4.4pt]\hhline{I=|=:=I}
 表の最下行に下余白をつけてみます。
 
 \begin{showEx}(.6,.34){改行量の変更}
-\begin{Hyou}{IC{1zw}|C{1zw}:C{1zw}I}\hlineb
+\begin{Hyou}{IC{1\zw}|C{1\zw}:C{1\zw}I}\hlineb
 A&B&C\hhcr[4.4pt]\hhline{I=|=:=I}
 1&2&3\\\hdashline
 4&5&6\\[20pt]\hlineb
@@ -160,7 +160,7 @@ A&B&C\hhcr[2.8pt]\hhline{|=|=|=|}
 表のカラムに数式を含む場合，行の高さが変化することがあります。
 
 \begin{showEx}(.64,.3){数式を含む場合}
-$\begin{hyou}{IC{1zw}|C{1zw}:C{1zw}I}\hlineb
+$\begin{hyou}{IC{1\zw}|C{1\zw}:C{1\zw}I}\hlineb
 A&B&C\hhcr[4.4pt]\hhline{I=|=:=I}
 1&\bunsuu{\bunsuu1c}{\bunsuu1d}&3\\\hdashline
 4&5&6\\\hlineb
@@ -173,7 +173,7 @@ A&B&C\hhcr[4.4pt]\hhline{I=|=:=I}
 \textsf{emath}の\cmd{EMvphantom}というコマンドが便利でしょう。
 
 \begin{showEx}(.64,.3){\cmd{EMvphantom}による調整}
-$\begin{hyou}{IC{1zw}|C{1zw}:C{1zw}I}\hlineb
+$\begin{hyou}{IC{1\zw}|C{1\zw}:C{1\zw}I}\hlineb
 A&B&C\hhcr[4.4pt]\hhline{I=|=:=I}
 \EMvphantom[5pt]{\bunsuu{\bunsuu1c}{\bunsuu1d}}
 1&\bunsuu{\bunsuu1c}{\bunsuu1d}&3\\\hdashline
@@ -222,7 +222,7 @@ A&B&C\hhcr[23.2pt]\hhline{|=|=|=|}
 何とかの上塗りで，右端にダミー列を置いてみました。
 
 \begin{showEx}(.6,.34){右端にダミー列}
-\begin{Hyou}{|C{1zw}|C{1zw}:C{1zw}C{-8pt}|}
+\begin{Hyou}{|C{1\zw}|C{1\zw}:C{1\zw}C{-8pt}|}
   \hline
 A&B&C&\hhcr\hhline{|=|=:==|}
 1&2&3&\\\hdashline

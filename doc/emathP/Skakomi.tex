@@ -29,7 +29,7 @@
 これを変更したいときは，\verb+[fbox=..]+オプションを与えます。
 
 \begin{showEx}(.9,1){\texttt{fboxsep}オプション}
-\begin{rectbox}[fboxsep=1zw]
+\begin{rectbox}[fboxsep=1\zw]
 あああああああああああああああああああ
 あああああああああああああああああああ
 あああああああああああああああああああ
@@ -41,7 +41,7 @@
 当該環境内のみではありますが，\cmd{fboxsep}の値が変更されています。
 
 \begin{showEx}(.9,1){\texttt{fboxsep}オプションの副作用}
-\begin{rectbox}[fboxsep=1zw]
+\begin{rectbox}[fboxsep=1\zw]
 あああああああああああああああああああ
 
 \fbox{いいい}
@@ -54,7 +54,7 @@
 上下の空きを指定するオプション\verb+vsep=..+を新設しました。
 
 \begin{showEx}(.9,1){\texttt{hsep, vsep}オプション}
-\begin{rectbox}[hsep=3zw,vsep=1zw]
+\begin{rectbox}[hsep=3\zw,vsep=1\zw]
 あああああああああああああああああああ
 あああああああああああああああああああ
 
@@ -71,7 +71,7 @@
 
 \begin{showEx}(.9,1){\texttt{rectboxwidth}オプション}
 あああ
-\begin{rectbox}[rectboxwidth=8zw]
+\begin{rectbox}[rectboxwidth=8\zw]
 いいいいいいいいいいいいいいいい
 いいいいいいいいいいいいいいいい
 \end{rectbox}
@@ -79,7 +79,7 @@
 ううう
 \end{showEx}
 
-横幅を8zwと指定していますが，実際のボックス幅は，
+横幅を8\zwと指定していますが，実際のボックス幅は，
 これに，左右の空きが加わります。
 
 \paragraph{\cmd{Rectbox}}
@@ -396,10 +396,10 @@
 あああああああああああああ
 \end{rectbox}
 
-\verb+\HVsep{1zw}{.5zh}+
+\verb+\HVsep{1\zw}{.5\zh}+
 を発行します。
 
-\HVsep{1zw}{.5zh}
+\HVsep{1\zw}{.5\zh}
 \begin{rectbox}
 あああああああああああああ
 あああああああああああああ
@@ -415,7 +415,7 @@
 
 \begin{showEx}{\textsf{enumrectbox}環境の場合}
 \resetcounter{rectboxenum}
-\HVsep{2zw}{.5\baselineskip}
+\HVsep{2\zw}{.5\baselineskip}
 \begin{enumrectbox}
 ああああああああああ
 ああああああああああ
@@ -593,7 +593,7 @@
 \textsf{emathPh}をロードしておく必要があります。
 ということで，○印の線の太さを変更するには，\cmd{thicklines}等が有効です。
 \begin{showEx}{\cmd{emPmaru}の線の太さ}
-\emPmaru{ア}\hspace{1zw}%
+\emPmaru{ア}\hspace{1\zw}%
 \thicklines\emPmaru{ア}
 \end{showEx}
 
@@ -719,7 +719,7 @@ hukidasitakasa=20pt]{%
 
 \begin{showEx}{\texttt{width}オプション}
 ああああああああああ%
-\hukidasi[width=4zw]{%
+\hukidasi[width=4\zw]{%
   この間に\\
   いいいいいいい\\
   を補う
@@ -899,8 +899,8 @@ hukidasitakasa=20pt]{%
 あああああああああああああああああああああ
 
 \begin{mawarikomi}[4]{}{%
-\begin{zahyou*}[ul=1zw](0,4.5)(0,1)
-\put(0,-2.5){\hukidasi[hukidasiiti=L,width=4zw]{アアアアアアアア}}
+\begin{zahyou*}[ul=1\zw](0,4.5)(0,1)
+\put(0,-2.5){\hukidasi[hukidasiiti=L,width=4\zw]{アアアアアアアア}}
 \end{zahyou*}
 }
 おおおおおおおおおおおおおおおおおおおおおおおおおおおおおおおおおおおおおお
@@ -980,7 +980,7 @@ $d$ずつ増えていくことを示すことがあります。
     {a_1,a_2,a_3, \cdots}{+d}$
 \end{showEx}
 
-円弧の端点（縦位置）は，デフォルトではベースラインの上方\verb+1zh+
+円弧の端点（縦位置）は，デフォルトではベースラインの上方\verb+1\zh+
 としてあります。
 これを変更するオプションが\verb+[takasa=..]+です。
 少し下げてみましょう。
@@ -1080,9 +1080,9 @@ $
 \begin{showEx}(.95,.9){\cmd{DrawHatS*}}
   \sityuu[25pt]{36pt}%
 $
-  \DrawHatS*[takasa=1.5zh]<yazirusi=r,putoption={(0,2pt)[b]}>
+  \DrawHatS*[takasa=1.5\zh]<yazirusi=r,putoption={(0,2pt)[b]}>
     {\bunsuu12,\bunsuu34,\bunsuu58,\bunsuu7{16},\cdots}{+2}
-  \DrawHatS[takasa=-1zh]<yazirusi=a,putoption={(0,-2pt)[t]}>
+  \DrawHatS[takasa=-1\zh]<yazirusi=a,putoption={(0,-2pt)[t]}>
     {\bunsuu12,\bunsuu34,\bunsuu58,\bunsuu7{16},\cdots}{\times2}
 $
 \end{showEx}
@@ -1090,7 +1090,7 @@ $
 \begin{showEx}(.95,.9){\texttt{<offset=..>}と併用}
   \sityuu[20pt]{28pt}%
 $
-  \DrawHatS*[offset=-5pt,takasa=1zh,kugirisi=+]%
+  \DrawHatS*[offset=-5pt,takasa=1\zh,kugirisi=+]%
     <yazirusi=r,putoption={(0,2pt)[b]}>
     {1\,x\,,3x^2,5x^3,7x^5,\cdots}{+2}
   \DrawHatS[offset=1pt,takasa=-2pt,kugirisi=+]%
@@ -1109,7 +1109,7 @@ $
   #1 : key=val の形式
           kugirisi=.. 数列の項間を制御
           　　　　　　　デフォルトは `,\kern1em'
-          takasa=..   円弧の端末とベースラインとの距離　デフォルトは 1zh
+          takasa=..   円弧の端末とベースラインとの距離　デフォルトは 1\zh
                       （この値を0以下に指定すると，円弧は数列の下方につく）
           offset=..   円弧の端末横位置の微調整　デフォルトは0pt
   #2 : \HenKo の <...> オプションに引き渡される
@@ -1177,7 +1177,7 @@ $
 最後に少し複雑な例をご覧ください。
 
 \begin{showEx}(1,.9){雑例}
-  \sityuu[36pt]{1zh}%
+  \sityuu[36pt]{1\zh}%
 \begin{manDrawHatS}{a_1,a_2,a_3,a_4,\cdots,a_{n-1},a_n}
   \HenKo<henkotype=2,putoption={(2pt,-2pt)[t]}>\DHSBi\DHSBii{$b_1$,}
     \edef\P{\HenKoTyuuten}%
@@ -1196,7 +1196,7 @@ $
 \cmd{Kaisasuuretu}を作っておきます。
 
 \begin{showEx}(1,.9){\cmd{Kaisasuuretu}}
-  \sityuu[2.2zh]{1zh}%
+  \sityuu[2.2\zh]{1\zh}%
 $
   \Kaisasuuretu[kugirisi=\kern1em]<putoption={(0,-2pt)[t]}>%
     {1,2,4,7,11,\cdots}%
@@ -1208,7 +1208,7 @@ $
 第2階差数列まで必要な場合は，
 
 \begin{showEx}(1,.9){\cmd{iiKaisasuuretu}}
-  \sityuu[4.4zh]{1zh}%
+  \sityuu[4.4\zh]{1\zh}%
 $
   \iiKaisasuuretu[kugirisi=\kern1em]<putoption={(0,-2pt)[t]}>%
     {6,8,18,42,86,156,258,\cdots}%
@@ -1220,7 +1220,7 @@ $
 連結も可能です。
 
 \begin{showEx}(1,.9){\cmd{iiKaisasuuretu}の連結}
-  \sityuu[4.4zh]{1zh}%
+  \sityuu[4.4\zh]{1\zh}%
 $
   \iiKaisasuuretu[kugirisi=\kern1em]<putoption={(0,-2pt)[t]}>%
     {a_1,a_2,a_3,a_4,\cdots}%

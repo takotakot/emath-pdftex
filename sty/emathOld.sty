@@ -131,9 +131,9 @@
   \edef\ND@gyousuu{\ND@@gyousuu}\xIncr\ND@gyousuu
   \fi
   \unitlength1pt%
-  \@tempdimb\ht0\advance\@tempdimb\dp0\advance\@tempdimb-1zh\relax
+  \@tempdimb\ht0\advance\@tempdimb\dp0\advance\@tempdimb-1\zh\relax
 \vrule height \z@ depth \@tempdimb width\z@
-{\advance\@tempdimb 1.4zh\relax
+{\advance\@tempdimb 1.4\zh\relax
 \vspace{-\@tempdimb}\ND@par}%
 \if r\@lr
   \begin{picture}(0,0)%
@@ -318,7 +318,7 @@
 %
 %
 %%% 乙部 pLaTeX2e for Windows Another Manual Vol.1   p.226
-\newcommand{\tabtopsp}[1]{\vbox{\vbox to #1{}\vbox to1zw{}}}
+\newcommand{\tabtopsp}[1]{\vbox{\vbox to #1{}\vbox to1\zw{}}}
 %
 \AtBeginDocument{%
   \let\kousinuricmd\Nuritubusi

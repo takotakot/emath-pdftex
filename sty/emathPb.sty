@@ -611,19 +611,19 @@
     \else\if B\HDS@pos
       \@tempdima\dp\rectb@x
       \advance\@tempdima\HDS@h\relax
-      \advance\@tempdima1zh\relax
+      \advance\@tempdima1\zh\relax
       \@tempdima-\@tempdima
       \edef\HDS@lcr{c}%
     \else\if L\HDS@pos
       \@tempdima\ht\rectb@x
       \advance\@tempdima-\dp\rectb@x
-      \advance\@tempdima-.8zh\relax
+      \advance\@tempdima-.8\zh\relax
       \divide\@tempdima\tw@
       \edef\HDS@lcr{l}%
     \else\if R\HDS@pos
       \@tempdima\ht\rectb@x
       \advance\@tempdima-\dp\rectb@x
-      \advance\@tempdima-.8zh\relax
+      \advance\@tempdima-.8\zh\relax
       \divide\@tempdima\tw@
       \edef\HDS@lcr{r}%
     \fi\fi\fi\fi

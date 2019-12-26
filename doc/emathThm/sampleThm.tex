@@ -10,8 +10,8 @@
 \theorembodyfont{\normalfont\upshape}
 \newtheorem<leftmargin=0pt>{reidai}{例題}
 \newtheorem{rei}{例題}
-\newtheorem<leftmargin=2zw>{mondai}{練習問題}
-\newtheorem<leftmargin=3zw,Leftmargin=2zw>{tyuu}{注}
+\newtheorem<leftmargin=2\zw>{mondai}{練習問題}
+\newtheorem<leftmargin=3\zw,Leftmargin=2\zw>{tyuu}{注}
 
 \begin{document}
 \section{\textsf{theorem}では}
@@ -26,9 +26,9 @@
 \end{showEx}
 
 \section{\textsf{emathThm}では}
-\subsection{左インデントのデフォルトは\texttt{1zw}}
+\subsection{左インデントのデフォルトは\texttt{1\zw}}
 \textsf{emathThm}は，左インデントを附加しようという目的で開発されました。
-デフォルト値は\verb+1zw+です。
+デフォルト値は\verb+1\zw+です。
 
 \begin{showEx}(.9,.9){\textsf{emathThm}で修正された\textsf{newtheorem}}
 \begin{rei}
@@ -41,7 +41,7 @@
 \clearpage
 
 \subsection{左インデント量の調整}
-左インデントを調整するには\verb+<leftmargin=2zw>+などとオプションを与えます。
+左インデントを調整するには\verb+<leftmargin=2\zw>+などとオプションを与えます。
 
 \begin{showEx}(.9,.9){\texttt{leftmargin=..}オプション}
 \begin{mondai}
@@ -60,8 +60,8 @@
 \begin{jquote}
 \begin{verbatim}
 \newtheorem<leftmargin=0pt>{reidai}{例題}% 旧形式互換
-\newtheorem{rei}{例題}                   % 新形式（左インデント=1zw）
-\newtheorem<leftmargin=2zw>{mondai}{練習問題}
+\newtheorem{rei}{例題}                   % 新形式（左インデント=1\zw）
+\newtheorem<leftmargin=2\zw>{mondai}{練習問題}
 \end{verbatim}
 \end{jquote}
 \clearpage
@@ -88,13 +88,13 @@
 ここで用いた\textsf{tyuu}環境は
 \begin{jquote}
 \begin{verbatim}
-\newtheorem<leftmargin=3zw,Leftmargin=2zw>{tyuu}{注}
+\newtheorem<leftmargin=3\zw,Leftmargin=2\zw>{tyuu}{注}
 \end{verbatim}
 \end{jquote}
 として定義されており，
 \begin{jquote}
-  1行目は\verb+2zw+,\\
-  2行目以降は\verb+3zw+
+  1行目は\verb+2\zw+,\\
+  2行目以降は\verb+3\zw+
 \end{jquote}
 版面左からインデントされています。
 \clearpage

@@ -21,7 +21,7 @@ emathBk.sty {\normalsize ver.0.23α}}
 \begin{document}
 \maketitle\thispagestyle{empty}
 \begin{abstract}%
-\parindent1zw%
+\parindent1\zw%
 \textbf{eclbkbox.sty} で定義されている，
 複数ページにわたる囲み枠を作る \texttt{breakbox}環境の
 バリエーションを作ってみました。
@@ -53,7 +53,7 @@ http://emath.s40.xrea.com/
 \subsection{\textsf{EMbreakbox}環境}
 もともとの\textsf{breakbox}環境に修正を加えるため，\textsf{EMbreakbox}
 環境を新設しました。基本的には，ほとんど\textsf{breakbox}環境そのものですが，
-\cmd{parindent}は\verb+1zw+としてあります。
+\cmd{parindent}は\verb+1\zw+としてあります。
 
 \input{example/ex25}
 
@@ -66,7 +66,7 @@ http://emath.s40.xrea.com/
 下のリストは
 \begin{jquote}
 \begin{verbatim}
-\begin{EMbreakbox}<hsep=2zw,vsep=1zh>
+\begin{EMbreakbox}<hsep=2\zw,vsep=1\zh>
 \end{verbatim}
 \end{jquote}
 としてあります。
@@ -178,8 +178,8 @@ http://emath.s40.xrea.com/
 
 この環境では，内側罫線と文字ブロックとの間隔のデフォルト値は
 \begin{jquote}
-上下が\texttt{1zh}\\
-左右が\texttt{1zw}
+上下が\texttt{1\zh}\\
+左右が\texttt{1\zw}
 \end{jquote}
 となっています。
 
@@ -302,12 +302,12 @@ http://emath.s40.xrea.com/
 （左のリストの先頭2行を
 ご覧ください。)
 
-\parindent=1zw\relax
+\parindent=1\zw\relax
 第2段落以降は左インデントをつける
 とすれば，第2段落先頭に
 \begin{jquote}
 \begin{verbatim}
-\parindent=1zw
+\parindent=1\zw
 \end{verbatim}
 \end{jquote}
 などとする必要があります。
@@ -325,14 +325,14 @@ http://emath.s40.xrea.com/
 \begin{breakLline}%
     [parindent=0pt,headline=2]
 \begin{mawarikomi}[l]%
-    {2.5zw}{\Huge 注}
+    {2.5\zw}{\Huge 注}
 段落先頭の文字（列）を大きくして
 強調するスタイルを日本語化したものに
 \textsf{egdrop.sty}がありますが，
 \textsf{breakLline}環境とは相性が悪いようです。
 \end{mawarikomi}
 
-\parindent=1zw\relax
+\parindent=1\zw\relax
 ここでは，\textsf{mawarikomi}環境の左配置を用いて，
 擬似的に実現しています。
 \end{breakLline}
@@ -407,7 +407,7 @@ http://emath.s40.xrea.com/
 これを変更するには，\verb+emathAt.sty+の内部変数\cmd{tyuuhaba}に
 単位付きの長さを指定します。
 \begin{jquote}
- 例：\verb+\tyuuhaba=8zw+
+ 例：\verb+\tyuuhaba=8\zw+
 \end{jquote}
 
 {\input{example/ex13}}

@@ -3476,13 +3476,13 @@
 %\typeout{@@kokuban}%
 \let\endkokuban\end@@kokuban
 \setbox\tempboxa=\hbox{%
-  \begin{pszahyou*}[ul=1.2zw](-1,1)(-.5,.5)%
+  \begin{pszahyou*}[ul=1.2\zw](-1,1)(-.5,.5)%
     \emPaint<nuriiro=\KB@dustcolor>{\LT\LB\RB\RT}%
     \Kuromaru[3pt]\O
   \end{pszahyou*}%
 }%
 \setbox\tempboxb=\hbox{%
-  \begin{pszahyou*}[ul=2.4zw](-.8,.8)(-.2,.2)%
+  \begin{pszahyou*}[ul=2.4\zw](-.8,.8)(-.2,.2)%
     \begin{clipTakakkei}{\LT\LB\RB\RT}%
     \emPaint<nuriiro=\KB@dustcolor>\zenheimen
     \ParamLC<mint=-$pi/2,maxt=$pi/2>{.01+.4*cos(T)}{.3*sin(T)}\oresen@i
@@ -3514,7 +3514,7 @@
 %\typeout{end@@kokuban}%
   \end{psrectbox}%
 \ifnum\show@dustbox>\z@
-  \vspace{1.2zw}%
+  \vspace{1.2\zw}%
 \fi
   \endminipage
 }%
@@ -3586,13 +3586,13 @@
 \def\KB@bgcolor{hukamidori}%
 \def\KB@framethickness{5pt}%
 \setbox\tempboxa=\hbox{%
-  \begin{pszahyou*}[ul=1.2zw](-1,1)(-.5,.5)%
+  \begin{pszahyou*}[ul=1.2\zw](-1,1)(-.5,.5)%
     \emPaint<nuriiro=\KB@dustcolor>{\LT\LB\RB\RT}%
     \Kuromaru[3pt]\O
   \end{pszahyou*}%
 }%
 \setbox\tempboxb=\hbox{%
-  \begin{pszahyou*}[ul=1.2zw](-.8,.8)(-.2,.2)%
+  \begin{pszahyou*}[ul=1.2\zw](-.8,.8)(-.2,.2)%
     \begin{clipTakakkei}{\LT\LB\RB\RT}%
     \emPaint<nuriiro=\KB@dustcolor>\zenheimen
     \ParamLC<mint=-$pi/2,maxt=$pi/2>{.01+.4*cos(T)}{.3*sin(T)}\oresen@i

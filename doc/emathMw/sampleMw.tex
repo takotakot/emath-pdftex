@@ -9,7 +9,7 @@
 \begin{document}
 \maketitle\thispagestyle{empty}
 \begin{abstract}%
-\parindent1zw%
+\parindent1\zw%
 テキストを図の周りに回りこませるには, \verb/wrapfigure/ 環境があります。
 しかし，これは \verb/list/ 環境と相性が悪いのが難点です。
 
@@ -299,13 +299,13 @@ http://emath.s40.xrea.com/
 
 次の例では，
 \begin{verbatim}
-  \setlength{\mawarikomisep}{1zw}%
+  \setlength{\mawarikomisep}{1\zw}%
 \end{verbatim}
-として，その2倍\verb/2zw/の空きを作ってみました。
+として，その2倍\verb/2\zw/の空きを作ってみました。
 
 \begin{enumerate}
 \item
-  \setlength{\mawarikomisep}{1zw}%
+  \setlength{\mawarikomisep}{1\zw}%
   \begin{mawarikomi}{50pt}{
     \begin{picture}(50,100)
       \put(0,0){\framebox(50,100){図}}
@@ -458,7 +458,7 @@ http://emath.s40.xrea.com/
 
 \begin{enumerate}
 \item
-  \begin{Tmawarikomi}(0,5pt){9zw}{%
+  \begin{Tmawarikomi}(0,5pt){9\zw}{%
     \caption{表の例}\label{T1}
     \hfil
     \begin{tabular}{|c|c|c|}\hline

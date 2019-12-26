@@ -17,7 +17,7 @@ emathN.sty {\normalsize ver.0.15}\\使用例}
 
 \maketitle\thispagestyle{empty}
 \begin{abstract}%
-\parindent1zw%
+\parindent1\zw%
 中学・高校で数学のプリントにつける流れ図の作成に必要な記号，コマンド，
 環境を集めたマクロ集です．
 \LaTeX2e が前提です．
@@ -42,20 +42,20 @@ http://emath.s40.xrea.com/
 このパッケージで取り扱う図形は左下の通りです．\bigskip
 
 \begin{nidan}{12em}{\vspace{-.75\baselineskip}\par\input{example/ex00}}%
-\begin{tabular}[t]{|p{4zw}|p{3zw}|p{8zw}|}\hline
-\begin{nagarezu}(4zw,2\baselineskip)\tansi{　　}\end{nagarezu} 
+\begin{tabular}[t]{|p{4\zw}|p{3\zw}|p{8\zw}|}\hline
+\begin{nagarezu}(4\zw,2\baselineskip)\tansi{　　}\end{nagarezu} 
 & 端子 & 手順の開始・終了を表す．\\\hline
-\begin{nagarezu}(4zw,2\baselineskip)\nyuusyuturyoku{　 }\end{nagarezu} 
+\begin{nagarezu}(4\zw,2\baselineskip)\nyuusyuturyoku{　 }\end{nagarezu} 
 & 入出力 & 数値などのデータの入力，計算結果の出力を表す．\\\hline
-\begin{nagarezu}(4zw,2\baselineskip)\syori{　 }\end{nagarezu} 
+\begin{nagarezu}(4\zw,2\baselineskip)\syori{　 }\end{nagarezu} 
 & 処理 & 計算・代入などの処理を表す．\\\hline
-\begin{nagarezu}(4zw,2\baselineskip)\handan{　　}\end{nagarezu} 
+\begin{nagarezu}(4\zw,2\baselineskip)\handan{　　}\end{nagarezu} 
 & 判断 & 条件の判断を表す．記号の中には比較条件を書き，
 記号から出る流れ線に，その流れ線の順序に従う条件を付記する．\\\hline
-\begin{nagarezu}(4zw,4.5\baselineskip)\begin{kurikaesi}{　　}{}\end{kurikaesi}
+\begin{nagarezu}(4\zw,4.5\baselineskip)\begin{kurikaesi}{　　}{}\end{kurikaesi}
 \end{nagarezu} 
 & 繰返し & 繰り返し処理を表す。\\\hline
-\begin{nagarezu}(4zw,2\baselineskip)\sitahe\end{nagarezu} 
+\begin{nagarezu}(4\zw,2\baselineskip)\sitahe\end{nagarezu} 
 & 流れ線 & 上記の記号を結び，処理の流れを表す．\\\hline
 \end{tabular}
 \end{nidan}
@@ -199,16 +199,16 @@ http://emath.s40.xrea.com/
 処理の流れを示すのに「流れ線」を用います．流れ線の方向は4種類あります．
 オプションによって，矢印をつけないもの，二重線を引くことも可能です．
 \begin{center}
-\begin{tabular}[t]{|p{5zw}|p{8zw}|}\hline
+\begin{tabular}[t]{|p{5\zw}|p{8\zw}|}\hline
 コマンド & 流れ線 \\\hline
 \verb/\sitahe/\par\verb/\downto/
-&\vspace{1zh}\par\begin{nagarezu}(8zw,4zh)\sitahe\end{nagarezu}\\\hline
+&\vspace{1\zh}\par\begin{nagarezu}(8\zw,4\zh)\sitahe\end{nagarezu}\\\hline
 \verb/\migihe/\par\verb/\rightto/
-&\vspace{1zh}\par\begin{nagarezu}(8zw,4zh)\migihe\end{nagarezu}\\\hline
+&\vspace{1\zh}\par\begin{nagarezu}(8\zw,4\zh)\migihe\end{nagarezu}\\\hline
 \verb/\hidarihe/\par\verb/\leftto/
-&\vspace{1zh}\par\begin{nagarezu}(8zw,4zh)\hidarihe\end{nagarezu}\\\hline
+&\vspace{1\zh}\par\begin{nagarezu}(8\zw,4\zh)\hidarihe\end{nagarezu}\\\hline
 \verb/\uehe/\par\verb/\upto/
-&\vspace{1zh}\par\begin{nagarezu}(8zw,4zh)\uehe\end{nagarezu}\\\hline
+&\vspace{1\zh}\par\begin{nagarezu}(8\zw,4\zh)\uehe\end{nagarezu}\\\hline
 \end{tabular}
 \end{center}
 書式は4つのコマンドすべて共通ですから，\cmd{sitahe} について解説します．
@@ -247,7 +247,7 @@ http://emath.s40.xrea.com/
 これを変更するには \texttt{(...)} オプションを用います．
 長さは単位を伴った数値で指定します．
 
-\showexample[\cmd{sitahe(4zh)}](0.55)(0.4){example/sen03}
+\showexample[\cmd{sitahe(4\zh)}](0.55)(0.4){example/sen03}
 
 \subsection{流れ線に文字列の添付}
 流れ線の傍に文字列を添付するオプションが \texttt{"..."} です．
@@ -409,13 +409,13 @@ A(1), A(2), ..... , A(6)のうち，最大値 MAX を出力する例です。
 
 \begin{showEx}(.54,.4){\cmd{pushcurrentP}}
 \begin{caprm}
-\begin{nagarezu}(15zw,22.5\baselineskip)
+\begin{nagarezu}(15\zw,22.5\baselineskip)
   \termbox{始め}
   \downto
   \opbox{$MAX=A(1)$}
   \downto
   \begin{repbox*}%
-      [.5](12zw){I=2,3,4,5,6}{I}%
+      [.5](12\zw){I=2,3,4,5,6}{I}%
     \downto
     \begin{ifbox}<.7><1.4>%
           {\strut$A(I)>MAX$}%

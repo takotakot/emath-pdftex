@@ -23,9 +23,9 @@
   \def\AMSversion{\@ifundefined{inf@bad}{1}{2}}
   \@ifundefined{texorpdfstring}{\def\texorpdfstring#1#2{#1}}{}%
   \newcommand{\subsec}[2]{\subsection{%
-      \texorpdfstring{\protect\makebox[11zw][l]{#1}#2}{#1}}}%
+      \texorpdfstring{\protect\makebox[11\zw][l]{#1}#2}{#1}}}%
   \newcommand{\subsubsec}[2]{\subsubsection{%
-      \texorpdfstring{\protect\makebox[11zw][l]{#1}#2}{#1}}}%
+      \texorpdfstring{\protect\makebox[11\zw][l]{#1}#2}{#1}}}%
   \makeatother
 
    \makeindex%
@@ -45,7 +45,7 @@ emath.sty {\normalsize ver. 1.54}\\
 \begin{document}
 \maketitle\thispagestyle{empty}
 \begin{abstract}%
-\parindent1zw%
+\parindent1\zw%
 中学・高校で数学のプリントを作る際に必要な記号，
 環境などを集めたマクロ集です。
 \LaTeXe を前提とします。
@@ -245,7 +245,7 @@ $ = 1-\bunsuu1{n+1}$
 
 \begin{itemshadebox}{\cmd{teisei[h]}}
 \begin{tabular}{l@{\ $\longrightarrow$\ }l}
-\begin{minipage}{18zw}
+\begin{minipage}{18\zw}
 \begin{verbatim}
 $a_n=a_1+\retuwa{k=1}
 {\teisei[h](red){n}[%
@@ -437,7 +437,7 @@ L : left, R : right, T : top, B : bottom
 とすることで，$f(x)=3x^3-x^2+4$に対して$f\left(-\bunsuu23\right)$を
 求めることができます。
 
-\subsec{タスキガケ}{\protect\parbox{14zw}{%
+\subsec{タスキガケ}{\protect\parbox{14\zw}{%
     $\protect\tasuki{1}{2}{3}{5}$}}
 二次三項式を因数分解するとき，タスキガケの図を用いることがあります。
 \cindex{tasuki}
@@ -630,10 +630,10 @@ ${2\mathstrut}^x$
 矢線の高さを調整するコマンドが \cmd{bekutorusityuu}です。デフォルトは
 \begin{jquote}
 \begin{verbatim}
-\vrule height .9zh width \z@
+\vrule height .9\zh width \z@
 \end{verbatim}
 \end{jquote}
-すなわち\verb+.9zh+となっています。\cindex{bekutorusityuu}
+すなわち\verb+.9\zh+となっています。\cindex{bekutorusityuu}
 
 \begin{showEx}(.6,.34){\cmd{bekutorusityuu}}
 \bekutoru{OP}\\
@@ -1089,7 +1089,7 @@ ABC が斜体になってしまいます。教科書などでは，点を表す�
 
 \begin{itemshadebox}{\cmd{heikou}と\cmd{nheikou}}
 \begin{tabular}%
-{l@{\ $\longrightarrow$\ }l@{\hspace{2zw}}l@{\ $\longrightarrow$\ }l}
+{l@{\ $\longrightarrow$\ }l@{\hspace{2\zw}}l@{\ $\longrightarrow$\ }l}
 \verb/$l \parallel m$/ & $l \parallel m$
 & \verb/$l \nparallel m$/ & $l \nparallel m$\\
 \verb/$l \heikou m$/ & $l \heikou m$
@@ -1257,7 +1257,7 @@ ABC が斜体になってしまいます。教科書などでは，点を表す�
 \end{tabular}
 \end{itemshadebox}
 
-\subsec{階差数列}{\protect\sityuu[2.2zh]{1zh}%
+\subsec{階差数列}{\protect\sityuu[2.2\zh]{1\zh}%
   $\protect\Kaisasuuretu[kugirisi=\kern1em]<putoption={(0,-2pt)[t]}>%
     {1,2,4,7,11,\cdots}%
     {1,2,3,4,\cdots}$}
@@ -1484,7 +1484,7 @@ $5\kaizyou=120$
 
 中の数字が外枠にかかってしまいます。さて，どうしましょうか。
 
-対策その1は，中の数字を\cmd{resizebox}で横幅を\verb+1zw+に
+対策その1は，中の数字を\cmd{resizebox}で横幅を\verb+1\zw+に
 圧縮しよう，というのが \cmd{zwmaru}です。
 
 \begin{showEx}(.64,.3){\cmd{zwmaru}}
@@ -1656,7 +1656,7 @@ amsmath を読み込んだ後に emath を読み込んでください。
 \cindex{preEqlabel}
 
 \begin{itemshadebox}{数式番号に丸囲い数字}
-\begin{minipage}{12zw}
+\begin{minipage}{12\zw}
 \begin{verbatim}
 \begin{align}
   y&=x \label{eq:1}\\
@@ -1667,7 +1667,7 @@ amsmath を読み込んだ後に emath を読み込んでください。
 代入して
 \end{verbatim}
 \end{minipage}\hfill$\longrightarrow$\hfill
-\begin{minipage}{16zw}
+\begin{minipage}{16\zw}
 \begin{align}
     y&=x \label{eq:1}\\
     y&=x^2 \label{eq:2}
@@ -1684,7 +1684,7 @@ amsmath を読み込んだ後に emath を読み込んでください。
 \begin{verbatim}
     \preEqlabel{$\cdots\cdots$}%
 \end{verbatim}
-\begin{minipage}{12zw}
+\begin{minipage}{12\zw}
 \begin{verbatim}
     \begin{align}
         y&=x \\
@@ -1692,7 +1692,7 @@ amsmath を読み込んだ後に emath を読み込んでください。
     \end{align}
 \end{verbatim}
 \end{minipage}\hfill$\longrightarrow$\hfill
-\begin{minipage}{16zw}
+\begin{minipage}{16\zw}
 \preEqlabel{$\cdots\cdots$}%
 \begin{align}
     y&=x \\
@@ -1706,9 +1706,9 @@ amsmath を読み込んだ後に emath を読み込んでください。
 \textsf{jquote}環境で右マージンを設定するのも一法です。
 
 \begin{itemshadebox}{右マージン}
-\begin{minipage}{14.5zw}
+\begin{minipage}{14.5\zw}
 \begin{verbatim}
-  \begin{jquote}(0zw)(4zw)
+  \begin{jquote}(0\zw)(4\zw)
     \begin{align}
         y&=x \\
         y&=x^2
@@ -1716,9 +1716,9 @@ amsmath を読み込んだ後に emath を読み込んでください。
   \end{jquote}
 \end{verbatim}
 \end{minipage}\hfill$\longrightarrow$\hfill
-\begin{minipage}{16zw}
+\begin{minipage}{16\zw}
 \preEqlabel{$\cdots\cdots$}%
-  \begin{jquote}(0zw)(4zw)
+  \begin{jquote}(0\zw)(4\zw)
     \begin{align}
         y&=x \\
         y&=x^2
@@ -1735,9 +1735,9 @@ amsmath を読み込んだ後に emath を読み込んでください。
 \cindex{mathindent}
 
 \begin{itemshadebox}{\cmd{mathindent}}
-\verb/    \mathindent=6zw/
+\verb/    \mathindent=6\zw/
 
-\begin{minipage}{12zw}
+\begin{minipage}{12\zw}
 \begin{verbatim}
 
     \begin{align}
@@ -1746,8 +1746,8 @@ amsmath を読み込んだ後に emath を読み込んでください。
     \end{align}
 \end{verbatim}
 \end{minipage}\hfill$\longrightarrow$\hfill
-\begin{minipage}{16zw}
-\mathindent=6zw%
+\begin{minipage}{16\zw}
+\mathindent=6\zw%
 \preEqlabel{$\cdots\cdots$}%
 \begin{align}
     y&=x \\
@@ -1762,7 +1762,7 @@ amsmath を読み込んだ後に emath を読み込んでください。
 リーダー罫をつけないこともできます。
 
 \begin{itemshadebox}{リーダー罫なし}
-\begin{minipage}{12zw}
+\begin{minipage}{12\zw}
 \begin{verbatim}
     \preEqlabel{}%
     \begin{align}
@@ -1771,7 +1771,7 @@ amsmath を読み込んだ後に emath を読み込んでください。
     \end{align}
 \end{verbatim}
 \end{minipage}\hfill$\longrightarrow$\hfill
-\begin{minipage}{16zw}
+\begin{minipage}{16\zw}
 \preEqlabel{}%
 \begin{align}
     y&=x \\
@@ -2374,9 +2374,9 @@ emathMw.sty に含まれています。
 
 次の例では，
 \begin{verbatim}
-  \setlength{\mawarikomisep}{1zw}%
+  \setlength{\mawarikomisep}{1\zw}%
 \end{verbatim}
-として，その2倍\verb/2zw/の空きを作ってみました。
+として，その2倍\verb/2\zw/の空きを作ってみました。
 \cindex{mawarikomisep}
 
 \showexample[テキストと図の横間隔](.5)(0.45){example/ExFig05}
@@ -3153,7 +3153,7 @@ dy は上下の動きで
 
 \subsection{図番号の書式修正}
 \cmd{caption}コマンドによる図番号は
-\begin{jquote}(8zw)
+\begin{jquote}(8\zw)
 \begin{verbatim}
 図1: なんとかの図
 \end{verbatim}
@@ -3601,7 +3601,7 @@ enumerate 環境での番号付けは通常，
 
 \begin{shadebox}
 \begin{tabular}{l@{\ $\longrightarrow$\ }l}
-\begin{minipage}{16zw}
+\begin{minipage}{16\zw}
 \begin{verbatim}
 {%
 \renewcommand{\labelenumi}{%
@@ -3615,7 +3615,7 @@ enumerate 環境での番号付けは通常，
 \end{verbatim}
 \end{minipage}
 &
-\begin{minipage}{6zw}
+\begin{minipage}{6\zw}
 \renewcommand{\labelenumi}{(\カタカナ{enumi})}
 \begin{enumerate}
 \item $y=x$
@@ -3816,7 +3816,7 @@ apnenum=....
 \begin{enumerate}[1.~]
   \item 次の問いに答えよ。
     \begin{enumerate}%
-    <apnenum={\leftmargin=0zw}>[(1)]
+    <apnenum={\leftmargin=0\zw}>[(1)]
       \item あああああああああああああ
         あああああああああああああああ
       \item いいいいいいいいいいいいい
@@ -3832,8 +3832,8 @@ apnenum=....
 \begin{enumerate}[1.~]
   \item 次の問いに答えよ。
     \begin{enumerate}%
-    <apnenum={\leftmargin=0zw%
-              \itemindent=1zw%
+    <apnenum={\leftmargin=0\zw%
+              \itemindent=1\zw%
              }>[(1)]
       \item あああああああああああああ
         あああああああああああああああ
@@ -3855,8 +3855,8 @@ apnenum=....
 \begin{enumerate}[1.~]
   \item 次の問いに答えよ。
     \begin{enumerate}%
-    <apnenum={\leftmargin=0zw%
-              \itemindent=1zw%
+    <apnenum={\leftmargin=0\zw%
+              \itemindent=1\zw%
               \topsep=0pt%
               \parskip=0pt%
              }>[(1)]
@@ -3875,8 +3875,8 @@ apnenum=....
 \begin{enumerate}[1.~]
   \item 次の問いに答えよ。
     \begin{enumerate}%
-    <apnenum={\leftmargin=0zw%
-              \itemindent=1zw%
+    <apnenum={\leftmargin=0\zw%
+              \itemindent=1\zw%
               \topsep=0pt%
               \parskip=0pt%
               \itemsep=0pt%
@@ -3911,8 +3911,8 @@ itemsep = 4.0pt plus 2.0pt minus 1.0pt
 \begin{enumerate}[1.~]
   \item 次の問いに答えよ。
     \begin{enumerate}%
-    <apnenum={\leftmargin=0zw%
-              \itemindent=1zw%
+    <apnenum={\leftmargin=0\zw%
+              \itemindent=1\zw%
               \topsep=0pt plus 6pt%
               \parskip=0pt plus 3pt%
               \itemsep=0pt plus 3pt%
@@ -4008,17 +4008,17 @@ itemsep = 4.0pt plus 2.0pt minus 1.0pt
 \begin{showpEx}{\cmd{apnlist}}
 あああああああああああああああああ
 あああああああああああああああああ
-\apnlist{\itemindent=1zw
-  \leftmargin=1zw
-  \listparindent=1zw}
+\apnlist{\itemindent=1\zw
+  \leftmargin=1\zw
+  \listparindent=1\zw}
 \begin{enumerate}[1.~]
   \item 次の問いに答えよ。
     おおおおおおおおおおおおおおお
 \apnlist{\narrowsep
-  \itemindent=1zw
-  \topsep=0zw
-  \leftmargin=1zw
-  \listparindent=1zw}
+  \itemindent=1\zw
+  \topsep=0\zw
+  \leftmargin=1\zw
+  \listparindent=1\zw}
     \begin{enumerate}[(1)]
 % 以下前の例と同じ
 !      \item あああああああああああ
@@ -4060,7 +4060,7 @@ itemsep = 4.0pt plus 2.0pt minus 1.0pt
 という要望があります。そこで，\verb+<preedasep=..>+オプションを新設しました。
 \index{preedasep=}
 
-（\texttt{preedasep}のデフォルト値は\texttt{1.75zw}です。）
+（\texttt{preedasep}のデフォルト値は\texttt{1.75\zw}です。）
 \newpage
 
 \begin{showEx}(.9,1){\texttt{preedasep=..}オプション}
@@ -4084,7 +4084,7 @@ itemsep = 4.0pt plus 2.0pt minus 1.0pt
 \begin{enumerate}[1.~]
   \item 次のおおおおおおおおおおおおおおおおおおお
     \begin{edaenumerate}
-        <preedasep=0pt,apnenum={\itemindent=1.75zw}>[(1)]
+        <preedasep=0pt,apnenum={\itemindent=1.75\zw}>[(1)]
       \item
         ああああああああああああああああ
         ああああああああああああああああ
@@ -4099,14 +4099,14 @@ itemsep = 4.0pt plus 2.0pt minus 1.0pt
 小項目間のアキは，\verb+<postedasep=..>+オプションで調整できます。
 \index{postedasep=}
 
-（\texttt{postedasep}のデフォルト値は\texttt{.75zw}です。）
+（\texttt{postedasep}のデフォルト値は\texttt{.75\zw}です。）
 
 \begin{showEx}(.9,1){\texttt{postedasep=..}オプション}
 \begin{enumerate}[1.~]
   \item 次のおおおおおおおおおおおおおおおおおおお
     \begin{edaenumerate}
-        <preedasep=0pt,postedasep=2zw,
-        apnenum={\itemindent=1.75zw}>
+        <preedasep=0pt,postedasep=2\zw,
+        apnenum={\itemindent=1.75\zw}>
         [(1)]
       \item
         ああああああああああああああああ
@@ -4129,8 +4129,8 @@ itemsep = 4.0pt plus 2.0pt minus 1.0pt
 \begin{enumerate}[1.~]
   \item 次のおおおおおおおおおおおおおおおおおおお
     \begin{edaenumerate}
-        <preedasep=0pt,postedasep=2zw,edatopsep=-.8zh,
-        apnenum={\itemindent=1.75zw}>[(1)]
+        <preedasep=0pt,postedasep=2\zw,edatopsep=-.8\zh,
+        apnenum={\itemindent=1.75\zw}>[(1)]
       \item
         ああああああああああああああああ
         ああああああああああああああああ
@@ -4217,7 +4217,7 @@ itemsep = 4.0pt plus 2.0pt minus 1.0pt
 \enumLmargini{0pt}
 \begin{enumerate}[\protect\expandafter\fbox 1]
   \item
-    \begin{edaenumerate}<edafirstindent=2zw>[(1)]
+    \begin{edaenumerate}<edafirstindent=2\zw>[(1)]
       \item 第1問
       \item 第2問
       \item 第3問
@@ -4237,7 +4237,7 @@ itemsep = 4.0pt plus 2.0pt minus 1.0pt
   \begin{enumerate}[\protect\expandafter\fbox1]
     \item 大問1
           \kaitou{\def\Kaienumerate{edaenumerate}%
-                  \def\Kaienumopt{<edafirstindent=2zw,retusuu=3>}}%
+                  \def\Kaienumopt{<edafirstindent=2\zw,retusuu=3>}}%
       \begin{enumerate}[(1)]
         \item 小問1 \kaitou{解答1}
         \item 小問2 \kaitou{解答2}
@@ -4263,7 +4263,7 @@ itemsep = 4.0pt plus 2.0pt minus 1.0pt
 \enumLmargini{0pt}
 \begin{enumerate}[\protect\expandafter\fbox 1]
   \item
-    \begin{betaenumerate}<edafirstindent=2zw>[(1)]
+    \begin{betaenumerate}<edafirstindent=2\zw>[(1)]
       \item 第1問
       \item 第2問
       \item 第3問
@@ -4287,7 +4287,7 @@ itemsep = 4.0pt plus 2.0pt minus 1.0pt
   \begin{enumerate}[\protect\expandafter\fbox1]
     \item 大問1
           \kaitou{\def\Kaienumerate{betaenumerate}%
-                  \def\Kaienumopt{<edafirstindent=2zw>}}%
+                  \def\Kaienumopt{<edafirstindent=2\zw>}}%
       \begin{enumerate}[(1)]
         \item 小問1 \kaitou{解答1}
         \item 小問2 \kaitou{かいとう2}
@@ -4850,7 +4850,7 @@ $Nd_2Fe_{14}B$
     bsep=.. : 直後の段落との間隔調整
     vsep=.. : tsep, bsep を同時指定
   デフォルト値は
-    左インデント量  2zw
+    左インデント量  2\zw
     右インデント量  0pt
     上下の行間隔    0pt
 となっています。
@@ -4886,7 +4886,7 @@ $Nd_2Fe_{14}B$
 \begin{showEx}{\cmd{parbox}}
 \bigskip
 \fbox{%
-  \parbox{8zw}{%
+  \parbox{8\zw}{%
     あいうえお\\
     かきくけこ\\
     やゆよ}%
@@ -4930,7 +4930,7 @@ $Nd_2Fe_{14}B$
 \bigskip
 さ
 \fbox{%
-  \parbox{8zw}{%
+  \parbox{8\zw}{%
     あいうえお\\
     かきくけこ\\
     やゆよ}%
@@ -4952,7 +4952,7 @@ $Nd_2Fe_{14}B$
 \bigskip
 さ
 \fbox{%
-  \parbox[b]{8zw}{%
+  \parbox[b]{8\zw}{%
     あいうえお\\
     かきくけこ\\
     やゆよ}%
@@ -5034,7 +5034,7 @@ $Nd_2Fe_{14}B$
 指定することもできます。
 
 \begin{showEx}(.8,1){左インデント量の指定}
-\begin{fleqnon}[4zw]\relax
+\begin{fleqnon}[4\zw]\relax
   あいうえお
   \begin{align*}
     y &= ax^2+bx+c\\

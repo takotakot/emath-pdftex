@@ -21,14 +21,14 @@
 %\setlength{\textheight}{24cm}
 \setlength{\textwidth}{22cm}
 \setlength{\textheight}{34cm}
-\def\enumsepi{\itemindent=.5zw}
+\def\enumsepi{\itemindent=.5\zw}
 
 %%% ヘッダ・フッタの指定です．----------------------------------------
 \def\ps@kousa{\let\@mkboth\@gobbletwo%
 \def\@oddhead{%
   {\large$\overline{\strut\underline{\textbf{\test@name}}}$}%   考査タイトル
-  \ifprpage\hspace{1zw}\page@ran\fi%                            ページ数
-  \hfill \simei@ran\kern4zw\tokuten@ran%                        氏名欄・得点欄
+  \ifprpage\hspace{1\zw}\page@ran\fi%                            ページ数
+  \hfill \simei@ran\kern4\zw\tokuten@ran%                        氏名欄・得点欄
   \ifprpage\ifnum\value{page}=1\goukei@ran\fi\fi}%              合計得点欄
 \def\@evenhead{\ifprpage\page@ran\fi\hfill\tokuten@ran}%        裏面
 \let\@oddfoot\@empty\let\@evenfoot\@empty}%                     フッタ
@@ -58,10 +58,10 @@
 %\newlength{\dan@habaiii}\setlength{\dan@habaiii}{\dan@habai}%段幅3
 
 \def\test@name{}%                                           考査のタイトル
-\def\simei@ran{$\Bigl(\kern2zw\Bigr) 組%                    氏名欄
-\Bigl(\kern3zw\Bigr)番\kern1zw氏名\Bigl(\kern14zw\Bigr)$}%  〃
-\def\tokuten@ran{得点 $\Bigl(\kern4zw\Bigr)$}%              得点欄
-\def\goukei@ran{合計 $\Bigl(\kern4zw\Bigr)$}%               合計得点欄
+\def\simei@ran{$\Bigl(\kern2\zw\Bigr) 組%                    氏名欄
+\Bigl(\kern3\zw\Bigr)番\kern1\zw氏名\Bigl(\kern14\zw\Bigr)$}%  〃
+\def\tokuten@ran{得点 $\Bigl(\kern4\zw\Bigr)$}%              得点欄
+\def\goukei@ran{合計 $\Bigl(\kern4\zw\Bigr)$}%               合計得点欄
 \def\page@ran{No.~\thepage}%                                ページ数表示形式
 
 %%% 問題番号の出力形式です．
@@ -92,7 +92,7 @@
   \begin{minipage}[t][\dan@sepheight]{\@nameuse{\dan@haba@}}%
   \ifx\empty#1\else#1\fi%     added 2000/05/24
   \begin{enumerate}\setcounter{enumi}{\value{mondai@bangou}}%
-%  \itemindent.5zw%
+%  \itemindent.5\zw%
   }%
 \def\endcolumn{\setcounter{mondai@bangou}{\value{enumi}}%
   \end{enumerate}\end{minipage}%
@@ -106,7 +106,7 @@
   \global\setbox\@nameuse{\dan@box@}=\hbox\bgroup% 
   \begin{minipage}[t]{\@nameuse{\dan@haba@}}%
   \begin{enumerate}\setcounter{enumi}{\value{mondai@bangou}}%
-  \itemindent.5zw}%
+  \itemindent.5\zw}%
 \def\endcolumn{\setcounter{mondai@bangou}{\value{enumi}}%
   \end{enumerate}\end{minipage}%
   \ifnum\value{column@number}<2\relax\hspace{\dan@sep}%

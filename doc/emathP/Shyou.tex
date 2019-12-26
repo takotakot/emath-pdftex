@@ -21,7 +21,7 @@
 \index{Hyou @ Hyou 環境}
 ただ，欄指定子として \texttt{l, c, r} に加え，\texttt{L, C, R} が
 追加され，これらは欄の横幅を引数にとります．上の例では，
-\verb/*{4}{C{4zw}|}/として，4欄すべての横幅を\texttt{4zw}の
+\verb/*{4}{C{4\zw}|}/として，4欄すべての横幅を\texttt{4\zw}の
 中央揃えと指定しています．
 
 \subsubsection{カラムに斜線}
@@ -72,7 +72,7 @@
 \cmd{sya}の横幅についてデフォルトでは，
 \textsf{Hyou}環境の引数で L, C, R でサイズ指定した最後の値に
 設定されます。
-上の例では，\texttt{3zw}です。
+上の例では，\texttt{3\zw}です。
 それ以外の横幅のところに斜線をひくにはその横幅を\verb/(#1)/オプションで
 指定する必要があります。
 
@@ -90,8 +90,8 @@
 デフォルトの確認です。
 
 \begin{showEx}(1,.9){\textsf{Hyou}環境のデフォルト}
-\begin{Hyou}{|L{8zw}|*2{C{2zw}|}} \hline
-  \sya(8zw)[r]<\Hyoumidasi{行見出し}{列見出し}> & A & B \\\hline
+\begin{Hyou}{|L{8\zw}|*2{C{2\zw}|}} \hline
+  \sya(8\zw)[r]<\Hyoumidasi{行見出し}{列見出し}> & A & B \\\hline
   あいうえお & 1 & 2 \\\hline
   かきくけこ & 3 & 4 \\\hline
 \end{Hyou}
@@ -101,8 +101,8 @@
 行見出し，列見出しとも窮屈ですから，1行目の行高を増やすことにします。
 
 \begin{showEx}(1,.9){1行目の行高を増やす}
-\begin{Hyou}{|L{8zw}|*2{C{2zw}|}} \hline
-  \sya(8zw)[r][\stackrel{　}{　}\strut]<\Hyoumidasi{行見出し}{列見出し}> &A&B
+\begin{Hyou}{|L{8\zw}|*2{C{2\zw}|}} \hline
+  \sya(8\zw)[r][\stackrel{　}{　}\strut]<\Hyoumidasi{行見出し}{列見出し}> &A&B
     \\\hline
   あいうえお & 1 & 2 \\\hline
   かきくけこ & 3 & 4 \\\hline
@@ -140,10 +140,10 @@
 と変更しています。
 
 \begin{showEx}(1,.9){\cmd{Lmidasiiti}}
-\begin{Hyou}{|L{8zw}|*2{C{2zw}|}} \hline
+\begin{Hyou}{|L{8\zw}|*2{C{2\zw}|}} \hline
   \def\Lmidasiiti{(6pt,2pt)[lb]}%
   \def\Rmidasiiti{(-6pt,-2pt)[rt]}%
-  \sya(8zw)[r][\stackrel{　}{　}\strut]<\Hyoumidasi{行見出し}{列見出し}> &A&B
+  \sya(8\zw)[r][\stackrel{　}{　}\strut]<\Hyoumidasi{行見出し}{列見出し}> &A&B
     \\\hline
   あいうえお & 1 & 2 \\\hline
   かきくけこ & 3 & 4 \\\hline
@@ -161,11 +161,11 @@
 とすることにより，ベースラインを上に\verb+2pt+持ち上げています。
 
 \begin{showEx}(1,.9){\cmd{agezoko}}
-\begin{Hyou}{|L{8zw}|*2{C{2zw}|}} \hline
+\begin{Hyou}{|L{8\zw}|*2{C{2\zw}|}} \hline
   \def\Lmidasiiti{(6pt,2pt)[lb]}%
   \def\Rmidasiiti{(-6pt,-2pt)[rt]}%
   \def\agezoko{2}%
-  \sya(8zw)[r][\stackrel{　}{　}\strut]<\Hyoumidasi{行見出し}{列見出し}> &A&B
+  \sya(8\zw)[r][\stackrel{　}{　}\strut]<\Hyoumidasi{行見出し}{列見出し}> &A&B
     \\\hline
   あいうえお & 1 & 2 \\\hline
   かきくけこ & 3 & 4 \\\hline
@@ -178,7 +178,7 @@
 
 \begin{showEx}(.5,.44){\cmd{Hyoumidasi}}
 \def\arraystretch{1.25}
-\begin{Hyou}{|*3{C{4zw}|}}\hline
+\begin{Hyou}{|*3{C{4\zw}|}}\hline
   X & 1 & 2 \\\hline
   Y & 10 & 20 \\\hline
   \sya[n]<\Hyoumidasi{左上}{右下}>
@@ -191,7 +191,7 @@
 
 \begin{showEx}(.56,.38){\textsf{Hyou}環境の斜線}
 \begin{Hyou}{|l|r|r|}\hline
-  \sya(8zw)[r][\bsityuu] & A & B \\\hline
+  \sya(8\zw)[r][\bsityuu] & A & B \\\hline
   x & 1 & 2 \\\hline
 \end{Hyou}
 \end{showEx}
@@ -202,7 +202,7 @@
 
 \begin{showEx}(.56,.38){斜線位置の微調整}
 \begin{Hyou}{|l|r|r|}\hline
-  \sya(8zw)[o][\bsityuu]%
+  \sya(8\zw)[o][\bsityuu]%
    <{\ArrowLine<Henvi={(0,-.3pt)},%
        arrowheadsize=0>\LT\RB}>%
    & A & B \\\hline
@@ -215,7 +215,7 @@
 
 \begin{showEx}(.56,.38){斜線右下も微調整}
 \begin{Hyou}{|l|r|r|}\hline
-  \sya(8zw)[o][\bsityuu]%
+  \sya(8\zw)[o][\bsityuu]%
    <%
     {%
      \ArrowLine%
@@ -276,7 +276,7 @@ $y=x\sqrt{4-x^2}$ の増減表です．ついでにグラフも添えておき�
 増減表で，増加・減少を表現する矢印に次のものを用意しました．
 
 \begin{boxnote}
-\begin{Hyou}{*{4}{L{4zw} }L{6zw}}
+\begin{Hyou}{*{4}{L{4\zw} }L{6\zw}}
 コマンド & 方位 & 記号 & 内容 \\
 \cmd{NE} & 北東 & $\NE$ & 増加 \\
 \cmd{SE} & 南東 & $\SE$ & 減少 \\
@@ -414,7 +414,7 @@ I
 
 \begin{showEx}(.64,.3){\textsf{hyou}環境の行高}
 \[
-\begin{hyou}{|*5{C{1zw}|}} \hline
+\begin{hyou}{|*5{C{1\zw}|}} \hline
   x & 0 &\cdots & 1 & \cdots \\\hline
   y & \sya & \NE   & \bunsuu12 & \SE \\\hline
 \end{hyou}
@@ -430,7 +430,7 @@ I
 \begin{showEx}(.64,.3){\cmd{gyoudaka}}
 \[
 \gyoudaka[10pt]{15pt}
-\begin{hyou}{|>{\gyousityuu}*5{C{1zw}|}} \hline
+\begin{hyou}{|>{\gyousityuu}*5{C{1\zw}|}} \hline
   x & 0 &\cdots & 1 & \cdots \\\hline
   y & \sya & \NE   & \bunsuu12 & \SE \\\hline
 \end{hyou}
@@ -463,7 +463,7 @@ I
 \[
 \Gyoudaka{\EMvphantom[2pt]{$\bunsuu12$}}
 % 以下，hyou環境の記述は同じ
-!\begin{hyou}{|>{\gyousityuu}*5{C{1zw}|}} \hline
+!\begin{hyou}{|>{\gyousityuu}*5{C{1\zw}|}} \hline
 !  x & 0 &\cdots & 1 & \cdots \\\hline
 !  y & \sya & \NE   & \bunsuu12 & \SE \\\hline
 !\end{hyou}
@@ -496,7 +496,7 @@ I
 
 \begin{showEx}(1,1){\textsf{hyou}環境}
 \[
-\begin{hyou}{c|*7{|C{2zw}}}\hline
+\begin{hyou}{c|*7{|C{2\zw}}}\hline
    x & \cdots & 0 & \cdots & 1 & \cdots & 2 & \cdots \\\hline
    y'&   +    & 0 &   -   & \sya[x] &   -    & 0 &   +    \\\hline
    y &  \NE & 極大 &  \SE & \sya[x] &  \SE & 極小 & \NE \\\hline
@@ -519,7 +519,7 @@ I
 
 \begin{showEx}(1,1){2行ぶち抜きの斜線}
 \[
-\begin{hyou}{c|*7{|C{2zw}}}\hline
+\begin{hyou}{c|*7{|C{2\zw}}}\hline
    x & \cdots & 0 & \cdots & 1 & \cdots & 2 & \cdots \\\hline
    y'&   +    & 0 &   -   
      & \smash{\sya(D=\ht\strutbox+2\dp\strutbox)[x]}
@@ -552,27 +552,27 @@ I
 
 \begin{showEx}(1,1){左右極限}
 \[
-\begin{hyou}{c|*8{|C{2zw}}}\hline
+\begin{hyou}{c|*8{|C{2\zw}}}\hline
    x & \cdots & 0 & \cdots & \multicolumn{2}{c|}{1} & \cdots & 2 & \cdots 
       \\\hline
    y'&   +    & 0 &   -   
-     & \multicolumn{2}{c|}{\sya(4zw+\arrayrulewidth+2\arraycolsep)[x]}
+     & \multicolumn{2}{c|}{\sya(4\zw+\arrayrulewidth+2\arraycolsep)[x]}
      &   -    & 0 &   +    \\\hline
    y &  \NE & 極大 &  \SE & -\infty & +\infty &  \SE & 極小 & \NE \\\hline
 \end{hyou}
 \]
 \end{showEx}
 ここでは，斜線の横幅が今までと異なります。
-2列ぶち抜きですから\verb+2*2zw+すなわち\verb+4zw+必要ですが，
+2列ぶち抜きですから\verb+2*2\zw+すなわち\verb+4\zw+必要ですが，
 それでは不十分です。列の間の罫線幅\verb+\arrayrulewidth+，
 さらにその左右の余白分\verb+2\arraycolsep+も加えたものを斜線の横幅
 と指定します。指定法は
 \begin{jquote}
 \begin{verbatim}
 正しくは
-\sya(W=4zw+\arrayrulewidth+2\arraycolsep)
+\sya(W=4\zw+\arrayrulewidth+2\arraycolsep)
 ですが，W=... 指定のみの場合はW=は省略可能としてあります。
-\sya(4zw+\arrayrulewidth+2\arraycolsep)
+\sya(4\zw+\arrayrulewidth+2\arraycolsep)
 \end{verbatim}
 \end{jquote}
 
@@ -582,7 +582,7 @@ I
 増減表に凹凸も含めたい，となると$y''$の行を挿入することになります。
 \begin{showEx}(1,1){凹凸も}
 \[
-\begin{hyou}{c|*7{|C{2zw}}}\hline
+\begin{hyou}{c|*7{|C{2\zw}}}\hline
    x & \cdots & 0 & \cdots & 1 & \cdots & 2 & \cdots \\\hline
    y'&   +    & 0 &   -   
      & \smash{\sya(D=2\ht\strutbox+3\dp\strutbox)[x]}
@@ -605,7 +605,7 @@ I
 \begin{shadebox}
 \def\arraystretch{1.25}
 \[
-\begin{hyou}{c|*7{|C{2zw}}}\hline
+\begin{hyou}{c|*7{|C{2\zw}}}\hline
    x & \cdots & 0 & \cdots & 1 & \cdots & 2 & \cdots \\\hline
    y'&   +    & 0 &   -   
      & \smash{\sya(D=2\ht\strutbox+3\dp\strutbox)[x]}
@@ -624,7 +624,7 @@ I
 厳密には網掛けとはいえませんが，セルをグレーで塗りつぶします。
 
 \begin{showEx}{\cmd{EMcell*}}
-\begin{Hyou}{|*3{L{2zw}|}}\hline
+\begin{Hyou}{|*3{L{2\zw}|}}\hline
   甲&乙\\\hline
   \EMcell*{l}{あ}&い\\\hline
 \end{Hyou}
@@ -640,7 +640,7 @@ I
 
 \begin{showEx}(.7,.24){\cmd{EMcell*}}
 \makeatletter
-\begin{Hyou}{|*3{R{2zw}|}}\hline
+\begin{Hyou}{|*3{R{2\zw}|}}\hline
   甲& 乙\\\hline
   \EMcell*[.1]{r}{あ}&い\\\hline
 \end{Hyou}
@@ -650,7 +650,7 @@ I
 セルに色をつけるには\texttt{[C=..]}オプションを用います。
 
 \begin{showEx}(.7,.24){\texttt{[C=..]}オプション}
-\begin{Hyou}{|*3{C{2zw}|}}\hline
+\begin{Hyou}{|*3{C{2\zw}|}}\hline
   甲&乙\\\hline
   \EMcell*[C=yellow]{c}{あ}&い\\\hline
 \end{Hyou}
@@ -663,7 +663,7 @@ I
 セルを斜線塗りします。
 
 \begin{showEx}(.7,.24){\cmd{EMcell**}}
-\begin{Hyou}{|*3{C{2zw}|}}\hline
+\begin{Hyou}{|*3{C{2\zw}|}}\hline
   甲&乙\\\hline
   \EMcell**{c}{あ}&い\\\hline
 \end{Hyou}
@@ -673,7 +673,7 @@ I
 角度は六十分法で指定します。
 
 \begin{showEx}(.7,.24){斜線の角度}
-\begin{Hyou}{|*3{C{2zw}|}}\hline
+\begin{Hyou}{|*3{C{2\zw}|}}\hline
   甲&乙\\\hline
   \EMcell**[-60]{c}{あ}&い\\\hline
 \end{Hyou}
@@ -682,7 +682,7 @@ I
 斜線の間隔は\verb+<間隔>+オプションで指定します。デフォルトは\verb+<3>+です。
 
 \begin{showEx}(.7,.24){斜線の間隔}
-\begin{Hyou}{|*3{C{2zw}|}}\hline
+\begin{Hyou}{|*3{C{2\zw}|}}\hline
   甲&乙\\\hline
   \EMcell**[-60]<5>{c}{あ}&い\\\hline
 \end{Hyou}
@@ -693,7 +693,7 @@ I
 \verb+[wakusen=..]+オプションをつけます。
 
 \begin{showEx}(.7,.24){\texttt{[wakusen=..]}オプション}
-\begin{Hyou}{*3{C{2zw}}}
+\begin{Hyou}{*3{C{2\zw}}}
   甲&乙\\
   \EMcell[wakusen=\protect\hasen]{c}{あ}&い
 \end{Hyou}
@@ -703,7 +703,7 @@ I
 次の例は，枠線を実線としセル内を網掛けしています。
 
 \begin{showEx}(.7,.24){\texttt{[wakusen=..]}オプション＋網掛け}
-\begin{Hyou}{*3{C{2zw}}}
+\begin{Hyou}{*3{C{2\zw}}}
   甲&乙\\
   \EMcell*[wakusen=\protect\drawline]{c}{あ}&い
 \end{Hyou}
@@ -713,7 +713,7 @@ I
 \texttt{G}はgrayの頭文字のつもりです。
 
 \begin{showEx}(.7,.24){\texttt{[wakusen=..]}オプション＋網掛け濃度指定}
-\begin{Hyou}{*3{C{2zw}}}
+\begin{Hyou}{*3{C{2\zw}}}
   甲&乙\\
   \EMcell*[G=.8,wakusen=\protect\drawline]{c}{あ}&い
 \end{Hyou}
@@ -722,7 +722,7 @@ I
 枠線と斜線塗りも可能です。
 
 \begin{showEx}(.7,.24){\texttt{[wakusen=..]}オプション＋斜線塗り}
-\begin{Hyou}{*3{C{2zw}}}
+\begin{Hyou}{*3{C{2\zw}}}
   甲&乙\\
   \EMcell**[wakusen=\protect\drawline]{c}{あ}&い
 \end{Hyou}
@@ -732,7 +732,7 @@ I
 \verb+[syasenkaku=角度,syasenkankaku=間隔]+オプションを用います。
 
 \begin{showEx}(.7,.24){\texttt{[wakusen=..]}オプション＋斜線方向・角度指定}
-\begin{Hyou}{*3{C{2zw}}}
+\begin{Hyou}{*3{C{2\zw}}}
   甲&乙\\
   \EMcell**[wakusen=\protect\drawline,%
     syasenkaku=-45,syasenkankaku=2]{c}{あ}&い
@@ -855,7 +855,7 @@ I
 
 \begin{showEx}(.5,.44){\textsf{tabular}環境でL, C, R}
 \begin{tabular}%
-    {IL{2zw}|C{2zw}|R{5zw}I}
+    {IL{2\zw}|C{2\zw}|R{5\zw}I}
     \hlineb
   A & a & xyz \\ \hline
   B & b & \the\tabcolsep \\ \hlineb
@@ -866,7 +866,7 @@ I
 
 \begin{showEx}(.5,.44){\textsf{array}環境でL, C, R}
 $\begin{array}%
-    {IL{2zw}|C{2zw}|R{5zw}I}
+    {IL{2\zw}|C{2\zw}|R{5\zw}I}
     \hlineb
   A & a & xyz \\ \hline
   B & b & \the\arraycolsep
@@ -884,7 +884,7 @@ $\begin{array}%
 \subsection{\textsf{longtable}環境でもL, C, R}
 \textsf{longtable}環境でも可能とする試みです。
 
-\begin{longtable}{IL{2zw}|C{2zw}|R{5zw}I}\hlineb
+\begin{longtable}{IL{2\zw}|C{2\zw}|R{5\zw}I}\hlineb
   A & a & 123 \\ \hline
   B & b & 234 \\ \hline
   C & c & 345 \\ \hline
@@ -907,7 +907,7 @@ $\begin{array}%
 なお，ソースリストは次のとおりです。
 \begin{jquote}
 \begin{verbatim}
-\begin{longtable}{IL{2zw}|C{2zw}|R{5zw}I}\hlineb
+\begin{longtable}{IL{2\zw}|C{2\zw}|R{5\zw}I}\hlineb
   A & a & 123 \\ \hline
   B & b & 234 \\ \hline
   C & c & 345 \\ \hline
@@ -937,9 +937,9 @@ $\begin{array}%
 
 \begin{showEx}(.5,.44){\textsf{tabular}環境で\cmd{sya}}
 \begin{tabular}%
-    {IL{2zw}|C{2zw}|R{5zw}I}
+    {IL{2\zw}|C{2\zw}|R{5\zw}I}
     \hlineb
-  \sya(2zw)[r]<\Hyoumidasi{X}{Y}>%
+  \sya(2\zw)[r]<\Hyoumidasi{X}{Y}>%
      & p & q \\ \hline
   A & a & xyz \\ \hline
   B & b & \the\tabcolsep \\ \hlineb
@@ -952,9 +952,9 @@ $\begin{array}%
 
 \begin{showEx}(.5,.44){\textsf{array}環境で\cmd{sya}}
 $\begin{array}%
-    {IL{2zw}|C{2zw}|R{5zw}I}
+    {IL{2\zw}|C{2\zw}|R{5\zw}I}
     \hlineb
-  \sya(2zw)[r]<\hyoumidasi{X}{Y}>%
+  \sya(2\zw)[r]<\hyoumidasi{X}{Y}>%
      & p & q \\ \hline
   A & a & xyz \\ \hline
   B & b & \the\tabcolsep \\ \hlineb

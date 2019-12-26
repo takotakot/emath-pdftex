@@ -54,8 +54,8 @@
 %
 % 帯グラフ
 %
-\def\ObiTakasa{3zh}%
-\def\ObiKankaku{1zh}%
+\def\ObiTakasa{3\zh}%
+\def\ObiKankaku{1\zh}%
 \def\ObiMusubisen{\Hasen}
 \def\ObiMemoriKankaku{0}%
 \def\ObiMemoriHaiti{t}%
@@ -114,7 +114,7 @@
         (\truexmax,\yi)(\truexmax,\yo)}%
     \fi
   }%
-  \dimenref[3zw]{W#1}\Obi@w@mds
+  \dimenref[3\zw]{W#1}\Obi@w@mds
     \@tempdima\Obi@w@mds\advance\@tempdima5pt\relax
     \edef\Obi@w@mds{\the\@tempdima}%
 % \count255=0\ref{N#1}\relax
@@ -154,8 +154,8 @@
   \ifnum\ObiMemoriKankaku=\z@
     \edef\yymin{0}%
   \else
-    \ukansan{1zh}\ObiMemori@y\edef\ObiMemori@y{-\ObiMemori@y}%
-    \ukansan{1.5zh}\Obi@tmp
+    \ukansan{1\zh}\ObiMemori@y\edef\ObiMemori@y{-\ObiMemori@y}%
+    \ukansan{1.5\zh}\Obi@tmp
     \Sub\ObiMemori@y\Obi@tmp\yymin
   \fi
 % \noindent

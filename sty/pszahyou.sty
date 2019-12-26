@@ -3920,7 +3920,7 @@
 \def\@@emSankaku<##1>##2{%
   \define@key{emPs}{size}{\edef\emS@size{####1}}%
   \ifx\empty##1
-    \edef\emS@size{0.8zw}%
+    \edef\emS@size{0.8\zw}%
   \else
     \setkeys{emPs}{##1}%
   \fi
@@ -3942,12 +3942,12 @@
 }%
 %\def\emGyakuSankaku##1{%
 \DeclareRobustCommand\emGyakuSankaku[1]{%
-  \pstriangle*<dash=,nuriiro=white,border,size=0.7zw,kaiten=180>\relax
+  \pstriangle*<dash=,nuriiro=white,border,size=0.7\zw,kaiten=180>\relax
   \Put\O@@[c]{$\scriptstyle\text{##1}$}\relax
 }%
 %\def\emSikaku##1{%
 \DeclareRobustCommand\emSikaku[1]{%
-  \pssquare*<dash=,nuriiro=white,border,size=0.7zw>\relax
+  \pssquare*<dash=,nuriiro=white,border,size=0.7\zw>\relax
   \Put\O@@[c]{$\scriptstyle\text{##1}$}\relax
 }%
 %

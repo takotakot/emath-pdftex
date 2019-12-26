@@ -2972,7 +2972,7 @@
 \def\@@@DrawHatS[#1]<#2>#3#4{{%
 %
   \def\DHS@kugirisi{,\kern1em}%
-  \def\emDrawHat@takasa{1zh}%
+  \def\emDrawHat@takasa{1\zh}%
   \def\emDrawHat@offset{0pt}%
   \ifx\empty#1\else\setkeys{emDrawHat}{#1}\fi
   \setbox0=\hbox{\ensuremath{{}\DHS@kugirisi{}}}%
@@ -3055,7 +3055,7 @@
 \def\@manDrawHatS[#1]#2{%
 %
   \def\DHS@kugirisi{,\kern1em}%
-  \def\emDrawHat@takasa{1zh}%
+  \def\emDrawHat@takasa{1\zh}%
   \def\emDrawHat@hukasa{2pt}%
   \def\emDrawHat@offset{0pt}%
   \ifx\empty#1\else\setkeys{emDrawHat}{#1}\fi
@@ -3570,7 +3570,7 @@
 %
 % さいころの目
 \def\saikoro#1{{%
-  \unitlength.8zh\relax
+  \unitlength.8\zh\relax
   \EMkeytopcornersize{5}%
   \,\EMkeytop{%
   \begin{picture}(1,1)%
@@ -5282,9 +5282,9 @@
 %  \def\@@bekutorukata#1{%
 %              \ifthenelse{\equal{#1}{fill}}%
 %              {%
-%                \bekutorusityuu{\vrule height .9zh width \z@}%
+%                \bekutorusityuu{\vrule height .9\zh width \z@}%
 %                \def\bekutoru@t##1{{%
-%                  \@tempdima=1zh\relax
+%                  \@tempdima=1\zh\relax
 %                  \edef\BK@hi{\strip@pt\@tempdima}%
 %                  \@Div\BK@hi{9.16443}\BK@hi
 %                  \Mul{0.5}\BK@hi\BK@thickness
@@ -5311,7 +5311,7 @@
 %                  \vrule width \z@ height \bekutoru@H \p@\box0
 %                }}%
 %                \def\bekutoru@m##1{{%
-%                  \@tempdima=1zh\relax
+%                  \@tempdima=1\zh\relax
 %                  \edef\BK@hi{\strip@pt\@tempdima}%
 %                  \@Div\BK@hi{9.16443}\BK@hi
 %                  \Mul{0.5}\BK@hi\BK@thickness
@@ -14038,19 +14038,19 @@ printf FHNDL "\EMpercentchar s,\EMpercentchar s \string\n",$xi-$tmp,$xi+$tmp;
 \def\emGyakuSankaku#1{%
   \hskip.02em\relax
   \begin{picture}(0,0)\relax
-  \begin{zahyou*}[ul=1.05zw,haiti=o](0,1)(-.15,.85)%
+  \begin{zahyou*}[ul=1.05\zw,haiti=o](0,1)(-.15,.85)%
     \emPaint<nuriiro=white,border>{(0,.85)(1,.85)(.5,-.15)}%
   \end{zahyou*}%
   \end{picture}%
 \@ifundefined{setdash}{}{\setdash{}}%
-  \makebox[1.05zw][c]{$\scriptstyle\text{#1}$}% size を ul と揃える
+  \makebox[1.05\zw][c]{$\scriptstyle\text{#1}$}% size を ul と揃える
   \hskip.02em\relax
 }%
 \def\emSankaku{\@ifnextchar<{\@emSankaku}{\@emSankaku<\empty>}}%
 \def\@emSankaku<#1>#2{{%
   \define@key{emP}{size}{\edef\emS@size{##1}}%
   \ifx\empty#1
-    \edef\emS@size{1.05zw}%
+    \edef\emS@size{1.05\zw}%
   \else
     \setkeys{emP}{#1}%
   \fi
@@ -14081,27 +14081,27 @@ printf FHNDL "\EMpercentchar s,\EMpercentchar s \string\n",$xi-$tmp,$xi+$tmp;
 %
 \def\emMaruSankaku#1{%
   \hskip.02em\relax
-  \begin{zahyou*}[ul=1zw](0,1)(0,1)
+  \begin{zahyou*}[ul=1\zw](0,1)(0,1)
     \Strlen{#1}\emSankaku@n
     \ifnum\emSankaku@n>\@ne
       \Put{(.5,.333333)}(0,-1pt)[c]{$\scriptscriptstyle\text{#1}$}%
     \else
       \Put{(.5,.333333)}(0,0)[c]{$\scriptstyle\text{#1}$}%
     \fi
-    \ovalTakakkei{.1zw}{(0,0)(1,0)(.5,1)}%
+    \ovalTakakkei{.1\zw}{(0,0)(1,0)(.5,1)}%
   \end{zahyou*}%
   \hskip.02em\relax
 }%
 \def\emMaruGyakuSankaku#1{%
   \hskip.02em\relax
-  \begin{zahyou*}[ul=1zw](0,1)(0,1)
+  \begin{zahyou*}[ul=1\zw](0,1)(0,1)
     \Strlen{#1}\emSankaku@n
     \ifnum\emSankaku@n>\@ne
       \Put{(.5,.666667)}(0,1pt)[c]{$\scriptscriptstyle\text{#1}$}%
     \else
       \Put{(.5,.666667)}(0,0)[c]{$\scriptstyle\text{#1}$}%
     \fi
-    \ovalTakakkei{.1zw}{(0,1)(.5,0)(1,1)}%
+    \ovalTakakkei{.1\zw}{(0,1)(.5,0)(1,1)}%
   \end{zahyou*}%
   \hskip.02em\relax
 }%
@@ -14147,19 +14147,19 @@ printf FHNDL "\EMpercentchar s,\EMpercentchar s \string\n",$xi-$tmp,$xi+$tmp;
 %
 \def\emKasi{%
 \mbox{%
-\kern.35zw\relax
-\begin{zahyou*}[ul=.2zw](0,1)(0,1)
+\kern.35\zw\relax
+\begin{zahyou*}[ul=.2\zw](0,1)(0,1)
   \En{(.5,3.2)}{.5}%
 \end{zahyou*}%
-\resizebox{.68zw}{\height}{F}%
+\resizebox{.68\zw}{\height}{F}%
 }}%
 \def\emSessi{%
 \mbox{%
-\kern.35zw\relax
-\begin{zahyou*}[ul=.2zw](0,1)(0,1)
+\kern.35\zw\relax
+\begin{zahyou*}[ul=.2\zw](0,1)(0,1)
   \En{(.5,3.2)}{.5}%
 \end{zahyou*}%
-\resizebox{.68zw}{\height}{C}%
+\resizebox{.68\zw}{\height}{C}%
 }}%
 %
 % ⊿記号

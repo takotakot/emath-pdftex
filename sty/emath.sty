@@ -143,18 +143,18 @@
         \@ifundefined{@varg}{\RequirePackage{txfonts}}{%
             \RequirePackage[varg]{txfonts}}%
         \renewcommand{\ttdefault}{cmtt}%
-        \def\bekutoru@sityuu{\vrule height .75zh width \z@}%
+        \def\bekutoru@sityuu{\vrule height .75\zh width \z@}%
       \or % 3=pxfonts
         \@ifundefined{@varg}{\RequirePackage{pxfonts}}{%
             \RequirePackage[varg]{pxfonts}}%
         \renewcommand{\ttdefault}{cmtt}%
-        \def\bekutoru@sityuu{\vrule height .75zh width \z@}%
+        \def\bekutoru@sityuu{\vrule height .75\zh width \z@}%
       \or % 4=mathabx
         \let\cmsum\sum
         \let\cmintop\intop
         \def\cmint{\cmintop\nolimits}
         \RequirePackage{mathabx}%
-        \def\bekutoru@sityuu{\vrule height .75zh width \z@}%
+        \def\bekutoru@sityuu{\vrule height .75\zh width \z@}%
       \or % 5
         \IfFileExists{EMceo.sty}{%
           \RequirePackage{EMceo}%
@@ -1009,7 +1009,7 @@
 %
 % ベクトル(ベクトルAB）
 \@ifundefined{bekutoru@sityuu}{%
-  \def\bekutoru@sityuu{\vrule height .9zh width \z@}}{}%
+  \def\bekutoru@sityuu{\vrule height .9\zh width \z@}}{}%
 \newcommand{\bekutorusityuu}[1]{\def\bekutoru@sityuu{#1}}%
 \DeclareRobustCommand\bekutoru{\@ifstar{\bekutoru@m}{\bekutoru@t}}%
 \def\bekutoru@t#1{{%
@@ -1596,28 +1596,28 @@
     }}%
 \else
 \newcommand{\nevarrow}{{% 下に凸で増加
-    \setlength{\unitlength}{.04zw}%
+    \setlength{\unitlength}{.04\zw}%
     \begin{picture}(20,20)%
     \put(0,20){\oval(40,40)[rb]}%
     \put(20,20){\vector(0,1){1}}%
     \end{picture}%
     }}%
 \newcommand{\necarrow}{{% 上に凸で増加
-    \setlength{\unitlength}{.04zw}%
+    \setlength{\unitlength}{.04\zw}%
     \begin{picture}(20,20)%
     \put(20,0){\oval(40,40)[lt]}%
     \put(20,20){\vector(1,0){1}}%
     \end{picture}%
     }}%
 \newcommand{\sevarrow}{{% 下に凸で減少
-    \setlength{\unitlength}{.04zw}%
+    \setlength{\unitlength}{.04\zw}%
     \begin{picture}(20,20)%
     \put(20,20){\oval(40,40)[lb]}%
     \put(20,0){\vector(1,0){1}}%
     \end{picture}%
     }}%
 \newcommand{\secarrow}{{% 上に凸で減少
-    \setlength{\unitlength}{.04zw}%
+    \setlength{\unitlength}{.04\zw}%
     \begin{picture}(20,20)%
     \put(0,0){\oval(40,40)[rt]}%
     \put(20,0){\vector(0,-1){1}}%
@@ -1707,10 +1707,10 @@
   \@ifstar{\emsyutten@}{\@emsyutten}}
 \def\@emsyutten#1{{% TeX ブック p.149
   \unskip\nobreak\hfil\penalty50
-  \hskip2zw\hbox{}\nobreak\hfil\inhibitglue 〔#1〕\inhibitglue\relax
+  \hskip2\zw\hbox{}\nobreak\hfil\inhibitglue 〔#1〕\inhibitglue\relax
   \parfillskip=\z@\finalhyphendemerits=0\par}}
 \def\emsyutten@#1{{\unskip\nobreak\hfil\penalty50
-  \hskip2zw\hbox{}\nobreak\hfil #1\parfillskip=\z@\finalhyphendemerits=0\par}}
+  \hskip2\zw\hbox{}\nobreak\hfil #1\parfillskip=\z@\finalhyphendemerits=0\par}}
 %
 \newcommand{\emsyuttenC}{\emsyutt@nC}
 \def\emsyutt@nC{%
@@ -1719,10 +1719,10 @@
   \@ifstar{\emsyuttenC@}{\@emsyuttenC}}
 \def\@emsyuttenC#1{% TeX ブック p.149
   \unskip\nobreak\hfil\penalty50
-  \hskip2zw\hbox{}\nobreak\hfil\inhibitglue 〔#1〕\inhibitglue\relax
+  \hskip2\zw\hbox{}\nobreak\hfil\inhibitglue 〔#1〕\inhibitglue\relax
   \parfillskip=\z@\finalhyphendemerits=0}
 \def\emsyuttenC@#1{\unskip\nobreak\hfil\penalty50
-  \hskip2zw\hbox{}\nobreak\hfil #1\parfillskip=\z@\finalhyphendemerits=0}
+  \hskip2\zw\hbox{}\nobreak\hfil #1\parfillskip=\z@\finalhyphendemerits=0}
 %
 % 行末にマーク
 \DeclareRobustCommand{\EMkotae}{\@ifstar{\emathKotae@}{\emathKotae}}
@@ -2049,14 +2049,14 @@
   }}%
 %    \newcommand{\EMmaru}[1]{\raisebox{.15ex}{%
 %        \mathstrut\textcircled{\raisebox{-.05ex}{$\scriptstyle\text{#1}$}}}}%
-%  \def\EMmaru#1{\mbox{\EMvphantom[.12zw][-.2zw]{$\bigcirc$}}%
-  \DeclareRobustCommand\EMmaru[1]{\mbox{\EMvphantom[.12zw][-.2zw]{$\bigcirc$}}%
-        {\ooalign{\hfill\raise.12zw\hbox{$\scriptstyle #1$}\hfill\crcr
-            \raise.1zw\hbox{\fontencoding{OMS}\fontfamily{cmsy}\fontseries{m}%
+%  \def\EMmaru#1{\mbox{\EMvphantom[.12\zw][-.2\zw]{$\bigcirc$}}%
+  \DeclareRobustCommand\EMmaru[1]{\mbox{\EMvphantom[.12\zw][-.2\zw]{$\bigcirc$}}%
+        {\ooalign{\hfill\raise.12\zw\hbox{$\scriptstyle #1$}\hfill\crcr
+            \raise.1\zw\hbox{\fontencoding{OMS}\fontfamily{cmsy}\fontseries{m}%
             \fontshape{n}\selectfont\char"0D}}}}%
-  \def\EMbmaru#1{\mbox{\EMvphantom[.12zw][-.2zw]{$\bigcirc$}}%
-        {\ooalign{\hfill\raise.01zw\hbox{$\scriptstyle{#1}$}\hfill\crcr
-          \raise.01zw\hbox{\fontencoding{OMS}\fontfamily{cmsy}\fontseries{m}%
+  \def\EMbmaru#1{\mbox{\EMvphantom[.12\zw][-.2\zw]{$\bigcirc$}}%
+        {\ooalign{\hfill\raise.01\zw\hbox{$\scriptstyle{#1}$}\hfill\crcr
+          \raise.01\zw\hbox{\fontencoding{OMS}\fontfamily{cmsy}\fontseries{m}%
           \fontshape{n}\selectfont\char"0D}}}}%
 \else%
     \newcommand{\maru}[1]{%
@@ -2075,7 +2075,7 @@
 \def\emominus{\EMmaru{-}}%
 %
   \DeclareRobustCommand\EMheart[1]{%
-    \mbox{\EMvphantom[.12zw][-.2zw]{$\bigcirc$}}%
+    \mbox{\EMvphantom[.12\zw][-.2\zw]{$\bigcirc$}}%
         {\ooalign{\hfill\hbox{$\scriptstyle #1$}\hfill\crcr
           \raisebox{-.7em}{%
           \scalebox{2.5}{%
@@ -2085,13 +2085,13 @@
             }}}}}}%
 %
 % 2桁以上は全角1文字幅に縮小
-%\def\zwmaru#1{{%\maru{\resizebox{1zw}{\height}{#1}}%
+%\def\zwmaru#1{{%\maru{\resizebox{1\zw}{\height}{#1}}%
 \DeclareRobustCommand\zwmaru[1]{{%
     \ifthenelse{\not\equal{#1}\empty\and\isodd{0#11}}{%yes
       \ifthenelse{#1<10}{%
         \EMmaru{{\chgfontsizeratio{.7}\mbox{#1}}}%
       }{%
-        \EMmaru{{\chgfontsizeratio{.7}\resizebox{1zw}{\height}{#1}}}%
+        \EMmaru{{\chgfontsizeratio{.7}\resizebox{1\zw}{\height}{#1}}}%
       }%
     }{%no
         \EMmaru{{\chgfontsizeratio{.7}\mbox{#1}}}%
@@ -2231,8 +2231,8 @@
 %\def\emKaku{\@ifstar{\emKakus}{\@emKaku}}%
 \DeclareRobustCommand\emKaku{\@ifstar{\emKakus}{\@emKaku}}%
 \def\@emKaku#1{{%
-%    \fboxsep=\z@\raisebox{.12zw}{\fbox{%\vrule height.6zw depth .1zw width\z@
-    \fboxsep=\z@\raisebox{.11zw}{\fbox{%\vrule height.6zw depth .1zw width\z@
+%    \fboxsep=\z@\raisebox{.12\zw}{\fbox{%\vrule height.6\zw depth .1\zw width\z@
+    \fboxsep=\z@\raisebox{.11\zw}{\fbox{%\vrule height.6\zw depth .1\zw width\z@
     \settowidth\@tempdima{$\bigcirc$}%
 \@tempdima=.9\@tempdima
     \advance\@tempdima-\p@
@@ -2252,16 +2252,16 @@
 \def\@emKuroKaku#1{{%
     \ifnum #1<10\relax
       \edef\emKK@s{.9}\else\edef\emKK@s{.667}\fi
-    \fboxsep=\p@\colorbox{black}{\vrule height.667zw depth .08zw width\z@
-      \makebox[.8zw][c]{%
+    \fboxsep=\p@\colorbox{black}{\vrule height.667\zw depth .08\zw width\z@
+      \makebox[.8\zw][c]{%
         \color{white}{\chgfontsizeratio{\emKK@s}{#1}}}}\ignorespaces%
   }}%
 %
 \def\emMaruKaku#1{{%
-  \fboxsep=2\p@\emovalbox{\vrule height.5zw depth .05zw width\z@
-  \makebox[.475zw][c]{\ensuremath{\smash{\scriptstyle\text{#1}}}}}}}
-%\def\emKaku#1{\fbox{\vrule height.8zw depth .2zw width\z@\makebox[1zw][c]{#1}}}%
-%\def\emMaruKaku#1{\emovalbox{\vrule height.8zw depth .2zw width0pt\makebox[1.08zw][c]{\ix}}}%
+  \fboxsep=2\p@\emovalbox{\vrule height.5\zw depth .05\zw width\z@
+  \makebox[.475\zw][c]{\ensuremath{\smash{\scriptstyle\text{#1}}}}}}}
+%\def\emKaku#1{\fbox{\vrule height.8\zw depth .2\zw width\z@\makebox[1\zw][c]{#1}}}%
+%\def\emMaruKaku#1{\emovalbox{\vrule height.8\zw depth .2\zw width0pt\makebox[1.08\zw][c]{\ix}}}%
 \def\emKakuKata#1{\emKaku{\katakana{#1}}}
 \def\emKakuHira#1{\emKaku{\hirakana{#1}}}
 \def\emMaruKakuKata#1{\emMaruKaku{\katakana{#1}}}
@@ -2766,11 +2766,11 @@
     \else
       \setbox1=\hbox{$#4$}\templa=\wd1%
       \setbox0=\hbox{{\protect\prel@bel}}%
-      \addtolength{\templa}{\wd0}\addtolength{\templa}{1.75zw}%
+      \addtolength{\templa}{\wd0}\addtolength{\templa}{1.75\zw}%
       \addtolength{\templa}{\ltxhouteisiki@Y}%
     \fi
     \@ifundefined{hakobanpop}{}{\hakobanpop}%
-    \@ifundefined{notAMS}{\@mathmargin=0zw}{}%
+    \@ifundefined{notAMS}{\@mathmargin=0\zw}{}%
     \makebox[\templa][l]{%
       \begin{minipage}[b]{\templa}%
       \begin{ltxequation}#4\end{ltxequation}%
@@ -2813,11 +2813,11 @@
   \else
       \setbox1=\hbox{{\def\@marudashtag(##1)##2{\relax}\def\@@dashtag(##1)##2{\relax}$#4$}}\templa=\wd1%
       \setbox0=\hbox{{\protect\prel@bel}}%
-      \addtolength{\templa}{\wd0}\addtolength{\templa}{1.75zw}%
+      \addtolength{\templa}{\wd0}\addtolength{\templa}{1.75\zw}%
       \addtolength{\templa}{\ltxhouteisiki@Y}%
-      \ifx \empty #3\else\addtolength{\templa}{.9zw}\fi%
+      \ifx \empty #3\else\addtolength{\templa}{.9\zw}\fi%
   \fi
-  \@mathmargin=0zw%
+  \@mathmargin=0\zw%
   \@ifundefined{hakobanpop}{}{\hakobanpop}%
   \@ifundefined{@ptsize}{}{%
     \headchar{#2}\amshouteisiki@h\amshouteisiki@dmy
@@ -3170,9 +3170,9 @@
 %%% 支柱
 %%% \sityuu{高さ}
 %%%
-\def\sityuu{\@ifnextchar[{\@sityuu}{\@sityuu[0zh]}}
+\def\sityuu{\@ifnextchar[{\@sityuu}{\@sityuu[0\zh]}}
 \def\@sityuu[#1]#2{\vrule width\z@ height #2 depth #1}
-%\newcommand{\sityuu}[2][0zh]{\vrule width\z@ height #2 depth #1}
+%\newcommand{\sityuu}[2][0\zh]{\vrule width\z@ height #2 depth #1}
 %
 %
 % タスキ
@@ -3545,7 +3545,7 @@
 %    \RequirePackage{mathabx}%
 %%    \DeclareMathRadical{\sqrtsign}        {mathx}{"60}{mathx}{"61}
 %%    \DeclareRobustCommand\sqrt{\@ifnextchar[\@sqrt\sqrtsign}
-%    \bekutorusityuu{\vrule height .75zh width \z@}%
+%    \bekutorusityuu{\vrule height .75\zh width \z@}%
 %  \else
 %%    \let\degree\EMdegree
 %  \fi
@@ -3719,7 +3719,7 @@
 \newcommand{\MARU}[1]{{%
     \ooalign{\hfil
       \@ifundefined{scalebox}{%
-        #1\/\hfil\crcr\raise.167ex}{\raise.1zw\hbox{\scalebox{0.8}{#1\/}}\hfil\crcr\raise.1zw}%
+        #1\/\hfil\crcr\raise.167ex}{\raise.1\zw\hbox{\scalebox{0.8}{#1\/}}\hfil\crcr\raise.1\zw}%
       \hbox{\fontencoding{OMS}\fontfamily{cmsy}\fontseries{m}\fontshape{n}\selectfont
         \char"0D}}}}}{}%
 %
@@ -3847,12 +3847,12 @@
   \fi\fi\fi\fi\fi\fi\fi\fi\fi\fi
 }%
 \DeclareRobustCommand\jLkakkokukuri[1]{\inhibitglue ［#1］\inhibitglue}
-\def\－－{―\kern-.5zw―\kern-.5zw―}
+\def\－－{―\kern-.5\zw―\kern-.5\zw―}
 \def\「{\inhibitglue「}
 \def\」{」\inhibitglue}
 %
 %\newenvironment{jquote}
-%               {\begin{list}{}{\setlength{\leftmargin}{4zw}}%
+%               {\begin{list}{}{\setlength{\leftmargin}{4\zw}}%
 %                \item[]\relax}
 %               {\end{list}}
 %

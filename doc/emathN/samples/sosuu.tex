@@ -5,28 +5,28 @@
 
 \begin{document}
 \hakosyokika
-\begin{nagarezu}[.4](23zw,48zh)%
+\begin{nagarezu}[.4](23\zw,48\zh)%
 \tansi[n]{始め}%
 \sitahe
 \nyuusyuturyoku{$N$の値を入力}%
 \sitahe
-\begin{handan}{\parbox{4zw}{$N$は2の倍数か？}}%
+\begin{handan}{\parbox{4\zw}{$N$は2の倍数か？}}%
 	\begin{sitabunki}%
 		\sitahe"""NO"%
 		\syori{$M~\longleftarrow~3$}%
 		\sitahe[loop0]%
-		\begin{handan}{\parbox{5zw}{$N$は$M$の倍数か？}}%
+		\begin{handan}{\parbox{5\zw}{$N$は$M$の倍数か？}}%
 			\begin{migibunki}%
-				\migihe(4zw)"YES"%
+				\migihe(4\zw)"YES"%
 				\nahuda{\migityuuten}{notPrime}%
 			\end{migibunki}%
 			\begin{sitabunki}%
-				\sitahe(4zh)"""NO"%
+				\sitahe(4\zh)"""NO"%
 				\syori{$M~\longleftarrow~M+2$}%
 				\sitahe
 				\begin{handan}{$N\geqq M^2$}%
 					\begin{hidaribunki}%
-						\hidarihe<n>(4zw)"""YES"%
+						\hidarihe<n>(4\zw)"""YES"%
 						\uehe<n>`loop0'%
 						\migihe`loop0'%
 					\end{hidaribunki}%

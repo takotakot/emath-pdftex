@@ -40,7 +40,7 @@ arhako.sty {\normalsize ver.0.88}\\
 \begin{document}
 \maketitle\thispagestyle{empty}
 \begin{abstract}%
-\parindent1zw%
+\parindent1\zw%
  センター試験の問題で使われている解答を記入すべきハコを作るための
  パッケージです．
 
@@ -55,7 +55,7 @@ http://emath.s40.xrea.com/
 
 \section*{はじめに}
 \hakosyokika
-センター試験では $1024=2^{\protect\Hako<2>(0zw)}$ のように，
+センター試験では $1024=2^{\protect\Hako<2>(0\zw)}$ のように，
 解答を書くべき所に必要な桁数分の文字を含んだハコを用意する，
 という方法が採られています．このハコを \TeX で記述するのに
 私は \verb/\hako{アイ}/ などと引数の中にハコに入れる文字を
@@ -386,10 +386,10 @@ Waver さんのお陰で，大変楽ができるようになりました．
 
 \section{ハコの横巾変更(1)}
 ハコの中の文字と枠線との間はデフォルトで \texttt{3pt} の余白が取られる他に，
-左右あわせて約 \verb/1zw/（全角1文字分），
+左右あわせて約 \verb/1\zw/（全角1文字分），
 正しくは可変長で 
 \begin{quote}
-\verb/1zw plus .5zw minus .05zw/
+\verb/1\zw plus .5\zw minus .05\zw/
 \end{quote}
 の余白を付けています．
 これを変更するには，コマンド \verb/\hakoxyohaku{..}/ を用います．
@@ -455,12 +455,12 @@ Waver さんのお陰で，大変楽ができるようになりました．
 \clearpage
 \section{中が空白のハコ（ハコの文字を直接指定）}
 \begin{jquote}
-次の \Hako(2zw minus 0pt)"" を補え．
+次の \Hako(2\zw minus 0pt)"" を補え．
 \end{jquote}
 などと，中が空白のハコを作りたいときもあります．
 上のハコは
 \begin{verbatim}
-       \Hako(2zw minus 0pt)""
+       \Hako(2\zw minus 0pt)""
 \end{verbatim}
 として "" オプションを
 用いています．
@@ -603,7 +603,7 @@ Waver さんのお陰で，大変楽ができるようになりました．
 \closeHakoKaiFile
 \begin{Kaitou}
 \HakoKaiKata{t}
-\HakoKaiSityuu[1zh]{1.5zh}
+\HakoKaiSityuu[1\zh]{1.5\zh}
 \inputHakoKaiFile
 \end{Kaitou}
 \end{showEx}
@@ -696,10 +696,10 @@ $\sin\theta$, $\cos\theta$であるという．
 \quad\theta={\Hako\Hako}\Deg\]
 である．
 
-\begin{itemize}\itemindent2zw\item[【選択肢】]
+\begin{itemize}\itemindent2\zw\item[【選択肢】]
 \renewcommand{\labelenumi}{\maru{\theenumi}}%
 \begin{edaenumerate}<4>
-\ttfamily\edaitemindent2zw%
+\ttfamily\edaitemindent2\zw%
 \edaitem{+}
 \edaitem{-}
 \edaitem{$\times$}
@@ -728,11 +728,11 @@ $\sin\theta$, $\cos\theta$であるという．
 \quad\theta={\Hako\Hako}{\Deg}\]
 である．
 
-\begin{itemize}\itemindent2zw\item[【選択肢】]　
+\begin{itemize}\itemindent2\zw\item[【選択肢】]　
 \renewcommand{\labelenumi}{\maru{\theenumi}}%
 
 \begin{edaenumerate}<4>
-\ttfamily\edaitemindent2zw%
+\ttfamily\edaitemindent2\zw%
 \edaitem{+}
 \edaitem{-}
 \edaitem{$\times$}
@@ -877,7 +877,7 @@ $\sin\theta$, $\cos\theta$であるという．
        'ハコの答'/ハコの中の文字種/
 \end{verbatim}
 \renewcommand{\labelenumi}{第\arabic{enumi}引数\ }
-\begin{jquote}(6zw)
+\begin{jquote}(6\zw)
 \begin{enumerate}
   \item \texttt{<}ハコの中の文字数(デフォルトは１)\texttt{>}
   \item (ハコの横幅の余白サイズ)
@@ -920,8 +920,8 @@ $\sin\theta$, $\cos\theta$であるという．
 \renewcommand{\labelenumii}{注\arabic{enumii}．\ }
       \begin{enumerate}
         \item その他の文字はそのまま出力されますから，\\
-              \hspace{2zw}/(1)/ と指定すれば，\\
-              \hspace{4zw}(1),(2),(3),(4),(5),.....\\
+              \hspace{2\zw}/(1)/ と指定すれば，\\
+              \hspace{4\zw}(1),(2),(3),(4),(5),.....\\
                    と，ナンバリングされます．
         \item デフォルトは /ア/ ですが，
               \begin{jquote}
@@ -941,13 +941,13 @@ $\sin\theta$, $\cos\theta$であるという．
 \end{jquote}
  
 \verb+\refHako/ハコの中の文字種/{ラベル}+
-  \begin{jquote}(3zw)
+  \begin{jquote}(3\zw)
        \verb/\Hako/ でつけた"ラベル"を取り出します．
 %      / / オプションは，丸付き数字の場合だけ必要です．
   \end{jquote}
 
 \verb+\refHako*(ハコの幅)(位置指定)/ハコの中の文字種/{ラベル}+
-  \begin{jquote}(3zw)
+  \begin{jquote}(3\zw)
        \verb/\Hako/ でつけた"ラベル"をハコの枠をつけた形で取り出します．
        (ハコの幅)(位置指定)オプションは \verb/\Hako/ と同様です．
 %       / / オプションは，丸付き数字の場合だけ必要です．
@@ -956,43 +956,43 @@ $\sin\theta$, $\cos\theta$であるという．
 
 \section{コマンドリファレンス(2)}
 \verb/\hakosyokika/
-  \begin{jquote}(3zw)
+  \begin{jquote}(3\zw)
     hako.sty の内部変数などを初期化します．
     このパッケージを使用するときは，最初に呼ぶ必要があります．
   \end{jquote}
 
 \verb/\hakobansyokika/
-  \begin{jquote}(3zw)
+  \begin{jquote}(3\zw)
     ハコのカウンタをすべて初期化(0)します．
   \end{jquote}
 
 \verb/\hakomozisyu{..}/
-  \begin{jquote}(3zw)
+  \begin{jquote}(3\zw)
     ハコの中の文字種を変更します．（第5節参照）
   \end{jquote}
 
 \verb/\hakosenhaba{..}/
-  \begin{jquote}(3zw)
+  \begin{jquote}(3\zw)
     ハコの枠線の太さを変更します．（第9節参照）
   \end{jquote}
 
 \verb/\hakosityuu{..}/
-  \begin{jquote}(3zw)
+  \begin{jquote}(3\zw)
     ハコの高さを指定します．(第13節参照))
   \end{jquote}
 
 \verb/\hakosyotai{..}/
-  \begin{jquote}(3zw)
+  \begin{jquote}(3\zw)
     ハコの中の文字の書体を設定します．（第8節参照）
   \end{jquote}
 
 \verb/\hakoxyohaku{..}/
-  \begin{jquote}(3zw)
+  \begin{jquote}(3\zw)
     ハコの横余白量を設定します．（第10節参照）
   \end{jquote}
 
 \verb/\hakoyohaku{..}/
-  \begin{jquote}(3zw)
+  \begin{jquote}(3\zw)
     ハコの中の文字と枠線の間（上下左右）の余白量を設定します．
     デフォルト値は，\verb/\fboxsep/ と同じく \texttt{3pt} です．
   \end{jquote}
@@ -1022,9 +1022,9 @@ $\sin\theta$, $\cos\theta$であるという．
 \begin{boxnote}
 \begin{verbatim}
 \karaHako(#1)[#2][#3]
-    #1 : 横幅 （デフォルト = 2zw）
-    #2 : 高さ （デフォルト = 1zh）
-    #3 : 深さ （デフォルト = 0zh）
+    #1 : 横幅 （デフォルト = 2\zw）
+    #2 : 高さ （デフォルト = 1\zh）
+    #3 : 深さ （デフォルト = 0\zh）
 \end{verbatim}
 \end{boxnote}
 
@@ -1042,7 +1042,7 @@ $\sin\theta$, $\cos\theta$であるという．
 次の\karaHako を補え。
 
 $f(x)=x^n$の導関数は
-\[f'(x)=\maskHako(4zw)[2zh][1zh]{nx^{n-1}}\]
+\[f'(x)=\maskHako(4\zw)[2\zh][1\zh]{nx^{n-1}}\]
 である。
 \end{showEx}
 
@@ -1073,7 +1073,7 @@ $f(x)=x^n$の導関数は
 次の\karaHako を補え。
 
 $f(x)=x^n$の導関数は
-\[f'(x)=\maskHako(4zw)[2zh][1zh]{nx^{n-1}}\]
+\[f'(x)=\maskHako(4\zw)[2\zh][1\zh]{nx^{n-1}}\]
 である。
 \end{showEx}
 と，ハコの中に答えが表示されます。
@@ -1081,7 +1081,7 @@ $f(x)=x^n$の導関数は
 答えを赤で表示したい，というとき \verb+\color+文で指定すると
 
 \begin{showEx}(.8,.8){解答を赤で埋め込む}
-  ${(x^2)}'=\maskHako(4zw)[2zh][1zh]{\color{red}2x}$
+  ${(x^2)}'=\maskHako(4\zw)[2\zh][1\zh]{\color{red}2x}$
 \end{showEx}
 
 よさそうですが，\cmd{maskhakotrue}としても，
@@ -1089,7 +1089,7 @@ $f(x)=x^n$の導関数は
 
 \begin{showEx}(.8,.8){マスクできない}
   \maskhakotrue
-  ${(x^2)}'=\maskHako(4zw)[2zh][1zh]{\color{red}2x}$
+  ${(x^2)}'=\maskHako(4\zw)[2\zh][1\zh]{\color{red}2x}$
 \end{showEx}
 
 対応法は「赤を白と言いくるめる」というのがあります。
@@ -1099,7 +1099,7 @@ $f(x)=x^n$の導関数は
   \ifmaskhako% maskhakotrue のときは
     \definecolor{red}{rgb}{1,1,1}% redの定義をwhiteの定義と同じに
   \fi
-  ${(x^2)}'=\maskHako(4zw)[2zh][1zh]{\color{red}2x}$
+  ${(x^2)}'=\maskHako(4\zw)[2\zh][1\zh]{\color{red}2x}$
 \end{showEx}
 
 ちと強弁ですね。
@@ -1110,8 +1110,8 @@ $f(x)=x^n$の導関数は
 \everymaskHako{\color{red}}
 次の\karaHako を補え。
 \begin{align*}
-  {(x^2)}'&=\maskHako(4zw)[2zh][1zh]{2x}\\
-  {(x^3)}'&=\maskHako(4zw)[2zh][1zh]{3x^2}
+  {(x^2)}'&=\maskHako(4\zw)[2\zh][1\zh]{2x}\\
+  {(x^3)}'&=\maskHako(4\zw)[2\zh][1\zh]{3x^2}
 \end{align*}
 \end{showEx}
 
@@ -1131,8 +1131,8 @@ $f(x)=x^n$の導関数は
 \everymaskHako{\color{red}}
 次の\karaHako を補え。
 \begin{align*}
-  {(x^2)}'&=\maskHako(4zw)[2zh][1zh]{2x}\\
-  {(x^3)}'&=\maskHako(4zw)[2zh][1zh]{3x^2}
+  {(x^2)}'&=\maskHako(4\zw)[2\zh][1\zh]{2x}\\
+  {(x^3)}'&=\maskHako(4\zw)[2\zh][1\zh]{3x^2}
 \end{align*}
 \end{showEx}
 
@@ -1149,8 +1149,8 @@ $f(x)=x^n$の導関数は
 \everymaskHako[$]{$\bm}
 次の\karaHako を補え。
 \begin{align*}
-  {(x^2)}'&=\maskHako(4zw)[2zh][1zh]{2x}\\
-  {(x^3)}'&=\maskHako(4zw)[2zh][1zh]{3x^2}
+  {(x^2)}'&=\maskHako(4\zw)[2\zh][1\zh]{2x}\\
+  {(x^3)}'&=\maskHako(4\zw)[2\zh][1\zh]{3x^2}
 \end{align*}
 \end{showEx}
 
@@ -1182,8 +1182,8 @@ $\bm{\ensuremath{2x}}$
 \everymaskHako[$]{\color{red}$\bm}
 次の\karaHako を補え。
 \begin{align*}
-  {(x^2)}'&=\maskHako(4zw)[2zh][1zh]{2x}\\
-  {(x^3)}'&=\maskHako(4zw)[2zh][1zh]{3x^2}
+  {(x^2)}'&=\maskHako(4\zw)[2\zh][1\zh]{2x}\\
+  {(x^3)}'&=\maskHako(4\zw)[2\zh][1\zh]{3x^2}
 \end{align*}
 \end{showEx}
 
@@ -1194,8 +1194,8 @@ $\bm{\ensuremath{2x}}$
 \everymaskHako[$]{\color{red}$\bm}
 次の\karaHako を補え。
 \begin{align*}
-  {(x^2)}'&=\maskHako(4zw)[2zh][1zh]{2x}\\
-  {(x^3)}'&=\maskHako(4zw)[2zh][1zh]{3x^2}
+  {(x^2)}'&=\maskHako(4\zw)[2\zh][1\zh]{2x}\\
+  {(x^3)}'&=\maskHako(4\zw)[2\zh][1\zh]{3x^2}
 \end{align*}
 \end{showEx}
 \end{document}

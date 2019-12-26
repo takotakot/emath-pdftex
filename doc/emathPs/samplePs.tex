@@ -33,7 +33,7 @@ emathPs.sty {\normalsize ver.0.93β}\\使用例}
 
 \maketitle\thispagestyle{empty}
 \begin{abstract}%
-\parindent1zw%
+\parindent1\zw%
 従来，emath では，図形描画に \texttt{tpic specials} を用いてきました。
 それを \texttt{EPS}形式のファイルを作成してそれを利用するやり方を
 模索して行きます。
@@ -809,7 +809,7 @@ white, black
 これを変更したいときは，\verb+[fbox=..]+オプションを与えます。
 
 \begin{showEx}(.9,1){\texttt{fboxsep}オプション}
-\begin{EMpsrectbox}[fboxsep=1zw]
+\begin{EMpsrectbox}[fboxsep=1\zw]
 あああああああああああああああああああ
 あああああああああああああああああああ
 あああああああああああああああああああ
@@ -821,7 +821,7 @@ white, black
 当該環境内のみではありますが，\cmd{fboxsep}の値が変更されています。
 
 \begin{showEx}(.9,1){\texttt{fboxsep}オプションの副作用}
-\begin{EMpsrectbox}[fboxsep=1zw]
+\begin{EMpsrectbox}[fboxsep=1\zw]
 あああああああああああああああああああ
 
 \fbox{いいい}
@@ -833,7 +833,7 @@ white, black
 上下の空きを指定するオプション\verb+vsep=..+を新設しました。
 
 \begin{showEx}(.9,1){\texttt{hsep, vsep}オプション}
-\begin{EMpsrectbox}[hsep=3zw,vsep=1zw]
+\begin{EMpsrectbox}[hsep=3\zw,vsep=1\zw]
 あああああああああああああああああああ
 あああああああああああああああああああ
 
@@ -849,14 +849,14 @@ white, black
 
 \begin{showEx}(.9,1){\texttt{rectboxwidth}オプション}
 あああ
-\begin{EMpsrectbox}[rectboxwidth=8zw]
+\begin{EMpsrectbox}[rectboxwidth=8\zw]
 いいいいいいいいいいいいいいいい
 いいいいいいいいいいいいいいいい
 \end{EMpsrectbox}
 ううう
 \end{showEx}
 
-横幅を8zwと指定していますが，実際のボックス幅は，
+横幅を8\zwと指定していますが，実際のボックス幅は，
 これに，左右の空きが加わります。
 
 \subsubsection{見出しをつける}
@@ -953,7 +953,7 @@ hsep=..,vsep=..
 オプションを用います。
 
 \begin{showEx}(.8,.8){\texttt{hsep,vsep}オプション}
-\begin{EMpsrectbox}[rectboxoval,hsep=2zw,vsep=.5zh]
+\begin{EMpsrectbox}[rectboxoval,hsep=2\zw,vsep=.5\zh]
 \verb+[hsep=..,vsep=..]+オプションを付加した場合は，
 そちらが優先されます。
 \end{EMpsrectbox}

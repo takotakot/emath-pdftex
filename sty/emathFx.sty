@@ -322,17 +322,17 @@
 \def\@bekutorukata<#1>{\edef\bekutoru@kubomi{#1}\@@bekutorukata}%
 \def\@@bekutorukata#1{%
   \ifthenelse{\equal{#1}{cm}}%
-  {\bekutorusityuu{\vrule height .9zh width \z@}%
+  {\bekutorusityuu{\vrule height .9\zh width \z@}%
     \let\bekutoru@relbar\relbar\let\bekutoru@rightarrow\rightarrow
     \let\bekutoru\cmbekutoru}%
   {%
     \ifthenelse{\equal{#1}{eu}}%
-    {\bekutorusityuu{\vrule height .85zh width \z@}%
+    {\bekutorusityuu{\vrule height .85\zh width \z@}%
       \let\bekutoru@relbar\relbar\let\bekutoru@rightarrow\eurightarrow
       \let\bekutoru\cmbekutoru}%
     {%
       \ifthenelse{\equal{#1}{tx}}%
-      {\bekutorusityuu{\vrule height .75zh width \z@}%
+      {\bekutorusityuu{\vrule height .75\zh width \z@}%
         \let\bekutoru@relbar\txrelbar\let\bekutoru@rightarrow\txrightarrow
         \let\bekutoru\cmbekutoru}%
       {%
@@ -340,21 +340,21 @@
         {%
           \@ifundefined{xybekutoru}{}{%
 %           \let\bekutoru@relbar\relbar\let\bekutoru@rightarrow\xyrightarrow
-            \bekutorusityuu{\vrule height .9zh width \z@}%
+            \bekutorusityuu{\vrule height .9\zh width \z@}%
             \let\bekutoru\xybekutoru
           }%
         }%
         {%
           \ifthenelse{\equal{#1}{px}}%
           {%
-            \bekutorusityuu{\vrule height .75zh width \z@}%
+            \bekutorusityuu{\vrule height .75\zh width \z@}%
             \let\bekutoru@relbar\pxrelbar\let\bekutoru@rightarrow\pxrightarrow
             \let\bekutoru\cmbekutoru
           }%
           {%
             \ifthenelse{\equal{#1}{abx}}%
             {%
-              \bekutorusityuu{\vrule height .75zh width \z@}%
+              \bekutorusityuu{\vrule height .75\zh width \z@}%
               \let\bekutoru@relbar\abxrelbar
               \let\bekutoru@rightarrow\abxrightarrow
               \let\bekutoru\cmbekutoru
@@ -362,9 +362,9 @@
             {%
               \ifthenelse{\equal{#1}{fill}}%
               {%
-                \bekutorusityuu{\vrule height .9zh width \z@}%
+                \bekutorusityuu{\vrule height .9\zh width \z@}%
                 \def\bekutoru@t##1{{%
-                  \@tempdima=1zh\relax
+                  \@tempdima=1\zh\relax
                   \edef\BK@hi{\strip@pt\@tempdima}%
                   \@Div\BK@hi{9.16443}\BK@hi
                   \Mul{0.5}\BK@hi\BK@thickness
@@ -390,7 +390,7 @@
                   \vrule width \z@ height \bekutoru@H \p@\box0
                 }}%
                 \def\bekutoru@m##1{{%
-                  \@tempdima=1zh\relax
+                  \@tempdima=1\zh\relax
                   \edef\BK@hi{\strip@pt\@tempdima}%
                   \@Div\BK@hi{9.16443}\BK@hi
                   \Mul{0.5}\BK@hi\BK@thickness

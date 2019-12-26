@@ -68,7 +68,7 @@
   \@ifnextchar({\@karaHako}{\@karaHako(\h@koxyohaku)}}%
 \def\@karaHako(#1){\@ifnextchar[{\@@karaHako(#1)}{\@@karaHako(#1)[\empty]}}%
 \def\@@karaHako(#1)[#2]{\@ifnextchar[{\@@@karaHako(#1)[#2]}{%
-  \@@@karaHako(#1)[#2][0zh]}}%
+  \@@@karaHako(#1)[#2][0\zh]}}%
 \def\@@@karaHako(#1)[#2][#3]{\@ifnextchar'{\@@@@karaHako(#1)[#2][#3]}{%
       \@@@@karaHako(#1)[#2][#3]'\empty'}}%
 \def\@@@@karaHako(#1)[#2][#3]'#4'{%
@@ -179,7 +179,7 @@
 %\def\tmHako{\def\HakoFunci{\protect\EMMaru}\Hako}%
 %\def\tmHako{%
 \DeclareRobustCommand\tmHako{%
-  \hakoxyohaku{.999zw}%
+  \hakoxyohaku{.999\zw}%
   \def\HakoFunci{\protect\EMMaru}\Hako
 }%
 %
@@ -190,7 +190,7 @@
 %
 %\def\AstHako{\@ifnextchar<{\@AstHako}{\@AstHako<1>}}%
 \DeclareRobustCommand\AstHako{\@ifnextchar<{\@AstHako}{\@AstHako<1>}}%
-\def\@AstHako<#1>{\Hako<#1>(leftstr=＊\kern-.2zw)}%
+\def\@AstHako<#1>{\Hako<#1>(leftstr=＊\kern-.2\zw)}%
 %
 % 角にまるみ
 %
@@ -793,8 +793,8 @@
     \hako@skipa=#1\relax
     \ifcentermode
       \setlength{\@tempdima}{#1}%
-%      \ifdim\@tempdima=1zw\relax
-      \ifdim\@tempdima=.5zw\relax
+%      \ifdim\@tempdima=1\zw\relax
+      \ifdim\@tempdima=.5\zw\relax
         \edef\hak@iii{#3}%
         \edef\hak@tmp{0}%
         \expandafter\@tfor\expandafter\@@c\expandafter:\expandafter=\hak@iii
@@ -812,8 +812,8 @@
           }%
         }%
         \ifnum\hak@tmp=1\relax
-%          \hako@skipa=2zw plus .5zw minus .05zw\relax
-          \hako@skipa=1.5zw plus .5zw minus .05zw\relax
+%          \hako@skipa=2\zw plus .5\zw minus .05\zw\relax
+          \hako@skipa=1.5\zw plus .5\zw minus .05\zw\relax
 				\fi
       \fi
     \fi
@@ -1303,9 +1303,9 @@
 %  \def\h@kosyotai{\ifNEWTeX\bfseries\else\gt\fi}%
   \def\h@kosyotai{\bfseries}%
   \def\h@kosityuu{\EMvphantom[1pt][0pt]{あ}}%
-  \def\h@koyohaku{.25zw}%
-%  \def\h@koxyohaku{1zw plus .5zw minus .05zw}%
-  \def\h@koxyohaku{.5zw plus .5zw minus .05zw}%
+  \def\h@koyohaku{.25\zw}%
+%  \def\h@koxyohaku{1\zw plus .5\zw minus .05\zw}%
+  \def\h@koxyohaku{.5\zw plus .5\zw minus .05\zw}%
   \def\h@kosenhaba{1pt}%
   \def\hako@sep{.1em}%
   \def\top@maru{0}%
@@ -1357,8 +1357,8 @@
   \def\h@kosyotai{\bfseries}%
   \def\h@kosityuu{\vphantom{あ}}%
   \def\h@koyohaku{3pt}%
-%  \def\h@koxyohaku{1zw plus .5zw minus .05zw}%
-  \def\h@koxyohaku{.5zw plus .5zw minus .05zw}%
+%  \def\h@koxyohaku{1\zw plus .5\zw minus .05\zw}%
+  \def\h@koxyohaku{.5\zw plus .5\zw minus .05\zw}%
   \def\h@kosenhaba{1pt}%
   \fi%
 %
@@ -1638,7 +1638,7 @@
 \def\hakotakasa@[#1]#2{%
   \hakosityuu{\vrule height #2 depth #1 width \z@}}%
 
-\newcommand{\HakoKaiSikiri}{\hskip 2zw plus 3zw minus 1zw}%
+\newcommand{\HakoKaiSikiri}{\hskip 2\zw plus 3\zw minus 1\zw}%
 \long\def\Hakokaidukuri`#1`#2>{{#1}}%
 
 %%%%%%%%%%%%%%%%% 有り難うございます．> Waver さん
@@ -1729,7 +1729,7 @@
 % ver.0.64h 19981205
 %   \hakotakasa[depth]{height} を新設
 % ver.0.67 19990504
-%   \karaHako(横幅=2zw)[高さ=1zh][深さ=0zh]
+%   \karaHako(横幅=2\zw)[高さ=1\zh][深さ=0\zh]
 % ver.0.68 19990620
 %   \sqrt[3]{\Hako} で番号が乱れることに対応．
 %     \root, \mathpalette 再定義
