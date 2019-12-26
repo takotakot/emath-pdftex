@@ -2,6 +2,8 @@
 
 \NeedsTeXFormat{pLaTeX2e}
 \ProvidesPackage{EMkeizu}[2011/03/18 v 0.12]%
+\RequirePackage{ifthen}
+\RequirePackage{ifluatex}
 \RequirePackage{emathC}
 \RequirePackage{keyval}
 %\RequirePackage{eclarith}
@@ -67,7 +69,7 @@
           \put(\@x,\@y){\csname node@\@i @\@j\endcsname}%
           \ifnum\@i>\@ne
             \ISub\@x\l@wd\@@x
-\ifydir\Add\@y\ydir@hosei\@y@y\else\edef\@y@y{\@y}\fi
+\ifthenelse{\boolean{luatex}}{\ifnum\ltjgetparameter{direction}=4\Add\@y\ydir@hosei\@y@y\else\edef\@y@y{\@y}\fi}{\ifydir\Add\@y\ydir@hosei\@y@y\else\edef\@y@y{\@y}\fi}
             \put(\@x,\@y@y){\line(-1,0){\l@wd}}%
             \edef\p@x{\csname iparent@\@i @\@j\endcsname}%
             \edef\p@y{\csname jparent@\@i @\@j\endcsname}%
@@ -83,7 +85,7 @@
                 \Add\@tmp\c@ht\@tmp\fi
 %           \Sub\@tmp{5}\@tmp
             \strsep\@tmp{.}\@tmp\@@tmp
-\ifydir\Sub\@tmp\ydir@hosei\@tmp\fi
+\ifthenelse{\boolean{luatex}}{\ifnum\ltjgetparameter{direction}=4\Sub\@tmp\ydir@hosei\@tmp\fi}{\ifydir\Sub\@tmp\ydir@hosei\@tmp\fi}
             \put(\@@x,\@y@y){\line(0,1){\@tmp}}%
           \fi
           \Sub\@y{\csname dp@\@j\endcsname}\@y
