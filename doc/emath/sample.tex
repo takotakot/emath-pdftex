@@ -11,9 +11,13 @@
      \usepackage{emathCap}%
      \usepackage{emathAe}%
      \usepackage{emathR}%
+     \usepackage[dvips]{emathPh}%
+     \usepackage{emathT}%
      \usepackage{showexample}%
      \usepackage{cases}%
- \usepackage[dvips]{emathPh}%
+     \usepackage{bekutorukata}%
+     \usepackage{emgyouretu}%
+     \usepackage{itemtopmath}%
 % \usepackage[dvips]{hyperref}%
 
 \theorembodyfont{\normalfont}
@@ -5318,6 +5322,7 @@ http://www.para.tutics.tut.ac.jp/~nakasima/latex/
 $\uwave{\dlim{x\to\infty}\bunsuu1x=0}$
 \end{showEx}
 
+\begin{comment}
 \paragraph{\cmd{namikasen}}
 ところで，dviout.exe でみている限り綺麗なのですが，
 pdf にしてみると，波のつながり具合が乱れてきます。
@@ -5415,6 +5420,7 @@ $\uuwave{\dlim{x\to\infty}\bunsuu1x=0}$
 
 上の例，後半では\verb+\namikasenSitahosei{10pt}+として，
 波下線と次の行との間隔をデフォルトより\verb+10pt+増やしています。
+\end{comment}
 
 \section{メモリ不足への対応}
 \subsection{pool size}

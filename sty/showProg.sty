@@ -8,6 +8,7 @@
 \RequirePackage{program}%
 %
 \@ifundefined{showex@out}{\newwrite\showex@out}{}%
+\newcounter{prglineno}%
 \def\program#1#2{%
 % \setcounter{prglineno}{0}%
   \@program{#1}{#2}\frenchspacing\@vobeyspaces%
